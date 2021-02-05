@@ -1,0 +1,1625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html><head><title></title><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script><script type='text/x-mathjax-config'>
+            MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            showMathMenu: false,
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            styles: {
+
+                ".MathJax_Display": {
+                "text-align": "left !important",
+                margin:       "0em 0em !important"
+            }}
+            });
+        </script><script type='text/javascript'>// 
+
+// Called on page load to parse URL parameters and perform actions on them.
+function init(){
+    if(getQueryVariable("expand") == "on"){
+      expand();
+    }
+}
+// // 
+const AMPERSAND=String.fromCharCode(38);
+
+// Pass a URL variable to this function and it will return its value
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split(AMPERSAND);
+    for (var i=0;i!=vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+
+//    Expands all evaluation activities
+function expand(){
+    var ap = document.getElementsByClassName('activity_pane');
+    for (var ii = 0; ii!=ap.length; ii++) {
+        ap[ii].classList.remove('hide');
+    }
+}
+
+// Function to expand and contract a given div
+function toggle(descendent) {
+    var cl = descendent.parentNode.parentNode.classList;
+    if (cl.contains('hide')){
+      cl.remove('hide');
+    }
+    else{
+      cl.add('hide');
+    }
+}
+
+// Expands targets if they are hidden
+function showTarget(id){
+    var element = document.getElementById(id);
+    while (element != document.body.rootNode ){
+	element.classList.remove("hide");
+	element = element.parentElement;
+    }
+}
+
+
+// </script><style type='text/css'>
+    #toc a{
+        display: block;
+    }
+
+    a[id^="ajq_"]{
+        color:black;
+    }
+
+    
+    body{
+       max-width: 900px;
+       margin: auto;
+    }
+    #toc span{
+       margin-left: 20px;
+    }
+    .assignable-content{
+      font-style: italic;
+    }
+    .refinement{
+      text-decoration: underline;
+    }
+    div.eacategory{
+      font-style: italic;
+      font-weight: bold;
+    }
+    .activity_pane .toggler::after, .activity_pane .toggler{ 
+       display: inline-block;
+       height: auto;
+       content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+       AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+       VDz+AAAAB3RJTUUH4gIXFDM7fhmr1wAAAfRJREFUKM+dkk9I02EYxz/P+25uurWR\
+       tTkzI4NGl4jQgkq71K1DhnTQIDolRAQFQYSHTtGhU4e6eujQofBSFLOg0C4RUSjh\
+       FnmqTTdKpj/mfv/eX4cUpmRYn9vz8v3w8D7PA/AWGADCbI4QcAb4AnAF8IBJEdX+\
+       N0tEda40C4AHADviW1LFvpOX6+FwtAacVzqkGiWtwxo4F21OuPu7+yvxRNoDEhpY\
+       cpzavkQyc7D76FCk+vN7j7VU6RdR4xAsikjGGP9FKrN3sPfEpajv2i2zhckR4JUG\
+       UCr0erFavLkn2ytd2WPxcFOsZb74+SIQA0YPHBqIdB8Z6tChJv1m/N4P33OGAUsD\
+       BIFxPNcOkq07jyeSbbo1tTu2q6vHEqU7D/ddSKcz2ZQJjBSmx925b9NjwEMAafha\
+       eyQa/3Dq7O0243sCIEoRGAOA59nm5dM7OHVruzH+AkDjYEp23RrLT+U8Ub+fV0UR\
+       oVyaMfVa9fqquF5GKX3ja2FCuc6yWbMipYNP755UgEdr8o2FMf5ivVYdKRfzRkRW\
+       RfJTOc+2rWdAcUN5hdGP7x8viGgAXLvGbGFCKxW6tj74J3nOqVvP89M5V6kQ86UZ\
+       f7lWvWWMt7Sp41VKb21uSfqnB++6kWi8BLTzL4ioq7H4tgC4z3/QAZSBxEaBXygN\
+       v+jeFnAPAAAAAElFTkSuQmCC');
+       max-width: 15px;
+    }
+
+
+    a {
+      text-decoration: none;
+      word-wrap: break-word;
+    }
+    a.abbr:link{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:visited{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:hover{
+      color:blue;
+      text-decoration:none;
+    }
+    a.abbr:hover:visited{
+      color:purple;
+      text-decoration:none;
+    }
+    a.abbr:active{
+      color:red;
+      text-decoration:none;
+    }
+    .note-header{
+      font-weight: bold;
+    }
+    .note p:first-child{
+      display: inline;
+    }
+
+
+    /* Tooltip container */
+    .tooltipped {
+       position: relative;
+       display: inline-block;
+       border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+    /* Tooltip text */
+    .tooltiptext {
+       visibility: hidden;
+       width: 120px;
+       background-color: black;
+       color: #fff;
+       text-align: center;
+       padding: 5px 0;
+       border-radius: 6px;
+    
+       /* Position the tooltip text - see examples below! */
+       position: absolute;
+       z-index: 1;
+   }
+
+   /* Show the tooltip text when you mouse over the tooltip container */
+   .tooltipped:hover .tooltiptext {
+       visibility: visible;
+   }
+
+   table.mfs td{
+       text-align: center;
+   }
+   table.mfs td:first-child{
+       text-align: left;
+   }
+   table{
+              margin:auto;
+              margin-top:1em;
+              border-collapse:collapse; /*border: 1px solid black;*/
+          }
+          td{
+              text-align:left;
+              padding:8px 8px;
+          }
+          th{
+              padding:8px 8px;
+          }
+          tr.header{
+              border-bottom:3px solid gray;
+              padding:8px 8px;
+              text-align:left;
+              font-weight:bold; /*font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; */
+          }
+          table tr:nth-child(2n+2){
+              background-color:#F4F4F4;
+          }
+
+   
+
+
+          .figure{
+              font-weight:bold;
+          }
+          h1{
+              page-break-before:always;
+              text-align:left;
+              font-size:200%;
+              margin-top:2em;
+              margin-bottom:2em;
+              font-family:verdana, arial, helvetica, sans-serif;
+              margin-bottom:1.0em;
+          }
+          h1.title{
+              text-align:center;
+          }
+          h2{
+              font-size:125%;
+              border-bottom:solid 1px gray;
+              margin-bottom:1.0em;
+              margin-top:2em;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h3{
+              font-size:110%;
+              margin-bottom:0.25em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h4{
+              margin-left:0%;
+              font-size:100%;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h5,
+          h6{
+              margin-left:6%;
+              font-size:90%;
+              margin-bottom:0.5em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          p{
+              margin-bottom:0.6em;
+              margin-top:0.2em;
+          }
+          pre{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+              margin-left:3%;
+              font-family:monospace;
+              font-size:90%;
+          }
+          ul{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          td{
+              vertical-align:top;
+          }
+          dl{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          dt{
+              margin-top:0.7em;
+              font-weight:bold;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+
+          a.linkref{
+              font-family:verdana, arial, helvetica, sans-serif;
+              font-size:90%;
+          }
+
+          *.simpleText{
+              margin-left:10%;
+          }
+          *.propertyText{
+              margin-left:10%;
+              margin-top:0.2em;
+              margin-bottom:0.2em
+          }
+          *.toc{
+              background:#FFFFFF;
+          }
+          *.toc2{
+              background:#FFFFFF;
+          }
+          div.comp{
+              margin-left:8%;
+              margin-top:1em;
+              margin-bottom:1em;
+          }
+          div.element{
+              margin-bottom:1em;
+          }
+          div.appnote{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          .comment-aa{
+              background-color:beige;
+              color:green;
+          }
+          div.subaact{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          div.activity_pane_body{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding:1em;
+              border:2px solid #888888;
+              border-radius:3px;
+              display:block;
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+          }
+          div.optional-appendicies{
+              display:none;
+          }
+
+          div.statustag{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding: 0.6em;
+              border:2px solid #888888;
+              border-radius:3px;
+          }
+
+          div.toc{
+              margin-left:8%;
+              margin-bottom:4em;
+              padding-bottom:0.75em;
+              padding-top:1em;
+              padding-left:2em;
+              padding-right:2em;
+          }
+          span.SOlist{
+              font-size:90%;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h2.toc{
+              border-bottom:none;
+              margin-left:0%;
+              margin-top:0em;
+          }
+          p.toc{
+              margin-left:2em;
+              margin-bottom:0.2em;
+              margin-top:0.5em;
+          }
+          p.toc2{
+              margin-left:5em;
+              margin-bottom:0.1em;
+              margin-top:0.1em;
+          }
+          div.center{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+          }
+          div.figure{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+              margin-top:1em;
+          }
+          div.activity_pane_header{
+              display:table-cell;
+              vertical-align:middle;
+              padding-top:10px
+          }
+          span.activity_pane_label{
+              vertical-align:middle;
+              color:black;
+              text-decoration:none;
+              font-size:100%;
+              font-weight:bold; /*font-family: verdana, arial, helvetica, sans-serif; */
+          }
+
+          @media screen{
+              *.reqid{
+                  float:left;
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+                  margin-right:1em;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+
+              .activity_pane.hide .toggler::after, .activity_pane.hide .toggler{
+	          content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+		  AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+		  VDz+AAAAB3RJTUUH4gIXFC4BR3keeQAAAfZJREFUKM+d0k1PE1EUBuB37h2nQ+30\
+		  w5YObR0FhIppqBgWuDCaSBQjiQZNTIxLfoAkBHXh2vg7xID+ABPXBl3UdAMaN1CR\
+		  j5ZijZ22DKW9d44LP1KMROvZnMU5z+KcvBzAAgADwCdV1RzXlYQ26tYhrYM6u/qX\
+		  ATwCcKodrAOYv3z9IV28OuP6/NHPAGYZ45G/QQ5AAFjNbyzdTA2NewcGx7xeI5wu\
+		  FZenQOQQuasHncN/9IJo1sn+unkpbqVFIJhgydQo13VjDKCJSnnLBJAHUPoTBoA3\
+		  uzvlfiNgDhn+KMiVCB6xYCZSoaPHz5wrba/cbuztpBWFvQLI+R2DSGZqleKNuJX2\
+		  cVVjAIExDo/uV7pPjGhSNntrleI9+n7Ox33Y549Wq/ZWTyh8rNcfjPlaZ4xzZvUM\
+		  ezrNvnJ+fXFCiL2k2rpQq2wnAqH4tYjZFyZq/Y8CKZoim51z1nIZQ4jGNIC5fZhz\
+		  7fHA4JVuj26AyIWiMDSbdTi1L/T29RO7ahdfKgqbInJLANCKZ6Kx5J24dVowztW6\
+		  Y+8WNt91FNYXc4WN988BzAL4QOT+Aj/x8GFf+MHI+UlI2cBS9kVlLZfxSFdMS9GY\
+		  V1WtKETDPShhz85emLRHx++TETBLAJ4qCov8c7ajsZMr/5PtBQB3AXSpqsbagd8A\
+		  O+HMRUtPNsQAAAAASUVORK5CYII=');
+              }
+
+              .activity_pane.hide .activity_pane_body{
+                  display:none;
+              }
+              div.statustag{
+                  box-shadow:4px 4px 3px #888888;
+              }
+          }
+
+
+          @media print{
+              *.reqid{
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+              div.activity_pane_body{
+                  padding:1em;
+                  border:2px solid #888888;
+                  border-radius:3px;
+                  display:block;
+              }
+
+	            img[src="images/collapsed.png"] { display:none;}
+
+          }
+	</style></head><body onLoad='init()'><h1 class='title' style='page-break-before:auto;'>Functional Package for Transport Layer Security (TLS)</h1><noscript><h1 style='text-align:center; border-style: dashed; border-width: medium; border-color: red;'>This page is best viewed with JavaScript enabled!</h1></noscript><div class='center'><img alt='NIAP Logo' src='images/niaplogo.png'></img><br/><p></p>Version: 1.1<p></p>2019-03-01<p></p><b>National Information Assurance Partnership</b></div><h2 style='page-break-before:always;'>Revision History</h2><table><tr class='header'><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2018-12-17</td><td>First publication</td></tr><tr><td>1.1</td><td>2019-03-01</td><td>Clarifications regarding override for invalid certificates,
+      renegotation_info extension, DTLS versions, and named Diffie-Hellman groups in DTLS
+      contexts</td></tr></table><h2>Contents</h2><div class='toc' id='toc'><a href='#int' style='text-indent:0px'>1<span>Introduction</span></a><a href='#ppoverview' style='text-indent:10px'>1.1<span>Overview</span></a><a href='#glossary' style='text-indent:10px'>1.2<span>Terms</span></a><a href='#ccterms' style='text-indent:20px'>1.2.1<span>Common Criteria Terms</span></a><a href='#techterms' style='text-indent:20px'>1.2.2<span>Technology Terms</span></a><a href='#docformat' style='text-indent:10px'>1.3<span>Format of this Document</span></a><a href='#TOEdescription' style='text-indent:10px'>1.4<span>Compliant Targets of Evaluation</span></a><a href='#conf' style='text-indent:0px'>2<span>Conformance Claims</span></a><a href='#req' style='text-indent:0px'>3<span>Security Requirements</span></a><a href='#SFRs' style='text-indent:10px'>3.1<span>Security Functional Requirements</span></a><a href='#fcs' style='text-indent:20px'>3.1.1<span>Cryptographic Support (FCS)</span></a><a href='#optional' style='text-indent:0px'>Appendix A - <span>Optional Requirements</span></a><a href='#sel-based' style='text-indent:0px'>Appendix B - <span>Selection-Based Requirements</span></a><a href='#objective' style='text-indent:0px'>Appendix C - <span>Objective Requirements</span></a><a href='#biblio' style='text-indent:0px'>Appendix D - <span>References</span></a><a href='#acronyms' style='text-indent:0px'>Appendix E - <span>Acronyms</span></a></div><h1 class='indexable' id='int' data-level='1'>1 Introduction</h1>
+    <h2 class='indexable' id='ppoverview' data-level='2'>1.1 Overview</h2>
+	  Transport Layer Security (TLS) and the closely-related Datagram TLS (DTLS) are
+    cryptographic protocols designed to provide communications security over IP networks<a href='#ajq_1' id='ajq_1'>.</a> Several versions of the protocol are in widespread use in software that provides functionality
+    such as web browsing, email, instant messaging, and voice-over-IP
+	  (VoIP)<a href='#ajq_2' id='ajq_2'>.</a> Major web sites use TLS to protect communications to
+	  and from their servers<a href='#ajq_3' id='ajq_3'>.</a> TLS is also used to protect communications between
+	  hosts and network infrastructure devices for administration<a href='#ajq_4' id='ajq_4'>.</a> The underlying platform, such as an operating system, often provides the
+    actual TLS implementation<a href='#ajq_5' id='ajq_5'>.</a> The primary goal of the TLS protocol is to
+    provide confidentiality and integrity of data transmitted
+    between two communicating endpoints, as well as authentication of at least
+    the server endpoint<a href='#ajq_6' id='ajq_6'>.</a> <p></p>
+	  TLS supports many different methods for exchanging keys, encrypting data,
+	  and authenticating message integrity<a href='#ajq_7' id='ajq_7'>.</a> These methods are dynamically negotiated
+    between the client and server when the TLS connection is established<a href='#ajq_8' id='ajq_8'>.</a> As a result, evaluating the implementation of both endpoints is typically
+    necessary to provide assurance for the operating environment<a href='#ajq_9' id='ajq_9'>.</a> <p></p>
+	  This "Functional Package for Transport Layer Security" (short name "TLS-PKG")
+    defines functional requirements for the implementation of the Transport Layer Security (TLS)
+    and Datagram TLS (DTLS) protocols<a href='#ajq_10' id='ajq_10'>.</a> The requirements are
+    intended to improve the security of products by enabling their evaluation<a href='#ajq_11' id='ajq_11'>.</a> <h2 class='indexable' id='glossary' data-level='2'>1.2 Terms</h2>
+      <h3 class='indexable' id='ccterms' data-level='3'>1.2.1 Common Criteria Terms</h3>
+        <table><tr><td><span id='abbr_CC'>Common Criteria (<abbr>CC</abbr>)</span></td><td>Common Criteria for Information Technology Security
+              Evaluation<a href='#ajq_12' id='ajq_12'>.</a> </td></tr><tr><td><span id='abbr_Package'>Package (<abbr>Package</abbr>)</span></td><td>A named set of security requirements<a href='#ajq_13' id='ajq_13'>.</a> A package is either a functional
+              package containing only SFRs, or an assurance package containing only SARs<a href='#ajq_14' id='ajq_14'>.</a> Packages
+              can be used in the construction of larger packages, PPs, and STs<a href='#ajq_15' id='ajq_15'>.</a> </td></tr><tr><td><span id='abbr_PP'>Protection Profile (<abbr>PP</abbr>)</span></td><td>An implementation-independent set of security requirements for a category
+              of products<a href='#ajq_16' id='ajq_16'>.</a> </td></tr><tr><td><span id='abbr_PP-Module'>Protection Profile Module (<abbr>PP-Module</abbr>)</span></td><td>An extension of the security requirements in a
+              Protection Profile which introduces new elements to the base PP
+              and may also refine or interpret some of the elements in the base PP<a href='#ajq_17' id='ajq_17'>.</a> </td></tr><tr><td><span id='abbr_ST'>Security Target (<abbr>ST</abbr>)</span></td><td>A set of implementation-dependent security requirements for a specific
+              product<a href='#ajq_18' id='ajq_18'>.</a> </td></tr><tr><td><span id='abbr_TOE'>Target of Evaluation (<abbr>TOE</abbr>)</span></td><td>
+	      The product under evaluation<a href='#ajq_19' id='ajq_19'>.</a> </td></tr><tr><td><span id='abbr_TSF'>TOE Security Functionality (<abbr>TSF</abbr>)</span></td><td>The security functionality of the product under evaluation<a href='#ajq_20' id='ajq_20'>.</a> </td></tr><tr><td><span id='abbr_TSS'>TOE Summary Specification (<abbr>TSS</abbr>)</span></td><td>A description of how a <a class='abbr' href='#abbr_TOE'><abbr title='Target of Evaluation'>TOE</abbr></a> satisfies the SFRs in a <a class='abbr' href='#abbr_ST'><abbr title='Security Target'>ST</abbr></a><a href='#ajq_21' id='ajq_21'>.</a> </td></tr><tr><td><span id='abbr_SFR'>Security Functional Requirement (<abbr>SFR</abbr>)</span></td><td>A requirement for security enforcement by the <a class='abbr' href='#abbr_TOE'><abbr title='Target of Evaluation'>TOE</abbr></a><a href='#ajq_22' id='ajq_22'>.</a> </td></tr></table>
+      
+      <h3 class='indexable' id='techterms' data-level='3'>1.2.2 Technology Terms</h3>
+        <table><tr><td>
+              <span id='abbr_TLS'>Transport Layer Security (<abbr>TLS</abbr>)</span>
+            </td><td>
+              Cryptographic network protocol for providing communications
+              security over a TCP/IP network
+	          </td></tr><tr><td>
+              <span id='abbr_DTLS'>Datagram Transport Layer Security (<abbr>DTLS</abbr>)</span>
+            </td><td>
+              Cryptographic network protocol, based on TLS, which provides
+              communications security for datagram protocols
+	          </td></tr><tr><td>
+              <span id='abbr_CA'>Certificate Authority (<abbr>CA</abbr>)</span>
+            </td><td>
+	      Issuer of digital certificates
+	          </td></tr></table>
+      
+	  
+    <h2 class='indexable' id='docformat' data-level='2'>1.3 Format of this Document</h2>
+      <a class='dynref' href='#req'>Section 3 Security Requirements</a> contains baseline requirements
+      which must be implemented in the product and included in any PP/PP-Module/ST
+      that claims conformance to this Package<a href='#ajq_23' id='ajq_23'>.</a> There are three other types of requirements that can be included in a PP/PP-Module/ST
+      claiming conformance to this Package:
+      <ul>
+      <li>
+      <a class='dynref' href='#optional'> Appendix A -  Optional Requirements</a> contains requirements that may optionally be included
+      in the PP/PP-Module/ST, but inclusion is at the discretion of the PP/PP-Module/ST
+      author<a href='#ajq_24' id='ajq_24'>.</a> For requirements that have selections, if the PP/PP-Module allows the selection (or the ST
+      selects particular selections), then there are additional requirements based on these
+      selections contained in this appendix that will need to be included in the PP/PP-Module/ST<a href='#ajq_25' id='ajq_25'>.</a> </li>
+      <li>
+      <a class='dynref' href='#sel-based'> Appendix B -  Selection-Based Requirements</a> contains requirements based on selections
+      in the requirements in <a class='dynref' href='#req'>Section 3 Security Requirements</a> or the PP/PP-Module/ST: if certain selections are
+      made, then the corresponding requirements in that appendix must be included<a href='#ajq_26' id='ajq_26'>.</a> </li>
+      <li>
+      <a class='dynref' href='#objective'> Appendix C -  Objective Requirements</a> contains requirements that will
+      be included in the baseline requirements in future versions of this package<a href='#ajq_27' id='ajq_27'>.</a> Earlier adoption by vendors is
+      encouraged<a href='#ajq_28' id='ajq_28'>.</a> Otherwise, these are treated the same as Optional Requirements<a href='#ajq_29' id='ajq_29'>.</a> </li>
+      </ul>
+    
+
+    <h2 class='indexable' id='TOEdescription' data-level='2'>1.4 Compliant Targets of Evaluation</h2>The Target of Evaluation
+      (TOE) in this Package is a product which acts as a TLS client or server, or both<a href='#ajq_30' id='ajq_30'>.</a> This Package describes the security functionality of TLS in terms of
+      <a href='#bibCC'>[CC]</a><a href='#ajq_31' id='ajq_31'>.</a> <p></p>
+      The contents of this Package must be appropriately
+      combined with a <a class='abbr' href='#abbr_PP'><abbr title='Protection Profile'>PP</abbr></a> or <a class='abbr' href='#abbr_PP-Module'><abbr title='Protection Profile Module'>PP-Module</abbr></a><a href='#ajq_32' id='ajq_32'>.</a> When this Package is instantiated by a PP or PP-Module, the Package must
+      include selection-based requirements in accordance with the
+      selections or assignments indicated in the PP or PP-Module<a href='#ajq_33' id='ajq_33'>.</a> These may be expanded by the
+      the ST author<a href='#ajq_34' id='ajq_34'>.</a> <p></p>
+      The PP or PP-Module which instantiates this Package must typically include
+      the following components in order to satisfy dependencies of this Package<a href='#ajq_35' id='ajq_35'>.</a> It is the responsibility
+      of the PP or PP-Module author who instantiates this Package to ensure that dependence
+      on these components is satisfied:<br/>
+      <table><tr class='header'><th>Component</th><th>Explanation</th></tr><tr><td>FCS_CKM.2</td><td>To support TLS ciphersuites that use RSA, DHE or ECDHE for key exchange, the PP or PP-Module must
+          include FCS_CKM.2 and specify the corresponding algorithm<a href='#ajq_36' id='ajq_36'>.</a> </td></tr><tr><td>FCS_COP.1</td><td>To support TLS ciphersuites that use AES for encryption/decryption, the PP or PP-module
+          must include FCS_COP.1 (iterating as needed) and specify AES with corresponding key sizes and modes<a href='#ajq_37' id='ajq_37'>.</a> To
+          support TLS ciphersuites that use SHA for hashing, the PP or PP-Module must include FCS_COP.1
+          (iterating as needed) and specify SHA with corresponding digest sizes<a href='#ajq_38' id='ajq_38'>.</a> </td></tr><tr><td>FCS_RBG_EXT.1</td><td>To support random bit generation needed for the TLS handshake,
+          the PP or PP-Module must include FCS_RBG_EXT.1<a href='#ajq_39' id='ajq_39'>.</a> </td></tr><tr><td>FIA_X509_EXT.1</td><td>
+          To support validation of certificates needed during TLS connection setup,
+          the PP or PP-Module must include FIA_X509_EXT.1<a href='#ajq_40' id='ajq_40'>.</a> </td></tr><tr><td>FIA_X509_EXT.2</td><td>To support the use of X509 certificates for authentication in TLS connection setup,
+          the PP or PP-Module must include FIA_X509_EXT.2<a href='#ajq_41' id='ajq_41'>.</a> </td></tr></table>
+    <p></p>
+      An ST must identify the applicable version of the <a class='abbr' href='#abbr_PP'><abbr title='Protection Profile'>PP</abbr></a> or
+      <a class='abbr' href='#abbr_PP-Module'><abbr title='Protection Profile Module'>PP-Module</abbr></a> and this
+      Package in its conformance claims<a href='#ajq_42' id='ajq_42'>.</a> <h1 class='indexable' id='conf' data-level='1'>2 Conformance Claims</h1>
+    <dl><dt></dt><dd>This Package serves to provide Protection Profiles with additional 
+          SFRs and associated Evaluation Activities specific to TLS clients and servers<a href='#ajq_43' id='ajq_43'>.</a> <p></p>
+          This Package conforms to Common Criteria
+          <a href='#bibCC'>[CC]</a> for Information Technology Security Evaluation, Version 3.1,
+          Revision 5<a href='#ajq_44' id='ajq_44'>.</a> It is CC Part 2 extended conformant<a href='#ajq_45' id='ajq_45'>.</a> <p></p>
+          In accordance with CC Part 1, dependencies are not included when they are addressed
+          by other SFRs<a href='#ajq_46' id='ajq_46'>.</a> The evaluation activities provide adequate proof that any dependencies are
+          also satisfied<a href='#ajq_47' id='ajq_47'>.</a> </dd></dl>
+  <h1 class='indexable' id='req' data-level='1'>3 Security Requirements</h1>This chapter describes the security requirements
+    to be fulfilled by the product<a href='#ajq_48' id='ajq_48'>.</a> Those requirements comprise functional components from Part 2 of
+    <a href='#bibCC'>[CC]</a><a href='#ajq_49' id='ajq_49'>.</a> The following notations are used:
+    <ul>
+      <li>
+        <b>Selection</b> (denoted by
+        <i>italicized text</i>): is used to select one or more options provided by the [CC] in stating
+        a requirement<a href='#ajq_50' id='ajq_50'>.</a> </li>
+      <li>
+        <b>Assignment</b> operation (denoted by
+        <span class='assignable-content'>italicized text</span>): is used to assign a specific 
+        value to an unspecified parameter, such
+        as the length of a password<a href='#ajq_51' id='ajq_51'>.</a> Showing the value in square brackets indicates assignment<a href='#ajq_52' id='ajq_52'>.</a> </li>
+      <li>
+        <b>Iteration</b> operation: are identified with a number inside parentheses (e.g<a href='#ajq_53' id='ajq_53'>.</a> "(1)")<a href='#ajq_54' id='ajq_54'>.</a> </li>
+    </ul>
+    <h2 class='indexable' id='SFRs' data-level='2'>3.1 Security Functional Requirements</h2>The Security Functional Requirements
+      included in this section are derived from Part 2 of the Common Criteria for Information
+      Technology Security Evaluation, Version 3.1, Revision 5, with additional extended functional
+      components<a href='#ajq_55' id='ajq_55'>.</a> <h3 class='indexable' id='fcs' data-level='3'>3.1.1 Cryptographic Support (FCS)</h3>
+        <div class='comp' id='FCS_TLS_EXT.1'><h4>FCS_TLS_EXT.1 TLS Protocol</h4>
+          <div class='element'><div class='reqid' id='FCS_TLS_EXT.1.1'><a class='abbr' href='#FCS_TLS_EXT.1.1'>FCS_TLS_EXT.1.1</a></div><div class='reqdesc'>
+			The product shall implement
+        [<b>selection</b>: <ul><li><i>TLS as a client</i>, </li><li><i>TLS as a server</i>, </li><li><i>DTLS as a client</i>, </li><li><i>DTLS as a server</i></li></ul>]<a href='#ajq_56' id='ajq_56'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              If <i>TLS as a client</i> is selected, then the
+              ST must include the requirements from <a class='linkref' href='#FCS_TLSC_EXT.1'>FCS_TLSC_EXT.1</a><a href='#ajq_57' id='ajq_57'>.</a> <br/>
+              If <i>TLS as a server</i> is selected, then the
+              ST must include the requirements from <a class='linkref' href='#FCS_TLSS_EXT.1'>FCS_TLSS_EXT.1</a><a href='#ajq_58' id='ajq_58'>.</a> <br/><br/>
+              If <i>DTLS as a client</i> is selected, then the
+              ST must include the requirements from <a class='linkref' href='#FCS_DTLSC_EXT.1'>FCS_DTLSC_EXT.1</a><a href='#ajq_59' id='ajq_59'>.</a> <br/>
+              If <i>DTLS as a server</i> is selected, then the
+              ST must include the requirements from <a class='linkref' href='#FCS_DTLSS_EXT.1'>FCS_DTLSS_EXT.1</a><a href='#ajq_60' id='ajq_60'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+	      <div class='eacategory'>Guidance</div>
+		The evaluator shall ensure that the selections indicated in the ST are
+              consistent with selections in the dependent components<a href='#ajq_61' id='ajq_61'>.</a> </i></div></div>
+          </div></div>
+        </div>
+
+        
+        
+        
+        
+        
+        
+
+        
+
+       
+
+	
+
+	
+
+  
+
+  
+
+  
+
+  
+      
+    
+  <h1 class='indexable' id='optional' data-level='A'>Appendix A -  Optional Requirements</h1>
+    There are currently no Optional Requirements in this Package<a href='#ajq_62' id='ajq_62'>.</a> <h1 class='indexable' id='sel-based' data-level='A'>Appendix B -  Selection-Based Requirements</h1>
+    As indicated in the introduction to this Package, this appendix lists requirements
+    that are activated based on selections made in the PP/PP-Module/ST or in other portions of
+    this Package itself<a href='#ajq_63' id='ajq_63'>.</a> <div class='comp' id='FCS_TLSC_EXT.1'><h4>FCS_TLSC_EXT.1 TLS Client Protocol</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLS_EXT.1.1'>FCS_TLS_EXT.1.1</a></i></b><a href='#ajq_64' id='ajq_64'>.</a> </i></b></div>
+          
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.1.1'><a class='abbr' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a></div><div class='reqdesc'>
+             The product shall implement TLS 1.2 (RFC 5246) and
+              [<b>selection</b>: <i>TLS 1.1 (RFC 4346)</i>, <i>no earlier TLS versions</i>] as a client that supports the cipher suites
+          [<b>selection</b>: <ul><li><i>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i></li></ul>]
+          and also supports functionality for 
+          [<b>selection</b>: <ul><li><i>mutual authentication</i>, </li><li><i>session renegotiation</i>, </li><li><i>none</i></li></ul>]<a href='#ajq_65' id='ajq_65'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+        The <a class='abbr' href='#abbr_ST'><abbr title='Security Target'>ST</abbr></a> author should select the cipher suites that are supported,
+      and must select at least one cipher suite<a href='#ajq_66' id='ajq_66'>.</a> The cipher suites to be tested in the evaluated
+	      configuration are limited by this requirement<a href='#ajq_67' id='ajq_67'>.</a> However,
+	      this requirement does not restrict the TOE's ability to
+	      propose additional cipher suites beyond the ones listed
+	      in this requirement in its Client Hello message<a href='#ajq_68' id='ajq_68'>.</a> That
+	      is, the TOE may propose any cipher suite but the
+	      evaluation will only test cipher suites from the above
+	      list<a href='#ajq_69' id='ajq_69'>.</a> It is necessary to limit the cipher suites that can be
+	      used in an evaluated configuration administratively on
+	      the server in the test environment<a href='#ajq_70' id='ajq_70'>.</a> GCM cipher suites are preferred over CBC cipher suites,
+	      ECDHE preferred over RSA and DHE, and SHA256 or SHA384
+	      over SHA<a href='#ajq_71' id='ajq_71'>.</a> <br/><br/>
+        TLS_RSA_WITH_AES_128_CBC_SHA is not required despite being mandated by RFC 5246<a href='#ajq_72' id='ajq_72'>.</a> <br/><br/>
+	      These requirements will be revisited as new TLS versions are
+	      standardized by the IETF<a href='#ajq_73' id='ajq_73'>.</a> <br/><br/>
+        If any ECDHE or DHE cipher suites are selected, then
+	      <a class='linkref' href='#FCS_TLSC_EXT.5'>FCS_TLSC_EXT.5</a> is required<a href='#ajq_74' id='ajq_74'>.</a> <br/><br/>
+        If <i>mutual authentication</i> is selected, then the ST must additionally include 
+        the requirements from <a class='linkref' href='#FCS_TLSC_EXT.2'>FCS_TLSC_EXT.2</a><a href='#ajq_75' id='ajq_75'>.</a> If the TOE implements
+        mutual authentication, this selection must be made<a href='#ajq_76' id='ajq_76'>.</a> <br/><br/>
+        If <i>session renegotiation</i> is selected, then the ST must additionally include 
+        the requirements from <a class='linkref' href='#FCS_TLSC_EXT.4'>FCS_TLSC_EXT.4</a><a href='#ajq_77' id='ajq_77'>.</a> If the TOE implements
+        session renegotiation, this selection must be made<a href='#ajq_78' id='ajq_78'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall check the description of the implementation of this
+              protocol in the <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> to
+              ensure that the cipher suites supported are specified<a href='#ajq_79' id='ajq_79'>.</a> The evaluator shall check the
+                <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> to ensure that the
+              cipher suites specified include those listed for this component<a href='#ajq_80' id='ajq_80'>.</a> <div class='eacategory'>Guidance</div>
+              The evaluator shall
+              also check the operational guidance to ensure that it contains instructions on
+              configuring the product so that
+              TLS conforms to the description in the <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a><a href='#ajq_81' id='ajq_81'>.</a> <div class='eacategory'>Tests</div>
+              The evaluator shall also perform the following tests:
+              <ul>
+                <li><b>Test 1: </b>
+                  The evaluator shall establish a TLS connection
+                  using each of the cipher suites specified by the
+                  requirement<a href='#ajq_82' id='ajq_82'>.</a> This connection may be established as part of the establishment of a
+                  higher-level protocol, e.g., as part of an EAP session<a href='#ajq_83' id='ajq_83'>.</a> It is sufficient to
+                  observe the successful negotiation of a cipher suite to satisfy the intent of the
+                  test; it is not necessary to examine the characteristics of the encrypted traffic
+                  in an attempt to discern the cipher suite being used (for example, that the
+                  cryptographic algorithm is 128-bit AES and not 256-bit AES)<a href='#ajq_84' id='ajq_84'>.</a> </li>
+                <li><b>Test 2: </b>
+                  The goal of the following test is to verify that the TOE accepts only certificates
+                  with appropriate values in the extendedKeyUsage extension, and implicitly that the
+                  TOE correctly parses the extendedKeyUsage extension as part of X.509v3 server
+                  certificate validation<a href='#ajq_85' id='ajq_85'>.</a> <br/><br/>
+                  The evaluator shall attempt to establish the connection using a server with a
+                  server certificate that contains the Server Authentication purpose in the
+                  extendedKeyUsage extension and verify that a connection is established<a href='#ajq_86' id='ajq_86'>.</a> The
+                  evaluator shall repeat this test using a different, but otherwise valid and
+                  trusted, certificate that lacks the Server Authentication purpose in the
+                  extendedKeyUsage extension and ensure that a connection is not established<a href='#ajq_87' id='ajq_87'>.</a> Ideally, the two certificates should be similar in structure, the types of
+                  identifiers used, and the chain of trust<a href='#ajq_88' id='ajq_88'>.</a> </li>
+                <li><b>Test 3: </b>
+                  The evaluator shall send a server certificate in the TLS connection
+                  that does not match the server-selected cipher suite (for example, send a ECDSA certificate while using the
+                  TLS_RSA_WITH_AES_128_CBC_SHA cipher suite or send a RSA certificate while using one
+                  of the ECDSA cipher suites.) The evaluator shall verify that the product disconnects after
+                  receiving the server’s Certificate handshake message<a href='#ajq_89' id='ajq_89'>.</a> </li>
+                <li><b>Test 4: </b>
+                  The evaluator shall configure the server to select the
+                  TLS_NULL_WITH_NULL_NULL cipher suite and verify that the client denies the
+                  connection<a href='#ajq_90' id='ajq_90'>.</a> </li>
+                <li><b>Test 5: </b>
+                  The evaluator shall perform the following modifications to the traffic:
+                  <ul>
+                    <li><b>Test 5.1: </b>
+                      Change the TLS version
+                      selected by the server in the Server Hello to an undefined TLS version (for example 1.5
+                      represented by the two bytes 03 06) and verify that the client rejects the
+                      connection<a href='#ajq_91' id='ajq_91'>.</a> </li>
+                    <li><b>Test 5.2: </b>
+                      Change the TLS version
+                      selected by the server in the Server Hello to the most recent unsupported TLS version (for example 1.1
+                      represented by the two bytes 03 02) and verify that the client rejects the
+                      connection<a href='#ajq_92' id='ajq_92'>.</a> </li>
+                    <li><b>Test 5.3: </b>
+                      [conditional] If DHE or ECDHE cipher suites are supported, modify at least one byte in the
+                      server’s nonce in the Server Hello handshake message, and verify that the client does not complete
+                      the handshake and no application data flows<a href='#ajq_93' id='ajq_93'>.</a> </li>
+                    <li><b>Test 5.4: </b>
+                      Modify the server’s selected cipher suite in the Server Hello handshake
+                      message to be a cipher suite not presented in the Client Hello handshake
+                      message<a href='#ajq_94' id='ajq_94'>.</a> The evaluator shall verify that the client does not complete the handshake
+                      and no application data flows<a href='#ajq_95' id='ajq_95'>.</a> </li>
+                    <li><b>Test 5.5: </b>
+                      [conditional] If DHE or ECDHE cipher suites are supported, modify the signature block in the
+                      server’s Key Exchange handshake message, and verify that the client does not complete the handshake
+                      and no application data flows<a href='#ajq_96' id='ajq_96'>.</a> This test does not apply to cipher suites using RSA key exchange<a href='#ajq_97' id='ajq_97'>.</a> If a TOE only supports RSA key exchange in conjunction with TLS, then this test shall be omitted<a href='#ajq_98' id='ajq_98'>.</a> </li>
+                    <li><b>Test 5.6: </b>
+                      Modify a byte in the Server Finished handshake message, and verify that the
+                      client does not complete the handshake and no application data flows<a href='#ajq_99' id='ajq_99'>.</a> </li>
+                    <li><b>Test 5.7: </b>
+                      Send a message consisting of random bytes from the server after the server has issued the
+                      Change Cipher Spec message and verify that the client does not complete the handshake
+                      and no application data flows<a href='#ajq_100' id='ajq_100'>.</a> The message must still have a valid 5-byte record
+                      header in order to ensure the message will be parsed as TLS<a href='#ajq_101' id='ajq_101'>.</a> </li>
+                  </ul>
+                </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.1.2'><a class='abbr' href='#FCS_TLSC_EXT.1.2'>FCS_TLSC_EXT.1.2</a></div><div class='reqdesc'>
+             The product shall verify that the presented identifier matches the reference
+              identifier according to RFC 6125<a href='#ajq_102' id='ajq_102'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'> The rules for verification of identity are described in
+              Section 6 of RFC 6125<a href='#ajq_103' id='ajq_103'>.</a> The reference identifier is established by the user (e.g<a href='#ajq_104' id='ajq_104'>.</a> entering a URL into a web browser or clicking a link), by configuration (e.g<a href='#ajq_105' id='ajq_105'>.</a> configuring the name of a mail server or authentication server), or by an application
+              (e.g<a href='#ajq_106' id='ajq_106'>.</a> a parameter of an API) depending on the product service<a href='#ajq_107' id='ajq_107'>.</a> Based on a singular
+              reference identifier’s source domain and application service type (e.g<a href='#ajq_108' id='ajq_108'>.</a> HTTP, SIP,
+              LDAP), the client establishes all reference identifiers which are acceptable, such as
+              a Common Name for the Subject Name field of the certificate and a (case-insensitive)
+              DNS name, URI name, and Service Name for the Subject Alternative Name field<a href='#ajq_109' id='ajq_109'>.</a> The
+              client then compares this list of all acceptable reference identifiers to the
+              presented identifiers in the TLS
+              server’s certificate<a href='#ajq_110' id='ajq_110'>.</a> <br/>
+              The preferred method for verification is the Subject
+              Alternative Name using DNS names, URI names, or Service Names<a href='#ajq_111' id='ajq_111'>.</a> Verification using the
+              Common Name for the purposes of backwards compatibility is optional<a href='#ajq_112' id='ajq_112'>.</a> Additionally,
+              support for use of IP addresses in the Subject Name or Subject Alternative name is
+              discouraged, as against best practices, but may be implemented<a href='#ajq_113' id='ajq_113'>.</a> Finally, the client
+              should avoid constructing reference identifiers using wildcards<a href='#ajq_114' id='ajq_114'>.</a> However, if the
+              presented identifiers include wildcards, the client must follow the best practices
+              regarding matching; these best practices are captured in the evaluation activity<a href='#ajq_115' id='ajq_115'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall ensure that the <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> describes the client’s method of establishing all reference
+              identifiers from the application-configured reference identifier, including which
+              types of reference identifiers are supported (e.g<a href='#ajq_116' id='ajq_116'>.</a> Common Name, DNS Name, URI Name,
+              Service Name, or other application-specific Subject Alternative Names) and whether IP
+              addresses and wildcards are supported<a href='#ajq_117' id='ajq_117'>.</a> The evaluator shall ensure that this
+              description identifies whether and the manner in which certificate pinning is
+              supported or used by the product<a href='#ajq_118' id='ajq_118'>.</a> <br/> 
+              <div class='eacategory'>Guidance</div>
+              The evaluator shall verify that the AGD guidance includes instructions for
+              setting the reference identifier to be used for the purposes of certificate validation
+              in TLS<a href='#ajq_119' id='ajq_119'>.</a> <br/>
+              <div class='eacategory'>Tests</div>
+              The evaluator shall
+              configure the reference identifier according to the AGD guidance and perform the
+              following tests during a TLS connection:
+              <ul>
+                <li><b>Test 1: </b> 
+                  The evaluator shall present a server certificate that contains
+                  a CN that does not match the reference identifier and does not
+                  contain the SAN extension<a href='#ajq_120' id='ajq_120'>.</a> The evaluator shall verify that the
+                  connection fails<a href='#ajq_121' id='ajq_121'>.</a> <p></p>Note that some systems might require the presence of the SAN extension<a href='#ajq_122' id='ajq_122'>.</a> In this case the connection would still fail but for the
+                  reason of the missing SAN extension instead of the mismatch of
+                  CN and reference identifier<a href='#ajq_123' id='ajq_123'>.</a> Both reasons are acceptable to
+                  pass Test 1<a href='#ajq_124' id='ajq_124'>.</a> </li>
+                <li><b>Test 2: </b>
+                  The evaluator shall present a server certificate that contains a CN that
+                  matches the reference identifier, contains the SAN extension, but does not contain
+                  an identifier in the SAN that matches the reference identifier<a href='#ajq_125' id='ajq_125'>.</a> The evaluator
+                  shall verify that the connection fails<a href='#ajq_126' id='ajq_126'>.</a> The evaluator shall repeat this test for
+                  each supported SAN type<a href='#ajq_127' id='ajq_127'>.</a> </li>
+                <li><b>Test 3: </b>
+                  [conditional] If the TOE does not mandate the presence of the SAN extension,
+                  the evaluator shall present a server certificate that contains
+                  a CN that matches the reference identifier and does not
+                  contain the SAN extension<a href='#ajq_128' id='ajq_128'>.</a> The evaluator shall verify that the
+                  connection succeeds<a href='#ajq_129' id='ajq_129'>.</a> If the TOE does mandate the presence of
+                  the SAN extension, this Test shall be omitted<a href='#ajq_130' id='ajq_130'>.</a> </li>
+                <li><b>Test 4: </b>
+                  The evaluator shall present a server certificate that contains a CN that does
+                  not match the reference identifier but does contain an identifier in the SAN that
+                  matches<a href='#ajq_131' id='ajq_131'>.</a> The evaluator shall verify that the connection succeeds<a href='#ajq_132' id='ajq_132'>.</a> </li>
+                <li><b>Test 5: </b>
+                  The evaluator shall perform the following wildcard tests with each supported type of reference
+                  identifier<a href='#ajq_133' id='ajq_133'>.</a> The support for wildcards is intended to be optional<a href='#ajq_134' id='ajq_134'>.</a> If wildcards are supported, the
+                  first, second, and third tests below shall be executed<a href='#ajq_135' id='ajq_135'>.</a> If wildcards are not supported, then the
+                  fourth test below shall be executed<a href='#ajq_136' id='ajq_136'>.</a> <ul>
+                    <li><b>Test 5.1: </b>
+                      [conditional]: If wildcards are supported, the evaluator shall present a server certificate
+                      containing a wildcard that is not in the left-most label of the presented identifier (e.g<a href='#ajq_137' id='ajq_137'>.</a> foo.*.example.com) and verify that the connection fails<a href='#ajq_138' id='ajq_138'>.</a> </li>
+                    <li><b>Test 5.2: </b>
+                      [conditional]: If wildcards are supported, the evaluator shall present a server certificate
+                      containing a wildcard in the left-most label but not preceding the public
+                      suffix (e.g<a href='#ajq_139' id='ajq_139'>.</a> *.example.com)<a href='#ajq_140' id='ajq_140'>.</a> The evaluator shall configure
+                      the reference identifier with a single left-most label (e.g<a href='#ajq_141' id='ajq_141'>.</a> foo.example.com) and verify that the
+                      connection succeeds<a href='#ajq_142' id='ajq_142'>.</a> The evaluator shall configure the reference identifier without a left-most
+                      label as in the certificate (e.g<a href='#ajq_143' id='ajq_143'>.</a> example.com) and verify that the connection fails<a href='#ajq_144' id='ajq_144'>.</a> The evaluator
+                      shall configure the reference identifier with two left-most labels (e.g<a href='#ajq_145' id='ajq_145'>.</a> bar.foo.example.come) and
+                      verify that the connection fails<a href='#ajq_146' id='ajq_146'>.</a> </li>
+                    <li><b>Test 5.3: </b>
+                      [conditional]: If wildcards are supported, the evaluator shall present a server certificate
+                      containing a wildcard in the left-most label immediately preceding the public suffix (e.g<a href='#ajq_147' id='ajq_147'>.</a> *.com)<a href='#ajq_148' id='ajq_148'>.</a> The evaluator shall configure the reference identifier with a single left-most label (e.g<a href='#ajq_149' id='ajq_149'>.</a> foo.com) and verify that the connection fails<a href='#ajq_150' id='ajq_150'>.</a> The evaluator shall configure the reference
+                      identifier with two left-most labels (e.g<a href='#ajq_151' id='ajq_151'>.</a> bar.foo.com) and verify that the connection fails<a href='#ajq_152' id='ajq_152'>.</a> </li>
+                    <li><b>Test 5.4: </b>
+                      [conditional]: If wildcards are not supported, the evaluator shall present a server certificate
+                      containing a wildcard in the left-most label (e.g<a href='#ajq_153' id='ajq_153'>.</a> *.example.com)<a href='#ajq_154' id='ajq_154'>.</a> The evaluator shall configure
+                      the reference identifier with a single left-most label (e.g<a href='#ajq_155' id='ajq_155'>.</a> foo.example.com) and verify that the
+                      connection fails<a href='#ajq_156' id='ajq_156'>.</a> </li>
+                  </ul>
+                </li>
+                <li><b>Test 6: </b>
+                  [conditional] If URI or Service name reference identifiers are supported, the
+                  evaluator shall configure the DNS name and
+                  the service identifier<a href='#ajq_157' id='ajq_157'>.</a> The evaluator shall present a server certificate
+                  containing the correct DNS name and
+                  service identifier in the URIName or SRVName fields of the SAN and verify that the
+                  connection succeeds<a href='#ajq_158' id='ajq_158'>.</a> The evaluator shall repeat this test with the wrong service
+                  identifier (but correct DNS name) and
+                  verify that the connection fails<a href='#ajq_159' id='ajq_159'>.</a> </li>
+                <li><b>Test 7: </b>
+                  [conditional] If pinned certificates are supported the evaluator shall
+                  present a certificate that does not match the pinned certificate and verify that
+                  the connection fails<a href='#ajq_160' id='ajq_160'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.1.3'><a class='abbr' href='#FCS_TLSC_EXT.1.3'>FCS_TLSC_EXT.1.3</a></div><div class='reqdesc'>
+            The product shall not establish a trusted channel if the
+              server certificate is invalid
+              [<b>selection</b>: <ul><li><i>with no exceptions</i>, </li><li><i>except when override is authorized</i></li></ul>]<a href='#ajq_161' id='ajq_161'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>Validity is determined by the identifier verification,
+              certificate path, the expiration date, and the revocation status in accordance with
+              RFC 5280<a href='#ajq_162' id='ajq_162'>.</a> Certificate validity shall be tested in accordance with testing performed
+              for <a class='linkref' href='#FIA_X509_EXT.1'>FIA_X509_EXT.1</a> as defined in any PP or PP-Module which
+              instantiates this Package<a href='#ajq_163' id='ajq_163'>.</a> <br/><br/>
+              The selection that permits override for invalid certificates should be interpreted
+              as follows:
+              <ul>
+                <li>explicit administrator or user action is needed to authorize the override,
+                on a per-certificate basis</li>
+                <li>override may be sought or granted at any time, though this typically occurs when an
+                invalid certificate is presented during connection setup</li>
+                <li>override decisions may be stored and then consulted
+                later, to permit connections using these otherwise-invalid certificates to
+                establish trusted channels without user or administrator action</li>
+              </ul>
+              As indicated in <a class='dynref' href='#TOEdescription'>Section 1.4 Compliant Targets of Evaluation</a>, note that a PP author may
+              instantiate this SFR using only the first selection, preventing the ability to
+              allow overrides<a href='#ajq_164' id='ajq_164'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              If the selection for authorizing override of invalid certificates is made, then
+              the evaluator shall ensure that the <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> includes a description of how and when user or administrator
+                authorization is obtained<a href='#ajq_165' id='ajq_165'>.</a> The evaluator shall also ensure that the TSS describes
+                any mechanism for storing such authorizations, such that future presentation
+                of such otherwise-invalid certificates permits establishment of a trusted channel
+                without user or administrator action<a href='#ajq_166' id='ajq_166'>.</a> <div class='eacategory'>Tests</div>
+              The evaluator shall demonstrate that using an invalid certificate (unless excepted)
+              results in the function failing as follows, unless excepted:
+              <ul>
+                <li><b>Test 1: </b>The evaluator shall demonstrate that a server using a certificate without a
+                  valid certification path results in an authentication failure<a href='#ajq_167' id='ajq_167'>.</a> Using the
+                  administrative guidance, the evaluator shall then load the trusted CA
+                  certificate(s) needed to validate the server's certificate, and demonstrate that the
+                  connection succeeds<a href='#ajq_168' id='ajq_168'>.</a> The evaluator then shall delete one of the CA certificates,
+                  and show that the connection fails<a href='#ajq_169' id='ajq_169'>.</a> </li>
+                <li><b>Test 2: </b> The evaluator shall demonstrate that a server using a certificate which has
+                  been revoked results in an authentication failure<a href='#ajq_170' id='ajq_170'>.</a> </li>
+                <li><b>Test 3: </b> The evaluator shall demonstrate that a server using a certificate which has
+                  passed its expiration date results in an authentication failure<a href='#ajq_171' id='ajq_171'>.</a> </li>
+                <li><b>Test 4: </b> The evaluator shall demonstrate that a server using a certificate which does
+                  not have a valid identifier results in an authentication failure<a href='#ajq_172' id='ajq_172'>.</a> </li>
+              </ul>
+              
+            </i></div></div>
+          </div></div>       
+        </div><div class='comp' id='FCS_TLSC_EXT.2'><h4>FCS_TLSC_EXT.2 TLS Client Support for Mutual Authentication</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a></i></b><a href='#ajq_173' id='ajq_173'>.</a> </i></b></div>
+          
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.2.1'><a class='abbr' href='#FCS_TLSC_EXT.2.1'>FCS_TLSC_EXT.2.1</a></div><div class='reqdesc'>
+            The product shall support mutual authentication using X.509v3 certificates<a href='#ajq_174' id='ajq_174'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'> The use of X.509v3 certificates for TLS is addressed in <a class='linkref' href='#FIA_X509_EXT.2.1'>FIA_X509_EXT.2.1</a><a href='#ajq_175' id='ajq_175'>.</a> This requirement adds that a client must be capable of
+              presenting a certificate to a TLS server
+              for TLS mutual authentication<a href='#ajq_176' id='ajq_176'>.</a> Presenting a certificate is not mandatory in all circumstances: it may depend on the
+              configuration of the client or other factors<a href='#ajq_177' id='ajq_177'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+                The evaluator shall ensure that the <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> description required per <a class='linkref' href='#FIA_X509_EXT.2.1'>FIA_X509_EXT.2.1</a> includes the use of client-side certificates for TLS
+              mutual authentication<a href='#ajq_178' id='ajq_178'>.</a> The evaluator shall also ensure that the 
+              <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> describes
+              any factors beyond configuration that are necessary in order for the client to engage in mutual
+              authentication using X.509v3 certificates<a href='#ajq_179' id='ajq_179'>.</a> <br/>
+              <div class='eacategory'>Guidance</div>
+              The evaluator shall ensure that the AGD guidance includes any instructions necessary
+              to configure the TOE to perform mutual authentication<a href='#ajq_180' id='ajq_180'>.</a> The evaluator also shall verify that the AGD guidance required
+              per <a class='linkref' href='#FIA_X509_EXT.2.1'>FIA_X509_EXT.2.1</a> includes instructions for configuring the
+              client-side certificates for TLS mutual
+              authentication<a href='#ajq_181' id='ajq_181'>.</a> <br/>
+              <div class='eacategory'>Tests</div>
+              The evaluator shall also perform the following tests:
+              
+	      <ul>
+          <li><b>Test 1: </b>The evaluator shall establish a connection to a server that is not
+configured for mutual authentication (i.e<a href='#ajq_182' id='ajq_182'>.</a> does not send Server’s Certificate
+Request (type 13) message)<a href='#ajq_183' id='ajq_183'>.</a> The evaluator observes negotiation of a TLS channel
+and confirms that the TOE did not send Client’s Certificate message (type 11)
+during handshake<a href='#ajq_184' id='ajq_184'>.</a> </li>
+		<li><b>Test 2: </b>The evaluator shall establish a connection to a server with a
+		shared trusted root that is configured for mutual authentication (i.e<a href='#ajq_185' id='ajq_185'>.</a> it
+		sends Server’s Certificate Request (type 13) message)<a href='#ajq_186' id='ajq_186'>.</a> The evaluator
+		observes negotiation of a TLS channel and confirms that the TOE responds
+		with a non-empty Client’s Certificate message (type 11) and Certificate
+		Verify (type 15) message<a href='#ajq_187' id='ajq_187'>.</a> </li>
+	      </ul>
+            </i></div></div>
+          </div></div>
+        </div><div class='comp' id='FCS_TLSC_EXT.4'><h4>FCS_TLSC_EXT.4 TLS Client Support for Renegotiation</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a></i></b><a href='#ajq_188' id='ajq_188'>.</a> </i></b></div>
+          
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.4.1'><a class='abbr' href='#FCS_TLSC_EXT.4.1'>FCS_TLSC_EXT.4.1</a></div><div class='reqdesc'>
+             The product shall support secure renegotiation through use
+              of the “renegotiation_info” TLS extension in accordance with RFC 5746<a href='#ajq_189' id='ajq_189'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+            RFC 5746 defines an extension to TLS that binds
+            renegotiation handshakes to the cryptography in the original handshake<a href='#ajq_190' id='ajq_190'>.</a> <br/><br/>
+            Per RFC 5746, the client may present either the
+            "renegotiation_info" extension or the signaling cipher suite value
+            TLS_EMPTY_RENEGOTIATION_INFO_SCSV in the initial ClientHello message to indicate
+            support for renegotiation<a href='#ajq_191' id='ajq_191'>.</a> (A signaling cipher suite value (SCSV) is presented 
+            as a cipher suite, but its only purpose is to provide other information and not
+            to advertise support for a cipher suite.)  The
+            TLS_EMPTY_RENEGOTIATION_INFO_SCSV signaling cipher suite value exists as an alternative
+            to presenting the "renegotation_info" extension so that
+            TLS server implementations that immediately terminate the connection when they encounter
+            any extension they do not understand can still proceed with a connection<a href='#ajq_192' id='ajq_192'>.</a> The client may still choose to
+            reject the connection later, if it insists upon renegotiation support and the server does not
+            support it<a href='#ajq_193' id='ajq_193'>.</a> In any case, RFC 5746 states that during any renegotiation the "renegotiation_info" extension
+            must be presented by the peer initiating renegotiation, and so the client
+            must support use of this extension<a href='#ajq_194' id='ajq_194'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>Tests</div>
+              The evaluator shall perform the following tests:
+              <ul>
+                <li><b>Test 1: </b>The evaluator shall use a network packet analyzer/sniffer to capture the traffic between the two
+                  TLS endpoints<a href='#ajq_195' id='ajq_195'>.</a> The evaluator shall verify that either the “renegotiation_info” field or the SCSV
+                  cipher suite is included in the ClientHello message during the initial handshake<a href='#ajq_196' id='ajq_196'>.</a> </li>
+                <li><b>Test 2: </b>The evaluator shall verify the Client’s handling of ServerHello messages received during
+                  the initial handshake that include the “renegotiation_info” extension<a href='#ajq_197' id='ajq_197'>.</a> The evaluator shall modify
+                  the length portion of this field in the ServerHello message to be non-zero and verify that the client
+                  sends a failure and terminates the connection<a href='#ajq_198' id='ajq_198'>.</a> The evaluator shall verify that a properly formatted
+                  field results in a successful TLS connection<a href='#ajq_199' id='ajq_199'>.</a> </li>
+                <li><b>Test 3: </b>The evaluator shall verify that ServerHello messages received during secure renegotiation contain
+                  the “renegotiation_info” extension<a href='#ajq_200' id='ajq_200'>.</a> The evaluator shall modify either the “client_verify_data” or
+                  “server_verify_data” value and verify that the client terminates the connection<a href='#ajq_201' id='ajq_201'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+        </div><div class='comp' id='FCS_TLSC_EXT.5'><h4>FCS_TLSC_EXT.5 TLS Client Support for Supported Groups Extension</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a>, </i></b><b><i><a class='' href='#FCS_DTLSC_EXT.1.1'>FCS_DTLSC_EXT.1.1</a></i></b><a href='#ajq_202' id='ajq_202'>.</a> </i></b></div>
+          
+          
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.5.1'><a class='abbr' href='#FCS_TLSC_EXT.5.1'>FCS_TLSC_EXT.5.1</a></div><div class='reqdesc'>
+            
+             The product shall present the Supported Groups Extension in the Client Hello
+              with the supported groups [<b>selection</b>: <ul><li><i>secp256r1</i>, </li><li><i>secp384r1</i>, </li><li><i>secp521r1</i>, </li><li><i>ffdhe2048(256)</i>, </li><li><i>ffdhe3072(257)</i>, </li><li><i>ffdhe4096(258)</i>, </li><li><i>ffdhe6144(259)</i>, </li><li><i>ffdhe8192(260)</i></li></ul>]<a href='#ajq_203' id='ajq_203'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              If an elliptic curve or Diffie-Hellman ciphersuite is selected in <a class='linkref' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a>
+              or <a class='linkref' href='#FCS_DTLSC_EXT.1.1'>FCS_DTLSC_EXT.1.1</a>,
+              then <a class='linkref' href='#FCS_TLSC_EXT.5'>FCS_TLSC_EXT.5</a> shall be included in the ST<a href='#ajq_204' id='ajq_204'>.</a> This requirement does not limit the
+              elliptic curves the client may propose for authentication and key agreement<a href='#ajq_205' id='ajq_205'>.</a> The Supported Groups Extension was previously referred to as the
+              Supported Elliptic Curves Extension and is described in RFC 7919<a href='#ajq_206' id='ajq_206'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall verify that <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> describes the Supported Groups Extension<a href='#ajq_207' id='ajq_207'>.</a> <div class='eacategory'>Tests</div>
+              The evaluator shall also perform the following test:
+              <br/>
+              <ul>
+              <li><b>Test 1: </b>
+              The evaluator shall configure a server to perform key exchange using each of the TOE’s supported
+              curves and/or groups<a href='#ajq_208' id='ajq_208'>.</a> The evaluator shall verify that the TOE successfully connects to the server<a href='#ajq_209' id='ajq_209'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>  
+        </div><div class='comp' id='FCS_TLSS_EXT.1'><h4>FCS_TLSS_EXT.1 TLS Server Protocol</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLS_EXT.1.1'>FCS_TLS_EXT.1.1</a></i></b><a href='#ajq_210' id='ajq_210'>.</a> </i></b></div>
+          
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.1.1'><a class='abbr' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a></div><div class='reqdesc'>
+             The product shall implement TLS 1.2 (RFC 5246) and
+            [<b>selection</b>: <i>TLS 1.1 (RFC 4346)</i>, <i>no earlier TLS versions</i>]
+              as a server that supports the cipher suites
+              [<b>selection</b>: <ul><li><i>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i></li></ul>] and no other cipher suites,
+              and also supports functionality for
+              [<b>selection</b>: <ul><li><i>mutual authentication</i>, </li><li><i>session renegotiation</i>, </li><li><i>none</i></li></ul>]<a href='#ajq_211' id='ajq_211'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+
+        The <a class='abbr' href='#abbr_ST'><abbr title='Security Target'>ST</abbr></a> author should select the cipher suites that are supported,
+       and must select at least one cipher suite<a href='#ajq_212' id='ajq_212'>.</a> It is necessary to limit the cipher suites that can be
+              used in an evaluated configuration administratively on
+              the server in the test environment<a href='#ajq_213' id='ajq_213'>.</a> If administrative
+              steps need to be taken so that the cipher suites
+              negotiated by the implementation are limited to those in
+              this requirement, then the appropriate instructions need
+              to be contained in the guidance<a href='#ajq_214' id='ajq_214'>.</a> GCM cipher suites are preferred over CBC cipher suites,
+	      ECDHE preferred over RSA and DHE, and SHA256 or SHA384
+	      over SHA<a href='#ajq_215' id='ajq_215'>.</a> <br/><br/>
+        TLS_RSA_WITH_AES_128_CBC_SHA is not required 
+	      despite being mandated by RFC 5246<a href='#ajq_216' id='ajq_216'>.</a> <br/><br/>
+        These requirements will be revisited as new
+	      TLS
+	      versions are standardized by the IETF<a href='#ajq_217' id='ajq_217'>.</a> <br/><br/>
+        If <i>mutual authentication</i> is selected, then the ST must additionally include
+        the requirements from <a class='linkref' href='#FCS_TLSS_EXT.2'>FCS_TLSS_EXT.2</a><a href='#ajq_218' id='ajq_218'>.</a> If the TOE implements
+        mutual authentication, this selection must be made<a href='#ajq_219' id='ajq_219'>.</a> <br/><br/>
+        If <i>session renegotiation</i> is selected, then the ST must additionally include
+        the requirements from <a class='linkref' href='#FCS_TLSS_EXT.4'>FCS_TLSS_EXT.4</a><a href='#ajq_220' id='ajq_220'>.</a> If the TOE implements
+        session renegotiation, this selection must be made<a href='#ajq_221' id='ajq_221'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall check the description of the implementation of this protocol in
+              the <abbr title='TOE Summary Specification' linkend='TSS'>TSS</abbr> to ensure that
+              the cipher suites supported are specified<a href='#ajq_222' id='ajq_222'>.</a> The evaluator shall check the
+              <abbr title='TOE Summary Specification' linkend='TSS'>TSS</abbr> to ensure that the
+              cipher suites specified include those listed for this component<a href='#ajq_223' id='ajq_223'>.</a> <div class='eacategory'>Guidance</div>
+              The evaluator shall
+              also check the operational guidance to ensure that it contains instructions on
+              configuring the <abbr title='Target of Evaluation' linkend='TOE'>TOE</abbr> so that
+              TLS conforms to the description in the
+              <abbr title='TOE Summary Specification' linkend='TSS'>TSS</abbr><a href='#ajq_224' id='ajq_224'>.</a> <div class='eacategory'>Tests</div>
+              The evaluator shall
+              also perform the following tests:
+              <ul>
+                <li><b>Test 1: </b>
+                  The evaluator shall establish a
+                  <abbr title='Transport Layer Security'>TLS</abbr> connection using each of the
+                  cipher suites specified by the requirement<a href='#ajq_225' id='ajq_225'>.</a> This connection may be established as
+                  part of the establishment of a higher-level protocol, e.g., as part of an EAP
+                  session<a href='#ajq_226' id='ajq_226'>.</a> It is sufficient to observe the successful negotiation of a cipher suite
+                  to satisfy the intent of the test; it is not necessary to examine the
+                  characteristics of the encrypted traffic in an attempt to discern the cipher suite
+                  being used (for example, that the cryptographic algorithm is 128-bit AES and not
+                  256-bit AES)<a href='#ajq_227' id='ajq_227'>.</a> </li>
+                <li><b>Test 2: </b>
+                  The evaluator shall send a Client Hello to the server with a list of
+                  cipher suites that does not contain any of the cipher suites in the server’s ST
+                  and verify that the server denies the connection<a href='#ajq_228' id='ajq_228'>.</a> Additionally, the evaluator
+                  shall send a Client Hello to the server containing only the
+                  TLS_NULL_WITH_NULL_NULL cipher suite and verify that the server
+                  denies the connection<a href='#ajq_229' id='ajq_229'>.</a> </li>
+                <li><b>Test 3: </b>
+		  If RSA key exchange is used in one of the selected ciphersuites, the evaluator shall use a client to send a properly
+		  constructed Key Exchange message with a modified
+		  EncryptedPreMasterSecret field during the TLS
+		  handshake<a href='#ajq_230' id='ajq_230'>.</a> The evaluator shall verify that the
+		  handshake is not completed successfully and no
+		  application data flows<a href='#ajq_231' id='ajq_231'>.</a> </li>
+                <li><b>Test 4: </b>
+                  The evaluator shall perform the following modifications to the traffic:
+                  <ul>
+                    <li><b>Test 4.1: </b>
+                      Change the <abbr title='Transport Layer Security'>TLS</abbr> version proposed
+                      by the client in the Client Hello to a non-supported
+                      <abbr title='Transport Layer Security'>TLS</abbr> version (for example 1.3
+                      represented by the two bytes 03 04) and verify that the server rejects the
+                      connection<a href='#ajq_232' id='ajq_232'>.</a> </li>
+                    <li><b>Test 4.2: </b>
+                      Modify a byte in the data of the client's Finished handshake message, and verify that the
+                      server rejects the connection and does not send any application data<a href='#ajq_233' id='ajq_233'>.</a> </li>
+                    <li><b>Test 4.3: </b>
+		      Demonstrate that the TOE will not resume a
+		      session for which the client failed to complete
+		      the handshake (independent of TOE support for
+		      session resumption): Generate a Fatal Alert by
+		      sending a Finished message from the client
+		      before the client sends a ChangeCipherSpec
+		      message, and then send a Client Hello with the
+		      session identifier from the previous incomplete
+		      session, and verify that the server does not
+		      resume the session<a href='#ajq_234' id='ajq_234'>.</a> </li>
+                    <li><b>Test 4.4: </b>
+                      Send a message consisting of random bytes from
+                      the client after the client has issued the
+                      ChangeCipherSpec message and verify that the
+                      server denies the connection<a href='#ajq_235' id='ajq_235'>.</a> </li>
+                  </ul>
+                </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.1.2'><a class='abbr' href='#FCS_TLSS_EXT.1.2'>FCS_TLSS_EXT.1.2</a></div><div class='reqdesc'>
+            The product shall deny connections from clients requesting
+            SSL 2.0, SSL 3.0, TLS 1.0 and
+              [<b>selection</b>: <i>TLS 1.1</i>, <i>none</i>]<a href='#ajq_236' id='ajq_236'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>All SSL versions are denied<a href='#ajq_237' id='ajq_237'>.</a> Any TLS version
+              not selected in <a class='linkref' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a> should be selected here<a href='#ajq_238' id='ajq_238'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall verify that the TSS contains a
+              description of the denial of old SSL and TLS versions
+              consistent relative to selections in <a class='linkref' href='#FCS_TLSS_EXT.1.2'>FCS_TLSS_EXT.1.2</a><a href='#ajq_239' id='ajq_239'>.</a> <div class='eacategory'>Guidance</div>
+              The evaluator shall verify that the AGD guidance includes any configuration
+              necessary to meet this requirement<a href='#ajq_240' id='ajq_240'>.</a> <div class='eacategory'>Tests</div>
+              <ul>
+                <li><b>Test 1: </b>
+                  The evaluator shall send a Client Hello requesting a
+                  connection with version SSL 2.0 and verify that the
+                  server denies the connection<a href='#ajq_241' id='ajq_241'>.</a> The evaluator shall
+                  repeat this test with SSL 3.0 and TLS 1.0,
+                  and TLS 1.1 if it is selected<a href='#ajq_242' id='ajq_242'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.1.3'><a class='abbr' href='#FCS_TLSS_EXT.1.3'>FCS_TLSS_EXT.1.3</a></div><div class='reqdesc'>
+            The product shall perform key establishment for TLS using
+              [<b>selection</b>: <ul><li><i>RSA with size
+                  [<b>selection</b>: <i>2048 bits</i>, <i>3072 bits</i>, <i>4096 bits</i>, <i>no other sizes</i>]
+                </i>, </li><li><i>Diffie-Hellman parameters with size
+                  [<b>selection</b>: <i>2048 bits</i>, <i>3072 bits</i>, <i>4096 bits</i>, <i>6144 bits</i>, <i>8192 bits</i>, <i>no other sizes</i>]
+                </i>, </li><li><i>Diffie-Hellman groups
+                  [<b>selection</b>: <i>ffdhe2048</i>, <i>ffdhe3072</i>, <i>ffdhe4096</i>, <i>ffdhe6144</i>, <i>ffdhe8192</i>, <i>no other groups</i>]
+              </i>, </li><li><i>ECDHE parameters using elliptic curves
+                [<b>selection</b>: <i>secp256r1</i>, <i>secp384r1</i>, <i>secp521r1</i>] and no other curves
+              </i>, </li><li><i>no other key establishment methods</i></li></ul>]<a href='#ajq_243' id='ajq_243'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              If the ST lists an RSA cipher suite in <a class='linkref' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a>, the ST must include the
+              RSA selection in the requirement<a href='#ajq_244' id='ajq_244'>.</a> <br/><br/>
+              If the ST lists a DHE cipher suite in <a class='linkref' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a>, the ST must include either
+              the Diffie-Hellman selection for parameters of a certain size,
+              or for particular Diffie-Hellman groups<a href='#ajq_245' id='ajq_245'>.</a> The selection for "Diffie-Hellman parameters" refers to the method defined by RFC 5246 (and RFC 4346)
+              Section 7.4.3 where the server provides Diffie-Hellman parameters to the client<a href='#ajq_246' id='ajq_246'>.</a> The Supported Groups
+              extension defined in RFC 7919 identifies particular Diffie-Hellman groups, which are listed in the
+              following selection<a href='#ajq_247' id='ajq_247'>.</a> Regarding this distinction, it is acceptable to use Diffie-Hellman group 14 with
+              TLS (there is currently no ability to negotiate group 14 using the Supported Groups extension, but it
+              could be used with the "Diffie-Hellman parameters" selection)<a href='#ajq_248' id='ajq_248'>.</a> As in RFC 7919, the terms "DHE" and
+              "FFDHE" are both used to refer to the finite-field-based Diffie-Hellman ephemeral key exchange mechanism,
+              distinct from elliptic-curve-based Diffie Hellman ephemeral key exchange (ECDHE)<a href='#ajq_249' id='ajq_249'>.</a> <br/><br/>
+              If the ST lists an ECDHE cipher suite in <a class='linkref' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a>, the ST must include the
+              selection for ECDHE using elliptic curves in the requirement<a href='#ajq_250' id='ajq_250'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall verify that the TSS describes the key agreement parameters
+              of the server's Key Exchange message<a href='#ajq_251' id='ajq_251'>.</a> <div class='eacategory'>Guidance</div>
+              The evaluator shall verify that any configuration guidance necessary to meet
+              the requirement must be contained in the AGD guidance<a href='#ajq_252' id='ajq_252'>.</a> <div class='eacategory'>Tests</div>
+              <ul>
+                The evaluator shall conduct the following tests<a href='#ajq_253' id='ajq_253'>.</a> The testing can be carried out
+                manually with a packet analyzer or with an automated framework
+                that similarly captures such empirical evidence<a href='#ajq_254' id='ajq_254'>.</a> Note that this testing can be accomplished in
+                conjunction with other testing activities<a href='#ajq_255' id='ajq_255'>.</a> For each of the following tests, determining that
+                the size matches the expected size is sufficient<a href='#ajq_256' id='ajq_256'>.</a> <li><b>Test 1: </b>
+                  [conditional] If RSA-based key establishment is selected, the evaluator shall configure the TOE with a
+                  certificate containing a supported RSA size and attempt a connection<a href='#ajq_257' id='ajq_257'>.</a> The evaluator shall verify that
+                  the size used matches that which is configured and that the connection is successfully established<a href='#ajq_258' id='ajq_258'>.</a> The evaluator shall repeat this test for each supported size of RSA-based key establishment<a href='#ajq_259' id='ajq_259'>.</a> </li>
+                <li><b>Test 2: </b>
+                  [conditional] If finite-field (i.e<a href='#ajq_260' id='ajq_260'>.</a> non-EC) Diffie-Hellman ciphers are selected, the evaluator shall attempt a
+                  connection using a Diffie-Hellman key exchange with a supported
+                  parameter size or supported group<a href='#ajq_261' id='ajq_261'>.</a> The evaluator shall verify that the key agreement parameters in the Key
+                  Exchange message are the ones configured<a href='#ajq_262' id='ajq_262'>.</a> The evaluator shall repeat this test for each supported
+                  parameter size or group<a href='#ajq_263' id='ajq_263'>.</a> </li>
+                <li><b>Test 3: </b>
+                  [conditional] If ECDHE ciphers are selected, the evaluator shall attempt a connection
+                  using an ECDHE ciphersuite with a
+                  supported curve<a href='#ajq_264' id='ajq_264'>.</a> The evaluator shall verify that the key agreement parameters in the Key
+                  Exchange message are the ones configured<a href='#ajq_265' id='ajq_265'>.</a> The evaluator shall repeat this test for each supported
+                  elliptic curve<a href='#ajq_266' id='ajq_266'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+        </div><div class='comp' id='FCS_TLSS_EXT.2'><h4>FCS_TLSS_EXT.2 TLS Server Support for Mutual Authentication</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a></i></b><a href='#ajq_267' id='ajq_267'>.</a> </i></b></div>
+         
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.2.1'><a class='abbr' href='#FCS_TLSS_EXT.2.1'>FCS_TLSS_EXT.2.1</a></div><div class='reqdesc'>
+            The product shall support authentication of
+              TLS clients using X.509v3 certificates<a href='#ajq_268' id='ajq_268'>.</a> </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.2.2'><a class='abbr' href='#FCS_TLSS_EXT.2.2'>FCS_TLSS_EXT.2.2</a></div><div class='reqdesc'>
+            The product shall not establish a trusted channel
+              if the client certificate is invalid<a href='#ajq_269' id='ajq_269'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              The use of X.509v3 certificates for TLS is addressed in
+              <a class='linkref' href='#FIA_X509_EXT.2.1'>FIA_X509_EXT.2.1</a>
+              This requirement adds that this use must include support for client-side
+              certificates for TLS mutual authentication<a href='#ajq_270' id='ajq_270'>.</a> Validity is determined by the
+              certificate path, the expiration date, and the revocation status in
+              accordance with RFC 5280<a href='#ajq_271' id='ajq_271'>.</a> Certificate validity shall be tested in accordance
+              with testing performed for <a class='linkref' href='#FIA_X509_EXT.1'>FIA_X509_EXT.1</a><a href='#ajq_272' id='ajq_272'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall ensure that the TSS description required per <a class='linkref' href='#FIA_X509_EXT.2.1'>FIA_X509_EXT.2.1</a>
+              includes the use of client-side certificates for TLS mutual authentication<a href='#ajq_273' id='ajq_273'>.</a> <div class='eacategory'>Guidance</div>
+              The evaluator shall verify that the AGD guidance required per <a class='linkref' href='#FIA_X509_EXT.2.1'>FIA_X509_EXT.2.1</a>
+              includes instructions for configuring the client-side certificates for TLS mutual
+              authentication<a href='#ajq_274' id='ajq_274'>.</a> The evaluator shall ensure that the AGD guidance
+              includes instructions for configuring the server to require
+              mutual authentication of clients using these certificates<a href='#ajq_275' id='ajq_275'>.</a> <div class='eacategory'>Tests</div>
+	      The evaluator shall use TLS as a function to verify that the validation rules in
+	      <a class='linkref' href='#FIA_X509_EXT.1.1'>FIA_X509_EXT.1.1</a> are adhered to and shall perform the following tests<a href='#ajq_276' id='ajq_276'>.</a> The evaluator shall apply the AGD guidance to configure the server
+        to require TLS mutual authentication of clients for the following tests,
+        unless overridden by instructions in the test activity:
+              <ul>
+                <li><b>Test 1: </b>
+                  The evaluator shall configure the server to send a certificate request
+                  to the client<a href='#ajq_277' id='ajq_277'>.</a> The client shall send a certificate_list structure which has a length of zero<a href='#ajq_278' id='ajq_278'>.</a> The evaluator
+                  shall verify that the handshake is not finished successfully and no application data flows<a href='#ajq_279' id='ajq_279'>.</a> </li>
+                <li><b>Test 2: </b>
+                  The evaluator shall configure the server to send a certificate request
+                  to the client<a href='#ajq_280' id='ajq_280'>.</a> The client shall send no client certificate message, and instead send a client key exchange
+                  message in an attempt to continue the handshake<a href='#ajq_281' id='ajq_281'>.</a> The evaluator shall verify that the handshake is
+                  not finished successfully and no application data flows<a href='#ajq_282' id='ajq_282'>.</a> </li>
+                <li><b>Test 3: </b>
+                  The evaluator shall configure the server to send a certificate request
+                  to the client without the supported_signature_algorithm used by the client’s
+                  certificate<a href='#ajq_283' id='ajq_283'>.</a> The evaluator shall attempt a connection using the client
+                  certificate and verify that the handshake is not finished successfully
+                  and no application data flows<a href='#ajq_284' id='ajq_284'>.</a> </li>
+                <li><b>Test 4: </b>
+                  The evaluator shall demonstrate that using a certificate without a
+                  valid certification path results in the function failing<a href='#ajq_285' id='ajq_285'>.</a> Using the
+                  administrative guidance, the evaluator shall then load a certificate or
+                  certificates needed to validate the certificate to be used in the function, and
+                  demonstrate that the function succeeds<a href='#ajq_286' id='ajq_286'>.</a> The evaluator then shall delete one
+                  of the certificates, and show that the function fails<a href='#ajq_287' id='ajq_287'>.</a> </li>
+                <li><b>Test 5: </b>
+                  The aim of this test is to check the response of the server
+                  when it receives a client identity  certificate that is signed
+                  by an impostor CA (either Root CA or intermediate CA)<a href='#ajq_288' id='ajq_288'>.</a> To
+                  carry out this test the  evaluator shall configure the client
+                  to send a client identity certificate with an issuer field
+                  that identifies a  CA recognised by the TOE as a trusted CA,
+                  but where the key used for the signature on the client
+                  certificate  does not in fact correspond to the CA certificate
+                  trusted by the TOE (meaning that the client certificate is
+                  invalid  because  its  certification  path  does  not  in
+                  fact  terminate  in  the  claimed  CA  certificate)<a href='#ajq_289' id='ajq_289'>.</a> The
+                  evaluator shall verify that the attempted connection is
+                  denied<a href='#ajq_290' id='ajq_290'>.</a> </li>
+                <li><b>Test 6: </b>
+                  The evaluator shall configure the client to send a certificate with the
+                  Client Authentication purpose in the extendedKeyUsage field and verify that
+                  the server accepts the attempted connection<a href='#ajq_291' id='ajq_291'>.</a> The evaluator shall repeat this
+                  test without the Client Authentication purpose and shall verify that the server
+                  denies the connection<a href='#ajq_292' id='ajq_292'>.</a> Ideally, the two certificates should be identical except
+                  for the Client Authentication purpose<a href='#ajq_293' id='ajq_293'>.</a> </li>
+                <li><b>Test 7: </b>
+                  The evaluator shall perform the following modifications to the traffic:
+                  a) Configure the server to require mutual authentication and then
+                  modify a byte in the client’s certificate<a href='#ajq_294' id='ajq_294'>.</a> The evaluator shall verify
+                  that the server rejects the connection<a href='#ajq_295' id='ajq_295'>.</a> b) Configure the server to require mutual authentication and then
+                  modify a byte in the signature block of the client’s Certificate Verify handshake message<a href='#ajq_296' id='ajq_296'>.</a> The evaluator shall verify that the server rejects the connection<a href='#ajq_297' id='ajq_297'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.2.3'><a class='abbr' href='#FCS_TLSS_EXT.2.3'>FCS_TLSS_EXT.2.3</a></div><div class='reqdesc'>
+            The product shall not establish a trusted channel if
+              the Distinguished Name (DN) or Subject Alternative Name (SAN)
+              contained in a certificate does not match one of the expected identifiers
+              for the client<a href='#ajq_298' id='ajq_298'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              The client identifier may be in the Subject field or the Subject
+              Alternative Name extension of the certificate<a href='#ajq_299' id='ajq_299'>.</a> The expected
+              identifier may either be configured, may be compared to the
+              domain name, IP address, username, or email address used by
+              the client, or may be passed to a directory server for comparison<a href='#ajq_300' id='ajq_300'>.</a> In the latter case, the matching itself may be performed outside the TOE<a href='#ajq_301' id='ajq_301'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              If the product implements mutual authentication, the evaluator shall
+              verify that the TSS describes how the DN and SAN in the certificate
+              is compared to the expected identifier<a href='#ajq_302' id='ajq_302'>.</a> <div class='eacategory'>Guidance</div>
+              If the DN is not compared automatically to the domain name,
+              IP address, username, or email address, the evaluator shall
+              ensure that the AGD guidance includes configuration of the
+              expected identifier or the directory server for the connection<a href='#ajq_303' id='ajq_303'>.</a> <div class='eacategory'>Tests</div>
+              <ul>
+                <li><b>Test 1: </b>
+                  The evaluator shall send a client certificate with an identifier that does not match any of the
+                  expected identifiers and verify that the server denies the connection<a href='#ajq_304' id='ajq_304'>.</a> The matching itself
+                  might be performed outside the TOE (e.g<a href='#ajq_305' id='ajq_305'>.</a> when passing the certificate on to a directory server
+                  for comparison)<a href='#ajq_306' id='ajq_306'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>
+        </div><div class='comp' id='FCS_TLSS_EXT.4'><h4>FCS_TLSS_EXT.4 TLS Server Support for Renegotiation</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a></i></b><a href='#ajq_307' id='ajq_307'>.</a> </i></b></div>
+    
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.4.1'><a class='abbr' href='#FCS_TLSS_EXT.4.1'>FCS_TLSS_EXT.4.1</a></div><div class='reqdesc'>
+            The product shall support the "renegotiation_info" TLS extension
+              in accordance with RFC 5746<a href='#ajq_308' id='ajq_308'>.</a> </div></div>
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.4.2'><a class='abbr' href='#FCS_TLSS_EXT.4.2'>FCS_TLSS_EXT.4.2</a></div><div class='reqdesc'>
+            The product shall include the renegotiation_info extension in
+              ServerHello messages<a href='#ajq_309' id='ajq_309'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              RFC 5746 defines an extension to TLS that binds renegotiation
+              handshakes to the cryptography in the original handshake<a href='#ajq_310' id='ajq_310'>.</a> </span></div>
+	    <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        <div class='eacategory'>Tests</div>
+	      The following tests require connection with a client that supports secure
+        renegotiation and the "renegotiation_info" extension<a href='#ajq_311' id='ajq_311'>.</a> <ul>
+		<li><b>Test 1: </b>The evaluator shall use a network packet analyzer/sniffer to capture
+      the traffic between the two TLS endpoints<a href='#ajq_312' id='ajq_312'>.</a> The evaluator shall verify that
+      the “renegotiation_info” field is included in the ServerHello message<a href='#ajq_313' id='ajq_313'>.</a> </li>
+		<li><b>Test 2: </b>The evaluator shall modify the length portion of the field in the
+      ClientHello message in the initial handshake to be non-zero and verify that
+      the server sends a failure and terminates the connection<a href='#ajq_314' id='ajq_314'>.</a> The evaluator
+      shall verify that a properly formatted field results in a successful TLS connection<a href='#ajq_315' id='ajq_315'>.</a> </li>
+		<li><b>Test 3: </b>The evaluator shall modify the "client_verify_data" or "server_verify_data"
+      value in the ClientHello message received during secure renegotiation and
+      verify that the server terminates the connection<a href='#ajq_316' id='ajq_316'>.</a> </li>
+	      </ul>
+	    </i></div></div>
+	    </div></div>
+	</div><div class='comp' id='FCS_DTLSC_EXT.1'><h4>FCS_DTLSC_EXT.1 DTLS Client Protocol</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLS_EXT.1.1'>FCS_TLS_EXT.1.1</a></i></b><a href='#ajq_317' id='ajq_317'>.</a> </i></b></div>
+    
+    <div class='element'><div class='reqid' id='FCS_DTLSC_EXT.1.1'><a class='abbr' href='#FCS_DTLSC_EXT.1.1'>FCS_DTLSC_EXT.1.1</a></div><div class='reqdesc'>
+      The product shall implement DTLS 1.2 (RFC 6347) and
+      [<b>selection</b>: <i>DTLS 1.0 (RFC 4347)</i>, <i>no earlier DTLS versions</i>] as a client that supports the cipher suites
+    [<b>selection</b>: <ul><li><i>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i></li></ul>]
+      and also supports functionality for 
+      [<b>selection</b>: <ul><li><i>mutual authentication</i>, </li><li><i>none</i></li></ul>]<a href='#ajq_318' id='ajq_318'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+      If any ECDHE or DHE cipher suites are selected, then
+      <a class='linkref' href='#FCS_TLSC_EXT.5'>FCS_TLSC_EXT.5</a> is required<a href='#ajq_319' id='ajq_319'>.</a> <br/><br/>
+      If <i>mutual authentication</i> is selected, then the ST must additionally include 
+      the requirements from <a class='linkref' href='#FCS_DTLSC_EXT.2'>FCS_DTLSC_EXT.2</a><a href='#ajq_320' id='ajq_320'>.</a> If the TOE implements
+      mutual authentication, this selection must be made<a href='#ajq_321' id='ajq_321'>.</a> <br/><br/>
+      Differences between DTLS 1.2 and TLS 1.2 are outlined in RFC 6347; otherwise the
+      protocols are the same<a href='#ajq_322' id='ajq_322'>.</a> All application notes listed for <a class='linkref' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a> that are relevant
+      to DTLS apply to this requirement<a href='#ajq_323' id='ajq_323'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+	<div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSC_EXT.1.1'>FCS_TLSC_EXT.1.1</a>,
+        but ensuring that DTLS (and not TLS) is used in each evaluation activity<a href='#ajq_324' id='ajq_324'>.</a> <br/><br/>
+        For tests which involve version numbers, note that in DTLS the on-the-wire representation
+        is the 1's complement of the corresponding textual DTLS version numbers<a href='#ajq_325' id='ajq_325'>.</a> This is described in
+        Section 4.1 of RFC 6347 and RFC 4347<a href='#ajq_326' id='ajq_326'>.</a> For example, DTLS 1.0 is represented by the bytes 0xfe 0xff,
+        while the undefined DTLS 1.4 would be represented by the bytes 0xfe 0xfb<a href='#ajq_327' id='ajq_327'>.</a> </i></div></div>
+    </div></div>
+
+    <div class='element'><div class='reqid' id='FCS_DTLSC_EXT.1.2'><a class='abbr' href='#FCS_DTLSC_EXT.1.2'>FCS_DTLSC_EXT.1.2</a></div><div class='reqdesc'>
+       The product shall verify that the presented identifier matches the reference
+        identifier according to RFC 6125<a href='#ajq_328' id='ajq_328'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+          All application notes listed for <a class='linkref' href='#FCS_TLSC_EXT.1.2'>FCS_TLSC_EXT.1.2</a> that are relevant
+          to DTLS apply to this requirement<a href='#ajq_329' id='ajq_329'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+      <div class='eacategory'>Tests</div>
+      The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSC_EXT.1.2'>FCS_TLSC_EXT.1.2</a><a href='#ajq_330' id='ajq_330'>.</a> </i></div></div>
+    </div></div>
+
+    <div class='element'><div class='reqid' id='FCS_DTLSC_EXT.1.3'><a class='abbr' href='#FCS_DTLSC_EXT.1.3'>FCS_DTLSC_EXT.1.3</a></div><div class='reqdesc'>
+      The product shall not establish a trusted channel if the
+        server certificate is invalid
+        [<b>selection</b>: <i>with no exceptions</i>, <i>except when override is authorized</i>]<a href='#ajq_331' id='ajq_331'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+        All application notes listed for <a class='linkref' href='#FCS_TLSC_EXT.1.3'>FCS_TLSC_EXT.1.3</a> that are relevant
+        to DTLS apply to this requirement<a href='#ajq_332' id='ajq_332'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        <div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSC_EXT.1.3'>FCS_TLSC_EXT.1.3</a><a href='#ajq_333' id='ajq_333'>.</a> </i></div></div>
+    </div></div>
+    <div class='element'><div class='reqid' id='FCS_DTLSC_EXT.1.4'><a class='abbr' href='#FCS_DTLSC_EXT.1.4'>FCS_DTLSC_EXT.1.4</a></div><div class='reqdesc'>
+    The product shall
+    [<b>selection</b>: <i>terminate the DTLS session</i>, <i>silently discard the record</i>]
+    if a message received contains an invalid MAC or if decryption fails in the case of GCM and other
+    AEAD ciphersuites<a href='#ajq_334' id='ajq_334'>.</a> <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+      <div class='eacategory'>TSS</div>
+      The evaluator shall verify that the TSS describes the actions that take place if a message
+      received from the DTLS Server fails the MAC integrity check<a href='#ajq_335' id='ajq_335'>.</a> <div class='eacategory'>Tests</div>
+      The evaluator shall establish a connection using a server<a href='#ajq_336' id='ajq_336'>.</a> The evaluator will then modify
+      at least one byte in a record message, and verify that the client discards the record or
+      terminates the DTLS session<a href='#ajq_337' id='ajq_337'>.</a> </i></div></div>
+  </div></div>
+  </div><div class='comp' id='FCS_DTLSC_EXT.2'><h4>FCS_DTLSC_EXT.2 DTLS Client Support for Mutual Authentication</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_DTLSC_EXT.1.1'>FCS_DTLSC_EXT.1.1</a></i></b><a href='#ajq_338' id='ajq_338'>.</a> </i></b></div>
+    
+          <div class='element'><div class='reqid' id='FCS_DTLSC_EXT.2.1'><a class='abbr' href='#FCS_DTLSC_EXT.2.1'>FCS_DTLSC_EXT.2.1</a></div><div class='reqdesc'>
+            
+              The product shall support mutual authentication using X.509v3 certificates<a href='#ajq_339' id='ajq_339'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              All application notes listed for <a class='linkref' href='#FCS_TLSC_EXT.2.1'>FCS_TLSC_EXT.2.1</a> that are relevant
+              to DTLS apply to this requirement<a href='#ajq_340' id='ajq_340'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+	<div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSC_EXT.2.1'>FCS_TLSC_EXT.2.1</a><a href='#ajq_341' id='ajq_341'>.</a> </i></div></div>
+    </div></div>
+  </div><div class='comp' id='FCS_DTLSS_EXT.1'><h4>FCS_DTLSS_EXT.1 DTLS Server Protocol</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_TLS_EXT.1.1'>FCS_TLS_EXT.1.1</a></i></b><a href='#ajq_342' id='ajq_342'>.</a> </i></b></div>
+    
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.1.1'><a class='abbr' href='#FCS_DTLSS_EXT.1.1'>FCS_DTLSS_EXT.1.1</a></div><div class='reqdesc'>
+      The product shall implement DTLS 1.2 (RFC 6347) and
+      [<b>selection</b>: <i>DTLS 1.0 (RFC 4347)</i>, <i>no earlier DTLS versions</i>]
+        as a server that supports the ciphersuites
+        [<b>selection</b>: <ul><li><i>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</i>, </li><li><i>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</i>, </li><li><i>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</i></li></ul>] and no other cipher suites,
+        and also supports functionality for
+        [<b>selection</b>: <ul><li><i>mutual authentication</i>, </li><li><i>none</i></li></ul>]<a href='#ajq_343' id='ajq_343'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+      If <i>mutual authentication</i> is selected, then the ST must additionally include
+      the requirements from <a class='linkref' href='#FCS_DTLSS_EXT.2'>FCS_DTLSS_EXT.2</a><a href='#ajq_344' id='ajq_344'>.</a> If the TOE implements
+      mutual authentication, this selection must be made<a href='#ajq_345' id='ajq_345'>.</a> <br/><br/>
+      All application notes listed for <a class='linkref' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a> that are relevant
+      to DTLS apply to this requirement<a href='#ajq_346' id='ajq_346'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+	<div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSS_EXT.1.1'>FCS_TLSS_EXT.1.1</a>,
+        but ensuring that DTLS (and not TLS) is used in each stage of the evaluation activities<a href='#ajq_347' id='ajq_347'>.</a> <br/><br/>
+        For tests which involve version numbers, note that in DTLS the on-the-wire representation
+        is the 1's complement of the corresponding textual DTLS version numbers<a href='#ajq_348' id='ajq_348'>.</a> This is described in
+        Section 4.1 of RFC 6347 and RFC 4347<a href='#ajq_349' id='ajq_349'>.</a> For example, DTLS 1.0 is represented by the bytes 0xfe 0xff,
+        while the undefined DTLS 1.4 would be represented by the bytes 0xfe 0xfb<a href='#ajq_350' id='ajq_350'>.</a> </i></div></div>
+    </div></div>
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.1.2'><a class='abbr' href='#FCS_DTLSS_EXT.1.2'>FCS_DTLSS_EXT.1.2</a></div><div class='reqdesc'>
+      The product shall deny connections from clients requesting
+        [<b>assignment</b>: <span class='assignable-content'>list of DTLS protocol versions</span>]<a href='#ajq_351' id='ajq_351'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>Any specific DTLS version
+        not selected in <a class='linkref' href='#FCS_DTLSS_EXT.1.1'>FCS_DTLSS_EXT.1.1</a> should be assigned here<a href='#ajq_352' id='ajq_352'>.</a> This version of the PP does not require the server to deny DTLS 1.0, and if the TOE
+        supports DTLS 1.0 then "none" can be assigned<a href='#ajq_353' id='ajq_353'>.</a> In a future version of this PP,
+        DTLS 1.0 will be required to be denied<a href='#ajq_354' id='ajq_354'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        The following evaluation activities shall be conducted unless "none" is assigned<a href='#ajq_355' id='ajq_355'>.</a> <br/><br/>
+        <div class='eacategory'>TSS</div>
+        The evaluator shall verify that the TSS contains a
+        description of the denial of old DTLS versions
+        consistent relative to selections in <a class='linkref' href='#FCS_DTLSS_EXT.1.2'>FCS_DTLSS_EXT.1.2</a><a href='#ajq_356' id='ajq_356'>.</a> <div class='eacategory'>Guidance</div>
+        The evaluator shall verify that the AGD guidance includes any configuration
+        necessary to meet this requirement<a href='#ajq_357' id='ajq_357'>.</a> <div class='eacategory'>Tests</div>
+        <ul>
+          <li><b>Test 1: </b>
+            The evaluator shall send a Client Hello requesting a
+            connection with each version of DTLS specified in the selection
+            and verify that the server denies the connection<a href='#ajq_358' id='ajq_358'>.</a> </li>
+        </ul>
+      </i></div></div>
+    </div></div>
+
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.1.3'><a class='abbr' href='#FCS_DTLSS_EXT.1.3'>FCS_DTLSS_EXT.1.3</a></div><div class='reqdesc'>
+      
+        The product shall not proceed with a connection handshake attempt if the DTLS Client fails validation<a href='#ajq_359' id='ajq_359'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+        The process to validate the IP address of a DTLS client is specified in section 4.2.1 of RFC 6347 (DTLS 1.2) and
+        RFC 4347 (DTLS 1.0)<a href='#ajq_360' id='ajq_360'>.</a> The server validates the DTLS client during Connection Establishment (Handshaking) and prior
+        to sending a Server Hello message<a href='#ajq_361' id='ajq_361'>.</a> After receiving a ClientHello, the DTLS Server sends a
+        HelloVerifyRequest along with a cookie<a href='#ajq_362' id='ajq_362'>.</a> The cookie is a signed message using a keyed hash function<a href='#ajq_363' id='ajq_363'>.</a> The DTLS
+        Client then sends another ClientHello with the cookie attached<a href='#ajq_364' id='ajq_364'>.</a> If the DTLS
+        server successfully verifies the signed cookie, the Client is not using a spoofed IP address<a href='#ajq_365' id='ajq_365'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        <div class='eacategory'>TSS</div>
+        The evaluator shall verify that the TSS describes how the DTLS Client IP address is validated prior to
+        issuing a ServerHello message<a href='#ajq_366' id='ajq_366'>.</a> <div class='eacategory'>Tests</div>
+        Modify at least one byte in the cookie from the Server's HelloVerifyRequest message, and verify that the
+        Server rejects the Client's handshake message<a href='#ajq_367' id='ajq_367'>.</a> </i></div></div>
+    </div></div>
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.1.4'><a class='abbr' href='#FCS_DTLSS_EXT.1.4'>FCS_DTLSS_EXT.1.4</a></div><div class='reqdesc'>
+      The product shall perform key establishment for DTLS using
+        [<b>selection</b>: <ul><li><i>RSA with size
+            [<b>selection</b>: <i>2048 bits</i>, <i>3072 bits</i>, <i>4096 bits</i>, <i>no other sizes</i>]
+          </i>, </li><li><i>Diffie-Hellman parameters with size
+            [<b>selection</b>: <i>2048 bits</i>, <i>3072 bits</i>, <i>4096 bits</i>, <i>6144 bits</i>, <i>8192 bits</i>, <i>no other size</i>]
+          </i>, </li><li><i>Diffie-Hellman groups
+            [<b>selection</b>: <i>ffdhe2048</i>, <i>ffdhe3072</i>, <i>ffdhe4096</i>, <i>ffdhe6144</i>, <i>ffdhe8192</i>, <i>no other groups</i>]
+          </i>, </li><li><i>ECDHE parameters using elliptic curves
+            [<b>selection</b>: <i>secp256r1</i>, <i>secp384r1</i>, <i>secp521r1</i>] and no other curves</i>, </li><li><i>no other key establishment methods</i></li></ul>]<a href='#ajq_368' id='ajq_368'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+        If the ST lists an RSA cipher suite in <a class='linkref' href='#FCS_DTLSS_EXT.1.1'>FCS_DTLSS_EXT.1.1</a>, the ST must include the
+        RSA selection in the requirement<a href='#ajq_369' id='ajq_369'>.</a> <br/>
+        If the ST lists a DHE cipher suite in <a class='linkref' href='#FCS_DTLSS_EXT.1.1'>FCS_DTLSS_EXT.1.1</a>, the ST must include either
+        the Diffie-Hellman selection for parameters of a certain size,
+        or for particular Diffie-Hellman groups<a href='#ajq_370' id='ajq_370'>.</a> <br/>
+        If the ST lists an ECDHE cipher suite in <a class='linkref' href='#FCS_DTLSS_EXT.1.1'>FCS_DTLSS_EXT.1.1</a>, the ST must include the
+        NIST curves selection in the requirement<a href='#ajq_371' id='ajq_371'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+      <div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSS_EXT.1.3'>FCS_TLSS_EXT.1.3</a><a href='#ajq_372' id='ajq_372'>.</a> </i></div></div>
+    </div></div>
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.1.5'><a class='abbr' href='#FCS_DTLSS_EXT.1.5'>FCS_DTLSS_EXT.1.5</a></div><div class='reqdesc'>
+      The product shall
+      [<b>selection</b>: <i>terminate the DTLS session</i>, <i>silently discard the record</i>]
+      if a message received contains an invalid MAC or if decryption fails in the case of GCM and other
+      AEAD ciphersuites<a href='#ajq_373' id='ajq_373'>.</a> <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        <div class='eacategory'>TSS</div>
+        The evaluator shall verify that the TSS describes the actions that take place if a message
+        received from the DTLS client fails the MAC integrity check<a href='#ajq_374' id='ajq_374'>.</a> <div class='eacategory'>Tests</div>
+        The evaluator shall establish a connection using a client<a href='#ajq_375' id='ajq_375'>.</a> The evaluator will then modify
+        at least one byte in a record message, and verify that the server discards the record or
+        terminates the DTLS session<a href='#ajq_376' id='ajq_376'>.</a> </i></div></div>
+    </div></div>
+  </div><div class='comp' id='FCS_DTLSS_EXT.2'><h4>FCS_DTLSS_EXT.2 DTLS Server Support for Mutual Authentication</h4><div class='statustag'><b><i>This selection-based component depends upon selection in
+              <b><i><a class='' href='#FCS_DTLSS_EXT.1.1'>FCS_DTLSS_EXT.1.1</a></i></b><a href='#ajq_377' id='ajq_377'>.</a> </i></b></div>
+    
+          <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.2.1'><a class='abbr' href='#FCS_DTLSS_EXT.2.1'>FCS_DTLSS_EXT.2.1</a></div><div class='reqdesc'>
+            
+              The product shall support mutual authentication of DTLS clients using X.509v3 certificates<a href='#ajq_378' id='ajq_378'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              All application notes listed for <a class='linkref' href='#FCS_TLSS_EXT.2.1'>FCS_TLSS_EXT.2.1</a> that are relevant
+              to DTLS apply to this requirement<a href='#ajq_379' id='ajq_379'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+	<div class='eacategory'>Tests</div>
+          The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSS_EXT.2.1'>FCS_TLSS_EXT.2.1</a><a href='#ajq_380' id='ajq_380'>.</a> </i></div></div>
+
+    </div></div>
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.2.2'><a class='abbr' href='#FCS_DTLSS_EXT.2.2'>FCS_DTLSS_EXT.2.2</a></div><div class='reqdesc'>
+      The product shall not establish a trusted channel
+        if the client certificate is invalid<a href='#ajq_381' id='ajq_381'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+        All application notes listed for <a class='linkref' href='#FCS_TLSS_EXT.2.2'>FCS_TLSS_EXT.2.2</a> that are relevant
+        to DTLS apply to this requirement<a href='#ajq_382' id='ajq_382'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+	<div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSS_EXT.2.2'>FCS_TLSS_EXT.2.2</a><a href='#ajq_383' id='ajq_383'>.</a> </i></div></div>
+    </div></div>
+    <div class='element'><div class='reqid' id='FCS_DTLSS_EXT.2.3'><a class='abbr' href='#FCS_DTLSS_EXT.2.3'>FCS_DTLSS_EXT.2.3</a></div><div class='reqdesc'>
+      The product shall not establish a trusted channel if
+        the Distinguished Name (DN) or Subject Alternative Name (SAN)
+        contained in a certificate does not match one of the expected identifiers
+        for the client<a href='#ajq_384' id='ajq_384'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+        All application notes listed for <a class='linkref' href='#FCS_TLSS_EXT.2.3'>FCS_TLSS_EXT.2.3</a> that are relevant
+        to DTLS apply to this requirement<a href='#ajq_385' id='ajq_385'>.</a> </span></div>
+      <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        <div class='eacategory'>Tests</div>
+        The evaluator shall perform the evaluation activities listed for <a class='linkref' href='#FCS_TLSS_EXT.2.3'>FCS_TLSS_EXT.2.3</a><a href='#ajq_386' id='ajq_386'>.</a> </i></div></div>
+      </div></div>
+      </div><h1 class='indexable' id='objective' data-level='A'>Appendix C -  Objective Requirements</h1>This appendix includes requirements that
+    specify security functionality which also addresses threats<a href='#ajq_387' id='ajq_387'>.</a> The requirements are not currently
+    mandated in the body of this Package as they describe security functionality not yet widely-available
+    in commercial technology<a href='#ajq_388' id='ajq_388'>.</a> However, these requirements may be included in the ST such that the
+    product is still conformant to this Package, and it is expected that they be included as soon as
+    possible<a href='#ajq_389' id='ajq_389'>.</a> <div class='comp' id='FCS_TLSC_EXT.3'><h4>FCS_TLSC_EXT.3 TLS Client Support for Signature Algorithms Extension</h4>
+          <div class='element'><div class='reqid' id='FCS_TLSC_EXT.3.1'><a class='abbr' href='#FCS_TLSC_EXT.3.1'>FCS_TLSC_EXT.3.1</a></div><div class='reqdesc'>
+             The product shall present the signature_algorithms extension in the Client Hello with
+              the supported_signature_algorithms value containing the following hash algorithms: [<b>selection</b>: <i>SHA256</i>, <i>SHA384</i>, <i>SHA512</i>] and no other hash algorithms<a href='#ajq_390' id='ajq_390'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'> This requirement limits the hashing algorithms supported for
+              the purpose of digital signature verification by the client and limits the server to
+              the supported hashes for the purpose of digital signature generation by the server<a href='#ajq_391' id='ajq_391'>.</a> The signature_algorithms extension is only supported by TLS 1.2<a href='#ajq_392' id='ajq_392'>.</a> </span></div>
+            <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+              <div class='eacategory'>TSS</div>
+              The evaluator shall verify that <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> describes the signature_algorithm extension and whether the
+              required behavior is performed by default or may be configured<a href='#ajq_393' id='ajq_393'>.</a> <div class='eacategory'>Guidance</div>
+              If the <a class='abbr' href='#abbr_TSS'><abbr title='TOE Summary Specification'>TSS</abbr></a> indicates that the
+              signature_algorithm extension must be configured to meet the requirement, the
+              evaluator shall verify that AGD guidance includes configuration of the
+              signature_algorithm extension<a href='#ajq_394' id='ajq_394'>.</a> <br/> 
+              <div class='eacategory'>Tests</div>
+              The evaluator shall also perform the following
+              tests:
+              <ul>
+                <li><b>Test 1: </b>
+                  The evaluator shall configure the server to send a
+                  certificate in the TLS connection that is not
+                  supported according to the Client's HashAlgorithm
+                  enumeration within the signature_algorithms
+                  extension (for example, send a certificate with a
+                  SHA-1 signature)<a href='#ajq_395' id='ajq_395'>.</a> The evaluator shall verify that
+                  the product disconnects after receiving the server's
+                  Certificate handshake message<a href='#ajq_396' id='ajq_396'>.</a> </li>
+                <li><b>Test 2: </b>
+                  [conditional] If the client supports a DHE or ECDHE
+                  cipher suite, the evaluator shall configure the
+                  server to send a Key Exchange handshake message
+                  including a signature not supported according to the
+                  client's HashAlgorithm enumeration (for example, the
+                  server signed the Key Exchange parameters using a
+                  SHA-1 signature)<a href='#ajq_397' id='ajq_397'>.</a> The evaluator shall verify that
+                  the product disconnects after receiving the server's
+                  Key Exchange handshake message<a href='#ajq_398' id='ajq_398'>.</a> </li>
+              </ul>
+            </i></div></div>
+          </div></div>  
+        </div><div class='comp' id='FCS_TLSS_EXT.3'><h4>FCS_TLSS_EXT.3 TLS Server Support for Signature Algorithms Extension</h4>
+          <div class='element'><div class='reqid' id='FCS_TLSS_EXT.3.1'><a class='abbr' href='#FCS_TLSS_EXT.3.1'>FCS_TLSS_EXT.3.1</a></div><div class='reqdesc'>
+            The product shall present the HashAlgorithm
+            enumeration in supported_signature_algorithms in the
+            Certificate Request with the following hash algorithms:
+	    [<b>selection</b>: <i>SHA256</i>, <i>SHA384</i>, <i>SHA512</i>] and no other hash algorithms<a href='#ajq_399' id='ajq_399'>.</a> <div class='appnote'><span class='note-header'>Application Note: </span><span class='note'>
+              This requirement limits the hashing algorithms supported
+              for the purpose of digital signature verification by the
+              server and limits the client to the supported hashes for
+              the purpose of digital signature generation by the
+              client<a href='#ajq_400' id='ajq_400'>.</a> The supported_signature_algorithms is only
+              supported by TLS 1.2<a href='#ajq_401' id='ajq_401'>.</a> </span></div>
+	    <div class='activity_pane hide'><div class='activity_pane_header'><a onclick='toggle(this);return false;' href='#'><span class='activity_pane_label'> Evaluation Activity </span><span class='toggler'></span></a></div><div class='activity_pane_body'><i>
+        <div class='eacategory'>TSS</div>
+	      The evaluator shall verify that TSS describes the
+	      supported_signature_algorithms field of the Certificate
+	      Request and whether the required behavior is performed
+	      by default or may be configured<a href='#ajq_402' id='ajq_402'>.</a> <div class='eacategory'>Guidance</div>
+        If the TSS indicates
+	      that the supported_signature_algorithms field must be
+	      configured to meet the requirement, the evaluator shall
+	      verify that AGD guidance includes configuration of the
+	      supported_signature_algorithms field<a href='#ajq_403' id='ajq_403'>.</a> <div class='eacategory'>Tests</div>
+	      The evaluator shall also perform the following test:
+	      <br/>
+	      The evaluator shall configure the server to send the
+	      signature_algorithms extension in the Certificate
+	      Request message indicating that the hash algorithm used
+	      by the client’s certificate is not supported<a href='#ajq_404' id='ajq_404'>.</a> The
+	      evaluator shall attempt a connection using that client
+	      certificate and verify that the server denies the
+	      client’s connection<a href='#ajq_405' id='ajq_405'>.</a> </i></div></div>
+	    </div></div>
+	</div><h1 class='indexable' id='biblio' data-level='A'>Appendix D -  References</h1>
+    <table><tr class='header'><th>Identifier</th><th>Title</th></tr><tr><td><span id='bibCC'> [CC] </span></td><td>Common Criteria for Information Technology Security Evaluation -
+          <ul>
+            <li>
+              <a href='http://www.commoncriteriaportal.org/cc'>Part 1:
+                Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5, April 2017<a href='#ajq_406' id='ajq_406'>.</a> </li>
+            <li>
+              <a href='http://www.commoncriteriaportal.org/cc'>Part 2:
+                Security Functional Components</a>, CCMB-2017-04-002, Version 3.1 Revision 5, April 2017<a href='#ajq_407' id='ajq_407'>.</a> </li>
+            <li>
+              <a href='http://www.commoncriteriaportal.org/cc'>Part 3:
+                Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1 Revision 5, April 2017<a href='#ajq_408' id='ajq_408'>.</a> </li>
+          </ul></td></tr></table>
+  <h1 class='indexable' id='acronyms' data-level='A'>Appendix E -  Acronyms</h1>
+    <table><tr class='header'><th>Acronym</th><th>Meaning</th></tr><tr><td>AES</td><td>Advanced Encryption Standard</td></tr><tr><td>CA</td><td>Certificate Authority</td></tr><tr><td>CBC</td><td>Cipher Block Chaining</td></tr><tr><td>CN</td><td>Common Name</td></tr><tr><td>DHE</td><td>Diffie-Hellman Ephemeral</td></tr><tr><td>DN</td><td>Distinguished Name</td></tr><tr><td>DNS</td><td>Domain Name Server</td></tr><tr><td>DTLS</td><td>Datagram Transport Layer Security</td></tr><tr><td>EAP</td><td>Extensible Authentication Protocol</td></tr><tr><td>ECDHE</td><td>Elliptic Curve Diffie-Hellman Ephemeral</td></tr><tr><td>ECDSA</td><td>Elliptic Curve Digital Signature Algorithm</td></tr><tr><td>GCM</td><td>Galois/Counter Mode</td></tr><tr><td>HTTP</td><td>Hypertext Transfer Protocol</td></tr><tr><td>IETF</td><td>Internet Engineering Task Force</td></tr><tr><td>IP</td><td>Internet Protocol</td></tr><tr><td>LDAP</td><td>Lightweight Directory Access Protocol</td></tr><tr><td>NIST</td><td>National Institute of Standards and Technology</td></tr><tr><td>RFC</td><td>Request for Comment (IETF)</td></tr><tr><td>RSA</td><td>Rivest Shamir Adelman</td></tr><tr><td>SAN</td><td>Subject Alternative Name</td></tr><tr><td>SCSV</td><td>Signaling Cipher Suite Value</td></tr><tr><td>SHA</td><td>Secure Hash Algorithm</td></tr><tr><td>SIP</td><td>Session Initiation Protocol</td></tr><tr><td>TCP</td><td>Transmission Control Protocol</td></tr><tr><td>TLS</td><td>Transport Layer Security</td></tr><tr><td>UDP</td><td>User Datagram Protocol</td></tr><tr><td>URI</td><td>Uniform Resource Identifier</td></tr><tr><td>URL</td><td>Uniform Resource Locator</td></tr></table>
+  </body></html>

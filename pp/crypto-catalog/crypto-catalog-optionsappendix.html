@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns:htm="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Crypto Catalog</title><script type="text/javascript">
+const AMPERSAND=String.fromCharCode(38);
+
+function changeMyCounter(subroot, val){
+    var bb;
+    for(bb=0; bb!=subroot.childNodes.length; bb++){
+    	if( subroot.childNodes[bb] instanceof Element &&
+    	    "counter"==subroot.childNodes[bb].getAttribute("class")){
+    	    subroot.childNodes[bb].innerHTML = val;
+    	    return;
+    	} 
+    }
+}
+
+function fixReferences(type){
+    var figs = document.getElementsByClassName("ctr");
+    var occurs = {};                                         // Map that stores how many times we've seen each thing
+    var aa;                                                  
+    for(aa=0; aa!= figs.length; aa++){                       // Go through every counted object
+    	var ct = figs[aa].getAttribute("data-counter-type");  // Get which counter type it is
+    	var curr = occurs[ct]!=null?parseInt(occurs[ct]):1;   // Figure out how many times we've seen it
+    	occurs[ ct ] = curr + 1;                              // Save off increment for next time
+    	changeMyCounter( figs[aa], curr);
+	
+    	var figId = figs[aa].getAttribute("data-myid");
+    	var figRefs = document.getElementsByClassName(figId+"-ref");
+    	var bb;
+        for(bb=0; bb!=figRefs.length; bb++){
+    	    changeMyCounter(figRefs[bb], curr);
+    	} 
+    }
+}
+
+// Function to expand and contract a given div
+function toggle(divID, imgID) {
+    var item = document.getElementById(divID);
+    var img = document.getElementById(imgID);
+    if (item) {
+        item.className = (item.className=='aacthidden') ? 'aact':'aacthidden';
+    }
+    if (img) {
+        var currimage = img.src.substring(img.src.lastIndexOf('/')+1);
+        img.src=(currimage=='collapsed.png')?'images/expanded.png':'images/collapsed.png';
+    }
+}
+
+// Expands targets if they are hidden
+function showTarget(id){
+    var element = document.getElementById(id);
+    while (element != document.body.rootNode ){
+	if ( "aacthidden" == element.getAttribute("class") ){
+	    toggle( element.id, "link-"+element.id );
+	    return;
+	}
+	element = element.parentElement;
+    }
+}
+
+// Called on page load to parse URL parameters and perform actions on them.
+function init(){
+    fixReferences("figure");
+    if(getQueryVariable("expand") == "on"){
+	expand();
+    }
+}
+
+// Pass a URL variable to this function and it will return it 's value
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split(AMPERSAND);
+    for (var i=0;i!=vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+
+//    Expands all assurance activities
+function expand(){
+    var divID = "";
+    var imgID = "link-";
+    var hidden_elements = document.getElementsByClassName('aacthidden');
+    for (var i = hidden_elements.length - 1; i >= 0; --i) {
+        divID = hidden_elements[i].id;
+        imgID += divID;
+        toggle(divID,imgID);
+        imgID = "link-";
+    }
+}
+        </script><style type="text/css">
+    .assignable-content{
+      font-style: italic;
+    }
+    .refinement{
+      text-decoration: underline;
+    }
+    
+    a {
+      word-wrap: break-word;
+    }
+    a.abbr:link{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:visited{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:hover{
+      color:blue;
+      text-decoration:none;
+    }
+    a.abbr:hover:visited{
+      color:purple;
+      text-decoration:none;
+    }
+    a.abbr:active{
+      color:red;
+      text-decoration:none;
+    }
+    
+
+          /*       { background-color: #FFFFFF; } */
+          body{
+              margin-left:8%;
+              margin-right:8%;
+              foreground:black;
+          }
+	  .figure{
+              font-weight:bold;
+	  }
+          h1{
+              page-break-before:always;
+              text-align:left;
+              font-size:200%;
+              margin-top:2em;
+              margin-bottom:2em;
+              font-family:verdana, arial, helvetica, sans-serif;
+              margin-bottom:1.0em;
+          }
+          h1.title{
+              text-align:center;
+          }
+          h2{
+              font-size:125%;
+              border-bottom:solid 1px gray;
+              margin-bottom:1.0em;
+              margin-top:2em;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h3{
+              font-size:110%;
+              margin-bottom:0.25em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h4{
+              margin-left:0%;
+              font-size:100%;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h5,
+          h6{
+              margin-left:6%;
+              font-size:90%;
+              margin-bottom:0.5em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          p{
+              margin-bottom:0.6em;
+              margin-top:0.2em;
+          }
+          pre{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+              margin-left:3%;
+              font-family:monospace;
+              font-size:90%;
+          }
+          ul{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          td{
+              vertical-align:top;
+          }
+          dl{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          dt{
+              margin-top:0.7em;
+              font-weight:bold;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+
+          a.linkref{
+              font-family:verdana, arial, helvetica, sans-serif;
+              font-size:90%;
+          }
+
+          *.simpleText{
+              margin-left:10%;
+          }
+          *.propertyText{
+              margin-left:10%;
+              margin-top:0.2em;
+              margin-bottom:0.2em
+          }
+          *.toc{
+              background:#FFFFFF;
+          }
+          *.toc2{
+              background:#FFFFFF;
+          }
+          div.comp{
+              margin-left:8%;
+              margin-top:1em;
+              margin-bottom:1em;
+          }
+          div.appnote{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          div.aact{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding:1em;
+              border:2px solid #888888;
+              border-radius:3px;
+              display:block;
+          }
+          .comment-aa{
+              background-color:beige;
+              color:green;
+          }
+          div.subaact{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          div.aacthidden{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+          }
+          div.optional-appendicies{
+              display:none;
+          }
+
+          div.statustag{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding: 0.6em;
+              border:2px solid #888888;
+              border-radius:3px;
+          }
+
+          div.toc{
+              margin-left:8%;
+              margin-bottom:4em;
+              padding-bottom:0.75em;
+              padding-top:1em;
+              padding-left:2em;
+              padding-right:2em;
+          }
+          span.SOlist{
+              font-size:90%;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h2.toc{
+              border-bottom:none;
+              margin-left:0%;
+              margin-top:0em;
+          }
+          p.toc{
+              margin-left:2em;
+              margin-bottom:0.2em;
+              margin-top:0.5em;
+          }
+          p.toc2{
+              margin-left:5em;
+              margin-bottom:0.1em;
+              margin-top:0.1em;
+          }
+          table{
+              margin:auto;
+              margin-top:1em;
+              border-collapse:collapse; /*border: 1px solid black;*/
+          }
+          td{
+              text-align:left;
+              padding:8px 8px;
+          }
+          th{
+              padding:8px 8px;
+          }
+          tr.header{
+              border-bottom:3px solid gray;
+              padding:8px 8px;
+              text-align:left;
+              font-weight:bold; /*font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; */
+          }
+          table tr:nth-child(2n+2){
+              background-color:#F4F4F4;
+          }
+          div.center{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+          }
+          div.figure{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+              margin-top:1em;
+          }
+          div.expandstyle{
+              display:table-cell;
+              vertical-align:middle;
+              padding-top:10px
+          }
+          span.expandstyle{
+              vertical-align:middle;
+              color:black;
+              text-decoration:none;
+              font-size:100%;
+              font-weight:bold; /*font-family: verdana, arial, helvetica, sans-serif; */
+          }
+          .expandstyle a{
+              color:black;
+              text-decoration:none;
+          }
+          .expandstyle a:link{
+              color:black;
+              text-decoration:none;
+          }
+          .expandstyle a:visited{
+              color:black;
+              text-decoration:none;
+          }
+          .expandstyle a:hover{
+              color:black;
+              text-decoration:none;
+          }
+          .expandstyle a:active{
+              color:black;
+              text-decoration:none;
+          }
+
+	  sup{
+   	      position: relative;
+	      bottom: .5ex;
+	      font-size: 80%;
+	  }
+
+          @media screen{
+              *.reqid{
+                  float:left;
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+                  margin-right:1em;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+              div.aacthidden{
+                  display:none;
+              }
+              div.statustag{
+                  box-shadow:4px 4px 3px #888888;
+              }
+              div.aact{
+                box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+              }
+          }
+
+
+          @media print{
+              *.reqid{
+                  font-size:90%;
+                  font-family:verdana, arial,
+          helvetica,
+          sans-serif;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+              div.aacthidden{
+                  padding:1em;
+                  border:2px solid #888888;
+                  border-radius:3px;
+                  display:block;
+              }
+
+	      img[src="images/collapsed.png"] { display:none;}
+
+          }
+
+		
+
+	  </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Crypto Catalog</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogodraft.png" alt="NIAP"></img><br></br><p></p>Version: 1.0<p></p>2017-04-19<p></p><b>National Information Assurance Partnership</b></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td></td><td></td></tr></table><h2>Contents</h2><div class="toc"><p class="toc2">1.
+      <a class="toc" href="#int">Introduction</a></p><p class="toc2">1.1.
+      <a class="toc" href="#ppoverview">Overview</a></p><p class="toc2">1.2.
+      <a class="toc" href="#glossary">Terms</a></p><p class="toc2">1.2.1.
+      <a class="toc" href="#ccterms">Common Criteria Terms</a></p><p class="toc2">1.2.2.
+      <a class="toc" href="#techterms">Technology Terms</a></p><p class="toc2">1.3.
+      <a class="toc" href="#TOEdescription">Compliant Targets of Evaluation</a></p><p class="toc2">2.
+      <a class="toc" href="#conf">Conformance Claims</a></p><p class="toc2">3.
+      <a class="toc" href="#spd">Security Problem Description</a></p><p class="toc2">4.
+      <a class="toc" href="#req">Security Requirements</a></p><p class="toc2">4.1.
+      <a class="toc" href="#sfr">Security Functional Requirements</a></p><p class="toc2">4.1.1.
+      <a class="toc" href="#fcs">Cryptographic Support (FCS)</a></p><p class="toc2"> Appendix A: <a class="toc" href="#optional">Optional Requirements</a></p><p class="toc2"> Appendix B: <a class="toc" href="#sel-based">Selection-Based Requirements</a></p><p class="toc2"> Appendix C: <a class="toc" href="#objective">Objective Requirements</a></p><p class="toc2"> Appendix D: <a class="toc" href="#biblio">References</a></p><p class="toc2"> Appendix E: <a class="toc" href="#acronyms">Acronyms</a></p></div><h1 id="int">1. Introduction</h1>
+    <h2 id="ppoverview">1.1 Overview</h2>
+    
+    <h2 id="glossary">1.2 Terms</h2>The following sections provide both Common Criteria and
+    technology terms used in this Extended Package. 
+    <h3 id="ccterms">1.2.1 Common Criteria Terms</h3>
+      <table><tr id="
+            "><td>
+            <span id="abbr_CC">Common Criteria (<abbr>CC</abbr>)</span>
+          </td><td>Common Criteria for Information Technology Security
+          Evaluation.</td></tr><tr id="
+            "><td>
+            <span id="abbr_EP">Extended Package (<abbr>EP</abbr>)</span>
+          </td><td>An implementation-independent set of security requirements for a category of
+          products, which extends those in a Protection Profile.</td></tr><tr id="
+            "><td>
+            <span id="abbr_PP">Protection Profile (<abbr>PP</abbr>)</span>
+          </td><td>An implementation-independent set of security requirements for a category of
+          products.</td></tr><tr id="
+            "><td>
+            <span id="abbr_ST">Security Target (<abbr>ST</abbr>)</span>
+          </td><td>A set of implementation-dependent security requirements for a specific
+          product.</td></tr><tr id="
+            "><td>
+            <span id="abbr_TOE">Target of Evaluation (<abbr>TOE</abbr>)</span>
+          </td><td>The product under evaluation.</td></tr><tr id="
+            "><td>
+            <span id="abbr_TSF">TOE Security Functionality (<abbr>TSF</abbr>)</span>
+          </td><td>The security functionality of the product under evaluation.</td></tr><tr id="
+            "><td>
+            <span id="abbr_TSS">TOE Summary Specification (<abbr>TSS</abbr>)</span>
+          </td><td>A description of how a 
+          <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_TOE"><abbr title="Target of Evaluation">TOE</abbr></a> satisfies the SFRs in a 
+          <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_ST"><abbr title="Security Target">ST</abbr></a>.</td></tr><tr id="
+            "><td>
+            <span id="abbr_SFR">Security Functional Requirement (<abbr>SFR</abbr>)</span>
+          </td><td>A requirement for security enforcement by the 
+          <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_TOE"><abbr title="Target of Evaluation">TOE</abbr></a>.</td></tr><tr id="
+            "><td>
+            <span id="abbr_SAR">Security Assurance Requirement (<abbr>SAR</abbr>)</span>
+          </td><td>A requirement to assure the security of the 
+          <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_TOE"><abbr title="Target of Evaluation">TOE</abbr></a>.</td></tr></table>
+    
+    <h3 id="techterms">1.2.2 Technology Terms</h3>
+      <table><tr id="
+            "><td>
+            <span id="abbr_SSH">Secure Shell (<abbr>SSH</abbr>)</span>
+          </td><td>Cryptographic network protocol for initiating text-based shell sessions on remote systems.
+          </td></tr></table>
+    
+	
+    <h2 id="TOEdescription">1.3 Compliant Targets of Evaluation</h2>The Target of Evaluation
+    (TOE) in this 
+    <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> is a product which acts as an SSH client or server, or both. 
+    <br xmlns="">This 
+    <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> describes the extended security functionality of SSH in terms of
+    
+    <a href="#bibCC">[CC]</a>. This EP can extend the Protection Profiles for <i xmlns="">Application Software</i>,
+      <i xmlns="">General-Purpose Operating Systems</i>, <i xmlns="">Mobile Device Management</i>, or <i xmlns="">Virtualization</i>. It is
+    expected that the content of this 
+    <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> will be appropriately combined with the base PP to include selection-based
+    requirements in accordance with the selections and/or assignments made, and any optional and/or
+    objective components.
+    <br xmlns="">
+      This EP combined with the <a href="#bibAppPP">[AppPP]</a> must include selection-based requirements in accordance with the
+    selections and/or assignments made, and any optional and/or objective components to include:
+    FCS_CKM.2.1, FCS_COP.1.1(*), FCS_RBG_EXT.2.*, FCS_TLSC_EXT.1.*, FIA_X509_EXT.1.*,
+    FIA_X509_EXT.2.*.
+    <br xmlns="">
+      This EP combined with the <a href="#bibGPOS">[GPOSPP]</a> must include selection-based requirements in accordance with the
+    selections and/or assignments made, and any optional and/or objective components to include:
+    FCS_CKM.2.1, FCS_COP.1.1(*), FCS_RBG_EXT.1.*, FCS_TLSC_EXT.1.*, FIA_X509_EXT.1.*,
+    FIA_X509_EXT.2.*.  
+    <br xmlns="">
+      This EP combined with the <a href="#bibMDM">[MDMPP]</a> must include selection-based requirements in accordance with the
+      selections and/or assignments made, and any optional and/or objective components to include:
+      FCS_CKM.1.1, FCS_COP.1.1(*), FCS_RBG_EXT.1.*, FCS_TLSC_EXT.1.*, FIA_X509_EXT.1.*,
+      FIA_X509_EXT.2.*.  
+      <br xmlns="">
+      This EP combined with the <a href="#bibVirt">[VirtPP]</a> must include selection-based requirements in accordance with the
+      selections and/or assignments made, and any optional and/or objective components to include:
+      FIA_X509_EXT.1.*, FIA_X509_EXT.2.*.  
+      <br xmlns="">
+    An ST must identify the applicable version of the base PP and this 
+    <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> in its conformance claims.
+  <h1 id="conf">2. Conformance Claims</h1>
+    <dl><dt>Conformance Statement</dt><dd>This 
+        <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> serves to extend the PP baselines with additional SFRs and associated
+        Assurance Activities specific to SSH clients and servers. Assurance Activities are the
+        actions that the evaluator performs in order to determine an SSH client or server's
+        compliance to the SFRs.
+          <br xmlns="">This 
+        <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> conforms to Common Criteria 
+        <a href="#bibCC">[CC]</a> for Information Technology Security Evaluation, Version 3.1,
+        Revision 4. It is CC Part 2 extended and CC Part 3 conformant. In order to be conformant to
+        this 
+        <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>, the 
+        <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_ST"><abbr title="Security Target">ST</abbr></a> must include all components in this 
+        <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> and the associated base PP that are: 
+        
+          unconditional (which are always required)
+          selection-based (which are required when certain selections are chosen in the
+          unconditional requirements)
+        and may include optional and/or objective components that are desirable but not
+        required for conformance. 
+          <br xmlns="">In accordance with CC Part 1, dependencies are not included when they are addressed
+        by other SFRs. The assurance activities provide adequate proof that any dependencies are
+        also satisfied.</dd></dl>
+  <h1 id="spd">3. Security Problem Description</h1>
+  This Extended Package does not repeat the threats, assumptions, and organizational security
+  policies identified in any base PPs, though they all apply given the conformance and hence
+  dependence of this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> on it. Together the threats, assumptions and organizational security
+  policies of the base PP and those defined in this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> describe those addressed by the product as the Target of
+  Evaluation.
+  <h1 id="req">4. Security Requirements</h1>This chapter describes the security requirements
+  to be fulfilled by the product. Those requirements comprise functional components from Part 2 of 
+  <a href="#bibCC">[CC]</a>. The following notations are used: 
+  
+    
+    Selection (denoted by 
+    <i xmlns="">italicized text</i>): is used to select one or more options provided by the [CC] in stating
+    a requirement.
+    
+    Assignment operation (denoted by 
+    <span xmlns="" class="assignable-content">italicized text</span>): is used to assign a specific value to an unspecified parameter, such
+    as the length of a password. Showing the value in square brackets indicates assignment.
+    
+    Iteration operation: are identified with a number inside parentheses (e.g. "(1)").
+  
+  <h2 id="sfr">4.1 Security Functional Requirements</h2>The Security Functional Requirements
+  included in this section are derived from Part 2 of the Common Criteria for Information
+  Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
+  components. 
+  <h3 id="fcs">4.1.1 Cryptographic Support (FCS)</h3>
+    <div class="comp" id="FCS_COP.1/UDE"><h4>FCS_COP.1/UDE Cryptographic Operation - User Data Encryption</h4><div class="req threshold"><div class="reqid" id="FCS_COP.1.1(1)"><a href="#FCS_COP.1.1(1)" class="abbr">FCS_COP.1.1(1)</a></div><div class="reqdesc">
+	      The TSF shall perform user data encryption/decryption in accordance 
+          with a specified cryptographic algorithm  [<b xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml">selection</b>: 
+    <i xmlns="">cryptographic algorithm</i>
+    ] 
+  
+          and cryptographic key sizes  [<b xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml">selection</b>: 
+    <i xmlns="">key sizes</i>
+    ] 
+   that meet the following 
+		       [<b xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml">selection</b>: 
+    <i xmlns="">list of standards</i>
+    ] 
+  .
+	  <br xmlns=""><br xmlns="">  
+	  The following table provides the allowed choices for completion of the selection operations of FCS_COP.1/UDE: 
+        
+
+	  <div xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="appnote">
+<b>Application Note: </b>There is app note here. What we really want is a nice table of the catalog options. And also, we would 
+		  like the aactivity to be eactivity.
+        </div>
+        <div class="expandstyle"><a href="javascript:toggle('aactID-idm46459648462320', 'link-aactID-idm46459648462320');"><span class="expandstyle"> Assurance Activity </span><img style="vertical-align:middle" id="link-aactID-idm46459648462320" src="images/collapsed.png" height="15" width="15"></img></a></div><div class="aacthidden" id="aactID-idm46459648462320"><i>
+	  <b xmlns="">TSS</b>
+        The evaluator shall check that the TSS includes a description of encryption function(s) used for user data encryption.
+	The evaluator should check that this description of the selected encryption function includes the key sizes and modes
+	of operation as specified in the table above per row.
+	<br xmlns=""><br xmlns="">
+	The evaluator shall check that the TSS describes the means by which the TOE satisfies constraints on algorithm
+	parameters included in the selections made for <i xmlns="">cryptographic algorithm</i> and <i xmlns="">list of standards</i>.
+          <br xmlns=""> <br xmlns="">
+       	<b xmlns="">KMDSD</b>
+        The evaluator shall examine the KMDSD to ensure that the points at which user data encryption and decryption
+	occurs are described, and that the complete data path for user data encryption is described. The evaluator checks
+	that this description is consistent with the relevant parts of the TSS.
+  	<br xmlns=""> <br xmlns="">
+	If XTS-AES is used as the user data encryption algorithm then the evaluator shall check that the full length keys 
+	are created by methods that ensure that the two halves are different and independent.
+          <br xmlns="">
+          <br xmlns="">
+	<b xmlns="">Guidance</b>
+	If multiple encryption modes are supported, the evaluator examines the guidance documentation to determine that the 
+	method of choosing a specific mode/key size by the end user is described. 
+          <br xmlns="">
+          <br xmlns="">
+	<b xmlns="">Tests</b>
+	The following tests are conditional based upon the selections made in the SFR. The evaluator shall perform the 
+	following test or witness respective tests executed by the developer if technically possible, otherwise an analysis 
+	of the implementation representation has to be performed.
+	Preconditions for testing:<br xmlns=""><br xmlns="">
+	<list xmlns="">
+		<li>Specification of keys as input parameter to the function to be tested</li>
+		<li>Specification of required input parameters such as modes</li>
+		<li>Specification of user data (plaintext)</li>
+		<li>Tapping of encrypted user data (ciphertext) directly in the non-volatile memory</li>
+	</list><br xmlns=""><br xmlns="">
+	<b xmlns="">UDE1: AES-CBC Tests</b><br xmlns="">
+	For the AES-CBC tests described below, the plaintext, ciphertext, and IV values shall consist of 128-bit blocks. 
+	To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same 
+	inputs to a known-good implementation.
+ 	<br xmlns="">
+        <br xmlns="">
+	These tests are intended to be equivalent to those described in NIST’s AES Algorithm Validation Suite (AESAVS) 
+	(http://csrc.nist.gov/groups/STM/cavp/documents/aes/AESAVS.pdf). Known answer values tailored to exercise the 
+	AES-CBC implementation can be obtained using NIST’s CAVS Algorithm Validation Tool or from NIST’s ACPV service for 
+	automated algorithm tests (acvp.nist.gov), when available. It is not recommended that evaluators use values obtained 
+	from static sources such as the example NIST’s AES Known Answer Test Values from the AESAVS document, or use values 
+	not generated expressly to exercise the AES-CBC implementation.
+ 	<br xmlns="">
+        <br xmlns="">
+        <ul xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+		<li>
+<b>Test 1: </b>
+		<b>AES-CBC Known-Answer Tests (KAT)</b>
+		<ul>KAT-1 (GFSBox):</ul>
+<br>
+             	To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of five different plaintext 
+		values for each selected key size and obtain the ciphertext value that results from AES-CBC encryption of 
+		the given plaintext using a key value of all zeros and an IV of all zeros.<br><br>
+		To test the decrypt functionality of AES-CBC, the evaluator shall supply a set of five different ciphertext 
+		values for each selected key size and obtain the plaintext value that results from AES-CBC decryption of the 
+		given ciphertext using a key value of all zeros and an IV of all zeros.
+              <br>
+              <br>
+		<ul>KAT-2 (KeySBox):</ul>
+<br>
+             	To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of five different key values 
+		for each selected key size and obtain the ciphertext value that results from AES-CBC encryption of an all-zeros 
+		plaintext using the given key value and an IV of all zeros.<br><br>
+		To test the decrypt functionality of AES-CBC, the evaluator shall supply a set of five different key values 
+		for each selected key size and obtain the plaintext that results from AES-CBC decryption of an all-zeros 
+		ciphertext using the given key and an IV of all zeros. 
+              <br>
+              <br>
+		<ul>KAT-3 (Variable Key):</ul>
+<br>
+		To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of keys for each selected key 
+		size (as described below) and obtain the ciphertext value that results from AES encryption of an all-zeros plaintext 
+		using each key and an IV of all zeros.<br><br>
+		Key <i>i</i> in each set shall have the leftmost <i>i</i> bits set to ones and the remaining bits to 
+		zeros, for values of <i>i</i> 
+		from 1 to the key size. The keys and corresponding ciphertext are listed in AESAVS, Appendix E.<br><br>
+		To test the decrypt functionality of AES-CBC, the evaluator shall use the same keys as above to decrypt the 
+		ciphertext results from above. Each decryption should result in an all-zeros plaintext.
+              <br>
+              <br>
+		<ul>KAT-4 (Variable Text):</ul>
+<br>
+		To test the encrypt functionality of AES-CBC, for each selected key size, the evaluator shall supply a set of 
+		128-bit plaintext values (as described below) and obtain the ciphertext values that result from AES-CBC 
+		encryption of each plaintext value using a key of each size and IV consisting of all zeros.<br><br>
+		Plaintext value <i>i</i> shall have the leftmost <i>i</i> bits set to ones and the remaining bits set to zeros, for values 
+		of <i>i</i> from 1 to 128. The plaintext values are listed in AESAVS, Appendix D.<br><br>
+		To test the decrypt functionality of AES-CBC, for each selected key size, use the plaintext values from above 
+		as ciphertext input, and AES-CBC decrypt each ciphertext value using key of each size consisting of all zeros 
+		and an IV of all zeros.
+		</li>
+            <li>
+<b>Test 2: </b>
+		    <b>AES-CBC Multi-Block Message Test</b>
+              <br>
+		    The evaluator shall test the encrypt functionality by encrypting nine <i>i</i>-block messages for each selected key 
+		    size, for 2 ≤ <i>i</i> ≤ 10. For each test, the evaluator shall supply a key, an IV, and a plaintext message of length 
+		    <i>i</i> blocks, and encrypt the message using AES-CBC. The resulting ciphertext values shall be compared to the results 
+		of encrypting the plaintext messages using a known good implementation.<br><br>
+		The evaluator shall test the decrypt functionality by decrypting nine i-block messages for each selected key 
+		    size, for 2 ≤ <i>i</i> ≤ 10. For each test, the evaluator shall supply a key, an IV, and a ciphertext message of 
+		length <i>i</i> blocks, and decrypt the message using AES-CBC. The resulting plaintext values shall be compared to 
+		the results of decrypting the ciphertext messages using a known good implementation.
+            </li>
+            <li>
+<b>Test 3: </b>
+              <b>AES-CBC Monte-Carlo Test (TBD)</b>
+              <br>
+              The evaluator shall test the encrypt functionality for each selected key size using 100 3-tuples of pseudo-random 
+		values for plaintext, IVs, and keys. <br><br>
+		The evaluator shall supply a single 3-tuple of pseudo-random values for each selected key size. This 3-tuple of 
+		plaintext, IV, and key is provided as input to the below algorithm to generate the remaining 99 3-tuples, and to 
+		run each 3-tuple through 1000 iterations of AES-CBC encryption.
+              <br>
+              <br>
+              	# Input: PT, IV, Key<br>
+              	Key[0]=Key<br>
+		IV[0]=IV<br>
+		PT[0]=PT<br>
+		for i = 1 to 100 {<br>
+              		Output Key[i],IV[i],PT[0]<br>
+		    	for j=1 to 1000 {<br>
+		    		if j==1 {<br>
+		    			CT[1] = AES-CBC-Encrypt(Key[i], IV[i],PT[1])<br>
+              				PT[2] = IV[i]<br>
+				} else {<br>
+		    			CT[j] = AES-CBC-Encrypt(Key[i],PT[j])<br>
+              				PT[j+1] = CT[j-1]<br>
+		    		}<br>
+		    	}<br>
+		    	Output CT[1000]<br>
+		    	If KeySize == 128 { Key[i+1] = Key[i] xor CT[1000] }<br>
+  			If KeySize == 256 { Key[i+1] = Key[i] xor ((CT[999] leftshift 128) | CT[1000]) }<br>
+  			IV[i+1] = CT[1000]<br>
+  			PT[0] = CT[999]<br>
+		} <br>
+              <br><br>
+		The ciphertext computed in the 1000th iteration (CT[1000]) is the result for each of the 100 3-tuples for 
+		each selected key size. This result shall be compared to the result of running 1000 iterations with the same 
+		values using a known good implementation.
+              <br><br>
+		The evaluator shall test the decrypt functionality using the same test as above, exchanging CT and PT, and 
+		replacing AES-CBC-Encrypt with AES-CBC-Decrypt.
+              <br><br> 
+            </li>
+	    <li>
+<b>Test 4: </b>
+		    <b>UDE2: AES-CCM Tests</b>
+		These tests are intended to be equivalent to those described in the NIST document, “The CCM Validation System
+		(CCMVS),” updated 9 Jan 2012, found at http://csrc.nist.gov/groups/STM/cavp/documents/mac/CCMVS.pdf.<br><br>
+		Known answer values tailored to exercise the AES-CCM implementation can be obtained using NIST’s CAVS 
+		Algorithm Validation Tool or from NIST’s ACPV service for automated algorithm tests (acvp.nist.gov), when 
+		available. It is not recommended that evaluators use values obtained from static sources such as 
+		http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip or use values not generated expressly 
+		to exercise the AES-CCM implementation.<br><br>
+		The evaluator shall test the generation-encryption and decryption-verification
+		functionality of AES-CCM for the following input parameter and tag lengths:<br><br>
+
+		Keys: All supported and selected key sizes (e.g., 128, 192, 256 bits).<br><br>
+		Associated Data: Two or three values for associated data length: The minimum (≥ 0 bytes) and maximum (≤ 32 bytes) 
+		    supported associated data lengths, and 2^16 (65536) bytes, if supported.<br><br>
+		Payload: Two values for payload length: The minimum (≥ 0 bytes) and maximum (≤ 32 bytes) supported payload 
+		    lengths.<br><br>
+		Nonces: All supported nonce lengths (7, 8, 9, 10, 11, 12, 13).<br><br>
+		Tag: All supported tag lengths (4, 6, 8, 10, 12, 14, 16).<br><br>
+
+		The testing for CCM consists of five tests. To determine correctness in each of the below tests, the evaluator 
+		shall compare the ciphertext with the result of encryption of the same inputs with a known good implementation.<br><br>
+		</li>
+          </ul>
+        </i></div>
+      </div></div></div>
+    
+  <h1 id="optional">A. Optional Requirements</h1>The baseline requirements (those that must
+  be performed by the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_TOE"><abbr title="Target of Evaluation">TOE</abbr></a>) are contained in the body of this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>. Additionally, there are three other types of requirements specified in 
+  <a href="#optional"> Appendix A</a>, 
+  <a href="#sel-based"> Appendix B</a>, and 
+  <a href="#objective"> Appendix C</a>. The first type (in this Appendix) are requirements that can be
+  included in the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_ST"><abbr title="Security Target">ST</abbr></a>, but are not required in order for products to claim conformance to
+  this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>. The second type (in 
+  <a href="#sel-based"> Appendix B</a>) are requirements based on selections in the body of the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>: if certain selections are made, then additional requirements in that
+  appendix must be included. The third type (in 
+  <a href="#objective"> Appendix C</a>) are components that are not required in order to conform to this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>, but will be included in the baseline requirements in future versions of
+  this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>, so adoption by vendors is encouraged. Note that the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_ST"><abbr title="Security Target">ST</abbr></a> author is responsible for ensuring that requirements that may be associated
+  with those in 
+  <a href="#optional"> Appendix A</a>, 
+  <a href="#sel-based"> Appendix B</a>, and 
+  <a href="#objective"> Appendix C</a> but are not listed (e.g., FMT-type requirements) are also included
+  in the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_ST"><abbr title="Security Target">ST</abbr></a>.
+  <br xmlns="">None exists presently.
+  <h1 id="sel-based">B. Selection-Based Requirements</h1>As indicated in the introduction to
+  this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>, the baseline requirements (those that must be performed by the base PP or
+  its underlying platform) are contained in the base PP and in the body of this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>. There are additional requirements based on selections from the base PP
+  and/or in the body of the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>: if certain selections are made, then additional requirements below will
+  need to be included.<h1 id="objective">C. Objective Requirements</h1>This Annex includes requirements that
+  specify security functionality which also addresses threats. The requirements are not currently
+  mandated in the body of this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a> as they describe security functionality not yet widely-available in
+  commercial technology. However, these requirements may be included in the 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_ST"><abbr title="Security Target">ST</abbr></a> such that the product is still conformant to this 
+  <a xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml" class="abbr" href="#abbr_EP"><abbr title="Extended Package">EP</abbr></a>, and it is expected that they be included as soon as possible.
+  <br xmlns="">None exists presently.<h1 id="biblio">D. References</h1>
+    <table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC"> [CC] </span></td><td>Common Criteria for Information Technology Security Evaluation - 
+        
+          
+          <a xmlns="" href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R4.pdf">Part 1:
+            Introduction and General Model</a>, CCMB-2012-09-001, Version 3.1 Revision 4, September
+          2012.
+          
+          <a xmlns="" href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R4.pdf">Part 2:
+            Security Functional Components</a>, CCMB-2012-09-002, Version 3.1 Revision 4, September
+          2012.
+          
+          <a xmlns="" href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R4.pdf">Part 3:
+            Security Assurance Components</a>, CCMB-2012-09-003, Version 3.1 Revision 4, September
+          2012.
+        </td></tr><tr><td><span id="bibGPOS"> [GPOSPP] </span></td><td>
+          <a xmlns="" href="https://www.niap-ccevs.org/Profile/Info.cfm?id=400">Protection Profile for General 
+            Purpose Operating Systems
+            </a>
+        </td></tr><tr><td><span id="bibMDM"> [MDMPP] </span></td><td>
+          <a xmlns="" href="https://www.niap-ccevs.org/Profile/Info.cfm?id=359">Protection Profile for Mobile 
+            Device Management
+          </a>
+        </td></tr><tr><td><span id="bibAppPP"> [AppPP] </span></td><td>
+          <a xmlns="" href="https://www.niap-ccevs.org/Profile/Info.cfm?id=394">Protection Profile for Application
+            Software</a>
+        </td></tr><tr><td><span id="bibVirt"> [VirtPP] </span></td><td>
+          <a xmlns="" href="https://www.niap-ccevs.org/Profile/Info.cfm?id=408">Protection Profile for 
+            Virtualization</a>
+        </td></tr></table>
+  <h1 id="acronyms">E. Acronyms</h1>
+    <table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td>AES</td><td>Advanced Encryption Standard</td></tr><tr><td>CBC</td><td>Cipher Block Chaining</td></tr><tr><td>ECDSA</td><td>Elliptic Curve Digital Signature Algorithm</td></tr><tr><td>GCM</td><td>Galois/Counter Mode</td></tr><tr><td>IETF</td><td>Internet Engineering Task Force</td></tr><tr><td>IV</td><td>Initialization Vector</td></tr><tr><td>MAC</td><td>Message Authentication Code</td></tr><tr><td>NIST</td><td>National Institute of Standards and Technology</td></tr><tr><td>PBKDF</td><td>Password-Based Key Derivation Function</td></tr><tr><td>RFC</td><td>Request for Comment (IETF)</td></tr><tr><td>RSA</td><td>Rivest Shamir Adelman</td></tr></table>
+  </body></html>

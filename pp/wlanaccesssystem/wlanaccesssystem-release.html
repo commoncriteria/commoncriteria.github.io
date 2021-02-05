@@ -1,0 +1,1518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html><head><title>PP-Module for Wireless Local Area Network (WLAN) Access System</title><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            showMathMenu: false,
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            styles: {
+
+                ".MathJax_Display": {
+                "text-align": "left !important",
+                margin:       "0em 0em !important"
+            }}
+            });
+        </script><script type="text/javascript">// 
+
+// Called on page load to parse URL parameters and perform actions on them.
+function init(){
+    if(getQueryVariable("expand") == "on"){
+      expand();
+    }
+    fixAbbrs();
+}
+
+
+function fixAbbrs(){
+    var aa;
+    var brk_els = document.getElementsByClassName("dyn-abbr");
+    //
+    for(aa=0; aa!=brk_els.length; aa++){
+        var abbr = brk_els[aa].firstElementChild.getAttribute("href").substring(1);
+        var el = document.getElementById("long_"+abbr)
+        if (el==null) {
+             console.log("Could not find 'long_abbr_'"+abbr);
+             continue;
+        }
+        var abbr_def = el.textContent;
+        brk_els[aa].setAttribute("title", abbr_def);
+    }
+}
+// // 
+const AMPERSAND=String.fromCharCode(38);
+
+// Pass a URL variable to this function and it will return its value
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split(AMPERSAND);
+    for (var i=0;i!=vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+
+//    Expands all evaluation activities
+function expand(){
+    var ap = document.getElementsByClassName('activity_pane');
+    for (var ii = 0; ii!=ap.length; ii++) {
+        ap[ii].classList.remove('hide');
+    }
+}
+
+// Function to expand and contract a given div
+function toggle(descendent) {
+    var cl = descendent.parentNode.parentNode.classList;
+    if (cl.contains('hide')){
+      cl.remove('hide');
+    }
+    else{
+      cl.add('hide');
+    }
+}
+
+// Expands targets if they are hidden
+function showTarget(id){
+    var element = document.getElementById(id);
+    while (element != document.body.rootNode ){
+	element.classList.remove("hide");
+	element = element.parentElement;
+    }
+}
+
+
+// </script><style type="text/css">
+    #toc a{
+        display: block;
+    }
+
+    svg{
+      width: 100%;
+    }
+
+    a[id^="ajq_"]{
+        color:black;
+    }
+
+    
+    body{
+       max-width: 900px;
+       margin: auto;
+    }
+    #toc span{
+       margin-left: 20px;
+    }
+    .assignable-content{
+      font-style: italic;
+    }
+    .refinement{
+      font-weight: bold;
+    }
+    div.eacategory{
+      font-style: italic;
+      font-weight: bold;
+    }
+    .activity_pane .toggler::after, .activity_pane .toggler{
+       display: inline-block;
+       height: auto;
+       content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+       AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+       VDz+AAAAB3RJTUUH4gIXFDM7fhmr1wAAAfRJREFUKM+dkk9I02EYxz/P+25uurWR\
+       tTkzI4NGl4jQgkq71K1DhnTQIDolRAQFQYSHTtGhU4e6eujQofBSFLOg0C4RUSjh\
+       FnmqTTdKpj/mfv/eX4cUpmRYn9vz8v3w8D7PA/AWGADCbI4QcAb4AnAF8IBJEdX+\
+       N0tEda40C4AHADviW1LFvpOX6+FwtAacVzqkGiWtwxo4F21OuPu7+yvxRNoDEhpY\
+       cpzavkQyc7D76FCk+vN7j7VU6RdR4xAsikjGGP9FKrN3sPfEpajv2i2zhckR4JUG\
+       UCr0erFavLkn2ytd2WPxcFOsZb74+SIQA0YPHBqIdB8Z6tChJv1m/N4P33OGAUsD\
+       BIFxPNcOkq07jyeSbbo1tTu2q6vHEqU7D/ddSKcz2ZQJjBSmx925b9NjwEMAafha\
+       eyQa/3Dq7O0243sCIEoRGAOA59nm5dM7OHVruzH+AkDjYEp23RrLT+U8Ub+fV0UR\
+       oVyaMfVa9fqquF5GKX3ja2FCuc6yWbMipYNP755UgEdr8o2FMf5ivVYdKRfzRkRW\
+       RfJTOc+2rWdAcUN5hdGP7x8viGgAXLvGbGFCKxW6tj74J3nOqVvP89M5V6kQ86UZ\
+       f7lWvWWMt7Sp41VKb21uSfqnB++6kWi8BLTzL4ioq7H4tgC4z3/QAZSBxEaBXygN\
+       v+jeFnAPAAAAAElFTkSuQmCC');
+       max-width: 15px;
+    }
+
+
+    a {
+      text-decoration: none;
+      word-wrap: break-word;
+    }
+    a.abbr:link{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:visited{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:hover{
+      color:blue;
+      text-decoration:none;
+    }
+    a.abbr:hover:visited{
+      color:purple;
+      text-decoration:none;
+    }
+    a.abbr:active{
+      color:red;
+      text-decoration:none;
+    }
+    .note-header{
+      font-weight: bold;
+    }
+    .note p:first-child{
+      display: inline;
+    }
+
+
+    /* Tooltip container */
+    .tooltipped {
+       position: relative;
+       display: inline-block;
+       border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+    /* Tooltip text */
+    .tooltiptext {
+       visibility: hidden;
+       width: 120px;
+       background-color: black;
+       color: #fff;
+       text-align: center;
+       padding: 5px 0;
+       border-radius: 6px;
+
+       /* Position the tooltip text - see examples below! */
+       position: absolute;
+       z-index: 1;
+   }
+
+   /* Show the tooltip text when you mouse over the tooltip container */
+   .tooltipped:hover .tooltiptext {
+       visibility: visible;
+   }
+   tr.major-row{
+       border-top-style: double;
+   }
+   tr.major-row td:first-child{
+       border-right-style: ridge;
+       background-color: white;
+   } 
+   table.mfs td{
+       text-align: center;
+   }
+   table.mfs td:first-child{
+       text-align: left;
+   }
+   table{
+       margin:auto;
+       margin-top:1em;
+       border-collapse:collapse; /*border: 1px solid black;*/
+   }
+   td{
+       text-align:left;
+       padding:8px 8px;
+   }
+   th{
+       padding:8px 8px;
+   }
+   thead tr td{
+       text-align: center;
+       font-style: oblique;
+       font-weight: bold;
+   }
+   tr.header{
+       border-bottom:3px solid gray;
+       padding:8px 8px;
+       text-align:left;
+       font-weight:bold; /*font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; */
+   }
+   table tr:nth-child(2n+2){
+       background-color:#F4F4F4;
+   }
+
+   .dependent{
+       border: 1px solid gray;
+       border-radius: 1px
+   }
+   .dependent-content{
+       margin-left: 25px;
+       font-style: italic;
+   }
+  
+   .evidence, .test-obj { font-style: normal; font-size: 90%;}
+   
+          .figure{
+              font-weight:bold;
+          }
+          h1{
+              page-break-before:always;
+              text-align:left;
+              font-size:200%;
+              margin-top:2em;
+              margin-bottom:2em;
+              font-family:verdana, arial, helvetica, sans-serif;
+              margin-bottom:1.0em;
+          }
+          h1.title{
+              text-align:center;
+          }
+          h2{
+              font-size:125%;
+              border-bottom:solid 1px gray;
+              margin-bottom:1.0em;
+              margin-top:2em;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h3{
+              font-size:110%;
+              margin-bottom:0.25em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h4{
+              margin-left:0%;
+              font-size:100%;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h5,
+          h6{
+              margin-left:6%;
+              font-size:90%;
+              margin-bottom:0.5em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          p{
+              margin-bottom:0.6em;
+              margin-top:0.2em;
+          }
+          pre{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+              margin-left:3%;
+              font-family:monospace;
+              font-size:90%;
+          }
+          ul{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          td{
+              vertical-align:top;
+          }
+          dl{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          dt{
+              margin-top:0.7em;
+              font-weight:bold;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+
+          a.linkref{
+              font-family:verdana, arial, helvetica, sans-serif;
+              font-size:90%;
+          }
+
+          *.simpleText{
+              margin-left:10%;
+          }
+          *.propertyText{
+              margin-left:10%;
+              margin-top:0.2em;
+              margin-bottom:0.2em
+          }
+          *.toc{
+              background:#FFFFFF;
+          }
+          *.toc2{
+              background:#FFFFFF;
+          }
+          div.comp{
+              margin-left:8%;
+              margin-top:1em;
+              margin-bottom:1em;
+          }
+          div.element{
+              margin-bottom:1em;
+          }
+          div.appnote{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          .comment-aa{
+              background-color:beige;
+              color:green;
+          }
+          div.subaact{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          div.activity_pane_body{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding:1em;
+              border:2px solid #888888;
+              border-radius:3px;
+              display:block;
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+          }
+          div.optional-appendicies{
+              display:none;
+          }
+
+          div.statustag{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding: 0.6em;
+              border:2px solid #888888;
+              border-radius:3px;
+          }
+
+          div.toc{
+              margin-left:8%;
+              margin-bottom:4em;
+              padding-bottom:0.75em;
+              padding-top:1em;
+              padding-left:2em;
+              padding-right:2em;
+          }
+          span.SOlist{
+              font-size:90%;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h2.toc{
+              border-bottom:none;
+              margin-left:0%;
+              margin-top:0em;
+          }
+          p.toc{
+              margin-left:2em;
+              margin-bottom:0.2em;
+              margin-top:0.5em;
+          }
+          p.toc2{
+              margin-left:5em;
+              margin-bottom:0.1em;
+              margin-top:0.1em;
+          }
+          div.center{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+          }
+          div.figure{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+              margin-top:1em;
+          }
+          div.activity_pane_header{
+              display:table-cell;
+              vertical-align:middle;
+              padding-top:10px
+          }
+          span.activity_pane_label{
+              vertical-align:middle;
+              color:black;
+              text-decoration:none;
+              font-size:100%;
+              font-weight:bold; /*font-family: verdana, arial, helvetica, sans-serif; */
+          }
+          .dyn-abbr a, .dyn-abbr a:active, .dyn-abbr a:visited{
+              background-color: inherit;
+              color: inherit;
+              text-decoration: inherit;;
+          }
+
+          @media screen{
+              *.reqid{
+                  float:left;
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+                  margin-right:1em;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+
+              .activity_pane.hide .toggler::after, .activity_pane.hide .toggler{
+	          content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+		  AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+		  VDz+AAAAB3RJTUUH4gIXFC4BR3keeQAAAfZJREFUKM+d0k1PE1EUBuB37h2nQ+30\
+		  w5YObR0FhIppqBgWuDCaSBQjiQZNTIxLfoAkBHXh2vg7xID+ABPXBl3UdAMaN1CR\
+		  j5ZijZ22DKW9d44LP1KMROvZnMU5z+KcvBzAAgADwCdV1RzXlYQ26tYhrYM6u/qX\
+		  ATwCcKodrAOYv3z9IV28OuP6/NHPAGYZ45G/QQ5AAFjNbyzdTA2NewcGx7xeI5wu\
+		  FZenQOQQuasHncN/9IJo1sn+unkpbqVFIJhgydQo13VjDKCJSnnLBJAHUPoTBoA3\
+		  uzvlfiNgDhn+KMiVCB6xYCZSoaPHz5wrba/cbuztpBWFvQLI+R2DSGZqleKNuJX2\
+		  cVVjAIExDo/uV7pPjGhSNntrleI9+n7Ox33Y549Wq/ZWTyh8rNcfjPlaZ4xzZvUM\
+		  ezrNvnJ+fXFCiL2k2rpQq2wnAqH4tYjZFyZq/Y8CKZoim51z1nIZQ4jGNIC5fZhz\
+		  7fHA4JVuj26AyIWiMDSbdTi1L/T29RO7ahdfKgqbInJLANCKZ6Kx5J24dVowztW6\
+		  Y+8WNt91FNYXc4WN988BzAL4QOT+Aj/x8GFf+MHI+UlI2cBS9kVlLZfxSFdMS9GY\
+		  V1WtKETDPShhz85emLRHx++TETBLAJ4qCov8c7ajsZMr/5PtBQB3AXSpqsbagd8A\
+		  O+HMRUtPNsQAAAAASUVORK5CYII=');
+              }
+
+              .activity_pane.hide .activity_pane_body{
+                  display:none;
+              }
+              div.statustag{
+                  box-shadow:4px 4px 3px #888888;
+              }
+          }
+
+
+          @media print{
+              *.reqid{
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+              div.activity_pane_body{
+                  padding:1em;
+                  border:2px solid #888888;
+                  border-radius:3px;
+                  display:block;
+              }
+
+	            img[src="images/collapsed.png"] { display:none;}
+
+          }
+    </style></head><body onLoad="init()"><h1 style="page-break-before:auto;" class="title">PP-Module for Wireless Local Area Network (WLAN) Access System</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
+      Version: 1.0<br/>2020-10-28<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2020-10-28</td><td>Initial Release</td></tr></table><h2>Contents</h2><div id="toc" class="toc"><a style="text-indent:0px" href="#int">1<span>Introduction</span></a><a style="text-indent:10px" href="#ppoverview">1.1<span>Overview</span></a><a style="text-indent:10px" href="#glossary">1.2<span>Terms</span></a><a style="text-indent:20px" href="#cc-terms">1.2.1<span>Common Criteria Terms</span></a><a style="text-indent:20px" href="#tech-terms">1.2.2<span>Technical Terms</span></a><a style="text-indent:10px" href="#TOEdescription">1.3<span>Compliant Targets of Evaluation</span></a><a style="text-indent:20px" href="#TOEboundary">1.3.1<span>TOE Boundary</span></a><a style="text-indent:10px" href="#usecases">1.4<span>Use Cases</span></a><a style="text-indent:0px" href="#ConformanceClaims">2<span>Conformance Claims</span></a><a style="text-indent:0px" href="#spd">3<span>Security Problem Description</span></a><a style="text-indent:10px" href="#threats">3.1<span>Threats</span></a><a style="text-indent:10px" href="#assumption">3.2<span>Assumptions</span></a><a style="text-indent:10px" href="#osp">3.3<span>Organizational Security Policies</span></a><a style="text-indent:0px" href="#obj">4<span>Security Objectives</span></a><a style="text-indent:10px" href="#SecurityObjectivesTOE">4.1<span>Security Objectives for the TOE</span></a><a style="text-indent:10px" href="#SecurityObjectivesTOEorEnvironment">4.2<span>Security Objectives for the Operational Environment</span></a><a style="text-indent:10px" href="#SOR">4.3<span>Security Objectives Rationale</span></a><a style="text-indent:0px" href="#sfrs">5<span>Security Requirements</span></a><a style="text-indent:10px" href="#NDc">5.1<span>NDc PP
+       Security Functional Requirements Direction
+    </span></a><a style="text-indent:20px" href="#modsfr-NDc">5.1.1<span>
+      Modified SFRs
+    </span></a><a style="text-indent:30px" href="#FCS">5.1.1.1<span>Cryptographic Support (FCS)</span></a><a style="text-indent:30px" href="#FPT">5.1.1.2<span>Protection of the TSF (FPT)</span></a><a style="text-indent:30px" href="#FTP">5.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a style="text-indent:10px" href="#man-sfrs">5.2<span>TOE Security Functional Requirements</span></a><a style="text-indent:20px" href="#fau">5.2.1<span>Security Audit (FAU)</span></a><a style="text-indent:20px" href="#fcs">5.2.2<span>Cryptographic Support (FCS)</span></a><a style="text-indent:20px" href="#fia">5.2.3<span>Identification and Authentication (FIA)</span></a><a style="text-indent:20px" href="#fmt">5.2.4<span>Security Management (FMT)</span></a><a style="text-indent:20px" href="#fpt">5.2.5<span>Protection of the TSF (FPT)</span></a><a style="text-indent:20px" href="#fta">5.2.6<span>TOE Access (FTA)</span></a><a style="text-indent:10px" href="#obj-req-map">5.3<span>TOE Security Functional Requirements Rationale</span></a><a style="text-indent:0px" href="#mod-conrat">6<span>Consistency Rationale</span></a><a style="text-indent:10px" href="#conrat-NDc">6.1<span>
+    Protection Profile for Network Devices</span></a><a style="text-indent:20px" href="#contoe-NDc">6.1.1<span>
+	Consistency of TOE Type
+      </span></a><a style="text-indent:20px" href="#consecprob-NDc">6.1.2<span>
+	Consistency of Security Problem Definition
+      </span></a><a style="text-indent:20px" href="#conobj-NDc">6.1.3<span>
+	Consistency of Objectives
+      </span></a><a style="text-indent:20px" href="#conreq-NDc">6.1.4<span>
+	Consistency of Requirements
+      </span></a><a style="text-indent:0px" href="#opt-sfrs">Appendix A - <span>Optional SFRs</span></a><a style="text-indent:10px" href="#strictly-optional-sfrs">A.1<span>Strictly Optional Requirements</span></a><a style="text-indent:10px" href="#objective-sfrs">A.2<span>Objective Requirements</span></a><a style="text-indent:0px" href="#sel-sfrs">Appendix B - <span>Selection-based SFRs</span></a><a style="text-indent:0px" href="#ext-comp-defs">Appendix C - <span>Extended Component Definitions</span></a><a style="text-indent:10px" href="#ext-comp-defs-bg">C.1<span>Background and Scope</span></a><a style="text-indent:10px" href="#ext-comp-defs-bg">C.2<span>Extended Component Definitions</span></a><a style="text-indent:0px" href="#satisfiedreqs">Appendix D - <span>Implicitly Satisfied Requirements</span></a><a style="text-indent:0px" href="#allocation">Appendix E - <span>Allocation of Requirements in Distributed TOEs</span></a><a style="text-indent:0px" href="#EAR">Appendix F - <span>Entropy Documentation and Assessment</span></a><a style="text-indent:0px" href="#bibliography">Appendix G - <span>Bibliography</span></a><a style="text-indent:0px" href="#acronyms">Appendix H - <span>Acronyms</span></a></div><h1 id="int" class="indexable" data-level="1">1 Introduction</h1>
+    <h2 id="ppoverview" class="indexable" data-level="2">1.1 Overview</h2> 
+      The scope of this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is to describe the security functionality of a Wireless Local Area Network (<abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>) Access System in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] 
+      and to define functional and assurance requirements for such products. This PPModule is intended for use with the following Base-PPs:
+      <ul>
+        <li>Collaborative Protection Profile for Network Devices (<abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>) Version 2.2e</li>
+      </ul>
+      This <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> is valid because a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System is a device at the edge of a private network that establishes an encrypted IEEE 802.11 link that protects wireless data in transit from disclosure and modification. 
+      This is functionality that typically will be implemented by a network device.
+      <p></p>
+      A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that conforms to a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> containing this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> may be a ‘Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’ as
+      defined in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality may reside entirely within a single device or be spread across multiple distributed physical components.
+      
+
+    <h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
+The following sections list Common Criteria and technology terms used in this document.
+    <h3 id="cc-terms" class="indexable" data-level="3">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>)</div></td><td>Protection Profile used as a basis to build a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>.</td></tr><tr><td><div id="Common_Criteria">Common Criteria (<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
+      Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an IT security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations.
+    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></div></td><td>A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (<abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>)</div></td><td>Hardware and software that are outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary that support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and at least one <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</div></td><td>An implementation-independent statement of security needs for a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (<abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr>)</div></td><td>A requirement to assure the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)</div></td><td>A requirement for security enforcement by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Target">Security Target (<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality (<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)</div></td><td>A description of how a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> satisfies the SFRs in an <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)</div></td><td>The product under evaluation. </td></tr></table><h3 id="tech-terms" class="indexable" data-level="3">1.2.2 Technical Terms</h3><table><tr><td><div id="Access_Point">Access Point (<abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr>)</div></td><td> 
+        A device that provides the network interface that enables
+        wireless client hosts to access a wired network. </td></tr><tr><td><div id="Service_Set_Identifier">Service Set Identifier (<abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr>)</div></td><td> 
+        The primary name associated with an 802.11
+        wireless local area network (<abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>). </td></tr><tr><td><div id="Wireless_Local_Area_Network">Wireless Local Area Network (<abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>)</div></td><td> 
+        A wireless computer network that links
+        two or more devices using wireless communication to form a local area network (LAN) within a
+        limited area such as a home, school, computer laboratory, campus, office building etc. </td></tr></table>
+    <h2 id="TOEdescription" class="indexable" data-level="2">1.3 Compliant Targets of Evaluation</h2>
+      <h3 id="TOEboundary" class="indexable" data-level="3">1.3.1 TOE Boundary</h3> 
+        This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> specifically addresses <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> (IEEE 802.11) Access Systems. A compliant <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System is a
+        system composed of hardware and software that is connected to a network and has an infrastructure
+        role in the overall enterprise network. In particular, a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System establishes a secure wireless
+        (IEEE 802.11) link that provides an authenticated and encrypted path to an enterprise network and
+        thereby decreases the risk of exposure of information transiting “over-the-air”.<p></p>
+        
+        Since this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> extends the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>, conformant TOEs are obligated to implement the functionality
+        required in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> along with the additional functionality defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> in response to the threat
+        environment discussed subsequently herein.
+      
+    
+    
+    <h2 id="usecases" class="indexable" data-level="2">1.4 Use Cases</h2>
+      <dl><dt> [USE CASE 1] Standalone Device</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is a standalone network device that serves as a single network endpoint that provides connectivity to wireless clients.</dd><dt> [USE CASE 2] Distributed System</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is a distributed system consisting of multiple network devices that collectively serve as the wireless network endpoint. In addition to claiming the relevant "Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>" requirement in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>,
+          this use case also requires the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to claim the optional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_CKM.2/DISTRIB">FCS_CKM.2/DISTRIB</a> to describe the key distribution method between distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> components.</dd></dl> 
+     
+  <h1 id="ConformanceClaims" class="indexable" data-level="1">2 Conformance Claims</h1>
+    <dl><dt id="Conformance Statement" class="cclaim">Conformance Statement</dt><dd> This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> inherits exact conformance as required from the specified
+          <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based
+          SFRs, and Optional SFRs (dated May 2017).<p></p> 
+          
+          The following <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>:
+          <ul>
+            <li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Stateful Traffic Filter Firewalls, Version 1.4 + Errata 20200625</li>
+            <li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Virtual Private Network (VPN) Gateways, Version 1.1</li>
+          </ul> 
+        </dd><dt id="CC Conformance Claims" class="cclaim">CC Conformance Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is conformant to Parts 2 (extended) and 3 (conformant) of Common
+          Criteria Version 3.1, Release 5 [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]. </dd><dt id="Package Claims" class="cclaim">Package Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not
+          claim conformance to any packages.</dd></dl>
+  <h1 id="spd" class="indexable" data-level="1">3 Security Problem Description</h1>  
+    This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is written to address the situation when network packets cross the boundary
+    between a wired private network and a wireless client via a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System. The <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access
+    System provides secure communication between a user (wireless client) and a wired (trusted) network
+    by supporting security functions such as administration, authentication, encryption, and the protection
+    and handling of data in transit. To protect the data in-transit from disclosure and modification, a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>
+    Access System is used to establish secure communications. The <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System provides one end
+    of the secure cryptographic tunnel and performs encryption and decryption of network packets in
+    accordance with a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System security policy negotiated with its authenticated wireless client.
+    It supports multiple simultaneous wireless connections and is capable of establishing and terminating
+    multiple cryptographic tunnels to and from those peers.<p></p>
+    
+    The proper installation, configuration, and administration of the <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System are critical to its
+    correct operation.<p></p>
+    
+    Note that this
+    <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not repeat the threats identified in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>, though they all apply given the
+    conformance and hence dependence of this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> on the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>. Note also that while the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>
+    contains only threats to the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to provide its security functions, this
+    <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> addresses only threats to resources in the operational environment. Together the
+    threats of the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> and those defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> define the comprehensive set of
+    security threats addressed by a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+    <h2 id="threats" class="indexable" data-level="2">3.1 Threats</h2>
+      aaaaaaaaaaaaa
+      <dl><dt id="T.NETWORK_DISCLOSURE" class="threat">T.NETWORK_DISCLOSURE</dt><dd>Devices on a protected network may be exposed to threats presented by devices located outside the
+            protected network, which may attempt to conduct unauthorized activities. If malicious external devices
+            are able to communicate with devices on the protected network, or if devices on the protected network
+            can establish communications with those external devices (e.g., as a result of nonexistent/insufficient
+            <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> data encryption that exposes the <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> data in transit to rogue elements), then those internal
+            devices may be susceptible to the unauthorized disclosure of information.</dd><dt id="T.NETWORK_ACCESS" class="threat">T.NETWORK_ACCESS</dt><dd>Devices located outside the protected network may seek to exercise services located on the protected
+            network that are intended to only be accessed from inside the protected network or only accessed by
+            entities using an authenticated path into the protected network.</dd><dt id="T.TSF_FAILURE" class="threat">T.TSF_FAILURE</dt><dd>Security mechanisms of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generally build up from a primitive set of mechanisms (e.g., memory
+            management, privileged modes of process execution) to more complex sets of mechanisms. Failure of
+            the primitive mechanisms could lead to a compromise in more complex mechanisms, resulting in a
+            compromise of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+          </dd><dt id="T.DATA_INTEGRITY" class="threat">T.DATA_INTEGRITY</dt><dd>Devices on a protected network may be exposed to threats presented by devices located outside the
+            protected network, which may attempt to modify the data without authorization. If known malicious
+            external devices are able to communicate with devices on the protected network or if devices on the
+            protected network can establish communications with those external devices then the data contained
+            within the communications may be susceptible to a loss of integrity.</dd><dt id="T.REPLAY_ATTACK" class="threat">T.REPLAY_ATTACK</dt><dd>If an unauthorized individual successfully gains access to the system, the adversary may have the
+            opportunity to conduct a “replay” attack. This method of attack allows the individual to capture packets
+            traversing throughout the wireless network and send the packets at a later time, possibly unknown by
+            the intended receiver.</dd></dl>
+    
+    <h2 id="assumption" class="indexable" data-level="2">3.2 Assumptions</h2>
+These assumptions are made on the Operational Environment in order to be able to ensure that the
+security functionality specified in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> can be provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is placed in an
+Operational Environment that does not meet these assumptions, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may no longer be able to
+provide all of its security functionality.
+      
+      <p></p>
+      All assumptions for the operational environment of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> also apply to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+      A.NO_THRU_TRAFFIC_PROTECTION is still operative, but only for the interfaces in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that are
+      defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and not the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.      
+      <dl><dt id="A.CONNECTIONS" class="assumption">A.CONNECTIONS</dt><dd> It is assumed that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is connected to distinct networks in a manner
+            that ensures that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s security policies will be enforced on all applicable network
+            traffic flowing among the attached networks. </dd></dl>
+    
+    <h2 id="osp" class="indexable" data-level="2">3.3 Organizational Security Policies</h2>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines no additional organizational security policies beyond those specified in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.
+      
+    
+  <h1 id="obj" class="indexable" data-level="1">4 Security Objectives</h1>
+    <h2 id="SecurityObjectivesTOE" class="indexable" data-level="2">4.1 Security Objectives for the TOE</h2>
+      
+      <dl><dt id="O.CRYPTOGRAPHIC_FUNCTIONS" class="SO">O.CRYPTOGRAPHIC_FUNCTIONS</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide means to encrypt and decrypt data to maintain confidentiality and allow for detection of modification of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data that is transmitted outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+          </dd><dt id="O.AUTHENTICATION" class="SO">O.AUTHENTICATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide a means to authenticate the user to ensure they are communicating with an authorized external IT entity.
+                </dd><dt id="O.FAIL_SECURE" class="SO">O.FAIL_SECURE</dt><dd>Upon a self-test failure, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will shut down to ensure that data cannot be passed without adhering to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s security policies.
+                  </dd><dt id="O.SYSTEM_MONITORING" class="SO">O.SYSTEM_MONITORING</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide a means to audit events specific to <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> functionailty and security.
+                    </dd><dt id="O.TOE_ADMINISTRATION" class="SO">O.TOE_ADMINISTRATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide the functions necessary to address failed authentication attempts by a remote administrator.
+                      </dd></dl>
+    
+    <h2 id="SecurityObjectivesTOEorEnvironment" class="indexable" data-level="2">4.2 Security Objectives for the Operational Environment</h2>
+The Operational Environment of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements technical and procedural measures to assist the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in correctly providing its security functionality (which is defined by the security objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>).
+The security objectives for the Operational Environment consist of a set of statements describing the goals that the Operational Environment should achieve.
+This section defines the security objectives that are to be addressed by the IT domain or by non-technical or procedural means. The assumptions identified in Section 3 are incorporated as security objectives for the environment.
+       
+      <p></p>
+      All objectives for the operational environment of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> also apply to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+      <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.NO_THRU_TRAFFIC_PROTECTION is still operative, but only for the interfaces in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that are
+      defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and not the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+      
+      <dl><dt id="OE.CONNECTIONS" class="SOE">OE.CONNECTIONS</dt><dd> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> administrators will ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is installed in a manner that
+            will allow the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to effectively enforce its policies on the network traffic of
+            monitored networks. </dd></dl>
+    
+    <h2 id="SOR" class="indexable" data-level="2">4.3 Security Objectives Rationale</h2>   
+    This section describes how the assumptions, threats, and organization 
+    security policies map to the security objectives.
+    <table><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.NETWORK_DISCLOSURE">T.NETWORK_DISCLOSURE</a><br/></td><td><a href="#O.AUTHENTICATION">O.AUTHENTICATION</a></td><td>The threat <a href="#T.NETWORK_DISCLOSURE">T.NETWORK_DISCLOSURE</a> is countered by <a href="#O.AUTHENTICATION">O.AUTHENTICATION</a> as proper authentication of external entities 
+              ensures that network data is not disclosed to an unauthorized subject.<p></p></td></tr><tr><td><a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a></td><td>The threat <a href="#T.NETWORK_DISCLOSURE">T.NETWORK_DISCLOSURE</a> is countered by <a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a> as implementation of cryptogpraphic functions ensures 
+              that network data is not subject to unauthorized disclosure in transit.</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.NETWORK_ACCESS">T.NETWORK_ACCESS</a><br/></td><td><a href="#O.AUTHENTICATION">O.AUTHENTICATION</a></td><td>The threat <a href="#T.NETWORK_ACCESS">T.NETWORK_ACCESS</a> is countered by <a href="#O.AUTHENTICATION">O.AUTHENTICATION</a> as proper authentication methods ensure that subjects outside the protected network 
+              cannot access data inside the protected network until the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has authenticated them.<p></p></td></tr><tr><td><a href="#O.TOE_ADMINISTRATION">O.TOE_ADMINISTRATION</a></td><td>The threat <a href="#T.NETWORK_DISCLOSURE">T.NETWORK_DISCLOSURE</a> is countered by <a href="#O.TOE_ADMINISTRATION">O.TOE_ADMINISTRATION</a> as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s administration function 
+              does not permit execution of management functions that originate from wireless clients outside the protected network.</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.TSF_FAILURE">T.TSF_FAILURE</a><br/></td><td><a href="#O.FAIL_SECURE">O.FAIL_SECURE</a></td><td>The threat <a href="#T.TSF_FAILURE">T.TSF_FAILURE</a> is countered by <a href="#O.FAIL_SECURE">O.FAIL_SECURE</a> as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> responds to self-test failures that are significant enough 
+              to show a potential compromise of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> by making the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> unavailable until the failure state has been cleared.<p></p></td></tr><tr><td><a href="#O.SYSTEM_MONITORING">O.SYSTEM_MONITORING</a></td><td>The threat <a href="#T.TSF_FAILURE">T.TSF_FAILURE</a> is countered by <a href="#O.SYSTEM_MONITORING">O.SYSTEM_MONITORING</a> as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generates audit records of unauthorized usage, communications outages, incorrect configuration, and other behaviors that may indicate a degraded ability to enforce its intended security
+            functionality so that issues can be diagnosed and resolved appropriately.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.DATA_INTEGRITY">T.DATA_INTEGRITY</a><br/></td><td><a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a></td><td>The threat <a href="#T.DATA_INTEGRITY">T.DATA_INTEGRITY</a> is countered by <a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a> as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses cryptographic functionality to enforce the integrity of protected data in transit.</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.REPLAY_ATTACK">T.REPLAY_ATTACK</a><br/></td><td><a href="#O.AUTHENTICATION">O.AUTHENTICATION</a></td><td>The threat <a href="#T.REPLAY_ATTACK">T.REPLAY_ATTACK</a> is countered by <a href="#O.AUTHENTICATION">O.AUTHENTICATION</a> as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s use of authentication mechanisms prevent replay attacks because the source of the attack will not have the proper authentication data for the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to process the replayed traffic.<p></p></td></tr><tr><td><a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a></td><td>The threat <a href="#T.REPLAY_ATTACK">T.REPLAY_ATTACK</a> is countered by <a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a> as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s use of cryptographic functionality prevents impersonation attempts that use replayed traffic.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.CONNECTIONS">A.CONNECTIONS</a><br/></td><td><a href="#OE.CONNECTIONS">OE.CONNECTIONS</a></td><td> The operational environment objective <a href="#OE.CONNECTIONS">OE.CONNECTIONS</a> is realized through
+              <a href="#A.CONNECTIONS">A.CONNECTIONS</a>.</td></tr></table>
+  <h1 id="sfrs" class="indexable" data-level="1">5 Security Requirements</h1>
+     This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
+     Those requirements comprise functional components from Part 2 and assurance components from Part 3 of <a href="#bibCC">[CC]</a>.
+     The following conventions are used for the completion of operations:
+     <ul>
+       <li>
+         <b>Refinement</b> operation (denoted by <b>bold text</b> or <strike>strikethrough
+         text</strike>): is used to add details to a requirement (including replacing an assignment
+         with a more restrictive selection) or to remove part of the requirement that is made irrelevant
+         through the completion of another operation, and thus further restricts a requirement.
+         </li>
+       <li>
+         <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options
+         provided by the [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] in stating a requirement.</li>
+       <li>
+         <b>Assignment</b> operation (denoted by <span class="assignable-content">italicized text</span>): is used to assign a
+         specific value to an unspecified parameter, such as the length of a password. Showing the
+         value in square brackets indicates assignment.</li>
+       <li>
+         <b>Iteration</b> operation: is indicated by appending the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> name with a slash and unique identifier
+            suggesting the purpose of the operation, e.g. "/EXAMPLE1."
+       </li>
+     </ul>
+   <h2 id="NDc" class="indexable" data-level="2">5.1 NDc PP
+       Security Functional Requirements Direction
+    </h2>
+      In a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that includes NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>,
+      the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is expected to rely on some of the security functions implemented by the Network Device
+      as a whole and evaluated against the  NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+      The following sections describe any modifications that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must make to the SFRs
+      defined in the NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> in addition to what is mandated by <a class="dynref" href="#man-sfrs">Section 5.2 TOE Security Functional Requirements</a>.
+    <h2 id="modsfr-NDc" class="indexable" data-level="3">5.1.1 
+      Modified SFRs
+    </h2>
+      The SFRs listed in this section are defined in the NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and relevant to the secure operation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+    
+ 
+
+        <h3 id="FCS" class="indexable" data-level="4">5.1.1.1 Cryptographic Support (FCS)</h3>
+          <div id="FCS_COP.1/DATAENCRYPTION" class="comp"><h4>FCS_COP.1/DATAENCRYPTION Cryptographic Operation (AES Data Encryption/Decryption)</h4> 
+            
+            <div class="element"><div id="FCS_COP.1.1/DATAENCRYPTION" class="reqid"><a class="abbr" href="#FCS_COP.1.1/DATAENCRYPTION">FCS_COP.1.1/DATAENCRYPTION</a></div><div class="reqdesc">
+              
+                
+                The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform encryption/decryption in accordance
+                with a specified cryptographic algorithm <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> used in <b><abbr class="dyn-abbr"><a href="#abbr_CBC">CBC</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_CCMP">CCMP</a></abbr> </b> and [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_CTR">CTR</a></abbr></i>, <i><abbr class="dyn-abbr"><a href="#abbr_GCM">GCM</a></abbr></i>, <i><b>GCMP</b></i>, <i><b>no other</b></i>] <b>modes</b> and cryptographic key sizes <b>128 bits and</b> [<b>selection</b>: <i>192 bits</i>, <i>256 bits</i>, <i><b>no other key sizes</b></i>] that meet the following: <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> as specified in ISO 18033-3, 
+                <b><abbr class="dyn-abbr"><a href="#abbr_CBC">CBC</a></abbr> as specified in ISO 10116, 
+                  <abbr class="dyn-abbr"><a href="#abbr_CCMP">CCMP</a></abbr> as specified in NIST SP 800-38C and IEEE 802.11-2012,</b> [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_CTR">CTR</a></abbr> as specified in ISO 10116</i>, <i><abbr class="dyn-abbr"><a href="#abbr_GCM">GCM</a></abbr> as specified in ISO 19772</i>, <i><b>GCMP as specified in NIST SP 800-38D and IEEE 802.11ac-2013</b></i>, <i><b>no other standards</b></i>]. 
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+                
+                This requirement is modified from its definition in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> by mandating the selection of <abbr class="dyn-abbr"><a href="#abbr_CBC">CBC</a></abbr> mode and 128 bit key sizes
+                while also defining additional <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> mode and key size selections not present in the original definition. <p></p>
+                
+                This requirement mandates two modes for <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> with key size of 128 bits be
+                implemented. It is not expected that these modes will both be used for all encryption/decryption
+                functionality. Rather, the mandates serve particular purposes: to comply with the FCS_IPSEC_EXT.1
+                requirements, <abbr class="dyn-abbr"><a href="#abbr_CBC">CBC</a></abbr> mode is mandated, and to comply with IEEE 802.11-2012, <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCMP (which uses <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>
+                in <abbr class="dyn-abbr"><a href="#abbr_CCM">CCM</a></abbr> as specified in SP 800-38C) must be implemented.<p></p>
+                
+                For the first selection of <a href="#FCS_COP.1.1/DATAENCRYPTION">FCS_COP.1.1/DATAENCRYPTION</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose the additional mode or modes in
+                which <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> operates. For the second selection, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose the key sizes that are
+                supported by this functionality. 128-bit <abbr class="dyn-abbr"><a href="#abbr_CCMP">CCMP</a></abbr> is required in order to comply with <a href="#FCS_CKM.1/WPA">FCS_CKM.1/WPA</a>.
+                Note that optionally <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCMP-256 or <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCMP-256, with cryptographic key size of 256 bits, may be
+                implemented for IEEE 802.11ac connections. In the future, one of these modes may be required.<p></p>
+              
+              <abbr class="dyn-abbr"><a href="#abbr_CTR">CTR</a></abbr> mode is not used for <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_AS">AS</a></abbr> capabilities but remains selectable since it may be required by another part of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+              </span></div>
+              
+            </div></div>
+          </div>
+          
+        
+        
+        <h3 id="FPT" class="indexable" data-level="4">5.1.1.2 Protection of the TSF (FPT)</h3>
+          <div id="FPT_TST_EXT.1" class="comp"><h4>FPT_TST_EXT.1 TSF Testing</h4>
+            
+            <div class="element"><div id="FPT_TST_EXT.1.1" class="reqid"><a class="abbr" href="#FPT_TST_EXT.1.1">FPT_TST_EXT.1.1</a></div><div class="reqdesc">
+              
+                The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests <b>during initial start-up (on power on) and </b> [<b>selection</b>: <i>periodically during normal operation</i>, <i>at the request of the authorised user</i>, <i>at the conditions [<b>assignment</b>: <span class="assignable-content">conditions under which self-tests should occur</span>]</i>, <i><b>in no other circumstances</b></i>] to demonstrate the correct operation of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>: <b>integrity verification of stored <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> executable code when it is loaded for execution
+                through the use of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>-provided cryptographic service specified in FCS_COP.1/SigGen, [<b>selection</b>: <i>[<b>assignment</b>: <span class="assignable-content">list of additional self-tests run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span>]</i>, <i>no other self-tests</i>]</b>.
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is modified from its definition in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> by mandating that self-testing occur at power on, and that the self-testing must include, at minimum,
+              an integrity test using a digital signature. FCS_COP.1/SigGen is defined in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.</span></div>
+              
+            </div></div>
+          </div>
+        
+        
+        <h3 id="FTP" class="indexable" data-level="4">5.1.1.3 Trusted Path/Channels (FTP)</h3>
+          <div id="FTP_ITC.1" class="comp"><h4>FTP_ITC.1 Inter-TSF Trusted Channel</h4>
+            
+            <div class="element"><div id="FTP_ITC.1.1" class="reqid"><a class="abbr" href="#FTP_ITC.1.1">FTP_ITC.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of using <b>IEEE 802.11-2012 (WPA2), IEEE 802.1X, [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></i>, <i>RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>], and</b> [<b>selection</b>: <i>SSH</i>, <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>, <i>DTLS</i>, <i>HTTPS</i>, <i><b>no other protocols</b></i>] to provide a trusted communication channel
+                between itself and authorized IT entities supporting the following capabilities: <b><abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> client, 802.1x authentication server,</b> audit
+                server, [<b>selection</b>: <i>authentication server</i>, <i>[<b>assignment</b>: <span class="assignable-content">other capabilities</span>]</i>, <i>no other capabilities</i>] that is logically distinct
+                from other communication channels and provides assured identification of its end points and protection
+                of the channel data from disclosure and detection of modification of the channel data.
+              
+              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+                This requirement has been modified from its definition in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> to mandate the communications protocols and environmental components that 
+                a <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> Access System must use. IEEE 802.11-2012 (WPA2) with IEEE 802.1X is required for communications with wireless clients; <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> or RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (commonly known as "RadSec") is required at least for communications with the 802.1X authentication server.
+                Other selections may be made if needed by other parts of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The requirement implies that not only are communications protected when they are initially established, but also on resumption after an outage.<p></p>
+                
+                The IT entity of "802.1X authentication server" is distinct from "authentication server" because the latter may be used for administrator authentication rather than authorization of <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> clients.<p></p>
+                If "<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>" is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>, then FCS_IPSEC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> must be claimed. If RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>, then <a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a> in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must be claimed, as well as FCS_TLSC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.
+              </span></div>
+            </div></div>
+            <div class="element"><div id="FTP_ITC.1.2" class="reqid"><a class="abbr" href="#FTP_ITC.1.2">FTP_ITC.1.2</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall permit the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the authorized IT entities to initiate communication via the trusted channel.
+            </div></div>
+            <div class="element"><div id="FTP_ITC.1.3" class="reqid"><a class="abbr" href="#FTP_ITC.1.3">FTP_ITC.1.3</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall initiate communication via the trusted channel for [<b>assignment</b>: <span class="assignable-content">list of services for which the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is able to initiate communications</span>].
+              
+            </div></div>
+          </div>
+        
+ 
+      <h2 id="man-sfrs" class="indexable" data-level="2">5.2 TOE Security Functional Requirements</h2>
+	The following section describes the SFRs that must be satisfied by any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that claims conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+	These SFRs must be claimed regardless of which <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> is used to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+        <h3 id="fau" class="indexable" data-level="3">5.2.1 Security Audit (FAU)</h3>
+        <div id="FAU_GEN.1/WLAN" class="comp"><h4>FAU_GEN.1/WLAN Audit Data Generation</h4>
+          
+<div class="element"><div id="FAU_GEN.1.1/WLAN" class="reqid"><a class="abbr" href="#FAU_GEN.1.1/WLAN">FAU_GEN.1.1/WLAN</a></div><div class="reqdesc">
+             The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to generate an audit record of the following auditable
+              events: <ol type="a">
+                <li>Start-up and shutdown of the audit functions;</li>
+                <li>All auditable events for the [not specified] level of audit;</li>
+                <li>[<i>Auditable events listed in the Auditable Events table (<a onclick="showTarget('cc-auditWLAN')" class="cc-auditWLAN-ref" href="#cc-auditWLAN">Table  <span class="counter">1</span></a>);</i></li>
+                <li><i>Failure of wireless sensor communication</i>].</li>
+              </ol>
+            <table>
+              <tr>
+                <th>Requirement</th>
+                <th>Auditable Events</th>
+                <th>Additional Audit Record Contents</th>
+              </tr>
+              <tr>
+                <td><a href="#FCS_CKM.1/WPA">FCS_CKM.1/WPA</a></td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td><a href="#FCS_CKM.2/DISTRIB">FCS_CKM.2/DISTRIB</a> (optional)</td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td><a href="#FCS_CKM.2/GTK">FCS_CKM.2/GTK</a></td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td><a href="#FCS_CKM.2/PMK">FCS_CKM.2/PMK</a></td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a> (selection-based)</td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td><a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> (selection-based)</td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td rowspan="3">FCS_IPSEC_EXT.1 (selection-based)</td>
+                <td>Protocol failures.</td>
+                <td>Reason for failure. Non-TOE endpoint of connection.</td>
+              </tr>
+              <tr>
+                <td>Establishment/Termination of an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> SA.</td>
+                <td>Non-TOE endpoint of connection.</td>
+              </tr>
+              <tr>
+                <td>Negotiation "down" from an IKEv2 to IKEv1 exchange.</td>
+                <td>Non-TOE endpoint of connection.</td>
+              </tr>
+              <tr>
+                <td><a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a></td>
+                <td>Attempts to access the 802.1X controlled port prior to successful completion of the authentication exchange.</td>
+                <td>Provided client identity (<abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address).</td>
+              </tr>
+              <tr>
+                <td><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> (selection-based)</td>
+                <td colspan="2">None.</td>
+              </tr>
+              <tr>
+                <td><a href="#FIA_UAU.6">FIA_UAU.6</a></td>
+                <td>Attempts to re-authenticate.</td>
+                <td>Origin of the attempt (e.g., IP address).</td>
+              </tr>
+              <tr>
+                <td><a href="#FPT_FLS.1">FPT_FLS.1</a></td>
+                <td>Failure of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.</td>
+                <td>Indication that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has failed with the type of failure that occurred.</td>
+              </tr>
+              <tr>
+                <td rowspan="2"><a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a></td>
+                <td>Execution of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> self-test.</td>
+                <td>None.</td>
+              </tr>
+              <tr>
+                <td>Detected integrity violations.</td>
+                <td>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> code file that caused the integrity violation.</td>
+              </tr>
+              <tr>
+                <td><a href="#FTA_TSE.1">FTA_TSE.1</a></td>
+                <td>Failure of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.</td>
+                <td>Indication that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has failed with the type of failure that occurred.</td>
+              </tr>
+              <tr>
+                <td rowspan="2"><a href="#FTP_ITC.1">FTP_ITC.1</a></td>
+                <td>Failed attempts to establish a trusted channel (including IEEE 802.11).</td>
+                <td rowspan="2">Identification of the initiator and target of channel.</td>
+              </tr>
+              <tr>
+                <td>Detection of modification of channel data.</td>
+              </tr>
+            </table>
+              <span data-counter-type="ct-Table" id="cc-auditWLAN" class="ctr" data-myid="cc-auditWLAN">Table  <span class="counter">1</span>: Auditable Events</span>
+            
+  <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The auditable events defined in <a onclick="showTarget('cc-auditWLAN')" class="cc-auditWLAN-ref" href="#cc-auditWLAN">Table  <span class="counter">1</span></a>
+    are for the SFRs that are explicitly defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> and are intended to
+    extend FAU_GEN.1 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. The events in the Auditable Events table should
+    be combined with those of the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> in the context of a conforming Security
+    Target.<p></p> The Auditable Events (<a onclick="showTarget('cc-auditWLAN')" class="cc-auditWLAN-ref" href="#cc-auditWLAN">Table  <span class="counter">1</span></a>) includes
+    optional and objective SFRs. The auditing of optional and objective SFRs is only
+    required if that <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. <p></p> Per FAU_STG_EXT.1 in the
+    <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must support transfer of the audit data to an external IT entity
+    using a trusted channel. </span></div>
+  
+</div></div> 
+        </div>
+      <h3 id="fcs" class="indexable" data-level="3">5.2.2 Cryptographic Support (FCS)</h3>
+        
+        
+        <div id="FCS_CKM.1/WPA" class="comp"><h4>FCS_CKM.1/WPA Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)</h4>
+            
+          <div class="element"><div id="FCS_CKM.1.1/WPA" class="reqid"><a class="abbr" href="#FCS_CKM.1.1/WPA">FCS_CKM.1.1/WPA</a></div><div class="reqdesc">
+            
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate <b>symmetric</b> cryptographic keys in accordance with a
+              specified cryptographic key generation algorithm [<i>PRF-384 and [<b>selection</b>: <i>PRF-704</i>, <i>no other algorithm</i>]</i>] and specified key sizes [<i>128 bits and [<b>selection</b>: <i>256 bits</i>, <i>no other key sizes</i>]</i>] <b>using a Random Bit Generator as specified in FCS_RBG_EXT.1</b> that meet the following: 
+              [<i>IEEE 802.11-2012 and [<b>selection</b>: <i>IEEE 802.11ac-2013</i>, <i>no other standards</i>]</i>].
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              The cryptographic key derivation algorithm required by IEEE 802.11-2012 (Section
+              11.6.1.2) and verified in WPA2 certification is PRF-384, which uses the HMAC-SHA-1 function and
+              outputs 384 bits. The use of GCMP is defined in IEEE 802.11ac-2013 (Section 11.4.5) and requires a KDF
+              based on HMAC-SHA-256 (for 128-bit symmetric keys) or HMAC-SHA-384 (for 256-bit symmetric keys).
+              This KDF outputs 704 bits.<p></p><p></p>
+              
+              This requirement applies only to the keys that are generated/derived for the communications between
+              the access point and the client once the client has been authenticated. It refers to the derivation of the
+              <abbr class="dyn-abbr"><a href="#abbr_GTK">GTK</a></abbr> (through the RBG specified in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>) as well as the derivation of the PTK from the <abbr class="dyn-abbr"><a href="#abbr_PMK">PMK</a></abbr>, which is
+              done using a random value generated by the RBG specified in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, the HMAC function as specified in
+              this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, as well as other information. This is specified in IEEE 802.11-2012 primarily in chapter 11. FCS_RBG_EXT.1 is defined in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.
+            </span></div>
+            
+          </div></div>
+        </div>
+        
+        
+        <div id="FCS_CKM.2/GTK" class="comp"><h4>FCS_CKM.2/GTK Cryptographic Key Distribution (GTK)</h4>
+          
+          <div class="element"><div id="FCS_CKM.2.1/GTK" class="reqid"><a class="abbr" href="#FCS_CKM.2.1/GTK">FCS_CKM.2.1/GTK</a></div><div class="reqdesc">
+            
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distribute <b>Group Temporal Key (<abbr class="dyn-abbr"><a href="#abbr_GTK">GTK</a></abbr>)</b> in accordance with a specified cryptographic key distribution method: [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Key Wrap in an EAPOL-Key frame</i>, <i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Key Wrap with Padding in an EAPOL-Key frame</i>] that meets the following: [<i>NIST SP 800-38F, IEEE 802.11-2012 for the packet format and timing considerations</i>] <b>
+                and does not expose the cryptographic keys</b>. 
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement applies to the Group Temporal Key (<abbr class="dyn-abbr"><a href="#abbr_GTK">GTK</a></abbr>) that is generated by the
+              <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for use in broadcast and multicast messages to clients to which it is connected. 802.11-2012
+              specifies the format for the transfer as well as the fact that it must be wrapped by the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Key Wrap
+              method specified in NIST SP 800-38F.</span></div>
+            
+          </div></div>
+        </div>
+        
+        
+        
+        <div id="FCS_CKM.2/PMK" class="comp"><h4>FCS_CKM.2/PMK Cryptographic Key Distribution (PMK)</h4>
+          
+          <div class="element"><div id="FCS_CKM.2.1/PMK" class="reqid"><a class="abbr" href="#FCS_CKM.2.1/PMK">FCS_CKM.2.1/PMK</a></div><div class="reqdesc">
+            
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall <b>receive the 802.11 Pairwise Master Key (<abbr class="dyn-abbr"><a href="#abbr_PMK">PMK</a></abbr>)</b> in
+              accordance with a specified cryptographic key distribution method: [<i>from 802.1X Authorization Server</i>]
+              that meets the following: [<i>IEEE 802.11-2012</i>] <b>and does not expose the cryptographic keys</b>.
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              This requirement applies to the Pairwise Master Key that is received from the RADIUS
+              server by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The intent of this requirement is to ensure conformant TOEs implement 802.1X
+              authentication prior to establishing secure communications with the client. The intent is that any <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>
+              <abbr class="dyn-abbr"><a href="#abbr_AS">AS</a></abbr> evaluated against this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> will support WPA2-ENT and certificate-based authentication mechanisms
+              and therefore disallows implementations that support only pre-shared keys. Because communications
+              with the RADIUS server are required to be performed over a protected connection, the transfer
+              of the <abbr class="dyn-abbr"><a href="#abbr_PMK">PMK</a></abbr> will be protected.
+            </span></div>
+            
+          </div></div>
+        </div>
+        
+      <h3 id="fia" class="indexable" data-level="3">5.2.3 Identification and Authentication (FIA)</h3>
+      
+        
+        
+        
+           
+        
+        <div id="FIA_8021X_EXT.1" class="comp"><h4>FIA_8021X_EXT.1 802.1X Port Access Entity (Authenticator) Authentication</h4>
+          
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div id="FIA_8021X_EXT.1.1" class="reqid"><a class="abbr" href="#FIA_8021X_EXT.1.1">FIA_8021X_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall conform to IEEE Standard 802.1X for a Port Access Entity (<abbr class="dyn-abbr"><a href="#abbr_PAE">PAE</a></abbr>) in the
+            “Authenticator” role.</div></div>
+          <div class="element"><div id="FIA_8021X_EXT.1.2" class="reqid"><a class="abbr" href="#FIA_8021X_EXT.1.2">FIA_8021X_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support communications to a RADIUS authentication server
+            conforming to RFCs 2865 and 3579.</div></div>
+          <div class="element"><div id="FIA_8021X_EXT.1.3" class="reqid"><a class="abbr" href="#FIA_8021X_EXT.1.3">FIA_8021X_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that no access to its 802.1X controlled port is given to the
+            wireless client prior to successful completion of this authentication exchange.
+          <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+            This requirement covers the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s role as the authenticator in an 802.1X
+            authentication exchange. If the exchange is completed successfully, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will obtain the <abbr class="dyn-abbr"><a href="#abbr_PMK">PMK</a></abbr> from
+            the RADIUS server and perform the 4-way handshake with the wireless client (supplicant) to begin
+            802.11 communications.<p></p>
+            
+            As indicated previously, there are at least three communication paths present during the exchange; two
+            with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as an endpoint and one with <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acting as a transfer point only. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> establishes an
+            <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> over LAN (EAPOL) connection with the wireless client as specified in 802.1X-2007. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> also
+            establishes (or has established) a RADIUS protocol connection protected either by <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> or RadSec (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) with the RADIUS server. 
+            The wireless client and RADIUS server establish an <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS session
+            (RFC 5216); in this transaction the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> merely takes the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS packets from its EAPOL/RADIUS
+            endpoint and transfers them to the other endpoint. Because the specific authentication method (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> in
+            this case) is opaque to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, there are no requirements with respect to RFC 5126 in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+            However, the base RADIUS protocol (2865) has an update (3579) that will need to be addressed in the
+            implementation and assurance activities. Additionally, RFC 5080 contains implementation issues that
+            will need to be addressed by developers, but which levy no new requirements.<p></p>
+            
+            The point of performing 802.1X authentication is to provide access to the network (assuming the
+            authentication was successful and that all 802.11 negotiations are performed successfully); in the
+            terminology of 802.1X, this means the wireless client has access to the "controlled port" maintained by
+            the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+          </span></div>
+            
+          </div></div>
+        </div>
+      
+      
+      <div id="FIA_UAU.6" class="comp"><h4>FIA_UAU.6 Re-Authenticating</h4>
+        
+        <div class="element"><div id="FIA_UAU.6.1" class="reqid"><a class="abbr" href="#FIA_UAU.6.1">FIA_UAU.6.1</a></div><div class="reqdesc">
+          The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall re-authenticate the <b>administrative</b> user under the conditions [<i>when the user
+            changes their password, [<b>selection</b>: <i>following <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>-initiated session locking</i>, <i>[<b>assignment</b>: <span class="assignable-content">other conditions</span>]</i>, <i>no other conditions</i>]</i>]. 
+          
+          
+        </div></div>
+      </div>
+        
+        
+      <h3 id="fmt" class="indexable" data-level="3">5.2.4 Security Management (FMT)</h3>
+        
+        
+        
+        <div id="FMT_SMR_EXT.1" class="comp"><h4>FMT_SMR_EXT.1 No Administration from Client</h4>
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div id="FMT_SMR_EXT.1.1" class="reqid"><a class="abbr" href="#FMT_SMR_EXT.1.1">FMT_SMR_EXT.1.1</a></div><div class="reqdesc">
+            
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that the ability to remotely administer the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a wireless client
+              shall be disabled by default.
+            
+            
+          </div></div>
+        </div>
+      <h3 id="fpt" class="indexable" data-level="3">5.2.5 Protection of the TSF (FPT)</h3>
+        
+        <div id="FPT_FLS.1" class="comp"><h4>FPT_FLS.1 Failure with Preservation of Secure State</h4>
+          
+          <div class="element"><div id="FPT_FLS.1.1" class="reqid"><a class="abbr" href="#FPT_FLS.1.1">FPT_FLS.1.1</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i>failure of
+              the self-tests</i>].
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              The intent of this requirement is to express the fail secure capabilities that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+              possesses. This means that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must be able to attain a secure/safe state (shutdown) when any of
+              the identified failures occur.
+            </span></div>
+            
+          </div></div>
+        </div>
+      <h3 id="fta" class="indexable" data-level="3">5.2.6 TOE Access (FTA)</h3>
+        
+        <div id="FTA_TSE.1" class="comp"><h4>FTA_TSE.1 TOE Session Establishment</h4>
+          
+          <div class="element"><div id="FTA_TSE.1.1" class="reqid"><a class="abbr" href="#FTA_TSE.1.1">FTA_TSE.1.1</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to deny session establishment <b>of a wireless client session</b> based
+              on [<i><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> interface, time, day, [<b>selection</b>: <i>[<b>assignment</b>: <span class="assignable-content">other attributes</span>]</i>, <i>no other attributes</i>]</i>].
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              The “<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> interface” can be specified in terms of the device in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that the <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>
+              client is connecting to (e.g. specific <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> access point(s)). “Time” and “day” refer to time-of-day and
+              day-of-week respectively.<p></p>
+              
+              The assignment is to be used by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to specify additional attributes on which denial of session
+              establishment can be based.
+            </span></div>
+            
+          </div></div>
+        </div>
+      <h2 id="obj-req-map" class="indexable" data-level="2">5.3 TOE Security Functional Requirements Rationale</h2><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="1"><a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a><br/></td><td><a href="#FCS_COP.1/DATAENCRYPTION">FCS_COP.1/DATAENCRYPTION</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), FCS_IPSEC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), FCS_TLSC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), FCS_TLSC_EXT.2 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FCS_CKM.1/WPA">FCS_CKM.1/WPA</a>, <a href="#FCS_CKM.2/GTK">FCS_CKM.2/GTK</a>, <a href="#FCS_CKM.2/PMK">FCS_CKM.2/PMK</a>, 
+            <a href="#FCS_CKM.2/DISTRIB">FCS_CKM.2/DISTRIB</a> (optional)</td><td>
+            <a href="#FCS_COP.1/DATAENCRYPTION">FCS_COP.1/DATAENCRYPTION</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> in the modes needed to support its other functions.
+            <p></p>
+            FCS_IPSEC_EXT.1 supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> to implement a trusted communications channel if selected in <a href="#FTP_ITC.1">FTP_ITC.1</a>. 
+            <p></p>
+            FCS_TLSC_EXT.1 supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (RadSec) to implement a trusted communications channel if selected in <a href="#FTP_ITC.1">FTP_ITC.1</a>.
+            <p></p>
+            FCS_TLSC_EXT.2 supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use X.509 certificates as the authentication method used for RadSec.
+            <p></p>
+            <a href="#FCS_CKM.1/WPA">FCS_CKM.1/WPA</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to generate symmetric keys used for WPA2. 
+            <p></p>
+            <a href="#FCS_CKM.2/GTK">FCS_CKM.2/GTK</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to distribute group temporal keys used for IEEE 802.11.
+            <p></p>
+            <a href="#FCS_CKM.2/PMK">FCS_CKM.2/PMK</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to distribute pairwise master keys used for IEEE 802.11.
+            <p></p>
+            <a href="#FCS_CKM.2/DISTRIB">FCS_CKM.2/DISTRIB</a> supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to distribute IEEE 802.11 keys to any distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> components using a secured method. 
+            <p></p>
+            
+          </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.AUTHENTICATION">O.AUTHENTICATION</a><br/></td><td>FCS_IPSEC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), FCS_TLSC_EXT.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), FCS_TLSC_EXT.2 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), FIA_X509_EXT.1/Rev (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FTP_ITC.1">FTP_ITC.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), 
+                  <a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a>, <a href="#FIA_UAU.6">FIA_UAU.6</a>, <a href="#FTA_TSE.1">FTA_TSE.1</a>, <a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a> (selection-based), <a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> (selection-based), <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> (selection-based)</td><td>
+                  FCS_IPSEC_EXT.1 supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> to implement a trusted communications channel if selected in <a href="#FTP_ITC.1">FTP_ITC.1</a>. 
+                  <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> includes authenticating using X.509 certificates or pre-shared keys.
+                  <p></p>
+                  FCS_TLSC_EXT.1 supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (RadSec) to implement a trusted communications channel if selected in <a href="#FTP_ITC.1">FTP_ITC.1</a>. 
+                  <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> includes authenticating using X.509 certificates or pre-shared keys.
+                  <p></p>
+                  FCS_TLSC_EXT.2 supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use X.509 certificates as the authentication method used for RadSec. 
+                  <p></p>
+                  FIA_X509_EXT.1/Rev supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement X.509 certificate validation if certificates are used for authentication. 
+                  <p></p>
+                  <a href="#FTP_ITC.1">FTP_ITC.1</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to identify the trusted communications channels it implements, each of which is able to support authentication.
+                  <p></p>
+                  <a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to act as the authenticator for 802.1X authentication.
+                  <p></p>
+                  <a href="#FIA_UAU.6">FIA_UAU.6</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to re-authenticate a security administrator under certain circumstances.
+                  <p></p>
+                  <a href="#FTA_TSE.1">FTA_TSE.1</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to deny the establishment of a wirless client session for reasons unrelated to the correctness of an authentication credential.
+                  <p></p>
+                  <a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a> supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement RadSec in accordance with a defined specification.
+                  <p></p>
+                  <a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement RadSec using pre-shared keys if that is the method chosen for peer authentication.
+                  <p></p>
+                  <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement pre-shared key authentication if any trusted protocols require its use. 
+                  <p></p>
+                </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.FAIL_SECURE">O.FAIL_SECURE</a><br/></td><td><a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FPT_FLS.1">FPT_FLS.1</a></td><td>
+                    <a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to perform self-tests that may aid in the detection of a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> failure.
+                    <p></p>
+                    <a href="#FPT_FLS.1">FPT_FLS.1</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to preserve a secure state in the event of a self-test failure.
+                    <p></p>
+                  </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.SYSTEM_MONITORING">O.SYSTEM_MONITORING</a><br/></td><td><a href="#FAU_GEN.1/WLAN">FAU_GEN.1/WLAN</a></td><td>
+                      <a href="#FAU_GEN.1/WLAN">FAU_GEN.1/WLAN</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to generate audit records for security-relevant <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> behavior.
+                      <p></p>
+                    </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.TOE_ADMINISTRATION">O.TOE_ADMINISTRATION</a><br/></td><td>FIA_AFL.1 (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FMT_SMR_EXT.1">FMT_SMR_EXT.1</a></td><td>
+                        FIA_AFL.1 supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to block authentication if there is evidence of an attempt to compromise an administrator account through brute force.
+                        <p></p>
+                        <a href="#FMT_SMR_EXT.1">FMT_SMR_EXT.1</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to prevent any administrative actions that originate from the 'external' network.
+                        <p></p>
+                      </td></tr></table></p><h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-NDc" class="indexable" data-level="2">6.1 
+    Protection Profile for Network Devices</h2><h3 id="contoe-NDc" class="indexable" data-level="3">6.1.1 
+	Consistency of TOE Type
+      </h3> 
+        When this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> extends the Network Device cPP, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type for the overall <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is still a network device. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> just defines the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a specific type of network device with functional capabilities
+        distinct to that type. <h3 id="consecprob-NDc" class="indexable" data-level="3">6.1.2 
+	Consistency of Security Problem Definition
+      </h3>
+      The threats, assumptions, and OSPs defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> (see section 3.1) supplement those defined in the
+      NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> as follows:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Threat, Assumption, OSP</th><th>Consistency Rationale</th></tr><tr><td><a href="#T.NETWORK_DISCLOSURE">T.NETWORK_DISCLOSURE</a></td><td>This threat extends the security problem defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to include the threat of a malicious entity in an untrusted network interacting with a protected entity in a trusted network. 
+            This is not addressed in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> because not all network devices are responsible for facilitating communications between separate networks. This threat is also consistent with the T.UNTRUSTED_COMMUNICATION_CHANNELS
+            threat defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> because compromise of data in transit is one potential way this threat may be exploited.</td></tr><tr><td><a href="#T.NETWORK_ACCESS">T.NETWORK_ACCESS</a></td><td>This threat extends the security problem defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to include the threat of a malicious entity in an untrusted network interacting with a protected entity in a trusted network. 
+            This is not addressed in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> because not all network devices are responsible for facilitating communications between separate networks.</td></tr><tr><td><a href="#T.TSF_FAILURE">T.TSF_FAILURE</a></td><td>This threat is an extension of the T.SECURITY_FUNCTIONALITY_FAILURE threat defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#T.DATA_INTEGRITY">T.DATA_INTEGRITY</a></td><td>This threat is a specific type of failure that may result from successful exploitation of the T.WEAK_CRYPTOGRAPHY threat defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+            It is an extension of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> threat for communications that are specific to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#T.REPLAY_ATTACK">T.REPLAY_ATTACK</a></td><td>This threat is a specific type of failure that may result from successful exploitation of the T.UNAUTHORIZED_ADMINISTRATOR_ACCESS and T.UNTRUSTED_COMMUNICATIONS_CHANNELS threats defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+            It is an extension of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> threat for communications that are specific to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#A.CONNECTIONS">A.CONNECTIONS</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define where in a particular network architecture a network device must be deployed since it is designed to be generic to various types of network devices. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
+            defines the expected architectural deployment specifically for <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_AS">AS</a></abbr> network devices.</td></tr></table><h3 id="conobj-NDc" class="indexable" data-level="3">6.1.3 
+	Consistency of Objectives
+      </h3><p>
+	  The objectives for the TOEs are consistent with the NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> based on the following rationale:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.CRYPTOGRAPHIC_FUNCTIONS">O.CRYPTOGRAPHIC_FUNCTIONS</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives but it does define requirements for cryptographic functions. This objective is consistent with the functional behavior required by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#O.AUTHENTICATION">O.AUTHENTICATION</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives but it does define requirements for authentication of both users and remote entities. 
+                  This objective is consistent with the functional behavior required by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#O.FAIL_SECURE">O.FAIL_SECURE</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives but it does define requirements for self-testing. 
+                    This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is consistent with that by defining an objective to enter a secure state if a self-test does fail.</td></tr><tr><td><a href="#O.SYSTEM_MONITORING">O.SYSTEM_MONITORING</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives but it does define requirements for auditing. 
+                      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is consistent with that by ensuring that auditable events are appropriately defined for 
+                      the <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_AS">AS</a></abbr> capability.</td></tr><tr><td><a href="#O.TOE_ADMINISTRATION">O.TOE_ADMINISTRATION</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives but it does define requirements for management. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is consistent with that by applying security restrictions on how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s
+                        management interface can be invoked.</td></tr></table></p><p>
+	  The objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s Operational Environment are consistent with the NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> based on the following rationale:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Operational Environment Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#OE.CONNECTIONS">OE.CONNECTIONS</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define where in a particular network architecture a network device must be deployed since it is designed to be generic to various types of network devices. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
+            defines the expected architectural deployment specifically for <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_AS">AS</a></abbr> network devices.</td></tr></table></p><h3 id="conreq-NDc" class="indexable" data-level="3">6.1.4 
+	Consistency of Requirements
+      </h3>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> identifies several SFRs from the
+      NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that are needed to support
+      Wireless Local Area Network (<abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>) Access System functionality.
+      This is considered to be consistent because the functionality provided by the
+      NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is being used for its intended purpose.
+      
+          The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> also identifies a number of modified SFRs from the
+          NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>
+          that are used entirely to provide functionality for
+          Wireless Local Area Network (<abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>) Access System.
+        
+          The rationale for why this does not conflict with the claims
+      defined by the
+      NDc <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are as follows:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Requirement</th><th>Consistency Rationale</th></tr><tr><th colspan="2"> Modified SFRs</th></tr><tr><td><a href="#FCS_COP.1/DATAENCRYPTION">FCS_COP.1/DATAENCRYPTION</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s definition of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> by adding additional <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> modes consistent with the standards referenced in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, and by mandating specific selections that are
+            relevant to the technology type of the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s definition of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> by defining a minimum baseline for what self-tests must be run. Additional self-tests
+              may still be specified by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author.</td></tr><tr><td><a href="#FTP_ITC.1">FTP_ITC.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s definition of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> by specifying a minimum baseline of required communications protocols and also includes additional protocols not originally
+              defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. The original protocols specified in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> may still be selected by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author.</td></tr><tr><th colspan="2"> Mandatory SFRs</th><tr><td><a href="#FAU_GEN.1/WLAN">FAU_GEN.1/WLAN</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> iterates the FAU_GEN.1 <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to define auditable events for the functionality that is specific to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#FCS_CKM.1/WPA">FCS_CKM.1/WPA</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines additional cryptographic functionality not defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> but it implements this using the DRBG mechanism already defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_CKM.2/GTK">FCS_CKM.2/GTK</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines additional cryptographic functionality not defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> that is used for functionality outside the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_CKM.2/PMK">FCS_CKM.2/PMK</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines additional cryptographic functionality not defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> that is used for functionality outside the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines support for 802.1X communications, which is a logical interface that extends the scope of what the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> originally defined.</td></tr><tr><td><a href="#FIA_UAU.6">FIA_UAU.6</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines support for re-authentication of wireless users, which are a type of subject beyond the scope of what the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> originally defined.</td></tr><tr><td><a href="#FMT_SMR_EXT.1">FMT_SMR_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies restrictions on when the execution of management functions is authorized. It does not prevent proper administration of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.</td></tr><tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> extends the functionality described by <a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a> in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> by defining the specific <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> reaction in the event of a failed self-test.</td></tr><tr><td><a href="#FTA_TSE.1">FTA_TSE.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies restrictions on establishment of wireless communications, which is a logical interface that extends the scope of what the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> originally defined.</td></tr></tr><tr><th colspan="2"> Optional SFRs</th><tr><td><a href="#FCS_CKM.2/DISTRIB">FCS_CKM.2/DISTRIB</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines an additional use for the cryptographic and self-protection mechanisms defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr></tr><tr><th colspan="2"> Selection-based SFRs</th><tr><td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines the implementation of RadSec and the peer authentication method that it uses. 
+            This relies on the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> requirements defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and may also use the X.509 certificate validation methods
+            specified in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, depending on the selected peer authentication method.</td></tr><tr><td><a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines the implementation of RadSec when pre-shared key authentication is used. This functionality is outside the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> but it relies on 
+            the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client protocol implementation, cryptographic algorithms, and random bit generation functions defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_RADSEC_EXT.3">FCS_RADSEC_EXT.3</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines the implementation of RadSec when pre-shared key authentication with RSA is used. This functionality is outside the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> but it relies on 
+            the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client protocol implementation, cryptographic algorithms, and random bit generation functions defined by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines parameters for pre-shared key generation. The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> supports pre-shared keys as a potential authentication method for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> 
+            does not prevent this from being used but does define restrictions on how pre-shared keys may be generated and what constitutes an acceptable key. 
+            This may also be used for RadSec, which is outside the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr></tr><tr><th colspan="2"> Objective SFRs</th><tr><td colspan="2" style="text-align:center">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any objective requirements.
+	    </td></tr></tr></table><h1 id="opt-sfrs" class="indexable" data-level="A">Appendix A -  Optional SFRs</h1><h2 id="strictly-optional-sfrs" class="indexable" data-level="2">A.1 Strictly Optional Requirements</h2><div id="FCS_CKM.2/DISTRIB" class="comp"><h4>FCS_CKM.2/DISTRIB Cryptographic Key Distribution (802.11 Keys)</h4>
+          
+          <div class="element"><div id="FCS_CKM.2.1/DISTRIB" class="reqid"><a class="abbr" href="#FCS_CKM.2.1/DISTRIB">FCS_CKM.2.1/DISTRIB</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distribute <b>the IEEE 802.11</b> keys in accordance with a
+              specified key distribution method: [<i>trusted channel protocol specified in FPT_ITT.1</i>] that meets the following: [<i>standards specified in the various iterations of FCS_COP.1</i>] <b>and
+                does not expose the cryptographic keys</b>.
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement is only applicable when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is distributed (i.e., FPT_ITT.1 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> is claimed).<p></p>
+              This requirement applies to any key necessary for successful IEEE 802.11 connections
+              not covered by <a href="#FCS_CKM.2/GTK">FCS_CKM.2/GTK</a>. In cases where a key must be distributed to other access points, this
+              communication must be performed via a mechanism of commensurate cryptographic strength. Because
+              communications with any component of a distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are required to be performed over a trusted
+              connection, the transfer of these keys will be protected.<p></p>
+            FCS_COP.1 and FPT_ITT.1 are defined in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.</span></div>
+            
+          </div></div>
+        </div><h2 id="objective-sfrs" class="indexable" data-level="2">A.2 Objective Requirements</h2><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Objective SFRs.
+	</p><h1 id="sel-sfrs" class="indexable" data-level="A">Appendix B -  Selection-based SFRs</h1><div id="FCS_RADSEC_EXT.1" class="comp"><h4>FCS_RADSEC_EXT.1 RadSec</h4>
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div id="FCS_RADSEC_EXT.1.1" class="reqid"><a class="abbr" href="#FCS_RADSEC_EXT.1.1">FCS_RADSEC_EXT.1.1</a></div><div class="reqdesc">
+            
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as specified in RFC 6614 to communicate securely with a RADIUS server.
+            
+          </div></div>
+          <div class="element"><div id="FCS_RADSEC_EXT.1.2" class="reqid"><a class="abbr" href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a></div><div class="reqdesc">
+            
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform peer authentication using [<b>selection</b>: <i>X.509v3 certificates</i>, <i>pre-shared keys</i>].
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is applicable if "RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>" is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>.<p></p>
+              If "X.509v3 certificates" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, then FCS_TLSC_EXT.2 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> must be claimed. 
+              If "pre-shared keys" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, then <a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> and <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must be claimed. 
+            </span></div>
+            
+          </div></div>
+        </div><div id="FCS_RADSEC_EXT.2" class="comp"><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4>
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div id="FCS_RADSEC_EXT.2.1" class="reqid"><a class="abbr" href="#FCS_RADSEC_EXT.2.1">FCS_RADSEC_EXT.2.1</a></div><div class="reqdesc">
+            
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement [<b>selection</b>: <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 (RFC 5246)</i>, <i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1 (RFC 4346)</i>] and no earlier <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions when acting as a RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client that supports the following cipher suites: 
+              [<b>selection</b>: <ul><li><i>TLS_PSK_WITH_AES_128_CBC_SHA</i>, </li><li><i>TLS_PSK_WITH_AES_256_CBC_SHA</i>, </li><li><i>TLS_DHE_PSK_WITH_AES_128_CBC_SHA</i>, </li><li><i>TLS_DHE_PSK_WITH_AES_256_CBC_SHA</i>, </li><li><i>TLS_RSA_PSK_WITH_AES_128_CBC_SHA</i>, </li><li><i>TLS_RSA_PSK_WITH_AES_256_CBC_SHA</i>, </li><li><i>TLS_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li><i>TLS_PSK_WITH_AES_256_GCM_SHA384</i>, </li><li><i>TLS_DHE_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li><i>TLS_DHE_PSK_WITH_AES_256_GCM_SHA384</i>, </li><li><i>TLS_RSA_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li><i>TLS_RSA_PSK_WITH_AES_256_GCM_SHA384</i></li></ul>].
+            
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">If any of the TLS_RSA_PSK cipher suites are selected by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author, it is necessary to claim the selection-based requirement <a href="#FCS_RADSEC_EXT.3">FCS_RADSEC_EXT.3</a>.<p></p>
+              The above cipher suites are only for use when the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is acting as a RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client, not for other uses of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> protocol. 
+              The cipher suites to be tested in the evaluated configuration are limited by this requirement. 
+              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should select the cipher suites that are supported. If "X.509v3 certificates" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, 
+              the cipher suites selected in (and tested by) FCS_TLSC_EXT.2.1 are also supported for RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client use.
+            </span></div>
+          </div></div>
+          <div class="element"><div id="FCS_RADSEC_EXT.2.2" class="reqid"><a class="abbr" href="#FCS_RADSEC_EXT.2.2">FCS_RADSEC_EXT.2.2</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to [<b>selection</b>: <i>accept</i>, <i>generate using the random bit generator specified in FCS_RBG_EXT.1</i>] bit-based pre-shared keys.
+            
+          </div></div>
+        </div><div id="FCS_RADSEC_EXT.3" class="comp"><h4>FCS_RADSEC_EXT.3 RadSec using Pre-Shared Keys and RSA</h4>
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div id="FCS_RADSEC_EXT.3.1" class="reqid"><a class="abbr" href="#FCS_RADSEC_EXT.3.1">FCS_RADSEC_EXT.3.1</a></div><div class="reqdesc">
+            
+              When the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> negotiates a TLS_RSA_PSK cipher suite, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall verify that the presented identifier matches the reference identifier per RFC 6125 section 6.
+            
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement must be claimed if any cipher suites beginning with 'TLS_RSA_PSK' are selected in <a href="#FCS_RADSEC_EXT.2.1">FCS_RADSEC_EXT.2.1</a>.<p></p>
+              The rules for verification of identity are described in Section 6 of RFC 6125. 
+              The reference identifier is typically established by configuration (e.g. configuring the name of the authentication server). 
+              Based on a singular reference identifier’s source domain and application service type (e.g. HTTP, SIP, LDAP), 
+              the client establishes all reference identifiers which are acceptable, such as a Common Name for the Subject Name field of the certificate and a (case-insensitive) DNS name for the Subject Alternative Name field. 
+              The client then compares this list of all acceptable reference identifiers to the presented identifiers in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server’s certificate.<p></p>
+              
+              The preferred method for verification is the Subject Alternative Name using DNS names, URI names, or Service Names. 
+              Verification using the Common Name is required for the purposes of backwards compatibility. 
+              Additionally, support for use of IP addresses in the Subject Name or Subject Alternative name is discouraged as against best practices but may be implemented. 
+              Finally, support for wildcards is discouraged but may be implemented. 
+              If the client supports wildcards, the client must follow the best practices regarding matching; these best practices are captured in the evaluation activity.<p></p>
+            </span></div>
+          </div></div>
+          <div class="element"><div id="FCS_RADSEC_EXT.3.2" class="reqid"><a class="abbr" href="#FCS_RADSEC_EXT.3.2">FCS_RADSEC_EXT.3.2</a></div><div class="reqdesc">
+            When the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> negotiates a TLS_RSA_PSK cipher suite, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall  [<b>selection</b>: <i>not establish the connection</i>, <i>request authorization to establish the connection</i>, <i>[<b>assignment</b>: <span class="assignable-content">other action</span>]</i>] if the presented server certificate is deemed invalid.
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement must be claimed if any cipher suites beginning with 'TLS_RSA_PSK' are selected in <a href="#FCS_RADSEC_EXT.2.1">FCS_RADSEC_EXT.2.1</a>.<p></p>
+              
+              Validity is determined by the identifier verification, certificate path, the expiration date, and the revocation status in accordance with RFC 5280. 
+              Certificate validity is tested in accordance with testing performed for FIA_X509_EXT.1/Rev in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.</span></div>
+            
+          </div></div>
+        </div><div id="FIA_PSK_EXT.1" class="comp"><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4>
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div id="FIA_PSK_EXT.1.1" class="reqid"><a class="abbr" href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to use pre-shared keys for [<b>selection</b>: <i>RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (RadSec)</i>, <i><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></i>] and [<b>selection</b>: <i>IEEE 802.11 WPA2-PSK</i>, <i>[<b>assignment</b>: <span class="assignable-content">other protocols that use pre-shared keys</span>]</i>, <i>no other protocols</i>]. 
+            
+          </div></div>
+          <div class="element"><div id="FIA_PSK_EXT.1.2" class="reqid"><a class="abbr" href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept text-based pre-shared keys that: <ul>
+              <li>are 22 characters and [<b>selection</b>: <i>[<b>assignment</b>: <span class="assignable-content">other supported lengths</span>]</i>, <i>no other lengths</i>];</li>
+              <li>are composed of any combination of upper and lower case letters, numbers, and special
+                characters (that include: “!”, “@”, “#”, “$”, “%”, “^”, “&amp;”, “*”, “(“, and “)”).
+              </li>
+            </ul>
+            
+          </div></div>
+          <div class="element"><div id="FIA_PSK_EXT.1.3" class="reqid"><a class="abbr" href="#FIA_PSK_EXT.1.3">FIA_PSK_EXT.1.3</a></div><div class="reqdesc">
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to [<b>selection</b>: <i>accept</i>, <i>generate using the random bit generator specified in FCS_RBG_EXT.1</i>] bit-based pre-shared keys.
+            
+          
+          <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+          This requirement must be included if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> or another protocol that uses pre-shared keys is claimed, and pre-shared key authentication is selected 
+          (i.e. "Pre-shared Keys" is selected in FCS_IPSEC_EXT.1.13 or "pre-shared keys" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>). 
+          In the second selection, if other protocols can use pre-shared keys, they should be listed in the assignment as well; 
+          otherwise “no other protocols” should be chosen. The intent of this requirement is that all protocols will support both text-based and bit-based pre-shared keys.<p></p>
+          
+          For the length of the text-based pre-shared keys, a common length (22 characters) is required to help
+          promote interoperability. If other lengths are supported they should be listed in the assignment; this
+          assignment can also specify a range of values (e.g., "lengths from 5 to 55 characters") as well.<p></p>
+            
+          For <a href="#FIA_PSK_EXT.1.3">FIA_PSK_EXT.1.3</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> merely accepts bit-based pre-shared keys,
+          or is capable of generating them. If it generates them, the requirement specifies that they must be
+          generated using the RBG provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+          </span></div>
+            
+          </div></div>
+        </div><h1 id="ext-comp-defs" class="indexable" data-level="A">Appendix C -  Extended Component Definitions</h1>
+This appendix contains the definitions for the extended requirements that are used in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
+including those used in Appendices A through C.
+
+
+    <h2 id="ext-comp-defs-bg" class="indexable" data-level="2">C.1 Background and Scope</h2>
+This appendix provides a definition for all of the extended components introduced
+in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+
+
+These components are identified in the following table:
+
+<table><tr><th>Functional Class</th><th>Functional Components</th></tr><tr><td>Identification and Authentication (FIA)</td><td>FIA_8021X_EXT 802.1X Port Access Entity (Authenticator) Authentication<br/>FIA_PSK_EXT Pre-Shared Key Composition<br/></td></tr><tr><td>Security Management (FMT)</td><td>FMT_SMR_EXT Security Management Restrictions<br/></td></tr><tr><td>Cryptographic Support (FCS)</td><td>FCS_RADSEC_EXT RadSec<br/></td></tr></table><h2 id="ext-comp-defs-bg" class="indexable" data-level="2">C.2 Extended Component Definitions</h2><h3>FIA_8021X_EXT 802.1X Port Access Entity (Authenticator) Authentication</h3><h3>Family Behavior</h3><div>Components in this family describe requirements for implementation of 802.1X port-based network access control.</div><svg style="max-height:30px ;"><text font-size="11" y="22" fill="black" x="4">FIA_8021X_EXT</text><rect stroke="black" width="120" fill="none" y="11" height="16" x="2"></rect><text font-size="11" y="22" fill="black" x="234"><a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a></text><rect stroke="black" width="120" fill="none" y="11" height="16" x="232"></rect><line stroke="black" y2="17" x1="122" y1="17" x2="231"></line></svg><h3>Component Leveling</h3><p><a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a>,
+             802.1X Port Access Entity (Authenticator) Authentication,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to securely implement IEEE 802.1X as an authenticator.</p><h3>Management: FIA_8021X_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FIA_8021X_EXT.1</h3><p>The following actions should be auditable if FAU_GEN Security Audit Data Generation is included in the
+            <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: <ul>
+              <li>Attempts to access the 802.1X controlled port prior to succesul completion of the authentication exchange.</li>
+            </ul>
+          </p><h3>FIA_8021X_EXT.1 802.1X Port Access Entity (Authenticator) Authentication</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies</p><h3>FIA_8021X_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall conform to IEEE Standard 802.1X for a Port Access Entity (<abbr class="dyn-abbr"><a href="#abbr_PAE">PAE</a></abbr>) in the
+            “Authenticator” role.<h3>FIA_8021X_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support communications to a RADIUS authentication server
+            conforming to RFCs 2865 and 3579.<h3>FIA_8021X_EXT.1.3</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that no access to its 802.1X controlled port is given to the
+            wireless client prior to successful completion of this authentication exchange.<h3>FMT_SMR_EXT Security Management Restrictions</h3><h3>Family Behavior</h3><div>Components in this family describe architectural restrictions on security administration that are not defined in <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2.</div><svg style="max-height:30px ;"><text font-size="11" y="22" fill="black" x="4">FMT_SMR_EXT</text><rect stroke="black" width="120" fill="none" y="11" height="16" x="2"></rect><text font-size="11" y="22" fill="black" x="234"><a href="#FMT_SMR_EXT.1">FMT_SMR_EXT.1</a></text><rect stroke="black" width="120" fill="none" y="11" height="16" x="232"></rect><line stroke="black" y2="17" x1="122" y1="17" x2="231"></line></svg><h3>Component Leveling</h3><p><a href="#FMT_SMR_EXT.1">FMT_SMR_EXT.1</a>,
+             No Administration from Client,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to reject remote administration from a wireless client by default.</p><h3>Management: FMT_SMR_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FMT_SMR_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FMT_SMR_EXT.1 No Administration from Client</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_SMF.1 Specification of Management Functions</p><h3>FMT_SMR_EXT.1.1</h3><br/>
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that the ability to remotely administer the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a wireless client
+              shall be disabled by default.
+            <h3>FCS_RADSEC_EXT RadSec</h3><h3>Family Behavior</h3><div>Components in this family describe requirements for implementation of the RadSec (RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) protocol.</div><svg style="max-height:70px ;"><text font-size="11" y="42" fill="black" x="4">FCS_RADSEC_EXT</text><rect stroke="black" width="120" fill="none" y="31" height="16" x="2"></rect><text font-size="11" y="22" fill="black" x="234"><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a></text><rect stroke="black" width="120" fill="none" y="11" height="16" x="232"></rect><line stroke="black" y2="17" x1="122" y1="37" x2="231"></line><text font-size="11" y="42" fill="black" x="234"><a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a></text><rect stroke="black" width="120" fill="none" y="31" height="16" x="232"></rect><line stroke="black" y2="37" x1="122" y1="37" x2="231"></line><text font-size="11" y="62" fill="black" x="234"><a href="#FCS_RADSEC_EXT.3">FCS_RADSEC_EXT.3</a></text><rect stroke="black" width="120" fill="none" y="51" height="16" x="232"></rect><line stroke="black" y2="57" x1="122" y1="37" x2="231"></line></svg><h3>Component Leveling</h3><p><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a>,
+             RadSec,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement RadSec using a specified peer authentication method.</p><h3>Management: FCS_RADSEC_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FCS_RADSEC_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FCS_RADSEC_EXT.1 RadSec</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_TLSC_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Client Protocol<p></p>
+            <span class="no-link">FIA_PSK_EXT.1</span> Pre-Shared Key Composition<p></p>
+          FIA_X509_EXT.1 X.509 Certificate Validation</p><h3>FCS_RADSEC_EXT.1.1</h3><br/>
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as specified in RFC 6614 to communicate securely with a RADIUS server.
+            <h3>FCS_RADSEC_EXT.1.2</h3><br/>
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform peer authentication using [<b>selection</b>: <i>X.509v3 certificates</i>, <i>pre-shared keys</i>].
+            <h3>Component Leveling</h3><p><a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a>,
+             RadSec using Pre-Shared Keys,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement RadSec using pre-shared key authentication in a manner that conforms to relevant <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> specifications.</p><h3>Management: FCS_RADSEC_EXT.2</h3><p>No specific management functions are identified.</p><h3>Audit: FCS_RADSEC_EXT.2</h3><p>There are no auditable events foreseen.</p><h3>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_CKM.1 Cryptographic Key Generation<p></p>
+            FCS_COP.1 Cryptographic Operation<p></p>
+            <span class="no-link">FCS_RADSEC_EXT.1</span> RadSec<p></p>
+            FCS_RBG_EXT.1 Random Bit Generation<p></p></p><h3>FCS_RADSEC_EXT.2.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement [<b>assignment</b>: <span class="assignable-content">list of allowed <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions</span>] and reject all other <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> and SSL versions. 
+                The <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation shall support the following cipher suites for use when acting as a RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client: [<b>assignment</b>: <span class="assignable-content">list of supported cipher suites</span>].<h3>FCS_RADSEC_EXT.2.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to [<b>selection</b>: <i>accept</i>, <i>generate using the random bit generator specified in FCS_RBG_EXT.1</i>] bit-based pre-shared keys.<h3>Component Leveling</h3><p><a href="#FCS_RADSEC_EXT.3">FCS_RADSEC_EXT.3</a>,
+             RadSec using Pre-Shared Keys and RSA,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the external entity used for trusted communications.</p><h3>Management: FCS_RADSEC_EXT.3</h3><p>No specific management functions are identified.</p><h3>Audit: FCS_RADSEC_EXT.3</h3><p>There are no auditable events foreseen.</p><h3>FCS_RADSEC_EXT.3 RadSec using Pre-Shared Keys and RSA</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: <a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> RadSec using Pre-Shared Keys<p></p>
+            <span class="no-link">FIA_X509_EXT.1</span> X.509 Certificate Validation
+            <p></p></p><h3>FCS_RADSEC_EXT.3.1</h3><br/>
+              When the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> negotiates a TLS_RSA_PSK cipher suite, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall verify that the presented identifier matches the reference identifier per RFC 6125 section 6.
+            <h3>FCS_RADSEC_EXT.3.2</h3><br/>When the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> negotiates a TLS_RSA_PSK cipher suite, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall  [<b>selection</b>: <i>not establish the connection</i>, <i>request authorization to establish the connection</i>, <i>[<b>assignment</b>: <span class="assignable-content">other action</span>]</i>] if the presented server certificate is deemed invalid.<h3>FIA_PSK_EXT Pre-Shared Key Composition</h3><h3>Family Behavior</h3><div>Components in this family describe requirements for the creation and composition of pre-shared keys used to establish trusted communications channels.</div><svg style="max-height:30px ;"><text font-size="11" y="22" fill="black" x="4">FIA_PSK_EXT</text><rect stroke="black" width="120" fill="none" y="11" height="16" x="2"></rect><text font-size="11" y="22" fill="black" x="234"><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></text><rect stroke="black" width="120" fill="none" y="11" height="16" x="232"></rect><line stroke="black" y2="17" x1="122" y1="17" x2="231"></line></svg><h3>Component Leveling</h3><p><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>,
+             Pre-Shared Key Composition,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to support pre-shared keys that meet various characteristics for specific communications usage.</p><h3>Management: FIA_PSK_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FIA_PSK_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FIA_PSK_EXT.1 Pre-Shared Key Composition</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_RBG_EXT.1 Random Bit Generation</p><h3>FIA_PSK_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to use pre-shared keys for [<b>selection</b>: <i>RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (RadSec)</i>, <i><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></i>] and [<b>selection</b>: <i>IEEE 802.11 WPA2-PSK</i>, <i>[<b>assignment</b>: <span class="assignable-content">other protocols that use pre-shared keys</span>]</i>, <i>no other protocols</i>]. 
+            <h3>FIA_PSK_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept text-based pre-shared keys that: <ul>
+              <li>are 22 characters and [<b>selection</b>: <i>[<b>assignment</b>: <span class="assignable-content">other supported lengths</span>]</i>, <i>no other lengths</i>];</li>
+              <li>are composed of any combination of upper and lower case letters, numbers, and special
+                characters (that include: “!”, “@”, “#”, “$”, “%”, “^”, “&amp;”, “*”, “(“, and “)”).
+              </li>
+            </ul>
+            <h3>FIA_PSK_EXT.1.3</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to [<b>selection</b>: <i>accept</i>, <i>generate using the random bit generator specified in FCS_RBG_EXT.1</i>] bit-based pre-shared keys.
+            <h1 id="satisfiedreqs" class="indexable" data-level="A">Appendix D -  Implicitly Satisfied Requirements</h1><p>
+This appendix lists requirements that should be considered satisfied by products
+successfully evaluated against this Protection Profile.   
+However, these requirements are not featured explicitly as SFRs and should not be
+included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+They are not included as standalone SFRs because it would
+increase the time, cost, and complexity of evaluation.
+This approach is permitted
+by <a href="#bibCC">[CC]</a> Part 1, <b>8.2 Dependencies between components</b>.
+    </p><p>
+This information benefits systems engineering activities which call for inclusion of
+particular security controls.  Evaluation against the Protection Profile
+provides evidence that these controls are present and have been evaluated.
+    </p>
+    This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> has no implicitly satisfied requirements. All <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> dependencies are explicitly met either through SFRs defined by the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> or inherited from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+  <h1 id="allocation" class="indexable" data-level="A">Appendix E -  Allocation of Requirements in Distributed TOEs</h1>
+    
+    For a distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the security functional requirements in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> need to be met by the
+    <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a whole, but not all SFRs will necessarily be implemented by all components. The
+    following categories are defined in order to specify when each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be implemented by a
+    component: <ul>
+      <li><b>All Components ("All")</b> - All components that comprise the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must
+        independently satisfy the requirement.</li>
+      <li><b>At least one Component ("One")</b> - This requirement must be fulfilled by at least one
+        component within the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</li>
+      <li><b>Feature Dependent ("Feature Dependent")</b> - These requirements will only be
+        fulfilled where the feature is implemented by the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> component (note
+        that the requirement to meet the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> as a whole requires that at least one component
+        implements these requirements if they are claimed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>).</li></ul>
+    The table below specifies how each of the SFRs in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must be met, using the categories above.
+    
+    <table>
+      <tr class="header">
+        <td>Requirement</td>
+        <td>Description</td>
+        <td>Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Allocation</td>
+      </tr>
+      <tr>
+        <td><a href="#FCS_CKM.1/WPA">FCS_CKM.1/WPA</a></td>
+        <td>Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FCS_CKM.2/GTK">FCS_CKM.2/GTK</a></td>
+        <td>Cryptographic Key Distribution (<abbr class="dyn-abbr"><a href="#abbr_GTK">GTK</a></abbr>)</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FCS_CKM.2/PMK">FCS_CKM.2/PMK</a></td>
+        <td>Cryptographic Key Distribution (<abbr class="dyn-abbr"><a href="#abbr_PMK">PMK</a></abbr>)</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FIA_8021X_EXT.1">FIA_8021X_EXT.1</a></td>
+        <td>802.1X Port Access Entity (Authentictaor) Authentication</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FIA_UAU.6">FIA_UAU.6</a></td>
+        <td>Re-Authenticating</td>
+        <td>Feature Dependent</td>
+      </tr>
+      <tr>
+        <td><a href="#FMT_SMR_EXT.1">FMT_SMR_EXT.1</a></td>
+        <td>No Administration from Client</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FPT_FLS.1">FPT_FLS.1</a></td>
+        <td>Failure with Preservation of Secure State</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FTA_TSE.1">FTA_TSE.1</a></td>
+        <td><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Session Establishment</td>
+        <td>All</td>
+      </tr>
+      <tr>
+        <td><a href="#FCS_CKM.2/DISTRIB">FCS_CKM.2/DISTRIB</a></td>
+        <td>Cryptographic Key Distribution (802.11 Keys)</td>
+        <td>Feature Dependent</td>
+      </tr>
+      <tr>
+        <td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a></td>
+        <td>RadSec</td>
+        <td>Feature Dependent</td>
+      </tr>
+      <tr>
+        <td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a></td>
+        <td>RadSec using Pre-Shared Keys</td>
+        <td>Feature Dependent</td>
+      </tr>
+      <tr>
+        <td><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></td>
+        <td>Pre-Shared Key Composition</td>
+        <td>Feature Dependent</td>
+      </tr>
+    </table>
+    
+  <h1 id="EAR" class="indexable" data-level="A">Appendix F -  Entropy Documentation and Assessment</h1>
+    The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not require any additional supplementary information to describe its entropy sources beyond the requirements outlined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.  
+  <h1 id="bibliography" class="indexable" data-level="A">Appendix G -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC"> [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] </span></td><td>Common Criteria for Information Technology Security Evaluation - 
+    <ul><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
+             1: Introduction and General Model</a>,
+             CCMB-2017-04-001, Version 3.1, Revision 5,  April 2017.
+         </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
+             2: Security Functional Components</a>,
+             CCMB-2017-04-002, Version 3.1, Revision 5,  April 2017.
+         </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
+             3: Security Assurance Components</a>,
+             CCMB-2017-04-003, Version 3.1, Revision 5,  April 2017.
+         </li></ul></td></tr><tr><td><span id="bibNDcPP"> [<abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>] </span></td><td>
+        <a href="https://www.niap-ccevs.org/MMO/PP/CPP_ND_V2.2E.pdf">collaborative Protection Profile for Network Devices</a>, Version 2.2e, March 23, 2020
+      </td></tr><tr><td><span id="bibNDSD"> [<abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> SD] </span></td><td>
+        <a href="https://www.niap-ccevs.org/MMO/PP/CPP_ND_V2.2-SD.pdf">Supporting Document - Evaluation Activities for Network Device cPP</a>, Version 2.2, December 2019
+      </td></tr></table><h1 id="acronyms" class="indexable" data-level="A">Appendix H -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span id="abbr_AES" class="term"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr></span></td><td><span id="long_abbr_AES">Advanced Encryption Standard</span></td></tr><tr><td><span id="abbr_AP" class="term"><abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr></span></td><td><span id="long_abbr_AP">Access Point</span></td></tr><tr><td><span id="abbr_AS" class="term"><abbr class="dyn-abbr"><a href="#abbr_AS">AS</a></abbr></span></td><td><span id="long_abbr_AS">Access System</span></td></tr><tr><td><span id="abbr_Base-PP" class="term"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr><tr><td><span id="abbr_CBC" class="term"><abbr class="dyn-abbr"><a href="#abbr_CBC">CBC</a></abbr></span></td><td><span id="long_abbr_CBC">Cipher Block Chaining</span></td></tr><tr><td><span id="abbr_CC" class="term"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr><tr><td><span id="abbr_CCM" class="term"><abbr class="dyn-abbr"><a href="#abbr_CCM">CCM</a></abbr></span></td><td><span id="long_abbr_CCM">Counter Mode with <abbr class="dyn-abbr"><a href="#abbr_CBC">CBC</a></abbr>-MAC</span></td></tr><tr><td><span id="abbr_CCMP" class="term"><abbr class="dyn-abbr"><a href="#abbr_CCMP">CCMP</a></abbr></span></td><td><span id="long_abbr_CCMP"><abbr class="dyn-abbr"><a href="#abbr_CCM">CCM</a></abbr> mode Protocol</span></td></tr><tr><td><span id="abbr_CEM" class="term"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr><tr><td><span id="abbr_CTR" class="term"><abbr class="dyn-abbr"><a href="#abbr_CTR">CTR</a></abbr></span></td><td><span id="long_abbr_CTR">Counter (encryption mode)</span></td></tr><tr><td><span id="abbr_EAP" class="term"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></span></td><td><span id="long_abbr_EAP">Extensible Authentication Protocol</span></td></tr><tr><td><span id="abbr_GCM" class="term"><abbr class="dyn-abbr"><a href="#abbr_GCM">GCM</a></abbr></span></td><td><span id="long_abbr_GCM">Galois-Counter Mode</span></td></tr><tr><td><span id="abbr_GTK" class="term"><abbr class="dyn-abbr"><a href="#abbr_GTK">GTK</a></abbr></span></td><td><span id="long_abbr_GTK">Group Temporal Key</span></td></tr><tr><td><span id="abbr_IPsec" class="term"><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></span></td><td><span id="long_abbr_IPsec">Internet Protocol Security</span></td></tr><tr><td><span id="abbr_MAC" class="term"><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr></span></td><td><span id="long_abbr_MAC">Media Access Control or Message Authentication Code</span></td></tr><tr><td><span id="abbr_NDcPP" class="term"><abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr></span></td><td><span id="long_abbr_NDcPP">Network Device collaborative Protection Profile</span></td></tr><tr><td><span id="abbr_OE" class="term"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr><tr><td><span id="abbr_PAE" class="term"><abbr class="dyn-abbr"><a href="#abbr_PAE">PAE</a></abbr></span></td><td><span id="long_abbr_PAE">Port Access Entity</span></td></tr><tr><td><span id="abbr_PMK" class="term"><abbr class="dyn-abbr"><a href="#abbr_PMK">PMK</a></abbr></span></td><td><span id="long_abbr_PMK">Pairwise Master Key</span></td></tr><tr><td><span id="abbr_PP" class="term"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span id="abbr_PP-Configuration" class="term"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td></tr><tr><td><span id="abbr_PP-Module" class="term"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td></tr><tr><td><span id="abbr_SAR" class="term"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr><tr><td><span id="abbr_SFR" class="term"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr><tr><td><span id="abbr_SSID" class="term"><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr></span></td><td><span id="long_abbr_SSID">Service Set Identifier</span></td></tr><tr><td><span id="abbr_ST" class="term"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr><tr><td><span id="abbr_TLS" class="term"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span></td><td><span id="long_abbr_TLS">Transport Layer Security</span></td></tr><tr><td><span id="abbr_TOE" class="term"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr><tr><td><span id="abbr_TSF" class="term"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr><tr><td><span id="abbr_TSS" class="term"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr><tr><td><span id="abbr_WLAN" class="term"><abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr></span></td><td><span id="long_abbr_WLAN">Wireless Local Area Network</span></td></tr><tr><td><span id="abbr_WPA" class="term"><abbr class="dyn-abbr"><a href="#abbr_WPA">WPA</a></abbr></span></td><td><span id="long_abbr_WPA">Wi-Fi Protected Access</span></td></tr></table></body></html>

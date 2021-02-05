@@ -1,0 +1,401 @@
+<?xml-stylesheet type="text/xsl" href="../transforms/esr2html.xsl"><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:esr="http://common-criteria.rhcloud.com/ns/esr" xmlns:fn="http://www.w3.org/2005/xpath-functions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+					/*       { background-color: #FFFFFF; } */
+					body{
+					    margin-left:8%;
+					    margin-right:8%;
+					    foreground:black;
+					}
+					td{
+					    vertical-align:top;
+					}
+					div.section{
+					    text-align:center;
+					    margin-left:0%;
+					    margin-top:1em;
+					    margin-bottom:1em;
+					    border:2px solid #000000;
+					    width:100%;
+					    background-color:#FFFF99;
+					    font-family:arial, helvetica, sans-serif;
+					    font-weight:bold;
+					    box-shadow:2px 2px 2px #888888;
+					}
+					div.note{
+					    margin-left:10%;
+					    margin-right:10%;
+					    margin-top:1em;
+					}
+					
+					table.intro{
+					    table-layout:fixed;
+					    width:100%;
+					    margin-top:1em;
+					    border:1px solid black;
+					    box-shadow:2px 2px 2px #888888;
+					    text-align:center;
+					    vertical-align:middle;
+					    font-family:arial, helvetica, sans-serif;
+					}
+					ul,
+					ol{
+					    margin-bottom:0.5em;
+					    margin-top:0.5em;
+					}
+					li{
+					    margin-bottom:0.5em;
+					    margin-top:0.25em;
+					}</style></head><body><table class="intro"><tr><td style="width: 50%;"><img style="max-width:100%;" src="images/cclogo.png"></img></td><td style="vertical-align: middle;"><b>Common Criteria Evaluation and Validation Scheme</b><p></p>National Information
+					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">Software Defined Network (SDN) Controller Essential Security Requirements</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">National Information Assurance Partnership (NIAP)</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">42</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">1.0</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">draft</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr">25 April 2019</issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="purpose">Background and Purpose</div>
+		This document describes a core set of high-level fundamental 
+		security requirements expected of any Software Defined Networking
+		(SDN) Controller for use in an enterprise. It is intended to 
+		provide a minimal, baseline set of requirements which can be built
+		upon by future revisions to provide an overall set of security 
+		solutions for an enterprise network.
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr"></p>
+		SDN Controllers are one of many components of an SDN networking 
+		architecture. See below diagram.
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr"></p>
+	
+		<div class="figure" id="figure-sdn-controller"><img id="sdn-controller" src="images/sdncontroller.png" width="" height=""></img><p></p><span class="ctr" data-myid="figure-sdn-controller" data-counter-type="ct-figure">Figure <span class="counter">sdn-controller</span></span>:
+      SDN Controller in relation to the SDN Planes</div>
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr"></p>
+		An SDN Controller is a central and vital component of what 
+		constitutes an SDN system and is available as a logical or a 
+		physical device. An SDN Controller manages and distributes network
+		policies, collects routing and payload information from the Data
+		Plane, and interfaces with user applications in the Management
+		Plane. Each of the planes in an SDN system is composed of multiple
+		logical or physical components. SDN Controllers logically 
+		centralize the network intelligence and state in the Control 
+		Plane. 
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr"></p>
+		For clarity the following definitions are provided:
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				The Control Plane is a logical entity that receives 
+				instructions or requirements from the SDN Application 
+				layer through its northbound interface and relays them to
+				the Data Plane through its southbound interface. The 
+				Controller extracts information about the network from 
+				the Data Plane and communicates back to the SDN 
+				Application Layer with an abstract view of the network,
+				including statistics and events about what is happening.
+			</li>
+			<li>
+				The Data Plane (or SDN Network Devices) controls the 
+				forwarding and data processing capabilities for the 
+				network. This includes forwarding and processing of the
+				data path.
+			</li>
+			<li>
+				The Management Plane (or SDN Applications Layer) is 
+				composed of programs that communicate behaviors and 
+				needed resources with the SDN Controller via application
+				programming interfaces (APIs). In addition, the 
+				applications can build an abstracted view of the network
+				by collecting information from the Controller for 
+				decision-making purposes. These applications could 
+				include networking management, analytics, or business
+				applications used to run large data centers. For example,
+				an analytics application might be built to recognize 
+				suspicious network activity for security purposes. The 
+				Management Plane is sometimes also referred to as the 
+				Orchestration Layer.
+			</li>
+		</ul>
+	<div class="section" id="usecases">Use Cases</div>
+	  <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+	  	<li>
+	  		SDN controller as a standalone physical device.
+	  	</li>
+	  	<li>
+	  		SDN controller as a virtual device.
+	  	</li>
+	  	<li>
+	  		SDN Controller (standalone or virtual) with management 
+	  		capabilities.
+	  	</li>
+	  	<li>
+	  		A cluster of SDN Controllers (standalone or virtual).
+	  	</li>
+	  	<li>
+	  		The intent is that an SDN Controller satisfying these 
+	  		requirements will “do no harm” on a network. Rather than 
+	  		providing any explicit security functionality, compliant 
+	  		SDN Controllers simply ensure:
+	  	</li>
+	  	<ul>
+	  		<li>
+	  			They can be remotely managed in a secure manner.
+	  		</li>
+	  		<li>
+	  			Any software/firmware updates are from a trusted source.
+	  		</li>
+	  		<li>
+	  			Any interfaces to applications, VMs, and other devices are
+	  			trusted (zone of trust).
+	  		</li>
+	  		<li>
+	  			All suspect events are reported.
+	  		</li>
+	  		<li>
+	  			Logical or physical separation of the Control and Data 
+	  			Planes.
+	  		</li>
+	  		<li>
+	  			Logical or physical separation of the Control and Management 
+	  			Planes.
+	  		</li>
+	  		<li>
+	  			Protect data collected and distributed by the Control Plane
+	  			to the Data Plane such as flow tables and configurations.
+	  		</li>
+	  		<li>
+	  			Protect data collected and distributed by the Control Plane 
+	  			to the Management Plane such as auditable events and 
+	  			traffic/packet statistics.
+	  		</li>
+	  		<li>
+	  			Protect data collected, distributed and shared within the 
+	  			Control Plane such as when multiple SDN controllers exist 
+	  			in the architecture.
+	  		</li>
+	  	</ul>
+	  </ul>
+	<div class="section" id="resourcesprotected">Resources to be protected</div>
+    	  <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+    	  	<li>
+    	  		Any network-facing management interfaces, including traffic
+    	  		to and from the SDN Controller, and any critical data 
+    	  		(e.g., audit data).
+    	  	</li>
+    	  	<li>
+    	  		SDN Controller software/firmware.
+    	  	</li>
+    	  	<li>
+    	  		Data stored locally by the SDN Controller (e.g. Policy, 
+    	  		flow control, etc.).
+    	  	</li>
+    	  	<li>
+    	  		Configuration and reboot data, including any policy made 
+    	  		part of the boot configuration.
+    	  	</li>
+    	  	<li>
+    	  		Authentication credentials such as keys and passwords.
+    	  	</li>
+    	  	<li>
+    	  		Northbound, Southbound and East/West channels/connections.
+    	  	</li>
+    	  	<li>
+    	  		Any stored updates intended for SDN Devices.
+    	  	</li>
+    	  	<li>	
+     	  		SDN switch configuration and reboot data stored in the SDN 
+     	  		Controller.
+    	  	</li>
+    	  	<li>
+    	  		Traffic/packet statistics.
+    	  	</li>
+    	  	<li>
+    	  		Audit information.
+    	  	</li>
+    	  </ul>
+	<div class="section" id="attackeraccess">Attacker access</div> 
+	  <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+	  	<li>
+	  		An attacker can send arbitrary packets to network interfaces. 
+	  	</li>
+	  	<li> 
+	  		An attacker can intercept and arbitrarily modify or drop 
+	  		packets within existing traffic flows. 
+	  	</li>
+	  	<li>
+	  		An attacker can take over the role of the SDN Controller and
+	  		thus compromise the entire network.
+	  	</li>
+	  	<li>
+	  		An attacker can leverage the lack of an established standard 
+	  		for communication between the SDN Controller and other 
+	  		components in an SDN network and so taking advantage of 
+	  		interoperability or under-tested protocols
+	  	</li>
+	  	<li>
+	  		An attacker can leverage any automation functionality to cause
+	  		the most damage before being discovered.
+	  	</li>
+	  	<li>
+	  		An attacker can intercept and arbitrarily affect communications
+	  		between an SDN Controller and any northbound applications 
+	  		and/or components. 
+	  	</li>
+	  	<li>
+	  		An attacker can intercept and arbitrarily affect communications 
+	  		between SDN Controllers, east/west communication.
+	  	</li>
+	  	<li>
+	  		An attacker can intercept and arbitrarily affect communications 
+	  		between the SDN Controller and any switches under its control, 
+	  		southbound communication.
+	  	</li>
+	  </ul>
+	<div class="section" id="evaluationboundary">Evaluation Boundary</div> 
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				In the case of a physical standalone SDN Controller device,
+				the hardware, firmware and software of the device define 
+				the evaluation boundary.  
+			</li>
+			<li> 
+				In the case of a Virtual SDN Controller, the software of 
+				the Virtual Machine (VM) defines the evaluation boundary.
+			</li>
+			<li>
+				All of the security functionality is contained and executed 
+				within the evaluation boundary of the SDN Controller. 
+			</li>
+		</ul>
+	<div class="section" id="requirements">Essential Security Requirements</div>
+		The following are the essential security requirements that are 
+		expected to be implemented by an SDN Controller. Note that these
+		security requirements are conditional on that functionality being 
+		present. For example, an SDN Controller that does not include any
+		management functionality is considered to satisfy any security
+		requirements that pertain to the secure use of management features.
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr"></p>
+		Any other conditional requirements that depend on whether or not
+		the product implements a certain capability are listed in the
+		“Optional Extensions” section below.
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				The remote administration and audit functions shall use
+				cryptography to protect communications.
+			</li>
+			<li>
+				All communications with other SDN components shall be
+				protected and authenticated.
+			</li>
+			<li>
+				The SDN Controller shall be capable of auditing 
+				administrative actions, including any configuration changes
+				and rebooting of the SDN Controller.
+			</li>
+			<li>
+				The SDN Controller shall provide an authentication mechanism
+				for local and remote administrators, as well as the 
+				device/VM itself (e.g., the device/VM maintains an 
+				authentication credential that can be used to authenticate
+				it to an administrator’s client) .
+			</li>
+			<li>
+				The SDN Controller shall provide a cryptographic means to
+				validate the source of updates to be installed on the 
+				device/VM. 
+			</li>
+			<li>
+				The SDN Controller shall require any default passwords 
+				/ other credentials to be changed upon installation.
+			</li>
+			<li>
+				The SDN Controller shall protect keys, key material, and 
+				authentication credentials from unauthorized disclosure.
+			</li>
+			<li>
+				The SDN Controller shall be robust against malformed 
+				network packets, and denial-of-service attacks.
+			</li>
+			<li>
+				The SDN Controller shall provide self-tests to ensure the
+				security functions it implements are operating correctly.
+			</li>
+			<li>
+				Updates to the SDN Controller shall be authenticated.
+			</li>
+		</ul>
+	<div class="section" id="assumptions">Assumptions</div>
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				The SDN Controller relies on a trustworthy computing 
+				platform for its execution and it is assumed that the 
+				platform has not been compromised prior to the installation
+				of the SDN Controller.
+			</li>
+			<li>
+				The administrator of the underlying platform or SDN 
+				Controller is not careless, willfully negligent or hostile,
+				and administers the software within compliance of the 
+				approved enterprise security policy. 
+			</li>
+			<li>
+				Physical security appropriate to the value of the SDN 
+				Controller and the data it contains is provided.
+			</li>
+			<li> 
+				An SDN Controller is protected from physical attacks by
+				the wider environment. 
+			</li>
+		</ul>
+	<div class="section" id="extensions">Optional Extensions</div> 
+		The following requirements may already be realized in some products
+		in this technology class, but the ESR is not mandating these 
+		capabilities exist in “baseline” level product:
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				Automatic response to certain security events.
+			</li>
+			<li>
+				Validation of patches and updates intended for data plane 
+				SDN Devices - as an add-on to any validation performed in
+				the switch and not as an alternative.
+			</li>
+		</ul>
+	<div class="section" id="objective">Objective Requirements</div> 
+		Requirements specified here specify security-relevant behavior 
+		that is not expected to be realized currently in SDN Controllers, 
+		but capabilities that may be mandated in future versions of the 
+		ESR and resulting cPPs.
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				The device shall have internal security features to make
+				the device more resilient to security breaches. 
+			</li>
+			<li>
+				The device shall provide two-factor authentication 
+				natively on the device (i.e., does not rely on a 
+				separate device to provide this capability). 
+			</li>
+		</ul>
+	<div class="section" id="outsidescope">Outside the TOE's Scope</div>
+	    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>
+				Specific security functionality that is not global to all 
+				SDN Controllers (e.g. firewall, load balancers) as these 
+				will be specified in other ESRs. 
+			</li>
+	    	<li>
+	    		Examination of data plane content (including Virus scanning
+	    		and email scanning).
+	    	</li>
+			<li>
+				Intrusion detection/prevention capabilities. 
+			</li>
+			<li>
+				Network Address Translation (NAT) as a security function. 
+			</li>
+			<li>
+				The hardware or firmware of the underlying platform 
+				(virtualized SDN Controller only).
+			</li>
+	    	<li>
+	    		The host operating system or runtime environment 
+	    		(virtualized SDN Controller only).
+	    	</li>
+	    	<li>
+	    		The TOE shall not address other objects belonging in the
+	    		Data Plane, even if they are delivered as part of the 
+	    		product installation process.
+	    	</li>
+		</ul>
+	</body></html>

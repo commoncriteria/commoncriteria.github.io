@@ -1,0 +1,1205 @@
+<html>
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/diff.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <script src="js/tooltip/wz_tooltip.js" type="text/javascript"></script><script src="js/tooltip/tip_balloon.js" type="text/javascript"></script><script src="js/dojo/dojo.js" type="text/javascript"></script><script src="js/diff.js" type="text/javascript"></script><script>
+        htmlDiffInit();
+      </script>
+        <div class="diff-topbar">
+            <table class="diffpage-html-firstlast">
+                <tr>
+                    <td style="text-align: left;"><a class="diffpage-html-a" onclick="scrollToEvent(event)" id="first-diff" href="#changed-diff-0" next="changed-diff-0"><img class="diff-icon" src="images/diff-first.gif" title="Go to first change."></a><a class="diffpage-html-a" onclick="scrollToEvent(event)" href="#changed-diff-0">&nbsp;first</a></td><td style="text-align: center; font-size: 140%;"><a style="font-size: 100%;" class="diffpage-html-a" href="http://code.google.com/p/daisydiff/">Daisy Diff</a> compare report.
+                        <br>
+                        <span style="font-style: italic; font-size: 70%;">Click on the changed parts for a detailed description. Use the left and right arrow keys to walk through the modifications.</span></td><td style="text-align: right;"><a class="diffpage-html-a" onclick="scrollToEvent(event)" href="#added-diff-10">
+              last&nbsp;</a><a class="diffpage-html-a" onclick="scrollToEvent(event)" id="last-diff" href="#added-diff-10" previous="added-diff-10"><img class="diff-icon" src="images/diff-last.gif" title="Go to last change."></a></td>
+                </tr>
+            </table>
+        </div>
+        <h1 class="title" style="page-break-before:auto;">Functional Package for Secure Shell (SSH)</h1>
+        <h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1>
+        <div class="center">
+            <img alt="NIAP Logo" src="images/niaplogo.png">
+            <br>
+             Version: 1.0
+            <br>
+            2020-01-05
+            <br>
+            <b>National Information Assurance Partnership</b>
+            <br>
+        </div>
+        <h2 style="page-break-before:always;">Revision History</h2>
+        <table>
+            <tr class="header">
+                <th>Version</th><th>Date</th><th>Comment</th>
+            </tr>
+            <tr>
+                <td>1.0</td><td>2021-01-05</td><td>DRAFT: First publication as a Functional Package</td>
+            </tr>
+        </table>
+        <h2>Contents</h2>
+        <div class="toc" id="toc">
+            <a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#toes" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Functional_Requirements" style="text-indent:0px">3<span>Security Functional Requirements</span></a><a href="#ss-audit-table" style="text-indent:10px">3.1<span>Auditable Events for Mandatory SFRs</span></a><a href="#cryptsup" style="text-indent:10px"><span class="diff-html-changed" id="changed-diff-0" changes="<ul class='changelist'><li>Moved out of a <b>link</b> with destination #fcs with style <br/>text-indent:10px.</li><li>Moved to a <b>link</b> with destination #cryptsup with style <br/>text-indent:10px.</li></ul>" previous="first-diff" changeId="changed-diff-0" next="added-diff-0" onclick="return tipC(constructToolTipC(this));">3.2</span><span><span class="diff-html-changed" changes="<ul class='changelist'><li>Moved out of a <b>link</b> with destination #fcs with style <br/>text-indent:10px.</li><li>Moved to a <b>link</b> with destination #cryptsup with style <br/>text-indent:10px.</li></ul>" previous="first-diff" changeId="changed-diff-0" next="added-diff-0" onclick="return tipC(constructToolTipC(this));">Cryptographic</span><span class="diff-html-added" id="added-diff-0" previous="changed-diff-0" changeId="added-diff-0" next="changed-diff-1" onclick="return tipA(constructToolTipA(this));">_</span><span class="diff-html-changed" id="changed-diff-1" changes="<ul class='changelist'><li>Moved out of a <b>link</b> with destination #fcs with style <br/>text-indent:10px.</li><li>Moved to a <b>link</b> with destination #cryptsup with style <br/>text-indent:10px.</li></ul>" previous="added-diff-0" changeId="changed-diff-1" next="added-diff-1" onclick="return tipC(constructToolTipC(this));">Support</span><span class="diff-html-added" id="added-diff-1" previous="changed-diff-1" changeId="added-diff-1" next="changed-diff-2" onclick="return tipA(constructToolTipA(this));">_</span><span class="diff-html-changed" id="changed-diff-2" changes="<ul class='changelist'><li>Moved out of a <b>link</b> with destination #fcs with style <br/>text-indent:10px.</li><li>Moved to a <b>link</b> with destination #cryptsup with style <br/>text-indent:10px.</li></ul>" previous="added-diff-1" changeId="changed-diff-2" next="removed-diff-0" onclick="return tipC(constructToolTipC(this));">(FCS)</span></span></a><a href="#opt-app" style="text-indent:0px">Appendix A - <span>Optional Requirements</span></a><a href="#optional-reqs" style="text-indent:10px">A.1<span>Strictly Optional Requirements </span></a><a href="#objective-reqs" style="text-indent:10px">A.2<span>Objective Requirements </span></a><a href="#feat-based-reqs" style="text-indent:10px">A.3<span>Implementation-based Requirements </span></a><a href="#sel-based-reqs" style="text-indent:0px">Appendix B - <span>Selection-based Requirements </span></a><a href="#sel-based-reqs-audit" style="text-indent:10px">B.1<span> Auditable Events for Selection-based Requirements </span></a><a href="#fcs-obj" style="text-indent:10px"><span class="diff-html-removed" id="removed-diff-0" previous="changed-diff-2" changeId="removed-diff-0" next="changed-diff-3" onclick="return tipR(constructToolTipR(this));">B.2</span><span><span class="diff-html-removed" previous="changed-diff-2" changeId="removed-diff-0" next="changed-diff-3" onclick="return tipR(constructToolTipR(this));">Cryptographic Support (FCS)</span></span></a><a href="#biblio" style="text-indent:0px">Appendix C - <span>References</span></a><a href="#acronyms" style="text-indent:0px">Appendix D - <span>Acronyms</span></a>
+        </div>
+        <h1 class="indexable,h1" data-level="1" id="Introduction">1 Introduction</h1>
+        <h2 class="indexable,h2" data-level="2" id="Overview">1.1 Overview</h2>
+        <p>
+             Secure Shell (<abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>) is a protocol for secure remote login and other secure network services over an untrusted network. <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> software can act as a client, server, or both. 
+        </p>
+        <p>
+             This <i>Functional Package for Secure Shell</i> defines functional requirements for the implementation of the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol. The requirements are intended to improve the security of products by enabling their evaluation. 
+        </p>
+        <h2 class="indexable" data-level="2" id="glossary">1.2 Terms</h2>
+         The following sections list Common Criteria and technology terms used in this document. 
+        <h3 class="indexable" data-level="3" id="cc-terms">1.2.1 Common Criteria Terms</h3>
+        <table>
+            <tr>
+                <td>
+                    <div id="Assurance">Assurance</div>
+                </td><td>Grounds for confidence that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets the SFRs <a href="#bibCC">[CC]</a>.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Base_Protection_Profile">
+                        Base Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>)
+                    </div>
+                </td><td>Protection Profile used as a basis to build a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Common_Criteria">
+                        Common Criteria (<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>)
+                    </div>
+                </td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div>
+                </td><td> Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an IT security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations. </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Common_Evaluation_Methodology">
+                        Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>)
+                    </div>
+                </td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Distributed_TOE">
+                        Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+                    </div>
+                </td><td>A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> composed of multiple components operating as a logical whole.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Operational_Environment">
+                        Operational Environment (<abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>)
+                    </div>
+                </td><td>Hardware and software that are outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary that support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality and security policy.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Protection_Profile">
+                        Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)
+                    </div>
+                </td><td>An implementation-independent set of security requirements for a category of products.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Protection_Profile_Configuration">
+                        Protection Profile Configuration (<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>)
+                    </div>
+                </td><td>A comprehensive set of security requirements for a product type that consists of at least one <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and at least one <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Protection_Profile_Module">
+                        Protection Profile Module (<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)
+                    </div>
+                </td><td>An implementation-independent statement of security needs for a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type complementary to one or more Base Protection Profiles.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Security_Assurance_Requirement">
+                        Security Assurance Requirement (<abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr>)
+                    </div>
+                </td><td>A requirement to assure the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Security_Functional_Requirement">
+                        Security Functional Requirement (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)
+                    </div>
+                </td><td>A requirement for security enforcement by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Security_Target">
+                        Security Target (<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>)
+                    </div>
+                </td><td>A set of implementation-dependent security requirements for a specific product.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="TOE_Security_Functionality">
+                        <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality (<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>)
+                    </div>
+                </td><td>The security functionality of the product under evaluation.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="TOE_Summary_Specification">
+                        <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)
+                    </div>
+                </td><td>A description of how a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> satisfies the SFRs in an <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="Target_of_Evaluation">
+                        Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)
+                    </div>
+                </td><td>The product under evaluation. </td>
+            </tr>
+        </table>
+        <h3 class="indexable" data-level="3" id="tech-terms">1.2.2 Technical Terms</h3>
+        <table>
+            <tr>
+                <td>
+                    <div id="Secure_Shell">
+                        Secure Shell (<abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>)
+                    </div>
+                </td><td>Cryptographic network protocol for initiating text-based shell sessions on remote systems.</td>
+            </tr>
+        </table>
+        <h2 class="indexable,h2" data-level="2" id="toes">1.3 Compliant Targets of Evaluation</h2>
+        <p>
+             The Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>) in this Functional Package is a product which acts as an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server, or both. This FP describes the extended security functionality of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> in terms of <a href="#bibCC">[CC]</a>. 
+        </p>
+        <p>
+             The contents of this Functional Package must be appropriately combined with a <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>. When a <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> instantiates this Package, the Package must include selection-based requirements in accordance with the selections or assignments indicated in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>. 
+        </p>
+        <p>
+             The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that instantiates this Package must typically include the following components in order to satisfy dependencies of this Package. It is the responsibility of the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> author who instantiates this Package to ensure that dependence on these components is satisfied, either by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or by assumptions about its Operational Environment. 
+        </p>
+        <p>
+             An <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must identify the applicable version of the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> and this Package in its conformance claims. 
+        </p>
+        <table>
+            <tr class="header">
+                <th>Component</th><th>Explanation</th>
+            </tr>
+            <tr>
+                <td>FCS_CKM.1</td><td>To support key generation for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include FCS_CKM.1 and specify the corresponding algorithm.</td>
+            </tr>
+            <tr>
+                <td>FCS_CKM.2</td><td>To support key establishment for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include FCS_CKM.2 and specify the corresponding algorithm.</td>
+            </tr>
+            <tr>
+                <td>FCS_COP.1</td><td> To support the cryptography needed for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> communications, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include FCS_COP.1 (iterating as needed) to specify AES with corresponding key sizes and modes, digital signature generation and verification function (at least one of RSA or ECDSA), a cryptographic hash function, and a keyed-hash message authentication function. In particular, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must support AES-CTR as defined in NIST SP 800-38A with key sizes of both 128 and 256 bits. </td>
+            </tr>
+            <tr>
+                <td>FCS_RBG_EXT.1</td><td>To support random bit generation needed for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> key generation, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include a requirement that specifies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s ability to invoke or provide random bit generation services, commonly identified as FCS_RBG_EXT.1.</td>
+            </tr>
+            <tr>
+                <td>FIA_X509_EXT.1</td><td> To support establishment of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> communications using a public key algorithm that includes X.509, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include FIA_X509_EXT.1. Note however that support for X.509 is selectable and not mandatory. </td>
+            </tr>
+            <tr>
+                <td>FIA_X509_EXT.2</td><td> To support establishment of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> communications using a public key algorithm that includes X.509, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include FIA_X509_EXT.2. Note however that support for X.509 is selectable and not mandatory. </td>
+            </tr>
+            <tr>
+                <td>FPT_STM.1</td><td> To support establishment of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> communications using a public key algorithm that includes X.509, the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must include FPT_STM.1 or some other requirement that ensures reliable system time. Note however that support for time-based rekey thresholds is selectable and not mandatory. </td>
+            </tr>
+        </table>
+        <h1 class="indexable,h1" data-level="1" id="Conformance_Claims">2 Conformance Claims</h1>
+        <dl>
+            <dt>Conformance Statement</dt>
+            <dd>
+                An <abbr title="Security Target">ST</abbr> must claim exact conformance to this Package, as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).
+            </dd>
+            <dt>CC Conformance Claims</dt>
+            <dd>This Package is conformant to Parts 2 (extended) and 3 (conformant) of Common Criteria Version 3.1, Revision 5.</dd>
+            <dt>PP Claim </dt>
+            <dd>This Package does not claim conformance to any Protection Profile. </dd>
+            <dt>Package Claim</dt>
+            <dd>This Package does not claim conformance to any packages.</dd>
+        </dl>
+         
+        <h1 class="indexable,h1" data-level="1" id="Security_Functional_Requirements">3 Security Functional Requirements</h1>
+         This chapter describes the security requirements which have to be fulfilled by the product under evaluation. Those requirements comprise functional components from Part 2 of <a href="#bibCC">[CC]</a>. The following conventions are used for the completion of operations: 
+        <ul>
+            <li>
+                 <b>Refinement</b> operation (denoted by <b>bold text</b> or <strike>strikethrough text</strike>): is used to add details to a requirement (including replacing an assignment with a more restrictive selection) or to remove part of the requirement that is made irrelevant through the completion of another operation, and thus further restricts a requirement. 
+            </li>
+            <li>
+                 <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options provided by the [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] in stating a requirement.
+            </li>
+            <li>
+                 <b>Assignment</b> operation (denoted by <span class="assignable-content">italicized text</span>): is used to assign a specific value to an unspecified parameter, such as the length of a password. Showing the value in square brackets indicates assignment.
+            </li>
+            <li>
+                 <b>Iteration</b> operation: is indicated by appending the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> name with a slash and unique identifier suggesting the purpose of the operation, e.g. "/EXAMPLE1." 
+            </li>
+        </ul>
+        <h2 class="indexable,h2" data-level="2" id="ss-audit-table">3.1 Auditable Events for Mandatory SFRs</h2>
+        <p>
+             The auditable events specified in this Package are included in a Security Target if the incorporating <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> supports audit event reporting through FAU_GEN.1 and all other criteria in the incorporating <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are met. 
+        </p>
+        <div class="table-caption">
+            <span class="ctr" data-myid="cc-atref-mandatory" id="cc-atref-mandatory" data-counter-type="ct-Table">Table <span class="counter">1</span>: Auditable Events for Mandatory SFRs</span>
+        </div>
+        <table class="" border="1">
+            <tr>
+                <th>Requirement</th><th>Auditable Events</th><th>Additional Audit Record Contents</th>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSH_EXT.1">FCS_SSH_EXT.1</a></td><td>No events specified</td><td></td>
+            </tr>
+        </table>
+        <h2 class="indexable,h2" data-level="2" id="cryptsup">
+            <span class="diff-html-changed" id="changed-diff-3" changes="<ul class='changelist'><li>Moved out of a <b>heading (level 3)</b> with class indexable, <br/>data-level 2 and id fcs.</li><li>Moved to a <b>heading (level 2)</b> with class indexable,h2, <br/>data-level 2 and id cryptsup.</li></ul>" previous="removed-diff-0" changeId="changed-diff-3" next="added-diff-2" onclick="return tipC(constructToolTipC(this));">3.2 Cryptographic</span><span class="diff-html-added" id="added-diff-2" previous="changed-diff-3" changeId="added-diff-2" next="changed-diff-4" onclick="return tipA(constructToolTipA(this));">_</span><span class="diff-html-changed" id="changed-diff-4" changes="<ul class='changelist'><li>Moved out of a <b>heading (level 3)</b> with class indexable, <br/>data-level 2 and id fcs.</li><li>Moved to a <b>heading (level 2)</b> with class indexable,h2, <br/>data-level 2 and id cryptsup.</li></ul>" previous="added-diff-2" changeId="changed-diff-4" next="added-diff-3" onclick="return tipC(constructToolTipC(this));">Support</span><span class="diff-html-added" id="added-diff-3" previous="changed-diff-4" changeId="added-diff-3" next="changed-diff-5" onclick="return tipA(constructToolTipA(this));">_</span><span class="diff-html-changed" id="changed-diff-5" changes="<ul class='changelist'><li>Moved out of a <b>heading (level 3)</b> with class indexable, <br/>data-level 2 and id fcs.</li><li>Moved to a <b>heading (level 2)</b> with class indexable,h2, <br/>data-level 2 and id cryptsup.</li></ul>" previous="added-diff-3" changeId="changed-diff-5" next="removed-diff-1" onclick="return tipC(constructToolTipC(this));">(FCS)</span>
+        </h2>
+        <div class="comp" id="FCS_SSH_EXT.1">
+            <h4>FCS_SSH_EXT.1 SSH Protocol</h4>
+            <div class="element">
+                <div class="reqid" id="FCS_SSH_EXT.1.1">
+                    <a class="abbr" href="#FCS_SSH_EXT.1.1">FCS_SSH_EXT.1.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall implement the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol that complies with RFCs 4251, 4252, 4253, 4254 and [<b>selection</b>: <i>5647</i>, <i>5656</i>, <i>6187</i>, <i>6668</i>, <i>8332</i>, <i>no other RFCs</i>] as a [<b>selection</b>: <i>client</i>, <i>server</i>]. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects which of the additional RFCs to which conformance is being claimed. An <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> product can implement additional RFCs, but only those listed in the selection can be claimed as conformant under <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>. The RFC selections for this requirement need to be consistent with selections in later elements of this Functional Package (e.g., cryptographic algorithms permitted). 
+                            </p>
+                            <p>
+                                 RFC 4253 indicates that certain cryptographic algorithms are "REQUIRED." This means that from the Internet Engineering Task Force's (IETF's) perspective the implementation must include support, not that the algorithms must be enabled for use. For the purposes of this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>'s evaluation activity and this Functional Package overall, it is not necessary to ensure that algorithms listed as "REQUIRED" by the RFC but not listed in later elements of this Functional Package are actually implemented. 
+                            </p>
+                            <p>
+                                 RFC 5647 must be selected when AEAD_AES_128_GCM or AEAD_AES_256_GCM is selected as an encryption algorithm in <a href="#FCS_SSHC_EXT.1.3">FCS_SSHC_EXT.1.3</a> or <a href="#FCS_SSHS_EXT.1.3">FCS_SSHS_EXT.1.3</a> and as a MAC algorithm in <a href="#FCS_SSHC_EXT.1.5">FCS_SSHC_EXT.1.5</a> or <a href="#FCS_SSHS_EXT.1.5">FCS_SSHS_EXT.1.5</a>. 
+                            </p>
+                            <p>
+                                 RFC 5656 must be selected when ecdsa-sha2-nistp256 or ecdsa-sha2-nistp384 is selected as a public key algorithm in <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a> or <a href="#FCS_SSHS_EXT.1.4">FCS_SSHS_EXT.1.4</a>, or when ecdh-sha2-nistp256, ecdh-sha2-nistp384, or ecdh-sha2-nistp521 is selected as a key exchange algorithm in <a href="#FCS_SSHC_EXT.1.6">FCS_SSHC_EXT.1.6</a> or <a href="#FCS_SSHS_EXT.1.6">FCS_SSHS_EXT.1.6</a>. 
+                            </p>
+                            <p>
+                                 RFC 6187 must be selected when x509v3-ecdsa-sha2-nistp256 or x509v3-ecdsa-sha2-nistp384 is selected as a public key algorithm in <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a> or <a href="#FCS_SSHS_EXT.1.4">FCS_SSHS_EXT.1.4</a>. 
+                            </p>
+                            <p>
+                                 RFC 6668 must be selected when hmac-sha2-256 or hmac-sha2-512 is selected as a MAC algorithm in <a href="#FCS_SSHC_EXT.1.5">FCS_SSHC_EXT.1.5</a> or <a href="#FCS_SSHS_EXT.1.5">FCS_SSHS_EXT.1.5</a>. 
+                            </p>
+                            <p>
+                                 RFC 8332 must be selected when rsa-sha2-256 or rsa-sha2-512 is selected as a public key algorithm in <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a> or <a href="#FCS_SSHS_EXT.1.4">FCS_SSHS_EXT.1.4</a>. 
+                            </p>
+                            <p>
+                                 If "client" is selected, then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include <a href="#FCS_SSHC_EXT.1">FCS_SSHC_EXT.1</a>. 
+                            </p>
+                            <p>
+                                 If "server" is selected, then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include <a href="#FCS_SSHS_EXT.1">FCS_SSHS_EXT.1</a>. 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall ensure that the selections indicated in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> are consistent with selections in the dependent components. 
+                                <div class="eacategory">Guidance</div>
+                                 There are no guidance evaluation activities for this component. 
+                                <div class="eacategory">Tests</div>
+                                 There are no test evaluation activities for this component. </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="indexable" data-level="A" id="opt-app">
+            <span class="diff-html-removed" id="removed-diff-1" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">Appendix A - Optional Requirements</span>
+        </h1>
+        <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> As indicated in the introduction to this Package, the baseline requirements (those that must be performed by the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">TOE</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">) are contained in the body of this Package. This appendix contains three other types of optional requirements that may be included in the </span><abbr class="dyn-abbr"><a href="#abbr_ST"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">ST</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">, but are not required in order to conform to this Package. However, applied modules, packages and/or use cases may refine specific requirements as mandatory. </span>
+        <br>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"></span>
+        </br>
+        <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> The first type (</span><a href="#optional-reqs" class="dynref"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> A.1 Strictly Optional Requirements </span></a><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">) are strictly optional requirements that are independent of the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">TOE</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> implementing any function. If the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">TOE</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to included the SFRs in the </span><abbr class="dyn-abbr"><a href="#abbr_ST"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">ST</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">, but are not required in order to conform to this Package.</span>
+        <br>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"></span>
+        </br>
+        <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> The second type (</span><a href="#objective-reqs" class="dynref"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> A.2 Objective Requirements </span></a><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">) are objective requirements that describe security functionality not yet widely available in commercial technology. The requirements are not currently mandated in the body of this Package, but will be included in the baseline requirements in future versions of this Package. Adoption by vendors is encouraged and expected as soon as possible.</span>
+        <br>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"></span>
+        </br>
+        <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> The third type (</span><a href="#feat-based-reqs" class="dynref"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> A.3 Implementation-based Requirements </span></a><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">) are dependent on the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">TOE</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> implementing a particular function. If the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">TOE</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> fulfills any of these requirements, the vendor must either add the related </span><abbr class="dyn-abbr"><a href="#abbr_SFR"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">SFR</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> or disable the functionality for the evaluated configuration. </span>
+        <h2 class="indexable" data-level="2" id="optional-reqs">
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">A.1 Strictly Optional Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">This Package does not define any Strictly Optional requirements.</span>
+        </p>
+        <h2 class="indexable" data-level="2" id="objective-reqs">
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">A.2 Objective Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">This Package does not define any Objective requirements.</span>
+        </p>
+        <h2 class="indexable" data-level="2" id="feat-based-reqs">
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">A.3 Implementation-based Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">This Package does not define any Implementation-based requirements.</span>
+        </p>
+        <h1 class="indexable" data-level="A" id="sel-based-reqs">
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">Appendix B - Selection-based Requirements </span>
+        </h1>
+        <p>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">As indicated in the introduction to this Package, the baseline requirements (those that must be performed by the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">TOE</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> or its underlying platform) are contained in the body of this Package. There are additional requirements based on selections in the body of the Package: if certain selections are made, then additional requirements below must be included. </span>
+        </p>
+        <h2 class="indexable" data-level="2" id="sel-based-reqs-audit">
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">B.1 Auditable Events for Selection-based Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">The auditable events in the table below are included in a Security Target if both the associated requirement is included and the incorporating </span><abbr class="dyn-abbr"><a href="#abbr_PP"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">PP</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> or </span><abbr class="dyn-abbr"><a href="#abbr_PP-Module"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">PP-Module</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> supports audit event reporting through FAU_GEN.1 and any other criteria in the incorporating </span><abbr class="dyn-abbr"><a href="#abbr_PP"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">PP</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> or </span><abbr class="dyn-abbr"><a href="#abbr_PP-Module"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">PP-Module</span></a></abbr><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));"> are met.</span>
+        </p>
+        <div class="table-caption">
+            <span data-counter-type="ct-Table" data-myid="cc-atref-sel-based-dep" id="cc-atref-sel-based-dep" class="ctr"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">Table </span><span class="counter"><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">2</span></span></span><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">: Auditable Events for Selection-based Requirements </span>
+        </div>
+        <tr>
+            <th><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">Requirement</span></th><th><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">Auditable Events</span></th><th><span class="diff-html-removed" previous="changed-diff-5" changeId="removed-diff-1" next="changed-diff-6" onclick="return tipR(constructToolTipR(this));">Additional Audit Record Contents</span></th>
+        </tr>
+        <div class="comp" id="FCS_SSHC_EXT.1">
+            <h4>
+                <span class="diff-html-changed" id="changed-diff-6" changes="<ul class='changelist'><li>Moved out of a <b>table</b> with border 1 and class .</li><li>Moved out of a <b>row</b>.</li><li>Moved out of a <b>cell</b>.</li><li>Moved out of a <b>link</b> with destination #FCS_SSHC_EXT.1.</li><li>Moved to a <b>division</b> with class comp and id <br/>FCS_SSHC_EXT.1.</li><li>Moved to a <b>heading (level 4)</b>.</li></ul>" previous="removed-diff-1" changeId="changed-diff-6" next="removed-diff-2" onclick="return tipC(constructToolTipC(this));">FCS_SSHC_EXT.1 </span>
+            </h4>
+        </div>
+        <span class="diff-html-removed" id="removed-diff-2" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span><td><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">[selection: </span></b><i><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Failure to establish a session, None</span></i><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">]</span></b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Reason for failure.</span>
+            <br>
+                <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+            </br>
+            <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Non-TOE endpoint of attempted connection (IP Address).</span>
+            <br>
+                <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+            </br>
+        </td>
+        <tr>
+            <td><a href="#FCS_SSHC_EXT.1"><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">FCS_SSHC_EXT.1</span></a><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">[selection: </span></b><i><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Establishment of a session, None</span></i><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">]</span></b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Non-TOE endpoint of connection (IP Address).</span>
+                <br>
+                    <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+                </br>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="#FCS_SSHC_EXT.1"><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">FCS_SSHC_EXT.1</span></a><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">[selection: </span></b><i><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Termination of a session, None</span></i><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">]</span></b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Non-TOE endpoint of connection (IP Address).</span>
+                <br>
+                    <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+                </br>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="#FCS_SSHS_EXT.1"><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">FCS_SSHS_EXT.1</span></a><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">[selection: </span></b><i><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Failure to establish a session, None</span></i><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">]</span></b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Reason for failure.</span>
+                <br>
+                    <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+                </br>
+                <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Non-TOE endpoint of attempted connection (IP Address).</span>
+                <br>
+                    <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+                </br>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="#FCS_SSHS_EXT.1"><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">FCS_SSHS_EXT.1</span></a><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">[selection: </span></b><i><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Establishment of a session, None</span></i><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">]</span></b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Non-TOE endpoint of connection (IP Address).</span>
+                <br>
+                    <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+                </br>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="#FCS_SSHS_EXT.1"><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">FCS_SSHS_EXT.1</span></a><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">[selection: </span></b><i><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Termination of a session, None</span></i><b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">]</span></b><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span></td><td><span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">Non-TOE endpoint of connection (IP Address).</span>
+                <br>
+                    <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));"></span>
+                </br>
+            </td>
+        </tr>
+        <h2 class="indexable" data-level="2" id="fcs-obj">
+            <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">B.2 Cryptographic Support (FCS)</span>
+        </h2>
+        <div class="comp" id="FCS_SSHC_EXT.1">
+            <h4>
+                <span class="diff-html-removed" previous="changed-diff-6" changeId="removed-diff-2" next="removed-diff-3" onclick="return tipR(constructToolTipR(this));">FCS_SSHC_EXT.1 </span>SSH Protocol - Client
+            </h4>
+            <div class="statustag">
+                <b><i><span class="diff-html-removed" id="removed-diff-3" previous="removed-diff-2" changeId="removed-diff-3" next="added-diff-4" onclick="return tipR(constructToolTipR(this));">The inclusion of this </span><span class="diff-html-added" id="added-diff-4" previous="removed-diff-3" changeId="added-diff-4" next="added-diff-5" onclick="return tipA(constructToolTipA(this));">This is a </span>selection-based component<span class="diff-html-added" id="added-diff-5" previous="added-diff-4" changeId="added-diff-5" next="removed-diff-4" onclick="return tipA(constructToolTipA(this));">. Its inclusion </span>depends upon <span class="diff-html-removed" id="removed-diff-4" previous="added-diff-5" changeId="removed-diff-4" next="removed-diff-5" onclick="return tipR(constructToolTipR(this));">a </span>selection <span class="diff-html-removed" id="removed-diff-5" previous="removed-diff-4" changeId="removed-diff-5" next="added-diff-6" onclick="return tipR(constructToolTipR(this));">in </span><span class="diff-html-added" id="added-diff-6" previous="removed-diff-5" changeId="added-diff-6" next="removed-diff-6" onclick="return tipA(constructToolTipA(this));">from </span><b><i><a href="#FCS_SSH_EXT.1.1">FCS_SSH_EXT.1.1</a></i></b>. </i></b>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.1">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.1">FCS_SSHC_EXT.1.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol implementation supports the following authentication methods as described in RFC 4252: public key-based and [<b>selection</b>: <i>password-based</i>, <i>no other method</i>]. 
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the public key algorithms that are acceptable for use for authentication and that this list conforms to <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a>. The evaluator shall also ensure that password-based authentication methods, if supported, are described. 
+                                <div class="eacategory">Guidance</div>
+                                 If the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client supports password-based authentication, the evaluator shall examine the guidance to determine that it includes instructions on how to configure whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses password-based or public key-based authentication. 
+                                <div class="eacategory">Tests</div>
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall, for each public key algorithm supported, show that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports the use of that public key algorithm to authenticate a user connection to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server. Any configuration activities required to support this test shall be performed according to instructions in the guidance documentation.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>[<u>conditional</u>]: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports password-based authentication] Using the guidance documentation, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform password-based authentication to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server, and demonstrate that a user can be successfully authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using a password as an authenticator. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.2">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.2">FCS_SSHC_EXT.1.2</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that, as described in RFC 4253, packets greater than [<b>assignment</b>: <span class="assignable-content">number of bytes</span>] bytes in an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport connection are dropped. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note"> RFC 4253 provides for the acceptance of &ldquo;large packets&rdquo; with the caveat that the packets should be of &ldquo;reasonable length&rdquo; or dropped. The assignment should be filled in by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author with the maximum packet size accepted, thus defining &ldquo;reasonable length&rdquo; for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how &ldquo;large packets&rdquo; in terms of RFC 4253 are detected and handled. 
+                                <div class="eacategory">Guidance</div>
+                                 There are no guidance evaluation activities for this element. 
+                                <div class="eacategory">Tests</div>
+                                <ul>
+                                     The evaluator shall perform the following test: 
+                                    <li>
+                                        <b>Test 1: </b> The evaluator shall demonstrate that if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> receives a packet larger than that specified in this element, the packet is dropped. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.3">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.3">FCS_SSHC_EXT.1.3</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses the following encryption algorithms and rejects all other encryption algorithms: aes128-ctr, aes256-ctr, [<b>selection</b>: <i>aes128-cbc</i>, <i>aes256-cbc</i>, <i>AEAD_AES_128_GCM</i>, <i>AEAD_AES_256_GCM</i>, <i>aes128@openssh.com</i>, <i>aes256@openssh.com</i>, <i>no other algorithms</i>]. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and AEAD_AES_256_GCM can only be chosen as encryption algorithms when the same algorithm is being used as the MAC algorithm. 
+                            </p>
+                            <p>
+                                If AES-GCM is selected, there should be corresponding FCS_COP entries in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                            </p>
+                            <p>
+                                RFC 5647 applies only to the RFC-compliant implementation of GCM. A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that implements only the &ldquo;@openssh.com&rdquo; variant of GCM should not select 5647-compliant algorithms in <a href="#FCS_SSHC_EXT.1.1">FCS_SSHC_EXT.1.1</a>. aes*-gcm@openssh.com is specified in Section 1.6 of the OpenSSH Protocol Specification (https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/PROTOCOL?rev=1.31). 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the description of the implementation of this protocol in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported encryption algorithms and any optional characteristics. The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the encryption algorithms specified are identical to those listed for this element. 
+                                <div class="eacategory">Guidance</div>
+                                The evaluator shall check the guidance documentation to ensure that it contains instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the requirements). 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the encryption algorithms specified by the requirement. It is sufficient to observe (on the wire) the successful negotiation of the algorithm to satisfy the intent of this test.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the 3des-cbc encryption algorithm and no other encryption algorithms. The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the connection is rejected.
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.4">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses [<b>selection</b>: <i>ssh-rsa</i>, <i>rsa-sha2-256</i>, <i>rsa-sha2-512</i>, <i>ecdsa-sha2-nistp256</i>] and [<b>selection</b>: <i>ecdsa-sha2-nistp384</i>, <i>x509v3-ecdsa-sha2-nistp256</i>, <i>x509v3-ecdsa-sha2-nistp384</i>, <i>no other public key algorithms</i>] as its public key algorithm(s) and rejects all other public key algorithms. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                Implementations that select only ssh-rsa will not achieve the 112-bit security strength in the digital signature generation for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> authentication as is recommended in NIST SP 800-131A. Future versions of this document may remove ssh-rsa as a selection. If "x509v3-ecdsa-sha2-nistp256" or "x509v3-ecdsa-sha2-nistp384" are selected, then the list of trusted certification authorities must be selected in <a href="#FCS_SSHC_EXT.1.8">FCS_SSHC_EXT.1.8</a>. RFC 8332 specifies the use of rsa-sha2-256 or rsa-sha2-512 in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. 
+                            </p>
+                            <p>
+                                 The SFRs for cryptographic key generation and certificate validation are inherited from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package. 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the description of the implementation of this protocol in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported public key algorithms and any optional characteristics. The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the encryption algorithms specified are identical to those listed for this element. 
+                                <div class="eacategory">Guidance</div>
+                                The evaluator shall check the guidance documentation to ensure that it contains instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the requirements). 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the public key algorithms specified by the requirement to authenticate an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. It is sufficient to observe (on the wire) the successful negotiation of the algorithm to satisfy the intent of the test.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the ssh-dsa public key algorithm and no other public key algorithms. The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the connection is rejected.
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.5">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.5">FCS_SSHC_EXT.1.5</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses [<b>selection</b>: <i>hmac-sha1</i>, <i>hmac-sha1-96</i>, <i>hmac-sha2-256</i>, <i>hmac-sha2-512</i>] and [<b>selection</b>: <i>AEAD_AES_128_GCM</i>, <i>AEAD_AES_256_GCM</i>, <i>implicit</i>, <i>no other MAC algorithms</i>] as its data integrity MAC algorithm(s) and rejects all other MAC algorithm(s). 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and AEAD_AES_256_GCM can only be chosen as MAC algorithms when the same algorithm is being used as the encryption algorithm. RFC 6668 specifies the use of the sha2 algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. 
+                            </p>
+                            <p>
+                                 The SFRs for cryptographic operations, encryption, and hashing are inherited from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package. 
+                            </p>
+                            <p>
+                                The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects &ldquo;implicit&rdquo; if and only if aes*-gcm@openssh.com is selected as an encryption algorithm. When aes*-gcm@openssh.com is negotiated as the encryption algorithm, the MAC algorithm field is ignored and GCM is implicitly used as the MAC. &ldquo;implicit&rdquo; is not an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> algorithm identifier and will not be seen on the wire; however, the negotiated MAC might be decoded as &ldquo;implicit&rdquo;. 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported data integrity algorithms and that this list corresponds to the list in this element. 
+                                <div class="eacategory">Guidance</div>
+                                The evaluator shall check the guidance documentation to ensure that it includes instructions to the administrator on how to ensure that only the allowed data integrity algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (specifically, that the &ldquo;none&rdquo; MAC algorithm is not allowed). 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the integrity algorithms specified by the requirement. It is sufficient to observe (on the wire) the successful negotiation of the algorithm to satisfy the intent of this test.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the &ldquo;none&rdquo; MAC algorithm. The evaluator shall attempt to connect from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the attempt fails.
+                                    </li>
+                                    <li>
+                                        <b>Test 3: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the hmac-md5 MAC algorithm. The evaluator shall attempt to connect from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the attempt fails. To ensure the proposed MAC algorithm is used, the evaluator shall ensure a non-aes*- gcm@openssh.com encryption algorithm is negotiated while performing this test.
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.6">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.6">FCS_SSHC_EXT.1.6</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that [<b>selection</b>: <i>diffie-hellman-group14-sha1</i>, <i>ecdh-sha2-nistp256</i>] and [<b>selection</b>: <i>ecdh-sha2-nistp384</i>, <i>ecdh-sha2-nistp521</i>, <i>no other methods</i>] are the only allowed key exchange methods used for the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol. 
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported key exchange algorithms and that this list corresponds to the list in this element. 
+                                <div class="eacategory">Guidance</div>
+                                 The evaluator shall check the guidance documentation to ensure that it includes instructions to the administrator on how to ensure that only the allowed key exchange algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following test: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to permit all allowed key exchange methods. The evaluator shall then attempt to connect from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using each allowed key exchange method and observe that each attempt succeeds.
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.7">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.7">FCS_SSHC_EXT.1.7</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection be rekeyed after [<b>selection</b>: <i>no more than 2<sup>28</sup> packets have been transmitted</i>, <i>no more than 1 gigabyte of data has been transmitted</i>, <i>no more than 1 hour</i>] using that key. 
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element. 
+                                <div class="eacategory">Guidance</div>
+                                 There are no guidance evaluation activities for this element. 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following test for each rekeying method claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: 
+                                <ul>
+                                     The evaluator shall perform the following test: 
+                                    <li>
+                                        <b>Test 1: </b>The evaluator will configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to create a log entry when a rekey occurs. The evaluator will connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client and cause a rekey to occur according to the selection(s) in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and subsequently the evaluator uses available methods and tools to verify that rekeying occurs. This could be done, e.g., by checking that a corresponding audit event has been generated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports auditing of rekey events. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHC_EXT.1.8">
+                    <a class="abbr" href="#FCS_SSHC_EXT.1.8">FCS_SSHC_EXT.1.8</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client authenticates the identity of the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using a local database associating each host name with its corresponding public key or [<b>selection</b>: <i>a list of trusted certification authorities</i>, <i>no other methods</i>] as described in RFC 4251 section 4.1. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note"> The selection for "a list of trusted certification authorities" can only be chosen if "x509v3-ecdsa-sha2-nistp256" or "x509v3-ecdsa-sha2-nistp384" are selected in <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a>.</span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element. 
+                                <div class="eacategory">Guidance</div>
+                                 There are no guidance evaluation activities for this element. 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall delete all entries in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s list of recognized <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server host keys and, if selected, all entries in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s list of trusted certification authorities. The evaluator shall then initiate a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> either rejects the connection or displays the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server&rsquo;s public key (either the key bytes themselves or a hash of the key using any allowed hash algorithm) and prompts the user to accept or deny the key before continuing the connection.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall add an entry associating a host name with a public key into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s local database. The evaluator shall then replace, on the corresponding <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server, the server&rsquo;s host key with a different host key. The evaluator shall initiate a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using password-based authentication, shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects the connection, and shall ensure that the password was not transmitted to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server (for example, by instrumenting the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server with a debugging capability to output received passwords).
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comp" id="FCS_SSHS_EXT.1">
+            <h4>FCS_SSHS_EXT.1 SSH Protocol - Server</h4>
+            <div class="statustag">
+                <b><i><span class="diff-html-removed" id="removed-diff-6" previous="added-diff-6" changeId="removed-diff-6" next="added-diff-7" onclick="return tipR(constructToolTipR(this));">The inclusion of this </span><span class="diff-html-added" id="added-diff-7" previous="removed-diff-6" changeId="added-diff-7" next="added-diff-8" onclick="return tipA(constructToolTipA(this));">This is a </span>selection-based component<span class="diff-html-added" id="added-diff-8" previous="added-diff-7" changeId="added-diff-8" next="removed-diff-7" onclick="return tipA(constructToolTipA(this));">. Its inclusion </span>depends upon <span class="diff-html-removed" id="removed-diff-7" previous="added-diff-8" changeId="removed-diff-7" next="removed-diff-8" onclick="return tipR(constructToolTipR(this));">a </span>selection <span class="diff-html-removed" id="removed-diff-8" previous="removed-diff-7" changeId="removed-diff-8" next="added-diff-9" onclick="return tipR(constructToolTipR(this));">in </span><span class="diff-html-added" id="added-diff-9" previous="removed-diff-8" changeId="added-diff-9" next="changed-diff-7" onclick="return tipA(constructToolTipA(this));">from </span><b><i><a href="#FCS_SSH_EXT.1.1">FCS_SSH_EXT.1.1</a></i></b>. </i></b>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.1">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.1">FCS_SSHS_EXT.1.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol implementation supports the following authentication methods as described in RFC 4252: public key-based and [<b>selection</b>: <i>password-based</i>, <i>no other method</i>]. 
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the public key algorithms that are acceptable for use for authentication and that this list conforms to <a href="#FCS_SSHS_EXT.1.4">FCS_SSHS_EXT.1.4</a>. The evaluator shall also ensure that password-based authentication methods, if supported, are described. 
+                                <div class="eacategory">Guidance</div>
+                                 If the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server supports password-based authentication, the evaluator shall examine the guidance to determine that it includes instructions on how to configure whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses password-based or public key-based authentication. 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall, for each public key algorithm supported, show that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports the use of that public key algorithm to authenticate a user connection from an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client. Any configuration activities required to support this test shall be performed according to instructions in the guidance documentation.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b> The evaluator shall choose one public key algorithm supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall generate a new key pair for that algorithm without configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize the public key for authentication. The evaluator shall use an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the new key pair and demonstrate that authentication fails. 
+                                    </li>
+                                    <li>
+                                        <b>Test 3: </b>[<u>conditional</u>]: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports password-based authentication] Using the guidance documentation, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform password-based authentication on a client and demonstrate that a user can be successfully authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using a password as an authenticator.
+                                    </li>
+                                    <li>
+                                        <b>Test 4: </b> [<u>conditional</u>]: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports password-based authentication] The evaluator shall use an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to enter an incorrect password to attempt to authenticate to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and demonstrate that the authentication fails. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.2">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.2">FCS_SSHS_EXT.1.2</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that, as described in RFC 4253, packets greater than [<b>assignment</b>: <span class="assignable-content">number of bytes</span>] bytes in an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport connection are dropped. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">RFC 4253 provides for the acceptance of &ldquo;large packets&rdquo; with the caveat that the packets should be of &ldquo;reasonable length&rdquo; or dropped. The assignment should be filled in by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author with the maximum packet size accepted, thus defining &ldquo;reasonable length&rdquo; for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how &ldquo;large packets&rdquo; in terms of RFC 4253 are detected and handled. 
+                                <div class="eacategory">Guidance</div>
+                                 There are no guidance evaluation activities for this element. 
+                                <div class="eacategory">Tests</div>
+                                <ul>
+                                     The evaluator shall perform the following test: 
+                                    <li>
+                                        <b>Test 1: </b> The evaluator shall demonstrate that if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> receives a packet larger than that specified in this element, the packet is dropped. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.3">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.3">FCS_SSHS_EXT.1.3</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses the following encryption algorithms and rejects all other encryption algorithms: aes128-ctr, aes256-ctr, [<b>selection</b>: <i>aes128-cbc</i>, <i>aes256-cbc</i>, <i>AEAD_AES_128_GCM</i>, <i>AEAD_AES_256_GCM</i>, <i>aes128-gcm@openssh.com</i>, <i>aes256-gcm@openssh.com</i>, <i>no other algorithms</i>]. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and AEAD_AES_256_GCM can only be chosen as encryption algorithms when the same algorithm is being used as the MAC algorithm. 
+                            </p>
+                            <p>
+                                RFC 5647 applies only to the RFC compliant implementation of GCM. A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that implements only the &ldquo;@openssh.com&rdquo; variant of GCM should not select 5647-compliant algorithms in <a href="#FCS_SSHS_EXT.1.1">FCS_SSHS_EXT.1.1</a>. aes*-gcm@openssh.com is specified in Section 1.6 of the OpenSSH Protocol Specification (https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/PROTOCOL?rev=1.31). 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the description of the implementation of this protocol in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported encryption algorithms and any optional characteristics. The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the encryption algorithms specified are identical to those listed for this element. 
+                                <div class="eacategory">Guidance</div>
+                                 The evaluator shall check the guidance documentation to ensure that it contains instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the requirements). 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the encryption algorithms specified by the requirement. It is sufficient to observe (on the wire) the successful negotiation of the algorithm to satisfy the intent of this test.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only propose the 3des-cbc encryption algorithm and no other encryption algorithms. The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection from this client to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> server and observe that the connection is rejected.
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.4">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.4">FCS_SSHS_EXT.1.4</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses [<b>selection</b>: <i>ssh-rsa</i>, <i>rsa-sha2-256</i>, <i>rsa-sha2-512</i>, <i>ecdsa-sha2-nistp256</i>] and [<b>selection</b>: <i>ecdsa-sha2-nistp384</i>, <i>x509v3-ecdsa-sha2-nistp256</i>, <i>x509v3-ecdsa-sha2-nistp384</i>, <i>no other public key algorithms</i>] as its public key algorithm(s) and rejects all other public key algorithms. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 Implementations that select only ssh-rsa will not achieve the 112-bit security strength in the digital signature generation for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> authentication as is recommended in NIST SP 800-131A. Future versions of this document may remove ssh-rsa as a selection. RFC 8332 specifies the use of rsa-sha2-256 or rsa-sha2-512 in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. 
+                            </p>
+                            <p>
+                                 The SFRs for cryptographic key generation and certificate validation are inherited from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package. 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the description of the implementation of this protocol in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported public key algorithms and any optional characteristics. The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the encryption algorithms specified are identical to those listed for this element. 
+                                <div class="eacategory">Guidance</div>
+                                The evaluator shall check the guidance documentation to ensure that it contains instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the requirements). 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>Using an appropriately configured client, the evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the public key algorithms specified by the requirement to authenticate to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. It is sufficient to observe (on the wire) the successful negotiation of the algorithm to satisfy the intent of this test.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to propose only the ssh-dsa public key algorithm and no other public key algorithms. Using this client, the evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the connection is rejected.
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.5">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.5">FCS_SSHS_EXT.1.5</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses [<b>selection</b>: <i>hmac-sha1</i>, <i>hmac-sha1-96</i>, <i>hmac-sha2-256</i>, <i>hmac-sha2-512</i>] and [<b>selection</b>: <i>AEAD_AES_128_GCM</i>, <i>AEAD_AES_256_GCM</i>, <i>implicit</i>, <i>no other MAC algorithms</i>] as its MAC algorithm(s) and rejects all other MAC algorithm(s). 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and AEAD_AES_256_GCM can only be chosen as MAC algorithms when the same algorithm is being used as the encryption algorithm. RFC 6668 specifies the use of the sha2 algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. 
+                            </p>
+                            <p>
+                                 The SFRs for cryptographic operations, encryption and hashing, are inherited from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package. 
+                            </p>
+                            <p>
+                                The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects &ldquo;implicit&rdquo; if and only if aes*-gcm@openssh.com is selected as an encryption algorithm. When aes*-gcm@openssh.com is negotiated as the encryption algorithm, the MAC algorithm field is ignored and GCM is implicitly used as the MAC. &ldquo;implicit&rdquo; is not an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> algorithm identifier and will not be seen on the wire; however, the negotiated MAC might be decoded as &ldquo;implicit&rdquo;. 
+                            </p>
+                        </span>
+                    </div>
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported data integrity algorithms and that this list corresponds to the list in this element. 
+                                <div class="eacategory">Guidance</div>
+                                The evaluator shall check the guidance documentation to ensure that it includes instructions to the administrator on how to ensure that only the allowed data integrity algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (specifically, that the &ldquo;none&rdquo; and "hmac-md5" MAC algorithms are not allowed). 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>Using an appropriately configured client, the evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using each of the integrity algorithms specified by the requirement. It is sufficient to observe (on the wire) the successful negotiation of the algorithm to satisfy the intent of the test.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only propose the &ldquo;none&rdquo; MAC algorithm. Using this client, the evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the attempt fails.
+                                    </li>
+                                    <li>
+                                        <b>Test 3: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only propose the hmac-md5 MAC algorithm. Using this client, the evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the attempt fails. To ensure the proposed MAC algorithm is used, the evaluator shall ensure a non-aes*- gcm@openssh.com encryption algorithm is negotiated while performing this test. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.6">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.6">FCS_SSHS_EXT.1.6</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that [<b>selection</b>: <i>diffie-hellman-group14-sha1</i>, <i>ecdh-sha2-nistp256</i>] and [<b>selection</b>: <i>ecdh-sha2-nistp384</i>, <i>ecdh-sha2-nistp521</i>, <i>no other methods</i>] are the only allowed key exchange methods used for the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol. 
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported key exchange algorithms and that this list corresponds to the list in this element. 
+                                <div class="eacategory">Guidance</div>
+                                 The evaluator shall check the guidance documentation to ensure that it includes instructions to the administrator on how to ensure that only the allowed key exchange algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following tests: 
+                                <ul>
+                                    <li>
+                                        <b>Test 1: </b>For each of the allowed key exchange methods, the evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to propose only that method and then attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall confirm that each attempt succeeds.
+                                    </li>
+                                    <li>
+                                        <b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only allow the diffie-hellman-group1-sha1 key exchange. The evaluator shall attempt to use this <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and confirm that this attempt fails. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_SSHS_EXT.1.7">
+                    <a class="abbr" href="#FCS_SSHS_EXT.1.7">FCS_SSHS_EXT.1.7</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection be rekeyed after [<b>selection</b>: <i>no more than 2<sup>28</sup> packets have been transmitted</i>, <i>no more than 1 gigabyte of data has been transmitted</i>, <i>no more than 1 hour</i>] using that key. 
+                    <div class="activity_pane hide">
+                        <div class="activity_pane_header">
+                            <a href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a>
+                        </div>
+                        <div class="activity_pane_body">
+                            <i>
+                                <div class="eacategory">
+                                    <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                                </div>
+                                 There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element. 
+                                <div class="eacategory">Guidance</div>
+                                 If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has the ability to generate a log when an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> rekey occurs, the evaluator shall examine the operational guidance to verify that it describes any configuration that is needed for this to be performed. 
+                                <div class="eacategory">Tests</div>
+                                 The evaluator shall perform the following test for each rekeying method claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: 
+                                <ul>
+                                     The evaluator shall perform the following test: 
+                                    <li>
+                                        <b>Test 1: </b>The evaluator will configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to create a log entry when a rekey occurs. The evaluator will connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client and cause a rekey to occur according to the selection(s) in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and subsequently the evaluator uses available methods and tools to verify that rekeying occurs. This could be done, e.g., by checking that a corresponding audit event has been generated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports auditing of rekey events. 
+                                    </li>
+                                </ul>
+                            </i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1 class="indexable" data-level="A" id="opt-app">
+            <span class="diff-html-changed" id="changed-diff-7" changes="<ul class='changelist'><li>Moved out of a <b>heading (level 1)</b> with class indexable, <br/>data-level A and id biblio.</li><li>Moved to a <b>heading (level 1)</b> with class indexable, <br/>data-level A and id opt-app.</li></ul>" previous="added-diff-9" changeId="changed-diff-7" next="added-diff-10" onclick="return tipC(constructToolTipC(this));">Appendix </span><span class="diff-html-added" id="added-diff-10" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">A - Optional Requirements</span>
+        </h1>
+        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> As indicated in the introduction to this Package, the baseline requirements (those that must be performed by the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">TOE</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">) are contained in the body of this Package. This appendix contains three other types of optional requirements that may be included in the </span><abbr class="dyn-abbr"><a href="#abbr_ST"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">ST</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">, but are not required in order to conform to this Package. However, applied modules, packages and/or use cases may refine specific requirements as mandatory. </span>
+        <br>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+        </br>
+        <br>
+        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> The first type (</span><a class="dynref" href="#optional-reqs"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> A.1 Strictly Optional Requirements </span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">) are strictly optional requirements that are independent of the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">TOE</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> implementing any function. If the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">TOE</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to included the SFRs in the </span><abbr class="dyn-abbr"><a href="#abbr_ST"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">ST</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">, but are not required in order to conform to this Package.</span>
+        <br>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+        </br>
+        <br>
+        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> The second type (</span><a class="dynref" href="#objective-reqs"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> A.2 Objective Requirements </span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">) are objective requirements that describe security functionality not yet widely available in commercial technology. The requirements are not currently mandated in the body of this Package, but will be included in the baseline requirements in future versions of this Package. Adoption by vendors is encouraged and expected as soon as possible.</span>
+        <br>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+        </br>
+        <br>
+        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> The third type (</span><a class="dynref" href="#feat-based-reqs"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> A.3 Implementation-based Requirements </span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">) are dependent on the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">TOE</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> implementing a particular function. If the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">TOE</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> fulfills any of these requirements, the vendor must either add the related </span><abbr class="dyn-abbr"><a href="#abbr_SFR"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">SFR</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> or disable the functionality for the evaluated configuration. </span>
+        <h2 class="indexable" data-level="2" id="optional-reqs">
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">A.1 Strictly Optional Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">This Package does not define any Strictly Optional requirements.</span>
+        </p>
+        <h2 class="indexable" data-level="2" id="objective-reqs">
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">A.2 Objective Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">This Package does not define any Objective requirements.</span>
+        </p>
+        <h2 class="indexable" data-level="2" id="feat-based-reqs">
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">A.3 Implementation-based Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">This Package does not define any Implementation-based requirements.</span>
+        </p>
+        <h1 class="indexable" data-level="A" id="sel-based-reqs">
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Appendix B - Selection-based Requirements </span>
+        </h1>
+        <p>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">As indicated in the introduction to this Package, the baseline requirements (those that must be performed by the </span><abbr class="dyn-abbr"><a href="#abbr_TOE"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">TOE</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> or its underlying platform) are contained in the body of this Package. There are additional requirements based on selections in the body of the Package: if certain selections are made, then additional requirements below must be included. </span>
+        </p>
+        <h2 class="indexable" data-level="2" id="sel-based-reqs-audit">
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">B.1 Auditable Events for Selection-based Requirements </span>
+        </h2>
+        <p>
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">The auditable events in the table below are included in a Security Target if both the associated requirement is included and the incorporating </span><abbr class="dyn-abbr"><a href="#abbr_PP"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">PP</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> or </span><abbr class="dyn-abbr"><a href="#abbr_PP-Module"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">PP-Module</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> supports audit event reporting through FAU_GEN.1 and any other criteria in the incorporating </span><abbr class="dyn-abbr"><a href="#abbr_PP"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">PP</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> or </span><abbr class="dyn-abbr"><a href="#abbr_PP-Module"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">PP-Module</span></a></abbr><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"> are met.</span>
+        </p>
+        <div class="table-caption">
+            <span class="ctr" data-myid="cc-atref-sel-based-dep" id="cc-atref-sel-based-dep" data-counter-type="ct-Table"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Table </span><span class="counter"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">2</span></span></span><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">: Auditable Events for Selection-based Requirements </span>
+        </div>
+        <table class="" border="1">
+            <tr>
+                <th><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Requirement</span></th><th><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Auditable Events</span></th><th><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Additional Audit Record Contents</span></th>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSHC_EXT.1"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">FCS_SSHC_EXT.1</span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">[selection: </span></b><i><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Failure to establish a session, None</span></i><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">]</span></b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Reason for failure.</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                    <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Non-TOE endpoint of attempted connection (IP Address).</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSHC_EXT.1"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">FCS_SSHC_EXT.1</span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">[selection: </span></b><i><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Establishment of a session, None</span></i><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">]</span></b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Non-TOE endpoint of connection (IP Address).</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSHC_EXT.1"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">FCS_SSHC_EXT.1</span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">[selection: </span></b><i><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Termination of a session, None</span></i><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">]</span></b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Non-TOE endpoint of connection (IP Address).</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSHS_EXT.1"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">FCS_SSHS_EXT.1</span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">[selection: </span></b><i><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Failure to establish a session, None</span></i><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">]</span></b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Reason for failure.</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                    <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Non-TOE endpoint of attempted connection (IP Address).</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSHS_EXT.1"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">FCS_SSHS_EXT.1</span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">[selection: </span></b><i><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Establishment of a session, None</span></i><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">]</span></b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Non-TOE endpoint of connection (IP Address).</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="#FCS_SSHS_EXT.1"><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">FCS_SSHS_EXT.1</span></a><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">[selection: </span></b><i><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Termination of a session, None</span></i><b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">]</span></b><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span></td><td><span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Non-TOE endpoint of connection (IP Address).</span>
+                    <br>
+                        <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));"></span>
+                    </br>
+                </td>
+            </tr>
+        </table>
+        <h1 class="indexable" data-level="A" id="biblio">
+            <span class="diff-html-added" previous="changed-diff-7" changeId="added-diff-10" next="last-diff" onclick="return tipA(constructToolTipA(this));">Appendix </span>C - References
+        </h1>
+        <table>
+            <tr class="header">
+                <th>Identifier</th><th>Title</th>
+            </tr>
+            <tr>
+                <td><span id="bibCC"> [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] </span></td><td>Common Criteria for Information Technology Security Evaluation - 
+                    <ul>
+                        <li>
+                            <a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1, Revision 5, April 2017. 
+                        </li>
+                        <li>
+                            <a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part 2: Security Functional Components</a>, CCMB-2017-04-002, Version 3.1, Revision 5, April 2017. 
+                        </li>
+                        <li>
+                            <a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part 3: Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1, Revision 5, April 2017. 
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><span id="bibGPOS">[GPOSPP]</span></td><td> <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=442">Protection Profile for General Purpose Operating Systems </a> </td>
+            </tr>
+            <tr>
+                <td><span id="bibMDM">[MDMPP]</span></td><td> <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=428">Protection Profile for Mobile Device Management </a> </td>
+            </tr>
+            <tr>
+                <td><span id="bibAppPP">[AppPP]</span></td><td> <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=429">Protection Profile for Application Software</a> </td>
+            </tr>
+            <tr>
+                <td><span id="bibVirt">[VirtPP]</span></td><td> <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=408">Protection Profile for Virtualization</a> </td>
+            </tr>
+        </table>
+        <h1 class="indexable" data-level="A" id="acronyms">Appendix D - Acronyms</h1>
+        <table>
+            <tr class="header">
+                <th>Acronym</th><th>Meaning</th>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_OE"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_PP-Configuration"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_PP-Module"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_SAR"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_SFR"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_SSH"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span></td><td><span id="long_abbr_SSH">Secure Shell</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_ST"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_TOE"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td>
+            </tr>
+            <tr>
+                <td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td>
+            </tr>
+        </table>
+    </body>
+</html>

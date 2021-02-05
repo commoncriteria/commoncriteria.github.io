@@ -1,0 +1,1083 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html><head><title>PP-Module for Server Virtualization Systems</title><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+            extensions: ["tex2jax.js"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+            showMathMenu: false,
+            tex2jax: {
+              inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+              displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+              processEscapes: true
+            },
+            styles: {
+
+                ".MathJax_Display": {
+                "text-align": "left !important",
+                margin:       "0em 0em !important"
+            }}
+            });
+        </script><script type="text/javascript">// 
+
+// Called on page load to parse URL parameters and perform actions on them.
+function init(){
+    if(getQueryVariable("expand") == "on"){
+      expand();
+    }
+    fixAbbrs();
+}
+
+
+function fixAbbrs(){
+    var aa;
+    var brk_els = document.getElementsByClassName("dyn-abbr");
+    //
+    for(aa=0; aa!=brk_els.length; aa++){
+        var abbr = brk_els[aa].firstElementChild.getAttribute("href").substring(1);
+        var el = document.getElementById("long_"+abbr)
+        if (el==null) {
+             console.log("Could not find 'long_abbr_'"+abbr);
+             continue;
+        }
+        var abbr_def = el.textContent;
+        brk_els[aa].setAttribute("title", abbr_def);
+    }
+}
+// // 
+const AMPERSAND=String.fromCharCode(38);
+
+// Pass a URL variable to this function and it will return its value
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split(AMPERSAND);
+    for (var i=0;i!=vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+
+//    Expands all evaluation activities
+function expand(){
+    var ap = document.getElementsByClassName('activity_pane');
+    for (var ii = 0; ii!=ap.length; ii++) {
+        ap[ii].classList.remove('hide');
+    }
+}
+
+// Function to expand and contract a given div
+function toggle(descendent) {
+    var cl = descendent.parentNode.parentNode.classList;
+    if (cl.contains('hide')){
+      cl.remove('hide');
+    }
+    else{
+      cl.add('hide');
+    }
+}
+
+// Expands targets if they are hidden
+function showTarget(id){
+    var element = document.getElementById(id);
+    while (element != document.body.rootNode ){
+	element.classList.remove("hide");
+	element = element.parentElement;
+    }
+}
+
+
+// </script><style type="text/css">
+    #toc a{
+        display: block;
+    }
+
+    svg{
+      width: 100%;
+    }
+
+    a[id^="ajq_"]{
+        color:black;
+    }
+
+    
+    body{
+       max-width: 900px;
+       margin: auto;
+    }
+    #toc span{
+       margin-left: 20px;
+    }
+    .assignable-content{
+      font-style: italic;
+    }
+    .refinement{
+      font-weight: bold;
+    }
+    div.eacategory{
+      font-style: italic;
+      font-weight: bold;
+    }
+    .activity_pane .toggler::after, .activity_pane .toggler{
+       display: inline-block;
+       height: auto;
+       content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+       AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+       VDz+AAAAB3RJTUUH4gIXFDM7fhmr1wAAAfRJREFUKM+dkk9I02EYxz/P+25uurWR\
+       tTkzI4NGl4jQgkq71K1DhnTQIDolRAQFQYSHTtGhU4e6eujQofBSFLOg0C4RUSjh\
+       FnmqTTdKpj/mfv/eX4cUpmRYn9vz8v3w8D7PA/AWGADCbI4QcAb4AnAF8IBJEdX+\
+       N0tEda40C4AHADviW1LFvpOX6+FwtAacVzqkGiWtwxo4F21OuPu7+yvxRNoDEhpY\
+       cpzavkQyc7D76FCk+vN7j7VU6RdR4xAsikjGGP9FKrN3sPfEpajv2i2zhckR4JUG\
+       UCr0erFavLkn2ytd2WPxcFOsZb74+SIQA0YPHBqIdB8Z6tChJv1m/N4P33OGAUsD\
+       BIFxPNcOkq07jyeSbbo1tTu2q6vHEqU7D/ddSKcz2ZQJjBSmx925b9NjwEMAafha\
+       eyQa/3Dq7O0243sCIEoRGAOA59nm5dM7OHVruzH+AkDjYEp23RrLT+U8Ub+fV0UR\
+       oVyaMfVa9fqquF5GKX3ja2FCuc6yWbMipYNP755UgEdr8o2FMf5ivVYdKRfzRkRW\
+       RfJTOc+2rWdAcUN5hdGP7x8viGgAXLvGbGFCKxW6tj74J3nOqVvP89M5V6kQ86UZ\
+       f7lWvWWMt7Sp41VKb21uSfqnB++6kWi8BLTzL4ioq7H4tgC4z3/QAZSBxEaBXygN\
+       v+jeFnAPAAAAAElFTkSuQmCC');
+       max-width: 15px;
+    }
+
+
+    a {
+      text-decoration: none;
+      word-wrap: break-word;
+    }
+    a.abbr:link{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:visited{
+      color:black;
+      text-decoration:none;
+    }
+    a.abbr:hover{
+      color:blue;
+      text-decoration:none;
+    }
+    a.abbr:hover:visited{
+      color:purple;
+      text-decoration:none;
+    }
+    a.abbr:active{
+      color:red;
+      text-decoration:none;
+    }
+    .note-header{
+      font-weight: bold;
+    }
+    .note p:first-child{
+      display: inline;
+    }
+
+    .indent{ margin-left:2em; }
+
+    /* Tooltip container */
+    .tooltipped {
+       position: relative;
+       display: inline-block;
+       border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+    /* Tooltip text */
+    .tooltiptext {
+       visibility: hidden;
+       width: 120px;
+       background-color: black;
+       color: #fff;
+       text-align: center;
+       padding: 5px 0;
+       border-radius: 6px;
+
+       /* Position the tooltip text - see examples below! */
+       position: absolute;
+       z-index: 1;
+   }
+
+   /* Show the tooltip text when you mouse over the tooltip container */
+   .tooltipped:hover .tooltiptext {
+       visibility: visible;
+   }
+   tr.major-row{
+       border-top-style: double;
+   }
+   tr.major-row td:first-child{
+       border-right-style: ridge;
+       background-color: white;
+   } 
+   table.mfs td{
+       text-align: center;
+   }
+   table.mfs td:first-child{
+       text-align: left;
+   }
+  .table-caption{
+       text-align: center;
+       font-weight: bold;
+   }
+   table{
+       margin:auto;
+       margin-top:1em;
+       border-collapse:collapse; /*border: 1px solid black;*/
+   }
+   td{
+       text-align:left;
+       padding:8px 8px;
+   }
+   th{
+       padding:8px 8px;
+   }
+   thead tr td{
+       text-align: center;
+       font-style: oblique;
+       font-weight: bold;
+   }
+   tr.header{
+       border-bottom:3px solid gray;
+       padding:8px 8px;
+       text-align:left;
+       font-weight:bold; /*font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; */
+   }
+   table tr:nth-child(2n+2){
+       background-color:#F4F4F4;
+   }
+
+   .dependent{
+       border: 1px solid gray;
+       border-radius: 1px
+   }
+   .dependent-content{
+       margin-left: 25px;
+       font-style: italic;
+   }
+
+   .uc_table_or td, .uc_table_or tr {
+       vertical-align: middle;
+       border: 1px solid black;
+       background-color: white;
+   }
+
+   .uc_not, .uc_mf, .uc_sel, .uc_guide{
+       text-indent: 10px;
+   }
+   .uc_not_sel, .uc_sel.uc_mf, uc_assign.uc_mf{
+       text-indent: 20px;
+   }
+
+
+   .uc_table_or tr td.or_cell{
+      white-space: nowrap;
+      border-radius: 0.6em 0 0 0.6em;
+      background-color: black;
+      color: white;
+   }
+
+   .uc_table_and, .uc_table_or {
+       width: 100%;
+       background-color: white;
+   }
+   .uc_guidance{
+       display: table;
+       background-color: gray;
+   }  
+
+   .evidence, .test-obj { font-style: normal; font-size: 90%;}
+   
+          .figure{
+              font-weight:bold;
+          }
+          h1{
+              page-break-before:always;
+              text-align:left;
+              font-size:200%;
+              margin-top:2em;
+              margin-bottom:2em;
+              font-family:verdana, arial, helvetica, sans-serif;
+              margin-bottom:1.0em;
+          }
+          h1.title{
+              text-align:center;
+          }
+          h2{
+              font-size:125%;
+              border-bottom:solid 1px gray;
+              margin-bottom:1.0em;
+              margin-top:2em;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h3{
+              font-size:110%;
+              margin-bottom:0.25em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h4{
+              margin-left:0%;
+              font-size:100%;
+              margin-bottom:0.75em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h5,
+          h6{
+              margin-left:6%;
+              font-size:90%;
+              margin-bottom:0.5em;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          p{
+              margin-bottom:0.6em;
+              margin-top:0.2em;
+          }
+          pre{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+              margin-left:3%;
+              font-family:monospace;
+              font-size:90%;
+          }
+          ul{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          td{
+              vertical-align:top;
+          }
+          dl{
+              margin-bottom:0.5em;
+              margin-top:0.25em;
+          }
+          dt{
+              margin-top:0.7em;
+              font-weight:bold;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+
+          a.linkref{
+              font-family:verdana, arial, helvetica, sans-serif;
+              font-size:90%;
+          }
+
+          *.simpleText{
+              margin-left:10%;
+          }
+          *.propertyText{
+              margin-left:10%;
+              margin-top:0.2em;
+              margin-bottom:0.2em
+          }
+          *.toc{
+              background:#FFFFFF;
+          }
+          *.toc2{
+              background:#FFFFFF;
+          }
+          div.comp{
+              margin-left:8%;
+              margin-top:1em;
+              margin-bottom:1em;
+          }
+          div.element{
+              margin-bottom:1em;
+          }
+          div.appnote{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          .comment-aa{
+              background-color:beige;
+              color:green;
+          }
+          div.subaact{
+              margin-left:0%;
+              margin-top:1em;
+          }
+          div.activity_pane_body{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding:1em;
+              border:2px solid #888888;
+              border-radius:3px;
+              display:block;
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+          }
+          div.optional-appendicies{
+              display:none;
+          }
+
+          div.statustag{
+              margin-left:0%;
+              margin-top:1em;
+              margin-bottom:1em;
+              padding: 0.6em;
+              border:2px solid #888888;
+              border-radius:3px;
+          }
+
+          div.toc{
+              margin-left:8%;
+              margin-bottom:4em;
+              padding-bottom:0.75em;
+              padding-top:1em;
+              padding-left:2em;
+              padding-right:2em;
+          }
+          span.SOlist{
+              font-size:90%;
+              font-family:verdana, arial, helvetica, sans-serif;
+          }
+          h2.toc{
+              border-bottom:none;
+              margin-left:0%;
+              margin-top:0em;
+          }
+          p.toc{
+              margin-left:2em;
+              margin-bottom:0.2em;
+              margin-top:0.5em;
+          }
+          p.toc2{
+              margin-left:5em;
+              margin-bottom:0.1em;
+              margin-top:0.1em;
+          }
+          div.center{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+          }
+          div.figure{
+              display:block;
+              margin-left:auto;
+              margin-right:auto;
+              text-align:center;
+              margin-top:1em;
+          }
+          div.activity_pane_header{
+              display:table-cell;
+              vertical-align:middle;
+              padding-top:10px
+          }
+          span.activity_pane_label{
+              vertical-align:middle;
+              color:black;
+              text-decoration:none;
+              font-size:100%;
+              font-weight:bold; /*font-family: verdana, arial, helvetica, sans-serif; */
+          }
+          .dyn-abbr a, .dyn-abbr a:active, .dyn-abbr a:visited{
+              background-color: inherit;
+              color: inherit;
+              text-decoration: inherit;;
+          }
+
+          @media screen{
+              *.reqid{
+                  float:left;
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+                  margin-right:1em;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+
+              .activity_pane.hide .toggler::after, .activity_pane.hide .toggler{
+	          content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8A\
+		  AAAPCAYAAAA71pVKAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAQOFAAEDhQGl\
+		  VDz+AAAAB3RJTUUH4gIXFC4BR3keeQAAAfZJREFUKM+d0k1PE1EUBuB37h2nQ+30\
+		  w5YObR0FhIppqBgWuDCaSBQjiQZNTIxLfoAkBHXh2vg7xID+ABPXBl3UdAMaN1CR\
+		  j5ZijZ22DKW9d44LP1KMROvZnMU5z+KcvBzAAgADwCdV1RzXlYQ26tYhrYM6u/qX\
+		  ATwCcKodrAOYv3z9IV28OuP6/NHPAGYZ45G/QQ5AAFjNbyzdTA2NewcGx7xeI5wu\
+		  FZenQOQQuasHncN/9IJo1sn+unkpbqVFIJhgydQo13VjDKCJSnnLBJAHUPoTBoA3\
+		  uzvlfiNgDhn+KMiVCB6xYCZSoaPHz5wrba/cbuztpBWFvQLI+R2DSGZqleKNuJX2\
+		  cVVjAIExDo/uV7pPjGhSNntrleI9+n7Ox33Y549Wq/ZWTyh8rNcfjPlaZ4xzZvUM\
+		  ezrNvnJ+fXFCiL2k2rpQq2wnAqH4tYjZFyZq/Y8CKZoim51z1nIZQ4jGNIC5fZhz\
+		  7fHA4JVuj26AyIWiMDSbdTi1L/T29RO7ahdfKgqbInJLANCKZ6Kx5J24dVowztW6\
+		  Y+8WNt91FNYXc4WN988BzAL4QOT+Aj/x8GFf+MHI+UlI2cBS9kVlLZfxSFdMS9GY\
+		  V1WtKETDPShhz85emLRHx++TETBLAJ4qCov8c7ajsZMr/5PtBQB3AXSpqsbagd8A\
+		  O+HMRUtPNsQAAAAASUVORK5CYII=');
+              }
+
+              .activity_pane.hide .activity_pane_body{
+                  display:none;
+              }
+              div.statustag{
+                  box-shadow:4px 4px 3px #888888;
+              }
+          }
+
+
+          @media print{
+              *.reqid{
+                  font-size:90%;
+                  font-family:verdana, arial, helvetica, sans-serif;
+              }
+              *.req{
+                  margin-left:0%;
+                  margin-top:1em;
+                  margin-bottom:1em;
+              }
+              *.reqdesc{
+                  margin-left:20%;
+              }
+              div.activity_pane_body{
+                  padding:1em;
+                  border:2px solid #888888;
+                  border-radius:3px;
+                  display:block;
+              }
+
+	            img[src="images/collapsed.png"] { display:none;}
+
+          }
+    </style></head><body onLoad="init()"><h1 style="page-break-before:auto;" class="title">PP-Module for Server Virtualization Systems</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img alt="NIAP Logo" src="images/niaplogo.png"></img><br/>
+      Version: 1.1<br/>2020-11-17<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2016-11-17</td><td>Initial Publication as an Extended Package</td></tr><tr><td>1.1</td><td>2020-11-17</td><td>Converted to Module</td></tr></table><h2>Contents</h2><div id="toc" class="toc"><a style="text-indent:0px" href="#Introduction">1<span>Introduction</span></a><a style="text-indent:10px" href="#overview">1.1<span>Overview</span></a><a style="text-indent:10px" href="#glossary">1.2<span>Terms</span></a><a style="text-indent:20px" href="#cc-terms">1.2.1<span>Common Criteria Terms</span></a><a style="text-indent:20px" href="#tech-terms">1.2.2<span>Technical Terms</span></a><a style="text-indent:10px" href="#targets">1.3<span>Compliant Targets of Evaluation</span></a><a style="text-indent:20px" href="#TOEboundary">1.3.1<span>TOE Boundary</span></a><a style="text-indent:10px" href="#usecase">1.4<span>Use Cases</span></a><a style="text-indent:0px" href="#conf">2<span>Conformance Claims</span></a><a style="text-indent:0px" href="#spd">3<span>Security Problem Description</span></a><a style="text-indent:10px" href="#threats">3.1<span>Threats</span></a><a style="text-indent:10px" href="#Assumptions">3.2<span>Assumptions</span></a><a style="text-indent:10px" href="#securityPolicy">3.3<span>Organizational Security Policies</span></a><a style="text-indent:0px" href="#objectives">4<span>Security Objectives</span></a><a style="text-indent:10px" href="#TOEobjectives">4.1<span>Security Objectives for the TOE</span></a><a style="text-indent:10px" href="#objectivesEnvironment">4.2<span>Security Objectives for the Operational Environment</span></a><a style="text-indent:10px" href="#rationale">4.3<span>Security Objectives Rationale</span></a><a style="text-indent:0px" href="#sfr">5<span>Security Requirements</span></a><a style="text-indent:10px" href="#Virtualization">5.1<span>Virtualization PP
+       Security Functional Requirements Direction
+    </span></a><a style="text-indent:20px" href="#modsfr-Virtualization">5.1.1<span>
+      Modified SFRs
+    </span></a><a style="text-indent:10px" href="#man-sfrs">5.2<span>TOE Security Functional Requirements</span></a><a style="text-indent:10px" href="#ss-audit-table">5.3<span>Auditable Events for Mandatory SFRs</span></a><a style="text-indent:20px" href="#management-fmt">5.3.1<span>Security Management (FMT)</span></a><a style="text-indent:10px" href="#obj-req-map">5.4<span>TOE Security Functional Requirements Rationale</span></a><a style="text-indent:0px" href="#mod-conrat">6<span>Consistency Rationale</span></a><a style="text-indent:10px" href="#conrat-Virtualization">6.1<span>
+    Protection Profile for Virtualization</span></a><a style="text-indent:20px" href="#contoe-Virtualization">6.1.1<span>
+	Consistency of TOE Type
+      </span></a><a style="text-indent:20px" href="#consecprob-Virtualization">6.1.2<span>
+	Consistency of Security Problem Definition
+      </span></a><a style="text-indent:20px" href="#conobj-Virtualization">6.1.3<span>
+	Consistency of Objectives
+      </span></a><a style="text-indent:20px" href="#conreq-Virtualization">6.1.4<span>
+	Consistency of Requirements
+      </span></a><a style="text-indent:0px" href="#opt-sfrs">Appendix A - <span>Optional SFRs</span></a><a style="text-indent:10px" href="#strictly-optional-sfrs">A.1<span>Strictly Optional Requirements</span></a><a style="text-indent:10px" href="#objective-sfrs">A.2<span>Objective Requirements</span></a><a style="text-indent:10px" href="#impl-dep-sfrs">A.3<span>Implementation-Dependent Requirements</span></a><a style="text-indent:0px" href="#sel-sfrs">Appendix B - <span>Selection-based SFRs</span></a><a style="text-indent:0px" href="#ext-comp-defs">Appendix C - <span>Extended Component Definitions</span></a><a style="text-indent:10px" href="#ext-comp-defs-bg">C.1<span>Extended Components Table</span></a><a style="text-indent:10px" href="#ext-comp-defs-bg">C.2<span>Extended Component Definitions</span></a><a style="text-indent:0px" href="#ent">Appendix D - <span>Entropy</span></a><a style="text-indent:0px" href="#bibliography">Appendix E - <span>Bibliography</span></a><a style="text-indent:0px" href="#acronyms">Appendix F - <span>Acronyms</span></a></div><h1 id="Introduction" class="indexable,h1" data-level="1">1 Introduction</h1>
+
+     	
+    
+	<h2 id="overview" class="indexable,h2" data-level="2">1.1 Overview</h2>
+          The scope of this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is to define the security functionality of a Server Virtualization product in
+          terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such products. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is not 
+          complete in itself, but rather is intended for use with the following base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>:
+	      
+	      <ul>
+		      <li>Protection Profile for Virtualization, Version 1.1.</li>
+	      </ul>
+
+	  This base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is valid because Server Virtualization is a specific type of Virtualization System and is expected to
+          implement security functionality that is not common to all Virtualization Systems. One additional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>
+          has been defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> to define security functionality that is unique to this
+          particular type of Virtualization System.        
+      
+
+	
+      <h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
+The following sections list Common Criteria and technology terms used in this document.
+    <h3 id="cc-terms" class="indexable" data-level="3">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>)</div></td><td>Protection Profile used as a basis to build a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>.</td></tr><tr><td><div id="Common_Criteria">Common Criteria (<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
+      Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an IT security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations.
+    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></div></td><td>A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (<abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>)</div></td><td>Hardware and software that are outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary that support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and at least one <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</div></td><td>An implementation-independent statement of security needs for a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (<abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr>)</div></td><td>A requirement to assure the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)</div></td><td>A requirement for security enforcement by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Target">Security Target (<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality (<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)</div></td><td>A description of how a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> satisfies the SFRs in an <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)</div></td><td>The product under evaluation. </td></tr></table><h3 id="tech-terms" class="indexable" data-level="3">1.2.2 Technical Terms</h3><table><tr><td><div id="Administrator">Administrator</div></td><td>Administrators perform management activities on the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>. These management functions 
+          do not include administration of software running within Guest VMs, such as the Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. Administrators need
+          not be human as in the case of embedded or headless VMs. Administrators are often nothing more than software
+          entities that operate within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>.</td></tr><tr><td><div id="Domain">Domain</div></td><td>A Domain or Information Domain is a policy construct that groups together execution 
+          environments and networks by sensitivity of information and access control policy. For example, classification
+          levels represent information domains. Within classification levels, there might be other domains representing
+          communities of interest or coalitions. In the context of a <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>, information domains are generally implemented
+          as collections of VMs connected by virtual networks. The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> itself can be considered an Information Domain, 
+          as can its Management Subsystem.</td></tr><tr><td><div id="Guest_Operating_System_(OS)">Guest Operating System (<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>)</div></td><td>An operating system that runs within a Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>.</td></tr><tr><td><div id="Guest_VM">Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></div></td><td>A Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> is a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> that contains a virtual environment for the execution of an independent
+          computing system. Virtual environments execute mission workloads and implement customer-specific client or
+          server functionality in Guest VMs, such as a web server or desktop productivity applications.</td></tr><tr><td><div id="Host_Operating_System_(OS)">Host Operating System (<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>)</div></td><td>An operating system onto which a <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is installed. Relative to the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>, 
+          the Host <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is part of the Platform.</td></tr><tr><td><div id="Hypercall">Hypercall</div></td><td>An API function that allows <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>-aware software running within a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> to invoke <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> functionality.</td></tr><tr><td><div id="Hypervisor">Hypervisor</div></td><td>The Hypervisor is part of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>. It is the software executive of the physical platform
+          of a <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>. A Hypervisor’s primary function is to mediate access to all CPU and memory resources, but it is also
+          responsible for either the direct management or the delegation of the management of all other hardware
+          devices on the hardware platform.</td></tr><tr><td><div id="Management_Subsystem">Management Subsystem</div></td><td>Components of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> that allow <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> Administrators to configure and manage the
+          <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>, as well as configure Guest VMs. <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions include <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> configuration, virtualized network
+          configuration, and allocation of physical resources.</td></tr><tr><td><div id="Platform">Platform</div></td><td>The hardware, firmware, and software environment into which a <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is installed and executes.</td></tr><tr><td><div id="User">User</div></td><td>Users operate Guest VMs and are subject to configuration policies applied to the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> by Administrators.
+		      Users need not be human as in the case of embedded or headless VMs, users are often nothing more than software
+		      entities that operate within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>.</td></tr><tr><td><div id="Virtual_Machine">Virtual Machine (<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>)</div></td><td>A Virtual Machine is a virtualized hardware environment in which an operating system
+		      may execute.</td></tr><tr><td><div id="Virtual_Machine_Manager">Virtual Machine Manager (<abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>)</div></td><td>A <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> is a collection of software components responsible for enabling VMs to
+		      function as expected by the software executing within them. Generally, the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> consists of a Hypervisor, Service 
+		      VMs, and other components of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>, such as virtual devices, binary translation systems, and physical device
+		      drivers. It manages concurrent execution of all VMs and virtualizes platform resources as needed.</td></tr><tr><td><div id="Virtualization_System">Virtualization System (<abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>)</div></td><td>A software product that enables multiple independent computing systems to 
+		      execute on the same physical hardware platform without interference from one other. For the purposes of this 
+		      document, the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> consists of a Virtual Machine Manager (<abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>), Virtual Machine abstractions, a management subsystem,
+		      and other components.</td></tr></table>
+  
+	
+      <h2 id="targets" class="indexable,h2" data-level="2">1.3 Compliant Targets of Evaluation</h2>
+        Server Virtualization, for the purposes of this Module, refers to a virtualization system that implements 
+        virtualized hardware components on server-class hardware. It creates a virtualized hardware environment for 
+        each instance of an operating system (virtual machines or VMs) permitting these environments to execute
+        concurrently while maintaining isolation and the appearance of exclusive control over assigned computing
+        resources. Each <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> instance supports applications such as file servers, web servers, and mail servers. Server
+        virtualization may also support client operating systems in a virtual desktop or thin-client environment.
+        Typically, virtualized servers provide services to remote clients from a data center, and are generally not
+	directly accessible by non-administrative users.<br/><br/>
+	A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that claims conformance with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> Module must also claim conformance to the Protection Profile 
+	for Virtualization. And a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that claims comformance with the Protection Profile for Virtualization
+	must also claim conformance either to this Module or to the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> Module for Client Virtualization.
+        
+	
+        <h3 id="TOEboundary" class="indexable,h3" data-level="3">1.3.1 TOE Boundary</h3>
+          The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary is the same as that which is defined for a Virtualization System in the
+		base Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. 
+           
+      
+      
+	
+      <h2 id="usecase" class="indexable,h2" data-level="2">1.4 Use Cases</h2>
+        Requirements in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> Module are designed to address the security problem in the following use cases. The description of these use
+	      cases provides examples for how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its Operational Environment could support the functionality 
+	      required by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+        <dl><dt> [USE CASE 1] Virtualized Servers</dt><dd>
+              A platform for virtualized instances of network-based services traditionally executed on separate hardware platforms, such as
+              web servers, file servers, and mail servers.                
+            </dd><dt> [USE CASE 2] Virtualized Network Infrastructure</dt><dd>
+               A platform for virtualized instances of routers, switches, and other network infrastructure.
+            </dd><dt> [USE CASE 3] Virtualized Enterprise User Environments</dt><dd>
+                A platform for the server back-end of virtual desktop or thin-client implementations where actual computation 
+		     occurs in server-based VMs and users interact through a client. The client application is 
+		     not covered by this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> Module.               
+	     </dd></dl>
+      
+    <h1 id="conf" class="indexable,h1" data-level="1">2 Conformance Claims</h1>
+    <dl><dt id="Conformance Statement" class="cclaim">Conformance Statement</dt><dd> 
+            This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> inherits exact conformance as required from the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and as defined in the
+            <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).
+            <br/><br/> 
+	    There are no other <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules that are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+          </dd><dt id="CC Conformance Claims" class="cclaim">CC Conformance Claims</dt><dd>
+                This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> Module is conformant to Parts 2 (extended) and 3 (conformant) of Common Criteria Version 3.1, 
+                Release 5 [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>].
+          </dd></dl>
+    <h1 id="spd" class="indexable,h1" data-level="1">3 Security Problem Description</h1>
+      The security problem is described in terms of the threats that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is expected to address, assumptions
+      about its operational environment, and any organizational security policies that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is expected to 
+      enforce.<br/>
+	    
+	
+      <h2 id="threats" class="indexable,h2" data-level="2">3.1 Threats</h2>
+        This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> defines no additional threats beyond those defined in the base Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Note however that the
+        SFRs defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> will assist in the mitigation of the following threats defined in the base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>:   
+	      <dl><dt id="T.UNAUTHORIZED_UPDATE" class="threat">T.UNAUTHORIZED_UPDATE</dt><dd>See Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 3.1.</dd><dt id="T.UNAUTHORIZED_ACCESS" class="threat">T.UNAUTHORIZED_ACCESS</dt><dd>See Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 3.1.</dd></dl>
+      
+	    
+	
+      <h2 id="Assumptions" class="indexable,h2" data-level="2">3.2 Assumptions</h2>
+This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any assumptions.
+      
+      
+      
+	    
+	 
+      <h2 id="securityPolicy" class="indexable,h2" data-level="2">3.3 Organizational Security Policies</h2>
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines no additional Organizational Security Policies.
+    
+    <h1 id="objectives" class="indexable,h1" data-level="1">4 Security Objectives</h1>
+	    
+	    
+        <h2 id="TOEobjectives" class="indexable,h2" data-level="2">4.1 Security Objectives for the TOE</h2>
+            This Module defines no additional <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> security objectives beyond those defined in the base Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Note however 
+		that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defined in this Module will assist in the achievement of the following objectives defined in the base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>:    
+		<dl><dt id="O.VMM_INTEGRITY" class="SO">O.VMM_INTEGRITY</dt><dd>See Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 4.1.</dd><dt id="O.MANAGEMENT_ACCESS" class="SO">O.MANAGEMENT_ACCESS</dt><dd>See Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 4.1.</dd></dl>
+        
+	
+	
+        <h2 id="objectivesEnvironment" class="indexable,h2" data-level="2">4.2 Security Objectives for the Operational Environment</h2>
+This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any objectives for the Operational Environment.
+      
+            Because this Module does not define any additional assumptions or organizational security policies, there are no additional 
+		security objectives for the Operational Environment to satisfy.        
+        
+	    
+	 
+	<h2 id="rationale" class="indexable,h2" data-level="2">4.3 Security Objectives Rationale</h2>   
+    This section describes how the assumptions, threats, and organization 
+    security policies map to the security objectives.
+    <table><caption><span data-myid="" id="" class="ctr" data-counter-type="ct-Table">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_UPDATE">T.UNAUTHORIZED_UPDATE</a><br/></td><td><a href="#O.VMM_INTEGRITY">O.VMM_INTEGRITY</a></td><td>Integrity of a Virtualization System can be maintained by ensuring that the only way to modify 
+				      the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is through a trusted update process initiated by an authorized Administrator
+				      as required by FMT_MOF_EXT.
+			      </td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_ACCESS">T.UNAUTHORIZED_ACCESS</a><br/></td><td><a href="#O.MANAGEMENT_ACCESS">O.MANAGEMENT_ACCESS</a></td><td>Access to management functions must be limited to authorized Administrators as
+				      managed through controls required by <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>.</td></tr></table>
+    <h1 id="sfr" class="indexable" data-level="1">5 Security Requirements</h1>
+      This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
+     Those requirements comprise functional components from Part 2 and assurance components from Part 3 of 
+       <a href="#bibCC">[CC]</a>.
+       
+    The following conventions are used for the completion of operations:
+     <ul>
+       <li>
+         <b>Refinement</b> operation (denoted by <b>bold text</b> or <strike>strikethrough
+         text</strike>): is used to add details to a requirement (including replacing an assignment
+         with a more restrictive selection) or to remove part of the requirement that is made irrelevant
+         through the completion of another operation, and thus further restricts a requirement.
+         </li>
+       <li>
+         <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options
+         provided by the [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] in stating a requirement.</li>
+       <li>
+         <b>Assignment</b> operation (denoted by <span class="assignable-content">italicized text</span>): is used to assign a
+         specific value to an unspecified parameter, such as the length of a password. Showing the
+         value in square brackets indicates assignment.</li>
+       <li>
+         <b>Iteration</b> operation: is indicated by appending the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> name with a slash and unique identifier
+            suggesting the purpose of the operation, e.g. "/EXAMPLE1."
+       </li>
+     </ul>
+   <h2 id="Virtualization" class="indexable" data-level="2">5.1 Virtualization PP
+       Security Functional Requirements Direction
+    </h2>
+			In a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that includes the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is expected to rely on some of the 
+			security functions implemented by the Virtualization System as a whole and evaluated against the base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+			This section describes any modifications that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must make to base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> SFRs to satisfy the 
+			required <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> functionality.
+		<h2 id="modsfr-Virtualization" class="indexable" data-level="3">5.1.1 
+      Modified SFRs
+    </h2>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not modify any SFRs defined by the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+    <h2 id="man-sfrs" class="indexable" data-level="2">5.2 TOE Security Functional Requirements</h2>
+	The following section describes the SFRs that must be satisfied by any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that claims conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+	These SFRs must be claimed regardless of which <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> is used to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+        <h2 id="ss-audit-table" class="indexable,h2" data-level="2">5.3 Auditable Events for Mandatory SFRs</h2>
+        	<table border="1" class="">
+  	     		<br/><b><span data-myid="atref-mandatory" id="atref-mandatory" class="ctr" data-counter-type="ct-Table">Table <span class="counter">2</span>: Auditable Events for Mandatory SFRs</span></b>
+	  	<tr><th>Requirement</th><th>Auditable Events</th><th>Additional Audit Record Contents</th></tr><tr><td><a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a></td><td>No events specified</td><td></td></tr></table>
+	    <h3 id="management-fmt" class="indexable" data-level="3">5.3.1 Security Management (FMT)</h3>
+		
+		<div id="FMT_MOF_EXT.1" class="comp"><h4>FMT_MOF_EXT.1 Management of Security Functions Behavior</h4>
+			
+	            	
+		        
+           		
+
+			
+                     	<div class="element"><div id="FMT_MOF_EXT.1.1" class="reqid"><a class="abbr" href="#FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</a></div><div class="reqdesc">
+                        	The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of supporting 
+                            		[<b>selection</b>: <i id="_s_1">local</i>, <i id="sel-mof-1e1-remote">remote</i>] administration.
+                        	
+                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">Selection of “remote” requires the selection-based requirement FTP_TRP.1 defined in the base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> to be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</span></div>
+                    </div></div>
+                    <div class="element"><div id="FMT_MOF_EXT.1.2" class="reqid"><a class="abbr" href="#FMT_MOF_EXT.1.2">FMT_MOF_EXT.1.2</a></div><div class="reqdesc">
+                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions, controlled by an Administrator 
+				or User as shown in <a onclick="showTarget('manfunc')" class="manfunc-ref" href="#manfunc">Table <span class="counter">3</span></a>, based on the following key:<br/><br/>
+                            <ul style="list-style: none;">
+                                <li>X = Mandatory (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide that function to that role)</li><br/>
+                                <li>O = Optional (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may or may not provide that function to that role)</li><br/>
+                                <li>N = Not Permitted (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not provide that function to that role)</li><br/>
+                                <li>S = Selection-Based (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide that function to that role if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> claims a particular 
+					selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)</li><br/>
+                            </ul>
+                            <center><h4><span data-myid="manfunc" id="manfunc" class="ctr" data-counter-type="ct-Table">Table <span class="counter">3</span>: Server Virtualization Management Functions</span></h4></center>
+                            <table>
+                                <tr>
+                                    <th>Number</th> 
+                                    <th>Function</th> 
+                                    <th>Administrator</th> 
+                                    <th>User</th> 
+                                    <th>Notes (all <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> references are from the base Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></th> 
+                                </tr>
+                                <tr>
+                                    <td>1</td> 
+                                    <td>Ability to update the Virtualization System</td> 
+                                    <td>X</td> 
+                                    <td>N</td> 
+                                    <td>See FPT_TUD_EXT.1</td> 
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>[<b>selection</b>: <i id="sel-mf-2">Ability to configure Administrator password policy as defined in FIA_PMG_EXT.1</i>, <i id="_s_4">Not applicable.</i>]</td>
+                                    <td>S</td>
+                                    <td>N</td>
+                                    <td>Must be selected if <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> includes FIA_PMG_EXT.1.</td>
+				    
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Ability to create, configure and delete VMs</td>
+                                    <td>X</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Ability to set default initial <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> configurations</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Ability to configure virtual networks including <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>X</td>
+                                    <td>O</td>
+                                    <td>See FDP_VNC_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Ability to configure and manage the audit system and audit data</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Ability to configure <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> access to physical devices</td>
+                                    <td>X</td>
+                                    <td>O</td>
+                                    <td>See FDP_PPR_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Ability to configure inter-VM data sharing</td>
+                                    <td>X</td>
+                                    <td>O</td>
+                                    <td>See FDP_VMS_EXT.1 and FMT_MSA_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Ability to enable/disable <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> access to Hypercall functions</td>
+                                    <td>X</td>
+                                    <td>O</td>
+                                    <td>See FPT_HCL_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Ability to configure removable media policy</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td>See FPT_RDM_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>Ability to configure the cryptographic functionality</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td>See FCS_CKM.1, FCS_CKM.2, and FCS_COP.1/HASH</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Ability to change default authorization factors</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td>See FIA_PMG_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td>Ability to enable/disable screen lock</td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td>Ability to configure screen lock inactivity timeout</td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td>Ability to configure remote connection inactivity timeout</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>16</td>
+                                    <td>Ability to configure lockout policy for unsuccessful authentication attempts through 
+                                        [<b>selection</b>: <i id="_s_5">timeouts between attempts</i>, <i id="_s_6">limiting number of attempts during a time period</i>]</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td>See FIA_AFL_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>[<b>selection</b>: <i id="sel-mf-17">Ability to configure name/address of directory server to bind with</i>, <i id="_s_8">Not applicable</i>]</td>
+                                    <td>S</td>
+                                    <td>O</td>
+                                    <td>Must be selected if "directory-based" is selected anywhere in FIA_UAU.5.1 in the base Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.</td>
+				    
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td>Ability to configure name/address of audit/logging server to which to send audit/logging records</td>
+                                    <td>X</td> 
+                                    <td>N</td>
+                                    <td>See FAU_STG_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td>Ability to configure name/address of network time server</td>
+                                    <td>X</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td>Ability to configure banner</td>
+                                    <td>X</td>
+                                    <td>N</td>
+                                    <td>See FTA_TAB.1</td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td>Ability to connect/disconnect removable devices to/from a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td>See FPT_RDM_EXT.1</td>
+                                </tr>
+                                <tr>
+                                    <td>22</td>
+                                    <td>Ability to start a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>23</td>
+                                    <td>Ability to stop/halt a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>24</td>
+                                    <td>Ability to checkpoint a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>25</td>
+                                    <td>Ability to suspend a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>26</td>
+                                    <td>Ability to resume a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></td>
+                                    <td>O</td>
+                                    <td>O</td>
+                                    <td> </td>
+                                </tr>
+                                <tr>
+                                    <td>27</td>
+                                    <td>[<b>selection</b>: <i id="_s_9">Ability to configure action taken if unable to determine the validity of a certificate</i>, <i id="_s_10">Not applicable</i>]
+				    </td>
+                                    <td>S</td>
+                                    <td>N</td>
+                                    <td>This function must be selected if "allow the administrator to choose whether to accept the certificate in these cases"
+					    in FIA_X509_EXT.2.2 in the base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.</td>
+				    
+                                </tr>
+                           </table>
+                        
+                        
+                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+                            The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author is expected to update <a onclick="showTarget('manfunc')" class="manfunc-ref" href="#manfunc">Table <span class="counter">3</span></a> with an indication as to whether any of the ‘optional’ or 
+				‘selection-based’ functions are included as part of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may also omit the ‘Notes’ 
+				column as it is provided in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> as an aid to the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author in constructing the table.<br/><br/>
+                            This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> addresses the roles of the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2 SFRs FMT_MOF.1, FMT_SMF.1, and FMT_SMR.2.<br/><br/>
+                            Administration is considered “local” if the Administrator is physically present at the machine on which the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>
+				is installed.<br/><br/>
+                            Administration is considered “remote” if communications between the Administrator and the Management Subsystem
+				travel on a network.<br/><br/>
+                            There is no requirement to authenticate Users of the Virtualization System. Users that have access to VMs but
+				not to the Management Subsystem need not authenticate to the Virtualization System in order to use Guest
+				VMs. Requirements for authentication of <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> users is determined by the policies of the domains running
+				within the Guest VMs.<br/><br/>
+                        </span></div>
+                        
+                    </div></div>
+		
+                </div>
+            <h2 id="obj-req-map" class="indexable" data-level="2">5.4 TOE Security Functional Requirements Rationale</h2><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><b><span data-myid="" id="" class="ctr" data-counter-type="ct-Table">Table <span class="counter">4</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale </b></caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="1"><a href="#O.VMM_INTEGRITY">O.VMM_INTEGRITY</a><br/></td><td><a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a></td><td>Integrity of a Virtualization System can be maintained by ensuring that the only way to modify 
+				      the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is through a trusted update process initiated by an authorized Administrator
+				      as required by <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.MANAGEMENT_ACCESS">O.MANAGEMENT_ACCESS</a><br/></td><td><a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a></td><td>Access to management functions must be limited to authorized Administrators as
+				      managed through controls required by <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>.</td></tr></table></p><h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-Virtualization" class="indexable" data-level="2">6.1 
+    Protection Profile for Virtualization</h2><h3 id="contoe-Virtualization" class="indexable" data-level="3">6.1.1 
+	Consistency of TOE Type
+      </h3>When this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is used to extend the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type for
+		        the overall <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is still a Virtualization System. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary does not change.
+		<h3 id="consecprob-Virtualization" class="indexable" data-level="3">6.1.2 
+	Consistency of Security Problem Definition
+      </h3>
+      The threats, assumptions, and OSPs defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> (see section 3.1) supplement those defined in the
+      Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> as follows:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Threat, Assumption, OSP</th><th>Consistency Rationale</th></tr><tr><td><a href="#T.UNAUTHORIZED_UPDATE">T.UNAUTHORIZED_UPDATE</a></td><td>This threat comes directly from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.</td></tr><tr><td><a href="#T.UNAUTHORIZED_ACCESS">T.UNAUTHORIZED_ACCESS</a></td><td>This threat comes directly from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.</td></tr></table><h3 id="conobj-Virtualization" class="indexable" data-level="3">6.1.3 
+	Consistency of Objectives
+      </h3><p>
+	  The objectives for the TOEs are consistent with the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> based on the following rationale:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.VMM_INTEGRITY">O.VMM_INTEGRITY</a></td><td>This objective comes directly from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.</td></tr><tr><td><a href="#O.MANAGEMENT_ACCESS">O.MANAGEMENT_ACCESS</a></td><td>This objective comes directly from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.</td></tr></table></p><p></p><h3 id="conreq-Virtualization" class="indexable" data-level="3">6.1.4 
+	Consistency of Requirements
+      </h3>
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> identifies several SFRs from the
+      Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that are needed to support
+      Server Virtualization Systems functionality.
+      This is considered to be consistent because the functionality provided by the
+      Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is being used for its intended purpose.
+      
+          The rationale for why this does not conflict with the claims
+      defined by the
+      Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are as follows:
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Requirement</th><th>Consistency Rationale</th></tr><tr><th colspan="2"> Modified SFRs</th></tr><tr><td style="text-align:center" colspan="2">
+	    This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not modify any requirements when the
+	    Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is the base.
+	  </td></tr><tr><th colspan="2"> Mandatory SFRs</th><tr><td><a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> requires the Server Virtualization product to manage security functionality
+				defined in the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> in FPT_TUD_EXT.1, FIA_PMG_EXT.1, FDP_VNC_EXT.1, FDP_PPR_EXT.1, FDP_VMS_EXT.1,
+				FMT_MSA_EXT.1, FPT_HCL_EXT.1, FPT_RDM_EXT.1, FCS_CKM.1, FCS_CKM.2, FCS_COP.1/HASH, FIA_AFL_EXT.1, 
+				FAU_STG_EXT.1, FIA_X509_EXT.2.2, and FTA_TAB.1.</td></tr></tr><tr><th colspan="2"> Optional SFRs</th><tr><td style="text-align:center" colspan="2">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Optional requirements.
+	    </td></tr></tr><tr><th colspan="2"> Selection-based SFRs</th><tr><td style="text-align:center" colspan="2">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Selection-based requirements.
+	    </td></tr></tr><tr><th colspan="2"> Objective SFRs</th><tr><td style="text-align:center" colspan="2">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Objective requirements.
+	    </td></tr></tr><tr><th colspan="2"> Implementation-Dependent SFRs</th><tr><td style="text-align:center" colspan="2">
+	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Implementation-Dependent requirements.
+	    </td></tr></tr></table><h1 id="opt-sfrs" class="indexable" data-level="A">Appendix A -  Optional SFRs</h1><h2 id="strictly-optional-sfrs" class="indexable" data-level="2">A.1 Strictly Optional Requirements</h2><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Optional SFRs.
+	</p><h2 id="objective-sfrs" class="indexable" data-level="2">A.2 Objective Requirements</h2><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Objective SFRs.
+	</p><h2 id="impl-dep-sfrs" class="indexable" data-level="2">A.3 Implementation-Dependent Requirements</h2><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Implementation-Dependent SFRs.
+	</p><h1 id="sel-sfrs" class="indexable" data-level="A">Appendix B -  Selection-based SFRs</h1><p>
+	  This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any selection-based SFRs.
+	</p><h1 id="ext-comp-defs" class="indexable" data-level="A">Appendix C -  Extended Component Definitions</h1>
+	This appendix contains the definitions for all extended requirements specified in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+
+    <h2 id="ext-comp-defs-bg" class="indexable" data-level="2">C.1 Extended Components Table</h2>
+
+	All extended components specified in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are listed in this table:
+
+<table><caption><b><span data-myid="" id="" class="ctr" data-counter-type="ct-Table">Table <span class="counter">5</span></span>: Extended Component Definitions</b></caption><tr><th>Functional Class</th><th>Functional Components</th></tr><tr><td>Security Management (FMT)</td><td>FMT_MOF_EXT Management of Security Functions Behavior<br/></td></tr></table><h2 id="ext-comp-defs-bg" class="indexable" data-level="2">C.2 Extended Component Definitions</h2><h3>FMT_MOF_EXT Management of Security Functions Behavior</h3> This family is defined in the Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. This Module augments the extended family by adding one
+				additional component, <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>. 
+			<h3>Component Leveling</h3><p><a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>,
+             Management of Security Functions Behavior,
+             defines required management functions and responsibilities.</p><h3>Management: FMT_MOF_EXT.1</h3><p>There are no additional management functions beyond those already described in <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>.</p><h3>Audit: FMT_MOF_EXT.1</h3><p>There are no auditable events defined for this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.</p><h3>FMT_MOF_EXT.1 Management of Security Functions Behavior</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No other dependencies.</p><h3>FMT_MOF_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of supporting 
+                            		[<b>selection</b>: <i id="_s_1">local</i>, <i id="sel-mof-1e1-remote">remote</i>] administration.
+                        	<h3>FMT_MOF_EXT.1.2</h3><br/>
+                          The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions
+                          [<b>assignment</b>: 
+     <span class="assignable-content">description of management functions</span>].
+                        <h1 id="ent" class="indexable" data-level="A">Appendix D -  Entropy</h1>
+	The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not require any additional supplementary information to describe its entropy source(s)
+	beyond the requirements outlined in the ‘Entropy Documentation and Assessment’ section of the Base
+	Virtualization <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. As with other base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> requirements, the only additional requirement is that the
+	entropy documentation also applies to the specific Server Virtualization capabilities of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in
+	addition to the functionality required by the base <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+    <h1 id="bibliography" class="indexable" data-level="A">Appendix E -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC"> [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] </span></td><td>Common Criteria for Information Technology Security Evaluation - 
+    <ul><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
+             1: Introduction and General Model</a>,
+             CCMB-2017-04-001, Version 3.1, Revision 5,  April 2017.
+         </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
+             2: Security Functional Components</a>,
+             CCMB-2017-04-002, Version 3.1, Revision 5,  April 2017.
+         </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
+             3: Security Assurance Components</a>,
+             CCMB-2017-04-003, Version 3.1, Revision 5,  April 2017.
+         </li></ul></td></tr><tr><td><span id="bib-base-pp"> [VirtPP] </span></td><td>Protection Profile for Virtualization, Version: 1.1, 2020-11-17</td></tr></table><h1 id="acronyms" class="indexable" data-level="A">Appendix F -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span id="abbr_Base-PP" class="term"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr><tr><td><span id="abbr_CC" class="term"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr><tr><td><span id="abbr_CEM" class="term"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr><tr><td><span id="abbr_OE" class="term"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr><tr><td><span id="abbr_OS" class="term"><abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span></td><td><span id="long_abbr_OS">Operating System</span></td></tr><tr><td><span id="abbr_PP" class="term"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span id="abbr_PP-Configuration" class="term"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td></tr><tr><td><span id="abbr_PP-Module" class="term"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td></tr><tr><td><span id="abbr_SAR" class="term"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr><tr><td><span id="abbr_SFR" class="term"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr><tr><td><span id="abbr_ST" class="term"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr><tr><td><span id="abbr_TOE" class="term"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr><tr><td><span id="abbr_TSF" class="term"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr><tr><td><span id="abbr_TSFI" class="term" data-plural="TSFIs"><abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr></span></td><td><span id="long_abbr_TSFI"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> Interface</span></td></tr><tr><td><span id="abbr_TSS" class="term"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr><tr><td><span id="abbr_VM" class="term"><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></span></td><td><span id="long_abbr_VM">Virtual Machine</span></td></tr><tr><td><span id="abbr_VMM" class="term"><abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr></span></td><td><span id="long_abbr_VMM">Virtual Machine Manager</span></td></tr><tr><td><span id="abbr_VS" class="term"><abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr></span></td><td><span id="long_abbr_VS">Virtualization System</span></td></tr></table></body></html>

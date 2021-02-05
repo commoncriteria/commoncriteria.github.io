@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <meta charset='utf-8'></meta>
+        <title>Encapsulator</title>
+        <script type="text/javascript"> //<![CDATA[
+            function encapsulate(){
+                var haystack = document.getElementById('input_textarea').value;
+                var out = document.getElementById('output_textarea');
+                out.value=""
+                var regex1 = RegExp('<TSS\/>|<Guidance\/>|<\/aactivity>|<Tests\/>','g');
+
+                var last=0;
+                var array1;
+                var end_tag=""
+                while ((array1 = regex1.exec(haystack)) !== null) {
+                    out.value += haystack.substring(last, array1.index) + end_tag;
+                    if (array1[0] == '<TSS/>'){
+                        out.value += "<TSS>";
+                        end_tag="</TSS>\n";
+                    }
+                    else if (array1[0] == '<Guidance/>'){
+                        out.value += "<Guidance>";
+                        end_tag="</Guidance>\n";
+                    }
+                    else if (array1[0] == '<Tests/>'){
+                        out.value += "<Tests>";
+                        end_tag="</Tests>\n";
+                    }
+                    else if (array1[0] == '</aactivity>'){
+                        out.value += "</aactivity>"
+                        end_tag="";
+                    }
+                    last = array1.index + array1[0].length;
+                }
+                out.value+=haystack.substring(last);
+
+                var blobTheBuilder = new MyBlobBuilder();
+                blobTheBuilder.append(out.value);
+                initiateDownload("Fixed.xml", blobTheBuilder.getBlob("text/xml"));
+            }
+
+            function initiateDownload(filename, blob) {
+                //    var blob = new Blob([data], {type: mimetype});
+                if(window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveBlob(blob, filename);
+                }
+                else{
+                    var elem = window.document.createElement('a');
+                    elem.href = window.URL.createObjectURL(blob);
+                    elem.download = filename;        
+                    document.body.appendChild(elem);
+                    elem.click();        
+                    document.body.removeChild(elem);
+                }
+            }
+    
+
+
+// ##################################################
+// #         Blob the Builder
+// ##################################################
+// Took this from stack overflow
+var MyBlobBuilder = function() {
+  this.parts = [];
+}
+
+MyBlobBuilder.prototype.append = function(part) {
+  this.parts.push(part);
+  this.blob = undefined; // Invalidate the blob
+};
+
+MyBlobBuilder.prototype.getBlob = function(mimetype) {
+  if (!this.blob) {
+    this.blob = new Blob(this.parts, { type: mimetype });
+  }
+  return this.blob;
+};
+
+            //]]>
+        </script>
+    </head>
+    <body>
+        <h1> Encapsulator </h1>
+        <h2> Changes TSS, Guidance, and Tests tags from preceding their content to encapsulating their content.<h2>
+        Paste Code Below
+        <br/>
+        <textarea id='input_textarea' rows="30" cols="50"></textarea> 
+        <br/>
+        <button onclick='encapsulate()' type='button'>Encapsulate</button>
+        <br/>
+        <textarea id="output_textarea" rows="30" cols="50"></textarea>
+    </body>
+</html>

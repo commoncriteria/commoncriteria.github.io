@@ -1,0 +1,151 @@
+<?xml-stylesheet type="text/xsl" href="../transforms/esr2html.xsl"><!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:esr="http://common-criteria.rhcloud.com/ns/esr" xmlns:fn="http://www.w3.org/2005/xpath-functions"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+					/*       { background-color: #FFFFFF; } */
+					body{
+					    margin-left:8%;
+					    margin-right:8%;
+					    foreground:black;
+					}
+					td{
+					    vertical-align:top;
+					}
+					div.section{
+					    text-align:center;
+					    margin-left:0%;
+					    margin-top:1em;
+					    margin-bottom:1em;
+					    border:2px solid #000000;
+					    width:100%;
+					    background-color:#FFFF99;
+					    font-family:arial, helvetica, sans-serif;
+					    font-weight:bold;
+					    box-shadow:2px 2px 2px #888888;
+					}
+					div.note{
+					    margin-left:10%;
+					    margin-right:10%;
+					    margin-top:1em;
+					}
+					
+					table.intro{
+					    table-layout:fixed;
+					    width:100%;
+					    margin-top:1em;
+					    border:1px solid black;
+					    box-shadow:2px 2px 2px #888888;
+					    text-align:center;
+					    vertical-align:middle;
+					    font-family:arial, helvetica, sans-serif;
+					}
+					ul,
+					ol{
+					    margin-bottom:0.5em;
+					    margin-top:0.5em;
+					}
+					li{
+					    margin-bottom:0.5em;
+					    margin-top:0.25em;
+					}</style></head><body><table class="intro"><tr><td style="width: 50%;"><img style="max-width:100%;" src="images/cclogo.png"></img></td><td style="vertical-align: middle;"><b>Common Criteria Evaluation and Validation Scheme</b><p></p>National Information
+					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">General-Purpose Computing Platform Protection Profile</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">NIAP</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">42</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">0.2</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">draft</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr">15 September 2020</issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="purpose">Background and Purpose</div>
+		This document describes the high-level security requirements
+		to be met by general-purpose computing platforms. The resulting
+		Protection Profile will define baseline security functionality
+		with additional security options. <br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br><br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+
+		A platform is a collection of hardware devices and firmware that
+		provide the functional capabilities and services needed by tenant
+		software. Such devices typically include embedded controllers, trusted
+		platform modules, management controllers, host processors, network
+		interface controllers, graphics processing units, flash memory,
+		storage controllers, storage devices, boot firmware, runtime firmware,
+		human interface devices, and a power supply.
+	<div class="section" id="usecases">Use Cases</div>
+	  	A general-purpose computing platform is a hardware device that it capable
+		of hosting more than one different operating system, virtualization system,
+		or bare-metal application. Typical platform implementations include--but are not
+		limited to--servers, PC clients, laptops, and tablets.
+	<div class="section" id="resourcesprotected">Resources to be protected</div>
+		The platform has three major security responsibilities:
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>ensuring the integrity of its own firmware</li>
+			<li>ensuring that it is resilient</li>
+			<li>providing security services to tenant workloads</li>
+		</ul><br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br><br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+
+		These responsibilities manifest as protecting: 
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>Platform firmware</li>
+			<li>Platform firmware updates</li>
+			<li>Tenant initialization (boot)</li>
+		</ul>
+	<div class="section" id="attackeraccess">Attacker access</div> 
+		The attackers are assumed to have compromised the tenant software such that
+		malicious code can run remotely or automatically to attack the platform. The attackers
+		are assumed to have network access to the platform such that they can launch remote attacks.
+	<div class="section" id="requirements">Essential Security Requirements</div>
+		
+		The following are the essential security requirements that are expected to be enforced by any GPCP TOE:<br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br><br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+		<ol xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>Platform Integrity—Roots of Trust<br></br><br></br>
+			Roots of trust are security primitives that provide a set of trusted, security-critical
+			functions. They must always behave in an expected manner because their misbehavior cannot
+			be detected.<br></br><br></br>
+			A platform must implement the following roots of trust:
+			<ol>
+				<li>Root of Trust for Storage (RTS) – provides protected repository and protected interface for storing keying material.</li>
+				<li>Root of Trust for Verification (RTV) – provides protected engine and interface to verify digital signatures associated 
+					with firmware and to create assertions based on the results.</li>
+				<li>Root of Trust for Integrity (RTI) – provides protected storage, integrity protection, and a protected interface to store
+					and manage assertions.</li>
+				<li>Root of Trust for Reporting (RTR) – provides a protected environment and interface to manage identities and sign assertions.</li>
+				<li>Root of Trust for Measurement (RTM) – provides measurement used by assertions protected via the RTI and attested to with the RTR.</li>
+			</ol>
+			</li>
+		<li>Platform Resilience—Protect, Detect, Recover<br></br><br></br>
+		The platform must support the following security capabilities to ensure its own integrity:
+			<ol>
+				<li>Protection of Platform Integrity:
+					<ol>
+						<li>Protect Platform Firmware – The platform firmware can be modified only through an authorized mechanism.</li>
+						<li>Authenticated Update – The platform firmware updates must be authenticated via a root of trust before they are applied.</li>
+					</ol>
+				</li>
+				<li>Detection of Platform Integrity
+					<ol>
+						<li>Hardware Integrity – The platform must be able to detect changes in its hardware configuration. </li>
+						<li>Firmware Integrity. – The platform must be able to detect changes to its firmware made outside of an
+							authenticated update mechanism.</li> 
+					</ol>
+				</li>
+				<li>Platform Recovery
+					<ol>
+						<li>The platform must be capable of restoring platform firmware and critical data that has been corrupted or
+							changed from its authorized state.</li>
+					</ol>
+				</li>
+			</ol>
+		</li>
+		<li>Security Services for Tenant Software<br></br><br></br>
+		The platform must provide the following security services to tenant software:
+			<ol>
+				<li>Protected Storage – The platform must support a mechanism for protecting the confidentiality and integrity of sensitive
+					data while at rest.</li>
+				<li>Assured Erase – The platform must provide a mechanism for assured erasure of unencrypted sensitive data at rest.</li>
+				<li>Isolation – The platform must provide a mechanism that can be leveraged by tenant software to support the isolation of
+					different computing contexts. This could be something as simple as processor support for process isolation, processor
+					support for virtualization, or platform support for application isolation.</li>
+				<li>Platform Identity – The platform must have a unique identity for purposes of platform authentication.</li>
+				<li>Cryptographic Services – The hardware platform may implement cryptographic services in hardware. This could include
+					RNGs, entropy sources, and cryptographic functions implemented in hardware.</li>
+				<li>Management Services – Baseboard Management Controller (BMC)/Management Engine (ME) – The platform may provide out-of-band
+					management services for tenant software.</li>
+			</ol>
+		</li>
+		</ol>
+	<div class="section" id="assumptions">Assumptions</div>
+		It is assumed that an attacker has no access to the physical device, but has
+		access to the tenant workload and to tenant workload networks. 
+	<div class="section" id="outsidescope">Outside the TOE's Scope</div>
+		This section has been intentionally left blank.
+	</body></html>
