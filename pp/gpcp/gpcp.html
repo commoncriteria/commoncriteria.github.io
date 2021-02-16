@@ -171,6 +171,7 @@ function showTarget(id){
       display: inline;
     }
 
+    .indent{ margin-left:2em; }
 
     /* Tooltip container */
     .tooltipped {
@@ -211,6 +212,10 @@ function showTarget(id){
    table.mfs td:first-child{
        text-align: left;
    }
+  .table-caption{
+       text-align: center;
+       font-weight: bold;
+   }
    table{
        margin:auto;
        margin-top:1em;
@@ -246,7 +251,37 @@ function showTarget(id){
        margin-left: 25px;
        font-style: italic;
    }
-  
+
+   .uc_table_or td, .uc_table_or tr {
+       vertical-align: middle;
+       border: 1px solid black;
+       background-color: white;
+   }
+
+   .uc_not, .uc_mf, .uc_sel, .uc_guide{
+       text-indent: 10px;
+   }
+   .uc_not_sel, .uc_sel.uc_mf, uc_assign.uc_mf{
+       text-indent: 20px;
+   }
+
+
+   .uc_table_or tr td.or_cell{
+      white-space: nowrap;
+      border-radius: 0.6em 0 0 0.6em;
+      background-color: black;
+      color: white;
+   }
+
+   .uc_table_and, .uc_table_or {
+       width: 100%;
+       background-color: white;
+   }
+   .uc_guidance{
+       display: table;
+       background-color: gray;
+   }  
+
    .evidence, .test-obj { font-style: normal; font-size: 90%;}
    
           .figure{
@@ -358,6 +393,7 @@ function showTarget(id){
               margin-top:1em;
           }
           div.activity_pane_body{
+              font-style:italic;
               margin-left:0%;
               margin-top:1em;
               margin-bottom:1em;
@@ -507,11 +543,11 @@ function showTarget(id){
 
           }
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Protection Profile for General-Purpose Computing Platforms</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
-      Version: 1.0<br/>2020-11-09<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>Round 1</td><td>2020-11-09</td><td>First draft of version 1.0 for comment</td></tr><tr><td>1.0</td><td>2020-11-09</td><td>Initial release</td></tr></table><h2>Contents</h2><div class="toc" id="toc"><a style="text-indent:0px" href="#int">1<span>Introduction</span></a><a style="text-indent:10px" href="#ppoverview">1.1<span>Overview</span></a><a style="text-indent:10px" href="#glossary">1.2<span>Terms</span></a><a style="text-indent:20px" href="#cc-terms">1.2.1<span>Common Criteria Terms</span></a><a style="text-indent:20px" href="#tech-terms">1.2.2<span>Technical Terms</span></a><a style="text-indent:10px" href="#TOEdescription">1.3<span>Compliant Targets of Evaluation</span></a><a style="text-indent:20px" href="#TOEboundary">1.3.1<span>TOE Boundary</span></a><a style="text-indent:20px" href="#TOEopenv">1.3.2<span>TOE Operational Environment</span></a><a style="text-indent:10px" href="#usecases">1.4<span>Use Cases</span></a><a style="text-indent:0px" href="#cclaims">2<span>Conformance Claims</span></a><a style="text-indent:0px" href="#spd">3<span>Security Problem Description</span></a><a style="text-indent:10px" href="#threats">3.1<span>Threats</span></a><a style="text-indent:10px" href="#assumptions">3.2<span>Assumptions</span></a><a style="text-indent:10px" href="#OSPs">3.3<span>Organizational Security Policies</span></a><a style="text-indent:0px" href="#obj">4<span>Security Objectives</span></a><a style="text-indent:10px" href="#SecurityObjectivesTOE">4.1<span>Security Objectives for the TOE</span></a><a style="text-indent:10px" href="#SecurityObjectivesTOEorEnvironment">4.2<span>Security Objectives for the Operational Environment</span></a><a style="text-indent:10px" href="#SOR">4.3<span>Security Objectives Rationale</span></a><a style="text-indent:0px" href="#req">5<span>Security Requirements</span></a><a style="text-indent:10px" href="#SFRs">5.1<span>Security Functional Requirements</span></a><a style="text-indent:20px" href="#ss-audit-table">5.1.1<span>Auditable Events for Mandatory SFRs</span></a><a style="text-indent:20px" href="#fau">5.1.2<span>Security Audit (FAU)</span></a><a style="text-indent:20px" href="#fmt-2">5.1.3<span>Security Management (FMT)</span></a><a style="text-indent:20px" href="#obj-req-map">5.1.4<span>TOE Security Functional Requirements Rationale</span></a><a style="text-indent:10px" href="#SARs">5.2<span>Security Assurance Requirements</span></a><a style="text-indent:20px" href="#ase">5.2.1<span>Class ASE: Security Target</span></a><a style="text-indent:20px" href="#adv">5.2.2<span>Class ADV: Development</span></a><a style="text-indent:20px" href="#agd">5.2.3<span>Class AGD: Guidance Documentation</span></a><a style="text-indent:20px" href="#alc">5.2.4<span>Class ALC: Life-cycle Support</span></a><a style="text-indent:20px" href="#ate">5.2.5<span>Class ATE: Tests</span></a><a style="text-indent:20px" href="#ava">5.2.6<span>Class AVA: Vulnerability Assessment</span></a><a style="text-indent:0px" href="#impl-reqs">Appendix A - <span>Implementation-Dependent Requirements</span></a><a style="text-indent:10px" href="#a-feature-id">A.1<span>Widget Thing</span></a><a style="text-indent:0px" href="#satisfiedreqs">Appendix B - <span>Inherently Satisfied Requirements</span></a><a style="text-indent:0px" href="#entropyappendix">Appendix C - <span>Entropy Documentation and Assessment</span></a><a style="text-indent:10px" href="#entropydesign">C.1<span>Design Description</span></a><a style="text-indent:10px" href="#entropyjustification">C.2<span>Entropy Justification</span></a><a style="text-indent:10px" href="#entropyoperatingconditions">C.3<span>Operating Conditions</span></a><a style="text-indent:10px" href="#entropyhealthtesting">C.4<span>Health Testing</span></a><a style="text-indent:0px" href="#appendix-equiv">Appendix D - <span>Equivalancy Guidelines</span></a><a style="text-indent:0px" href="#biblio">Appendix E - <span>References</span></a><a style="text-indent:0px" href="#acronyms">Appendix F - <span>Acronyms</span></a></div><h1 data-level="1" class="indexable" id="int">1 Introduction</h1>
-    <h2 data-level="2" class="indexable" id="ppoverview">1.1 Overview</h2>
+      Version: 1.0<br/>2020-11-09<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>Round 1</td><td>2020-11-09</td><td>First draft of version 1.0 for comment</td></tr><tr><td>1.0</td><td>2020-11-09</td><td>Initial release</td></tr></table><h2>Contents</h2><div class="toc" id="toc"><a href="#int" style="text-indent:0px">1<span>Introduction</span></a><a href="#ppoverview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOEboundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#TOEopenv" style="text-indent:20px">1.3.2<span>TOE Operational Environment</span></a><a href="#usecases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#cclaims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#spd" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#OSPs" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#obj" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#SecurityObjectivesTOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#SecurityObjectivesTOEorEnvironment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#SOR" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fcs" style="text-indent:20px">5.1.1<span>Cryptographic Support (FCS)</span></a><a href="#fpt" style="text-indent:20px">5.1.2<span>Class: Protection of the TSF (FPT)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.3<span>TOE Security Functional Requirements Rationale</span></a><a href="#SARs" style="text-indent:10px">5.2<span>Security Assurance Requirements</span></a><a href="#ase" style="text-indent:20px">5.2.1<span>Class ASE: Security Target</span></a><a href="#adv" style="text-indent:20px">5.2.2<span>Class ADV: Development</span></a><a href="#agd" style="text-indent:20px">5.2.3<span>Class AGD: Guidance Documentation</span></a><a href="#alc" style="text-indent:20px">5.2.4<span>Class ALC: Life-cycle Support</span></a><a href="#ate" style="text-indent:20px">5.2.5<span>Class ATE: Tests</span></a><a href="#ava" style="text-indent:20px">5.2.6<span>Class AVA: Vulnerability Assessment</span></a><a href="#impl-reqs" style="text-indent:0px">Appendix A - <span>Implementation-Dependent Requirements</span></a><a href="#a-feature-id" style="text-indent:10px">A.1<span>Widget Thing</span></a><a href="#satisfiedreqs" style="text-indent:0px">Appendix B - <span>Inherently Satisfied Requirements</span></a><a href="#entropyappendix" style="text-indent:0px">Appendix C - <span>Entropy Documentation and Assessment</span></a><a href="#entropydesign" style="text-indent:10px">C.1<span>Design Description</span></a><a href="#entropyjustification" style="text-indent:10px">C.2<span>Entropy Justification</span></a><a href="#entropyoperatingconditions" style="text-indent:10px">C.3<span>Operating Conditions</span></a><a href="#entropyhealthtesting" style="text-indent:10px">C.4<span>Health Testing</span></a><a href="#appendix-equiv" style="text-indent:0px">Appendix D - <span>Equivalancy Guidelines</span></a><a href="#biblio" style="text-indent:0px">Appendix E - <span>References</span></a><a href="#acronyms" style="text-indent:0px">Appendix F - <span>Acronyms</span></a></div><h1 id="int" class="indexable,h1" data-level="1">1 Introduction</h1>
+    <h2 id="ppoverview" class="indexable,h2" data-level="2">1.1 Overview</h2>
       
       	The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to
-      	describe the security functionality of General-Purpose Computing Platforms in terms of <a href="#bibCC">[CC]</a>
+      	describe the security functionality of General-Purpose Computing Platforms in terms of 
       	and to define functional and assurance requirements for such products.<br/><br/>
   
 	A platform is a collection of hardware devices and firmware that provide the functional capabilities and services needed by tenant
@@ -524,11 +560,11 @@ function showTarget(id){
 
 
 	  
-    <h2 data-level="2" class="indexable" id="glossary">1.2 Terms</h2>
+    <h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
 The following sections list Common Criteria and technology terms used in this document.
-    <h3 data-level="3" class="indexable" id="cc-terms">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>)</div></td><td>Protection Profile used as a basis to build a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>.</td></tr><tr><td><div id="Common_Criteria">Common Criteria (<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 15408).</td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
+    <h3 id="cc-terms" class="indexable" data-level="3">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>)</div></td><td>Protection Profile used as a basis to build a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>.</td></tr><tr><td><div id="Common_Criteria">Common Criteria (<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 15408).</td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
       Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the <abbr class="dyn-abbr"><a href="#abbr_NIAP">NIAP</a></abbr> Validation Body to conduct Common Criteria-based evaluations.
-    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></div></td><td>A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (<abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>)</div></td><td>Hardware and software that are outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary that support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and at least one <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</div></td><td>An implementation-independent statement of security needs for a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (<abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr>)</div></td><td>A requirement to assure the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)</div></td><td>A requirement for security enforcement by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Target">Security Target (<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality (<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)</div></td><td>A description of how a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> satisfies the SFRs in an <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)</div></td><td>The product under evaluation. </td></tr></table><h3 data-level="3" class="indexable" id="tech-terms">1.2.2 Technical Terms</h3><table><tr><td><div id="Address_Space_Layout_Randomization">Address Space Layout Randomization (<abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>)</div></td><td>
+    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></div></td><td>A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (<abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>)</div></td><td>Hardware and software that are outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary that support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr>)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and at least one <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</div></td><td>An implementation-independent statement of security needs for a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (<abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr>)</div></td><td>A requirement to assure the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)</div></td><td>A requirement for security enforcement by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><div id="Security_Target">Security Target (<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality (<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)</div></td><td>A description of how a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> satisfies the SFRs in an <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)</div></td><td>The product under evaluation. </td></tr></table><h3 id="tech-terms" class="indexable" data-level="3">1.2.2 Technical Terms</h3><table><tr><td><div id="Address_Space_Layout_Randomization">Address Space Layout Randomization (<abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>)</div></td><td>
 	An anti-exploitation feature which loads memory mappings into unpredictable
 	locations. <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> makes it more difficult for an attacker to redirect control to code
 	that they have introduced into the address space of a process.
@@ -568,8 +604,8 @@ The following sections list Common Criteria and technology terms used in this do
 	An entity that writes <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> software. For the purposes of this document,
 	vendors and developers are the same.
       </td></tr><tr><td><div id="General_Purpose_Operating_System">General Purpose Operating System</div></td><td>
-	A class of OSes designed to support a wide-variety of workloads consisting of many concurrent applications or services.
-	Typical characteristics for OSes in this class include support for third-party applications,
+	A class of <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> designed to support a wide-variety of workloads consisting of many concurrent applications or services.
+	Typical characteristics for <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> in this class include support for third-party applications,
 	support for multiple users, and security separation between users and their respective resources.
 	General Purpose Operating Systems also lack the real-time constraint that defines Real Time Operating Systems (RTOS).
 	RTOSes typically power routers, switches, and embedded devices.
@@ -586,7 +622,7 @@ The following sections list Common Criteria and technology terms used in this do
 	employment history and information which can be used to distinguish or trace an
 	individual's identity, such as their name, social security number, date and place of
 	birth, mother's maiden name, biometric records, etc., including any other personal
-	information which is linked or linkable to an individual.<a href="#bibOMB">[OMB]</a>
+	information which is linked or linkable to an individual.
       </td></tr><tr><td><div id="Sensitive_Data">Sensitive Data</div></td><td>
 	Sensitive data may include all user or enterprise data or may be specific
 	application data such as <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>, emails, messaging, documents, calendar items, and contacts.
@@ -600,29 +636,29 @@ The following sections list Common Criteria and technology terms used in this do
       </td></tr><tr><td><div id="Virtual_Machine">Virtual Machine (<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>)</div></td><td>Blah Blah Blah</td></tr></table>   
 	
 
-    <h2 data-level="2" class="indexable" id="TOEdescription">1.3 Compliant Targets of Evaluation</h2>
+    <h2 id="TOEdescription" class="indexable,h2" data-level="2">1.3 Compliant Targets of Evaluation</h2>
   	A general-purpose computing platform is a hardware device that it capable
 	of hosting more than one different operating system, virtualization system,
 	or bare-metal application. Typical platform implementations include--but are not
 	limited to--servers, PC clients, laptops, and tablets.<br/><br/>
 
 	    
-      <h3 data-level="3" class="indexable" id="TOEboundary">1.3.1 TOE Boundary</h3>
-        <div class="figure" id="figure-toe"><img width="" src="images/Toe.png" id="toe" height=""></img><p></p><span data-counter-type="ct-figure" class="ctr" data-myid="figure-toe">Figure <span class="counter">1</span></span>:
+      <h3 id="TOEboundary" class="indexable,h3" data-level="3">1.3.1 TOE Boundary</h3>
+        <div class="figure" id="figure-toe"><img id="toe" src="images/Toe.png" width="" height=""></img><br/><span class="ctr" data-myid="toe" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
       General <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> </div>
 	TODO: Add a description of what is in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> ahd what is outside. 
 	E.g. Tenant software is outside. Is everything else inside?
       
 
 
-      <h3 data-level="3" class="indexable" id="TOEopenv">1.3.2 TOE Operational Environment</h3>
+      <h3 id="TOEopenv" class="indexable,h3" data-level="3">1.3.2 TOE Operational Environment</h3>
 	      The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has no platform since it is itself a platform. But the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does have an operational environment. The <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr> consists of the 
 	      physical environment in which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> operates (e.g., data center, vehicle, outdoors) and any networks to which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may be connected.
       
     
 	
 
-    <h2 data-level="2" class="indexable" id="usecases">1.4 Use Cases</h2>
+    <h2 id="usecases" class="indexable,h2" data-level="2">1.4 Use Cases</h2>
    	TODO: Requirements in this Protection Profile are designed to
       	address the security problems in at least the following use cases.
 	Is the major distinction going to be related to physical protections?
@@ -651,10 +687,10 @@ The following sections list Common Criteria and technology terms used in this do
 				Mobile devices, as defined by the Protection Profile for Mobile Device Fundamentals, are not addressed by this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
           		</dd></dl>
     
-  <h1 data-level="1" class="indexable" id="cclaims">2 Conformance Claims</h1><dl><dt>Conformance Statement</dt><dd>An <abbr title="Security Target">ST</abbr> must claim exact conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).</dd><dt>CC Conformance Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (conformant) of Common Criteria Version 3.1, Revision 5.</dd><dt>PP Claim </dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to any Protection Profile. </dd><dt>Package Claim</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>  does not claim conformance to any packages.</dd></dl><h1 data-level="1" class="indexable" id="spd">3 Security Problem Description</h1>
+  <h1 id="cclaims" class="indexable,h1" data-level="1">2 Conformance Claims</h1><dl><dt>Conformance Statement</dt><dd>An <abbr title="Security Target">ST</abbr> must claim exact conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).</dd><dt>CC Conformance Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (conformant) of Common Criteria Version 3.1, Revision 5.</dd><dt>PP Claim </dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to any Protection Profile. </dd><dt>Package Claim</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>  does not claim conformance to any packages.</dd></dl><h1 id="spd" class="indexable,h1" data-level="1">3 Security Problem Description</h1>
 	The security problem is described in terms
-    	of the threats that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is expected to address, assumptions about the
-    	operational environment, and any organizational security policies that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>
+    	of the threats that the GPCP is expected to address, assumptions about the
+    	operational environment, and any organizational security policies that the GPCP
     	is expected to enforce.<br/><br/>
   	The platform has three major security responsibilities:
 	<ul>
@@ -672,7 +708,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 
 	  
-    <h2 data-level="2" class="indexable" id="threats">3.1 Threats</h2>
+    <h2 id="threats" class="indexable,h2" data-level="2">3.1 Threats</h2>
       <dl><dt class="threat" id="T.PHYSICAL">T.PHYSICAL</dt><dd>An attacker with physical access might be able to compromise <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> integrity, subvert
 		  <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> protections, or access tenant data through hardware attacks such as probing, physical
 		  manipulation, fault-injection, side-channel analysis, environmental stress, or activating
@@ -697,7 +733,7 @@ The following sections list Common Criteria and technology terms used in this do
     
 	  
 
-    <h2 data-level="2" class="indexable" id="assumptions">3.2 Assumptions</h2>
+    <h2 id="assumptions" class="indexable,h2" data-level="2">3.2 Assumptions</h2>
       <dl><dt class="assumption" id="A.PHYSICAL_PROTECTION">A.PHYSICAL_PROTECTION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is assumed to be physically protected in its operational environment and
 		  thus is not subject to physical attacks that could compromise its security or its ability
 		  to support the security of tenant workloads. </dd><dt class="assumption" id="A.ROT_INTEGRITY">A.ROT_INTEGRITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes one or more Roots of Trust composed of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware, hardware, and
@@ -706,43 +742,43 @@ The following sections list Common Criteria and technology terms used in this do
     
 	  
 
-    <h2 data-level="2" class="indexable" id="OSPs">3.3 Organizational Security Policies</h2>
+    <h2 id="OSPs" class="indexable,h2" data-level="2">3.3 Organizational Security Policies</h2>
       <dl><dt class="OSP" id=""></dt><dd>If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is bound to a directory or management server, the configuration of
             the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> software must be capable of adhering to the enterprise security policies
             distributed by them.</dd></dl>
     
-  <h1 data-level="1" class="indexable" id="obj">4 Security Objectives</h1>
+  <h1 id="obj" class="indexable,h1" data-level="1">4 Security Objectives</h1>
 	  
 
-    <h2 data-level="2" class="indexable" id="SecurityObjectivesTOE">4.1 Security Objectives for the TOE</h2>
-      <dl><dt class="SO" id="O.ACCOUNTABILITY">O.ACCOUNTABILITY</dt><dd> Conformant OSes ensure that information exists that allows
+    <h2 id="SecurityObjectivesTOE" class="indexable,h2" data-level="2">4.1 Security Objectives for the TOE</h2>
+      <dl><dt class="SO" id="O.ACCOUNTABILITY">O.ACCOUNTABILITY</dt><dd> Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> ensure that information exists that allows
             administrators to discover unintentional issues with the configuration and operation of
             the operating system and discover its cause.  Gathering event information and immediately
             transmitting it to another system can also enable incident response in the event
-            of system compromise.</dd><dt class="SO" id="O.INTEGRITY">O.INTEGRITY</dt><dd>Conformant OSes ensure the integrity of their update
-            packages. OSes are seldom if ever shipped without errors, and the
+            of system compromise.</dd><dt class="SO" id="O.INTEGRITY">O.INTEGRITY</dt><dd>Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> ensure the integrity of their update
+            packages. <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> are seldom if ever shipped without errors, and the
             ability to deploy patches and updates with integrity is critical to enterprise network
-            security. Conformant OSes provide execution environment-based
+            security. Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> provide execution environment-based
             mitigations that increase the cost to attackers by adding complexity to the task of
-            compromising systems. </dd><dt class="SO" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd> To facilitate management by users and the enterprise, conformant OSes
+            compromising systems. </dd><dt class="SO" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd> To facilitate management by users and the enterprise, conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr>
 	    provide consistent and supported interfaces for their
             security-relevant configuration and maintenance. This includes the deployment of
             applications and application updates through the use of platform-supported deployment
             mechanisms and formats, as well as providing mechanisms for configuration and
             application execution control. </dd><dt class="SO" id="O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</dt><dd>
 		To address the issue of loss of confidentiality of credentials in the event of
-		loss of physical control of the storage medium, conformant OSes
+		loss of physical control of the storage medium, conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr>
 		provide data-at-rest protection for credentials.
-		Conformant OSes also provide access controls which allow users to keep their files private from other
+		Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> also provide access controls which allow users to keep their files private from other
 		users of the same system.
           </dd><dt class="SO" id="O.PROTECTED_COMMS">O.PROTECTED_COMMS</dt><dd> To address both passive (eavesdropping) and active (packet modification)
-            network attack threats, conformant OSes provide mechanisms to create
+            network attack threats, conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> provide mechanisms to create
             trusted channels for <abbr class="dyn-abbr"><a href="#abbr_CSP">CSP</a></abbr> and sensitive data. Both <abbr class="dyn-abbr"><a href="#abbr_CSP">CSP</a></abbr> and sensitive data
             should not be exposed outside of the platform. </dd></dl>
     
 	  
 
-    <h2 data-level="2" class="indexable" id="SecurityObjectivesTOEorEnvironment">4.2 Security Objectives for the Operational Environment</h2>The following security objectives for the operational
+    <h2 id="SecurityObjectivesTOEorEnvironment" class="indexable,h2" data-level="2">4.2 Security Objectives for the Operational Environment</h2>The following security objectives for the operational
       environment assist the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> in correctly providing its security functionality.
       These track with the assumptions about the environment. <dl><dt class="SOE" id="OE.PLATFORM">OE.PLATFORM</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> relies on being installed on trusted
             hardware.</dd><dt class="SOE" id="OE.PROPER_USER">OE.PROPER_USER</dt><dd> The user of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is not willfully negligent or hostile,
@@ -754,10 +790,10 @@ The following sections list Common Criteria and technology terms used in this do
             security policy. </dd></dl>
 	  
 
-    <h2 data-level="2" class="indexable" id="SOR">4.3 Security Objectives Rationale</h2>   
+    <h2 id="SOR" class="indexable,h2" data-level="2">4.3 Security Objectives Rationale</h2>   
     This section describes how the assumptions, threats, and organization 
     security policies map to the security objectives.
-    <table><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PHYSICAL">T.PHYSICAL</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.PHYSICAL">T.PHYSICAL</a> is countered by O.OBJECTIVE as this
+    <table><caption><span class="ctr" data-myid="" data-counter-type="ct-Table" id="">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PHYSICAL">T.PHYSICAL</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.PHYSICAL">T.PHYSICAL</a> is countered by O.OBJECTIVE as this
               provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a> is countered by O.OBJECTIVE as this
               provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PERSISTENCE">T.PERSISTENCE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.PERSISTENCE">T.PERSISTENCE</a> is countered by O.OBJECTIVE as this
               provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by O.OBJECTIVE as this
@@ -772,10 +808,12 @@ The following sections list Common Criteria and technology terms used in this do
               <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><br/></td><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The organizational security policy P.ENTERPRISE is enforced through the
               objective <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as this objective represents how the enterprise and user assert
               management over the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.</td></tr></table>
-  <h1 data-level="1" class="indexable" id="req">5 Security Requirements</h1>
-     This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
-     Those requirements comprise functional components from Part 2 and assurance components from Part 3 of <a href="#bibCC">[CC]</a>.
-     The following conventions are used for the completion of operations:
+  <h1 id="req" class="indexable,h1" data-level="1">5 Security Requirements</h1>
+      This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
+     Those requirements comprise functional components from Part 2 and assurance components from Part 3 of 
+       <a href="#bibCC">[CC]</a>.
+       
+    The following conventions are used for the completion of operations:
      <ul>
        <li>
          <b>Refinement</b> operation (denoted by <b>bold text</b> or <strike>strikethrough
@@ -795,302 +833,121 @@ The following sections list Common Criteria and technology terms used in this do
             suggesting the purpose of the operation, e.g. "/EXAMPLE1."
        </li>
      </ul>
-   This chapter describes the security requirements
-    which have to be fulfilled by the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. Those requirements comprise functional
-    components from Part 2 and assurance components from Part 3 of <a href="#bibCC">[]</a>. The
-    following notations are used: <ul>
-      <li>
-        <b>Refinement</b> operation (denoted by <b>bold text</b>): is used to add details to a
-        requirement, and thus further restricts a requirement.</li>
-      <li>
-        <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options
-        provided by the [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] in stating a requirement.</li>
-      <li>
-        <b>Assignment</b> operation (denoted by <span class="assignable-content">italicized text</span>): is used to assign a
-        specific value to an unspecified parameter, such as the length of a password. Showing the
-        value in square brackets indicates assignment.</li>
-      <li>
-        <b>Iteration</b> operation: are identified with a number inside parentheses (e.g.
-        "(1)")</li>
-    </ul>
+   
+	  
 
+    <h2 id="SFRs" class="indexable" data-level="2">5.1 Security Functional Requirements</h2>
 
-    <h2 data-level="2" class="indexable" id="SFRs">5.1 Security Functional Requirements</h2>
-	    
-
-    	<h3 data-level="3" class="indexable" id="ss-audit-table">5.1.1 Auditable Events for Mandatory SFRs</h3>
-           
-  	     <br/><b><span data-counter-type="ct-Table" class="ctr" data-myid="cc-atref-mandatory" id="cc-atref-mandatory">Table  <span class="counter">1</span>: Auditable Events for Mandatory SFRs</span></b>
-	   <table class="" border="1"><tr><th>Requirement</th><th>Auditable Events</th><th>Additional Audit Record Contents</th></tr><tr><td><a href="#FAU_GEN.1">FAU_GEN.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FAU_STG_EXT.1">FAU_STG_EXT.1</a></td><td>
-				Failure of audit data capture due to lack of disk space or pre-defined limit.
-                                On failure of logging function, capture record of failure and record upon restart of logging function.
-					</td><td></td></tr></table>
-         
-
- 
-
-            <h3 data-level="3" class="indexable" id="fau">5.1.2 Security Audit (FAU)</h3>
-		    
+	<h3 id="fcs" class="indexable" data-level="3">5.1.1 Cryptographic Support (FCS)</h3>
 		
-
-                <div class="comp" id="FAU_GEN.1"><h4>FAU_GEN.1 Audit Data Generation</h4>
-                    <div class="element"><div class="reqid" id="FAU_GEN.1.1"><a class="abbr" href="#FAU_GEN.1.1">FAU_GEN.1.1</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to generate an audit record of the following auditable events:
-                            <ol type="a">
-                                <li>Start-up and shutdown of audit functions</li>
-                                <li>All administrative actions</li>
-                                <li>[Specifically defined auditable events in Table 1]</li>
-                                <li>[<b>selection</b>: <i>additional information defined in Table 2</i>, <i>additional information defined in Table 3</i>, <i>additional information defined in Table 4</i>, <i>additional information defined in in Table 5</i>, <i>no other information</i>]</li>
-                            </ol>
-                        
-                    </div></div>
-                    <div class="element"><div class="reqid" id="FAU_GEN.1.2"><a class="abbr" href="#FAU_GEN.1.2">FAU_GEN.1.2</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall record within each audit record at least the following information:
-                            <ol type="a">
-                                <li>Date and time of the event</li>
-                                <li>Type of event</li>
-                                <li>Subject and object identity (if applicable)</li>
-                                <li>The outcome (success or failure) of the event</li>
-                                <li>[Additional information defined in Table 1]</li>
-                                <li>[<b>selection</b>: <i>additional information defined in Table 2</i>, <i>additional information defined in Table 3</i>, <i>additional information defined in Table 4</i>, <i>additional information defined in in Table 5</i>, <i>no other information</i>]</li>
-                            </ol>
-                        
-                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-                            The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author can include other auditable events directly in Table 1; they are not limited to the list presented. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should update the table in <a href="#FAU_GEN.1.2">FAU_GEN.1.2</a> with any additional information generated. “Subject identity” in <a href="#FAU_GEN.1.2">FAU_GEN.1.2</a> could be a user id or an identifier specifying a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>, for example.<br/><br/>
-                            If ‘additional information defined in Table 3’ is selected, it is acceptable to include individual
-                            entries from Table 3 without including the entirety of Table 3.  Appropriate entries from Tables 2, 4,
-                            and 5 should be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the associated SFRs and selections are included.<br/><br/>
-                            The Table 1 entry for FDP_VNC_EXT.1 refers to configuration settings that attach VMs to virtualized network components. Changes to these configurations can be made during <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> execution or when VMs are not running. Audit records must be generated for either case.<br/><br/>
-                            The intent of the audit requirement for FDP_PPR_EXT.1 is to log that the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> is connected to a physical device (when the device becomes part of the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>’s hardware view), not to log every time that the device is accessed. Generally, this is only once at <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> startup. However, some devices can be connected and disconnected during operation (e.g., virtual <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> devices such as CD-ROMs). All such connection/disconnection events must be logged.
-                        </span></div>
-			<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-                                The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it lists all of the auditable events 
-                                and provides a format for audit records. Each audit record format type shall be covered, along with a 
-                                brief description of each field. The evaluator shall check to make sure that every audit event type 
-                                mandated by the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<br/><br/>
-                            
-                            <div class="eacategory">Guidance</div>
-                                The evaluator shall also make a determination of the administrative actions that are relevant in the 
-                                context of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The evaluator shall examine the administrative guide and make a determination of which 
-                                administrative commands, including subcommands, scripts, and configuration files, are related to the 
-                                configuration (including enabling or disabling) of the mechanisms implemented in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
-                                that are necessary to enforce the requirements specified in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The evaluator shall document the 
-                                methodology or approach taken while determining which actions in the administrative guide are 
-                                security-relevant with respect to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<br/><br/>
-                            
-                            <div class="eacategory">Tests</div>
-                                The evaluator shall test the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s ability to correctly generate audit records by 
-                                having the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generate audit records for the events listed and administrative actions. 
-                                For administrative actions, the evaluator shall test that each action determined by the evaluator above to 
-                                be security relevant in the context of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is auditable. When verifying the test results, the 
-                                evaluator shall ensure the audit records generated during testing match the format specified in the 
-                                administrative guide, and that the fields in each audit record have the proper entries.<br/>
-                                <br/>
-                                Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms 
-                                directly.<br/>
-				    
-				    							
-			See <a class="cc-man-table-ref" onclick="showTarget('cc-man-table')" href="#cc-man-table">: Auditable EventsTable <span class="counter">man-table</span></a> for more information.
-
+		<div class="comp" id="FCS_COP.1/SIGVER"><h4>FCS_COP.1/SIGVER </h4>
+			<div class="element"><div class="reqid" id="FCS_COP.1.1/SIGVER"><a href="#FCS_COP.1.1/SIGVER" class="abbr">FCS_COP.1.1/SIGVER</a></div><div class="reqdesc"><span class="refinement">Refinement:</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform 
+					<span class="refinement">cryptographic signature verification for a platform
+					firmware update image</span>
+					in accordance with a 
+					[<b>selection</b>: <ul><li><i id="_s_1">Digital Signature Algorithm (DSA) with a key 
+							size (modulus) of 2048 bits or greater</i>, </li><li><i id="_s_2">RSA Digital Signature Algorithm (rDSA) with a key
+							size (modulus) of 2048 bits or greater</i>, </li><li><i id="_s_3">Elliptic Curve Digital Signature Algorithm 
+							(<abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr>) with a key size of 256 bits or greater</i></li></ul>] that meets the following:<p></p><span class="refinement">
+					Case: Digital Signature Algorithm<br/><ul>
+					<li>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-3, "Digital Signature Standard"]</li></ul><br/>
+					Case: RSA Digital Signature Algorithm<br/><ul>
+					<li>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-3, "Digital Signature Standard"]</li></ul><br/>
+					Case: Elliptic Curve Digital Signature Algorithm<br/><ul>
+					<li>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-3, "Digital Signature Standard"]</li>
+					<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement “<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” 
+						[<b>selection</b>: <i id="_s_4">P-256</i>, <i id="_s_5">P-384</i>, <i id="_s_6">P-512</i>, <i id="_s_7">no other curves</i>](as defined in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-3, “Digital
+						Signature Standard”)</li></ul></span>
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose the algorithm implemented to perform digital signatures; if more 
+					than one algorithm is available, this requirement should be iterated to specify the functionality. For the algorithm
+					chosen, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should make the appropriate assignments/selections to specify the parameters
+					that are implemented for that algorithm. In particular, if <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> is selected as one of the signature
+					algorithms, the key size specified must match the selection for the curve used in the algorithm.<p></p>
+					34 For elliptic curve-based schemes, the key size refers to the binary logarithm (log2) of the order of the
+					base point. As the preferred approach for digital signatures, elliptic curves will be required after all the
+					necessary standards and other supporting information are fully established.
+				</span></div></div></div>
 			
-
-                               
-                        </i></div></div>
-                    </div></div>
-  	 	
-                </div>
-                
-                
-                <div class="comp" id="FAU_SAR.1"><h4>FAU_SAR.1 Audit Review</h4>
-                    <div class="element"><div class="reqid" id="FAU_SAR.1.1"><a class="abbr" href="#FAU_SAR.1.1">FAU_SAR.1.1</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide [administrators] with the capability to read [all information] from the audit records.
-                        
-                    </div></div>
-                    <div class="element"><div class="reqid" id="FAU_SAR.1.2"><a class="abbr" href="#FAU_SAR.1.2">FAU_SAR.1.2</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the audit records in a manner suitable for the user to interpret the information.
-                        
-                        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                            <div class="eacategory">Guidance</div>
-                                The evaluator shall review the operational guidance for the procedure on how to review the audit 
-                                records.
-                            
-                            <div class="eacategory">Tests</div>
-                                The evaluator shall verify that the audit records provide all of the information specified in 
-                                <a href="#FAU_GEN.1">FAU_GEN.1</a> and that this information is suitable for human interpretation. The assurance 
-                                activity for this requirement is performed in conjunction with the assurance activity for 
-                                <a href="#FAU_GEN.1">FAU_GEN.1</a>.
-                            
-                        </i></div></div>
-                    </div></div>
-                </div>
-                
-                
-                <div class="comp" id="FAU_STG.1"><h4>FAU_STG.1 Protected Audit Trail Storage</h4>
-                    <div class="element"><div class="reqid" id="FAU_STG.1.1"><a class="abbr" href="#FAU_STG.1.1">FAU_STG.1.1</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall protect the stored audit records in the audit trail from unauthorized deletion.
-                        
-                    </div></div>
-                    <div class="element"><div class="reqid" id="FAU_STG.1.2"><a class="abbr" href="#FAU_STG.1.2">FAU_STG.1.2</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to [prevent] modifications to the stored audit records in the audit trail.
-                        
-                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The assurance activity for this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is not intended to imply that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must support an administrator’s ability to designate individual audit records for deletion. That level of granularity is not required.</span></div>
-                        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the audit records are protected from unauthorized modification or deletion. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the conditions that must be met for authorized deletion of audit records. The evaluator shall perform the following tests:<br/><br/>
-                            <div class="eacategory">Tests</div>
-                                <ul>
-                                    <li><b>Test 1: </b>The evaluator shall access the audit trail as an unauthorized Administrator and attempt 
-                                        to modify and delete the audit records. The evaluator shall verify that these attempts 
-                                        fail.
-                                    </li>
-                                    <li><b>Test 2: </b>The evaluator shall access the audit trail as an authorized Administrator and attempt 
-                                        to delete the audit records. The evaluator shall verify that these attempts succeed. 
-                                        The evaluator shall verify that only the records authorized for deletion are deleted.
-                                    </li>
-                                </ul>
-                            
-                        </i></div></div>
-                    </div></div>
-					
-                </div>
-
-                
-                <div class="comp" id="FAU_STG_EXT.1"><h4>FAU_STG_EXT.1 Off-Loading of Audit Data</h4>
-                    <div class="element"><div class="reqid" id="FAU_STG_EXT.1.1"><a class="abbr" href="#FAU_STG_EXT.1.1">FAU_STG_EXT.1.1</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to transmit the generated audit data to an external <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> entity using a trusted channel as specified in FTP_ITC_EXT.1.
-                        
-                        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                            Protocols used for implementing the trusted channel must be selected in FTP_ITC_EXT.1.
-                            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-                                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it describes the means by which 
-                                the audit data are transferred to the external audit server, and how the trusted channel is 
-                                provided. 
-                            
-                            <div class="eacategory">Guidance</div>
-                                The evaluator shall examine the operational guidance to ensure it describes how to establish the trusted channel to the audit server, as well as describe any requirements 
-                                on the audit server (particular audit server protocol, version of the protocol required, etc.), as well 
-                                as configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> needed to communicate with the audit server.
-                            
-                            <div class="eacategory">Tests</div>
-                                Testing of the trusted channel mechanism is to be performed as specified in the assurance 
-                                activities for FTP_ITC_EXT.1. <br/><br/>
-                                The evaluator shall perform the following test for this requirement:<br/><br/>
-                                <ul>
-                                    <li><b>Test 1: </b>The evaluator shall establish a session between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the audit server according to the configuration guidance provided. The evaluator shall then examine the traffic that passes between the audit server and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> during several activities of the evaluator’s choice designed to generate audit data to be transferred to the audit server. The evaluator shall observe that these data are not able to be viewed in the clear during this transfer, and that they are successfully received by the audit server. The evaluator shall record the particular software (name, version) used on the audit server during testing.</li>
-                                </ul>
-                            
-                        </i></div></div>
-                    </div></div>
-                    <div class="element"><div class="reqid" id="FAU_STG_EXT.1.2"><a class="abbr" href="#FAU_STG_EXT.1.2">FAU_STG_EXT.1.2</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall
-                            [<b>selection</b>: <i>drop new audit data</i>, <i>overwrite previous audit records according to the following rule:
-                                    [<b>assignment</b>: <span class="assignable-content">rule for overwriting previous audit records</span>]</i>, <i>[<b>assignment</b>: <span class="assignable-content">other action</span>]</i>]
-                            when the local storage space for audit data is full.
-                        
-                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">An external log server, if available, might be used as alternative storage space in case the local storage space is full. An ‘other action’ could be defined in this case as ‘send the new audit data to an external <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> entity’.</span></div>
-                        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-                                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it describes what happens when the 
-                                local audit data store is full. 
-                            
-                            <div class="eacategory">Guidance</div>
-                                The evaluator shall also examine the operational guidance to 
-                                determine that it describes the relationship between the local audit data and the audit data that 
-                                are sent to the audit log server. For example, when an audit event is generated, is it simultaneously
-                                sent to the external server and the local store, or is the local store used as a buffer and “cleared”
-                                periodically by sending the data to the audit server.
-                            
-                            <div class="eacategory">Tests</div>
-                                The evaluator shall perform operations that generate audit data and verify that this data is 
-                                stored locally. The evaluator shall perform operations that generate audit data until the local 
-                                storage space is exceeded and verifies that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> complies with the behavior 
-                                defined in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for <a href="#FAU_STG_EXT.1.2">FAU_STG_EXT.1.2</a>.
-                            
-                        </i></div></div>
-                    </div></div>
-		    
-                </div>
- 					
-                
-                
-                <div class="comp" id="FAU_ARP.1"><h4>FAU_ARP.1 Security Audit Automatic Response</h4>
-                    <div class="element"><div class="reqid" id="FAU_ARP.1.1"><a class="abbr" href="#FAU_ARP.1.1">FAU_ARP.1.1</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall take [<b>assignment</b>: <span class="assignable-content">list of actions</span>] upon detection of a potential security violation.
-                        
-                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">In certain cases, it may be useful for Virtualization Systems to perform automated responses to certain security events. An example may include halting a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> which has taken some action to violate a key system security policy. This may be especially useful with headless endpoints when there is no human user in the loop.<br/><br/>
-                            The potential security violation mentioned in <a href="#FAU_ARP.1.1">FAU_ARP.1.1</a> refers to <a href="#FAU_SAA.1">FAU_SAA.1</a>. </span></div>
-                        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                            <div class="eacategory">Tests</div>
-                                The evaluator shall generate a potential security violation as defined in <a href="#FAU_SAA.1">FAU_SAA.1</a> and verify 
-                                that each action in the assignment in <a href="#FAU_ARP.1.1">FAU_ARP.1.1</a> is performed by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> as a 
-                                result. The evaluator shall perform this action for each security violation that is defined in 
-                                <a href="#FAU_SAA.1">FAU_SAA.1</a>.
-                            
-                        </i></div></div>
-                    </div></div>
-		    
-	        </div>
-                
-                
-                <div class="comp" id="FAU_SAA.1"><h4>FAU_SAA.1 Security Audit Analysis</h4>
-                    <div class="element"><div class="reqid" id="FAU_SAA.1.1"><a class="abbr" href="#FAU_SAA.1.1">FAU_SAA.1.1</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to apply a set of rules in monitoring the audited events and based upon these rules indicate a potential violation of the enforcement of the SFRs.
-                        
-                    </div></div>
-                    <div class="element"><div class="reqid" id="FAU_SAA.1.2"><a class="abbr" href="#FAU_SAA.1.2">FAU_SAA.1.2</a></div><div class="reqdesc">
-                        The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the following rules for monitoring audited events:
-                            <ol type="a">
-                                <li>accumulation or combination of [<b>assignment</b>: <span class="assignable-content">subset of defined auditable events</span>] known to indicate a potential security violation</li>
-                                <li>[<b>assignment</b>: <span class="assignable-content">any other rules</span>]</li>
-                            </ol>
-                        
-                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The potential security violation described in <a href="#FAU_SAA.1">FAU_SAA.1</a> can be used as a trigger for automated responses as defined in <a href="#FAU_ARP.1">FAU_ARP.1</a>.</span></div>
-                        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                            <div class="eacategory">Tests</div>
-                                The evaluator shall cause each combination of auditable events defined in <a href="#FAU_SAA.1.2">FAU_SAA.1.2</a> to occur,
-                                and verify that a potential security violation is indicated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
-                            
-                        </i></div></div>
-                    </div></div>
-		    
-	        </div>
-            
-
+		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_COP.1/SIGVER">FCS_COP.1/SIGVER</a>:<br/><div class="activity">
+					Can be stolen from BIOS <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>
+				</div></div></div></div>
+									 
+		 
 	    
-      <h3 data-level="3" class="indexable" id="fmt-2">5.1.3 Security Management (FMT)</h3>
-          <div class="comp" id="FMT_SMF.1/HOST"><h4>FMT_SMF.1/HOST Specification of Management Functions (EDR Management of Host Agent)</h4>
-            <div class="element"><div class="reqid" id="FMT_SMF.1.1/HOST"><a class="abbr" href="#FMT_SMF.1.1/HOST">FMT_SMF.1.1/HOST</a></div><div class="reqdesc">
-              The EDR shall be capable of performing the following functions that control
-                behavior of the Host Agent:<br/>
-                <table class="mfs" style="width: 100%;"><tr class="header"><td>Management Function</td><td>Administrator</td><td>SOC Analyst</td><td>Read-Only User</td></tr><tr><td>Configure the time frame for sending Host Agent data to the EDR
-                        [<b>assignment</b>: <span class="assignable-content">list of configurable time frames</span>]
-                    </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td></td></tr><tr><td>Assign a label or tag to categorize or group individual endpoint systems </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td></td></tr></table>
-              
-              <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement captures all the configuration
-                functionality the EDR provides the administrator to configure the
-                EDR Host Agents. <br/><br/>
-              Chart legend: X = Mandatory, O = Optional, - = N/A</span></div>
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>
-                <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> contains a list of roles and what functions they can perform.  
-                  The evaluator shall verify the list matches the chart in the requirement.
-                <div class="eacategory">Guidance</div>The evaluator shall review the operational guidance to verify that the EDR has
-                documented capabilities to perform the management functions.
-                <div class="eacategory">Tests</div>The evaluator shall perform the below tests:
-                 <ul>
-                   <li><b>Test 1: </b>The evaluator shall modify the time frame for sending Host Agent data to the EDR
-                   and verify that an affected Host Agent is sending data at the intended interval.</li>
-                   <li><b>Test 2: </b>The evaluator shall tag or categorize a group of individual endpoint systems and
-                   verify that the tag or categorization persists within the EDR management dashboard for
-                   other users.</li>
-                   <li><b>Test 3: </b>The evaluator shall attempt each function with each role and verify access conforms with the chart in the requirement.</li>
-                 </ul>
-                
-              </i></div></div>
-            </div></div>
-          </div>
-          
+	<h3 id="fpt" class="indexable" data-level="3">5.1.2 Class: Protection of the TSF (FPT)</h3>
+
+	<div class="comp" id="FPT_ROT_EXT.1"><h4>FPT_ROT_EXT.1 Platform Integrity Root</h4>
+		<div class="element"><div class="reqid" id="FPT_ROT_EXT.1.1"><a href="#FPT_ROT_EXT.1.1" class="abbr">FPT_ROT_EXT.1.1</a></div><div class="reqdesc">The integrity of platform firmware shall be rooted in 
+				[<b>selection</b>: <ul><li><i id="_s_8">code or data written to immutable memory or storage</i>, </li><li><i id="_s_9">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="_s_10">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="_s_11">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="_s_12">integrity measurements help securely by an off-platform third-party</i>, </li><li><i id="_s_13">a combination of the above</i></li></ul>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The integrity of the first platform firmware that executes must be 
+				established by one or more of the selections in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a>. The 
+				integrity of subsequently executed platform firmware must be traceable back
+				to this root or to some other root. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated for
+				additional roots (for example, a management controller or firmware executed 
+				from an add-in card).<p></p>
+				The integrity of subsequently executed platform firmware must be
+				integrity-checked using a mechanism specified in FXX_XXX_EXT.1.<p></p>
+				For example, firmware written to immutable storage cannot be modified, so 
+				its integrity is ensured. The integrity of the immutable storage can be
+				extended to firmware that is not written to immutable storage through 
+				cryptographic functions implemented in the immutable storage and using
+				immutable credentials.<p></p>
+				If a platform does not have immutable storage, firmware integrity can be 
+				established through cryptographic means implemented in code that has had 
+				its integrity ensured by a <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP800-147/B-conformant update mechanism and 
+				platform protections as defined in FXX_XXX_EXT.1.<p></p>
+				Alternately, integrity can be established through secure storage of
+				known-good measurements in an on-platform dedicated security component, 
+				such as a Trusted Platform Module (TPM), or through a trusted measurement
+				certification process involving an off-platform third-party, such as those 
+				defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-155.<p></p>
+			</span></div></div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					QQQQ.
+				
+				<div class="eacategory">Guidance</div>
+					QQQQ.
+				
+				<div class="eacategory">Tests</div>
+					QQQQ.
+				
+			</div></div></div></div>
+
+	<div class="comp" id="FPT_PPF_EXT.1"><h4>FPT_PPF_EXT.1 </h4>
+		<div class="element"><div class="reqid" id="FPT_PPF_EXT.1.1"><a href="#FPT_PPF_EXT.1.1" class="abbr">FPT_PPF_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow modification of platform firmware
+				only through the update mechanisms described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>.
+			</div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PPF_EXT.1">FPT_PPF_EXT.1</a>:<br/><div class="activity">
+				QQQQ
+			</div></div></div></div>
+		
+	<div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 </h4>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide an firmware update mechanism as described in
+				<a href="#FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</a>, and [selection: a secure local firmware update mechanism
+				described in <a href="#FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</a>, no other mechanism] to update <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware.
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall authenticate the source of any firmware update using the 
+				digital signature algorithm specified in <a href="#FCS_COP.1/SIGVER">FCS_COP.1/SIGVER</a> using the key store 
+				that contains 
+				[<b>selection</b>: <i id="_s_14">the public key</i>, <i id="_s_15">hash value of the public key</i>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.3"><a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow installation of updates only if the digital
+				signature has been successfully verified as specified in <a href="#FCS_COP.1/SIGVER">FCS_COP.1/SIGVER</a>.
+			</div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>:<br/><div class="activity">
+				QQQQ
+			</div></div></div></div>
+		
+    				
 	    
-    <h3 data-level="3" class="indexable" id="obj-req-map">5.1.4 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td><a href="#FAU_GEN.1">FAU_GEN.1</a></td><td>'cause <a href="#FAU_GEN.1">FAU_GEN.1</a> is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> For reasons </td></tr><tr><td>FPT_TUD_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TUD_EXT.2</td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, FCS_RBG_EXT.1, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
+    <h3 id="obj-req-map" class="indexable" data-level="3">5.1.3 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><b><span class="ctr" data-myid="" data-counter-type="ct-Table" id="">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale </b></caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td>FAU_GEN.1</td><td>'cause FAU_GEN.1 is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> For reasons </td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>For reasons </td></tr><tr><td>FPT_TUD_EXT.2</td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, FCS_RBG_EXT.1, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
             FCS_RBG_EXT.1, FCS_CKM.1, FCS_CKM.2, FCS_CKM_EXT.4, FCS_COP.1/ENCRYPT,
             FCS_COP.1/HASH, FCS_COP.1/SIGN, FCS_COP.1/<abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>, FDP_IFC_EXT.1, FIA_X509_EXT.1,
             FIA_X509_EXT.2, FTP_ITC_EXT.1
@@ -1098,33 +955,34 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 
 	  
-    <h2 data-level="2" class="indexable" id="SARs">5.2 Security Assurance Requirements</h2>
+    <h2 id="SARs" class="indexable,h2" data-level="2">5.2 Security Assurance Requirements</h2>
       The Security Objectives in 
-      <a class="dynref" href="#obj">Section 4 Security Objectives</a> were constructed to address threats identified in
-      <a class="dynref" href="#threats">Section 3.1 Threats</a>. The Security Functional Requirements (SFRs)
-      in <a class="dynref" href="#SFRs">Section 5.1 Security Functional Requirements</a> are a formal instantiation of the Security Objectives. The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>
+       were constructed to address threats identified in
+      . The Security Functional Requirements (SFRs)
+      in  are a formal instantiation of the Security Objectives. The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>
       identifies the Security Assurance Requirements (SARs) to frame the extent to
       which the evaluator assesses the documentation applicable for the evaluation and performs
       independent testing. <br/> This section lists the set of SARs from <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> part 3
       that are required in evaluations against this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Individual Assurance Activities
-       to be performed are specified both in <a class="dynref" href="#req">Section 5 Security Requirements</a> as well as in this section. <br/> The general model for evaluation of OSs against STs written to conform to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is as follows: <br/> After the
+       to be performed are specified both in  as well as in this section. <br/> The general model for evaluation of OSs against STs written to conform to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is as follows: <br/> After the
         <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> has been approved for evaluation, the <abbr class="dyn-abbr"><a href="#abbr_ITSEF">ITSEF</a></abbr> will obtain the
         <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, supporting environmental <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr>, and the administrative/user guides for
       the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_ITSEF">ITSEF</a></abbr> is expected to perform actions mandated by the Common Evaluation
       Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>) for the ASE and ALC SARs. The <abbr class="dyn-abbr"><a href="#abbr_ITSEF">ITSEF</a></abbr> also performs the Assurance Activities
-      contained within <a class="dynref" href="#req">Section 5 Security Requirements</a>, which are intended to be an interpretation of the
+      contained within , which are intended to be an interpretation of the
       other <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> assurance requirements as they apply to the specific technology instantiated in the
-      <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. The Assurance Activities that are captured in <a class="dynref" href="#req">Section 5 Security Requirements</a> also provide
+      <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. The Assurance Activities that are captured in  also provide
       clarification as to what the developer needs to provide to demonstrate the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is compliant
-      with the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. <h3 data-level="3" class="indexable" id="ase">5.2.1 Class ASE: Security Target</h3>As per ASE activities
-        defined in <a href="#bibCEM">[CEM]</a>.
-      <h3 data-level="3" class="indexable" id="adv">5.2.2 Class ADV: Development</h3>The information about the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is contained in the guidance documentation available to the end user as
+      with the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. 
+	    <h3 id="ase" class="indexable,h3" data-level="3">5.2.1 Class ASE: Security Target</h3>As per ASE activities
+        defined in .
+      <h3 id="adv" class="indexable,h3" data-level="3">5.2.2 Class ADV: Development</h3>The information about the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is contained in the guidance documentation available to the end user as
         well as the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> portion of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> developer must concur with the description of the product that is
         contained in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as it relates to the functional requirements. The Assurance Activities
-        contained in <a class="dynref" href="#SFRs">Section 5.1 Security Functional Requirements</a> should provide the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors with
+        contained in  should provide the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors with
         sufficient information to determine the appropriate content for the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> section.
           <div class="comp" id="ADV_FSP.1"><h4>ADV_FSP.1 Basic Functional Specification (ADV_FSP.1)</h4>The
-          functional specification describes the TSFIs. It is not
+          functional specification describes the <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFIs</a></abbr>. It is not
           necessary to have a formal or complete specification of these interfaces. Additionally,
           because OSs conforming to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> will necessarily have interfaces to
           the Operational Environment that are not directly invokable by <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>
@@ -1147,9 +1005,9 @@ The following sections list Common Criteria and technology terms used in this do
             
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1D"><a class="abbr" href="#ADV_FSP.1.1D">ADV_FSP.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1D"><a href="#ADV_FSP.1.1D" class="abbr">ADV_FSP.1.1D</a></div><div class="reqdesc">
               The developer shall provide a functional specification.
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.2C"><a class="abbr" href="#ADV_FSP.1.2C">ADV_FSP.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.2C"><a href="#ADV_FSP.1.2C" class="abbr">ADV_FSP.1.2C</a></div><div class="reqdesc">
               The developer shall provide a tracing from the functional specification to the
               SFRs.
               <div class="appnote"><span class="note-header">Application Note: </span><span class="note">As indicated in the introduction to this section, the
@@ -1160,40 +1018,40 @@ The following sections list Common Criteria and technology terms used in this do
               section; since these are directly associated with the SFRs, the tracing in element
               <a href="#ADV_FSP.1">ADV_FSP.1</a>.2D is implicitly already done and no additional documentation is
               necessary.</span></div>
-            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.3C"><a class="abbr" href="#ADV_FSP.1.3C">ADV_FSP.1.3C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.3C"><a href="#ADV_FSP.1.3C" class="abbr">ADV_FSP.1.3C</a></div><div class="reqdesc">
               The functional specification shall describe the purpose and method of use for
-              each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-enforcing and <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-supporting TSFI.
-            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.4C"><a class="abbr" href="#ADV_FSP.1.4C">ADV_FSP.1.4C</a></div><div class="reqdesc">
+              each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-enforcing and <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-supporting <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr>.
+            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.4C"><a href="#ADV_FSP.1.4C" class="abbr">ADV_FSP.1.4C</a></div><div class="reqdesc">
               The functional specification shall identify all parameters associated with each
-              <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-enforcing and <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-supporting TSFI.
-            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.5C"><a class="abbr" href="#ADV_FSP.1.5C">ADV_FSP.1.5C</a></div><div class="reqdesc">
+              <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-enforcing and <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-supporting <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr>.
+            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.5C"><a href="#ADV_FSP.1.5C" class="abbr">ADV_FSP.1.5C</a></div><div class="reqdesc">
               The functional specification shall provide rationale for the implicit
               categorization of interfaces as <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-non-interfering.
-            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.6C"><a class="abbr" href="#ADV_FSP.1.6C">ADV_FSP.1.6C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.6C"><a href="#ADV_FSP.1.6C" class="abbr">ADV_FSP.1.6C</a></div><div class="reqdesc">
               
 		The tracing shall demonstrate that the SFRs trace to 
-		TSFIs 
+		<abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFIs</a></abbr> 
 		in the functional specification.
 	      
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.7E"><a class="abbr" href="#ADV_FSP.1.7E">ADV_FSP.1.7E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.7E"><a href="#ADV_FSP.1.7E" class="abbr">ADV_FSP.1.7E</a></div><div class="reqdesc">
               The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.
-            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.8E"><a class="abbr" href="#ADV_FSP.1.8E">ADV_FSP.1.8E</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ADV_FSP.1.8E"><a href="#ADV_FSP.1.8E" class="abbr">ADV_FSP.1.8E</a></div><div class="reqdesc">
               The evaluator shall determine that the functional specification is an accurate
               and complete instantiation of the SFRs.
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>There are no specific assurance activities associated with these SARs, except
+              <div class="activity">There are no specific assurance activities associated with these SARs, except
               ensuring the information is provided. The functional specification documentation is
-              provided to support the evaluation activities described in <a class="dynref" href="#SFRs">Section 5.1 Security Functional Requirements</a>, and
+              provided to support the evaluation activities described in , and
               other activities described for AGD, ATE, and AVA SARs. The requirements on the content
               of the functional specification information is implicitly assessed by virtue of the
               other assurance activities being performed; if the evaluator is unable to perform an
               activity because there is insufficient interface information, then an adequate
               functional specification has not been provided.
-	      </i></div></div>
+	      </div>
             </div></div></div>
       
 	    
-      <h3 data-level="3" class="indexable" id="agd">5.2.3 Class AGD: Guidance Documentation</h3>The guidance documents will be
+      <h3 id="agd" class="indexable,h3" data-level="3">5.2.3 Class AGD: Guidance Documentation</h3>The guidance documents will be
         provided with the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Guidance must include a description of how the <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr>
         personnel verifies that the Operational Environment can fulfill its role for the security
         functionality. The documentation should be in an informal style and readable by the <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr>
@@ -1217,7 +1075,7 @@ The following sections list Common Criteria and technology terms used in this do
 	  
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1D"><a class="abbr" href="#AGD_OPE.1.1D">AGD_OPE.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1D"><a href="#AGD_OPE.1.1D" class="abbr">AGD_OPE.1.1D</a></div><div class="reqdesc">
 	      The developer shall provide operational user guidance.
 	      <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The operational user guidance does not have to be contained in a
 	      single document. Guidance to users, administrators and application developers can be
@@ -1226,16 +1084,16 @@ The following sections list Common Criteria and technology terms used in this do
               review the assurance activities for this component to ascertain the specifics of the
               guidance that the evaluator will be checking for. This will provide the necessary
               information for the preparation of acceptable guidance.</span></div>
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.2C"><a class="abbr" href="#AGD_OPE.1.2C">AGD_OPE.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.2C"><a href="#AGD_OPE.1.2C" class="abbr">AGD_OPE.1.2C</a></div><div class="reqdesc">
               The operational user guidance shall describe, for each user role, the
               user-accessible functions and privileges that should be controlled in a secure
               processing environment, including appropriate warnings.
               <div class="appnote"><span class="note-header">Application Note: </span><span class="note">User and administrator are to be considered in the definition
               of user role.</span></div>
-            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.3C"><a class="abbr" href="#AGD_OPE.1.3C">AGD_OPE.1.3C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.3C"><a href="#AGD_OPE.1.3C" class="abbr">AGD_OPE.1.3C</a></div><div class="reqdesc">
               The operational user guidance shall describe, for each user role, how to use the
               available interfaces provided by the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> in a secure manner.
-            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.4C"><a class="abbr" href="#AGD_OPE.1.4C">AGD_OPE.1.4C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.4C"><a href="#AGD_OPE.1.4C" class="abbr">AGD_OPE.1.4C</a></div><div class="reqdesc">
               The operational user guidance shall describe, for each user role, the available
               functions and interfaces, in particular all security parameters under the control of
               the user, indicating secure values as appropriate.
@@ -1250,26 +1108,26 @@ The following sections list Common Criteria and technology terms used in this do
 		format which includes a title for each configuration item, 
 		instructions for achieving the secure configuration, and any relevant rationale.  
               </span></div>
-            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.5C"><a class="abbr" href="#AGD_OPE.1.5C">AGD_OPE.1.5C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.5C"><a href="#AGD_OPE.1.5C" class="abbr">AGD_OPE.1.5C</a></div><div class="reqdesc">
               The operational user guidance shall, for each user role, clearly present each
               type of security-relevant event relative to the user-accessible functions that need to
               be performed, including changing the security characteristics of entities under the
               control of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
-            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.6C"><a class="abbr" href="#AGD_OPE.1.6C">AGD_OPE.1.6C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.6C"><a href="#AGD_OPE.1.6C" class="abbr">AGD_OPE.1.6C</a></div><div class="reqdesc">
               The operational user guidance shall identify all possible modes of operation of
               the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> (including operation following failure or operational
               error), their consequences, and implications for maintaining secure operation.
-            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.7C"><a class="abbr" href="#AGD_OPE.1.7C">AGD_OPE.1.7C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.7C"><a href="#AGD_OPE.1.7C" class="abbr">AGD_OPE.1.7C</a></div><div class="reqdesc">
               The operational user guidance shall, for each user role, describe the security
               measures to be followed in order to fulfill the security objectives for the
               operational environment as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
-            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.8C"><a class="abbr" href="#AGD_OPE.1.8C">AGD_OPE.1.8C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_OPE.1.8C"><a href="#AGD_OPE.1.8C" class="abbr">AGD_OPE.1.8C</a></div><div class="reqdesc">
               The operational user guidance shall be clear and reasonable.
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.9E"><a class="abbr" href="#AGD_OPE.1.9E">AGD_OPE.1.9E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.9E"><a href="#AGD_OPE.1.9E" class="abbr">AGD_OPE.1.9E</a></div><div class="reqdesc">
               The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence. 
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>Some of the contents of the operational guidance are verified by the
-              assurance activities in <a class="dynref" href="#SFRs">Section 5.1 Security Functional Requirements</a> and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> according to the <a href="#bibCEM">[CEM]</a>. The following additional
+              <div class="activity">Some of the contents of the operational guidance are verified by the
+              assurance activities in  and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> according to the . The following additional
               information is also required. If cryptographic functions are provided by the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, the operational guidance shall contain instructions for configuring
               the cryptographic engine associated with the evaluated configuration of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. It shall provide a warning to the administrator that use of other
               cryptographic engines was not evaluated nor tested during the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> evaluation of the
@@ -1284,7 +1142,7 @@ The following sections list Common Criteria and technology terms used in this do
               The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> will likely contain security functionality that does not
               fall in the scope of evaluation under this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The operational guidance shall make it
               clear to an administrator which security functionality is covered by the evaluation
-              activities. </i></div></div>
+              activities. </div>
           </div></div></div>
         <div class="comp" id="AGD_PRE.1"><h4>AGD_PRE.1 Preparative Procedures (AGD_PRE.1)</h4>
             
@@ -1295,34 +1153,34 @@ The following sections list Common Criteria and technology terms used in this do
             
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.1D"><a class="abbr" href="#AGD_PRE.1.1D">AGD_PRE.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.1D"><a href="#AGD_PRE.1.1D" class="abbr">AGD_PRE.1.1D</a></div><div class="reqdesc">
               The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, including its preparative
               procedures.
               <div class="appnote"><span class="note-header">Application Note: </span><span class="note">As with the operational guidance, the developer should look to
               the assurance activities to determine the required content with respect to preparative
               procedures.</span></div>
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.2C"><a class="abbr" href="#AGD_PRE.1.2C">AGD_PRE.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.2C"><a href="#AGD_PRE.1.2C" class="abbr">AGD_PRE.1.2C</a></div><div class="reqdesc">
               The preparative procedures shall describe all the steps necessary for secure
               acceptance of the delivered <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> in accordance with the developer's
               delivery procedures.
-            </div></div><div class="element"><div class="reqid" id="AGD_PRE.1.3C"><a class="abbr" href="#AGD_PRE.1.3C">AGD_PRE.1.3C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_PRE.1.3C"><a href="#AGD_PRE.1.3C" class="abbr">AGD_PRE.1.3C</a></div><div class="reqdesc">
               The preparative procedures shall describe all the steps necessary for secure
               installation of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> and for the secure preparation of the
               operational environment in accordance with the security objectives for the operational
               environment as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.4E"><a class="abbr" href="#AGD_PRE.1.4E">AGD_PRE.1.4E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.4E"><a href="#AGD_PRE.1.4E" class="abbr">AGD_PRE.1.4E</a></div><div class="reqdesc">
               The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.
-            </div></div><div class="element"><div class="reqid" id="AGD_PRE.1.5E"><a class="abbr" href="#AGD_PRE.1.5E">AGD_PRE.1.5E</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="AGD_PRE.1.5E"><a href="#AGD_PRE.1.5E" class="abbr">AGD_PRE.1.5E</a></div><div class="reqdesc">
               The evaluator shall apply the preparative procedures to confirm that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> can be prepared securely for operation.
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>As indicated in the introduction above, there are significant expectations
+              <div class="activity">As indicated in the introduction above, there are significant expectations
               with respect to the documentation—especially when configuring the operational
               environment to support <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> functional requirements. The evaluator
               shall check to ensure that the guidance provided for the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>
-              adequately addresses all platforms claimed for the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. </i></div></div>
+              adequately addresses all platforms claimed for the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. </div>
             </div></div></div>
       
-      <h3 data-level="3" class="indexable" id="alc">5.2.4 Class ALC: Life-cycle Support</h3> At the assurance level provided
+      <h3 id="alc" class="indexable,h3" data-level="3">5.2.4 Class ALC: Life-cycle Support</h3> At the assurance level provided
         for OSs conformant to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, life-cycle support is limited to end-user-visible aspects of
         the life-cycle, rather than an examination of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> vendor’s development and configuration
         management process. This is not meant to diminish the critical role that a developer’s
@@ -1338,10 +1196,10 @@ The following sections list Common Criteria and technology terms used in this do
 	  
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.1D"><a class="abbr" href="#ALC_CMC.1.1D">ALC_CMC.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.1D"><a href="#ALC_CMC.1.1D" class="abbr">ALC_CMC.1.1D</a></div><div class="reqdesc">
               The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> and a reference for the
               <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.2C"><a class="abbr" href="#ALC_CMC.1.2C">ALC_CMC.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.2C"><a href="#ALC_CMC.1.2C" class="abbr">ALC_CMC.1.2C</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> shall be labeled with a unique reference.
               <div class="appnote"><span class="note-header">Application Note: </span><span class="note">Unique reference information includes: 
 	      <ul>
@@ -1351,16 +1209,16 @@ The following sections list Common Criteria and technology terms used in this do
 		<li>Software Identification (<abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr>) tags, if available</li>
               </ul>
               </span></div>
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.3E"><a class="abbr" href="#ALC_CMC.1.3E">ALC_CMC.1.3E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.3E"><a href="#ALC_CMC.1.3E" class="abbr">ALC_CMC.1.3E</a></div><div class="reqdesc">
               The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>The evaluator will check the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> to ensure that it contains
+              <div class="activity">The evaluator will check the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> to ensure that it contains
               an identifier (such as a product name/version number) that specifically identifies the
               version that meets the requirements of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Further, the
               evaluator will check the AGD guidance and <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> samples received for
               testing to ensure that the version number is consistent with that in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. If the vendor maintains a web site advertising the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, the evaluator will examine the information on the web site to
               ensure that the information in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is sufficient to distinguish
-              the product.</i></div></div>
+              the product.</div>
             </div></div></div>
         <div class="comp" id="ALC_CMS.1"><h4>ALC_CMS.1 TOE CM Coverage (ALC_CMS.1)</h4>
 	  Given the scope of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> and its associated evaluation 
@@ -1373,19 +1231,19 @@ The following sections list Common Criteria and technology terms used in this do
 	  
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.1D"><a class="abbr" href="#ALC_CMS.1.1D">ALC_CMS.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.1D"><a href="#ALC_CMS.1.1D" class="abbr">ALC_CMS.1.1D</a></div><div class="reqdesc">
               
 		The developer shall provide a configuration list for the  <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.
 	      
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.2C"><a class="abbr" href="#ALC_CMS.1.2C">ALC_CMS.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.2C"><a href="#ALC_CMS.1.2C" class="abbr">ALC_CMS.1.2C</a></div><div class="reqdesc">
               The configuration list shall include the following: the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>
               itself; and the evaluation evidence required by the SARs.
-            </div></div><div class="element"><div class="reqid" id="ALC_CMS.1.3C"><a class="abbr" href="#ALC_CMS.1.3C">ALC_CMS.1.3C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ALC_CMS.1.3C"><a href="#ALC_CMS.1.3C" class="abbr">ALC_CMS.1.3C</a></div><div class="reqdesc">
               The configuration list shall uniquely identify the configuration items.
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.4E"><a class="abbr" href="#ALC_CMS.1.4E">ALC_CMS.1.4E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.4E"><a href="#ALC_CMS.1.4E" class="abbr">ALC_CMS.1.4E</a></div><div class="reqdesc">
               The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>The "evaluation evidence required by the SARs" in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is limited to the
+              <div class="activity">The "evaluation evidence required by the SARs" in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is limited to the
               information in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> coupled with the guidance provided to
               administrators and users under the AGD requirements. By ensuring that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is specifically identified and that this identification is
               consistent in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and in the AGD guidance (as done in the
@@ -1408,7 +1266,7 @@ The following sections list Common Criteria and technology terms used in this do
               uniquely identified (with respect to other products from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
               vendor), and that documentation provided by the developer in association with the
               requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is associated with the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
-              using this unique identification.</i></div></div>
+              using this unique identification.</div>
           </div></div></div>
         <div class="comp" id="ALC_TSU_EXT.1"><h4>ALC_TSU_EXT.1 Timely Security Updates</h4> This component requires the
           <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> developer, in conjunction with any other necessary parties, to provide information as
@@ -1426,25 +1284,25 @@ The following sections list Common Criteria and technology terms used in this do
 	  
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.1D"><a class="abbr" href="#ALC_TSU_EXT.1.1D">ALC_TSU_EXT.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.1D"><a href="#ALC_TSU_EXT.1.1D" class="abbr">ALC_TSU_EXT.1.1D</a></div><div class="reqdesc">
               The developer shall provide a description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> of how timely security
               updates are made to the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.
-            </div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.2D"><a class="abbr" href="#ALC_TSU_EXT.1.2D">ALC_TSU_EXT.1.2D</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.2D"><a href="#ALC_TSU_EXT.1.2D" class="abbr">ALC_TSU_EXT.1.2D</a></div><div class="reqdesc">
                The developer shall provide a description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> of how users are notified
               when updates change security properties or the configuration of the product. 
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.3C"><a class="abbr" href="#ALC_TSU_EXT.1.3C">ALC_TSU_EXT.1.3C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.3C"><a href="#ALC_TSU_EXT.1.3C" class="abbr">ALC_TSU_EXT.1.3C</a></div><div class="reqdesc">
               The description shall include the process for creating and deploying security
               updates for the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> software.
-            </div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.4C"><a class="abbr" href="#ALC_TSU_EXT.1.4C">ALC_TSU_EXT.1.4C</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.4C"><a href="#ALC_TSU_EXT.1.4C" class="abbr">ALC_TSU_EXT.1.4C</a></div><div class="reqdesc">
               The description shall include the mechanisms publicly available for reporting
               security issues pertaining to the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.
               <div class="appnote"><span class="note-header"> Note: </span><span class="note"> The reporting mechanism could include web sites, email addresses, as well as a
               means to protect the sensitive nature of the report (e.g., public keys that could be
               used to encrypt the details of a proof-of-concept exploit). </span></div>
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.5E"><a class="abbr" href="#ALC_TSU_EXT.1.5E">ALC_TSU_EXT.1.5E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.5E"><a href="#ALC_TSU_EXT.1.5E" class="abbr">ALC_TSU_EXT.1.5E</a></div><div class="reqdesc">
               The evaluator shall confirm that the information provided meets all
               requirements for content and presentation of evidence.
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i> The evaluator will verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the timely
+              <div class="activity"> The evaluator will verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the timely
               security update process used by the developer to create and deploy security updates.
               The evaluator will verify that this description addresses the entire application. The
               evaluator will also verify that, in addition to the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> developer’s process, any
@@ -1459,11 +1317,11 @@ The following sections list Common Criteria and technology terms used in this do
               address or website) for reporting security issues related to the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. The evaluator
               shall verify that the description of this mechanism includes a method for protecting
               the report either using a public key for encrypting email or a trusted channel for a
-              website. </i></div></div>
+              website. </div>
             </div></div></div>
       
 	    
-      <h3 data-level="3" class="indexable" id="ate">5.2.5 Class ATE: Tests</h3>Testing is specified for functional aspects of
+      <h3 id="ate" class="indexable,h3" data-level="3">5.2.5 Class ATE: Tests</h3>Testing is specified for functional aspects of
         the system as well as aspects that take advantage of design or implementation weaknesses.
         The former is done through the ATE_IND family, while the latter is through the AVA_VAN
         family. At the assurance level specified in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, testing is based on advertised
@@ -1472,8 +1330,8 @@ The following sections list Common Criteria and technology terms used in this do
         following requirements. <div class="comp" id="ATE_IND.1"><h4>ATE_IND.1 Independent Testing – Conformance (ATE_IND.1)</h4> Testing is performed to confirm the
           functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
           (including configuration and operational) documentation provided. The focus of the testing
-          is to confirm that the requirements specified in <a class="dynref" href="#SFRs">Section 5.1 Security Functional Requirements</a> being met,
-          although some additional testing is specified for SARs in <a class="dynref" href="#SARs">Section 5.2 Security Assurance Requirements</a>. The
+          is to confirm that the requirements specified in  being met,
+          although some additional testing is specified for SARs in . The
           Assurance Activities identify the additional testing activities associated with these
           components. The evaluator produces a test report documenting the plan for and results of
           testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>
@@ -1486,22 +1344,22 @@ The following sections list Common Criteria and technology terms used in this do
             
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1D"><a class="abbr" href="#ATE_IND.1.1D">ATE_IND.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1D"><a href="#ATE_IND.1.1D" class="abbr">ATE_IND.1.1D</a></div><div class="reqdesc">
               The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> for testing.
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.2C"><a class="abbr" href="#ATE_IND.1.2C">ATE_IND.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.2C"><a href="#ATE_IND.1.2C" class="abbr">ATE_IND.1.2C</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> shall be suitable for testing.
-            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.3E"><a class="abbr" href="#ATE_IND.1.3E">ATE_IND.1.3E</a></div><div class="reqdesc">
+            </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.3E"><a href="#ATE_IND.1.3E" class="abbr">ATE_IND.1.3E</a></div><div class="reqdesc">
               The evaluator <i>shall confirm</i> that the information provided meets all
               requirements for content and presentation of evidence.
-            </div></div><div class="element"><div class="reqid" id="ATE_IND.1.4E"><a class="abbr" href="#ATE_IND.1.4E">ATE_IND.1.4E</a></div><div class="reqdesc">
+            </div></div><div class="element"><div class="reqid" id="ATE_IND.1.4E"><a href="#ATE_IND.1.4E" class="abbr">ATE_IND.1.4E</a></div><div class="reqdesc">
               The evaluator shall test a subset of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to confirm that
               the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> operates as specified.
               <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The evaluator will test the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> on the most current fully
               patched version of the platform.</span></div>
-              <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>The evaluator will prepare a test plan and report documenting the testing
+              <div class="activity">The evaluator will prepare a test plan and report documenting the testing
               aspects of the system, including any application crashes during testing. The evaluator
               shall determine the root cause of any application crashes and include that information
-              in the report. The test plan covers all of the testing actions contained in the <a href="#bibCEM">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>’s Assurance Activities. <br/> While it is
+              in the report. The test plan covers all of the testing actions contained in the  and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>’s Assurance Activities. <br/> While it is
               not necessary to have one test case per test listed in an Assurance Activity, the
               evaluator must document in the test plan that each applicable testing requirement in
               the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is covered. The test plan identifies the platforms to be
@@ -1529,10 +1387,10 @@ The following sections list Common Criteria and technology terms used in this do
               the actual results of the tests. This shall be a cumulative account, so if there was a
               test run that resulted in a failure; a fix installed; and then a successful re-run of
               the test, the report would show a “fail” and “pass” result (and the supporting
-              details), and not just the “pass” result.</i></div></div>
+              details), and not just the “pass” result.</div>
             </div></div></div>
       
-      <h3 data-level="3" class="indexable" id="ava">5.2.6 Class AVA: Vulnerability Assessment</h3>For the first generation of
+      <h3 id="ava" class="indexable,h3" data-level="3">5.2.6 Class AVA: Vulnerability Assessment</h3>For the first generation of
         this protection profile, the evaluation lab is expected to survey open sources to discover
         what vulnerabilities have been discovered in these types of products. In most cases, these
         vulnerabilities will require sophistication beyond that of a basic attacker. Until
@@ -1549,25 +1407,25 @@ The following sections list Common Criteria and technology terms used in this do
           
           
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1D"><a class="abbr" href="#AVA_VAN.1.1D">AVA_VAN.1.1D</a></div><div class="reqdesc">
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1D"><a href="#AVA_VAN.1.1D" class="abbr">AVA_VAN.1.1D</a></div><div class="reqdesc">
               The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> for testing.
-            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.2C"><a class="abbr" href="#AVA_VAN.1.2C">AVA_VAN.1.2C</a></div><div class="reqdesc">
+            </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.2C"><a href="#AVA_VAN.1.2C" class="abbr">AVA_VAN.1.2C</a></div><div class="reqdesc">
             The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> shall be suitable for testing.
-          </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a class="abbr" href="#AVA_VAN.1.3E">AVA_VAN.1.3E</a></div><div class="reqdesc">
+          </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a href="#AVA_VAN.1.3E" class="abbr">AVA_VAN.1.3E</a></div><div class="reqdesc">
             The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.
-          </div></div><div class="element"><div class="reqid" id="AVA_VAN.1.4E"><a class="abbr" href="#AVA_VAN.1.4E">AVA_VAN.1.4E</a></div><div class="reqdesc">
+          </div></div><div class="element"><div class="reqid" id="AVA_VAN.1.4E"><a href="#AVA_VAN.1.4E" class="abbr">AVA_VAN.1.4E</a></div><div class="reqdesc">
             The evaluator shall perform a search of public domain sources to identify
               potential vulnerabilities in the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.
             <div class="appnote"><span class="note-header">Application Note: </span><span class="note">Public domain sources include the Common Vulnerabilities 
               and Exposures (CVE) dictionary for publicly-known vulnerabilities.  Public domain
               sources also include sites which provide free checking of files for viruses.</span></div>
             
-          </div></div><div class="element"><div class="reqid" id="AVA_VAN.1.5E"><a class="abbr" href="#AVA_VAN.1.5E">AVA_VAN.1.5E</a></div><div class="reqdesc">
+          </div></div><div class="element"><div class="reqid" id="AVA_VAN.1.5E"><a href="#AVA_VAN.1.5E" class="abbr">AVA_VAN.1.5E</a></div><div class="reqdesc">
             The evaluator shall conduct penetration testing, based on the identified
               potential vulnerabilities, to determine that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is resistant to
               attacks performed by an attacker possessing Basic attack potential.
-            <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activity </span><span class="toggler"></span></a></div><div class="activity_pane_body"><i>The evaluator will generate a report to document their
+            <div class="activity">The evaluator will generate a report to document their
               findings with respect to this requirement. This report could physically be part of the
               overall test report mentioned in ATE_IND, or a separate document. The evaluator
               performs a search of public information to find vulnerabilities that have been found
@@ -1582,26 +1440,26 @@ The following sections list Common Criteria and technology terms used in this do
               vulnerability, if suitable. Suitability is determined by assessing the attack vector
               needed to take advantage of the vulnerability. If exploiting the vulnerability
               requires expert skills and an electron microscope, for instance, then a test would not
-              be suitable and an appropriate justification would be formulated.</i></div></div>
+              be suitable and an appropriate justification would be formulated.</div>
           </div></div></div>
             
     
-  <h1 data-level="A" class="indexable" id="impl-reqs">Appendix A -  Implementation-Dependent Requirements</h1>
+  <h1 id="impl-reqs" class="indexable" data-level="A">Appendix A -  Implementation-Dependent Requirements</h1>
                 Implementation-Dependent Requirements 
 are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing a particular function.
 If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements, the vendor must either add the related <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> or disable the functionality for the
 	  evaluated configuration. 
-  <h3 data-level="2" class="indexable" id="a-feature-id">A.1 Widget Thing</h3> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes the widget thing, all of the following SFRs must be claimed: <ul><li> FQQ_QQQ.6</li></ul>
+  <h3 class="indexable" data-level="2" id="a-feature-id">A.1 Widget Thing</h3> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes the widget thing, all of the following SFRs must be claimed: <ul><li> FQQ_QQQ.6</li></ul>
       <p>
 	  If this is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the following requirements must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
-          <ul></ul></p><h1 data-level="A" class="indexable" id="satisfiedreqs">Appendix B -  Inherently Satisfied Requirements</h1> This
+          <ul></ul></p><h1 id="satisfiedreqs" class="indexable" data-level="A">Appendix B -  Inherently Satisfied Requirements</h1> This
 	appendix lists requirements that should be considered satisfied by products
 	successfully evaluated against this Protection Profile.  
 	However, these requirements are not featured explicitly as SFRs and should not be
 	included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.  
 	They are not included as standalone SFRs because it would
 	increase the time, cost, and complexity of evaluation.  This approach is permitted
-	by <a href="#bibCC">[]</a> Part 1, <b>8.2 Dependencies between components</b>.
+	by  Part 1, <b>8.2 Dependencies between components</b>.
     <br/>
 	This information benefits systems engineering activities which call for inclusion of 
 	particular security controls.  Evaluation against the Protection Profile
@@ -1661,7 +1519,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	</td>
 	</tr>
 	<tr>
-	<td><a href="#FAU_STG.1">FAU_STG.1</a> - Protected audit trail storage</td>
+	<td>FAU_STG.1 - Protected audit trail storage</td>
 	<td>
 	  <linkref linkend="FPT_ACF_EXT.1"></linkref> defines a requirement to protect audit logs;
 	  therefore, it is duplicative to include a separate protection of audit trail requirements.
@@ -1677,7 +1535,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	</td>
 	</tr>
 	<tr>
-	  <td><a href="#FAU_SAR.1">FAU_SAR.1</a> - Audit review</td>
+	  <td>FAU_SAR.1 - Audit review</td>
 	  <td>
 	    <linkref linkend="FPT_ACF_EXT.1.2"></linkref> requires that audit logs (and other objects)
 	    are protected from reading by unprivileged users; therefore, it is duplicative
@@ -1686,13 +1544,13 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	</tr>
     </table>
 
-  <h1 data-level="A" class="indexable" id="entropyappendix">Appendix C -  Entropy Documentation and Assessment</h1> This appendix
+  <h1 id="entropyappendix" class="indexable" data-level="A">Appendix C -  Entropy Documentation and Assessment</h1> This appendix
     describes the required supplementary information for the entropy source used by the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>. <br/>
     The documentation of the entropy source should be detailed enough that, after reading, the
     evaluator will thoroughly understand the entropy source and why it can be relied upon to provide
     sufficient entropy. This documentation should include multiple detailed sections: design
     description, entropy justification, operating conditions, and health testing. This documentation
-    is not required to be part of the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. <h2 data-level="2" class="indexable" id="entropydesign">C.1 Design Description</h2>
+    is not required to be part of the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. <h2 id="entropydesign" class="indexable,h2" data-level="2">C.1 Design Description</h2>
       Documentation shall include the design of the entropy source as a whole, including the
       interaction of all entropy source components. Any information that can be shared regarding the
       design should also be included for any third-party entropy sources that are included in the
@@ -1708,7 +1566,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
       outside the boundary cannot affect the entropy rate. <br/> If implemented, the design
       description shall include a description of how third-party applications can add entropy to the
       <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>. A description of any <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state saving between power-off and power-on shall be included. 
-    <h2 data-level="2" class="indexable" id="entropyjustification">C.2 Entropy Justification</h2> There should be a technical
+    <h2 id="entropyjustification" class="indexable,h2" data-level="2">C.2 Entropy Justification</h2> There should be a technical
       argument for where the unpredictability in the source comes from and why there is confidence
       in the entropy source delivering sufficient entropy for the uses made of the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> output (by
       this particular <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>). This argument will include a description of the expected min-entropy
@@ -1735,7 +1593,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
       calculated rate is not explicitly related to the seed, the documentation will not be
       considered complete. <br/> The entropy justification shall not include any data added from any
       third-party application or from any state saving between restarts. 
-    <h2 data-level="2" class="indexable" id="entropyoperatingconditions">C.3 Operating Conditions</h2> The entropy rate may be
+    <h2 id="entropyoperatingconditions" class="indexable,h2" data-level="2">C.3 Operating Conditions</h2> The entropy rate may be
       affected by conditions outside the control of the entropy source itself. For example, voltage,
       frequency, temperature, and elapsed time after power-on are just a few of the factors that may
       affect the operation of the entropy source. As such, documentation will also include the range
@@ -1744,15 +1602,15 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
       entropy source continues to operate under those conditions. Similarly, documentation shall
       describe the conditions under which the entropy source is known to malfunction or become
       inconsistent. Methods used to detect failure or degradation of the source shall be included. 
-    <h2 data-level="2" class="indexable" id="entropyhealthtesting">C.4 Health Testing</h2> More specifically, all entropy source
+    <h2 id="entropyhealthtesting" class="indexable,h2" data-level="2">C.4 Health Testing</h2> More specifically, all entropy source
       health tests and their rationale will be documented. This includes a description of the health
       tests, the rate and conditions under which each health test is performed (e.g., at start,
       continuously, or on-demand), the expected results for each health test, and rationale
       indicating why each test is believed to be appropriate for detecting one or more failures in
       the entropy source. 
-  <h1 data-level="A" class="indexable" id="appendix-equiv">Appendix D -  Equivalancy Guidelines</h1>
+  <h1 id="appendix-equiv" class="indexable" data-level="A">Appendix D -  Equivalancy Guidelines</h1>
 	  TODO
-  <h1 data-level="A" class="indexable" id="biblio">Appendix E -  References</h1>
+  <h1 id="biblio" class="indexable" data-level="A">Appendix E -  References</h1>
     <table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC"> [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] </span></td><td>Common Criteria for Information Technology Security Evaluation - 
     <ul><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
              1: Introduction and General Model</a>,
@@ -1763,16 +1621,17 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
          </li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
              3: Security Assurance Components</a>,
              CCMB-2017-04-003, Version 3.1, Revision 5,  April 2017.
-         </li></ul></td></tr><tr><td><span id="bibCEM"> [<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>] </span></td><td>
+         </li></ul></td></tr><tr><td><span id="bibCEM">[<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>]</span></td><td>
           <a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R4.pdf">Common
             Evaluation Methodology for Information Technology Security - Evaluation Methodology</a>,
-          CCMB-2012-09-004, Version 3.1, Revision 4, September 2012. </td></tr><tr><td><span id="bibCESG"> [<abbr class="dyn-abbr"><a href="#abbr_CESG">CESG</a></abbr>] </span></td><td><abbr class="dyn-abbr"><a href="#abbr_CESG">CESG</a></abbr> - <a href="https://www.gov.uk/government/collections/end-user-devices-security-guidance"> End
-            User Devices Security and Configuration Guidance</a></td></tr><tr><td><span id="bibCSA"> [<abbr class="dyn-abbr"><a href="#abbr_CSA">CSA</a></abbr>] </span></td><td>
+          CCMB-2012-09-004, Version 3.1, Revision 4, September 2012. </td></tr><tr><td><span id="bibCESG">[<abbr class="dyn-abbr"><a href="#abbr_CESG">CESG</a></abbr>]</span></td><td><abbr class="dyn-abbr"><a href="#abbr_CESG">CESG</a></abbr> - <a href="https://www.gov.uk/government/collections/end-user-devices-security-guidance"> End
+            User Devices Security and Configuration Guidance</a></td></tr><tr><td><span id="bibCSA">[<abbr class="dyn-abbr"><a href="#abbr_CSA">CSA</a></abbr>]</span></td><td>
           <a href="http://csrc.nist.gov/groups/SMA/ispab/documents/csa_87.txt">Computer Security Act
-            of 1987</a>, H.R. 145, June 11, 1987. </td></tr><tr><td><span id="bibOMB"> [<abbr class="dyn-abbr"><a href="#abbr_OMB">OMB</a></abbr>] </span></td><td>
+            of 1987</a>, H.R. 145, June 11, 1987. </td></tr><tr><td><span id="bibOMB">[<abbr class="dyn-abbr"><a href="#abbr_OMB">OMB</a></abbr>]</span></td><td>
           <a href="http://www.whitehouse.gov/sites/default/files/omb/memoranda/fy2006/m06-19.pdf">Reporting Incidents Involving Personally Identifiable Information and Incorporating the
             Cost for Security in Agency Information Technology Investments</a>, <abbr class="dyn-abbr"><a href="#abbr_OMB">OMB</a></abbr> M-06-19, July
-          12, 2006. </td></tr></table>
-  <h1 data-level="A" class="indexable" id="acronyms">Appendix F -  Acronyms</h1>
-   <table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_AES"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr></span></td><td><span id="long_abbr_AES">Advanced Encryption Standard</span></td></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr><tr><td><span class="term" id="abbr_ASLR"><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr></span></td><td><span id="long_abbr_ASLR">Address Space Layout Randomization</span></td></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr><tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr><tr><td><span class="term" id="abbr_CESG"><abbr class="dyn-abbr"><a href="#abbr_CESG">CESG</a></abbr></span></td><td><span id="long_abbr_CESG">Communications-Electronics Security Group</span></td></tr><tr><td><span class="term" id="abbr_CMC"><abbr class="dyn-abbr"><a href="#abbr_CMC">CMC</a></abbr></span></td><td><span id="long_abbr_CMC">Certificate Management over <abbr class="dyn-abbr"><a href="#abbr_CMS">CMS</a></abbr></span></td></tr><tr><td><span class="term" id="abbr_CMS"><abbr class="dyn-abbr"><a href="#abbr_CMS">CMS</a></abbr></span></td><td><span id="long_abbr_CMS">Cryptographic Message Syntax</span></td></tr><tr><td><span class="term" id="abbr_CN"><abbr class="dyn-abbr"><a href="#abbr_CN">CN</a></abbr></span></td><td><span id="long_abbr_CN">Common Names</span></td></tr><tr><td><span class="term" id="abbr_CRL"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr></span></td><td><span id="long_abbr_CRL">Certificate Revocation List</span></td></tr><tr><td><span class="term" id="abbr_CSA"><abbr class="dyn-abbr"><a href="#abbr_CSA">CSA</a></abbr></span></td><td><span id="long_abbr_CSA">Computer Security Act</span></td></tr><tr><td><span class="term" id="abbr_CSP"><abbr class="dyn-abbr"><a href="#abbr_CSP">CSP</a></abbr></span></td><td><span id="long_abbr_CSP">Critical Security Parameters</span></td></tr><tr><td><span class="term" id="abbr_DAR"><abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr></span></td><td><span id="long_abbr_DAR">Data At Rest</span></td></tr><tr><td><span class="term" id="abbr_DEP"><abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr></span></td><td><span id="long_abbr_DEP">Data Execution Prevention</span></td></tr><tr><td><span class="term" id="abbr_DES"><abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr></span></td><td><span id="long_abbr_DES">Data Encryption Standard</span></td></tr><tr><td><span class="term" id="abbr_DHE"><abbr class="dyn-abbr"><a href="#abbr_DHE">DHE</a></abbr></span></td><td><span id="long_abbr_DHE">Diffie-Hellman Ephemeral</span></td></tr><tr><td><span class="term" id="abbr_DNS"><abbr class="dyn-abbr"><a href="#abbr_DNS">DNS</a></abbr></span></td><td><span id="long_abbr_DNS">Domain Name System</span></td></tr><tr><td><span class="term" id="abbr_DRBG"><abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr></span></td><td><span id="long_abbr_DRBG">Deterministic Random Bit Generator</span></td></tr><tr><td><span class="term" id="abbr_DSS"><abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr></span></td><td><span id="long_abbr_DSS">Digital Signature Standard</span></td></tr><tr><td><span class="term" id="abbr_DSS"><abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr></span></td><td><span id="long_abbr_DSS">Digital Signature Standard</span></td></tr><tr><td><span class="term" id="abbr_DT"><abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr></span></td><td><span id="long_abbr_DT">Date/Time Vector</span></td></tr><tr><td><span class="term" id="abbr_DTLS"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span></td><td><span id="long_abbr_DTLS">Datagram Transport Layer Security</span></td></tr><tr><td><span class="term" id="abbr_EAP"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></span></td><td><span id="long_abbr_EAP">Extensible Authentication Protocol</span></td></tr><tr><td><span class="term" id="abbr_ECDHE"><abbr class="dyn-abbr"><a href="#abbr_ECDHE">ECDHE</a></abbr></span></td><td><span id="long_abbr_ECDHE">Elliptic Curve Diffie-Hellman Ephemeral</span></td></tr><tr><td><span class="term" id="abbr_ECDSA"><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr></span></td><td><span id="long_abbr_ECDSA">Elliptic Curve Digital Signature Algorithm</span></td></tr><tr><td><span class="term" id="abbr_EST"><abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr></span></td><td><span id="long_abbr_EST">Enrollment over Secure Transport</span></td></tr><tr><td><span class="term" id="abbr_FIPS"><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr></span></td><td><span id="long_abbr_FIPS">Federal Information Processing Standards</span></td></tr><tr><td><span class="term" id="abbr_HMAC"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr></span></td><td><span id="long_abbr_HMAC">Hash-based Message Authentication Code</span></td></tr><tr><td><span class="term" id="abbr_HTTP"><abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr></span></td><td><span id="long_abbr_HTTP">Hypertext Transfer Protocol</span></td></tr><tr><td><span class="term" id="abbr_HTTPS"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span></td><td><span id="long_abbr_HTTPS">Hypertext Transfer Protocol Secure</span></td></tr><tr><td><span class="term" id="abbr_IETF"><abbr class="dyn-abbr"><a href="#abbr_IETF">IETF</a></abbr></span></td><td><span id="long_abbr_IETF">Internet Engineering Task Force</span></td></tr><tr><td><span class="term" id="abbr_IP"><abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr></span></td><td><span id="long_abbr_IP">Internet Protocol</span></td></tr><tr><td><span class="term" id="abbr_ISO"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr></span></td><td><span id="long_abbr_ISO">International Organization for Standardization</span></td></tr><tr><td><span class="term" id="abbr_IT"><abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr></span></td><td><span id="long_abbr_IT">Information Technology</span></td></tr><tr><td><span class="term" id="abbr_ITSEF"><abbr class="dyn-abbr"><a href="#abbr_ITSEF">ITSEF</a></abbr></span></td><td><span id="long_abbr_ITSEF">Information Technology Security Evaluation Facility</span></td></tr><tr><td><span class="term" id="abbr_NIAP"><abbr class="dyn-abbr"><a href="#abbr_NIAP">NIAP</a></abbr></span></td><td><span id="long_abbr_NIAP">National Information Assurance Partnership</span></td></tr><tr><td><span class="term" id="abbr_NIST"><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr></span></td><td><span id="long_abbr_NIST">National Institute of Standards and Technology</span></td></tr><tr><td><span class="term" id="abbr_OCSP"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr></span></td><td><span id="long_abbr_OCSP">Online Certificate Status Protocol</span></td></tr><tr><td><span class="term" id="abbr_OE"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr><tr><td><span class="term" id="abbr_OID"><abbr class="dyn-abbr"><a href="#abbr_OID">OID</a></abbr></span></td><td><span id="long_abbr_OID">Object Identifier</span></td></tr><tr><td><span class="term" id="abbr_OMB"><abbr class="dyn-abbr"><a href="#abbr_OMB">OMB</a></abbr></span></td><td><span id="long_abbr_OMB">Office of Management and Budget</span></td></tr><tr><td><span class="term" id="abbr_OS"><abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span></td><td><span id="long_abbr_OS">Operating System</span></td></tr><tr><td><span class="term" id="abbr_PII"><abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr></span></td><td><span id="long_abbr_PII">Personally Identifiable Information</span></td></tr><tr><td><span class="term" id="abbr_PKI"><abbr class="dyn-abbr"><a href="#abbr_PKI">PKI</a></abbr></span></td><td><span id="long_abbr_PKI">Public Key Infrastructure</span></td></tr><tr><td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_PP-Configuration"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td></tr><tr><td><span class="term" id="abbr_PP-Module"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td></tr><tr><td><span class="term" id="abbr_RBG"><abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr></span></td><td><span id="long_abbr_RBG">Random Bit Generator</span></td></tr><tr><td><span class="term" id="abbr_RFC"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr></span></td><td><span id="long_abbr_RFC">Request for Comment</span></td></tr><tr><td><span class="term" id="abbr_RNG"><abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr></span></td><td><span id="long_abbr_RNG">Random Number Generator</span></td></tr><tr><td><span class="term" id="abbr_RNGVS"><abbr class="dyn-abbr"><a href="#abbr_RNGVS">RNGVS</a></abbr></span></td><td><span id="long_abbr_RNGVS">Random Number Generator Validation System</span></td></tr><tr><td><span class="term" id="abbr_S/MIME"><abbr class="dyn-abbr"><a href="#abbr_S/MIME">S/MIME</a></abbr></span></td><td><span id="long_abbr_S/MIME">Secure/Multi-purpose Internet Mail Extensions</span></td></tr><tr><td><span class="term" id="abbr_SAN"><abbr class="dyn-abbr"><a href="#abbr_SAN">SAN</a></abbr></span></td><td><span id="long_abbr_SAN">Subject Alternative Name</span></td></tr><tr><td><span class="term" id="abbr_SAR"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr><tr><td><span class="term" id="abbr_SFR"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr><tr><td><span class="term" id="abbr_SHA"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr></span></td><td><span id="long_abbr_SHA">Secure Hash Algorithm</span></td></tr><tr><td><span class="term" id="abbr_SIP"><abbr class="dyn-abbr"><a href="#abbr_SIP">SIP</a></abbr></span></td><td><span id="long_abbr_SIP">Session Initiation Protocol</span></td></tr><tr><td><span class="term" id="abbr_ST"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr><tr><td><span class="term" id="abbr_SWID"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr></span></td><td><span id="long_abbr_SWID">Software Identification</span></td></tr><tr><td><span class="term" id="abbr_TLS"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span></td><td><span id="long_abbr_TLS">Transport Layer Security</span></td></tr><tr><td><span class="term" id="abbr_TOE"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr><tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr><tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr><tr><td><span class="term" id="abbr_URI"><abbr class="dyn-abbr"><a href="#abbr_URI">URI</a></abbr></span></td><td><span id="long_abbr_URI">Uniform Resource Identifier</span></td></tr><tr><td><span class="term" id="abbr_URL"><abbr class="dyn-abbr"><a href="#abbr_URL">URL</a></abbr></span></td><td><span id="long_abbr_URL">Uniform Resource Locator</span></td></tr><tr><td><span class="term" id="abbr_USB"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></td><td><span id="long_abbr_USB">Universal Serial Bus</span></td></tr><tr><td><span class="term" id="abbr_VM"><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></span></td><td><span id="long_abbr_VM">Virtual Machine</span></td></tr><tr><td><span class="term" id="abbr_XCCDF"><abbr class="dyn-abbr"><a href="#abbr_XCCDF">XCCDF</a></abbr></span></td><td><span id="long_abbr_XCCDF">eXtensible Configuration Checklist Description Format</span></td></tr><tr><td><span class="term" id="abbr_XOR"><abbr class="dyn-abbr"><a href="#abbr_XOR">XOR</a></abbr></span></td><td><span id="long_abbr_XOR">Exclusive Or</span></td></tr><tr><td><span class="term" id="abbr_app"><abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr></span></td><td><span id="long_abbr_app">Application</span></td></tr></table>
+          12, 2006. </td></tr>ext-comp-def
+    </table>
+  <h1 id="acronyms" class="indexable" data-level="A">Appendix F -  Acronyms</h1>
+   <table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_AES"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr></span></td><td><span id="long_abbr_AES">Advanced Encryption Standard</span></td></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr><tr><td><span class="term" id="abbr_ASLR"><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr></span></td><td><span id="long_abbr_ASLR">Address Space Layout Randomization</span></td></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr><tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr><tr><td><span class="term" id="abbr_CESG"><abbr class="dyn-abbr"><a href="#abbr_CESG">CESG</a></abbr></span></td><td><span id="long_abbr_CESG">Communications-Electronics Security Group</span></td></tr><tr><td><span class="term" id="abbr_CMC"><abbr class="dyn-abbr"><a href="#abbr_CMC">CMC</a></abbr></span></td><td><span id="long_abbr_CMC">Certificate Management over <abbr class="dyn-abbr"><a href="#abbr_CMS">CMS</a></abbr></span></td></tr><tr><td><span class="term" id="abbr_CMS"><abbr class="dyn-abbr"><a href="#abbr_CMS">CMS</a></abbr></span></td><td><span id="long_abbr_CMS">Cryptographic Message Syntax</span></td></tr><tr><td><span class="term" id="abbr_CN"><abbr class="dyn-abbr"><a href="#abbr_CN">CN</a></abbr></span></td><td><span id="long_abbr_CN">Common Names</span></td></tr><tr><td><span class="term" id="abbr_CRL"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr></span></td><td><span id="long_abbr_CRL">Certificate Revocation List</span></td></tr><tr><td><span class="term" id="abbr_CSA"><abbr class="dyn-abbr"><a href="#abbr_CSA">CSA</a></abbr></span></td><td><span id="long_abbr_CSA">Computer Security Act</span></td></tr><tr><td><span class="term" id="abbr_CSP"><abbr class="dyn-abbr"><a href="#abbr_CSP">CSP</a></abbr></span></td><td><span id="long_abbr_CSP">Critical Security Parameters</span></td></tr><tr><td><span class="term" id="abbr_DAR"><abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr></span></td><td><span id="long_abbr_DAR">Data At Rest</span></td></tr><tr><td><span class="term" id="abbr_DEP"><abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr></span></td><td><span id="long_abbr_DEP">Data Execution Prevention</span></td></tr><tr><td><span class="term" id="abbr_DES"><abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr></span></td><td><span id="long_abbr_DES">Data Encryption Standard</span></td></tr><tr><td><span class="term" id="abbr_DHE"><abbr class="dyn-abbr"><a href="#abbr_DHE">DHE</a></abbr></span></td><td><span id="long_abbr_DHE">Diffie-Hellman Ephemeral</span></td></tr><tr><td><span class="term" id="abbr_DNS"><abbr class="dyn-abbr"><a href="#abbr_DNS">DNS</a></abbr></span></td><td><span id="long_abbr_DNS">Domain Name System</span></td></tr><tr><td><span class="term" id="abbr_DRBG"><abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr></span></td><td><span id="long_abbr_DRBG">Deterministic Random Bit Generator</span></td></tr><tr><td><span class="term" id="abbr_DSS"><abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr></span></td><td><span id="long_abbr_DSS">Digital Signature Standard</span></td></tr><tr><td><span class="term" id="abbr_DSS"><abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr></span></td><td><span id="long_abbr_DSS">Digital Signature Standard</span></td></tr><tr><td><span class="term" id="abbr_DT"><abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr></span></td><td><span id="long_abbr_DT">Date/Time Vector</span></td></tr><tr><td><span class="term" id="abbr_DTLS"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span></td><td><span id="long_abbr_DTLS">Datagram Transport Layer Security</span></td></tr><tr><td><span class="term" id="abbr_EAP"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></span></td><td><span id="long_abbr_EAP">Extensible Authentication Protocol</span></td></tr><tr><td><span class="term" id="abbr_ECDHE"><abbr class="dyn-abbr"><a href="#abbr_ECDHE">ECDHE</a></abbr></span></td><td><span id="long_abbr_ECDHE">Elliptic Curve Diffie-Hellman Ephemeral</span></td></tr><tr><td><span class="term" id="abbr_ECDSA"><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr></span></td><td><span id="long_abbr_ECDSA">Elliptic Curve Digital Signature Algorithm</span></td></tr><tr><td><span class="term" id="abbr_EST"><abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr></span></td><td><span id="long_abbr_EST">Enrollment over Secure Transport</span></td></tr><tr><td><span class="term" id="abbr_FIPS"><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr></span></td><td><span id="long_abbr_FIPS">Federal Information Processing Standards</span></td></tr><tr><td><span class="term" id="abbr_HMAC"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr></span></td><td><span id="long_abbr_HMAC">Hash-based Message Authentication Code</span></td></tr><tr><td><span class="term" id="abbr_HTTP"><abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr></span></td><td><span id="long_abbr_HTTP">Hypertext Transfer Protocol</span></td></tr><tr><td><span class="term" id="abbr_HTTPS"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span></td><td><span id="long_abbr_HTTPS">Hypertext Transfer Protocol Secure</span></td></tr><tr><td><span class="term" id="abbr_IETF"><abbr class="dyn-abbr"><a href="#abbr_IETF">IETF</a></abbr></span></td><td><span id="long_abbr_IETF">Internet Engineering Task Force</span></td></tr><tr><td><span class="term" id="abbr_IP"><abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr></span></td><td><span id="long_abbr_IP">Internet Protocol</span></td></tr><tr><td><span class="term" id="abbr_ISO"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr></span></td><td><span id="long_abbr_ISO">International Organization for Standardization</span></td></tr><tr><td><span class="term" id="abbr_IT"><abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr></span></td><td><span id="long_abbr_IT">Information Technology</span></td></tr><tr><td><span class="term" id="abbr_ITSEF"><abbr class="dyn-abbr"><a href="#abbr_ITSEF">ITSEF</a></abbr></span></td><td><span id="long_abbr_ITSEF">Information Technology Security Evaluation Facility</span></td></tr><tr><td><span class="term" id="abbr_NIAP"><abbr class="dyn-abbr"><a href="#abbr_NIAP">NIAP</a></abbr></span></td><td><span id="long_abbr_NIAP">National Information Assurance Partnership</span></td></tr><tr><td><span class="term" id="abbr_NIST"><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr></span></td><td><span id="long_abbr_NIST">National Institute of Standards and Technology</span></td></tr><tr><td><span class="term" id="abbr_OCSP"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr></span></td><td><span id="long_abbr_OCSP">Online Certificate Status Protocol</span></td></tr><tr><td><span class="term" id="abbr_OE"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr><tr><td><span class="term" id="abbr_OID"><abbr class="dyn-abbr"><a href="#abbr_OID">OID</a></abbr></span></td><td><span id="long_abbr_OID">Object Identifier</span></td></tr><tr><td><span class="term" id="abbr_OMB"><abbr class="dyn-abbr"><a href="#abbr_OMB">OMB</a></abbr></span></td><td><span id="long_abbr_OMB">Office of Management and Budget</span></td></tr><tr><td><span class="term" id="abbr_OS" data-plural="OSes"><abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span></td><td><span id="long_abbr_OS">Operating System</span></td></tr><tr><td><span class="term" id="abbr_PII"><abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr></span></td><td><span id="long_abbr_PII">Personally Identifiable Information</span></td></tr><tr><td><span class="term" id="abbr_PKI"><abbr class="dyn-abbr"><a href="#abbr_PKI">PKI</a></abbr></span></td><td><span id="long_abbr_PKI">Public Key Infrastructure</span></td></tr><tr><td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_PP-Configuration"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td></tr><tr><td><span class="term" id="abbr_PP-Module"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td></tr><tr><td><span class="term" id="abbr_RBG"><abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr></span></td><td><span id="long_abbr_RBG">Random Bit Generator</span></td></tr><tr><td><span class="term" id="abbr_RFC"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr></span></td><td><span id="long_abbr_RFC">Request for Comment</span></td></tr><tr><td><span class="term" id="abbr_RNG"><abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr></span></td><td><span id="long_abbr_RNG">Random Number Generator</span></td></tr><tr><td><span class="term" id="abbr_RNGVS"><abbr class="dyn-abbr"><a href="#abbr_RNGVS">RNGVS</a></abbr></span></td><td><span id="long_abbr_RNGVS">Random Number Generator Validation System</span></td></tr><tr><td><span class="term" id="abbr_S/MIME"><abbr class="dyn-abbr"><a href="#abbr_S/MIME">S/MIME</a></abbr></span></td><td><span id="long_abbr_S/MIME">Secure/Multi-purpose Internet Mail Extensions</span></td></tr><tr><td><span class="term" id="abbr_SAN"><abbr class="dyn-abbr"><a href="#abbr_SAN">SAN</a></abbr></span></td><td><span id="long_abbr_SAN">Subject Alternative Name</span></td></tr><tr><td><span class="term" id="abbr_SAR"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr><tr><td><span class="term" id="abbr_SFR"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr><tr><td><span class="term" id="abbr_SHA"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr></span></td><td><span id="long_abbr_SHA">Secure Hash Algorithm</span></td></tr><tr><td><span class="term" id="abbr_SIP"><abbr class="dyn-abbr"><a href="#abbr_SIP">SIP</a></abbr></span></td><td><span id="long_abbr_SIP">Session Initiation Protocol</span></td></tr><tr><td><span class="term" id="abbr_ST"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr><tr><td><span class="term" id="abbr_SWID"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr></span></td><td><span id="long_abbr_SWID">Software Identification</span></td></tr><tr><td><span class="term" id="abbr_TLS"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span></td><td><span id="long_abbr_TLS">Transport Layer Security</span></td></tr><tr><td><span class="term" id="abbr_TOE"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr><tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr><tr><td><span class="term" id="abbr_TSFI" data-plural="TSFIs"><abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr></span></td><td><span id="long_abbr_TSFI"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> Interface</span></td></tr><tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr><tr><td><span class="term" id="abbr_URI"><abbr class="dyn-abbr"><a href="#abbr_URI">URI</a></abbr></span></td><td><span id="long_abbr_URI">Uniform Resource Identifier</span></td></tr><tr><td><span class="term" id="abbr_URL"><abbr class="dyn-abbr"><a href="#abbr_URL">URL</a></abbr></span></td><td><span id="long_abbr_URL">Uniform Resource Locator</span></td></tr><tr><td><span class="term" id="abbr_USB"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></td><td><span id="long_abbr_USB">Universal Serial Bus</span></td></tr><tr><td><span class="term" id="abbr_VM"><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr></span></td><td><span id="long_abbr_VM">Virtual Machine</span></td></tr><tr><td><span class="term" id="abbr_XCCDF"><abbr class="dyn-abbr"><a href="#abbr_XCCDF">XCCDF</a></abbr></span></td><td><span id="long_abbr_XCCDF">eXtensible Configuration Checklist Description Format</span></td></tr><tr><td><span class="term" id="abbr_XOR"><abbr class="dyn-abbr"><a href="#abbr_XOR">XOR</a></abbr></span></td><td><span id="long_abbr_XOR">Exclusive Or</span></td></tr><tr><td><span class="term" id="abbr_app"><abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr></span></td><td><span id="long_abbr_app">Application</span></td></tr></table>
   </body></html>
