@@ -841,7 +841,10 @@ The following sections list Common Criteria and technology terms used in this do
 		<h3 id="fcs" class="indexable" data-level="3">5.1.1 Cryptographic Support (FCS)</h3>
 		
 			
-			<div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation (Hashing)</h4>
+			<div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation (Hashing)</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+          <b><i><a href="#FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</a></i></b>.
+          </i></b></div>
+				
                 <div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a href="#FCS_COP.1.1/Hash" class="abbr">FCS_COP.1.1/Hash</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [<i>cryptographic hashing</i>] in accordance with a specified cryptographic algorithm
                         [<b>selection</b>: <i id="sel-cop1-sha1"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</i>, <i id="sel-cop1-sha256"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</i>, <i id="sel-cop1-sha384"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</i>, <i id="sel-cop1-sha512"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</i>, <i id="sel-cop1-sha3-224"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-224</i>, <i id="sel-cop1-sha3-256"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256</i>, <i id="sel-cop1-sha3-384"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-384</i>, <i id="sel-cop1-sha3-512"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-512</i>] and message digest sizes
                         [<b>selection</b>: <i id="_s_9">160</i>, <i id="_s_10">256</i>, <i id="_s_11">384</i>, <i id="_s_12">512 bits</i>] that meet the following:
@@ -968,7 +971,10 @@ The following sections list Common Criteria and technology terms used in this do
                     </div></div></div></div>
  
 		 
-		<div class="comp" id="FCS_COP.1/SigVer"><h4>FCS_COP.1/SigVer </h4>
+		<div class="comp" id="FCS_COP.1/SigVer"><h4>FCS_COP.1/SigVer </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+          <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
+          </i></b></div>
+			
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/SigVer"><a href="#FCS_COP.1.1/SigVer" class="abbr">FCS_COP.1.1/SigVer</a></div><div class="reqdesc"><span class="refinement">Refinement:</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform  
 					<span class="refinement">cryptographic signature verification for a platform
 					firmware update image</span>
@@ -1092,7 +1098,10 @@ The following sections list Common Criteria and technology terms used in this do
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PPF_EXT.1">FPT_PPF_EXT.1</a>:<br/><div class="activity">
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it explains how the various areas of platform firmware and critical data 
-					are protected from modification outside of the platform firmware update mechanism described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>.					
+					are protected from modification outside of the platform firmware update mechanism described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>. 
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a secure update mechanism as specified in <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>, then the evauator shall ensure
+					that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes specically how the signature verification code and key store is protected from update
+					outside of the secure platform firmware update mechanism.
 				
 				<div class="eacategory">Guidance</div>
 					The evaluator shall check the operational guidance to ensure that there are instructions for how to
@@ -1117,8 +1126,8 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	<div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 </h4>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-				[<b>selection</b>: <ul><li><i id="_s_25">make no provision for platform firmware update</i>, </li><li><i id="_s_26">implement a secure platform firmware update mechanism as described in
-						<a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></i>, </li><li><i id="_s_27">implement a secure local platform firmware update mechanism
+				[<b>selection</b>: <ul><li><i id="_s_25">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
+						<a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></i>, </li><li><i id="sel-tud-local-update">implement a secure local platform firmware update mechanism
 						described in <a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The secure platform firmware update mechanism is used for verifying the authenticity and integrity of
@@ -1151,64 +1160,81 @@ The following sections list Common Criteria and technology terms used in this do
 
 
 	
-	<div class="comp" id="FPT_TUD_EXT.2"><h4>FPT_TUD_EXT.2 </h4>
+	<div class="comp" id="FPT_TUD_EXT.2"><h4>FPT_TUD_EXT.2 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+          <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
+          </i></b></div>
+		
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.1"><a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall authenticate the source of all platform firmware updates using a 
-				digital signature algorithm specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> using a key store 
+				digital signature algorithm specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> and using a key store 
 				that contains 
-				[<b>selection</b>: <i id="_s_28">the public key</i>, <i id="_s_29">hash value of the public key</i>].
+				[<b>selection</b>: <i id="_s_28">the public key</i>, <i id="sel-tud2-hash">hash value of the public key</i>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.2"><a href="#FPT_TUD_EXT.2.2" class="abbr">FPT_TUD_EXT.2.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow installation of updates only if the digital signature has been
+				successfully verified as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a>.
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.3"><a href="#FPT_TUD_EXT.2.3" class="abbr">FPT_TUD_EXT.2.3</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include an observable platform firmware version identifier that is accessible by the update mechanism and
+				includes information that enables the update mechanism to determine the intended relative order of updates.
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.4"><a href="#FPT_TUD_EXT.2.4" class="abbr">FPT_TUD_EXT.2.4</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide some observable indication of the success or failure of the update operation.
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-				The authenticated BIOS update mechanism employs digital signatures to ensure the authenticity of the
-BIOS update image. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides a RTU that contains a signature verification algorithm and a key
-store that includes the public key needed to verify the signature on the BIOS update image. The key
-store in the RTU shall include a public key used to verify the signature on a BIOS update image or a hash
-of the public key if a copy of the public key is provided with the BIOS update image. In the latter case,
-the update mechanism shall hash the public key provided with the BIOS update image, and ensure that
-it matches a hash which appears in the key store before using the provided public key to verify the
-signature on the BIOS update image. If the hash of the public key is selected, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may iterate
-the FCS_COP.1(2) requirement - to specify the hashing functions used.
-54 The intent of this requirement is to specify that the authenticated BIOS update mechanism shall ensure
-that the BIOS update image has been digitally signed; and that the digital signature can be verified by
-using a public key before updating the BIOS. The requirement also specifies that the authenticated BIOS
-update mechanism allows installation of only BIOS updates that digital signature has been successfully
-verified by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
-
+				The platform firmware update mechanism employs digital signatures to ensure the authenticity of the
+				firmware update image. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes a signature verification algorithm and a key
+				store containing the public key needed to verify the signature on the firmware update image. <p></p>
+				A hash of the public key may be stored if a copy of the public key is provided with firmware
+				update images. In this case, the update mechanism shall hash the public key provided with the update 
+				image, and ensure that it matches a hash which appears in the key store before using the provided public 
+				key to verify the signature of the update image. If the hash of the public key is selected, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may
+				iterate the <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> requirement to specify the hashing functions used.<p></p>
+				An indication of success or failure can be generation of an audit event by a management subsystem, a beep code,
+				an updated version number on a splash screen, or simple failure to continue functioning.<p></p>
+				If the update mechanism generates audit events, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall make the approriate selections
+				from the audit events table (<a href="#atref-sel-based" class="dynref" format=""> </a>).
 			</span></div></div></div>
 		
+		
+		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a comprehansive description of how the 
+					authentication of platform firmware updates is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> should cover the 
+					initialization process and the activities that are performed to ensure that the
+					digital signature of the update image is verified before modification of the firmware. <p></p>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to ensure that it describes the platform firmware version identifier
+					and explains its meaning and encoding.<p></p>
+					The evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions taken by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is 
+					an update image fails authentication.
 				
-				5 The evaluator shall consult the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> in performing the assurance activities for this requirement.
-The evaluator focuses on ensuring that the description is comprehensive in how the RTU is implemented
-by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (i.e. the RTU key storage includes the public key or the hash of the public key).
-56 The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> should cover the initialization process and the activities that are performed to ensure that the
-digital signature of the BIOS/RTU update image is verified before updating the BIOS/RTU. In performing 
-18
-their review, the evaluators shall determine that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the digital signature
-verification process. The evaluators also shall look in other evidence (AGD, ADV and ATE) for
-descriptions of what will happen if the digital signature of the BIOS/RTU image cannot be verified
-successfully by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (i.e. the BIOS/RTU image has not been signed, or signature cannot be verified
-using the key saved in the RTU, etc.).
-57 The evaluators shall perform the following tests:
- Test 1: The evaluator determines the current version of the BIOS present in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (system).
-After the update tests described in the following tests, the evaluator performs this activity again
-to verify that the version correctly corresponds to that of the updated BIOS.
- Test 2: The evaluator obtains or produces a legitimate update image of the BIOS using
-procedures described in the operational guidance and verifies that BIOS update is successfully
-loaded on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. Perform a subset of other assurance activity tests to demonstrate that the
-update functions as expected.
- Test 3: The evaluator obtains or produces an illegitimate BIOS update image(s) for each of the
-following cases:
-a) unsigned image,
-b) signed with an incorrect key,
-c) signed with the correct key, but a corrupted BIOS image,
-and attempts to install it on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (system). The evaluator verifies that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects all the
-attempted BIOS updates.
-58 If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can be updated separately from the system BIOS, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should include the
-requirement <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> from Appendix C.
-
+				<div class="eacategory">Guidance</div>
+					The evaluator shall examine the operational guidance to ensure that it describes the process for 
+					updating the platform firmware.<p></p>
+					The evaluator shall examine the operational guidance to ensure that it documents the observable indications
+					of update success or failure, and that it describes how to access the platform firmware version indicators.
+				
+				<div class="eacategory">Tests</div>
+					<ul>
+						<li><b>Test 1: </b>The evaluator determines the current version of the platform firmware, and obtains or 
+							produces a valid, authentic, and permissible update image of platform firmware. The evaluator 
+							initiates an update using this image through the process described in the operational guidance.
+							After the process is complete, the evaluator checks the current firmware version to ensure
+							that the new firmware version matches that of the update.</li>
+						<li><b>Test 2: </b>The evaluator performs the same test, this time using a valid update image that is signed
+							with an incorrect key. The update must fail.</li>
+						<li><b>Test 3: </b>The evaluator performs the same test, this time using an update image that is corrupted
+							but is signed with the correct key. The update must fail.</li>
+						<li><b>Test 4: </b>The evaluator performs the same test, this time using a valid update image that is not signed.
+							The update must fail.</li>
+					</ul>
+				
 			</div></div></div></div>
 		
 		
-	<div class="comp" id="FPT_TUD_EXT.3"><h4>FPT_TUD_EXT.3 </h4>
+	<div class="comp" id="FPT_TUD_EXT.3"><h4>FPT_TUD_EXT.3 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+          <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
+          </i></b></div>
+		
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.3.1"><a href="#FPT_TUD_EXT.3.1" class="abbr">FPT_TUD_EXT.3.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow installation of updates only if the digital
 				signature has been successfully verified as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a>.
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
@@ -1218,6 +1244,8 @@ requirement <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> from Appendix C.
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a>:<br/><div class="activity">
 				Nope
 			</div></div></div></div>
+		
+		
 		
     				
 	    
