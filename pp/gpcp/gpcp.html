@@ -1118,7 +1118,7 @@ The following sections list Common Criteria and technology terms used in this do
 						<li><b>Test 2: </b>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements an update mechanism, using the information contained in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and in other evidences (AGD, interface
 							specifications), the evaluator shall attempt to overwrite or modify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> components (e.g., key
 							store, cryptographic algorithms). The test succeeds if the attempts to overwrite platform firmware
-							fail.  QQQQ: I don't like that these tests are so open-ended. Is there a way to tighen them up?</li>
+							fail. <b> QQQQ: I don't like that these tests are so open-ended. Is there a way to tighen them up?</b></li>
 					</ul>
 				
 			</div></div></div></div>
@@ -1149,8 +1149,8 @@ The following sections list Common Criteria and technology terms used in this do
 					meet the requirements of <a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a>.<p></p>
 					This requirement is met if the platform implements no means for updating platform firmware
 					and the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes a method for updating or replacing platform firmware that involves
-					potentially destroying or damaging the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or some of its components. (QQQQ: The point here is to
-					distinguish between secure local update and unauthorized physical update.)<p></p>
+					potentially destroying or damaging the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or some of its components. <b>(QQQQ: The point here is to
+					distinguish between secure local update and unauthorized physical update.)</b><p></p>
 					If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "implement a secure platform update mechanism..." then this requirement is 
 					satisfied if <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> is satisfied. <p></p>
 					If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "implement a secure local platform update mechanism..." then this requirement is 
@@ -1159,6 +1159,7 @@ The following sections list Common Criteria and technology terms used in this do
 			</div></div></div></div>			
 
 
+	
 	
 	<div class="comp" id="FPT_TUD_EXT.2"><h4>FPT_TUD_EXT.2 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
@@ -1235,14 +1236,42 @@ The following sections list Common Criteria and technology terms used in this do
           <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
           </i></b></div>
 		
-		<div class="element"><div class="reqid" id="FPT_TUD_EXT.3.1"><a href="#FPT_TUD_EXT.3.1" class="abbr">FPT_TUD_EXT.3.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow installation of updates only if the digital
-				signature has been successfully verified as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a>.
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.3.1"><a href="#FPT_TUD_EXT.3.1" class="abbr">FPT_TUD_EXT.3.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a secure local update mechanism that requires physical access to the
+				<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> before permitting the update of platform firmware.
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_TUD_EXT.3.2"><a href="#FPT_TUD_EXT.3.2" class="abbr">FPT_TUD_EXT.3.2</a></div><div class="reqdesc">
+				The secure local update mechanism shall be used
+				[<b>selection</b>: <ul><li><i id="_s_30">to replace the manufacturer's original platform firmware image</i>, </li><li><i id="_s_31">to recover from a corrupted platform firmware installation or bricked machine</i>, </li><li><i id="_s_32">as the normal platform firmware update mechanism</i></li></ul>]
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-				Blah
+				This requirement pertains to platform firmware update mechanisms that do not use the 
+				authentication-based update mechanism described in <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>. The secure local update
+				mechanism ensures the authenticity and integrity of the firmware update image by requiring a physical
+				presence at the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. An assertion of physical presence can take the form, for example, of
+				requiring entry of a password at a boot screen, unlocking of a physical lock (e.g., a motherboard
+				jumper), or inserting a <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> cable before permitting platform firmware to be updated. <p></p>
+				<b>This mechanism is distinguished from the lack of an update capability (as described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>)
+				in that the local update is designed in to the system. ???<p></p>
+				Is a chip in a socket that renders it removable a local update mechanism? Or is that not an update mechanism?
+				Sometimes it's a fine line.<p></p>
+				Would this potentially be subject to rollback protections?<p></p>
+				Should we worry about update versions? If this is used for recovery only, then versions won't matter,
+				but if it is used as the normal update mechanism, then it does matter. Probably you can have a local update
+				with an override for rollback protections. If that's a thing.
+				</b>
 			</span></div></div></div>
 		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a>:<br/><div class="activity">
-				Nope
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> section to confirm that it clearly and thoroughly describes how the
+				secure local update functionality is implemented.
+			
+			<div class="eacategory">Guidance</div>
+				The evaluator shall examine the operational guidance to ensure that it describes instructions for 
+				using the local update mechanism, and how to validate that the update was succesful.		
+			
+			<div class="eacategory">Tests</div> The evaluator tests the secure local update by following the instructions provided in the operational 
+				guidance to replace the ...<p></p>
+			
 			</div></div></div></div>
 		
 		
