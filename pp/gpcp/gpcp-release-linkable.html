@@ -798,121 +798,121 @@ The following sections list Common Criteria and technology terms used in this do
 
     <h2 class="indexable" data-level="2" id="SFRs">5.1 Security Functional Requirements</h2>
 
-	<h3 class="indexable" data-level="3" id="fcs">5.1.1 Cryptographic Support (FCS)</h3>
+		<h3 class="indexable" data-level="3" id="fcs">5.1.1 Cryptographic Support (FCS)</h3>
 		
-		
-                <div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation (Hashing)</h4>
-                    <div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a class="abbr" href="#FCS_COP.1.1/Hash">FCS_COP.1.1/Hash</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [cryptographic hashing] in accordance with a specified cryptographic algorithm
-                            [<b>selection</b>: <i id="sel-cop1-sha1"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</i>, <i id="sel-cop1-sha256"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</i>, <i id="sel-cop1-sha384"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</i>, <i id="sel-cop1-sha512"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</i>, <i id="sel-cop1-sha3-224"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-224</i>, <i id="sel-cop1-sha3-256"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256</i>, <i id="sel-cop1-sha3-384"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-384</i>, <i id="sel-cop1-sha3-512"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-512</i>] and message digest sizes
-                            [<b>selection</b>: <i id="_s_9">160</i>, <i id="_s_10">256</i>, <i id="_s_11">384</i>, <i id="_s_12">512 bits</i>] that meet the following:
-							[<b>selection</b>: <i id="_s_13"><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 180-4 "Secure Hash Standard"</i>, <i id="_s_14"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 10118-3:2018</i>]   
-                        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-                            Per <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-131A, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 for generating digital signatures is no longer allowed, and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 for 
-							verification of digital signatures is strongly discouraged as there may be risk in accepting these
-							signatures<a href="#period_136" id="period_136">. </a>It is expected that vendors will implement <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-2 algorithms in accordance with SP 800-131A<a href="#period_137" id="period_137">. </a>                            <br><br>
-                            The intent of this requirement is to specify the hashing function<a href="#period_138" id="period_138">. </a>The hash selection shall support the
-							message digest size selection<a href="#period_139" id="period_139">. </a>The hash selection should be consistent with the overall strength of
-							the algorithm used (for example, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> 256 for 128-bit keys)<a href="#period_140" id="period_140">. </a>                            <br><br>
-                        </span></div></div></div>
-		    
-                <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a>:<br><div class="activity">
-                            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-                                The evaluator shall check that the association of the hash function with other <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
-                                cryptographic functions (for example, the digital signature verification function) is documented 
-                                in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a href="#period_141" id="period_141">. </a>                            
-                            <div class="eacategory">Guidance</div>
-                                The evaluator checks the AGD documents to determine that any configuration that is required to 
-                                be done to configure the functionality for the required hash sizes is present<a href="#period_142" id="period_142">. </a>
-                            
-                            <div class="eacategory">Tests</div>
-								<b><u><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-2 Tests</u></b>
-                                The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented in one of two modes<a href="#period_143" id="period_143">. </a>The first mode is the byteoriented
-								mode<a href="#period_144" id="period_144">. </a>In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> only hashes messages that are an integral number of bytes in length;
-								i.e., the length (in bits) of the message to be hashed is divisible by 8<a href="#period_145" id="period_145">. </a>The second mode is the
-								bitoriented mode<a href="#period_146" id="period_146">. </a>In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashes messages of arbitrary length<a href="#period_147" id="period_147">. </a>As there are different
-								tests for each mode, an indication is given in the following sections for the bitoriented vs<a href="#period_148" id="period_148">. </a>the
-								byteoriented testmacs<a href="#period_149" id="period_149">. </a>                                <br><br>
-                                The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
-								and used to satisfy the requirements of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr><a href="#period_150" id="period_150">. </a>                                <br><br>
-                                <b>Assurance Activity Note:</b><br> The following tests require the developer to provide access
-								to a test platform that provides the evaluator with tools that are typically not found on factory 
-								products<a href="#period_151" id="period_151">. </a>                                <br><br>
-                                <b>Short Messages Test Bit-oriented Mode</b><br><br>
-                                The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash
-								algorithm<a href="#period_152" id="period_152">. </a>The length of the messages range sequentially from 0 to m bits<a href="#period_153" id="period_153">. </a>The message text shall
-								be pseudo-randomly generated<a href="#period_154" id="period_154">. </a>The evaluators compute the message digest for each of the messages
-								and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_155" id="period_155">. </a>                                <br><br>
-                                <b>Short Messages Test Byte-oriented Mode</b><br><br>
-                                The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the 
-								hash algorithm<a href="#period_156" id="period_156">. </a>The length of the messages range sequentially from 0 to m/8 bytes, with each 
-								message being an integral number of bytes<a href="#period_157" id="period_157">. </a>The message text shall be pseudo-randomly generated<a href="#period_158" id="period_158">. </a>								The evaluators compute the message digest for each of the messages and ensure that the correct
-								result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_159" id="period_159">. </a>                                <br><br>
-                                <b>Selected Long Messages Test Bit-oriented Mode</b><br><br>
-                                The evaluators devise an input set consisting of m messages, where m is the block length
-                                of the hash algorithm<a href="#period_160" id="period_160">. </a>The length of the ith message is 512 + 99*i, where
-                                1 &#2264; i &#2264; m <a href="#period_161" id="period_161">. </a>The message text shall be pseudo-randomly
-                                generated<a href="#period_162" id="period_162">. </a>The evaluators compute the message digest for each of the messages and ensure
-                                that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_163" id="period_163">. </a>                                <br><br>
-                                <b>Selected Long Messages Test Byte-oriented Mode</b><br><br>
-                                The evaluators devise an input set consisting of m/8 messages,
-                                where m is the block length of the hash algorithm<a href="#period_164" id="period_164">. </a>The length of the ith message
-                                is 512 + 8*99*i, where 1 &#2264; i &#2264; m/8 <a href="#period_165" id="period_165">. </a>                                The message text shall be pseudo-randomly generated<a href="#period_166" id="period_166">. </a>The evaluators compute the message
-                                digest for each of the messages and ensure that the correct result is produced when
-                                the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_167" id="period_167">. </a>                                <br><br>
-                                <b>Pseudo-randomly Generated Messages Test</b><br><br>
-                                This test is for byte-oriented implementations only<a href="#period_168" id="period_168">. </a>The evaluators randomly generate a
-                                seed that is n bits long, where n is the length of the message digest produced by the
-                                hash function to be tested<a href="#period_169" id="period_169">. </a>The evaluators then formulate a set of 100 messages and
-                                associated digests by following the algorithm provided in Figure 1 of [SHAVS]<a href="#period_170" id="period_170">. </a>The
-                                evaluators then ensure that the correct result is produced when the messages are
-                                provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_171" id="period_171">. </a><br><br>
-								<b><u><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3 Tests</u></b>
-								The tests below are derived from the The Secure Hash Algorithm-3 Validation System (SHA3VS), 
-								Updated: April 7, 2016, from the National Institute of Standards and Technology<a href="#period_172" id="period_172">. </a><br><br>
-								For each <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-XXX implementation, XXX represents d, the digest length in bits<a href="#period_173" id="period_173">. </a>The capacity, c,
-								is equal to 2d bits<a href="#period_174" id="period_174">. </a>The rate is equal to 1600-c bits<a href="#period_175" id="period_175">. </a> <br><br>
-								The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented with one of two orientations<a href="#period_176" id="period_176">. </a>The first is a bit-oriented
-								mode that hashes messages of arbitrary length<a href="#period_177" id="period_177">. </a>The second is a byte-oriented mode that hashes messages 
-								that are an integral number of bytes in length (i.e., the length (in bits) of the message to be
-								hashed is divisible by 8)<a href="#period_178" id="period_178">. </a>Separate tests for each orientation are given below<a href="#period_179" id="period_179">. </a><br><br>
-								The evaluator shall perform all of the following tests for each hash algorithm and orientation
-								implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and used to satisfy the requirements of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr><a href="#period_180" id="period_180">. </a>The evaluator shall
-								compare digest values produced by a known-good <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3 implementation against those generated by
-								running the same values through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_181" id="period_181">. </a><br><br><br><br>
-								<b>Short Messages Test, Bit-oriented Mode</b><br><br>
-								The evaluators devise an input set consisting of rate+1 short messages<a href="#period_182" id="period_182">. </a>The length of the messages
-								ranges sequentially from 0 to rate bits<a href="#period_183" id="period_183">. </a>The message text shall be pseudo-randomly generated<a href="#period_184" id="period_184">. </a>The
-								evaluators compute the message digest for each of the messages and ensure that the correct result
-								is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_185" id="period_185">. </a>The message of length 0 is omitted if the
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support zero-length messages<a href="#period_186" id="period_186">. </a><br><br><br>
-								<b>Short Messages Test, Byte-oriented Mode</b><br><br>
-								The evaluators devise an input set consisting of rate/8+1 short messages<a href="#period_187" id="period_187">. </a>The length of the
-								messages ranges sequentially from 0 to rate/8 bytes, with each message being an integral number of 
-								bytes<a href="#period_188" id="period_188">. </a>The message text shall be pseudo-randomly generated<a href="#period_189" id="period_189">. </a>The evaluators compute the message
-								digest for each of the messages and ensure that the correct result is produced when the messages
-								are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_190" id="period_190">. </a>The message of length 0 is omitted if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support zero-length
-								messages<a href="#period_191" id="period_191">. </a><br><br><br>
-								<b>Selected Long Messages Test, Bit-oriented Mode</b><br><br>
-								The evaluators devise an input set consisting of 100 long messages ranging in size from 
-								rate+(rate+1) to rate+(100*(rate+1)), incrementing by rate+1<a href="#period_192" id="period_192">. </a>(For example, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256 has a rate
-								of 1088 bits<a href="#period_193" id="period_193">. </a>Therefore, 100 messages will be generated with lengths 2177, 3266, &#8230;, 109988 bits.)
-								The message text shall be pseudo-randomly generated<a href="#period_194" id="period_194">. </a>The evaluators compute the message digest for
-								each of the messages and ensure that the correct result is produced when the messages are provided
-								to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_195" id="period_195">. </a><br><br><br>
-								<b>Selected Long Messages Test, Byte-oriented Mode</b><br><br>
-								The evaluators devise an input set consisting of 100 messages ranging in size from (rate+(rate+8))
-								to (rate+100*(rate+8)), incrementing by rate+8<a href="#period_196" id="period_196">. </a>(For example, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256 has a rate of 1088 bits<a href="#period_197" id="period_197">. </a>								Therefore 100 messages will be generated of lengths 2184, 3280, 4376, &#8230;, 110688 bits.) The message
-								text shall be pseudo-randomly generated<a href="#period_198" id="period_198">. </a>The evaluators compute the message digest for each of the
-								messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_199" id="period_199">. </a><br><br><br>
-								<b>Pseudo-randomly Generated Messages Monte Carlo) Test, Byte-oriented Mode</b><br><br>
-								The evaluators supply a seed of d bits (where d is the length of the message digest produced by
-								the hash function to be tested<a href="#period_200" id="period_200">. </a>This seed is used by a pseudorandom function to generate 100,000 
-								message digests<a href="#period_201" id="period_201">. </a>One hundred of the digests (every 1000th digest) are recorded as checkpoints<a href="#period_202" id="period_202">. </a>The
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> then uses the same procedure to generate the same 100,000 message digests and 100 checkpoint
-								values<a href="#period_203" id="period_203">. </a>The evaluators then compare the results generated ensure that the correct result is
-								produced when the messages are generated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_204" id="period_204">. </a><br><br>
-                            
-                        </div></div></div></div>
+			
+			<div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation (Hashing)</h4>
+                <div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a class="abbr" href="#FCS_COP.1.1/Hash">FCS_COP.1.1/Hash</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [cryptographic hashing] in accordance with a specified cryptographic algorithm
+                        [<b>selection</b>: <i id="sel-cop1-sha1"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</i>, <i id="sel-cop1-sha256"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</i>, <i id="sel-cop1-sha384"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</i>, <i id="sel-cop1-sha512"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</i>, <i id="sel-cop1-sha3-224"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-224</i>, <i id="sel-cop1-sha3-256"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256</i>, <i id="sel-cop1-sha3-384"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-384</i>, <i id="sel-cop1-sha3-512"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-512</i>] and message digest sizes
+                        [<b>selection</b>: <i id="_s_9">160</i>, <i id="_s_10">256</i>, <i id="_s_11">384</i>, <i id="_s_12">512 bits</i>] that meet the following:
+						[<b>selection</b>: <i id="_s_13"><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 180-4 "Secure Hash Standard"</i>, <i id="_s_14"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 10118-3:2018</i>]   
+                    <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+                        Per <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-131A, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 for generating digital signatures is no longer allowed, and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 for 
+						verification of digital signatures is strongly discouraged as there may be risk in accepting these
+						signatures<a href="#period_136" id="period_136">. </a>It is expected that vendors will implement <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-2 algorithms in accordance with SP 800-131A<a href="#period_137" id="period_137">. </a>                        <br><br>
+                        The intent of this requirement is to specify the hashing function<a href="#period_138" id="period_138">. </a>The hash selection shall support the
+						message digest size selection<a href="#period_139" id="period_139">. </a>The hash selection should be consistent with the overall strength of
+						the algorithm used (for example, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> 256 for 128-bit keys)<a href="#period_140" id="period_140">. </a>                        <br><br>
+                    </span></div></div></div>
+				
+            <div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a>:<br><div class="activity">
+                        <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+                            The evaluator shall check that the association of the hash function with other <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
+                            cryptographic functions (for example, the digital signature verification function) is documented 
+                            in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a href="#period_141" id="period_141">. </a>                        
+                        <div class="eacategory">Guidance</div>
+                            The evaluator checks the AGD documents to determine that any configuration that is required to 
+                            be done to configure the functionality for the required hash sizes is present<a href="#period_142" id="period_142">. </a>
+                        
+                        <div class="eacategory">Tests</div>
+							<b><u><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-2 Tests</u></b><br>
+                            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented in one of two modes<a href="#period_143" id="period_143">. </a>The first mode is the byte-oriented
+							mode<a href="#period_144" id="period_144">. </a>In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> only hashes messages that are an integral number of bytes in length;
+							i.e., the length (in bits) of the message to be hashed is divisible by 8<a href="#period_145" id="period_145">. </a>The second mode is the
+							bit-oriented mode<a href="#period_146" id="period_146">. </a>In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashes messages of arbitrary length<a href="#period_147" id="period_147">. </a>As there are different
+							tests for each mode, an indication is given in the following sections for the bit-oriented vs<a href="#period_148" id="period_148">. </a>the
+							byte-oriented testmacs<a href="#period_149" id="period_149">. </a>                            <p></p>
+                            The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
+							and used to satisfy the requirements of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr><a href="#period_150" id="period_150">. </a>                            <p></p>
+                            <b>Assurance Activity Note:</b><br> The following tests require the developer to provide access
+							to a test platform that provides the evaluator with tools that are typically not found on factory 
+							products<a href="#period_151" id="period_151">. </a>                            <p></p>
+                            <b>Short Messages Test Bit-oriented Mode</b><br>
+                            The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash
+							algorithm<a href="#period_152" id="period_152">. </a>The length of the messages range sequentially from 0 to m bits<a href="#period_153" id="period_153">. </a>The message text shall
+							be pseudo-randomly generated<a href="#period_154" id="period_154">. </a>The evaluators compute the message digest for each of the messages
+							and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_155" id="period_155">. </a>                            <p></p>
+                            <b>Short Messages Test Byte-oriented Mode</b><br>
+                            The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the 
+							hash algorithm<a href="#period_156" id="period_156">. </a>The length of the messages range sequentially from 0 to m/8 bytes, with each 
+							message being an integral number of bytes<a href="#period_157" id="period_157">. </a>The message text shall be pseudo-randomly generated<a href="#period_158" id="period_158">. </a>							The evaluators compute the message digest for each of the messages and ensure that the correct
+							result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_159" id="period_159">. </a>                            <p></p>
+                            <b>Selected Long Messages Test Bit-oriented Mode</b><br>
+                            The evaluators devise an input set consisting of m messages, where m is the block length
+                            of the hash algorithm<a href="#period_160" id="period_160">. </a>The length of the ith message is 512 + 99*i, where
+                            1 &#2264; i &#2264; m <a href="#period_161" id="period_161">. </a>The message text shall be pseudo-randomly
+                            generated<a href="#period_162" id="period_162">. </a>The evaluators compute the message digest for each of the messages and ensure
+                            that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_163" id="period_163">. </a>                            <p></p>
+                            <b>Selected Long Messages Test Byte-oriented Mode</b><br>
+                            The evaluators devise an input set consisting of m/8 messages,
+                            where m is the block length of the hash algorithm<a href="#period_164" id="period_164">. </a>The length of the ith message
+                            is 512 + 8*99*i, where 1 &#2264; i &#2264; m/8 <a href="#period_165" id="period_165">. </a>                            The message text shall be pseudo-randomly generated<a href="#period_166" id="period_166">. </a>The evaluators compute the message
+                            digest for each of the messages and ensure that the correct result is produced when
+                            the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_167" id="period_167">. </a>                            <p></p>
+                            <b>Pseudo-randomly Generated Messages Test</b><br>
+                            This test is for byte-oriented implementations only<a href="#period_168" id="period_168">. </a>The evaluators randomly generate a
+                            seed that is n bits long, where n is the length of the message digest produced by the
+                            hash function to be tested<a href="#period_169" id="period_169">. </a>The evaluators then formulate a set of 100 messages and
+                            associated digests by following the algorithm provided in Figure 1 of [SHAVS]<a href="#period_170" id="period_170">. </a>The
+                            evaluators then ensure that the correct result is produced when the messages are
+                            provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_171" id="period_171">. </a><p></p>
+							<b><u><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3 Tests</u></b>Mh:br/&gt;
+							The tests below are derived from the The Secure Hash Algorithm-3 Validation System (SHA3VS), 
+							Updated: April 7, 2016, from the National Institute of Standards and Technology<a href="#period_172" id="period_172">. </a><p></p>
+							For each <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-XXX implementation, XXX represents d, the digest length in bits<a href="#period_173" id="period_173">. </a>The capacity, c,
+							is equal to 2d bits<a href="#period_174" id="period_174">. </a>The rate is equal to 1600-c bits<a href="#period_175" id="period_175">. </a> <p></p>
+							The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented with one of two orientations<a href="#period_176" id="period_176">. </a>The first is a bit-oriented
+							mode that hashes messages of arbitrary length<a href="#period_177" id="period_177">. </a>The second is a byte-oriented mode that hashes messages 
+							that are an integral number of bytes in length (i.e., the length (in bits) of the message to be
+							hashed is divisible by 8)<a href="#period_178" id="period_178">. </a>Separate tests for each orientation are given below<a href="#period_179" id="period_179">. </a><p></p>
+							The evaluator shall perform all of the following tests for each hash algorithm and orientation
+							implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and used to satisfy the requirements of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr><a href="#period_180" id="period_180">. </a>The evaluator shall
+							compare digest values produced by a known-good <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3 implementation against those generated by
+							running the same values through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_181" id="period_181">. </a><p></p>
+							<b>Short Messages Test, Bit-oriented Mode</b><br>
+							The evaluators devise an input set consisting of rate+1 short messages<a href="#period_182" id="period_182">. </a>The length of the messages
+							ranges sequentially from 0 to rate bits<a href="#period_183" id="period_183">. </a>The message text shall be pseudo-randomly generated<a href="#period_184" id="period_184">. </a>The
+							evaluators compute the message digest for each of the messages and ensure that the correct result
+							is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_185" id="period_185">. </a>The message of length 0 is omitted if the
+							<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support zero-length messages<a href="#period_186" id="period_186">. </a><p></p>
+							<b>Short Messages Test, Byte-oriented Mode</b><br>
+							The evaluators devise an input set consisting of rate/8+1 short messages<a href="#period_187" id="period_187">. </a>The length of the
+							messages ranges sequentially from 0 to rate/8 bytes, with each message being an integral number of 
+							bytes<a href="#period_188" id="period_188">. </a>The message text shall be pseudo-randomly generated<a href="#period_189" id="period_189">. </a>The evaluators compute the message
+							digest for each of the messages and ensure that the correct result is produced when the messages
+							are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_190" id="period_190">. </a>The message of length 0 is omitted if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support zero-length
+							messages<a href="#period_191" id="period_191">. </a><br><p></p>
+							<b>Selected Long Messages Test, Bit-oriented Mode</b><br>
+							The evaluators devise an input set consisting of 100 long messages ranging in size from 
+							rate+(rate+1) to rate+(100*(rate+1)), incrementing by rate+1<a href="#period_192" id="period_192">. </a>(For example, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256 has a rate
+							of 1088 bits<a href="#period_193" id="period_193">. </a>Therefore, 100 messages will be generated with lengths 2177, 3266, &#8230;, 109988 bits.)
+							The message text shall be pseudo-randomly generated<a href="#period_194" id="period_194">. </a>The evaluators compute the message digest for
+							each of the messages and ensure that the correct result is produced when the messages are provided
+							to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_195" id="period_195">. </a><p></p>
+							<b>Selected Long Messages Test, Byte-oriented Mode</b><br>
+							The evaluators devise an input set consisting of 100 messages ranging in size from (rate+(rate+8))
+							to (rate+100*(rate+8)), incrementing by rate+8<a href="#period_196" id="period_196">. </a>(For example, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-3-256 has a rate of 1088 bits<a href="#period_197" id="period_197">. </a>							Therefore 100 messages will be generated of lengths 2184, 3280, 4376, &#8230;, 110688 bits.) The message
+							text shall be pseudo-randomly generated<a href="#period_198" id="period_198">. </a>The evaluators compute the message digest for each of the
+							messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_199" id="period_199">. </a><br><br><br>
+							<b>Pseudo-randomly Generated Messages Monte Carlo) Test, Byte-oriented Mode</b><p></p>
+							The evaluators supply a seed of d bits (where d is the length of the message digest produced by
+							the hash function to be tested<a href="#period_200" id="period_200">. </a>This seed is used by a pseudorandom function to generate 100,000 
+							message digests<a href="#period_201" id="period_201">. </a>One hundred of the digests (every 1000th digest) are recorded as checkpoints<a href="#period_202" id="period_202">. </a>The
+							<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> then uses the same procedure to generate the same 100,000 message digests and 100 checkpoint
+							values<a href="#period_203" id="period_203">. </a>The evaluators then compare the results generated ensure that the correct result is
+							produced when the messages are generated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr><a href="#period_204" id="period_204">. </a><br><br>
+                        
+                    </div></div></div></div>
  
 		 
 		<div class="comp" id="FCS_COP.1/SigVer"><h4>FCS_COP.1/SigVer </h4>
