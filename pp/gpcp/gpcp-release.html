@@ -850,7 +850,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 	<div class="comp" id="FPT_ROT_EXT.1"><h4>FPT_ROT_EXT.1 Platform Integrity Root</h4>
 		<div class="element"><div class="reqid" id="FPT_ROT_EXT.1.1"><a href="#FPT_ROT_EXT.1.1" class="abbr">FPT_ROT_EXT.1.1</a></div><div class="reqdesc">The integrity of platform firmware shall be rooted in 
-				[<b>selection</b>: <ul><li><i id="_s_19">code or data written to immutable memory or storage</i>, </li><li><i id="_s_20">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="_s_21">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="_s_22">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="_s_23">integrity measurements help securely by an off-platform third-party</i>, </li><li><i id="_s_24">a combination of the above</i></li></ul>].
+				[<b>selection</b>: <ul><li><i id="sel-rot-immutable-code">code or data written to immutable memory or storage</i>, </li><li><i id="sel-rot-immutable-creds">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="sel-rot-mc">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="sel-rot-dsc">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="sel-rot-3dP">integrity measurements help securely by an off-platform third-party</i>, </li><li><i id="sel-rot-combo">a combination of the above</i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The integrity of the first platform firmware that executes must be 
 				established by one or more of the selections in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a>. The 
@@ -883,6 +883,43 @@ The following sections list Common Criteria and technology terms used in this do
 				
 			</div></div></div></div>
 
+		
+	<div class="comp" id="FPT_ROT_EXT.2"><h4>FPT_ROT_EXT.2 Platform Integrity Extension</h4>
+		<div class="element"><div class="reqid" id="FPT_ROT_EXT.2.1"><a href="#FPT_ROT_EXT.2.1" class="abbr">FPT_ROT_EXT.2.1</a></div><div class="reqdesc">The integrity of the platform integrity root shall be extended to other platform firmware before it is executed
+				and to critical platform firmware data before it is used through (verification of integrity by)
+				[<b>selection</b>: <ul><li><i id="_s_25">the code or data is in iummutable storage</i>, </li><li><i id="_s_26">computation of a hash of the next block of code/data by a previoulsy verified block</i>, </li><li><i id="_s_27">verification of a digital signature of the code by some other thing</i>, </li><li><i id="_s_28">Measurement or verification by a platform component (e.g. mc) that has already been itself verified</i>, </li><li><i id="_s_29">Verification by a 3rd party off-platform component</i></li></ul>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The integrity of the first platform firmware that executes must be 
+				established by one or more of the selections in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a>. The 
+				integrity of subsequently executed platform firmware must be traceable back
+				to this root or to some other root. This SFR should be iterated for
+				additional roots (for example, a management controller or firmware executed 
+				from an add-in card).<p></p>
+				The integrity of subsequently executed platform firmware must be
+				integrity-checked using a mechanism specified in FPT_INT_EXT.1.<p></p>
+				For example, firmware written to immutable storage cannot be modified, so 
+				its integrity is ensured. The integrity of the immutable storage can be
+				extended to firmware that is not written to immutable storage through 
+				cryptographic functions implemented in the immutable storage and using
+				immutable credentials.<p></p>
+				If a platform does not have immutable storage, firmware integrity can be 
+				established through cryptographic means implemented in code that has had 
+				its integrity ensured by a NIST SP800-147/B-conformant update mechanism as 
+				defined in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>.<p></p>
+				Alternately, integrity can be established through secure storage of
+				known-good measurements in an on-platform dedicated security component, 
+				such as a Trusted Platform Module (TPM), or through a trusted measurement
+				certification process involving an off-platform third-party, such as those 
+				defined in NIST SP 800-155.<p></p>
+			</span></div></div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>:<br/><div class="activity">
+				<div class="eacategory">TSS</div>
+					The evaluator shall verify that the TSS describes the means by which initial integrity of platform firmware
+					is established, and that the means are consistent with the selection(s) made in <a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a>.
+				
+			</div></div></div></div>	
+		
 	
 	<div class="comp" id="FPT_PPF_EXT.1"><h4>FPT_PPF_EXT.1 </h4>
 		<div class="element"><div class="reqid" id="FPT_PPF_EXT.1.1"><a href="#FPT_PPF_EXT.1.1" class="abbr">FPT_PPF_EXT.1.1</a></div><div class="reqdesc">The TSF shall allow modification of platform firmware
@@ -929,7 +966,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	<div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 </h4>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The TSF shall 
-				[<b>selection</b>: <ul><li><i id="_s_25">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
+				[<b>selection</b>: <ul><li><i id="_s_30">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
 						FPT_TUD_EXT.2</i>, </li><li><i id="sel-tud-local-update">implement a secure local platform firmware update mechanism
 						described in FPT_TUD_EXT.3</i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">

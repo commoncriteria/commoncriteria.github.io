@@ -806,7 +806,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 	<div class="comp" id="FPT_ROT_EXT.1"><h4>FPT_ROT_EXT.1 Platform Integrity Root</h4>
 		<div class="element"><div class="reqid" id="FPT_ROT_EXT.1.1"><a class="abbr" href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a></div><div class="reqdesc">The integrity of platform firmware shall be rooted in 
-				[<b>selection</b>: <ul><li><i id="_s_19">code or data written to immutable memory or storage</i>, </li><li><i id="_s_20">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="_s_21">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="_s_22">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="_s_23">integrity measurements help securely by an off-platform third-party</i>, </li><li><i id="_s_24">a combination of the above</i></li></ul>]<a href="#period_136" id="period_136">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				[<b>selection</b>: <ul><li><i id="sel-rot-immutable-code">code or data written to immutable memory or storage</i>, </li><li><i id="sel-rot-immutable-creds">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="sel-rot-mc">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="sel-rot-dsc">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="sel-rot-3dP">integrity measurements help securely by an off-platform third-party</i>, </li><li><i id="sel-rot-combo">a combination of the above</i></li></ul>]<a href="#period_136" id="period_136">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The integrity of the first platform firmware that executes must be 
 				established by one or more of the selections in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a><a href="#period_137" id="period_137">. </a>The 
 				integrity of subsequently executed platform firmware must be traceable back
@@ -837,42 +837,77 @@ The following sections list Common Criteria and technology terms used in this do
 					is established, and that the means are consistent with the selection(s) made in <a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a><a href="#period_145" id="period_145">. </a>				
 			</div></div></div></div>
 
+		
+	<div class="comp" id="FPT_ROT_EXT.2"><h4>FPT_ROT_EXT.2 Platform Integrity Extension</h4>
+		<div class="element"><div class="reqid" id="FPT_ROT_EXT.2.1"><a class="abbr" href="#FPT_ROT_EXT.2.1">FPT_ROT_EXT.2.1</a></div><div class="reqdesc">The integrity of the platform integrity root shall be extended to other platform firmware before it is executed
+				and to critical platform firmware data before it is used through (verification of integrity by)
+				[<b>selection</b>: <ul><li><i id="_s_25">the code or data is in iummutable storage</i>, </li><li><i id="_s_26">computation of a hash of the next block of code/data by a previoulsy verified block</i>, </li><li><i id="_s_27">verification of a digital signature of the code by some other thing</i>, </li><li><i id="_s_28">Measurement or verification by a platform component (e.g<a href="#period_146" id="period_146">. </a>mc) that has already been itself verified</i>, </li><li><i id="_s_29">Verification by a 3rd party off-platform component</i></li></ul>]<a href="#period_147" id="period_147">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The integrity of the first platform firmware that executes must be 
+				established by one or more of the selections in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a><a href="#period_148" id="period_148">. </a>The 
+				integrity of subsequently executed platform firmware must be traceable back
+				to this root or to some other root<a href="#period_149" id="period_149">. </a>This SFR should be iterated for
+				additional roots (for example, a management controller or firmware executed 
+				from an add-in card)<a href="#period_150" id="period_150">. </a><p></p>
+				The integrity of subsequently executed platform firmware must be
+				integrity-checked using a mechanism specified in FPT_INT_EXT.1<a href="#period_151" id="period_151">. </a><p></p>
+				For example, firmware written to immutable storage cannot be modified, so 
+				its integrity is ensured<a href="#period_152" id="period_152">. </a>The integrity of the immutable storage can be
+				extended to firmware that is not written to immutable storage through 
+				cryptographic functions implemented in the immutable storage and using
+				immutable credentials<a href="#period_153" id="period_153">. </a><p></p>
+				If a platform does not have immutable storage, firmware integrity can be 
+				established through cryptographic means implemented in code that has had 
+				its integrity ensured by a NIST SP800-147/B-conformant update mechanism as 
+				defined in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_154" id="period_154">. </a><p></p>
+				Alternately, integrity can be established through secure storage of
+				known-good measurements in an on-platform dedicated security component, 
+				such as a Trusted Platform Module (TPM), or through a trusted measurement
+				certification process involving an off-platform third-party, such as those 
+				defined in NIST SP 800-155<a href="#period_155" id="period_155">. </a><p></p>
+			</span></div></div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>:<br><div class="activity">
+				<div class="eacategory">TSS</div>
+					The evaluator shall verify that the TSS describes the means by which initial integrity of platform firmware
+					is established, and that the means are consistent with the selection(s) made in <a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a><a href="#period_156" id="period_156">. </a>				
+			</div></div></div></div>	
+		
 	
 	<div class="comp" id="FPT_PPF_EXT.1"><h4>FPT_PPF_EXT.1 </h4>
 		<div class="element"><div class="reqid" id="FPT_PPF_EXT.1.1"><a class="abbr" href="#FPT_PPF_EXT.1.1">FPT_PPF_EXT.1.1</a></div><div class="reqdesc">The TSF shall allow modification of platform firmware
-				only through the update mechanisms described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_146" id="period_146">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				only through the update mechanisms described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_157" id="period_157">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				Platform firmware must be modifiable only through one of the secure update mechanisms specified 
-				in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_147" id="period_147">. </a>If the update mechanism itself is implemented in platform firmware, then
-				naturally, it must itself also be modifiable only through the secure update mechanism<a href="#period_148" id="period_148">. </a><p></p>
+				in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_158" id="period_158">. </a>If the update mechanism itself is implemented in platform firmware, then
+				naturally, it must itself also be modifiable only through the secure update mechanism<a href="#period_159" id="period_159">. </a><p></p>
 				Configuration data used by platform firmware that is stored in nonvolatile memory is not included 
-				in these protections<a href="#period_149" id="period_149">. </a><p></p>
+				in these protections<a href="#period_160" id="period_160">. </a><p></p>
 				Software portions of TSF and data critical for ensuring the integrity of the TSF are included 
-				in these protections<a href="#period_150" id="period_150">. </a>Specifically, this includes the key store and the signature verification algorithm used
-				by the update mechanisms<a href="#period_151" id="period_151">. </a>
+				in these protections<a href="#period_161" id="period_161">. </a>Specifically, this includes the key store and the signature verification algorithm used
+				by the update mechanisms<a href="#period_162" id="period_162">. </a>
 			</span></div></div></div>
 		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PPF_EXT.1">FPT_PPF_EXT.1</a>:<br><div class="activity">
 				<div class="eacategory">TSS</div>
 					The evaluator shall examine the TSS to ensure that it explains how the various areas of platform firmware and critical data 
-					are protected from modification outside of the platform firmware update mechanism described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_152" id="period_152">. </a>
+					are protected from modification outside of the platform firmware update mechanism described in <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a><a href="#period_163" id="period_163">. </a>
 					If the TOE implements a secure update mechanism as specified in FPT_TUD_EXT.2, then the evauator shall ensure
 					that the TSS describes specically how the signature verification code and key store is protected from update
-					outside of the secure platform firmware update mechanism<a href="#period_153" id="period_153">. </a>				
+					outside of the secure platform firmware update mechanism<a href="#period_164" id="period_164">. </a>				
 				<div class="eacategory">Guidance</div>
 					The evaluator shall check the operational guidance to ensure that there are instructions for how to
 					securely modify the platform firmware and critical data using a mechanism specified in 
-					FPT_TUD_EXT.2 or FPT_TUD_EXT.3<a href="#period_154" id="period_154">. </a>				
+					FPT_TUD_EXT.2 or FPT_TUD_EXT.3<a href="#period_165" id="period_165">. </a>				
 				<div class="eacategory">Tests</div>
 					<ul>
 						<li><b>Test 1: </b>Using the information contained in the TSS and in other evidences (AGD, interface
 							specifications), the evaluator shall attempt to overwrite or modify the platform firmware in the 
 							system while bypassing the authenticated update (e.g., using a modified Linux boot loader such as
-							GRUB that attempts to write to the memory where the platform firmware is stored)<a href="#period_155" id="period_155">. </a>The test 
-							succeeds if the attempts to overwrite platform firmware fail<a href="#period_156" id="period_156">. </a></li>
+							GRUB that attempts to write to the memory where the platform firmware is stored)<a href="#period_166" id="period_166">. </a>The test 
+							succeeds if the attempts to overwrite platform firmware fail<a href="#period_167" id="period_167">. </a></li>
 						<li><b>Test 2: </b>If the TOE implements an update mechanism, using the information contained in the TSS and in other evidences (AGD, interface
 							specifications), the evaluator shall attempt to overwrite or modify the TSF components (e.g., key
-							store, cryptographic algorithms)<a href="#period_157" id="period_157">. </a>The test succeeds if the attempts to overwrite platform firmware
-							fail<a href="#period_158" id="period_158">. </a><b> QQQQ: I don't like that these tests are so open-ended<a href="#period_159" id="period_159">. </a>Is there a way to tighen them up?</b></li>
+							store, cryptographic algorithms)<a href="#period_168" id="period_168">. </a>The test succeeds if the attempts to overwrite platform firmware
+							fail<a href="#period_169" id="period_169">. </a><b> QQQQ: I don't like that these tests are so open-ended<a href="#period_170" id="period_170">. </a>Is there a way to tighen them up?</b></li>
 					</ul>
 				
 			</div></div></div></div>
@@ -880,33 +915,33 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	<div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 </h4>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a class="abbr" href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The TSF shall 
-				[<b>selection</b>: <ul><li><i id="_s_25">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
+				[<b>selection</b>: <ul><li><i id="_s_30">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
 						FPT_TUD_EXT.2</i>, </li><li><i id="sel-tud-local-update">implement a secure local platform firmware update mechanism
-						described in FPT_TUD_EXT.3</i></li></ul>]<a href="#period_160" id="period_160">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+						described in FPT_TUD_EXT.3</i></li></ul>]<a href="#period_171" id="period_171">. </a>			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The secure platform firmware update mechanism is used for verifying the authenticity and integrity of
-				platform firmware updates<a href="#period_161" id="period_161">. </a>If platform firmware is immutable (not updateable by any means) then the ST author must select 
+				platform firmware updates<a href="#period_172" id="period_172">. </a>If platform firmware is immutable (not updateable by any means) then the ST author must select 
 				"make no provision for platform firmware update." If platform firmware is modifiable only through a
 				local update requiring physical presence at the platform, then the ST author must select "implement a secure
-				local update process..." and include FPT_TUD_EXT.3 in the ST<a href="#period_162" id="period_162">. </a>If the platform implements an update mechanism 
+				local update process..." and include FPT_TUD_EXT.3 in the ST<a href="#period_173" id="period_173">. </a>If the platform implements an update mechanism 
 				that does not require physical presence at the platform, then the ST author selects "implement a secure platform
-				update mechanism..." and include FPT_TUD_EXT.2 in the ST<a href="#period_163" id="period_163">. </a>			</span></div></div></div>
+				update mechanism..." and include FPT_TUD_EXT.2 in the ST<a href="#period_174" id="period_174">. </a>			</span></div></div></div>
 		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>:<br><div class="activity">
 				<div class="eacategory">TSS</div>
 					If the ST author selects "make no provision for platform firmware update," then the 
 					evaluator shall examine the TSS to ensure that it explains all ways of modifying platform 
-					firmware in the absence of any provided mechanism<a href="#period_164" id="period_164">. </a>For example, breaking open the case
-					and prying a chip off the motherboard and then reprogramming the chip<a href="#period_165" id="period_165">. </a>The purpose of this
+					firmware in the absence of any provided mechanism<a href="#period_175" id="period_175">. </a>For example, breaking open the case
+					and prying a chip off the motherboard and then reprogramming the chip<a href="#period_176" id="period_176">. </a>The purpose of this
 					activity is to ensure that the TOE does not implement a local update mechanism that does not
-					meet the requirements of FPT_TUD_EXT.3<a href="#period_166" id="period_166">. </a><p></p>
+					meet the requirements of FPT_TUD_EXT.3<a href="#period_177" id="period_177">. </a><p></p>
 					This requirement is met if the platform implements no means for updating platform firmware
 					and the TSS describes a method for updating or replacing platform firmware that involves
-					potentially destroying or damaging the TOE or some of its components<a href="#period_167" id="period_167">. </a><b>(QQQQ: The point here is to
+					potentially destroying or damaging the TOE or some of its components<a href="#period_178" id="period_178">. </a><b>(QQQQ: The point here is to
 					distinguish between secure local update and unauthorized physical update.)</b><p></p>
 					If the ST author selects "implement a secure platform update mechanism..." then this requirement is 
-					satisfied if FPT_TUD_EXT.2 is satisfied<a href="#period_168" id="period_168">. </a><p></p>
+					satisfied if FPT_TUD_EXT.2 is satisfied<a href="#period_179" id="period_179">. </a><p></p>
 					If the ST author selects "implement a secure local platform update mechanism..." then this requirement is 
-					satisfied if FPT_TUD_EXT.3 is satisfied<a href="#period_169" id="period_169">. </a><p></p>
+					satisfied if FPT_TUD_EXT.3 is satisfied<a href="#period_180" id="period_180">. </a><p></p>
 				
 			</div></div></div></div>			
 
@@ -934,40 +969,40 @@ The following sections list Common Criteria and technology terms used in this do
     <h2 class="indexable,h2" data-level="2" id="SARs">5.2 Security Assurance Requirements</h2>
       The Security Objectives in 
        were constructed to address threats identified in
-      <a href="#period_170" id="period_170">. </a>The Security Functional Requirements (SFRs)
-      in  are a formal instantiation of the Security Objectives<a href="#period_171" id="period_171">. </a>The PP
+      <a href="#period_181" id="period_181">. </a>The Security Functional Requirements (SFRs)
+      in  are a formal instantiation of the Security Objectives<a href="#period_182" id="period_182">. </a>The PP
       identifies the Security Assurance Requirements (SARs) to frame the extent to
       which the evaluator assesses the documentation applicable for the evaluation and performs
-      independent testing<a href="#period_172" id="period_172">. </a><br> This section lists the set of SARs from CC part 3
-      that are required in evaluations against this PP<a href="#period_173" id="period_173">. </a>Individual Assurance Activities
-       to be performed are specified both in  as well as in this section<a href="#period_174" id="period_174">. </a><br> The general model for evaluation of OSs against STs written to conform to this PP is as follows: <br> After the
+      independent testing<a href="#period_183" id="period_183">. </a><br> This section lists the set of SARs from CC part 3
+      that are required in evaluations against this PP<a href="#period_184" id="period_184">. </a>Individual Assurance Activities
+       to be performed are specified both in  as well as in this section<a href="#period_185" id="period_185">. </a><br> The general model for evaluation of OSs against STs written to conform to this PP is as follows: <br> After the
         ST has been approved for evaluation, the ITSEF will obtain the
         OS, supporting environmental IT, and the administrative/user guides for
-      the OS<a href="#period_175" id="period_175">. </a>The ITSEF is expected to perform actions mandated by the Common Evaluation
-      Methodology (CEM) for the ASE and ALC SARs<a href="#period_176" id="period_176">. </a>The ITSEF also performs the Assurance Activities
+      the OS<a href="#period_186" id="period_186">. </a>The ITSEF is expected to perform actions mandated by the Common Evaluation
+      Methodology (CEM) for the ASE and ALC SARs<a href="#period_187" id="period_187">. </a>The ITSEF also performs the Assurance Activities
       contained within , which are intended to be an interpretation of the
       other CEM assurance requirements as they apply to the specific technology instantiated in the
-      OS<a href="#period_177" id="period_177">. </a>The Assurance Activities that are captured in  also provide
+      OS<a href="#period_188" id="period_188">. </a>The Assurance Activities that are captured in  also provide
       clarification as to what the developer needs to provide to demonstrate the OS is compliant
-      with the PP<a href="#period_178" id="period_178">. </a>
+      with the PP<a href="#period_189" id="period_189">. </a>
 	    <h3 class="indexable,h3" data-level="3" id="ase">5.2.1 Class ASE: Security Target</h3>As per ASE activities
-        defined in <a href="#period_179" id="period_179">. </a>      <h3 class="indexable,h3" data-level="3" id="adv">5.2.2 Class ADV: Development</h3>The information about the OS is contained in the guidance documentation available to the end user as
-        well as the TSS portion of the ST<a href="#period_180" id="period_180">. </a>The OS developer must concur with the description of the product that is
-        contained in the TSS as it relates to the functional requirements<a href="#period_181" id="period_181">. </a>The Assurance Activities
+        defined in <a href="#period_190" id="period_190">. </a>      <h3 class="indexable,h3" data-level="3" id="adv">5.2.2 Class ADV: Development</h3>The information about the OS is contained in the guidance documentation available to the end user as
+        well as the TSS portion of the ST<a href="#period_191" id="period_191">. </a>The OS developer must concur with the description of the product that is
+        contained in the TSS as it relates to the functional requirements<a href="#period_192" id="period_192">. </a>The Assurance Activities
         contained in  should provide the ST authors with
-        sufficient information to determine the appropriate content for the TSS section<a href="#period_182" id="period_182">. </a>          <div class="comp" id="ADV_FSP.1"><h4>ADV_FSP.1 Basic Functional Specification (ADV_FSP.1)</h4>The
-          functional specification describes the TSFIs<a href="#period_183" id="period_183">. </a>It is not
-          necessary to have a formal or complete specification of these interfaces<a href="#period_184" id="period_184">. </a>Additionally,
+        sufficient information to determine the appropriate content for the TSS section<a href="#period_193" id="period_193">. </a>          <div class="comp" id="ADV_FSP.1"><h4>ADV_FSP.1 Basic Functional Specification (ADV_FSP.1)</h4>The
+          functional specification describes the TSFIs<a href="#period_194" id="period_194">. </a>It is not
+          necessary to have a formal or complete specification of these interfaces<a href="#period_195" id="period_195">. </a>Additionally,
           because OSs conforming to this PP will necessarily have interfaces to
           the Operational Environment that are not directly invokable by OS
           users, there is little point specifying that such interfaces be described in and of
-          themselves since only indirect testing of such interfaces may be possible<a href="#period_185" id="period_185">. </a>For this PP,
+          themselves since only indirect testing of such interfaces may be possible<a href="#period_196" id="period_196">. </a>For this PP,
           the activities for this family should focus on understanding the interfaces presented in
           the TSS in response to the functional requirements and the interfaces
-          presented in the AGD documentation<a href="#period_186" id="period_186">. </a>No additional &#8220;functional specification&#8221; documentation
-          is necessary to satisfy the assurance activities specified<a href="#period_187" id="period_187">. </a>The interfaces that need to be
+          presented in the AGD documentation<a href="#period_197" id="period_197">. </a>No additional &#8220;functional specification&#8221; documentation
+          is necessary to satisfy the assurance activities specified<a href="#period_198" id="period_198">. </a>The interfaces that need to be
           evaluated are characterized through the information needed to perform the assurance
-          activities listed, rather than as an independent, abstract list<a href="#period_188" id="period_188">. </a>
+          activities listed, rather than as an independent, abstract list<a href="#period_199" id="period_199">. </a>
             
             
 	  
@@ -979,43 +1014,43 @@ The following sections list Common Criteria and technology terms used in this do
             
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1D"><a class="abbr" href="#ADV_FSP.1.1D">ADV_FSP.1.1D</a></div><div class="reqdesc">The developer shall provide a functional specification<a href="#period_189" id="period_189">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.2C"><a class="abbr" href="#ADV_FSP.1.2C">ADV_FSP.1.2C</a></div><div class="reqdesc">The developer shall provide a tracing from the functional specification to the
-              SFRs<a href="#period_190" id="period_190">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">As indicated in the introduction to this section, the
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1D"><a class="abbr" href="#ADV_FSP.1.1D">ADV_FSP.1.1D</a></div><div class="reqdesc">The developer shall provide a functional specification<a href="#period_200" id="period_200">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.2C"><a class="abbr" href="#ADV_FSP.1.2C">ADV_FSP.1.2C</a></div><div class="reqdesc">The developer shall provide a tracing from the functional specification to the
+              SFRs<a href="#period_201" id="period_201">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">As indicated in the introduction to this section, the
               functional specification is comprised of the information contained in the AGD_OPE and
-              AGD_PRE documentation<a href="#period_191" id="period_191">. </a>The developer may reference a website accessible to application
-              developers and the evaluator<a href="#period_192" id="period_192">. </a>The assurance activities in the functional requirements
+              AGD_PRE documentation<a href="#period_202" id="period_202">. </a>The developer may reference a website accessible to application
+              developers and the evaluator<a href="#period_203" id="period_203">. </a>The assurance activities in the functional requirements
               point to evidence that should exist in the documentation and TSS
               section; since these are directly associated with the SFRs, the tracing in element
               <a href="#ADV_FSP.1">ADV_FSP.1</a>.2D is implicitly already done and no additional documentation is
-              necessary<a href="#period_193" id="period_193">. </a></span></div></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.3C"><a class="abbr" href="#ADV_FSP.1.3C">ADV_FSP.1.3C</a></div><div class="reqdesc">The functional specification shall describe the purpose and method of use for
-              each SFR-enforcing and SFR-supporting TSFI<a href="#period_194" id="period_194">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.4C"><a class="abbr" href="#ADV_FSP.1.4C">ADV_FSP.1.4C</a></div><div class="reqdesc">The functional specification shall identify all parameters associated with each
-              SFR-enforcing and SFR-supporting TSFI<a href="#period_195" id="period_195">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.5C"><a class="abbr" href="#ADV_FSP.1.5C">ADV_FSP.1.5C</a></div><div class="reqdesc">The functional specification shall provide rationale for the implicit
-              categorization of interfaces as SFR-non-interfering<a href="#period_196" id="period_196">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.6C"><a class="abbr" href="#ADV_FSP.1.6C">ADV_FSP.1.6C</a></div><div class="reqdesc">
+              necessary<a href="#period_204" id="period_204">. </a></span></div></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.3C"><a class="abbr" href="#ADV_FSP.1.3C">ADV_FSP.1.3C</a></div><div class="reqdesc">The functional specification shall describe the purpose and method of use for
+              each SFR-enforcing and SFR-supporting TSFI<a href="#period_205" id="period_205">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.4C"><a class="abbr" href="#ADV_FSP.1.4C">ADV_FSP.1.4C</a></div><div class="reqdesc">The functional specification shall identify all parameters associated with each
+              SFR-enforcing and SFR-supporting TSFI<a href="#period_206" id="period_206">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.5C"><a class="abbr" href="#ADV_FSP.1.5C">ADV_FSP.1.5C</a></div><div class="reqdesc">The functional specification shall provide rationale for the implicit
+              categorization of interfaces as SFR-non-interfering<a href="#period_207" id="period_207">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.6C"><a class="abbr" href="#ADV_FSP.1.6C">ADV_FSP.1.6C</a></div><div class="reqdesc">
 		The tracing shall demonstrate that the SFRs trace to 
 		TSFIs 
-		in the functional specification<a href="#period_197" id="period_197">. </a>	      </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.7E"><a class="abbr" href="#ADV_FSP.1.7E">ADV_FSP.1.7E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
-              for content and presentation of evidence<a href="#period_198" id="period_198">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.8E"><a class="abbr" href="#ADV_FSP.1.8E">ADV_FSP.1.8E</a></div><div class="reqdesc">The evaluator shall determine that the functional specification is an accurate
-              and complete instantiation of the SFRs<a href="#period_199" id="period_199">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ADV_FSP.1">ADV_FSP.1</a>:<br><div class="activity">There are no specific assurance activities associated with these SARs, except
-              ensuring the information is provided<a href="#period_200" id="period_200">. </a>The functional specification documentation is
+		in the functional specification<a href="#period_208" id="period_208">. </a>	      </div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.7E"><a class="abbr" href="#ADV_FSP.1.7E">ADV_FSP.1.7E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence<a href="#period_209" id="period_209">. </a></div></div><div class="element"><div class="reqid" id="ADV_FSP.1.8E"><a class="abbr" href="#ADV_FSP.1.8E">ADV_FSP.1.8E</a></div><div class="reqdesc">The evaluator shall determine that the functional specification is an accurate
+              and complete instantiation of the SFRs<a href="#period_210" id="period_210">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ADV_FSP.1">ADV_FSP.1</a>:<br><div class="activity">There are no specific assurance activities associated with these SARs, except
+              ensuring the information is provided<a href="#period_211" id="period_211">. </a>The functional specification documentation is
               provided to support the evaluation activities described in , and
-              other activities described for AGD, ATE, and AVA SARs<a href="#period_201" id="period_201">. </a>The requirements on the content
+              other activities described for AGD, ATE, and AVA SARs<a href="#period_212" id="period_212">. </a>The requirements on the content
               of the functional specification information is implicitly assessed by virtue of the
               other assurance activities being performed; if the evaluator is unable to perform an
               activity because there is insufficient interface information, then an adequate
-              functional specification has not been provided<a href="#period_202" id="period_202">. </a>	      </div></div></div></div>
+              functional specification has not been provided<a href="#period_213" id="period_213">. </a>	      </div></div></div></div>
       
 	    
       <h3 class="indexable,h3" data-level="3" id="agd">5.2.3 Class AGD: Guidance Documentation</h3>The guidance documents will be
-        provided with the ST<a href="#period_203" id="period_203">. </a>Guidance must include a description of how the IT
+        provided with the ST<a href="#period_214" id="period_214">. </a>Guidance must include a description of how the IT
         personnel verifies that the Operational Environment can fulfill its role for the security
-        functionality<a href="#period_204" id="period_204">. </a>The documentation should be in an informal style and readable by the IT
-        personnel<a href="#period_205" id="period_205">. </a>Guidance must be provided for every operational environment that the product
-        supports as claimed in the ST<a href="#period_206" id="period_206">. </a>This guidance includes instructions to
+        functionality<a href="#period_215" id="period_215">. </a>The documentation should be in an informal style and readable by the IT
+        personnel<a href="#period_216" id="period_216">. </a>Guidance must be provided for every operational environment that the product
+        supports as claimed in the ST<a href="#period_217" id="period_217">. </a>This guidance includes instructions to
         successfully install the TSF in that environment; and Instructions to
         manage the security of the TSF as a product and as a component of the
-        larger operational environment<a href="#period_207" id="period_207">. </a>Guidance pertaining to particular security functionality is
+        larger operational environment<a href="#period_218" id="period_218">. </a>Guidance pertaining to particular security functionality is
         also provided; requirements on such guidance are contained in the assurance activities
-        specified with each requirement<a href="#period_208" id="period_208">. </a>
+        specified with each requirement<a href="#period_219" id="period_219">. </a>
 	<div class="comp" id="AGD_OPE.1"><h4>AGD_OPE.1 Operational User Guidance (AGD_OPE.1)</h4>
 	    
           
@@ -1029,51 +1064,51 @@ The following sections list Common Criteria and technology terms used in this do
 	  
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1D"><a class="abbr" href="#AGD_OPE.1.1D">AGD_OPE.1.1D</a></div><div class="reqdesc">The developer shall provide operational user guidance<a href="#period_209" id="period_209">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">The operational user guidance does not have to be contained in a
-	      single document<a href="#period_210" id="period_210">. </a>Guidance to users, administrators and application developers can be
-              spread among documents or web pages<a href="#period_211" id="period_211">. </a>
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1D"><a class="abbr" href="#AGD_OPE.1.1D">AGD_OPE.1.1D</a></div><div class="reqdesc">The developer shall provide operational user guidance<a href="#period_220" id="period_220">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">The operational user guidance does not have to be contained in a
+	      single document<a href="#period_221" id="period_221">. </a>Guidance to users, administrators and application developers can be
+              spread among documents or web pages<a href="#period_222" id="period_222">. </a>
 	      Rather than repeat information here, the developer should
               review the assurance activities for this component to ascertain the specifics of the
-              guidance that the evaluator will be checking for<a href="#period_212" id="period_212">. </a>This will provide the necessary
-              information for the preparation of acceptable guidance<a href="#period_213" id="period_213">. </a></span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.2C"><a class="abbr" href="#AGD_OPE.1.2C">AGD_OPE.1.2C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, the
+              guidance that the evaluator will be checking for<a href="#period_223" id="period_223">. </a>This will provide the necessary
+              information for the preparation of acceptable guidance<a href="#period_224" id="period_224">. </a></span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.2C"><a class="abbr" href="#AGD_OPE.1.2C">AGD_OPE.1.2C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, the
               user-accessible functions and privileges that should be controlled in a secure
-              processing environment, including appropriate warnings<a href="#period_214" id="period_214">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">User and administrator are to be considered in the definition
-              of user role<a href="#period_215" id="period_215">. </a></span></div></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.3C"><a class="abbr" href="#AGD_OPE.1.3C">AGD_OPE.1.3C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, how to use the
-              available interfaces provided by the OS in a secure manner<a href="#period_216" id="period_216">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.4C"><a class="abbr" href="#AGD_OPE.1.4C">AGD_OPE.1.4C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, the available
+              processing environment, including appropriate warnings<a href="#period_225" id="period_225">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">User and administrator are to be considered in the definition
+              of user role<a href="#period_226" id="period_226">. </a></span></div></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.3C"><a class="abbr" href="#AGD_OPE.1.3C">AGD_OPE.1.3C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, how to use the
+              available interfaces provided by the OS in a secure manner<a href="#period_227" id="period_227">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.4C"><a class="abbr" href="#AGD_OPE.1.4C">AGD_OPE.1.4C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, the available
               functions and interfaces, in particular all security parameters under the control of
-              the user, indicating secure values as appropriate<a href="#period_217" id="period_217">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              the user, indicating secure values as appropriate<a href="#period_228" id="period_228">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 		This portion of the operational user guidance should be presented
 		in the form of a checklist that can be quickly executed by IT personnel (or end-users, 
-		when necessary) and suitable for use in compliance activities<a href="#period_218" id="period_218">. </a>		When possible, this guidance is to be expressed in the eXtensible Configuration 
+		when necessary) and suitable for use in compliance activities<a href="#period_229" id="period_229">. </a>		When possible, this guidance is to be expressed in the eXtensible Configuration 
 		Checklist Description Format (XCCDF) to
-		support security automation<a href="#period_219" id="period_219">. </a> 
+		support security automation<a href="#period_230" id="period_230">. </a> 
 		Minimally, it should be presented in a structured 
 		format which includes a title for each configuration item, 
-		instructions for achieving the secure configuration, and any relevant rationale<a href="#period_220" id="period_220">. </a> 
+		instructions for achieving the secure configuration, and any relevant rationale<a href="#period_231" id="period_231">. </a> 
               </span></div></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.5C"><a class="abbr" href="#AGD_OPE.1.5C">AGD_OPE.1.5C</a></div><div class="reqdesc">The operational user guidance shall, for each user role, clearly present each
               type of security-relevant event relative to the user-accessible functions that need to
               be performed, including changing the security characteristics of entities under the
-              control of the TSF<a href="#period_221" id="period_221">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.6C"><a class="abbr" href="#AGD_OPE.1.6C">AGD_OPE.1.6C</a></div><div class="reqdesc">The operational user guidance shall identify all possible modes of operation of
+              control of the TSF<a href="#period_232" id="period_232">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.6C"><a class="abbr" href="#AGD_OPE.1.6C">AGD_OPE.1.6C</a></div><div class="reqdesc">The operational user guidance shall identify all possible modes of operation of
               the OS (including operation following failure or operational
-              error), their consequences, and implications for maintaining secure operation<a href="#period_222" id="period_222">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.7C"><a class="abbr" href="#AGD_OPE.1.7C">AGD_OPE.1.7C</a></div><div class="reqdesc">The operational user guidance shall, for each user role, describe the security
+              error), their consequences, and implications for maintaining secure operation<a href="#period_233" id="period_233">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.7C"><a class="abbr" href="#AGD_OPE.1.7C">AGD_OPE.1.7C</a></div><div class="reqdesc">The operational user guidance shall, for each user role, describe the security
               measures to be followed in order to fulfill the security objectives for the
-              operational environment as described in the ST<a href="#period_223" id="period_223">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.8C"><a class="abbr" href="#AGD_OPE.1.8C">AGD_OPE.1.8C</a></div><div class="reqdesc">The operational user guidance shall be clear and reasonable<a href="#period_224" id="period_224">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.9E"><a class="abbr" href="#AGD_OPE.1.9E">AGD_OPE.1.9E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
-              for content and presentation of evidence<a href="#period_225" id="period_225">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#AGD_OPE.1">AGD_OPE.1</a>:<br><div class="activity">Some of the contents of the operational guidance are verified by the
-              assurance activities in  and evaluation of the OS according to the <a href="#period_226" id="period_226">. </a>The following additional
-              information is also required<a href="#period_227" id="period_227">. </a>If cryptographic functions are provided by the OS, the operational guidance shall contain instructions for configuring
-              the cryptographic engine associated with the evaluated configuration of the OS<a href="#period_228" id="period_228">. </a>It shall provide a warning to the administrator that use of other
+              operational environment as described in the ST<a href="#period_234" id="period_234">. </a></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.8C"><a class="abbr" href="#AGD_OPE.1.8C">AGD_OPE.1.8C</a></div><div class="reqdesc">The operational user guidance shall be clear and reasonable<a href="#period_235" id="period_235">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.9E"><a class="abbr" href="#AGD_OPE.1.9E">AGD_OPE.1.9E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence<a href="#period_236" id="period_236">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#AGD_OPE.1">AGD_OPE.1</a>:<br><div class="activity">Some of the contents of the operational guidance are verified by the
+              assurance activities in  and evaluation of the OS according to the <a href="#period_237" id="period_237">. </a>The following additional
+              information is also required<a href="#period_238" id="period_238">. </a>If cryptographic functions are provided by the OS, the operational guidance shall contain instructions for configuring
+              the cryptographic engine associated with the evaluated configuration of the OS<a href="#period_239" id="period_239">. </a>It shall provide a warning to the administrator that use of other
               cryptographic engines was not evaluated nor tested during the CC evaluation of the
-              OS<a href="#period_229" id="period_229">. </a>The documentation must describe the process for verifying
+              OS<a href="#period_240" id="period_240">. </a>The documentation must describe the process for verifying
               updates to the OS by verifying a digital signature &#8211; this may be
-              done by the OS or the underlying platform<a href="#period_230" id="period_230">. </a>The evaluator will
+              done by the OS or the underlying platform<a href="#period_241" id="period_241">. </a>The evaluator will
               verify that this process includes the following steps: Instructions for obtaining the
-              update itself<a href="#period_231" id="period_231">. </a>This should include instructions for making the update accessible to
-              the OS (e.g., placement in a specific directory)<a href="#period_232" id="period_232">. </a>Instructions for
+              update itself<a href="#period_242" id="period_242">. </a>This should include instructions for making the update accessible to
+              the OS (e.g., placement in a specific directory)<a href="#period_243" id="period_243">. </a>Instructions for
               initiating the update process, as well as discerning whether the process was
-              successful or unsuccessful<a href="#period_233" id="period_233">. </a>This includes generation of the hash/digital signature<a href="#period_234" id="period_234">. </a>              The OS will likely contain security functionality that does not
-              fall in the scope of evaluation under this PP<a href="#period_235" id="period_235">. </a>The operational guidance shall make it
+              successful or unsuccessful<a href="#period_244" id="period_244">. </a>This includes generation of the hash/digital signature<a href="#period_245" id="period_245">. </a>              The OS will likely contain security functionality that does not
+              fall in the scope of evaluation under this PP<a href="#period_246" id="period_246">. </a>The operational guidance shall make it
               clear to an administrator which security functionality is covered by the evaluation
-              activities<a href="#period_236" id="period_236">. </a></div></div></div></div>
+              activities<a href="#period_247" id="period_247">. </a></div></div></div></div>
         <div class="comp" id="AGD_PRE.1"><h4>AGD_PRE.1 Preparative Procedures (AGD_PRE.1)</h4>
             
 	  
@@ -1084,29 +1119,29 @@ The following sections list Common Criteria and technology terms used in this do
             
 	  
         <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.1D"><a class="abbr" href="#AGD_PRE.1.1D">AGD_PRE.1.1D</a></div><div class="reqdesc">The developer shall provide the OS, including its preparative
-              procedures<a href="#period_237" id="period_237">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">As with the operational guidance, the developer should look to
+              procedures<a href="#period_248" id="period_248">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">As with the operational guidance, the developer should look to
               the assurance activities to determine the required content with respect to preparative
-              procedures<a href="#period_238" id="period_238">. </a></span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.2C"><a class="abbr" href="#AGD_PRE.1.2C">AGD_PRE.1.2C</a></div><div class="reqdesc">The preparative procedures shall describe all the steps necessary for secure
+              procedures<a href="#period_249" id="period_249">. </a></span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.2C"><a class="abbr" href="#AGD_PRE.1.2C">AGD_PRE.1.2C</a></div><div class="reqdesc">The preparative procedures shall describe all the steps necessary for secure
               acceptance of the delivered OS in accordance with the developer's
-              delivery procedures<a href="#period_239" id="period_239">. </a></div></div><div class="element"><div class="reqid" id="AGD_PRE.1.3C"><a class="abbr" href="#AGD_PRE.1.3C">AGD_PRE.1.3C</a></div><div class="reqdesc">The preparative procedures shall describe all the steps necessary for secure
+              delivery procedures<a href="#period_250" id="period_250">. </a></div></div><div class="element"><div class="reqid" id="AGD_PRE.1.3C"><a class="abbr" href="#AGD_PRE.1.3C">AGD_PRE.1.3C</a></div><div class="reqdesc">The preparative procedures shall describe all the steps necessary for secure
               installation of the OS and for the secure preparation of the
               operational environment in accordance with the security objectives for the operational
-              environment as described in the ST<a href="#period_240" id="period_240">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.4E"><a class="abbr" href="#AGD_PRE.1.4E">AGD_PRE.1.4E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
-              for content and presentation of evidence<a href="#period_241" id="period_241">. </a></div></div><div class="element"><div class="reqid" id="AGD_PRE.1.5E"><a class="abbr" href="#AGD_PRE.1.5E">AGD_PRE.1.5E</a></div><div class="reqdesc">The evaluator shall apply the preparative procedures to confirm that the OS can be prepared securely for operation<a href="#period_242" id="period_242">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#AGD_PRE.1">AGD_PRE.1</a>:<br><div class="activity">As indicated in the introduction above, there are significant expectations
+              environment as described in the ST<a href="#period_251" id="period_251">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.4E"><a class="abbr" href="#AGD_PRE.1.4E">AGD_PRE.1.4E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence<a href="#period_252" id="period_252">. </a></div></div><div class="element"><div class="reqid" id="AGD_PRE.1.5E"><a class="abbr" href="#AGD_PRE.1.5E">AGD_PRE.1.5E</a></div><div class="reqdesc">The evaluator shall apply the preparative procedures to confirm that the OS can be prepared securely for operation<a href="#period_253" id="period_253">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#AGD_PRE.1">AGD_PRE.1</a>:<br><div class="activity">As indicated in the introduction above, there are significant expectations
               with respect to the documentation&#8212;especially when configuring the operational
-              environment to support OS functional requirements<a href="#period_243" id="period_243">. </a>The evaluator
+              environment to support OS functional requirements<a href="#period_254" id="period_254">. </a>The evaluator
               shall check to ensure that the guidance provided for the OS
-              adequately addresses all platforms claimed for the OS in the ST<a href="#period_244" id="period_244">. </a></div></div></div></div>
+              adequately addresses all platforms claimed for the OS in the ST<a href="#period_255" id="period_255">. </a></div></div></div></div>
       
       <h3 class="indexable,h3" data-level="3" id="alc">5.2.4 Class ALC: Life-cycle Support</h3> At the assurance level provided
         for OSs conformant to this PP, life-cycle support is limited to end-user-visible aspects of
         the life-cycle, rather than an examination of the OS vendor&#8217;s development and configuration
-        management process<a href="#period_245" id="period_245">. </a>This is not meant to diminish the critical role that a developer&#8217;s
+        management process<a href="#period_256" id="period_256">. </a>This is not meant to diminish the critical role that a developer&#8217;s
         practices play in contributing to the overall trustworthiness of a product; rather, it is a
-        reflection on the information to be made available for evaluation at this assurance level<a href="#period_246" id="period_246">. </a>          <div class="comp" id="ALC_CMC.1"><h4>ALC_CMC.1 Labeling of the TOE (ALC_CMC.1)</h4>This component is
+        reflection on the information to be made available for evaluation at this assurance level<a href="#period_257" id="period_257">. </a>          <div class="comp" id="ALC_CMC.1"><h4>ALC_CMC.1 Labeling of the TOE (ALC_CMC.1)</h4>This component is
           targeted at identifying the OS such that it can be distinguished from
           other products or versions from the same vendor and can be easily specified when being
-          procured by an end user<a href="#period_247" id="period_247">. </a>
+          procured by an end user<a href="#period_258" id="period_258">. </a>
             
 	  
             
@@ -1114,7 +1149,7 @@ The following sections list Common Criteria and technology terms used in this do
             
 	  
         <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.1D"><a class="abbr" href="#ALC_CMC.1.1D">ALC_CMC.1.1D</a></div><div class="reqdesc">The developer shall provide the OS and a reference for the
-              OS<a href="#period_248" id="period_248">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.2C"><a class="abbr" href="#ALC_CMC.1.2C">ALC_CMC.1.2C</a></div><div class="reqdesc">The OS shall be labeled with a unique reference<a href="#period_249" id="period_249">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">Unique reference information includes: 
+              OS<a href="#period_259" id="period_259">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.2C"><a class="abbr" href="#ALC_CMC.1.2C">ALC_CMC.1.2C</a></div><div class="reqdesc">The OS shall be labeled with a unique reference<a href="#period_260" id="period_260">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">Unique reference information includes: 
 	      <ul>
 		<li>OS Name</li>
 		<li>OS Version</li>
@@ -1122,17 +1157,17 @@ The following sections list Common Criteria and technology terms used in this do
 		<li>Software Identification (SWID) tags, if available</li>
               </ul>
               </span></div></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.3E"><a class="abbr" href="#ALC_CMC.1.3E">ALC_CMC.1.3E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
-              for content and presentation of evidence<a href="#period_250" id="period_250">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ALC_CMC.1">ALC_CMC.1</a>:<br><div class="activity">The evaluator will check the ST to ensure that it contains
+              for content and presentation of evidence<a href="#period_261" id="period_261">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ALC_CMC.1">ALC_CMC.1</a>:<br><div class="activity">The evaluator will check the ST to ensure that it contains
               an identifier (such as a product name/version number) that specifically identifies the
-              version that meets the requirements of the ST<a href="#period_251" id="period_251">. </a>Further, the
+              version that meets the requirements of the ST<a href="#period_262" id="period_262">. </a>Further, the
               evaluator will check the AGD guidance and OS samples received for
-              testing to ensure that the version number is consistent with that in the ST<a href="#period_252" id="period_252">. </a>If the vendor maintains a web site advertising the OS, the evaluator will examine the information on the web site to
+              testing to ensure that the version number is consistent with that in the ST<a href="#period_263" id="period_263">. </a>If the vendor maintains a web site advertising the OS, the evaluator will examine the information on the web site to
               ensure that the information in the ST is sufficient to distinguish
-              the product<a href="#period_253" id="period_253">. </a></div></div></div></div>
+              the product<a href="#period_264" id="period_264">. </a></div></div></div></div>
         <div class="comp" id="ALC_CMS.1"><h4>ALC_CMS.1 TOE CM Coverage (ALC_CMS.1)</h4>
 	  Given the scope of the OS and its associated evaluation 
 	  evidence requirements, this component&#8217;s assurance activities are covered 
-	  by the assurance activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a><a href="#period_254" id="period_254">. </a>            
+	  by the assurance activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a><a href="#period_265" id="period_265">. </a>            
 	  
             
             
@@ -1140,40 +1175,40 @@ The following sections list Common Criteria and technology terms used in this do
             
 	  
         <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.1D"><a class="abbr" href="#ALC_CMS.1.1D">ALC_CMS.1.1D</a></div><div class="reqdesc">
-		The developer shall provide a configuration list for the  OS<a href="#period_255" id="period_255">. </a>	      </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.2C"><a class="abbr" href="#ALC_CMS.1.2C">ALC_CMS.1.2C</a></div><div class="reqdesc">The configuration list shall include the following: the OS
-              itself; and the evaluation evidence required by the SARs<a href="#period_256" id="period_256">. </a></div></div><div class="element"><div class="reqid" id="ALC_CMS.1.3C"><a class="abbr" href="#ALC_CMS.1.3C">ALC_CMS.1.3C</a></div><div class="reqdesc">The configuration list shall uniquely identify the configuration items<a href="#period_257" id="period_257">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.4E"><a class="abbr" href="#ALC_CMS.1.4E">ALC_CMS.1.4E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
-              for content and presentation of evidence<a href="#period_258" id="period_258">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ALC_CMS.1">ALC_CMS.1</a>:<br><div class="activity">The "evaluation evidence required by the SARs" in this PP is limited to the
+		The developer shall provide a configuration list for the  OS<a href="#period_266" id="period_266">. </a>	      </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.2C"><a class="abbr" href="#ALC_CMS.1.2C">ALC_CMS.1.2C</a></div><div class="reqdesc">The configuration list shall include the following: the OS
+              itself; and the evaluation evidence required by the SARs<a href="#period_267" id="period_267">. </a></div></div><div class="element"><div class="reqid" id="ALC_CMS.1.3C"><a class="abbr" href="#ALC_CMS.1.3C">ALC_CMS.1.3C</a></div><div class="reqdesc">The configuration list shall uniquely identify the configuration items<a href="#period_268" id="period_268">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.4E"><a class="abbr" href="#ALC_CMS.1.4E">ALC_CMS.1.4E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence<a href="#period_269" id="period_269">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ALC_CMS.1">ALC_CMS.1</a>:<br><div class="activity">The "evaluation evidence required by the SARs" in this PP is limited to the
               information in the ST coupled with the guidance provided to
-              administrators and users under the AGD requirements<a href="#period_259" id="period_259">. </a>By ensuring that the OS is specifically identified and that this identification is
+              administrators and users under the AGD requirements<a href="#period_270" id="period_270">. </a>By ensuring that the OS is specifically identified and that this identification is
               consistent in the ST and in the AGD guidance (as done in the
               assurance activity for <a href="#ALC_CMC.1">ALC_CMC.1</a>), the evaluator implicitly confirms the information
-              required by this component<a href="#period_260" id="period_260">. </a>Life-cycle support is targeted aspects of the developer&#8217;s
+              required by this component<a href="#period_271" id="period_271">. </a>Life-cycle support is targeted aspects of the developer&#8217;s
               life-cycle and instructions to providers of applications for the developer&#8217;s devices,
               rather than an in-depth examination of the TSF manufacturer&#8217;s
-              development and configuration management process<a href="#period_261" id="period_261">. </a>This is not meant to diminish the
+              development and configuration management process<a href="#period_272" id="period_272">. </a>This is not meant to diminish the
               critical role that a developer&#8217;s practices play in contributing to the overall
               trustworthiness of a product; rather, it&#8217;s a reflection on the information to be made
-              available for evaluation<a href="#period_262" id="period_262">. </a><br> The evaluator will ensure that the developer has
+              available for evaluation<a href="#period_273" id="period_273">. </a><br> The evaluator will ensure that the developer has
               identified (in guidance documentation for application developers concerning the
               targeted platform) one or more development environments appropriate for use in
-              developing applications for the developer&#8217;s platform<a href="#period_263" id="period_263">. </a>For each of these development
+              developing applications for the developer&#8217;s platform<a href="#period_274" id="period_274">. </a>For each of these development
               environments, the developer shall provide information on how to configure the
               environment to ensure that buffer overflow protection mechanisms in the environment(s)
-              are invoked (e.g., compiler and linker flags)<a href="#period_264" id="period_264">. </a>The evaluator will ensure that this documentation
+              are invoked (e.g., compiler and linker flags)<a href="#period_275" id="period_275">. </a>The evaluator will ensure that this documentation
               also includes an indication of whether such protections are on by default, or have to
-              be specifically enabled<a href="#period_265" id="period_265">. </a>The evaluator will ensure that the TSF is
+              be specifically enabled<a href="#period_276" id="period_276">. </a>The evaluator will ensure that the TSF is
               uniquely identified (with respect to other products from the TSF
               vendor), and that documentation provided by the developer in association with the
               requirements in the ST is associated with the TSF
-              using this unique identification<a href="#period_266" id="period_266">. </a></div></div></div></div>
+              using this unique identification<a href="#period_277" id="period_277">. </a></div></div></div></div>
         <div class="comp" id="ALC_TSU_EXT.1"><h4>ALC_TSU_EXT.1 Timely Security Updates</h4> This component requires the
           OS developer, in conjunction with any other necessary parties, to provide information as
-          to how the end-user devices are updated to address security issues in a timely manner<a href="#period_267" id="period_267">. </a>The
+          to how the end-user devices are updated to address security issues in a timely manner<a href="#period_278" id="period_278">. </a>The
           documentation describes the process of providing updates to the public from the time a
-          security flaw is reported/discovered, to the time an update is released<a href="#period_268" id="period_268">. </a>This description
+          security flaw is reported/discovered, to the time an update is released<a href="#period_279" id="period_279">. </a>This description
           includes the parties involved (e.g., the developer, carriers(s)) and the steps that are
           performed (e.g., developer testing, carrier testing), including worst case time periods,
-          before an update is made available to the public<a href="#period_269" id="period_269">. </a>
+          before an update is made available to the public<a href="#period_280" id="period_280">. </a>
             
             
 	  
@@ -1183,94 +1218,94 @@ The following sections list Common Criteria and technology terms used in this do
             
 	  
         <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.1D"><a class="abbr" href="#ALC_TSU_EXT.1.1D">ALC_TSU_EXT.1.1D</a></div><div class="reqdesc">The developer shall provide a description in the TSS of how timely security
-              updates are made to the OS<a href="#period_270" id="period_270">. </a></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.2D"><a class="abbr" href="#ALC_TSU_EXT.1.2D">ALC_TSU_EXT.1.2D</a></div><div class="reqdesc"> The developer shall provide a description in the TSS of how users are notified
-              when updates change security properties or the configuration of the product<a href="#period_271" id="period_271">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.3C"><a class="abbr" href="#ALC_TSU_EXT.1.3C">ALC_TSU_EXT.1.3C</a></div><div class="reqdesc">The description shall include the process for creating and deploying security
-              updates for the OS software<a href="#period_272" id="period_272">. </a></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.4C"><a class="abbr" href="#ALC_TSU_EXT.1.4C">ALC_TSU_EXT.1.4C</a></div><div class="reqdesc">The description shall include the mechanisms publicly available for reporting
-              security issues pertaining to the OS<a href="#period_273" id="period_273">. </a><div class="appnote"><span class="note-header"> Note: </span><span class="note"> The reporting mechanism could include web sites, email addresses, as well as a
+              updates are made to the OS<a href="#period_281" id="period_281">. </a></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.2D"><a class="abbr" href="#ALC_TSU_EXT.1.2D">ALC_TSU_EXT.1.2D</a></div><div class="reqdesc"> The developer shall provide a description in the TSS of how users are notified
+              when updates change security properties or the configuration of the product<a href="#period_282" id="period_282">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.3C"><a class="abbr" href="#ALC_TSU_EXT.1.3C">ALC_TSU_EXT.1.3C</a></div><div class="reqdesc">The description shall include the process for creating and deploying security
+              updates for the OS software<a href="#period_283" id="period_283">. </a></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.4C"><a class="abbr" href="#ALC_TSU_EXT.1.4C">ALC_TSU_EXT.1.4C</a></div><div class="reqdesc">The description shall include the mechanisms publicly available for reporting
+              security issues pertaining to the OS<a href="#period_284" id="period_284">. </a><div class="appnote"><span class="note-header"> Note: </span><span class="note"> The reporting mechanism could include web sites, email addresses, as well as a
               means to protect the sensitive nature of the report (e.g., public keys that could be
-              used to encrypt the details of a proof-of-concept exploit)<a href="#period_274" id="period_274">. </a></span></div></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.5E"><a class="abbr" href="#ALC_TSU_EXT.1.5E">ALC_TSU_EXT.1.5E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all
-              requirements for content and presentation of evidence<a href="#period_275" id="period_275">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ALC_TSU_EXT.1">ALC_TSU_EXT.1</a>:<br><div class="activity"> The evaluator will verify that the TSS contains a description of the timely
-              security update process used by the developer to create and deploy security updates<a href="#period_276" id="period_276">. </a>              The evaluator will verify that this description addresses the entire application<a href="#period_277" id="period_277">. </a>The
+              used to encrypt the details of a proof-of-concept exploit)<a href="#period_285" id="period_285">. </a></span></div></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.5E"><a class="abbr" href="#ALC_TSU_EXT.1.5E">ALC_TSU_EXT.1.5E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all
+              requirements for content and presentation of evidence<a href="#period_286" id="period_286">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ALC_TSU_EXT.1">ALC_TSU_EXT.1</a>:<br><div class="activity"> The evaluator will verify that the TSS contains a description of the timely
+              security update process used by the developer to create and deploy security updates<a href="#period_287" id="period_287">. </a>              The evaluator will verify that this description addresses the entire application<a href="#period_288" id="period_288">. </a>The
               evaluator will also verify that, in addition to the OS developer&#8217;s process, any
-              third-party processes are also addressed in the description<a href="#period_278" id="period_278">. </a>The evaluator will also
-              verify that each mechanism for deployment of security updates is described<a href="#period_279" id="period_279">. </a><br> The
+              third-party processes are also addressed in the description<a href="#period_289" id="period_289">. </a>The evaluator will also
+              verify that each mechanism for deployment of security updates is described<a href="#period_290" id="period_290">. </a><br> The
               evaluator will verify that, for each deployment mechanism described for the update
               process, the TSS lists a time between public disclosure of a vulnerability and public
               availability of the security update to the OS patching this vulnerability, to include
-              any third-party or carrier delays in deployment<a href="#period_280" id="period_280">. </a>The evaluator will verify that this
-              time is expressed in a number or range of days<a href="#period_281" id="period_281">. </a><br> The evaluator will verify that
+              any third-party or carrier delays in deployment<a href="#period_291" id="period_291">. </a>The evaluator will verify that this
+              time is expressed in a number or range of days<a href="#period_292" id="period_292">. </a><br> The evaluator will verify that
               this description includes the publicly available mechanisms (including either an email
-              address or website) for reporting security issues related to the OS<a href="#period_282" id="period_282">. </a>The evaluator
+              address or website) for reporting security issues related to the OS<a href="#period_293" id="period_293">. </a>The evaluator
               shall verify that the description of this mechanism includes a method for protecting
               the report either using a public key for encrypting email or a trusted channel for a
-              website<a href="#period_283" id="period_283">. </a></div></div></div></div>
+              website<a href="#period_294" id="period_294">. </a></div></div></div></div>
       
 	    
       <h3 class="indexable,h3" data-level="3" id="ate">5.2.5 Class ATE: Tests</h3>Testing is specified for functional aspects of
-        the system as well as aspects that take advantage of design or implementation weaknesses<a href="#period_284" id="period_284">. </a>        The former is done through the ATE_IND family, while the latter is through the AVA_VAN
-        family<a href="#period_285" id="period_285">. </a>At the assurance level specified in this PP, testing is based on advertised
-        functionality and interfaces with dependency on the availability of design information<a href="#period_286" id="period_286">. </a>One
+        the system as well as aspects that take advantage of design or implementation weaknesses<a href="#period_295" id="period_295">. </a>        The former is done through the ATE_IND family, while the latter is through the AVA_VAN
+        family<a href="#period_296" id="period_296">. </a>At the assurance level specified in this PP, testing is based on advertised
+        functionality and interfaces with dependency on the availability of design information<a href="#period_297" id="period_297">. </a>One
         of the primary outputs of the evaluation process is the test report as specified in the
-        following requirements<a href="#period_287" id="period_287">. </a><div class="comp" id="ATE_IND.1"><h4>ATE_IND.1 Independent Testing &#8211; Conformance (ATE_IND.1)</h4> Testing is performed to confirm the
+        following requirements<a href="#period_298" id="period_298">. </a><div class="comp" id="ATE_IND.1"><h4>ATE_IND.1 Independent Testing &#8211; Conformance (ATE_IND.1)</h4> Testing is performed to confirm the
           functionality described in the TSS as well as the administrative
-          (including configuration and operational) documentation provided<a href="#period_288" id="period_288">. </a>The focus of the testing
+          (including configuration and operational) documentation provided<a href="#period_299" id="period_299">. </a>The focus of the testing
           is to confirm that the requirements specified in  being met,
-          although some additional testing is specified for SARs in <a href="#period_289" id="period_289">. </a>The
+          although some additional testing is specified for SARs in <a href="#period_300" id="period_300">. </a>The
           Assurance Activities identify the additional testing activities associated with these
-          components<a href="#period_290" id="period_290">. </a>The evaluator produces a test report documenting the plan for and results of
+          components<a href="#period_301" id="period_301">. </a>The evaluator produces a test report documenting the plan for and results of
           testing, as well as coverage arguments focused on the platform/OS
-          combinations that are claiming conformance to this PP<a href="#period_291" id="period_291">. </a>Given the scope of the OS and its associated evaluation evidence requirements, this component&#8217;s
-          assurance activities are covered by the assurance activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a><a href="#period_292" id="period_292">. </a>            
+          combinations that are claiming conformance to this PP<a href="#period_302" id="period_302">. </a>Given the scope of the OS and its associated evaluation evidence requirements, this component&#8217;s
+          assurance activities are covered by the assurance activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a><a href="#period_303" id="period_303">. </a>            
 	  
             
 	  
             
             
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1D"><a class="abbr" href="#ATE_IND.1.1D">ATE_IND.1.1D</a></div><div class="reqdesc">The developer shall provide the OS for testing<a href="#period_293" id="period_293">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.2C"><a class="abbr" href="#ATE_IND.1.2C">ATE_IND.1.2C</a></div><div class="reqdesc">The OS shall be suitable for testing<a href="#period_294" id="period_294">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.3E"><a class="abbr" href="#ATE_IND.1.3E">ATE_IND.1.3E</a></div><div class="reqdesc">The evaluator <i>shall confirm</i> that the information provided meets all
-              requirements for content and presentation of evidence<a href="#period_295" id="period_295">. </a></div></div><div class="element"><div class="reqid" id="ATE_IND.1.4E"><a class="abbr" href="#ATE_IND.1.4E">ATE_IND.1.4E</a></div><div class="reqdesc">The evaluator shall test a subset of the TSF to confirm that
-              the TSF operates as specified<a href="#period_296" id="period_296">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">The evaluator will test the OS on the most current fully
-              patched version of the platform<a href="#period_297" id="period_297">. </a></span></div></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ATE_IND.1">ATE_IND.1</a>:<br><div class="activity">The evaluator will prepare a test plan and report documenting the testing
-              aspects of the system, including any application crashes during testing<a href="#period_298" id="period_298">. </a>The evaluator
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1D"><a class="abbr" href="#ATE_IND.1.1D">ATE_IND.1.1D</a></div><div class="reqdesc">The developer shall provide the OS for testing<a href="#period_304" id="period_304">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.2C"><a class="abbr" href="#ATE_IND.1.2C">ATE_IND.1.2C</a></div><div class="reqdesc">The OS shall be suitable for testing<a href="#period_305" id="period_305">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.3E"><a class="abbr" href="#ATE_IND.1.3E">ATE_IND.1.3E</a></div><div class="reqdesc">The evaluator <i>shall confirm</i> that the information provided meets all
+              requirements for content and presentation of evidence<a href="#period_306" id="period_306">. </a></div></div><div class="element"><div class="reqid" id="ATE_IND.1.4E"><a class="abbr" href="#ATE_IND.1.4E">ATE_IND.1.4E</a></div><div class="reqdesc">The evaluator shall test a subset of the TSF to confirm that
+              the TSF operates as specified<a href="#period_307" id="period_307">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">The evaluator will test the OS on the most current fully
+              patched version of the platform<a href="#period_308" id="period_308">. </a></span></div></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#ATE_IND.1">ATE_IND.1</a>:<br><div class="activity">The evaluator will prepare a test plan and report documenting the testing
+              aspects of the system, including any application crashes during testing<a href="#period_309" id="period_309">. </a>The evaluator
               shall determine the root cause of any application crashes and include that information
-              in the report<a href="#period_299" id="period_299">. </a>The test plan covers all of the testing actions contained in the  and the body of this PP&#8217;s Assurance Activities<a href="#period_300" id="period_300">. </a><br> While it is
+              in the report<a href="#period_310" id="period_310">. </a>The test plan covers all of the testing actions contained in the  and the body of this PP&#8217;s Assurance Activities<a href="#period_311" id="period_311">. </a><br> While it is
               not necessary to have one test case per test listed in an Assurance Activity, the
               evaluator must document in the test plan that each applicable testing requirement in
-              the ST is covered<a href="#period_301" id="period_301">. </a>The test plan identifies the platforms to be
+              the ST is covered<a href="#period_312" id="period_312">. </a>The test plan identifies the platforms to be
               tested, and for those platforms not included in the test plan but included in the
                 ST, the test plan provides a justification for not testing the
-              platforms<a href="#period_302" id="period_302">. </a>This justification must address the differences between the tested
+              platforms<a href="#period_313" id="period_313">. </a>This justification must address the differences between the tested
               platforms and the untested platforms, and make an argument that the differences do not
-              affect the testing to be performed<a href="#period_303" id="period_303">. </a>It is not sufficient to merely assert that the
-              differences have no affect; rationale must be provided<a href="#period_304" id="period_304">. </a>If all platforms claimed in
-              the ST are tested, then no rationale is necessary<a href="#period_305" id="period_305">. </a>The test plan
+              affect the testing to be performed<a href="#period_314" id="period_314">. </a>It is not sufficient to merely assert that the
+              differences have no affect; rationale must be provided<a href="#period_315" id="period_315">. </a>If all platforms claimed in
+              the ST are tested, then no rationale is necessary<a href="#period_316" id="period_316">. </a>The test plan
               describes the composition of each platform to be tested, and any setup that is
-              necessary beyond what is contained in the AGD documentation<a href="#period_306" id="period_306">. </a>It should be noted that
+              necessary beyond what is contained in the AGD documentation<a href="#period_317" id="period_317">. </a>It should be noted that
               the evaluator is expected to follow the AGD documentation for installation and setup
-              of each platform either as part of a test or as a standard pre-test condition<a href="#period_307" id="period_307">. </a>This
-              may include special test drivers or tools<a href="#period_308" id="period_308">. </a>For each driver or tool, an argument (not
+              of each platform either as part of a test or as a standard pre-test condition<a href="#period_318" id="period_318">. </a>This
+              may include special test drivers or tools<a href="#period_319" id="period_319">. </a>For each driver or tool, an argument (not
               just an assertion) should be provided that the driver or tool will not adversely
               affect the performance of the functionality by the OS and its
-              platform<a href="#period_309" id="period_309">. </a><br> This also includes the configuration of the cryptographic engine to be
-              used<a href="#period_310" id="period_310">. </a>The cryptographic algorithms implemented by this engine are those specified by
-              this PP and used by the cryptographic protocols being evaluated (IPsec, TLS)<a href="#period_311" id="period_311">. </a>The test
+              platform<a href="#period_320" id="period_320">. </a><br> This also includes the configuration of the cryptographic engine to be
+              used<a href="#period_321" id="period_321">. </a>The cryptographic algorithms implemented by this engine are those specified by
+              this PP and used by the cryptographic protocols being evaluated (IPsec, TLS)<a href="#period_322" id="period_322">. </a>The test
               plan identifies high-level test objectives as well as the test procedures to be
-              followed to achieve those objectives<a href="#period_312" id="period_312">. </a>These procedures include expected results<a href="#period_313" id="period_313">. </a><br>
+              followed to achieve those objectives<a href="#period_323" id="period_323">. </a>These procedures include expected results<a href="#period_324" id="period_324">. </a><br>
               The test report (which could just be an annotated version of the test plan) details
               the activities that took place when the test procedures were executed, and includes
-              the actual results of the tests<a href="#period_314" id="period_314">. </a>This shall be a cumulative account, so if there was a
+              the actual results of the tests<a href="#period_325" id="period_325">. </a>This shall be a cumulative account, so if there was a
               test run that resulted in a failure; a fix installed; and then a successful re-run of
               the test, the report would show a &#8220;fail&#8221; and &#8220;pass&#8221; result (and the supporting
-              details), and not just the &#8220;pass&#8221; result<a href="#period_315" id="period_315">. </a></div></div></div></div>
+              details), and not just the &#8220;pass&#8221; result<a href="#period_326" id="period_326">. </a></div></div></div></div>
       
       <h3 class="indexable,h3" data-level="3" id="ava">5.2.6 Class AVA: Vulnerability Assessment</h3>For the first generation of
         this protection profile, the evaluation lab is expected to survey open sources to discover
-        what vulnerabilities have been discovered in these types of products<a href="#period_316" id="period_316">. </a>In most cases, these
-        vulnerabilities will require sophistication beyond that of a basic attacker<a href="#period_317" id="period_317">. </a>Until
+        what vulnerabilities have been discovered in these types of products<a href="#period_327" id="period_327">. </a>In most cases, these
+        vulnerabilities will require sophistication beyond that of a basic attacker<a href="#period_328" id="period_328">. </a>Until
         penetration tools are created and uniformly distributed to the evaluation labs, the
-        evaluator will not be expected to test for these vulnerabilities in the OS<a href="#period_318" id="period_318">. </a>The labs will be expected to comment on the likelihood of these vulnerabilities given
-        the documentation provided by the vendor<a href="#period_319" id="period_319">. </a>This information will be used in the development
-        of penetration testing tools and for the development of future protection profiles<a href="#period_320" id="period_320">. </a>        <div class="comp" id="AVA_VAN.1"><h4>AVA_VAN.1 Vulnerability Survey (AVA_VAN.1)</h4>
+        evaluator will not be expected to test for these vulnerabilities in the OS<a href="#period_329" id="period_329">. </a>The labs will be expected to comment on the likelihood of these vulnerabilities given
+        the documentation provided by the vendor<a href="#period_330" id="period_330">. </a>This information will be used in the development
+        of penetration testing tools and for the development of future protection profiles<a href="#period_331" id="period_331">. </a>        <div class="comp" id="AVA_VAN.1"><h4>AVA_VAN.1 Vulnerability Survey (AVA_VAN.1)</h4>
             
 	  
           
@@ -1279,64 +1314,64 @@ The following sections list Common Criteria and technology terms used in this do
           
           
 	  
-        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1D"><a class="abbr" href="#AVA_VAN.1.1D">AVA_VAN.1.1D</a></div><div class="reqdesc">The developer shall provide the OS for testing<a href="#period_321" id="period_321">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.2C"><a class="abbr" href="#AVA_VAN.1.2C">AVA_VAN.1.2C</a></div><div class="reqdesc">The OS shall be suitable for testing<a href="#period_322" id="period_322">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a class="abbr" href="#AVA_VAN.1.3E">AVA_VAN.1.3E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
-              for content and presentation of evidence<a href="#period_323" id="period_323">. </a></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.4E"><a class="abbr" href="#AVA_VAN.1.4E">AVA_VAN.1.4E</a></div><div class="reqdesc">The evaluator shall perform a search of public domain sources to identify
-              potential vulnerabilities in the OS<a href="#period_324" id="period_324">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">Public domain sources include the Common Vulnerabilities 
-              and Exposures (CVE) dictionary for publicly-known vulnerabilities<a href="#period_325" id="period_325">. </a> Public domain
-              sources also include sites which provide free checking of files for viruses<a href="#period_326" id="period_326">. </a></span></div></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.5E"><a class="abbr" href="#AVA_VAN.1.5E">AVA_VAN.1.5E</a></div><div class="reqdesc">The evaluator shall conduct penetration testing, based on the identified
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1D"><a class="abbr" href="#AVA_VAN.1.1D">AVA_VAN.1.1D</a></div><div class="reqdesc">The developer shall provide the OS for testing<a href="#period_332" id="period_332">. </a></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.2C"><a class="abbr" href="#AVA_VAN.1.2C">AVA_VAN.1.2C</a></div><div class="reqdesc">The OS shall be suitable for testing<a href="#period_333" id="period_333">. </a></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a class="abbr" href="#AVA_VAN.1.3E">AVA_VAN.1.3E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence<a href="#period_334" id="period_334">. </a></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.4E"><a class="abbr" href="#AVA_VAN.1.4E">AVA_VAN.1.4E</a></div><div class="reqdesc">The evaluator shall perform a search of public domain sources to identify
+              potential vulnerabilities in the OS<a href="#period_335" id="period_335">. </a><div class="appnote"><span class="note-header">Application Note: </span><span class="note">Public domain sources include the Common Vulnerabilities 
+              and Exposures (CVE) dictionary for publicly-known vulnerabilities<a href="#period_336" id="period_336">. </a> Public domain
+              sources also include sites which provide free checking of files for viruses<a href="#period_337" id="period_337">. </a></span></div></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.5E"><a class="abbr" href="#AVA_VAN.1.5E">AVA_VAN.1.5E</a></div><div class="reqdesc">The evaluator shall conduct penetration testing, based on the identified
               potential vulnerabilities, to determine that the OS is resistant to
-              attacks performed by an attacker possessing Basic attack potential<a href="#period_327" id="period_327">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#AVA_VAN.1">AVA_VAN.1</a>:<br><div class="activity">The evaluator will generate a report to document their
-              findings with respect to this requirement<a href="#period_328" id="period_328">. </a>This report could physically be part of the
-              overall test report mentioned in ATE_IND, or a separate document<a href="#period_329" id="period_329">. </a>The evaluator
+              attacks performed by an attacker possessing Basic attack potential<a href="#period_338" id="period_338">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a href="#" onclick="toggle(this);return false;"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#AVA_VAN.1">AVA_VAN.1</a>:<br><div class="activity">The evaluator will generate a report to document their
+              findings with respect to this requirement<a href="#period_339" id="period_339">. </a>This report could physically be part of the
+              overall test report mentioned in ATE_IND, or a separate document<a href="#period_340" id="period_340">. </a>The evaluator
               performs a search of public information to find vulnerabilities that have been found
               in similar applications with a particular focus on network protocols the application
-              uses and document formats it parses<a href="#period_330" id="period_330">. </a>
+              uses and document formats it parses<a href="#period_341" id="period_341">. </a>
               The evaluator documents the sources consulted and
-              the vulnerabilities found in the report<a href="#period_331" id="period_331">. </a>
+              the vulnerabilities found in the report<a href="#period_342" id="period_342">. </a>
               <br>
               For each vulnerability found, the evaluator
               either provides a rationale with respect to its non-applicability, or the evaluator
               formulates a test (using the guidelines provided in ATE_IND) to confirm the
-              vulnerability, if suitable<a href="#period_332" id="period_332">. </a>Suitability is determined by assessing the attack vector
-              needed to take advantage of the vulnerability<a href="#period_333" id="period_333">. </a>If exploiting the vulnerability
+              vulnerability, if suitable<a href="#period_343" id="period_343">. </a>Suitability is determined by assessing the attack vector
+              needed to take advantage of the vulnerability<a href="#period_344" id="period_344">. </a>If exploiting the vulnerability
               requires expert skills and an electron microscope, for instance, then a test would not
-              be suitable and an appropriate justification would be formulated<a href="#period_334" id="period_334">. </a></div></div></div></div>
+              be suitable and an appropriate justification would be formulated<a href="#period_345" id="period_345">. </a></div></div></div></div>
             
     
   <h1 class="indexable" data-level="A" id="opt-app">Appendix A -  Optional Requirements</h1>
     As indicated in the introduction to this PP, the baseline requirements (those that must be
-	  performed by the TOE) are contained in the body of this PP<a href="#period_335" id="period_335">. </a>    This appendix contains three other types of optional requirements that may be included in the ST, but are not required in order
-	  to conform to this PP<a href="#period_336" id="period_336">. </a>    However, applied modules, packages and/or use cases may refine specific requirements as mandatory<a href="#period_337" id="period_337">. </a><br><br>
+	  performed by the TOE) are contained in the body of this PP<a href="#period_346" id="period_346">. </a>    This appendix contains three other types of optional requirements that may be included in the ST, but are not required in order
+	  to conform to this PP<a href="#period_347" id="period_347">. </a>    However, applied modules, packages and/or use cases may refine specific requirements as mandatory<a href="#period_348" id="period_348">. </a><br><br>
 
    The first type (<a class="dynref" href="#optional-reqs"> A.1 Strictly Optional  Requirements
     </a>) are strictly optional requirements that are independent of the
-	  TOE implementing any function<a href="#period_338" id="period_338">. </a>   If the TOE fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to included the SFRs
-	  in the ST, but are not required in order to conform to this PP<a href="#period_339" id="period_339">. </a><br><br>
+	  TOE implementing any function<a href="#period_349" id="period_349">. </a>   If the TOE fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to included the SFRs
+	  in the ST, but are not required in order to conform to this PP<a href="#period_350" id="period_350">. </a><br><br>
 
   The second type (<a class="dynref" href="#objective-reqs"> A.2 Objective  Requirements
     </a>) are objective requirements that describe security functionality not yet 
-	  widely available in commercial technology<a href="#period_340" id="period_340">. </a>   The requirements are not currently mandated in the body of this PP, but will be included in
-	  the baseline requirements in future versions of this PP<a href="#period_341" id="period_341">. </a>Adoption by vendors is
-	  encouraged and expected as soon as possible<a href="#period_342" id="period_342">. </a><br><br>
+	  widely available in commercial technology<a href="#period_351" id="period_351">. </a>   The requirements are not currently mandated in the body of this PP, but will be included in
+	  the baseline requirements in future versions of this PP<a href="#period_352" id="period_352">. </a>Adoption by vendors is
+	  encouraged and expected as soon as possible<a href="#period_353" id="period_353">. </a><br><br>
 
   The third type (<a class="dynref" href="#feat-based-reqs"> A.3 Implementation-based  Requirements
     </a>) 
-are dependent on the TOE implementing a particular function<a href="#period_343" id="period_343">. </a>If the TOE fulfills any of these requirements, the vendor must either add the related SFR or disable the functionality for the
-	  evaluated configuration<a href="#period_344" id="period_344">. </a>
+are dependent on the TOE implementing a particular function<a href="#period_354" id="period_354">. </a>If the TOE fulfills any of these requirements, the vendor must either add the related SFR or disable the functionality for the
+	  evaluated configuration<a href="#period_355" id="period_355">. </a>
   <h2 class="indexable" data-level="2" id="optional-reqs">A.1 Strictly Optional  Requirements
     </h2><p>This PP does not define any 
-            Strictly Optional requirements<a href="#period_345" id="period_345">. </a></p><h2 class="indexable" data-level="2" id="objective-reqs">A.2 Objective  Requirements
+            Strictly Optional requirements<a href="#period_356" id="period_356">. </a></p><h2 class="indexable" data-level="2" id="objective-reqs">A.2 Objective  Requirements
     </h2><p>This PP does not define any 
-            Objective requirements<a href="#period_346" id="period_346">. </a></p><h2 class="indexable" data-level="2" id="feat-based-reqs">A.3 Implementation-based  Requirements
+            Objective requirements<a href="#period_357" id="period_357">. </a></p><h2 class="indexable" data-level="2" id="feat-based-reqs">A.3 Implementation-based  Requirements
     </h2><p>This PP does not define any 
-            Implementation-based requirements<a href="#period_347" id="period_347">. </a></p><h1 class="indexable" data-level="A" id="sel-based-reqs">Appendix B -  Selection-based  Requirements
+            Implementation-based requirements<a href="#period_358" id="period_358">. </a></p><h1 class="indexable" data-level="A" id="sel-based-reqs">Appendix B -  Selection-based  Requirements
     </h1>
 	<p>As indicated in the introduction to this PP,
         the baseline requirements
         (those that must be performed by the TOE or its underlying platform)
-        are contained in the body of this PP<a href="#period_348" id="period_348">. </a>        There are additional requirements based on selections in the body of 
+        are contained in the body of this PP<a href="#period_359" id="period_359">. </a>        There are additional requirements based on selections in the body of 
         the PP:
-        if certain selections are made, then additional requirements below must be included<a href="#period_349" id="period_349">. </a> 	</p>
+        if certain selections are made, then additional requirements below must be included<a href="#period_360" id="period_360">. </a> 	</p>
 		 <h2 class="indexable" data-level="2" id="sel-based-reqs-audit">B.1 
               Auditable Events for Selection-based  Requirements
            </h2><div class="table-caption"></div><table border="1" class=""><caption></caption></table></body></html>
