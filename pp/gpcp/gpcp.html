@@ -842,7 +842,7 @@ The following sections list Common Criteria and technology terms used in this do
 		
 	
 		<div class="comp" id="FAU_GEN.1"><h4>FAU_GEN.1 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <b><i><a href="#FPT_ROT_EXT.1.2">FPT_ROT_EXT.1.2</a>, </i></b><b><i><a href="#FPT_ROT_EXT.2.2">FPT_ROT_EXT.2.2</a></i></b>.
+.
           </i></b></div>
 		
 		
@@ -869,7 +869,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	
 	<div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation (Hashing)</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <b><i><a href="#FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</a></i></b>.
+.
           </i></b></div>
 				
                 <div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a href="#FCS_COP.1.1/Hash" class="abbr">FCS_COP.1.1/Hash</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [<i>cryptographic hashing</i>] in accordance with a specified cryptographic algorithm
@@ -999,7 +999,7 @@ The following sections list Common Criteria and technology terms used in this do
  
 		 
 		<div class="comp" id="FCS_COP.1/SigVer"><h4>FCS_COP.1/SigVer </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
+.
           </i></b></div>
 			
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/SigVer"><a href="#FCS_COP.1.1/SigVer" class="abbr">FCS_COP.1.1/SigVer</a></div><div class="reqdesc"><span class="refinement">Refinement:</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform  
@@ -1074,7 +1074,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 	<div class="comp" id="FPT_ROT_EXT.1"><h4>FPT_ROT_EXT.1 Platform Integrity Root</h4>
 		<div class="element"><div class="reqid" id="FPT_ROT_EXT.1.1"><a href="#FPT_ROT_EXT.1.1" class="abbr">FPT_ROT_EXT.1.1</a></div><div class="reqdesc">The integrity of platform firmware shall be rooted in 
-				[<b>selection</b>: <ul><li><i id="sel-rot-immutable-code">code or data written to immutable memory or storage</i>, </li><li><i id="sel-rot-immutable-creds">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="sel-rot-mc">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="sel-rot-dsc">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="sel-rot-3dP">integrity measurements held securely by an off-platform entity</i>, </li><li><i id="sel-rot-combo">a combination of the above</i></li></ul>].
+				[<b>selection</b>: <ul><li><i id="sel-rot-immutable-code">code or data written to immutable memory or storage</i>, </li><li><i id="sel-rot-immutable-creds">credentials held in immutable storage or protected off-platform</i>, </li><li><i id="sel-rot-mc">a separate management controller that is itself rooted in a mechanism that meets this requirement</i>, </li><li><i id="sel-rot-dsc">integrity measurements held securely in an on-platform dedicated security component</i>, </li><li><i id="sel-rot-offplat">integrity measurements held securely by an off-platform entity</i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The integrity of the first platform firmware that executes must be 
 				established by one or more of the selections in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a>. The 
@@ -1089,13 +1089,20 @@ The following sections list Common Criteria and technology terms used in this do
 				Alternately, integrity can be established through secure storage of
 				known-good measurements in an on-platform dedicated security component, 
 				such as a Trusted Platform Module (TPM), or through a trusted measurement
-				certification process involving an off-platform third-party, such as those 
+				certification process involving an off-platform entity, such as those 
 				defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-155.<p></p>
 			</span></div></div></div>
 		<div class="element"><div class="reqid" id="FPT_ROT_EXT.1.2"><a href="#FPT_ROT_EXT.1.2" class="abbr">FPT_ROT_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall take the following actions if an integrity check specified in <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a> fails:
-				Halt, throw an alert or audit event or notification and [<b>selection</b>: <ul><li><i id="_s_25"></i>, </li><li><i id="_s_26">Stop all execution and shut down</i>, </li><li><i id="sel-rot1-recovery">Initiate a Recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i>, </li><li><i id="_s_28"></i></li></ul>] either automatically or as Administrator initiated, including policy.
+				<ul>
+					<li>Halt,</li>
+					<li>Notify an administrator/user (generate an indication of the problem?), and</li>
+					<li>[<b>selection</b>: <ul><li><i id="_s_24">Stop all execution and shut down</i>, </li><li><i id="sel-rot1-recovery">Initiate a Recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]</li>
+				</ul> 
+				[<b>selection</b>: <ul><li><i id="_s_26">automatically</i>, </li><li><i id="_s_27">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_28">by express determination of an administrator/user</i></li></ul>].						
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-				The ability to generate audit events would generally be limited to server platforms with management controllers.
+				Notification of an administrator can take many forms. For server-class platforms, such notification could take the form 
+				of administrator alerts or audit events. For platforms without management controllers, notification could be achieved, for
+				example, by blinking lights, beep codes, screen indications, or local logging.
 			</span></div></div></div>
 		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a>:<br/><div class="activity">
@@ -1107,13 +1114,17 @@ The following sections list Common Criteria and technology terms used in this do
 					The evaluator shall examine the operational guidance to ensure that it describes the actions taken in case of failure to establish
 					the integrity of the platform firmware root. If the actions are configurable, the guidance shall explain how they are configured.
 				
+				<div class="eacategory">Tests</div>
+					<b>(It would be really great to have some tests here. Is it practical to force an integrity failure and ensure that the
+					thing that is supposed to happen actually happens?)</b>
+				
 			</div></div></div></div>
 
 		
 	<div class="comp" id="FPT_ROT_EXT.2"><h4>FPT_ROT_EXT.2 Platform Integrity Extension</h4>
 		<div class="element"><div class="reqid" id="FPT_ROT_EXT.2.1"><a href="#FPT_ROT_EXT.2.1" class="abbr">FPT_ROT_EXT.2.1</a></div><div class="reqdesc">The integrity of all platform firmware outside of the platform integrity root specified in <a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a> shall be verified 
 				prior to execution or use through:
-				[<b>selection</b>: <ul><li><i id="_s_29">the code or data being executed/used from immutable storage</i>, </li><li><i id="_s_30">computation and verification of a hash using previously verified code/data</i>, </li><li><i id="_s_31">verification of a digital signature using previously verified code/data</i>, </li><li><i id="_s_32">measurement and verification using previously verified platform code/data</i>, </li><li><i id="_s_33">measurement and verification by a 3rd-party off-platform component</i></li></ul>].
+				[<b>selection</b>: <ul><li><i id="_s_29">the code or data being executed/used from immutable storage</i>, </li><li><i id="_s_30">computation and verification of a hash using previously verified code/data</i>, </li><li><i id="_s_31">verification of a digital signature using previously verified code/data</i>, </li><li><i id="_s_32">measurement and verification using previously verified platform code/data</i>, </li><li><i id="_s_33">measurement and verification by an on-platform dedicated security component</i>, </li><li><i id="_s_34">measurement and verification by an off-platform entity</i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				This requirement specifies the means for extending the initial integrity
 				of platform firmware established by <a href="#FPT_ROT_EXT.1.1">FPT_ROT_EXT.1.1</a> to subsequently executed
@@ -1124,25 +1135,32 @@ The following sections list Common Criteria and technology terms used in this do
 				previously had its integrity verified or ensured. Verificcation can be performed
 				by <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> components such as management controllers or off-TOE 3rd-party entities.<p></p>				
 			</span></div></div></div>
-			<div class="element"><div class="reqid" id="FPT_ROT_EXT.2.2"><a href="#FPT_ROT_EXT.2.2" class="abbr">FPT_ROT_EXT.2.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall take the following actions if an integrity check specified in <a href="#FPT_ROT_EXT.2.1">FPT_ROT_EXT.2.1</a> fails:
-					[<b>selection</b>: <ul><li><i id="_s_34">Reboot the platform and try again</i>, </li><li><i id="_s_35">Stop all execution and shut down</i>, </li><li><i id="sel-rot2-recovery">Restore the firmware image to a known-good state through a Recovery Process specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i>, </li><li><i id="sel-rot2-audit">Log an audit event and notofy an administrator</i>, </li><li><i id="_s_38">Do nothing</i></li></ul>]
-				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					The ability to generate audit events would generally be limited to server platforms with management controllers.
-				</span></div></div></div>
-			
+		<div class="element"><div class="reqid" id="FPT_ROT_EXT.2.2"><a href="#FPT_ROT_EXT.2.2" class="abbr">FPT_ROT_EXT.2.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall take the following actions if an integrity check specified in <a href="#FPT_ROT_EXT.2.1">FPT_ROT_EXT.2.1</a> fails:
+				<ul>
+					<li>Halt,</li>
+					<li>Notify an administrator/user (generate an indication of the problem?), and</li>
+					<li>[<b>selection</b>: <ul><li><i id="_s_35">Stop all execution and shut down</i>, </li><li><i id="sel-rot1-recovery">Initiate a Recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]</li>
+				</ul> 
+				[<b>selection</b>: <ul><li><i id="_s_37">automatically</i>, </li><li><i id="_s_38">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_39">by express determination of an administrator/user</i></li></ul>].	
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				Notification of an administrator can take many forms. For server-class platforms, such notification could take the form 
+				of administrator alerts or audit events. For platforms without management controllers, notification could be achieved, for
+				example, by blinking lights, beep codes, screen indications, or local logging.
+			</span></div></div></div>
+		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>:<br/><div class="activity">
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the means by which initial integrity of platform firmware
-						is extended to other platform components, and that the means are consistent with the selection(s) made in <a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>.
-					
-					<div class="eacategory">Guidance</div>
-						The evaluator shall examine the operational guidance to ensure that it describes the actions taken in case of failure to establish
-						the integrity of the platform firmware root. If the actions are configurable, the guidance shall explain how they are configured.
-					
-					<div class="eacategory">Tests</div>
-						<b>Is there a reasonable way to test this?</b>
-					
-				</div></div></div></div>	
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the means by which initial integrity of platform firmware
+					is extended to other platform components, and that the means are consistent with the selection(s) made in <a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>.
+				
+				<div class="eacategory">Guidance</div>
+					The evaluator shall examine the operational guidance to ensure that it describes the actions taken in case of failure to establish
+					the integrity of the platform firmware root. If the actions are configurable, the guidance shall explain how they are configured.
+				
+				<div class="eacategory">Tests</div>
+					<b>Is there a reasonable way to test this?</b>
+				
+			</div></div></div></div>	
 		
 	
 	<div class="comp" id="FPT_PPF_EXT.1"><h4>FPT_PPF_EXT.1 </h4>
@@ -1189,7 +1207,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	
 	<div class="comp" id="FPT_RVR_EXT.1"><h4>FPT_RVR_EXT.1 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <b><i><a href="#FPT_ROT_EXT.1.2">FPT_ROT_EXT.1.2</a>, </i></b><b><i><a href="#FPT_ROT_EXT.2.2">FPT_ROT_EXT.2.2</a></i></b>.
+.
           </i></b></div>
 		
 		
@@ -1207,7 +1225,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	<div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 </h4>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-				[<b>selection</b>: <ul><li><i id="_s_39">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
+				[<b>selection</b>: <ul><li><i id="_s_40">make no provision for platform firmware update</i>, </li><li><i id="sel-tud-update">implement a secure platform firmware update mechanism as described in
 						<a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></i>, </li><li><i id="sel-tud-local-update">implement a secure local platform firmware update mechanism
 						described in <a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
@@ -1242,19 +1260,19 @@ The following sections list Common Criteria and technology terms used in this do
 
 	
 	<div class="comp" id="FPT_TUD_EXT.2"><h4>FPT_TUD_EXT.2 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
+.
           </i></b></div>
 		
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.1"><a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall authenticate the source of all platform firmware updates using a 
 				digital signature algorithm specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> and using a key store 
 				that contains 
-				[<b>selection</b>: <i id="_s_42">the public key</i>, <i id="sel-tud2-hash">hash value of the public key</i>].
+				[<b>selection</b>: <i id="_s_43">the public key</i>, <i id="sel-tud2-hash">hash value of the public key</i>].
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.2"><a href="#FPT_TUD_EXT.2.2" class="abbr">FPT_TUD_EXT.2.2</a></div><div class="reqdesc">
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow installation of updates only if the digital signature has been
 				successfully verified as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> and 
-				[<b>selection</b>: <i id="_s_44">the version number of the platform firmware update is more recent than the version number of the current
-						installed platform firmware</i>, <i id="_s_45">no other reasons</i>].
+				[<b>selection</b>: <i id="_s_45">the version number of the platform firmware update is more recent than the version number of the current
+						installed platform firmware</i>, <i id="_s_46">no other reasons</i>].
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.3"><a href="#FPT_TUD_EXT.2.3" class="abbr">FPT_TUD_EXT.2.3</a></div><div class="reqdesc">
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include an observable platform firmware version identifier that is accessible by the update mechanism and
@@ -1265,11 +1283,11 @@ The following sections list Common Criteria and technology terms used in this do
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.5"><a href="#FPT_TUD_EXT.2.5" class="abbr">FPT_TUD_EXT.2.5</a></div><div class="reqdesc">
 				On failure to authenticate a platform firmware update image, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not install the update image and
-				[<b>selection</b>: <i id="_s_46">Throw an audit event as described in (Table Ref)</i>, <i id="_s_47">Initiate auto recovery</i>, <i id="_s_48">Go dark</i>, <i id="_s_49">Struggle to reboot</i>]			
+				[<b>selection</b>: <i id="_s_47">Throw an audit event as described in (Table Ref)</i>, <i id="_s_48">Initiate auto recovery</i>, <i id="_s_49">Go dark</i>, <i id="_s_50">Struggle to reboot</i>]			
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.6"><a href="#FPT_TUD_EXT.2.6" class="abbr">FPT_TUD_EXT.2.6</a></div><div class="reqdesc">
 				On failure of the update process to install an authenticated platform firmware update image, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-				[<b>selection</b>: <i id="_s_50">Throw an audit event as described in (Table Ref)</i>, <i id="_s_51">Initiate auto recovery</i>, <i id="_s_52">Go dark</i>, <i id="_s_53">Struggle to reboot</i>]			
+				[<b>selection</b>: <i id="_s_51">Throw an audit event as described in (Table Ref)</i>, <i id="_s_52">Initiate auto recovery</i>, <i id="_s_53">Go dark</i>, <i id="_s_54">Struggle to reboot</i>]			
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The platform firmware update mechanism employs digital signatures to ensure the authenticity of the
 				firmware update image. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes a signature verification algorithm and a key
@@ -1323,7 +1341,7 @@ The following sections list Common Criteria and technology terms used in this do
 		
 		
 	<div class="comp" id="FPT_TUD_EXT.3"><h4>FPT_TUD_EXT.3 </h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <b><i><a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b>.
+.
           </i></b></div>
 		
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.3.1"><a href="#FPT_TUD_EXT.3.1" class="abbr">FPT_TUD_EXT.3.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a secure local update mechanism that requires physical access to the
@@ -1331,7 +1349,7 @@ The following sections list Common Criteria and technology terms used in this do
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.3.2"><a href="#FPT_TUD_EXT.3.2" class="abbr">FPT_TUD_EXT.3.2</a></div><div class="reqdesc">
 				The secure local update mechanism shall be used
-				[<b>selection</b>: <ul><li><i id="_s_54">to replace the manufacturer's original platform firmware image</i>, </li><li><i id="_s_55">to recover from a corrupted platform firmware installation or bricked machine</i>, </li><li><i id="_s_56">as the normal platform firmware update mechanism</i></li></ul>]
+				[<b>selection</b>: <ul><li><i id="_s_55">to replace the manufacturer's original platform firmware image</i>, </li><li><i id="_s_56">to recover from a corrupted platform firmware installation or bricked machine</i>, </li><li><i id="_s_57">as the normal platform firmware update mechanism</i></li></ul>]
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				This requirement pertains to platform firmware update mechanisms that do not use the 
 				authentication-based update mechanism described in <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>. The secure local update
