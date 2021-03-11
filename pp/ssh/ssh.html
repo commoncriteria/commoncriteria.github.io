@@ -815,280 +815,246 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory">Tests</div>
 						There are no test evaluation activities for this component. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is evaluated by activities for other SFRs
 					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator shall check to ensure that the authentication methods listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> are identical to those
+						listed in this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> component; and, ensure if password-based authentication methods have been selected in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> 
+						then these are also described; and, ensure that if keyboard-interactive is selected, it describes the
+						multifactor authentication mechanisms provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+						
+					<div class="eacategory">Guidance</div>
+						The evaluator shall check the guidance documentation to ensure the configuration options, if any, for
+						authentication mechanisms provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are described.
+					
+					<div class="eacategory">Tests</div>
+						<ul>
+							<li><b>Test 1: </b> [conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is acting as <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> Server: <p></p>
+								<ol type="a">
+									<li>The evaluator shall use a suitable <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> Client to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, enable debug messages
+										in the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> Client, and examine the debug messages to determine that only the configured authentication
+										methods for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> were offered by the server. </li>
+									<li>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server supports X509 based Client authentication options: 
+										<ol type="a">
+											<li>The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> session from a client where the username is
+												associated with the X509 certificate. The evaluator shall verify the session is successfully
+												established. </li>
+											<li>Next the evaluator shall use the same X509 certificate as above but include a 
+												username not associated with the certificate. The evaluator shall verify that the
+												session does not establish.</li>
+											<li>Finally, the evaluator shall use the correct username (from step a above) but use 
+												a different X509 certificate which is not associated with the username. The evaluator
+												shall verify that the session does not establish. </li>
+										</ol>
+									</li>
+								</ol>
+							</li>
+							<li><b>Test 2: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is acting as <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> Client, the evaluator shall test for a successful 
+								configuration setting of each authentication method as follows:
+								<ol type="a">
+									<li>The evaluator shall initiate a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> session using the authentication method configured and
+										verify that the session is successfully established.</li>
+									<li>Next, the evaluator shall use bad authentication data (e.g. incorrectly generated 
+										certificate or incorrect password) and ensure that the connection is rejected. </li>
+								</ol>
+							</li>
+							Steps a-c shall be repeated for each independently configurable authentication method supported by the server. 
+							<li><b>Test 3: </b>
+								[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is acting as <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> Client, the evaluator shall verify that the connection
+								fails upon configuration mismatch as follows: 
+								<ol type="a">
+									<li>The evaluator shall configure the Client with an authentication method not supported by
+										the Server.  </li>
+									<li>The evaluator shall verify that the connection fails. </li>
+								</ol>
+							</li>	
+						</ul>
+						If the Client supports only one authentication method, the evaluator can test this failure of connection by
+						configuring the Server with an authentication method not supported by the Client. In order to facilitate
+						this test, it is acceptable for the evaluator to configure an authentication method that is outside of the 
+						selections in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.<p></p>
+					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how “large packets” are detected and handled. 
+					
+					<div class="eacategory">Tests</div>
+						<ul>
+							<li><b>Test 1: </b>The evaluator shall demonstrate that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> accepts the maximum allowed packet size.</li>
+							<li><b>Test 2: </b>This test is performed to verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> drops packets that are larger than size
+								specified in the component.
+								<ol type="a">
+									<li>The evaluator shall establish a successful <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection with the peer. </li> 	
+									<li>Next the evaluator shall craft a packet that is one byte larger than the maximum
+										size specified in this component and send it through the established <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection
+										to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. </li>
+									<li>Evaluator shall verify that the packet was dropped by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> by reviewing the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
+										audit log for a dropped packet audit.</li>
+								</ol>
+							</li>
+						</ul>
+					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator will check the description of the implementation of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure the encryption
+						algorithms supported are specified. The evaluator will check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the encryption algorithms
+						specified are identical to those listed for this component.
+					
+					<div class="eacategory">Guidance</div>
+						The evaluator shall check the guidance documentation to ensure that it contains instructions to the
+						administrator on how to ensure that only the allowed mechanisms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+					
+					<div class="eacategory">Tests</div>
+						The evaluator shall perform the following tests.  <p></p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be both a client and a server, these tests must be performed for both roles. 
+						<ul>
+							<li><b>Test 1: </b>The evaluator must ensure that only claimed algorithms and cryptographic primitives are used to 
+								establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection. To verify this, the evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection with a 
+								remote endpoint. The evaluator shall capture the traffic exchanged between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the remote
+								endpoint during protocol negotiation (e.g. using a packet capture tool or information provided by 
+								the endpoint, respectively). The evaluator shall verify from the captured traffic that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+								offers only the algorithms defined in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections. The evaluator shall
+								perform one successful negotiation of an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection and verify that the negotiated algorithms 
+								were included in the advertised set. If the evaluator detects that not all algorithms defined in
+								the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> are advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> advertises additional algorithms not defined in 
+								the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, the test shall be regarded as failed.<p></p>
+								The data collected from the connection above shall be used for verification of the advertised
+								hashing and shared secret establishment algorithms in <a href="#FCS_SSH_EXT.1.5">FCS_SSH_EXT.1.5</a> and <a href="#FCS_SSH_EXT.1.6">FCS_SSH_EXT.1.6</a> respectively. 
+							</li>
+							<li><b>Test 2: </b>For the connection established in Test 1, the evaluator shall terminate the connection and observe
+								that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> terminates the connection.</li>
+							<li><b>Test 3: </b>The evaluator shall configure the remote endpoint to only allow a mechanism that is not included in 
+								the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selection. The evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the attempt fails.</li>
+						</ul>
+					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator will check the description of the implementation of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure the hashing
+						algorithms supported are specified. The evaluator will check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the hashing algorithms 
+						specified are identical to those listed for this component. 
+					
+					<div class="eacategory">Guidance</div>
+						The evaluator shall check the guidance documentation to ensure that it contains instructions to the 
+						administrator on how to ensure that only the allowed mechanisms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+					
+					<div class="eacategory">Tests</div>
+						<ul>
+							<li><b>Test 1: </b> The evaluator shall use the test data collected in <a href="#FCS_SSH_EXT.1.4">FCS_SSH_EXT.1.4</a>, Test 1 to verify that
+								appropriate mechanisms are advertised.</li>
+							<li><b>Test 2: </b> The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> peer to allow only a hashing algorithm that is not included
+								in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selection. The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection and observe that 
+								the connection is rejected.</li>
+						</ul>
+					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator will check the description of the implementation of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure the shared
+						secret establishment algorithms supported are specified. The evaluator will check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that
+						the shared secret establishment algorithms specified are identical to those listed for this component.
+					
+					<div class="eacategory">Guidance</div>
+						The evaluator shall check the guidance documentation to ensure that it contains instructions to the administrator 
+						on how to ensure that only the allowed mechanisms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+					
+					<div class="eacategory">Tests</div>
+						<ul>
+							<li><b>Test 1: </b>The evaluator shall use the test data collected in <a href="#FCS_SSH_EXT.1.4">FCS_SSH_EXT.1.4</a>, Test 1 to verify that appropriate 
+								mechanisms are advertised.</li>
+							<li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> peer to allow only a key exchange method that is not included in the
+								<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selection. The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection and observe that the
+								connection is rejected.</li>
+						</ul>
+					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator will check the description of the implementation of <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure the KDFs supported 
+						are specified. The evaluator will check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the KDFs specified are identical to those listed 
+						for this component.
+					
+				</div><div class="activity">
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> enforces connection rekey or termination limits
+						lower than the maximum values that these lower limits are identified.  <p></p>
+						In cases where hardware limitation will prevent reaching data transfer threshold in less than one hour, the
+						evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it contains: 
+						<ol type="a">
+							<li>An argument describing this hardware-based limitation and </li>
+							<li>Identification of the hardware components that form the basis of such argument. </li>
+						</ol>
+						<b>For example</b>, if specific Ethernet Controller or Wi-Fi radio chip is the root cause of such
+						limitation, these subsystems shall be identified.
+					
+					<div class="eacategory">Guidance</div>
+						The evaluator shall check the guidance documentation to ensure that if the connection rekey or termination 
+						limits are configurable, it contains instructions to the administrator on how to configure the relevant 
+						connection rekey or termination limits for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+					
+					<div class="eacategory">Tests</div>
+						The test harness needs to be configured so that its connection rekey or termination limits are greater than
+						the limits supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> -- it is expected that the test harness should not be initiating the
+						connection rekey or termination. <p></p>
+						<ul>
+							<li><b>Test 1: </b>Establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection.  Wait until the identified connection rekey limit is met.  Observed 
+								that a connection rekey or termination is initiated.  This may require traffic to periodically be sent, 
+								or connection keep alive to be set, to ensure that the connection is not closed due to an idle
+								timeout. </li>
+							<li><b>Test 2: </b>Establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection.  Transmit data from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> until the identified connection rekey or
+								termination limit is met.  Observe that a connection rekey or termination is initiated. </li>
+							<li><b>Test 3: </b> Establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection.  Send data to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> until the identified connection rekey limit or
+								termination is met.  Observe that a connection rekey or termination is initiated.</li>
+						</ul>
+					
 				</div></div></div></div>
 
 
 
 	
-      <div class="comp" id="FCS_SSHC_EXT.1"><h4>FCS_SSHC_EXT.1 SSH Protocol - Client</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+    <div class="comp" id="FCS_SSHC_EXT.1"><h4>FCS_SSHC_EXT.1 SSH Protocol - Client</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 <b><i></i></b>.
           </i></b></div>
-      
+		       
+		<div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.1"><a href="#FCS_SSHC_EXT.1.1" class="abbr">FCS_SSHC_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall authenticate its peer (<abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server) using one of the following mechanisms: 
+				[<b>selection</b>: <ul><li><i id="_s_58">using a local database by associating each host name with a public key corresponding to the following list:
+						[<b>selection</b>: <ul><li><i id="_s_59">ssh-rsa (RFC 4253)</i>, </li><li><i id="_s_60">rsa-sha2-256 (RFC 8332)</i>, </li><li><i id="_s_61">rsa-sha2-512 (RFC 8332)</i>, </li><li><i id="_s_62">ecdsa-sha2-nistp256 (RFC 5656)</i>, </li><li><i id="_s_63">ecdsa-sha2-nistp384 (RFC 5656)</i>, </li><li><i id="_s_64">ecdsa-sha2-nistp521 (RFC 5656)</i>, </li><li><i id="_s_65">ssh-ed25519 (RFC 8709)</i>, </li><li><i id="_s_66">ssh-ed448 (RFC 8709)</i></li></ul>]
+					</i>, </li><li><i id="_s_67">a list of trusted certification authorities when the public key is in one of the following formats:
+						[<b>selection</b>: <ul><li><i id="_s_68">x509v3-ecdsa-sha2-nistp256 (RFC 6187)</i>, </li><li><i id="_s_69">x509v3-ecdsa-sha2-nistp384 (RFC 6187)</i>, </li><li><i id="_s_70">x509v3-ecdsa-sha2-nistp521 (RFC 6187)</i>, </li><li><i id="_s_71">x509v3-rsa2048-sha256  (RFC 6187)</i></li></ul>]
+					</i></li></ul>]
+				as described in RFC 4251 section 4.1.
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The local database may be implemented using any equivalent local storage mechanism.
+			</span></div></div></div>
        
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.1"><a href="#FCS_SSHC_EXT.1.1" class="abbr">FCS_SSHC_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol implementation supports the following
-        authentication methods as described in RFC 4252: public key-based and
-          [<b>selection</b>: <i id="sel-pwd-based">password-based</i>, <i id="_s_59">no other method</i>].
-        </div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.2"><a href="#FCS_SSHC_EXT.1.2" class="abbr">FCS_SSHC_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that, as described in RFC 4253, packets greater than 
-        [<b>assignment</b>: 
-     <span class="assignable-content">number of bytes</span>] bytes in an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport connection are
-        dropped.<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-		RFC 4253 provides for the acceptance of “large packets” with the
-        	caveat that the packets should be of “reasonable length” or dropped. The assignment should
-        	be filled in by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author with the maximum packet size accepted, thus defining
-        	“reasonable length” for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
-	      </span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.3"><a href="#FCS_SSHC_EXT.1.3" class="abbr">FCS_SSHC_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses the following
-        encryption algorithms and rejects all other encryption algorithms: aes128-ctr, aes256-ctr, 
-        [<b>selection</b>: <i id="sel-sshc-aes128-cbc">aes128-cbc</i>, <i id="sel-sshc-aes256-cbc">aes256-cbc</i>, <i id="sel-sshc-aes128-gcm">AEAD_AES_128_GCM</i>, <i id="sel-sshc-aes256-gcm">AEAD_AES_256_GCM</i>, <i id="sel-aes128-gcm-openssh">aes128@openssh.com</i>, <i id="sel-aes256-gcm-openssh">aes256@openssh.com</i>, <i id="_s_66">no other algorithms</i>].
-        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-          <p>
-        RFC 5647 specifies the use of the AEAD_AES_128_GCM and
-        AEAD_AES_256_GCM algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and
-        AEAD_AES_256_GCM can only be chosen as encryption algorithms when the same algorithm is
-        being used as the MAC algorithm.
-        </p><p>If AES-GCM is selected, there should be corresponding FCS_COP entries in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
-	</p><p>RFC 5647 applies only to the RFC-compliant implementation of GCM. A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that
-		implements only the “@openssh.com” variant of GCM should not select 5647-compliant 
-		algorithms in <a href="#FCS_SSHC_EXT.1.1">FCS_SSHC_EXT.1.1</a>. aes*-gcm@openssh.com is specified in Section 1.6 of the 
-		OpenSSH Protocol Specification (https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/PROTOCOL?rev=1.31).
-        </p>
-	</span></div></div></div>
-        
-        
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.4"><a href="#FCS_SSHC_EXT.1.4" class="abbr">FCS_SSHC_EXT.1.4</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses 
-        [<b>selection</b>: <i id="sel-sshc-rsa">ssh-rsa</i>, <i id="sel-sshc-rsa-sha2-256">rsa-sha2-256</i>, <i id="sel-sshc-rsa-sha2-512">rsa-sha2-512</i>, <i id="sel-sshc-ecdsa-sha2-p256">ecdsa-sha2-nistp256</i>] and 
-        [<b>selection</b>: <i id="sel-sshc-ecdsa-sha2-p384">ecdsa-sha2-nistp384</i>, <i id="sel-sshc-x509v3-ecdsa-sha2-p256">x509v3-ecdsa-sha2-nistp256</i>, <i id="sel-sshc-x509v3-ecdsa-sha2-p384">x509v3-ecdsa-sha2-nistp384</i>, <i id="_s_74">no other public key algorithms</i>] as its public key algorithm(s) and rejects all other public key
-        algorithms.<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-        <p>Implementations that select only ssh-rsa will not achieve the
-        112-bit security strength in the digital signature generation for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> authentication as is
-        recommended in NIST SP 800-131A. 
-        
-        
-        Future versions of this document may remove ssh-rsa as a selection. 
-        
-        If "x509v3-ecdsa-sha2-nistp256" or "x509v3-ecdsa-sha2-nistp384" are selected, then
-        the list of trusted certification authorities must be selected in 
-        <a href="#FCS_SSHC_EXT.1.8">FCS_SSHC_EXT.1.8</a>. RFC 8332 specifies the use of rsa-sha2-256 or rsa-sha2-512 in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>.
-        </p><p>
-        The SFRs for cryptographic key generation and certificate validation are inherited
-        from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package.
-        </p>
-        </span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.5"><a href="#FCS_SSHC_EXT.1.5" class="abbr">FCS_SSHC_EXT.1.5</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses 
-        [<b>selection</b>: <i id="sel-sshc-hmac-sha1">hmac-sha1</i>, <i id="sel-sshc-hmac-sha1-96">hmac-sha1-96</i>, <i id="sel-sshc-hmac-sha2-256">hmac-sha2-256</i>, <i id="sel-sshc-hmac-sha2-512">hmac-sha2-512</i>] and 
-        [<b>selection</b>: <i id="sel-sshc-mac-aes128-gcm">AEAD_AES_128_GCM</i>, <i id="sel-sshc-mac-aes256-gcm">AEAD_AES_256_GCM</i>, <i id="sel-sshc-implicit">implicit</i>, <i id="_s_82">no other MAC algorithms</i>] as its data integrity MAC algorithm(s) and rejects all other MAC
-        algorithm(s).<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-          <p>
-            RFC 5647 specifies the use of the AEAD_AES_128_GCM and
-        AEAD_AES_256_GCM algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and
-        AEAD_AES_256_GCM can only be chosen as MAC algorithms when the same algorithm is being used
-        as the encryption algorithm. RFC 6668 specifies the use of the sha2 algorithms in
-        <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>.
-        </p><p>
-        The SFRs for cryptographic operations, encryption, and hashing are inherited from  
-        the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package.
-	</p><p>The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects “implicit” if and only if aes*-gcm@openssh.com is selected 
-		as an encryption algorithm. When aes*-gcm@openssh.com is negotiated as the encryption 
-		algorithm, the MAC algorithm field is ignored and GCM is implicitly used as the MAC. 
-		“implicit” is not an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> algorithm identifier and will not be seen on the wire; 
-		however, the negotiated MAC might be decoded as “implicit”.
-        </p>
-        </span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.6"><a href="#FCS_SSHC_EXT.1.6" class="abbr">FCS_SSHC_EXT.1.6</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that 
-          [<b>selection</b>: <i id="sel-sshc-dhg14-sha1">diffie-hellman-group14-sha1</i>, <i id="sel-sshc-ecdh-sha2-p256">ecdh-sha2-nistp256</i>]
-          and
-          [<b>selection</b>: <i id="sel-sshc-ecdh-sha2-p384">ecdh-sha2-nistp384</i>, <i id="sel-sshc-ecdh-sha2-p521">ecdh-sha2-nistp521</i>, <i id="_s_87">no other methods</i>]
-        are the only allowed key exchange methods used for the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol.</div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.7"><a href="#FCS_SSHC_EXT.1.7" class="abbr">FCS_SSHC_EXT.1.7</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection be rekeyed after 
-          [<b>selection</b>: <i id="_s_88">no more than 2<sup>28</sup> packets have been transmitted</i>, <i id="_s_89">no more than 1 gigabyte of data has been transmitted</i>, <i id="_s_90">no more than 1 hour</i>]
-          using that key.</div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHC_EXT.1.8"><a href="#FCS_SSHC_EXT.1.8" class="abbr">FCS_SSHC_EXT.1.8</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client authenticates the identity of the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server
-            using a local database associating each host name with its corresponding public key or 
-            [<b>selection</b>: <i id="sel-sshc-trustedCAs">a list of trusted certification authorities</i>, <i id="_s_92">no other methods</i>] as described in RFC 4251 section 4.1.<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The selection for "a list of trusted certification authorities" can only be chosen
-            if "x509v3-ecdsa-sha2-nistp256" or "x509v3-ecdsa-sha2-nistp384" are selected in 
-            <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a>.</span></div></div></div>
-       
-       
-       
-      <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_SSHC_EXT.1">FCS_SSHC_EXT.1</a>:<br/><div class="activity">
-        <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-	        The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the
-        	public key algorithms that are acceptable for use for authentication and that this list
-        	conforms to <a href="#FCS_SSHC_EXT.1.4">FCS_SSHC_EXT.1.4</a>. The evaluator shall also ensure that 
-		password-based authentication methods, if supported, are described.
-        
-          <div class="eacategory">Guidance</div>
-            If the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client supports password-based authentication, the evaluator shall examine the guidance to determine
-		  that it includes instructions on how to configure whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses password-based or public key-based
-		  authentication.
-          
-          <div class="eacategory">Tests</div>
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall, for each public key algorithm supported, show that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-          supports the use of that public key algorithm to authenticate a user connection to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>
-          server. Any configuration activities required to support this test shall be performed
-          according to instructions in the guidance documentation.</li>
-		<li><b>Test 2: </b>[<u>conditional</u>]: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports password-based authentication] Using the guidance documentation, the evaluator 
-		  shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform password-based authentication to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server, and demonstrate that
-		  a user can be successfully authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using a password as an authenticator.
-		</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-            The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how “large packets” in terms of RFC 4253 are detected and handled.
-          
-          <div class="eacategory">Guidance</div>
-            There are no guidance evaluation activities for this element.
-          
-          <div class="eacategory">Tests</div>
-            <ul>
-              The evaluator shall perform the following test:
-              <li><b>Test 1: </b>
-                The evaluator shall demonstrate that if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> receives a packet larger than that
-                specified in this element, the packet is dropped.
-              </li>
-            </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-          The evaluator shall check the description of the implementation of this protocol
-        in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported encryption algorithms and any optional characteristics. 
-        The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that
-        the encryption algorithms specified are identical to those listed for this element. 
-          
-        <div class="eacategory">Guidance</div>The evaluator shall check the guidance documentation to ensure that it contains
-        instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for
-        instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the
-        requirements). 
-        
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the encryption
-          algorithms specified by the requirement. It is sufficient to observe (on the wire) the
-          successful negotiation of the algorithm to satisfy the intent of this test.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the 3des-cbc encryption
-          algorithm and no other encryption algorithms. The evaluator shall attempt to establish an
-          <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the connection is
-          rejected.</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-            The evaluator shall check the description of the implementation of this protocol
-            in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported public key algorithms and any optional characteristics. 
-            The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that
-            the encryption algorithms specified are identical to those listed for this element. 
-          
-          <div class="eacategory">Guidance</div>The evaluator shall check the guidance documentation to ensure that it contains
-        instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for
-        instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the
-        requirements). 
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the public key
-          algorithms specified by the requirement to authenticate an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. It is
-          sufficient to observe (on the wire) the successful negotiation of the algorithm to
-          satisfy the intent of the test.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the ssh-dsa public key
-          algorithm and no other public key algorithms. The evaluator shall attempt to establish an
-          <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the connection is
-          rejected.</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-          The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported data
-        integrity algorithms and that this list corresponds to the list in this element. 
-          
-          <div class="eacategory">Guidance</div>The evaluator shall check the guidance documentation to ensure that it includes
-        instructions to the administrator on how to ensure that only the allowed data integrity
-        algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (specifically, that the “none” MAC
-        algorithm is not allowed). 
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the integrity
-          algorithms specified by the requirement. It is sufficient to observe (on the wire) the
-          successful negotiation of the algorithm to satisfy the intent of this test.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the “none” MAC algorithm.
-          The evaluator shall attempt to connect from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and observe that the
-          attempt fails.</li>
-          <li><b>Test 3: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to only allow the hmac-md5 MAC
-          algorithm. The evaluator shall attempt to connect from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server and
-          observe that the attempt fails. To ensure the proposed MAC algorithm is used, the evaluator 
-		shall ensure a non-aes*- gcm@openssh.com encryption algorithm is negotiated while 
-		performing this test.</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-          The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported key
-        exchange algorithms and that this list corresponds to the list in this element. 
-          
-          <div class="eacategory">Guidance</div>
-          The evaluator shall check the guidance documentation to ensure that it includes
-        instructions to the administrator on how to ensure that only the allowed key exchange
-        algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following test:
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server to permit all allowed key exchange
-          methods. The evaluator shall then attempt to connect from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using each
-          allowed key exchange method and observe that each attempt succeeds.</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-            There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.
-          
-          <div class="eacategory">Guidance</div>
-            There are no guidance evaluation activities for this element.
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following test for each rekeying method claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
-          <ul>  
-            The evaluator shall perform the following test:
-            <li><b>Test 1: </b>The evaluator will configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to create a log entry when a rekey occurs. The evaluator will connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with
-		    an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client and cause a rekey to occur according to the selection(s) in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and subsequently the evaluator uses
-		    available methods and tools to verify that rekeying occurs. This could be done, e.g., by checking that a corresponding audit
-		    event has been generated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports auditing of rekey events. 
-            </li>
-          </ul>
-          
-        </div><div class="activity">
-            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-              There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.
-            
-            <div class="eacategory">Guidance</div>
-              There are no guidance evaluation activities for this element.
-            
-            <div class="eacategory">Tests</div>
-              The evaluator shall perform the following tests: 
-            <ul>
-              <li><b>Test 1: </b>The evaluator shall delete all entries in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s list of recognized <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server
-                host keys and, if selected, all entries in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s list of trusted certification
-                authorities. The evaluator shall then initiate a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server.
-                The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> either rejects the connection or displays the
-                <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server’s public key (either the key bytes themselves or a hash of the key using any
-                allowed hash algorithm) and prompts the user to accept or deny the key before
-                continuing the connection.</li>
-              <li><b>Test 2: </b>The evaluator shall add an entry associating a host name with a public key into
-                the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s local database. The evaluator shall then replace, on the corresponding <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server,
-                the server’s host key with a different host key. The evaluator shall initiate a
-                connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server using password-based authentication, shall
-                ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects the connection, and shall ensure that the password was not
-                transmitted to the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server (for example, by instrumenting the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server with a
-                debugging capability to output received passwords).</li>
-            </ul>
-              
-          </div></div></div></div>
+    <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_SSHC_EXT.1">FCS_SSHC_EXT.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					No activities.
+				
+				<div class="eacategory">Guidance</div>
+					The evaluator shall check the guidance documentation to ensure that it contains instructions to the 
+					administrator on how to ensure that only the allowed mechanisms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+				
+				<div class="eacategory">Tests</div>
+					The evaluator shall perform the following tests: 
+					<ul>
+						<li><b>Test 1: </b> [conditional] If using a local database by associating each host name with its corresponding public 
+							key, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with only a single host name and corresponding public key in
+							the local database. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can successfully connect to the host identified
+							by the host name.</li>
+						<li><b>Test 2: </b>[conditional] If using a local database by associating each host name with its corresponding public key,
+							the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with only a single host name and non-corresponding public key in 
+							the local database. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fails to connect to a host not identified by 
+							the host name. </li>
+						<li><b>Test 3: </b>[conditional] If using a local database by associating each host name with its corresponding public
+							key, the evaluator shall try to connect to a host not configured in the local database. The evaluator 
+							shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> either fails to connect to a host identified by the host name or there is a prompt
+							provided to store the public key in the local database. </li>
+						<li><b>Test 4: </b>[conditional] If using a list of trusted certification authorities, the evaluator shall configure the
+							<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with only a single trusted certification authority corresponding to the host. The evaluator shall 
+							verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can successfully connect to the host identified by the host name.</li>
+						<li><b>Test 5: </b>[conditional] If using a list of trusted certification authorities, the evaluator shall configure the 
+							<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with only a single trusted certification authority that does not correspond to the host. The evaluator 
+							shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fails to the host identified by the host name.</li>
+					</ul>
+				
+			</div></div></div></div>
 
 
 
@@ -1096,258 +1062,32 @@ The following sections list Common Criteria and technology terms used in this do
     <div class="comp" id="FCS_SSHS_EXT.1"><h4>FCS_SSHS_EXT.1 SSH Protocol - Server</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 <b><i></i></b>.
           </i></b></div>
-      
-      
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.1"><a href="#FCS_SSHS_EXT.1.1" class="abbr">FCS_SSHS_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol implementation supports the following
-        authentication methods as described in RFC 4252: public key-based and
-          [<b>selection</b>: <i id="_s_93">password-based</i>, <i id="_s_94">no other method</i>].
-        </div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.2"><a href="#FCS_SSHS_EXT.1.2" class="abbr">FCS_SSHS_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that, as described in RFC 4253, packets greater than 
-        [<b>assignment</b>: 
-     <span class="assignable-content">number of bytes</span>] bytes in an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport connection are
-        dropped.<div class="appnote"><span class="note-header">Application Note: </span><span class="note">RFC 4253 provides for the acceptance of “large packets” with the
-        caveat that the packets should be of “reasonable length” or dropped. The assignment should
-        be filled in by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author with the maximum packet size accepted, thus defining
-        “reasonable length” for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.3"><a href="#FCS_SSHS_EXT.1.3" class="abbr">FCS_SSHS_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses the following
-          encryption algorithms and rejects all other encryption algorithms: aes128-ctr, 
-          aes256-ctr, [<b>selection</b>: <i id="sel-sshs-aes128-cbc">aes128-cbc</i>, <i id="sel-sshs-aes256-cbc">aes256-cbc</i>, <i id="sel-sshs-aes128-gcm">AEAD_AES_128_GCM</i>, <i id="sel-sshs-aes256-gcm">AEAD_AES_256_GCM</i>, <i id="sel-sshs-aes128-gcm-openssl">aes128-gcm@openssh.com</i>, <i id="sel-sshs-aes256-gcm-openssl">aes256-gcm@openssh.com</i>, <i id="_s_101">no other algorithms</i>].
-        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-          <p>
-          RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM
-          algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and
-          AEAD_AES_256_GCM can only be chosen as encryption algorithms when the same
-          algorithm is being used as the MAC algorithm.
-	  </p><p>RFC 5647 applies only to the RFC compliant implementation of GCM. A <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that  
-		implements only the “@openssh.com” variant of GCM should not select 5647-compliant 
-		algorithms in <a href="#FCS_SSHS_EXT.1.1">FCS_SSHS_EXT.1.1</a>. aes*-gcm@openssh.com is specified in Section 1.6 of the 
-		OpenSSH Protocol Specification (https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/PROTOCOL?rev=1.31).
-        </p>
-        </span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.4"><a href="#FCS_SSHS_EXT.1.4" class="abbr">FCS_SSHS_EXT.1.4</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses 
-          [<b>selection</b>: <i id="sel-sshs-rsa">ssh-rsa</i>, <i id="sel-sshs-rsa-sha2-256">rsa-sha2-256</i>, <i id="sel-sshs-rsa-sha2-512">rsa-sha2-512</i>, <i id="sel-sshs-ecdsa-sha2-p256">ecdsa-sha2-nistp256</i>]
-           and 
-          [<b>selection</b>: <i id="sel-sshs-ecdsa-sha2-p384">ecdsa-sha2-nistp384</i>, <i id="sel-sshs-x508v3-ecdsa-sha2-p256">x509v3-ecdsa-sha2-nistp256</i>, <i id="sel-sshs-x509v3-ecdsa-sha2-p384">x509v3-ecdsa-sha2-nistp384</i>, <i id="_s_109">no other public key algorithms</i>]
-        as its public key algorithm(s) and
-        rejects all other public key algorithms.
-        <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-          <p>
-          Implementations that select only ssh-rsa will not achieve the 112-bit security strength in the
-          digital signature generation for <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> authentication as is recommended in NIST SP 800-131A. 
-          
-          
-          Future versions of this document may remove ssh-rsa as a selection.  
-          
-          RFC 8332 specifies the use of rsa-sha2-256 or rsa-sha2-512 in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>.
-          </p><p>
-          The SFRs for cryptographic key generation and certificate validation are inherited
-          from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package.
-          </p>
-        </span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.5"><a href="#FCS_SSHS_EXT.1.5" class="abbr">FCS_SSHS_EXT.1.5</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> transport implementation uses 
-        [<b>selection</b>: <i id="sel-sshs-hmac-sha1">hmac-sha1</i>, <i id="sel-sshs-hmac-sha1-96">hmac-sha1-96</i>, <i id="sel-sshs-hmac-sha2-256">hmac-sha2-256</i>, <i id="sel-sshs-hmac-sha2-512">hmac-sha2-512</i>]
-          and
-        [<b>selection</b>: <i id="sel-sshs-mac-aes128-gcm">AEAD_AES_128_GCM</i>, <i id="sel-sshs-mac-aes256-gcm">AEAD_AES_256_GCM</i>, <i id="sel-sshs-implicit">implicit</i>, <i id="_s_117">no other MAC algorithms</i>]
-        as its MAC algorithm(s) and rejects all
-        other MAC algorithm(s).<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-          <p>
-          RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM
-          algorithms in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>. As described in RFC 5647, AEAD_AES_128_GCM and
-          AEAD_AES_256_GCM can only be chosen as MAC algorithms when the same algorithm is
-          being used as the encryption algorithm. RFC 6668 specifies the use of the sha2 algorithms
-          in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>.
-          </p><p>
-          The SFRs for cryptographic operations, encryption and hashing, are inherited from the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> that includes this Package.
-	  </p><p>The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects “implicit” if and only if aes*-gcm@openssh.com is selected as an 
-		encryption algorithm. When aes*-gcm@openssh.com is negotiated as the encryption
-		algorithm, the MAC algorithm field is ignored and GCM is implicitly used as the MAC.
-		“implicit” is not an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> algorithm identifier and will not be seen on the wire; however,
-		the negotiated MAC might be decoded as “implicit”.	
-           </p>
-        </span></div></div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.6"><a href="#FCS_SSHS_EXT.1.6" class="abbr">FCS_SSHS_EXT.1.6</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that 
-        [<b>selection</b>: <i id="sel-sshs-dhg14-sha1">diffie-hellman-group14-sha1</i>, <i id="sel-sshs-ecdh-sha2-p256">ecdh-sha2-nistp256</i>]
-          and
-        [<b>selection</b>: <i id="sel-sshs-ecdh-sha2-p384">ecdh-sha2-nistp384</i>, <i id="sel-sshs-ecdh-sha2-p521">ecdh-sha2-nistp521</i>, <i id="_s_122">no other methods</i>]
-        are the only allowed key exchange
-        methods used for the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> protocol.</div></div>
-      <div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.7"><a href="#FCS_SSHS_EXT.1.7" class="abbr">FCS_SSHS_EXT.1.7</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection be rekeyed after 
-          [<b>selection</b>: <i id="_s_123">no more than 2<sup>28</sup> packets have been transmitted</i>, <i id="_s_124">no more than 1 gigabyte of data has been transmitted</i>, <i id="_s_125">no more than 1 hour</i>]
-         using that key.</div></div>
-       
-       
-       
-    <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_SSHS_EXT.1">FCS_SSHS_EXT.1</a>:<br/><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-          The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the
-        public key algorithms that are acceptable for use for authentication and that this list
-        conforms to 
-        <a href="#FCS_SSHS_EXT.1.4">FCS_SSHS_EXT.1.4</a>. The evaluator shall also ensure that password-based authentication
-        methods, if supported, are described.
-          
-          <div class="eacategory">Guidance</div>
-            If the <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> server supports password-based authentication, the evaluator shall examine the guidance to determine that it includes instructions on how to configure whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses password-based or public key-based authentication.
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall, for each public key algorithm supported, show that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-          supports the use of that public key algorithm to authenticate a user connection from an
-          <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client. Any configuration activities required to support this test shall be performed
-          according to instructions in the guidance documentation.</li>
-          <li><b>Test 2: </b>
-          The evaluator shall choose one public key algorithm supported by the
-          <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall generate a new key pair for that algorithm without
-          configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize the public key for authentication. The
-          evaluator shall use an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the
-          new key pair and demonstrate that authentication fails.
-          </li>
-		<li><b>Test 3: </b>[<u>conditional</u>]: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports password-based authentication] Using the guidance documentation, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform
-          password-based authentication on a client and demonstrate that a user can be
-          successfully authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using a password as an authenticator.</li>
-          <li><b>Test 4: </b>
-            [<u>conditional</u>]: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports password-based authentication] The evaluator shall use an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to enter an incorrect password to
-            attempt to authenticate to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and demonstrate that the authentication
-            fails.
-          </li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how “large packets” in terms of
-        RFC 4253 are detected and handled.
-          
-          <div class="eacategory">Guidance</div>
-            There are no guidance evaluation activities for this element.
-          
-          <div class="eacategory">Tests</div>
-        <ul>
-          The evaluator shall perform the following test:
-          <li><b>Test 1: </b>
-        The evaluator shall demonstrate that if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> receives a packet larger than that
-        specified in this element, the packet is dropped.
-          </li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
- 	The evaluator shall check the description of the implementation of this protocol
-        in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported encryption algorithms and any optional characteristics. 
-        The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that
-        the encryption algorithms specified are identical to those listed for this element.
-          
-          <div class="eacategory">Guidance</div>
-            The evaluator shall check the guidance documentation to ensure that it contains
-            instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for
-            instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the
-            requirements). 
-          
-        <div class="eacategory">Tests</div>
-          The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection using each of the encryption
-          algorithms specified by the requirement. It is sufficient to observe (on the wire) the
-          successful negotiation of the algorithm to satisfy the intent of this test.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only propose the 3des-cbc encryption
-          algorithm and no other encryption algorithms. The evaluator shall attempt to establish an
-          <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection from this client to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> server and observe that the connection is
-          rejected.</li>
-        </ul>
-        
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-            The evaluator shall check the description of the implementation of this protocol
-            in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the supported public key algorithms and any optional characteristics. 
-            The evaluator shall also check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that
-            the encryption algorithms specified are identical to those listed for this element. 
-          
-          <div class="eacategory">Guidance</div>The evaluator shall check the guidance documentation to ensure that it contains
-            instructions on configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (for
-            instance, the set of algorithms advertised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may have to be restricted to meet the
-            requirements). 
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>Using an appropriately configured client, the evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>
-          connection using each of the public key algorithms specified by the requirement to
-          authenticate to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. It is sufficient to observe (on the wire) the successful negotiation of the
-          algorithm to satisfy the intent of this test.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to propose only the ssh-dsa public key
-          algorithm and no other public key algorithms. Using this client, the evaluator shall
-          attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connection to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the connection is
-          rejected.</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-          The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported data
-        integrity algorithms and that this list corresponds to the list in this element. 
-          
-          <div class="eacategory">Guidance</div>The evaluator shall check the guidance documentation to ensure that it includes
-        instructions to the administrator on how to ensure that only the allowed data integrity
-        algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (specifically, that the “none” and "hmac-md5" MAC
-        algorithms are not allowed). 
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>Using an appropriately configured client, the evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>
-          connection with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using each of the integrity algorithms specified by the requirement. It is
-          sufficient to observe (on the wire) the successful negotiation of the algorithm to
-          satisfy the intent of the test.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only propose the “none” MAC
-          algorithm. Using this client, the evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and
-          observe that the attempt fails.</li>
-          <li><b>Test 3: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only propose the hmac-md5 MAC
-          algorithm. Using this client, the evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and
-          observe that the attempt fails. To ensure the proposed MAC algorithm is used, the
-		  evaluator shall ensure a non-aes*- gcm@openssh.com encryption algorithm is negotiated 
-		  while performing this test.
-		</li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists the supported key
-        exchange algorithms and that this list corresponds to the list in this element.
-          
-        <div class="eacategory">Guidance</div>
-          The evaluator shall check the guidance documentation to ensure that it includes
-        instructions to the administrator on how to ensure that only the allowed key exchange
-        algorithms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
-        
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following tests:
-        <ul>
-          <li><b>Test 1: </b>For each of the allowed key exchange methods, the evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>
-          client to propose only that method and then attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall confirm that each attempt
-          succeeds.</li>
-          <li><b>Test 2: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to only allow the diffie-hellman-group1-sha1
-            key exchange. The evaluator shall attempt to use this <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and confirm that this attempt fails.
-            </li>
-        </ul>
-          
-        </div><div class="activity">
-          <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-            There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.
-          
-          <div class="eacategory">Guidance</div>
-            If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has the ability to generate a log when an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> rekey occurs, the evaluator shall examine the operational guidance to verify that it describes any configuration that is needed for this to be performed.
-          
-          <div class="eacategory">Tests</div>
-            The evaluator shall perform the following test for each rekeying method claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
-          <ul>  
-            The evaluator shall perform the following test:
-            <li><b>Test 1: </b>The evaluator will configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to create a log entry when a rekey occurs. The evaluator will connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with
-		    an <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> client and cause a rekey to occur according to the selection(s) in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and subsequently the evaluator uses
-		    available methods and tools to verify that rekeying occurs. This could be done, e.g., by checking that a corresponding audit
-		    event has been generated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports auditing of rekey events. 
-            </li>
-	  </ul>
-          
-        </div></div></div></div>
-  
+		
+		<div class="element"><div class="reqid" id="FCS_SSHS_EXT.1.1"><a href="#FCS_SSHS_EXT.1.1" class="abbr">FCS_SSHS_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall authenticate itself to its peer (<abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> Client) using one of the following mechanisms:
+				[<b>selection</b>: <ul><li><i id="_s_72">ssh-rsa (RFC 4253)</i>, </li><li><i id="_s_73">rsa-sha2-256 (RFC 8332)</i>, </li><li><i id="_s_74">rsa-sha2-512 (RFC 8332)</i>, </li><li><i id="_s_75">ecdsa-sha2-nistp256 (RFC 5656)</i>, </li><li><i id="_s_76">ecdsa-sha2-nistp384 (RFC 5656)</i>, </li><li><i id="_s_77">ecdsa-sha2-nistp521 (RFC 5656)</i>, </li><li><i id="_s_78">x509v3-ecdsa-sha2-nistp256 (RFC 6187)</i>, </li><li><i id="_s_79">x509v3-ecdsa-sha2-nistp384 (RFC 6187)</i>, </li><li><i id="_s_80">x509v3-ecdsa-sha2-nistp521 (RFC 6187)</i>, </li><li><i id="_s_81">x509v3-rsa2048-sha256  (RFC 6187)</i>, </li><li><i id="_s_82">ssh-ed25519 (RFC 8709)</i>, </li><li><i id="_s_83">ssh-ed448 (RFC 8709)</i></li></ul>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				These requirements relate to Server authenticating to the Client. The Client authenticating to the Server is covered
+				in <a href="#FCS_SSHC_EXT.1.1">FCS_SSHC_EXT.1.1</a>.
+			</span></div></div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_SSHS_EXT.1">FCS_SSHS_EXT.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					No activites.
+				
+				<div class="eacategory">Guidance</div>
+					The evaluator shall check the guidance documentation to ensure that it contains instructions to the administrator
+					on how to ensure that only the allowed mechanisms are used in <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> connections with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+				
+				<div class="eacategory">Tests</div>
+					The evaluator shall repeat Test 1 and Test 2 from <a href="#FCS_SSH_EXT.1.4">FCS_SSH_EXT.1.4</a> for each of the authentication mechanisms 
+					supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.  <p></p>
+					Next the evaluator shall configure the remote peer to only allow an authentication mechanism that is not included 
+					in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selection. The evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the attempt fails.
+				
+			</div></div></div></div>
 
-	<h1 id="impl-reqs" class="indexable" data-level="A">Appendix A -  Implementation-Dependent Requirements</h1>
+
+<h1 id="impl-reqs" class="indexable" data-level="A">Appendix A -  Implementation-Dependent Requirements</h1>
                 Implementation-Dependent Requirements 
 are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing a particular function.
 If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements, the vendor must either add the related <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> or disable the functionality for the
@@ -1364,21 +1104,47 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
              3: Security Assurance Components</a>,
              CCMB-2017-04-003, Version 3.1, Revision 5,  April 2017.
          </li></ul></td></tr><tr><td><span id="bibGPOS">[GPOSPP]</span></td><td>
-          <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=442">Protection Profile for General 
-            Purpose Operating Systems
-            </a>
-        </td></tr><tr><td><span id="bibMDM">[MDMPP]</span></td><td>
-          <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=428">Protection Profile for Mobile 
-            Device Management
-          </a>
-        </td></tr><tr><td><span id="bibAppPP">[AppPP]</span></td><td>
-          <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=429">Protection Profile for Application
-            Software</a>
-        </td></tr><tr><td><span id="bibVirt">[VirtPP]</span></td><td>
-          <a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=408">Protection Profile for 
-            Virtualization</a>
-        </td></tr>ext-comp-def
+				<a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=442">Protection Profile for General Purpose Operating Systems</a>
+			</td></tr><tr><td><span id="bibMDM">[MDMPP]</span></td><td>
+				<a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=428">Protection Profile for Mobile Device Management</a>
+			</td></tr><tr><td><span id="bibAppPP">[AppPP]</span></td><td>
+				<a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=429">Protection Profile for Application Software</a>
+			</td></tr><tr><td><span id="bibVirt">[VirtPP]</span></td><td>
+				<a href="https://www.niap-ccevs.org/Profile/Info.cfm?id=408">Protection Profile for Virtualization</a>
+			</td></tr><tr><td><span id="bibOpenssh">[openssh-portable/ PROTOCOL]</span></td><td>
+				<a href="https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/PROTOCOL?rev=1.31">OpenSSH's deviations and extensions (1.6 transport: AES-GCM) </a>
+			</td></tr><tr><td><span id="bibRFC4251">[RFC 4251]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc4251">The Secure Shell (SSH) Protocol Architecture </a>
+			</td></tr><tr><td><span id="bibRFC4252 ">[RFC 4252 ]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc4252">The Secure Shell (SSH) Authentication Protocol</a>
+			</td></tr><tr><td><span id="bibRFC4253">[RFC 4253]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc4253">The Secure Shell (SSH) Transport Layer Protocol</a>
+			</td></tr><tr><td><span id="bibRFC4254">[RFC 4254]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc4254">The Secure Shell (SSH) Connection Protocol</a>
+			</td></tr><tr><td><span id="bibRFC4256">[RFC 4256]</span></td><td>
+				<a href="https://www.ietf.org/rfc/rfc4256.txt">Generic Message Exchange Authentication for the Secure Shell Protocol (SSH)</a>
+			</td></tr><tr><td><span id="bibRFC4344">[RFC 4344]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc4344">The Secure Shell (SSH) Transport Layer Encryption Modes</a>
+			</td></tr><tr><td><span id="bibRFC5647">[RFC 5647]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc5647">AES Galois Counter Mode for the Secure Shell Transport Layer Protocol</a>
+			</td></tr><tr><td><span id="bibRFC5656">[RFC 5656]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc5656">Elliptic Curve Algorithm Integration in the Secure Shell Transport Layer</a>
+			</td></tr><tr><td><span id="bibRFC6187">[RFC 6187]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc6187">X.509v3 Certificates for Secure Shell Authentication</a>
+			</td></tr><tr><td><span id="bibRFC6668">[RFC 6668]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc6668">SHA-2 Data Integrity Verification for the Secure Shell (SSH) Transport Layer Protocol</a>
+			</td></tr><tr><td><span id="bibRFC8268">[RFC 8268]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc8268">More Modular Exponentiation (MODP) Diffie-Hellman (DH) Key Exchange (KEX) Groups for Secure Shell (SSH)</a>
+			</td></tr><tr><td><span id="bibRFC8308">[RFC 8308]</span></td><td>
+				<a href="https://www.ietf.org/rfc/rfc8308.txt">Extension Negotiation in the Secure Shell (SSH) Protocol</a>
+			</td></tr><tr><td><span id="bibRFC8332">[RFC 8332]</span></td><td>
+				<a href="https://www.ietf.org/rfc/rfc8332.txt">Use of RSA Keys with SHA-256 and SHA-512 in the Secure Shell (SSH) Protocol</a>
+			</td></tr><tr><td><span id="bibRFC8709">[RFC 8709]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc8709">Ed25519 and Ed448 public key algorithms for the Secure Shell (SSH) protocol </a>
+			</td></tr><tr><td><span id="bibRFC8731">[RFC 8731]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc8731">Secure Shell (SSH) Key Exchange Method using Curve25519 and Curve448</a>
+			</td></tr>ext-comp-def
     </table>
-  <h1 id="acronyms" class="indexable" data-level="A">Appendix C -  Acronyms</h1>
+<h1 id="acronyms" class="indexable" data-level="A">Appendix C -  Acronyms</h1>
       <table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr><tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr><tr><td><span class="term" id="abbr_OE"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr><tr><td><span class="term" id="abbr_PP"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr></span></td><td><span id="long_abbr_PP">Protection Profile</span></td></tr><tr><td><span class="term" id="abbr_PP-Configuration"><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr></span></td><td><span id="long_abbr_PP-Configuration">Protection Profile Configuration</span></td></tr><tr><td><span class="term" id="abbr_PP-Module"><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></span></td><td><span id="long_abbr_PP-Module">Protection Profile Module</span></td></tr><tr><td><span class="term" id="abbr_SAR"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr><tr><td><span class="term" id="abbr_SFR"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr><tr><td><span class="term" id="abbr_SSH"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span></td><td><span id="long_abbr_SSH">Secure Shell</span></td></tr><tr><td><span class="term" id="abbr_ST"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr><tr><td><span class="term" id="abbr_TOE"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr><tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr><tr><td><span class="term" id="abbr_TSFI" data-plural="TSFIs"><abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr></span></td><td><span id="long_abbr_TSFI"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> Interface</span></td></tr><tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr></table>
   </body></html>
