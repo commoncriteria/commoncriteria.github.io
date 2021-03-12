@@ -545,7 +545,7 @@ function showTarget(id){
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">PP-Module for Widgets</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
       Version: 1.0<br/>2020-01-16<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2016-10-06</td><td>Initial Release </td></tr></table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#Compliant_Targets_of_Evaluation" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#Use_Cases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Description" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#SecurityObjectivesTOEorEnvironment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#SOR" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#ND" style="text-indent:10px">5.1<span>ND PP
        Security Functional Requirements Direction
-    </span></a><a href="#modsfr-ND" style="text-indent:20px">5.1.1<span> Modified SFRs </span></a><a href="#from_nd_fpt" style="text-indent:30px">5.1.1.1<span>Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:30px">5.1.1.2<span>Trusted Paths/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">5.2<span>TOE Security Functional Requirements</span></a><a href="#mod-conrat" style="text-indent:0px">6<span>Consistency Rationale</span></a><a href="#conrat-ND" style="text-indent:10px">6.1<span>
+    </span></a><a href="#modsfr-ND" style="text-indent:20px">5.1.1<span> Modified SFRs </span></a><a href="#from_nd_fpt" style="text-indent:30px">5.1.1.1<span>Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:30px">5.1.1.2<span>Trusted Paths/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">5.2<span>TOE Security Functional Requirements</span></a><a href="#man_fau" style="text-indent:20px">5.2.1<span>Security Audit (FAU)</span></a><a href="#fdp" style="text-indent:20px">5.2.2<span>User Data Protection (FDP)</span></a><a href="#fmt" style="text-indent:20px">5.2.3<span>Security Management (FMT)</span></a><a href="#mod-conrat" style="text-indent:0px">6<span>Consistency Rationale</span></a><a href="#conrat-ND" style="text-indent:10px">6.1<span>
     Protection Profile for Network Devices</span></a><a href="#contoe-ND" style="text-indent:20px">6.1.1<span>
 	Consistency of TOE Type
       </span></a><a href="#consecprob-ND" style="text-indent:20px">6.1.2<span>
@@ -806,7 +806,543 @@ This section defines the security objectives that are to be addressed by the IT 
       <h2 id="man-sfrs" class="indexable" data-level="2">5.2 TOE Security Functional Requirements</h2>
 	The following section describes the SFRs that must be satisfied by any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that claims conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
 	These SFRs must be claimed regardless of which <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> is used to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
-        <h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-ND" class="indexable" data-level="2">6.1 
+        
+      <h3 id="man_fau" class="indexable" data-level="3">5.2.1 Security Audit (FAU)</h3>
+        <div class="comp" id="FAU_ARP.1"><h4>FAU_ARP.1 Security Alarms</h4> 
+          
+          <div class="element"><div class="reqid" id="FAU_ARP.1.1"><a href="#FAU_ARP.1.1" class="abbr">FAU_ARP.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall <i>display an alert to Authorized Administrator in sufficient detail to include identity of APs and EUDs involved, description of alert and severity level and</i>
+              [<b>selection</b>: <i id="pcap">capture raw frame traffic that triggered the violation</i>, <i id="_s_13">no other actions</i>] upon detection of a potential security violation.<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              If "capture raw frame traffic that triggers the violation" is
+              selected then <a href="#FAU_STG_EXT.1/PCAP">FAU_STG_EXT.1/PCAP</a> shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_ARP_EXT.2"><h4>FAU_ARP_EXT.2 Security Alarm Filtering</h4> 
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_ARP_EXT.2.1"><a href="#FAU_ARP_EXT.2.1" class="abbr">FAU_ARP_EXT.2.1</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to apply [<b>assignment</b>: 
+     <span class="assignable-content">methods of
+              selection</span>] to selectively exclude alerts from being generated. </div></div>
+        </div>
+        
+        <div class="comp" id="FAU_GEN.1/WIDS"><h4>FAU_GEN.1/WIDS Audit Data Generation</h4>
+          
+          <div class="element"><div class="reqid" id="FAU_GEN.1.1/WIDS"><a href="#FAU_GEN.1.1/WIDS" class="abbr">FAU_GEN.1.1/WIDS</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to generate an audit record of the following auditable
+              events: <ol type="a">
+                <li>Start-up and shutdown of the audit functions;</li>
+                <li>All auditable events for the [not specified] level of audit;</li>
+                <li><i>[Auditable events listed in <a onclick="showTarget('auditWids')" href="#auditWids" class="auditWids-ref">Table<span class="counter">2</span></a>;</i></li>
+                <li><i>Failure of wireless sensor communication].</i></li>
+              </ol>
+              <table>
+                <thead>
+                  <tr><td colspan="99"> <span class="ctr" data-myid="auditWids" data-counter-type="ct-Table" id="auditWids">Table<span class="counter">2</span>: Auditable Events</span> </td></tr>
+                  <tr><th>Requirement</th><th>Auditable Events</th><th>Additional Audit Record Contents</th></tr>
+                </thead>
+                <tbody>
+                <tr><td><a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_ARP.1">FAU_ARP.1</a></td><td>Actions taken due to potential security violations</td><td>None</td></tr>
+                <tr><td><a href="#FAU_ARP_EXT.2">FAU_ARP_EXT.2</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_GEN.1/WIDS">FAU_GEN.1/WIDS</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_IDS_EXT.1">FAU_IDS_EXT.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a></td><td>Presence of whitelisted device</td><td>Type of device (<abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address</td></tr>
+                <tr><td><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a></td><td>Location of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr></td><td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, classification of device, sensor(s) that detected device, signal strength as received by detecting sensor(s), proximity to detecting sensor(s)</td></tr>
+                
+                <tr><td><a href="#FAU_INV_EXT.5">FAU_INV_EXT.5</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_MAC_EXT.1">FAU_MAC_EXT.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_SAA.1">FAU_SAA.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_SIG_EXT.1">FAU_SIG_EXT.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_STG_EXT.1/PCAP">FAU_STG_EXT.1/PCAP</a></td><td>None</td><td>None</td></tr>
+                <tr><td rowspan="2"><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a></td><td>Detection of rogue <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr></td><td>None</td></tr>
+                  <tr><td>Detection of unauthorized <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr></td><td>None</td></tr> 
+                <tr><td><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a></td><td>Sensor wireless transmissions
+                  capabilities.</td><td>Wireless transmission cappabilities are turned
+                    on.</td></tr>
+                <tr><td><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a></td><td>Use of an unauthorized authentication schemes</td><td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, classification of the device, authentication method used</td></tr>
+                <tr><td><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a></td><td>Use of an unauthorized encryption schemes</td><td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, classification of the device, encryption method used</td></tr>
+                <tr><td><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a></td><td>Detection of network devices operating in selected RF bands</td><td>Frequency band, channel used within frequency band, identification information (<abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address if applicable or other similar unique ID), device technology (i.e., cellular), sensor(s) that detected devices</td></tr>
+                <tr><td><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a></td><td>None</td><td>None</td></tr>
+                <tr><td>FAU_WID_EXT.8</td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FAU_WIP_EXT.1">FAU_WIP_EXT.1</a></td><td>Isolation of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr></td><td>Description of violation, type of containment used, was
+                    containment triggered manually or automatically, sensor performing the
+                    containment (if wireless), details about the device (s) being contained
+                    (classification, device type, <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address).</td></tr>
+                <tr><td><a href="#FDP_IFC.1">FDP_IFC.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FMT_SMF.1/WIDS">FMT_SMF.1/WIDS</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td>Information about failure.</td><td>Indication
+                  that there was a failure, type of failure, device that failed, and time of
+                  failure.</td></tr>
+                <tr><td><a href="#FPT_ITT.1">FPT_ITT.1</a></td><td>None</td><td>None</td></tr>
+                <tr><td><a href="#FTP_ITC.1">FTP_ITC.1</a></td><td>None</td><td>None</td></tr>
+                </tbody>
+              </table>
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              
+              The auditable events defined in <a onclick="showTarget('auditWids')" href="#auditWids" class="auditWids-ref">Table<span class="counter">2</span></a>
+              are for the SFRs that are explicitly defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> and are intended to
+              extend FAU_GEN.1 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. The events in the <a onclick="showTarget('auditWids')" href="#auditWids" class="auditWids-ref">Table<span class="counter">2</span></a> should
+              be combined with those of the ND cPP in the context of a conforming Security
+              Target.<br/><br/> 
+            </span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_GEN.1.2/WIDS"><a href="#FAU_GEN.1.2/WIDS" class="abbr">FAU_GEN.1.2/WIDS</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall record within each audit record at least the following information: <ol type="a">
+              <li>Date and time of the event, type of event, and subject identity (if
+                applicable);</li>
+              <li>For each audit event type, based on the auditable event definitions of the
+                functional components included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, [<i>auditable events listed in
+                  <a onclick="showTarget('auditWids')" href="#auditWids" class="auditWids-ref">Table<span class="counter">2</span></a></i>]. </li>
+            </ol>
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              The subject identity in this case is the whitelisted inventory item. </span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_GEN_EXT.1"><h4>FAU_GEN_EXT.1 Intrusion Detection System – Reporting Methods</h4> 
+           
+          
+          
+          
+          
+                          
+          <div class="element"><div class="reqid" id="FAU_GEN_EXT.1.1"><a href="#FAU_GEN_EXT.1.1" class="abbr">FAU_GEN_EXT.1.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide [<b>selection</b>: <ul><li><i id="_s_14">Syslog using [<b>selection</b>: <i id="_s_15">defined API</i>, <i id="_s_16">Syslog</i>, <i id="_s_17">[<b>assignment</b>: 
+     <span class="assignable-content">other detection method</span>]</i>]</i>, </li><li><i id="_s_18">SNMP trap reporting using [<b>selection</b>: <i id="_s_19">defined API</i>, <i id="_s_20">Simple Network Management Protocol (SNMP)</i>, <i id="_s_21">[<b>assignment</b>: 
+     <span class="assignable-content">other detection method</span>]</i>]</i></li></ul>]. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> Syslog and/or SNMP trap reporting can be used. At least one reporting method must be selected.
+              
+            </span></div></div></div>        
+          <div class="element"><div class="reqid" id="FAU_GEN_EXT.1.2"><a href="#FAU_GEN_EXT.1.2" class="abbr">FAU_GEN_EXT.1.2</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to import data from the system: [<b>selection</b>: <i id="_s_22">custom API</i>, <i id="_s_23">Syslog</i>, <i id="_s_24">common log format</i>, <i id="_s_25">CSV</i>, <i id="_s_26">[<b>assignment</b>: 
+     <span class="assignable-content"> vendor detection method (e.g. Splunk)</span>]</i>]
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> The system shall provide the ability to interact with an
+              extensible interface to a third party wireless monitoring system
+              for the purposes of importing data from the wireless system.</span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_IDS_EXT.1"><h4>FAU_IDS_EXT.1 Intrusion Detection System – Intrusion Detection Methods</h4>
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_IDS_EXT.1.1"><a href="#FAU_IDS_EXT.1.1" class="abbr">FAU_IDS_EXT.1.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the following methods of intrusion detection [<b>selection</b>: <i id="anoBased">anomaly-based</i>, <i id="sigBased">signature-based</i>, <i id="_s_29">behavior-based</i>, <i id="_s_30">[<b>assignment</b>: 
+     <span class="assignable-content">other detection method</span>]</i>].
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              At least one detection method must be selected. If multiple detection methods are supported, each method supported shall be selected. <br/><br/>  
+              If anomaly-based detection is selected, then <a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a> shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. If signature-based detection is selected, then <a href="#FAU_SIG_EXT.1">FAU_SIG_EXT.1</a> shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.<br/><br/> 
+            </span></div></div></div>
+
+        </div>
+               
+        
+        <div class="comp" id="FAU_INV_EXT.1"><h4>FAU_INV_EXT.1 Environmental Inventory</h4> 
+          
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.1.1"><a href="#FAU_INV_EXT.1.1" class="abbr">FAU_INV_EXT.1.1</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. </div></div>
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.1.2"><a href="#FAU_INV_EXT.1.2" class="abbr">FAU_INV_EXT.1.2</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. </div></div>
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.1.3"><a href="#FAU_INV_EXT.1.3" class="abbr">FAU_INV_EXT.1.3</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              The inventory of authorized APs and EUDs is defined by FMT_SMF.1. <br/><br/>
+              This inventory is used as a whitelist to indicate to the <abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr> which APs and EUDs are legitimate members of the wireless network. The terminology used to describe an inventoried or whitelisted device may vary by vendor product. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> utilizes whitelisted to describe APs and EUDs that are part of the inventory and non-whitelisted to describe APs and EUDs that are not part of the inventory.
+            </span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_INV_EXT.2"><h4>FAU_INV_EXT.2 Characteristics of Environmental Objects</h4>     
+          
+          
+          
+          
+             
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.2.1"><a href="#FAU_INV_EXT.2.1" class="abbr">FAU_INV_EXT.2.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
+              <li>current RF band</li>
+              <li>current channel</li>
+              <li><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address</li>
+              <li>classification of APs and EUDs</li>
+              <li>[<b>selection</b>: <i id="_s_31">[<b>assignment</b>: 
+     <span class="assignable-content">other details</span>]</i>, <i id="_s_32">no other details</i>]</li>
+              </ul>of all APs and EUDs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors.
+            </div></div>
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.2.2"><a href="#FAU_INV_EXT.2.2" class="abbr">FAU_INV_EXT.2.2</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for APs:<ul>
+              <li>encryption</li>
+              <li>number of connected EUDs.</li>
+            </ul> 
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              For detection of encryption type, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> should be able to
+              differentiate between the different <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption methods and when no encryption is
+              in use. </span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.2.3"><a href="#FAU_INV_EXT.2.3" class="abbr">FAU_INV_EXT.2.3</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
+              <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
+            </ul>
+            </div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_INV_EXT.3"><h4>FAU_INV_EXT.3 Behavior of Environmental Objects</h4> 
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.3.1"><a href="#FAU_INV_EXT.3.1" class="abbr">FAU_INV_EXT.3.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
+                <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
+              [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
+     <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">For this requirement, it is acceptable for the <abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr> to use a
+              generic terms for bridges or peer-to-peer connections when generating an alert for the
+              detection of different types of bridges or peer-to-peer connections. The type of
+              connection does not have to be specific. </span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_INV_EXT.4"><h4>FAU_INV_EXT.4 Location of Environmental Objects</h4> 
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.4.1"><a href="#FAU_INV_EXT.4.1" class="abbr">FAU_INV_EXT.4.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> only checks for the ability of the <abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr> to track the
+              location of APs and EUDs either by placing them on a map or providing the distance of
+              the <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> from the sensor but does not mandate a certain degree of accuracy.
+            </span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.4.2"><a href="#FAU_INV_EXT.4.2" class="abbr">FAU_INV_EXT.4.2</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect received signal strength and [<b>selection</b>: <i id="_s_37">RF power levels above a predetermined threshold</i>, <i id="_s_38">no other characteristics</i>] of hardware operating within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. </div></div>
+          <div class="element"><div class="reqid" id="FAU_INV_EXT.4.3"><a href="#FAU_INV_EXT.4.3" class="abbr">FAU_INV_EXT.4.3</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the physical location of APs and EUDs to within [<b>assignment</b>: 
+     <span class="assignable-content">value equal or less than 15</span>] feet of their actual location.</div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_SAA.1"><h4>FAU_SAA.1 Potential Violation Analysis</h4> 
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_SAA.1.1"><a href="#FAU_SAA.1.1" class="abbr">FAU_SAA.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to apply a set of rules for monitoring the <b>wireless traffic</b> and based upon these rules indicate a potential <b>malicious action</b>.</div></div>
+          <div class="element"><div class="reqid" id="FAU_SAA.1.2"><a href="#FAU_SAA.1.2" class="abbr">FAU_SAA.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the following rules for monitoring wireless traffic: <ol type="a">
+              <li>Accumulation or combination of [<b>assignment</b>: 
+     <span class="assignable-content">subset of defined auditable events</span>] known to indicate a potential security violation; </li>
+              <li><i>[other potential security violations as defined by <a onclick="showTarget('SecViolations')" href="#SecViolations" class="SecViolations-ref">Table<span class="counter">3</span></a>]</i>.</li>
+            </ol>
+              <table>
+                <tr class="header">
+                 
+                  <td>Potential Security Violation</td>
+                  <td>Additional Information</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of authorized <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishing peer-to-peer connection with any
+                    other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>.</td>
+                  <td>Description of behavior detected (i.e.,
+                    bridge, ICS connection), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of whitelisted device, <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of the
+                    device that the whitelisted device made a connection with, connection start and
+                    end.</td>
+                </tr>
+                
+                <tr>
+                  
+                  <td>Detection of <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridging two network interfaces.</td>
+                  <td>Description of behavior detected (i.e.,
+                    bridge, ICS connection), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of whitelisted device, <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of the
+                    device that the whitelisted device made a connection with, connection start and
+                    end.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of packet flooding/<abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr>/DDoS.</td>
+                  <td>Description of behavior detected (i.e.,
+                    bridge, ICS connection), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of whitelisted device, <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of the
+                    device that the whitelisted device made a connection with, connection start and
+                    end.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of ICS connection.</td>
+                  <td>Description of behavior detected (i.e.,
+                    bridge, ICS connection), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of whitelisted device, <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of the
+                    device that the whitelisted device made a connection with, connection start and
+                    end.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of rogue device.</td>
+                  <td>Description of alert, type of device (<abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr>
+                    or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, associations made between authorized devices (which APs
+                    are EUDs connected to), channel detected on, RF Band detected on, encryption
+                    type used by rogue, IEEE 802.11 standard used (a, b, g, n, ac), <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> (if
+                    <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr>).</td></tr>
+                <tr>
+                  
+                  <td>Detection of mac spoofing.</td>
+                  <td>Description of alert, type of device (<abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, associations
+                    made between authorized devices (which APs are EUDs connected to), channel
+                    detected on, RF Band detected on, encryption type used by rogue, IEEE 802.11
+                    standard used (a, b, g, n, ac), <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> (if <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr>), location as labeled by administrator,.</td>
+                </tr>
+               
+                <tr>
+                  
+                <td>Alert generated by violaton of user defined signature.</td>
+                <td>Name of alert being triggered (as provided when creating the signature), description of alert (as provided when
+                    creating the signature), <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of devices involved.</td>
+                    </tr>
+                
+                
+                
+                <tr>
+                  
+                  <td>Detection of rogue <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr>.</td>
+                  <td>Identity information of the devices involved.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of malicious <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>.</td>
+                  <td>Identity information of the devices involved.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of traffic with excessive transmit power level.</td>
+                  <td>Identity information of the devices involved.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of active probing.</td>
+                  <td>Identity information of the devices involved.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> spoofing.</td>
+                  <td>Identity information of the devices involved.</td>
+                </tr>
+                
+                
+                <tr>
+                  
+                  <td>Detection of RF-based denial of service.</td>
+                  <td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, classification <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>
+                    attacked. </td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of deauthentication flooding.</td>
+                  <td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, and classification <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>
+                    attacked. </td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of disassociation flooding.</td>
+                  <td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, and classification <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>
+                    attacked. </td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of request-to-send/clear-to-send abuse.</td>
+                  <td><abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> Address, device type, and classification <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>
+                    attacked. </td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of unauthorized authentication scheme use.</td>
+                </tr>
+                <tr>
+                  
+                  <td>Detection of unauthorized encryption scheme use.</td>
+                  
+                </tr>
+                <tr>
+                  
+                  <td>Detection of unencrypted traffic.</td>
+                </tr>
+              </table>
+              <span class="ctr" data-myid="SecViolations" data-counter-type="ct-Table" id="SecViolations">Table<span class="counter">3</span>: Potential Security Violations</span>
+            </div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_WID_EXT.1"><h4>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h4> 
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.1.1"><a href="#FAU_WID_EXT.1.1" class="abbr">FAU_WID_EXT.1.1</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              If "configurable" is selected then, "Define classification rules to detect rogue APs" shall be selected in FMT_SMF.1    
+            </span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.1.2"><a href="#FAU_WID_EXT.1.2" class="abbr">FAU_WID_EXT.1.2</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. </div></div>
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.1.3"><a href="#FAU_WID_EXT.1.3" class="abbr">FAU_WID_EXT.1.3</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              FMT_SMF.1 defines the subset of authorized <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr>(s).        
+            </span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_WID_EXT.2"><h4>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h4>
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.2.1"><a href="#FAU_WID_EXT.2.1" class="abbr">FAU_WID_EXT.2.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
+              <li>2.4 GHz</li>
+              <li>4.9/5.0 GHz</li>
+            </ul>
+              [<b>selection</b>: <ul><li><i id="_s_43">channels outside regulatory domain</i>, </li><li><i id="_s_44">non-standard channel frequencies</i>, </li><li><i id="_s_45">no other domains</i></li></ul>].
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              If "nonsimultaneously" is selected, then "Define the amount of time sensor monitors a specific channel" shall be selected in FMT_SMF.1. <br/><br/> The "802.11 monitoring SFP" is a security function policy and the SFRs that reference this policy describe what the policy does. The "802.11 monitoring SFP" is established in <a href="#FDP_IFC.1">FDP_IFC.1</a>&gt; and defined through the FAU_WID_EXT SFRs. A vendor does not have to formally define this policy, it only needs to comply with the SFRs.</span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.2.2"><a href="#FAU_WID_EXT.2.2" class="abbr">FAU_WID_EXT.2.2</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide wireless sensors to detect network traffic matching the 802.11 monitoring SFP that [<b>selection</b>: <i id="_s_46">can be configured to prevent transmission of data</i>, <i id="_s_47">does not transmit data</i>]. 
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              If "can be configured to prevent transmission of data" is selected then "Enable/Disable transmission of data by wireless sensor" shall be selected in FMT_SMF.1. <br/><br/>
+              The intent of this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is to employ <abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr> sensors that can have
+              all wireless transmission capabilities disabled for instances where a site wishes to
+              implement a no wireless policy. <br/> The "802.11 monitoring SFP" is a security
+              function policy and the SFRs that reference this policy describe what the policy does.
+              The "802.11 monitoring SFP" is established in <a href="#FDP_IFC.1">FDP_IFC.1</a>&gt; and
+              defined through the FAU_WID_EXT SFRs. A vendor does not have to
+              formally define this policy, it only needs to comply with the SFRs. </span></div></div></div>      
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.2.3"><a href="#FAU_WID_EXT.2.3" class="abbr">FAU_WID_EXT.2.3</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of the following unauthorized connections and unauthorized network traffic:<ul>
+                <li>unauthorized APs broadcasting authorized SSIDs</li>
+                <li>APs and EUDs spoofing the <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address of whitelisted APs and EUDs</li>
+                <li>authorized EUDs associating to unauthorized SSIDs</li>
+                <li>unauthorized EUDs associating to authorized APs</li>
+                <li>unauthorized point to point wireless bridges by whitelisted APs</li>
+                <li>active probing</li>
+                <li>NULL <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> associations</li> 
+                <li>
+                  [<b>selection</b>: <ul><li><i id="_s_48">illegal state transitions</i>, </li><li><i id="_s_49">protocol violations for [<b>selection</b>: <i id="_s_50">802.11</i>, <i id="_s_51">802.1X</i>]
+                    </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
+              </ul>
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              “Authorized” EUDs/APs are those that are assigned to the
+              whitelist as defined by FMT_SMF.1. <br/><br/>
+            
+            The 802.11 standard allows APs to beacon with the <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> field
+            set to null. This is referred to as a hidden or cloaked <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr>. The client seeking to
+            associate with an <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> using a hidden <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> must first send out a Probe Request that
+            contains the <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> of that network, then the <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> will return with a Probe Request of its
+            own. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> needs to be able to detect if an <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> is allowing clients to associate
+            without providing the valid <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr>. 
+            </span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.2.4"><a href="#FAU_WID_EXT.2.4" class="abbr">FAU_WID_EXT.2.4</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              Attackers possess the capability to distribute an attack
+              across multiple frames in an attempt to avoid traditional detection measures that
+              solely focus on packet headers. Stateful frame inspection will allow for the
+              identification of obfuscation techniques centered around spreading an attack across
+              multiple frames.</span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_WID_EXT.3"><h4>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h4> 
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.3.1"><a href="#FAU_WID_EXT.3.1" class="abbr">FAU_WID_EXT.3.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
+     <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
+            </div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_WID_EXT.4"><h4>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h4> 
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.4.1"><a href="#FAU_WID_EXT.4.1" class="abbr">FAU_WID_EXT.4.1</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              Whitelisted APs and EUDs are defined in FMT_SMF.1.            
+            </span></div></div></div>
+        </div>
+        
+        
+        <div class="comp" id="FAU_WID_EXT.5"><h4>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h4> 
+          
+          
+          
+          
+          
+          
+          
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.5.1"><a href="#FAU_WID_EXT.5.1" class="abbr">FAU_WID_EXT.5.1</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              Whitelisted APs and EUDs are defined in FMT_SMF.1.
+            </span></div></div></div>
+          <div class="element"><div class="reqid" id="FAU_WID_EXT.5.2"><a href="#FAU_WID_EXT.5.2" class="abbr">FAU_WID_EXT.5.2</a></div><div class="reqdesc"> 
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+              Whitelisted APs and EUDs are defined in FMT_SMF.1.
+              When referring to unencrypted data being received by a whitelisted <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> it refers to unencrypted data being sent to a whitelisted <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or
+              <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> from either a non-whitelisted or whitelisted <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>.</span></div></div></div>
+        </div>
+      
+      
+      
+      
+      
+      <h3 id="fdp" class="indexable" data-level="3">5.2.2 User Data Protection (FDP)</h3>
+        <div class="comp" id="FDP_IFC.1"><h4>FDP_IFC.1 Information Flow Control Policy</h4> 
+          
+          <div class="element"><div class="reqid" id="FDP_IFC.1.1"><a href="#FDP_IFC.1.1" class="abbr">FDP_IFC.1.1</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the <i>[802.11 monitoring SFP]</i> on <i>[all IEEE 802.11 a, b, g, n, ac frame types and subtypes between:</i>
+              <ul>
+                <li><i>authorized APs and authorized EUDs </i></li>
+                <li><i>authorized APs and unauthorized EUDs</i></li>
+                <li><i>unauthorized APs and authorized EUDs</i>].</li>
+              </ul>
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              “Authorized” EUDs/APs are those that are assigned to the whitelist as defined by FMT_SMF.1. <br/><br/> 
+              The "802.11 monitoring SFP" is a security function policy and the SFRs that reference this policy describe what the policy does. The "802.11 monitoring SFP" is established in <a href="#FDP_IFC.1">FDP_IFC.1</a> and defined through the FAU_WID_EXT SFRs. A vendor does not have to formally define this policy, it only needs to comply with the SFRs.</span></div></div></div>
+        </div>
+      
+      
+      <h3 id="fmt" class="indexable" data-level="3">5.2.3 Security Management (FMT)</h3>
+        <div class="comp" id="FMT_SMF.1/WIDS"><h4>FMT_SMF.1/WIDS Specification of Management Functions (WIDS)</h4> 
+          
+          <div class="element"><div class="reqid" id="FMT_SMF.1.1/WIDS"><a href="#FMT_SMF.1.1/WIDS" class="abbr">FMT_SMF.1.1/WIDS</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions for <abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr> functionality: <ul>
+              <li>Define an inventory of authorized APs based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses,</li>  
+              <li>Define an inventory of authorized EUDs based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses,</li>  
+              <li>Define rules for monitoring and alerting on the wireless traffic,</li>  
+              <li>Define authorized <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr>(s),</li> 
+              <li>Define authorized <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes,</li> 
+              <li>Define authorized <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes,</li>
+               
+              <li>[<b>selection</b>: <ul><li><i id="_s_55">Specification of periods of network activity that constitute baseline of expected behavior</i>, </li><li><i id="_s_56">Definition of anomaly activity</i>, </li><li><i id="_s_57">Define classification rules to detect rogue APs</i>, </li><li><i id="_s_58">[<b>selection</b>: <i id="_s_59">Enable</i>, <i id="_s_60">Disable</i>] transmission of data by wireless sensor</i>, </li><li><i id="_s_61">Define attack signatures</i>, </li><li><i id="_s_62">Define rules for overwriting previous packet captures</i>, </li><li><i id="_s_63">Define the amount of time sensor monitors a specific [<b>selection</b>: <i id="_s_64">frequency</i>, <i id="_s_65">channel</i>]</i>, </li><li><i id="_s_66">no other capabilities</i></li></ul>].</li>
+            </ul>
+            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+              Define authorized <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication and encryption schemes does not enforce, but rather establishes a baseline to determine if an unauthorized scheme is used.<br/><br/>
+              If <a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, "Specification of periods of network activity that constitute baseline of expected behavior" shall be selected. If <a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and "manual configuration by administrators" is selected in <a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a>, then "Definition of anomaly activity" shall be selected.<br/><br/>
+              
+              If "can be configured to prevent transmission of data" is selected in <a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a> then "Enable/Disable transmission of data by wireless sensor" shall be selected.<br/><br/>
+              It is expected that an Authorized Administrator will be
+              responsible for configuring the <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> to operate on a specific frequency persuaent to the
+              802.11 standard. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will have the ability to adjust the amount of time it
+              passively monitors and captures <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> traffic on a given frequency and channel. 
+              </span></div></div></div>
+        </div>
+      
+    <h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-ND" class="indexable" data-level="2">6.1 
     Protection Profile for Network Devices</h2><h3 id="contoe-ND" class="indexable" data-level="3">6.1.1 
 	Consistency of TOE Type
       </h3> 
@@ -836,7 +1372,7 @@ This section defines the security objectives that are to be addressed by the IT 
           The rationale for why this does not conflict with the claims
       defined by the
       ND <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are as follows:
-      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Requirement</th><th>Consistency Rationale</th></tr><tr><th colspan="2"> Modified SFRs</th></tr><tr><td><a href="#FPT_ITT.1">FPT_ITT.1</a></td><td>Some really good reasons </td></tr><tr><td><a href="#FTP_ITC.1">FTP_ITC.1</a></td><td>FTP base reasons</td></tr><tr><th colspan="2"> Mandatory SFRs</th><tr><td>FAU_ARP.1</td><td></td></tr><tr><td>FAU_ARP_EXT.2</td><td></td></tr><tr><td>FAU_GEN.1/<abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr></td><td> Specific to the ND base. </td></tr><tr><td>FAU_GEN_EXT.1</td><td></td></tr><tr><td>FAU_IDS_EXT.1</td><td></td></tr><tr><td>FAU_INV_EXT.1</td><td></td></tr><tr><td>FAU_INV_EXT.2</td><td></td></tr><tr><td>FAU_INV_EXT.3</td><td></td></tr><tr><td>FAU_INV_EXT.4</td><td></td></tr><tr><td>FAU_SAA.1</td><td></td></tr><tr><td>FAU_WID_EXT.1</td><td></td></tr><tr><td>FAU_WID_EXT.2</td><td></td></tr><tr><td>FAU_WID_EXT.3</td><td></td></tr><tr><td>FAU_WID_EXT.4</td><td></td></tr><tr><td>FAU_WID_EXT.5</td><td></td></tr><tr><td>FDP_IFC.1</td><td></td></tr><tr><td>FMT_SMF.1/<abbr class="dyn-abbr"><a href="#abbr_WIDS">WIDS</a></abbr></td><td></td></tr></tr><tr><th colspan="2"> Optional SFRs</th><tr><td><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a></td><td></td></tr></tr><tr><th colspan="2"> Selection-based SFRs</th><tr><td><a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_SIG_EXT.1">FAU_SIG_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_STG_EXT.1/PCAP">FAU_STG_EXT.1/PCAP</a></td><td></td></tr></tr><tr><th colspan="2"> Objective SFRs</th><tr><td><a href="#FAU_INV_EXT.5">FAU_INV_EXT.5</a></td><td></td></tr><tr><td><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a></td><td></td></tr><tr><td><a href="#FAU_MAC_EXT.1">FAU_MAC_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_WIP_EXT.1">FAU_WIP_EXT.1</a></td><td></td></tr><tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td></td></tr></tr><tr><th colspan="2"> Implementation-Dependent SFRs</th><tr><td colspan="2" style="text-align:center">
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Requirement</th><th>Consistency Rationale</th></tr><tr><th colspan="2"> Modified SFRs</th></tr><tr><td><a href="#FPT_ITT.1">FPT_ITT.1</a></td><td>Some really good reasons </td></tr><tr><td><a href="#FTP_ITC.1">FTP_ITC.1</a></td><td>FTP base reasons</td></tr><tr><th colspan="2"> Mandatory SFRs</th><tr><td><a href="#FAU_ARP.1">FAU_ARP.1</a></td><td></td></tr><tr><td><a href="#FAU_ARP_EXT.2">FAU_ARP_EXT.2</a></td><td></td></tr><tr><td><a href="#FAU_GEN.1/WIDS">FAU_GEN.1/WIDS</a></td><td> Specific to the ND base. </td></tr><tr><td><a href="#FAU_GEN_EXT.1">FAU_GEN_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_IDS_EXT.1">FAU_IDS_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a></td><td></td></tr><tr><td><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a></td><td></td></tr><tr><td><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a></td><td></td></tr><tr><td><a href="#FAU_SAA.1">FAU_SAA.1</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a></td><td></td></tr><tr><td><a href="#FDP_IFC.1">FDP_IFC.1</a></td><td></td></tr><tr><td><a href="#FMT_SMF.1/WIDS">FMT_SMF.1/WIDS</a></td><td></td></tr></tr><tr><th colspan="2"> Optional SFRs</th><tr><td><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a></td><td></td></tr><tr><td><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a></td><td></td></tr></tr><tr><th colspan="2"> Selection-based SFRs</th><tr><td><a href="#FAU_ANO_EXT.1">FAU_ANO_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_SIG_EXT.1">FAU_SIG_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_STG_EXT.1/PCAP">FAU_STG_EXT.1/PCAP</a></td><td></td></tr></tr><tr><th colspan="2"> Objective SFRs</th><tr><td><a href="#FAU_INV_EXT.5">FAU_INV_EXT.5</a></td><td></td></tr><tr><td><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a></td><td></td></tr><tr><td><a href="#FAU_MAC_EXT.1">FAU_MAC_EXT.1</a></td><td></td></tr><tr><td><a href="#FAU_WIP_EXT.1">FAU_WIP_EXT.1</a></td><td></td></tr><tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td></td></tr></tr><tr><th colspan="2"> Implementation-Dependent SFRs</th><tr><td colspan="2" style="text-align:center">
 	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any Implementation-Dependent requirements.
 	    </td></tr></tr></table><h1 id="opt-sfrs" class="indexable" data-level="A">Appendix A -  Optional SFRs</h1><h2 id="opt-sfrs" class="indexable" data-level="2">A.1 Strictly Optional Requirements
     </h2>
@@ -852,7 +1388,7 @@ This section defines the security objectives that are to be addressed by the IT 
               following RF bands: [<b>selection</b>: <i id="_s_67">3.6 GHz</i>, <i id="_s_68">60 GHz</i>, <i id="_s_69">sub-GHz (0-900 MHz)</i>, <i id="cell">all cellular bands</i>].
             <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> refers to Non-Wi-Fi (IEEE 802.11 a, b, g, n, and ac)
               network devices that operate in the specified frequencies. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects
-              detection of devices in the cellular bands, FAU_INV_EXT.4 must
+              detection of devices in the cellular bands, <a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a> must
               be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. </span></div></div></div>
         </div>
           
@@ -980,7 +1516,7 @@ This section defines the security objectives that are to be addressed by the IT 
           
           
           <div class="element"><div class="reqid" id="FAU_STG_EXT.1.1/PCAP"><a href="#FAU_STG_EXT.1.1/PCAP" class="abbr">FAU_STG_EXT.1.1/PCAP</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to transmit the generated packet captures to an external IT entity using a trusted channel according to <a href="#FTP_ITC.1">FTP_ITC.1</a>. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
-              Per FAU_STG_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must support transfer of the audit data to an external IT entity using a trusted channel per <a href="#FTP_ITC.1">FTP_ITC.1</a>. Note that this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies <a href="#FTP_ITC.1">FTP_ITC.1</a> from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. If "capture raw frame traffic that triggers the violation" is selected in FAU_ARP.1, then this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and this iteration is for the PCAPs generated as a selectable action completed upon detection of a potential security violation in FAU_ARP.1.
+              Per FAU_STG_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must support transfer of the audit data to an external IT entity using a trusted channel per <a href="#FTP_ITC.1">FTP_ITC.1</a>. Note that this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies <a href="#FTP_ITC.1">FTP_ITC.1</a> from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. If "capture raw frame traffic that triggers the violation" is selected in <a href="#FAU_ARP.1">FAU_ARP.1</a>, then this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and this iteration is for the PCAPs generated as a selectable action completed upon detection of a potential security violation in <a href="#FAU_ARP.1">FAU_ARP.1</a>.
                </span></div></div></div>
           <div class="element"><div class="reqid" id="FAU_STG_EXT.1.2/PCAP"><a href="#FAU_STG_EXT.1.2/PCAP" class="abbr">FAU_STG_EXT.1.2/PCAP</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to store generated packet captures on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself. </div></div>
           <div class="element"><div class="reqid" id="FAU_STG_EXT.1.3/PCAP"><a href="#FAU_STG_EXT.1.3/PCAP" class="abbr">FAU_STG_EXT.1.3/PCAP</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_80">drop new packet capture data</i>, <i id="_s_81">overwrite previous packet captures according to the following rule: [<b>assignment</b>: 
@@ -998,28 +1534,28 @@ This section defines the security objectives that are to be addressed by the IT 
 
 	All extended components specified in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are listed in this table:
 
-<table><caption><b><span class="ctr" data-myid="" data-counter-type="ct-Table" id="">Table <span class="counter">2</span></span>: Extended Component Definitions</b></caption><tr><th>Functional Class</th><th>Functional Components</th></tr><tr><td></td><td></td></tr></table><h2 id="ext-comp-defs-bg" class="indexable" data-level="2">C.2 Extended Component Definitions</h2><h3>FAU_ARP_EXT Security Alarm Filtering</h3><h3>Component Leveling</h3><p>FAU_ARP_EXT.2,
+<table><caption><b><span class="ctr" data-myid="" data-counter-type="ct-Table" id="">Table <span class="counter">4</span></span>: Extended Component Definitions</b></caption><tr><th>Functional Class</th><th>Functional Components</th></tr><tr><td></td><td></td></tr></table><h2 id="ext-comp-defs-bg" class="indexable" data-level="2">C.2 Extended Component Definitions</h2><h3>FAU_ARP_EXT Security Alarm Filtering</h3><h3>Component Leveling</h3><p><a href="#FAU_ARP_EXT.2">FAU_ARP_EXT.2</a>,
              Security Alarm Filtering,
              </p><h3>Management: FAU_ARP_EXT.2</h3><p></p><h3>Audit: FAU_ARP_EXT.2</h3><p></p><h3>FAU_ARP_EXT.2 Security Alarm Filtering</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_ARP_EXT.2.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to apply [<b>assignment</b>: 
      <span class="assignable-content">methods of
-              selection</span>] to selectively exclude alerts from being generated. <h3>FAU_GEN_EXT Reporting Methods</h3><h3>Component Leveling</h3><p>FAU_GEN_EXT.1,
+              selection</span>] to selectively exclude alerts from being generated. <h3>FAU_GEN_EXT Reporting Methods</h3><h3>Component Leveling</h3><p><a href="#FAU_GEN_EXT.1">FAU_GEN_EXT.1</a>,
              Intrusion Detection System – Reporting Methods,
              </p><h3>Management: FAU_GEN_EXT.1</h3><p></p><h3>Audit: FAU_GEN_EXT.1</h3><p></p><h3>FAU_GEN_EXT.1 Intrusion Detection System – Reporting Methods</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_GEN_EXT.1.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide [<b>selection</b>: <ul><li><i id="_s_14">Syslog using [<b>selection</b>: <i id="_s_15">defined API</i>, <i id="_s_16">Syslog</i>, <i id="_s_17">[<b>assignment</b>: 
      <span class="assignable-content">other detection method</span>]</i>]</i>, </li><li><i id="_s_18">SNMP trap reporting using [<b>selection</b>: <i id="_s_19">defined API</i>, <i id="_s_20">Simple Network Management Protocol (SNMP)</i>, <i id="_s_21">[<b>assignment</b>: 
      <span class="assignable-content">other detection method</span>]</i>]</i></li></ul>]. <h3>FAU_GEN_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to import data from the system: [<b>selection</b>: <i id="_s_22">custom API</i>, <i id="_s_23">Syslog</i>, <i id="_s_24">common log format</i>, <i id="_s_25">CSV</i>, <i id="_s_26">[<b>assignment</b>: 
      <span class="assignable-content"> vendor detection method (e.g. Splunk)</span>]</i>]
-            <h3>FAU_IDS_EXT Intrusion Detection Methods</h3><h3>Family Behavior</h3><div></div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FAU_IDS_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22">FAU_IDS_EXT.1</text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p>FAU_IDS_EXT.1,
+            <h3>FAU_IDS_EXT Intrusion Detection Methods</h3><h3>Family Behavior</h3><div></div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FAU_IDS_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FAU_IDS_EXT.1">FAU_IDS_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FAU_IDS_EXT.1">FAU_IDS_EXT.1</a>,
              Intrusion Detection System – Intrusion Detection Methods,
              </p><h3>Management: FAU_IDS_EXT.1</h3><p></p><h3>Audit: FAU_IDS_EXT.1</h3><p></p><h3>FAU_IDS_EXT.1 Intrusion Detection System – Intrusion Detection Methods</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_IDS_EXT.1.1</h3><br/> 
                 The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the following methods of intrusion detection
                    [<b>assignment</b>: 
      <span class="assignable-content">detection methods</span>].
-              <h3>FAU_INV_EXT Environmental Inventory</h3><h3>Family Behavior</h3><div></div><svg style="max-height: 130px;"><text x="4" fill="black" font-size="11" y="82">FAU_INV_EXT</text><rect x="2" y="71" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22">FAU_INV_EXT.1</text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="17" stroke="black"></line><text x="234" fill="black" font-size="11" y="42">FAU_INV_EXT.2</text><rect x="232" y="31" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="37" stroke="black"></line><text x="234" fill="black" font-size="11" y="62">FAU_INV_EXT.3</text><rect x="232" y="51" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="57" stroke="black"></line><text x="234" fill="black" font-size="11" y="82">FAU_INV_EXT.4</text><rect x="232" y="71" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="77" stroke="black"></line><text x="234" fill="black" font-size="11" y="102"><a href="#FAU_INV_EXT.5">FAU_INV_EXT.5</a></text><rect x="232" y="91" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="97" stroke="black"></line><text x="234" fill="black" font-size="11" y="122"><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a></text><rect x="232" y="111" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="117" stroke="black"></line></svg><h3>Component Leveling</h3><p>FAU_INV_EXT.1,
+              <h3>FAU_INV_EXT Environmental Inventory</h3><h3>Family Behavior</h3><div></div><svg style="max-height: 130px;"><text x="4" fill="black" font-size="11" y="82">FAU_INV_EXT</text><rect x="2" y="71" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="17" stroke="black"></line><text x="234" fill="black" font-size="11" y="42"><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a></text><rect x="232" y="31" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="37" stroke="black"></line><text x="234" fill="black" font-size="11" y="62"><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a></text><rect x="232" y="51" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="57" stroke="black"></line><text x="234" fill="black" font-size="11" y="82"><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a></text><rect x="232" y="71" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="77" stroke="black"></line><text x="234" fill="black" font-size="11" y="102"><a href="#FAU_INV_EXT.5">FAU_INV_EXT.5</a></text><rect x="232" y="91" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="97" stroke="black"></line><text x="234" fill="black" font-size="11" y="122"><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a></text><rect x="232" y="111" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="117" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a>,
              Environmental Inventory,
              </p><h3>Management: FAU_INV_EXT.1</h3><p></p><h3>Audit: FAU_INV_EXT.1</h3><p></p><h3>FAU_INV_EXT.1 Environmental Inventory</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. <h3>FAU_INV_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. <h3>FAU_INV_EXT.1.3</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.2,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a>,
              Characteristics of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.2</h3><p></p><h3>Audit: FAU_INV_EXT.2</h3><p></p><h3>FAU_INV_EXT.2 Characteristics of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
@@ -1039,14 +1575,14 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
               <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
             </ul>
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.3,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a>,
              Behavior of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.3</h3><p></p><h3>Audit: FAU_INV_EXT.3</h3><p></p><h3>FAU_INV_EXT.3 Behavior of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
                 <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
               [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
      <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a>,
              Location of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.4</h3><p></p><h3>Audit: FAU_INV_EXT.4</h3><p></p><h3>FAU_INV_EXT.4 Location of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <h3>FAU_INV_EXT.4.2</h3><br/> 
@@ -1055,11 +1591,11 @@ This section defines the security objectives that are to be addressed by the IT 
              Detection of Unauthorized Connections,
              </p><h3>Management: FAU_INV_EXT.5</h3><p></p><h3>Audit: FAU_INV_EXT.5</h3><p></p><h3>FAU_INV_EXT.5 Detection of Unauthorized Connections</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when non-whitelisted APs have a wired connection to the internal corporate network.<h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a>,
              Signal Library,
-             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Characteristics of Environmental Objects</h3><h3>Component Leveling</h3><p>FAU_INV_EXT.1,
+             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Characteristics of Environmental Objects</h3><h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a>,
              Environmental Inventory,
              </p><h3>Management: FAU_INV_EXT.1</h3><p></p><h3>Audit: FAU_INV_EXT.1</h3><p></p><h3>FAU_INV_EXT.1 Environmental Inventory</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. <h3>FAU_INV_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. <h3>FAU_INV_EXT.1.3</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.2,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a>,
              Characteristics of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.2</h3><p></p><h3>Audit: FAU_INV_EXT.2</h3><p></p><h3>FAU_INV_EXT.2 Characteristics of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
@@ -1079,14 +1615,14 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
               <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
             </ul>
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.3,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a>,
              Behavior of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.3</h3><p></p><h3>Audit: FAU_INV_EXT.3</h3><p></p><h3>FAU_INV_EXT.3 Behavior of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
                 <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
               [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
      <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a>,
              Location of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.4</h3><p></p><h3>Audit: FAU_INV_EXT.4</h3><p></p><h3>FAU_INV_EXT.4 Location of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <h3>FAU_INV_EXT.4.2</h3><br/> 
@@ -1095,11 +1631,11 @@ This section defines the security objectives that are to be addressed by the IT 
              Detection of Unauthorized Connections,
              </p><h3>Management: FAU_INV_EXT.5</h3><p></p><h3>Audit: FAU_INV_EXT.5</h3><p></p><h3>FAU_INV_EXT.5 Detection of Unauthorized Connections</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when non-whitelisted APs have a wired connection to the internal corporate network.<h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a>,
              Signal Library,
-             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Behavior of Environmental Objects</h3><h3>Component Leveling</h3><p>FAU_INV_EXT.1,
+             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Behavior of Environmental Objects</h3><h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a>,
              Environmental Inventory,
              </p><h3>Management: FAU_INV_EXT.1</h3><p></p><h3>Audit: FAU_INV_EXT.1</h3><p></p><h3>FAU_INV_EXT.1 Environmental Inventory</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. <h3>FAU_INV_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. <h3>FAU_INV_EXT.1.3</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.2,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a>,
              Characteristics of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.2</h3><p></p><h3>Audit: FAU_INV_EXT.2</h3><p></p><h3>FAU_INV_EXT.2 Characteristics of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
@@ -1119,14 +1655,14 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
               <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
             </ul>
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.3,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a>,
              Behavior of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.3</h3><p></p><h3>Audit: FAU_INV_EXT.3</h3><p></p><h3>FAU_INV_EXT.3 Behavior of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
                 <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
               [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
      <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a>,
              Location of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.4</h3><p></p><h3>Audit: FAU_INV_EXT.4</h3><p></p><h3>FAU_INV_EXT.4 Location of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <h3>FAU_INV_EXT.4.2</h3><br/> 
@@ -1135,11 +1671,11 @@ This section defines the security objectives that are to be addressed by the IT 
              Detection of Unauthorized Connections,
              </p><h3>Management: FAU_INV_EXT.5</h3><p></p><h3>Audit: FAU_INV_EXT.5</h3><p></p><h3>FAU_INV_EXT.5 Detection of Unauthorized Connections</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when non-whitelisted APs have a wired connection to the internal corporate network.<h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a>,
              Signal Library,
-             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Location of Environmental Objects</h3><h3>Component Leveling</h3><p>FAU_INV_EXT.1,
+             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Location of Environmental Objects</h3><h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a>,
              Environmental Inventory,
              </p><h3>Management: FAU_INV_EXT.1</h3><p></p><h3>Audit: FAU_INV_EXT.1</h3><p></p><h3>FAU_INV_EXT.1 Environmental Inventory</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. <h3>FAU_INV_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. <h3>FAU_INV_EXT.1.3</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.2,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a>,
              Characteristics of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.2</h3><p></p><h3>Audit: FAU_INV_EXT.2</h3><p></p><h3>FAU_INV_EXT.2 Characteristics of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
@@ -1159,14 +1695,14 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
               <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
             </ul>
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.3,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a>,
              Behavior of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.3</h3><p></p><h3>Audit: FAU_INV_EXT.3</h3><p></p><h3>FAU_INV_EXT.3 Behavior of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
                 <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
               [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
      <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a>,
              Location of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.4</h3><p></p><h3>Audit: FAU_INV_EXT.4</h3><p></p><h3>FAU_INV_EXT.4 Location of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <h3>FAU_INV_EXT.4.2</h3><br/> 
@@ -1175,10 +1711,10 @@ This section defines the security objectives that are to be addressed by the IT 
              Detection of Unauthorized Connections,
              </p><h3>Management: FAU_INV_EXT.5</h3><p></p><h3>Audit: FAU_INV_EXT.5</h3><p></p><h3>FAU_INV_EXT.5 Detection of Unauthorized Connections</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when non-whitelisted APs have a wired connection to the internal corporate network.<h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a>,
              Signal Library,
-             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_WID_EXT Malicious Environmental Objects</h3><h3>Family Behavior</h3><div></div><svg style="max-height: 150px;"><text x="4" fill="black" font-size="11" y="82">FAU_WID_EXT</text><rect x="2" y="71" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22">FAU_WID_EXT.1</text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="17" stroke="black"></line><text x="234" fill="black" font-size="11" y="42">FAU_WID_EXT.2</text><rect x="232" y="31" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="37" stroke="black"></line><text x="234" fill="black" font-size="11" y="62">FAU_WID_EXT.3</text><rect x="232" y="51" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="57" stroke="black"></line><text x="234" fill="black" font-size="11" y="82">FAU_WID_EXT.4</text><rect x="232" y="71" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="77" stroke="black"></line><text x="234" fill="black" font-size="11" y="102">FAU_WID_EXT.5</text><rect x="232" y="91" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="97" stroke="black"></line><text x="234" fill="black" font-size="11" y="122"><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a></text><rect x="232" y="111" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="117" stroke="black"></line><text x="234" fill="black" font-size="11" y="142"><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a></text><rect x="232" y="131" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="137" stroke="black"></line></svg><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_WID_EXT Malicious Environmental Objects</h3><h3>Family Behavior</h3><div></div><svg style="max-height: 150px;"><text x="4" fill="black" font-size="11" y="82">FAU_WID_EXT</text><rect x="2" y="71" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="17" stroke="black"></line><text x="234" fill="black" font-size="11" y="42"><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a></text><rect x="232" y="31" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="37" stroke="black"></line><text x="234" fill="black" font-size="11" y="62"><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a></text><rect x="232" y="51" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="57" stroke="black"></line><text x="234" fill="black" font-size="11" y="82"><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a></text><rect x="232" y="71" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="77" stroke="black"></line><text x="234" fill="black" font-size="11" y="102"><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a></text><rect x="232" y="91" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="97" stroke="black"></line><text x="234" fill="black" font-size="11" y="122"><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a></text><rect x="232" y="111" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="117" stroke="black"></line><text x="234" fill="black" font-size="11" y="142"><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a></text><rect x="232" y="131" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="77" x2="231" y2="137" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1202,16 +1738,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1221,10 +1757,10 @@ This section defines the security objectives that are to be addressed by the IT 
      <span class="assignable-content">some bands</span>].
             <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a>,
              Wireless Intrusion Detection – Wireless Spectrum Analysis,
-             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Passive Information Flow Monitoring</h3><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Passive Information Flow Monitoring</h3><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1248,16 +1784,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1267,10 +1803,10 @@ This section defines the security objectives that are to be addressed by the IT 
      <span class="assignable-content">some bands</span>].
             <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a>,
              Wireless Intrusion Detection – Wireless Spectrum Analysis,
-             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Denial of Service</h3><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Denial of Service</h3><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1294,16 +1830,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1313,10 +1849,10 @@ This section defines the security objectives that are to be addressed by the IT 
      <span class="assignable-content">some bands</span>].
             <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a>,
              Wireless Intrusion Detection – Wireless Spectrum Analysis,
-             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Unauthorized Authentication Schemes</h3><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Unauthorized Authentication Schemes</h3><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1340,16 +1876,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1359,10 +1895,10 @@ This section defines the security objectives that are to be addressed by the IT 
      <span class="assignable-content">some bands</span>].
             <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a>,
              Wireless Intrusion Detection – Wireless Spectrum Analysis,
-             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Unauthorized Encryption Schemes</h3><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Unauthorized Encryption Schemes</h3><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1386,16 +1922,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1405,10 +1941,10 @@ This section defines the security objectives that are to be addressed by the IT 
      <span class="assignable-content">some bands</span>].
             <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a>,
              Wireless Intrusion Detection – Wireless Spectrum Analysis,
-             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Wireless Spectrum Monitoring</h3><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Wireless Spectrum Monitoring</h3><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1432,16 +1968,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1451,10 +1987,10 @@ This section defines the security objectives that are to be addressed by the IT 
      <span class="assignable-content">some bands</span>].
             <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.7">FAU_WID_EXT.7</a>,
              Wireless Intrusion Detection – Wireless Spectrum Analysis,
-             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Wireless Spectrum Monitoring</h3><h3>Component Leveling</h3><p>FAU_WID_EXT.1,
+             </p><h3>Management: FAU_WID_EXT.7</h3><p></p><h3>Audit: FAU_WID_EXT.7</h3><p></p><h3>FAU_WID_EXT.7 Wireless Intrusion Detection – Wireless Spectrum Analysis</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.7.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a dedicated sensor for wireless spectrum analysis. <h3>FAU_WID_EXT Wireless Spectrum Monitoring</h3><h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.1">FAU_WID_EXT.1</a>,
              Wireless Intrusion Detection – Malicious Environmental Objects,
              </p><h3>Management: FAU_WID_EXT.1</h3><p></p><h3>Audit: FAU_WID_EXT.1</h3><p></p><h3>FAU_WID_EXT.1 Wireless Intrusion Detection – Malicious Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall apply [<b>selection</b>: <i id="_s_39">configurable</i>, <i id="_s_40">automatic</i>] classification rules to detect rogue APs. <h3>FAU_WID_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall distinguish between benign and malicious APs and EUDs based on automatic detection metrics. <h3>FAU_WID_EXT.1.3</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p>FAU_WID_EXT.2,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to determine if a given <abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> is authorized. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.2">FAU_WID_EXT.2</a>,
              Wireless Intrusion Detection – Passive Information Flow Monitoring,
              </p><h3>Management: FAU_WID_EXT.2</h3><p></p><h3>Audit: FAU_WID_EXT.2</h3><p></p><h3>FAU_WID_EXT.2 Wireless Intrusion Detection – Passive Information Flow Monitoring</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <i id="_s_41">simultaneously</i>, <i id="_s_42">nonsimultaneously</i>] monitor and analyze network traffic matching the 802.11 monitoring SFP for all channels in the following RF frequencies: <ul>
@@ -1478,16 +2014,16 @@ This section defines the security objectives that are to be addressed by the IT 
                     </i>, </li><li><i id="_s_52">no other</i></li></ul>].</li>
               </ul>
             <h3>FAU_WID_EXT.2.4</h3><br/> 
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p>FAU_WID_EXT.3,
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform stateful frame inspection and log attacks spanning multiple frames. <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.3">FAU_WID_EXT.3</a>,
              Wireless Intrusion Detection – Denial of Service,
              </p><h3>Management: FAU_WID_EXT.3</h3><p></p><h3>Audit: FAU_WID_EXT.3</h3><p></p><h3>FAU_WID_EXT.3 Wireless Intrusion Detection – Denial of Service</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect RF-based denial of service, deauthentication flooding, disassociation flooding, request-to-send/clear-to-send abuse, and [<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</span>]</i>, <i id="_s_54">no other <abbr class="dyn-abbr"><a href="#abbr_DoS">DoS</a></abbr> methods</i>].
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.4">FAU_WID_EXT.4</a>,
              Wireless Intrusion Detection – Unauthorized Authentication Schemes,
              </p><h3>Management: FAU_WID_EXT.4</h3><p></p><h3>Audit: FAU_WID_EXT.4</h3><p></p><h3>FAU_WID_EXT.4 Wireless Intrusion Detection – Unauthorized Authentication Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> authentication schemes that are not authorized. 
-            <h3>Component Leveling</h3><p>FAU_WID_EXT.5,
+            <h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.5">FAU_WID_EXT.5</a>,
              Wireless Intrusion Detection – Unauthorized Encryption Schemes,
              </p><h3>Management: FAU_WID_EXT.5</h3><p></p><h3>Audit: FAU_WID_EXT.5</h3><p></p><h3>FAU_WID_EXT.5 Wireless Intrusion Detection – Unauthorized Encryption Schemes</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_WID_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs attempt to use <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> encryption schemes that are not authorized.<h3>FAU_WID_EXT.5.2</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when whitelisted APs and EUDs send or receive unencrypted data.<h3>Component Leveling</h3><p><a href="#FAU_WID_EXT.6">FAU_WID_EXT.6</a>,
@@ -1512,11 +2048,11 @@ This section defines the security objectives that are to be addressed by the IT 
               </i>, <i id="_s_82">
                 [<b>assignment</b>: 
      <span class="assignable-content">other action</span>]
-              </i>] when the local storage space for packet capture data is full. <h3>FAU_INV_EXT Detection of Unauthorized Connections</h3><h3>Component Leveling</h3><p>FAU_INV_EXT.1,
+              </i>] when the local storage space for packet capture data is full. <h3>FAU_INV_EXT Detection of Unauthorized Connections</h3><h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a>,
              Environmental Inventory,
              </p><h3>Management: FAU_INV_EXT.1</h3><p></p><h3>Audit: FAU_INV_EXT.1</h3><p></p><h3>FAU_INV_EXT.1 Environmental Inventory</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. <h3>FAU_INV_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. <h3>FAU_INV_EXT.1.3</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.2,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a>,
              Characteristics of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.2</h3><p></p><h3>Audit: FAU_INV_EXT.2</h3><p></p><h3>FAU_INV_EXT.2 Characteristics of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
@@ -1536,14 +2072,14 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
               <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
             </ul>
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.3,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a>,
              Behavior of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.3</h3><p></p><h3>Audit: FAU_INV_EXT.3</h3><p></p><h3>FAU_INV_EXT.3 Behavior of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
                 <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
               [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
      <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a>,
              Location of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.4</h3><p></p><h3>Audit: FAU_INV_EXT.4</h3><p></p><h3>FAU_INV_EXT.4 Location of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <h3>FAU_INV_EXT.4.2</h3><br/> 
@@ -1552,11 +2088,11 @@ This section defines the security objectives that are to be addressed by the IT 
              Detection of Unauthorized Connections,
              </p><h3>Management: FAU_INV_EXT.5</h3><p></p><h3>Audit: FAU_INV_EXT.5</h3><p></p><h3>FAU_INV_EXT.5 Detection of Unauthorized Connections</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.5.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when non-whitelisted APs have a wired connection to the internal corporate network.<h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.6">FAU_INV_EXT.6</a>,
              Signal Library,
-             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Signal Library</h3><h3>Component Leveling</h3><p>FAU_INV_EXT.1,
+             </p><h3>Management: FAU_INV_EXT.6</h3><p>There are no management functions foreseen.</p><h3>Audit: FAU_INV_EXT.6</h3><p>There are no audit events foreseen.</p><h3>FAU_INV_EXT.6 Signal Library</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FAU_INV_EXT.6.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include a signal library.<h3>FAU_INV_EXT Signal Library</h3><h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.1">FAU_INV_EXT.1</a>,
              Environmental Inventory,
              </p><h3>Management: FAU_INV_EXT.1</h3><p></p><h3>Audit: FAU_INV_EXT.1</h3><p></p><h3>FAU_INV_EXT.1 Environmental Inventory</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.1.1</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall determine if a given <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> is authorized based on <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> addresses. <h3>FAU_INV_EXT.1.2</h3><br/> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of whitelisted EUDs and APs in the Operational Environment. <h3>FAU_INV_EXT.1.3</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the presence of non-whitelisted EUDs and APs in the Operational Environment. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.2,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.2">FAU_INV_EXT.2</a>,
              Characteristics of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.2</h3><p></p><h3>Audit: FAU_INV_EXT.2</h3><p></p><h3>FAU_INV_EXT.2 Characteristics of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.2.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the <ul>
@@ -1576,14 +2112,14 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect the follow additional details for EUDs:<ul>
               <li><abbr class="dyn-abbr"><a href="#abbr_SSID">SSID</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_BSSID">BSSID</a></abbr> of <abbr class="dyn-abbr"><a href="#abbr_AP">AP</a></abbr> it is connected to.</li>
             </ul>
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.3,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.3">FAU_INV_EXT.3</a>,
              Behavior of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.3</h3><p></p><h3>Audit: FAU_INV_EXT.3</h3><p></p><h3>FAU_INV_EXT.3 Behavior of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.3.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect when inventoried EUDs exhibit the following behavior: <ul>
                 <li>An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> establishes a peer-to-peer connection with any other <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr>,</li></ul>
               [<b>selection</b>: <ul><li><i id="_s_33">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> bridges two network interfaces</i>, </li><li><i id="_s_34">An <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr> uses internet connection sharing</i>, </li><li><i id="_s_35">[<b>assignment</b>: 
      <span class="assignable-content">other connection types</span>]</i>, </li><li><i id="_s_36">no other connections types</i></li></ul>]. 
-            <h3>Component Leveling</h3><p>FAU_INV_EXT.4,
+            <h3>Component Leveling</h3><p><a href="#FAU_INV_EXT.4">FAU_INV_EXT.4</a>,
              Location of Environmental Objects,
              </p><h3>Management: FAU_INV_EXT.4</h3><p></p><h3>Audit: FAU_INV_EXT.4</h3><p></p><h3>FAU_INV_EXT.4 Location of Environmental Objects</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: </p><h3>FAU_INV_EXT.4.1</h3><br/> 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall detect information on the current physical location of EUDs and APs within range of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s wireless sensors. <h3>FAU_INV_EXT.4.2</h3><br/> 
