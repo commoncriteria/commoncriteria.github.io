@@ -1685,14 +1685,46 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 		
 		<div class="element"><div class="reqid" id="FPT_RVR_EXT.1.1"><a href="#FPT_RVR_EXT.1.1" class="abbr">FPT_RVR_EXT.1.1</a></div><div class="reqdesc">
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement a mechanism for recovering from boot firmware failure consisting of 
-				[<b>selection</b>: <ul><li><i id="_s_36">the secure local update mechanism described in <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></i>, </li><li><i id="_s_37">reversion to a known-good or recovery firmware image</i>, </li><li><i id="_s_38">reversion to the prior firmware image</i>, </li><li><i id="_s_39">reversion to a firmware recovery image that puts the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into a maintenance mode</i></li></ul>]
+				[<b>selection</b>: <ul><li><i id="_s_36">the secure local update mechanism described in <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></i>, </li><li><i id="_s_37">installation of a known-good or recovery firmware image</i>, </li><li><i id="_s_38">reversion to the prior firmware image</i>, </li><li><i id="_s_39">installation of a recovery image that puts the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into a maintenance mode</i></li></ul>]
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-				QQQQQQQQQQQ Something in here describing the permissible ways to recover from a boot or integrity
-				failure. Could this be merged with the secure local update requyirement.
+				This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if:
+				<ul>
+					<li>"Initiate a Recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a>" is selected in <a href="#FPT_ROT_EXT.2.2">FPT_ROT_EXT.2.2</a>,</li>
+					<li>"Initiate a Recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a>" is selected in <a href="#FPT_TUD_EXT.2.5">FPT_TUD_EXT.2.5</a>,</li>
+					<li>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a recovery mechanism for firmware corruption not necessarily related to 
+						integrity or update failure.</li>
+				</ul>
+				As indicated above, in addition to integrity or update failure, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may use a recovery 
+				mechanism to deal with non-security-related failures, such as a power outage during update or a 
+				power surge during normal operation.<p></p>
+				The recovery process may be initiated automatically on failure, as the result of physically present User
+				action, or as the result of pre-configured policy. The action taken may depend on the nature of the
+				failure as specified in <a href="#FPT_ROT_EXT.2.2">FPT_ROT_EXT.2.2</a> and <a href="#FPT_TUD_EXT.2.5">FPT_TUD_EXT.2.5</a>.<p></p>
 			</span></div></div></div>
 		
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a>:<br/><div class="activity">
-				Nothing to see here.
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> section to confirm that it describes how the platform 
+					firmware recovery mechanism works and the conditions under which it is invoked. 
+				
+				<div class="eacategory">Guidance</div>
+					The evaluator shall examine the guidance to ensure that is describes how to configure the 
+					conditions under which the recovery mechanism is initiated (if configurable).
+				
+				<div class="eacategory">Tests</div>
+					The evaluators shall perform the following tests:
+					<ul>
+						<li><b>Test 1: </b>To test this requirement, the evaluator shall trigger the recovery process
+							either by forcing an update error or a boot integrity failure and observing that 
+							the recovery process has been initiated.</li>
+						<li><b>Test 2: </b>The evaluator will engage with the recovery process as necessary, and after recovery
+							will determine the version of the current firmware image. The test is passed 
+							if the resultant image is as expected in accordance with policy and the selections
+							in <a href="#FPT_RVR_EXT.1.1">FPT_RVR_EXT.1.1</a>. If the recovery process uses the secure
+							local update process as specified in <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a>, then this test is satisfied by
+							testing of that requirement. </li>
+					</ul>
+				
 			</div></div></div></div><div class="comp" id="FPT_TUD_EXT.2"><h4>FPT_TUD_EXT.2 </h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon a selection in
               <a href="#FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</a></i></b></div>
 		
@@ -1716,7 +1748,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.5"><a href="#FPT_TUD_EXT.2.5" class="abbr">FPT_TUD_EXT.2.5</a></div><div class="reqdesc">
 				On failure to authenticate a platform firmware update image, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not install the update image and
-				[<b>selection</b>: <i id="_s_48">Throw an audit event as described in (Table Ref)</i>, <i id="_s_49">Initiate auto recovery as speciofoed in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i>, <i id="_s_50">Go dark</i>, <i id="_s_51">Struggle to reboot</i>]			
+				[<b>selection</b>: <i id="_s_48">Throw an audit event as described in (Table Ref)</i>, <i id="_s_49">Initiate auto recovery as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i>, <i id="_s_50">Go dark</i>, <i id="_s_51">Struggle to reboot</i>]			
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.6"><a href="#FPT_TUD_EXT.2.6" class="abbr">FPT_TUD_EXT.2.6</a></div><div class="reqdesc">
 				On failure of the update process to install an authenticated platform firmware update image, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
