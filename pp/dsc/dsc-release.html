@@ -826,13 +826,67 @@ users of the same system.
    
     <h2 id="SFRs" class="indexable" data-level="2">5.1 Security Functional Requirements</h2>
 	  
-		<h3 id="fcs" class="indexable" data-level="3">5.1.1 Cryptographic Support (FCS)</h3>
+	  <h3 id="fcs" class="indexable" data-level="3">5.1.1 Cryptographic Support (FCS)</h3>
+	  
+		<div class="comp" id="FCS_CKM.1/AK"><h4>FCS_CKM.1/AK Cryptographic Key Generation (Asymmetric Keys)</h4>
+
+			<div class="element"><div class="reqid" id="FCS_CKM.1.1/AK"><a href="#FCS_CKM.1.1/AK" class="abbr">FCS_CKM.1.1/AK</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate asymmetric cryptographic keys
+					 
+					[<b>selection</b>: <i id="_s_4">AK1</i>, <i id="_s_5">AK2</i>, <i id="_s_6">AK3</i>, <i id="_s_7">AK4</i>, <i id="_s_8">AK5</i>]
+					and specified cryptographic key sizes [<i>key sizes as chosen from Supported Methods for
+					Asymmetric Key Generation table for corresponding key types</i>] that meet the following: 
+					[<i>standards	as chosen from Supported Methods for Asymmetric Key Generation table for 
+					corresponding key types</i>].
+					<b><span class="ctr" data-myid="fcs-ckm-1-sk-sels" data-counter-type="ct-Table" id="fcs-ckm-1-sk-sels">Table <span class="counter">2</span>: Supported Methods for Asymmetric Key Generation</span></b><br/>	
+					<table>
+						<tr class="header"><td>Identifier</td><td>Key Type</td><td>Key Sizes</td><td>List of Standards</td></tr>
+
+						<tr><td>AK1</td>
+						<td>RSA</td>
+						<td>[<b>selection</b>: <i id="_s_9">2048 bit</i>, <i id="_s_10">3072-bit</i>]</td>
+						<td><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4 (Section B.3)</td></tr>
+						
+						<tr><td>AK2</td>
+						<td>ECC-N</td>
+						<td>[<b>selection</b>: <i id="_s_11">256 (P-256)</i>, <i id="_s_12">384 (P-384)</i>, <i id="_s_13">521 (P521)</i>]</td>
+						<td><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4 (Section B.4 &amp; D.1.2)</td></tr>
+
+						<tr><td>AK3</td>
+						<td>ECC-B</td>
+						<td>[<b>selection</b>: <i id="_s_14">256 (brainpoolP256r1)</i>, <i id="_s_15">384 (brainpoolP384r1)</i>, <i id="_s_16">512 (brainpoolP512r1)</i>]</td>
+						<td>RFC5639 (Section 3) (Brainpool Curves)</td></tr>
+
+						<tr><td>AK4</td>
+						<td>DSA</td>
+						<td>DSA Bit lengths of p and q respectively (L, N) 
+							[<b>selection</b>: <i id="_s_17">(1024, 160)</i>, <i id="_s_18">(2048, 224)</i>, <i id="_s_19">(2048, 256)</i>, <i id="_s_20">(3027, 256)</i>]</td>
+						<td><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-4 Appendix B.1</td></tr>
+
+						<tr><td>AK5</td>
+						<td>Curve25519</td>
+						<td>256 bits</td>
+						<td><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7748</td></tr>
+					</table>
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">					
+					This requirement is included for the purposes of encryption and decryption operations only. To
+					support ITE protected communications requirement for the transfer of encrypted data, this 
+					requirement mandates implementation compliance to <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-4 only. Implementations
+					according to <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-2 or <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-3 will not be accepted.<p></p>
+					This requirement must be claimed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> if at least one of FCS_CKM.1 or <a href="#FCS_CKM.1/KEK">FCS_CKM.1/KEK</a>
+					chooses a selection related to generation of asymmetric keys.
+				</span></div></div></div>
+		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a>:<br/><div class="activity">
+					
+				</div></div></div></div>
+	  
+	  
 	  
 		
 		<div class="comp" id="FCS_CKM.1/KEK"><h4>FCS_CKM.1/KEK Cryptographic Key Generation (Key Encryption Key)</h4>
+
 			<div class="element"><div class="reqid" id="FCS_CKM.1.1/KEK"><a href="#FCS_CKM.1.1/KEK" class="abbr">FCS_CKM.1.1/KEK</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate key encryption keys in accordance with a specified
 					cryptographic key generation algorithm corresponding to 
-					[<b>selection</b>: <ul><li style=""><i id="_s_4">Asymmetric KEKs generated in accordance with FCS_CKM.1/AK identifier AK1</i>, </li><li style=""><i id="_s_5">Symmetric KEKs generated in accordance with FCS_CKM.1/SK</i>, </li><li style=""><i id="_s_6">Derived KEKs generated in accordance with FCS_CKM_EXT.5</i></li></ul>]
+					[<b>selection</b>: <ul><li style=""><i id="_s_21">Asymmetric KEKs generated in accordance with <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> identifier AK1</i>, </li><li style=""><i id="_s_22">Symmetric KEKs generated in accordance with FCS_CKM.1/SK</i>, </li><li style=""><i id="_s_23">Derived KEKs generated in accordance with FCS_CKM_EXT.5</i></li></ul>]
 					and specified cryptographic key sizes [<b>assignment</b>: 
      <span class="assignable-content">cryptographic key sizes</span>] that meet the
 					following: [<b>assignment</b>: 
@@ -840,8 +894,8 @@ users of the same system.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					KEKs protect KEKs and Symmetric Keys (SKs). DSCs should use key strengths commensurate
 					with protecting the chosen symmetric encryption key strengths.<p></p>
-					If Asymmetric KEKs generated in accordance with FCS_CKM.1/AK is selected, the selection-based
-					<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FCS_CKM.1/AK must be claimed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<p></p>
+					If Asymmetric KEKs generated in accordance with <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> is selected, the selection-based
+					<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> must be claimed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<p></p>
 					If Symmetric KEKs generated in accordance with FCS_CKM.1/SK is selected, the selection-based
 					<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FCS_CKM.1/SK must be claimed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<p></p>
 					If Derived KEKs generated in accordance with FCS_CKM_EXT.5 is selected, the selection-based
@@ -853,10 +907,11 @@ users of the same system.
 				</div></div></div></div>
 		
 		<div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation (Hashing)</h4>
+
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a href="#FCS_COP.1.1/Hash" class="abbr">FCS_COP.1.1/Hash</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [<i>cryptographic hashing</i>] in accordance with a
 					specified cryptographic algorithm 
-					[<b>selection</b>: <i id="_s_7"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</i>, <i id="_s_8"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224</i>, <i id="_s_9"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</i>, <i id="_s_10"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</i>, <i id="_s_11"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</i>, <i id="_s_12">SHA3-224</i>, <i id="_s_13">SHA3-256</i>, <i id="_s_14">SHA3-384</i>, <i id="_s_15">SHA3-512</i>] that meets the following: 
-					[<b>selection</b>: <i id="_s_16"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 10118-3:2018</i>, <i id="_s_17"><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 180-4</i>].
+					[<b>selection</b>: <i id="_s_24"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</i>, <i id="_s_25"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224</i>, <i id="_s_26"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</i>, <i id="_s_27"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</i>, <i id="_s_28"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</i>, <i id="_s_29">SHA3-224</i>, <i id="_s_30">SHA3-256</i>, <i id="_s_31">SHA3-384</i>, <i id="_s_32">SHA3-512</i>] that meets the following: 
+					[<b>selection</b>: <i id="_s_33"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 10118-3:2018</i>, <i id="_s_34"><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 180-4</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The hash selection should be consistent with the overall strength of the algorithm used for
 					signature generation. For example, the DSC should choose <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256 for 2048-bit RSA or ECC 
@@ -872,12 +927,13 @@ users of the same system.
 				</div></div></div></div>
 		
 		<div class="comp" id="FCS_COP.1/HMAC"><h4>FCS_COP.1/HMAC Cryptographic Operation (Keyed Hash)</h4>
+
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/HMAC"><a href="#FCS_COP.1.1/HMAC" class="abbr">FCS_COP.1.1/HMAC</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [<i>keyed hash message authentication</i>] in accordance
 					with a specified cryptographic algorithm 
-					[<b>selection</b>: <i id="_s_18"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-1</i>, <i id="_s_19"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-256</i>, <i id="_s_20"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-384</i>, <i id="_s_21"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-512</i>, <i id="_s_22">KMAC128</i>, <i id="_s_23">KMAC256</i>] and cryptographic key sizes [<b>assignment</b>: 
+					[<b>selection</b>: <i id="_s_35"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-1</i>, <i id="_s_36"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-256</i>, <i id="_s_37"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-384</i>, <i id="_s_38"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-512</i>, <i id="_s_39">KMAC128</i>, <i id="_s_40">KMAC256</i>] and cryptographic key sizes [<b>assignment</b>: 
      <span class="assignable-content">key size (in bits)</span>]
 					that meet the following: 
-					[<b>selection</b>: <i id="_s_24"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 9797-2:2011 Section 7 “MAC Algorithm 2”</i>, <i id="_s_25">[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-KDV] section 4 “KMAC”</i>].
+					[<b>selection</b>: <i id="_s_41"><abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 9797-2:2011 Section 7 “MAC Algorithm 2”</i>, <i id="_s_42">[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-KDV] section 4 “KMAC”</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> key size falls into a range between L1 and L2 defined in <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 10118 for the
 					appropriate hash function (for example for <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256 L1 = 512, L2 = 256) where L2 ≤ k ≤ L1.
@@ -887,7 +943,7 @@ users of the same system.
 				</div></div></div></div>
        
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.2 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td>FAU_GEN.1</td><td>'cause FAU_GEN.1 is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> For reasons </td></tr><tr><td>FPT_TUD_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TUD_EXT.2</td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, FCS_RBG_EXT.1, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">3</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td>FAU_GEN.1</td><td>'cause FAU_GEN.1 is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> For reasons </td></tr><tr><td>FPT_TUD_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TUD_EXT.2</td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, FCS_RBG_EXT.1, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
             FCS_RBG_EXT.1, FCS_CKM.1, FCS_CKM.2, FCS_CKM_EXT.4, FCS_COP.1/ENCRYPT,
             FCS_COP.1/HASH, FCS_COP.1/SIGN, <a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a>, FDP_IFC_EXT.1, FIA_X509_EXT.1,
             FIA_X509_EXT.2, FTP_ITC_EXT.1
