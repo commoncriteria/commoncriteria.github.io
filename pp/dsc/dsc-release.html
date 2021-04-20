@@ -834,7 +834,7 @@ users of the same system.
 
 	<div class="comp" id="FCS_CKM.1"><h4>FCS_CKM.1 Cryptographic Key Generation</h4>
 		<div class="element"><div class="reqid" id="FCS_CKM.1.1"><a href="#FCS_CKM.1.1" class="abbr">FCS_CKM.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate cryptographic keys by [<i>parsing in accordance with
-				FDP_ITC_EXT.1 and FDP_ITC_EXT.2,</i>
+				<a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a> and <a href="#FDP_ITC_EXT.2">FDP_ITC_EXT.2</a>,</i>
 				[<b>selection</b>: <i id="_s_4">asymmetric key generation in accordance with <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></i>, <i id="_s_5">symmetric key generation in accordance to <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a></i>, <i id="_s_6">no other methods</i>] <s>in accordance with a specified cryptographic key generation algorithm 
 				[assignment: <i>cryptographic key generation algorithm</i>]
 				and specified cryptographic key sizes 
@@ -1887,10 +1887,115 @@ users of the same system.
 			</div></div></div></div>
 
 						
-						
-						
-						
+	<div class="comp" id="FCS_ETC_EXT.2"><h4>FCS_ETC_EXT.2 Propagation of SDOs</h4>
+		<div class="element"><div class="reqid" id="FCS_ETC_EXT.2.1"><a href="#FCS_ETC_EXT.2.1" class="abbr">FCS_ETC_EXT.2.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall propagate only SDO references, wrapped authorization data,
+				and wrapped SDOs such that only 
+				[<b>selection</b>: <i id="_s_575">the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></i>, <i id="_s_576">authorized users</i>] can access them.
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The “SDO reference” is a pointer to an object that resides in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>; this can be thought of as
+				a token to the object. The “only the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can unwrap the data” selection refers to data that is
+				stored outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary (i.e., data that has been propagated).
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_ETC_EXT.2">FCS_ETC_EXT.2</a>:<br/><div class="activity">
 				
+			</div></div></div></div>
+		
+	<div class="comp" id="FDP_FRS_EXT.1"><h4>FDP_FRS_EXT.1 Factory Reset</h4>
+		<div class="element"><div class="reqid" id="FDP_FRS_EXT.1.1"><a href="#FDP_FRS_EXT.1.1" class="abbr">FDP_FRS_EXT.1.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall permit a factory reset of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> upon: 
+				[<b>selection</b>: <i id="_s_577">activation by external interface</i>, <i id="_s_578">presentation of [<b>assignment</b>: 
+     <span class="assignable-content">types of authorization data 
+						required and reference to their specification</span>]</i>, <i id="_s_579">no actions or conditions</i>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				If the DSC provides factory reset and requires an authorization to carry out the operation then the
+				<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects either <u>presentation of…</u> and fills in the authorization data accepted (e.g. a PIN
+				or a cryptographic token based on some specification referenced in the assigned value). If the DSC
+				provides factory reset external to the DSC without requiring authorization then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author
+				selects <u>activation by external interface</u>. This selection is intended for use when the device
+				containing the DSC takes responsibility for obtaining and checking the authorization for factory
+				reset.<p></p>
+				If any selection other than <u>no actions or conditions</u> is made in <a href="#FDP_FRS_EXT.1.1">FDP_FRS_EXT.1.1</a>, 
+				the selectionbased <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FDP_FRS_EXT.2 must be claimed.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_FRS_EXT.1">FDP_FRS_EXT.1</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
+			
+	<div class="comp" id="FDP_ITC_EXT.1"><h4>FDP_ITC_EXT.1 Parsing of SDEs</h4>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.1.1"><a href="#FDP_ITC_EXT.1.1" class="abbr">FDP_ITC_EXT.1.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support importing SDEs using 
+				[<b>selection</b>: <i id="_s_580">physically protected channels as specified in FTP_ITP_EXT.1</i>, <i id="_s_581">encrypted data buffers as specified in FTP_ITE_EXT.1</i>, <i id="_s_582">cryptographically protected data channels as specified in FTP_ITC_EXT.1</i>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.1.2"><a href="#FDP_ITC_EXT.1.2" class="abbr">FDP_ITC_EXT.1.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall verify the integrity of the SDE using 
+				[<b>selection</b>: <ul><li style=""><i id="_s_583">cryptographic hash as specified in <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></i>, </li><li style=""><i id="_s_584">keyed hash as specified in <a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a></i>, </li><li style=""><i id="_s_585">integrityproviding encryption algorithm as specified in <a href="#FCS_COP.1/KeyEnc">FCS_COP.1/KeyEnc</a>
+						[<b>selection</b>: <i id="_s_586">SE1</i>, <i id="_s_587">SE2</i>]</i>, </li><li style=""><i id="_s_588">digital signature as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></i>, </li><li style=""><i id="_s_589">integrity verification supported by <a href="#FDP_ITC_EXT.1.1">FDP_ITC_EXT.1.1</a></i></li></ul>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.1.3"><a href="#FDP_ITC_EXT.1.3" class="abbr">FDP_ITC_EXT.1.3</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ignore any security attributes associated with the user data
+				when imported from outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.1.4"><a href="#FDP_ITC_EXT.1.4" class="abbr">FDP_ITC_EXT.1.4</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall bind SDEs to security attributes using [<b>assignment</b>: 
+     <span class="assignable-content">list of ways
+				the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generates security attributes and binds them to the SDEs</span>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The way the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> checks the integrity of the SDE depends on the method of importation. For
+				example, the encrypted data channel may provide data integrity as part of its service.<p></p>
+				When a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> parses an SDE, it should generate security attributes and create an SDO by binding
+				the security attributes to the SDE.<p></p>
+				If <u>physically protected channels as specified in FTP_ITC_EXT.1</u> is selected, the selection-based
+				<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FTP_ITP_EXT.1 must be claimed.<p></p>
+				If <u>encrypted data buffers as specified in FTP_ITE_EXT.1</u> is selected, the selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>
+				FTP_ITE_EXT.1 must be claimed.<p></p>
+				If <u>cryptographically protected data channels as specified in FTP_ITC_EXT.1</u> is selected, the
+				selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FTP_ITC_EXT.1 must be claimed.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a>:<br/><div class="activity">
+			
+		</div></div></div></div>	
+
+	<div class="comp" id="FDP_ITC_EXT.2"><h4>FDP_ITC_EXT.2 Parsing of SDOs</h4>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.2.1"><a href="#FDP_ITC_EXT.2.1" class="abbr">FDP_ITC_EXT.2.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support importing SDOs using 
+				[<b>selection</b>: <i id="_s_590">physically protected channels as specified in FTP_ITP_EXT.1</i>, <i id="_s_591">encrypted data buffers as specified in FTP_ITE_EXT.1</i>, <i id="_s_592">cryptographically protected data channels as specified in FTP_ITC_EXT.1</i>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.2.2"><a href="#FDP_ITC_EXT.2.2" class="abbr">FDP_ITC_EXT.2.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall verify the integrity of the SDO using 
+				[<b>selection</b>: <ul><li style=""><i id="_s_593">
+						cryptographic hash as specified in <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></i>, </li><li style=""><i id="_s_594">keyed hash as specified in <a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a></i>, </li><li style=""><i id="_s_595">integrityproviding encryption algorithm as specified in <a href="#FCS_COP.1/KeyEnc">FCS_COP.1/KeyEnc</a>
+						[<b>selection</b>: <i id="_s_596">SE1</i>, <i id="_s_597">SE2</i>]</i>, </li><li style=""><i id="_s_598">digital signature as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></i>, </li><li style=""><i id="_s_599">integrity verification supported by <a href="#FDP_ITC_EXT.2.1">FDP_ITC_EXT.2.1</a></i></li></ul>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.2.3"><a href="#FDP_ITC_EXT.2.3" class="abbr">FDP_ITC_EXT.2.3</a></div><div class="reqdesc">
+			       The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the security attributes associated with the imported user
+				data.
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.2.4"><a href="#FDP_ITC_EXT.2.4" class="abbr">FDP_ITC_EXT.2.4</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that the protocol used provides for the unambiguous
+				association between the security attributes and the user data received.
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ITC_EXT.2.5"><a href="#FDP_ITC_EXT.2.5" class="abbr">FDP_ITC_EXT.2.5</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that interpretation of the security attributes of the imported
+				user data is as intended by the source of the user data.
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The way the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> checks the integrity of the SDO depends on the method of importation. For
+				example, the encrypted data channel may provide data integrity as part of its service.<p></p>
+				When a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> parses an SDO, it should already have a set of security attributes. However, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
+				may modify these attributes, if authorized, to comply with security policies on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<p></p>
+				If <u>physically protected channels as specified in FTP_ITC_EXT.1</u> is selected, the selection-based
+				<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FTP_ITP_EXT.1 must be claimed.<p></p>
+				If <u>encrypted data buffers as specified in FTP_ITE_EXT.1</u> is selected, the selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>
+				FTP_ITE_EXT.1 must be claimed.<p></p>
+				If <u>cryptographically protected data channels as specified in FTP_ITC_EXT.1</u> is selected, the
+				selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FTP_ITC_EXT.1 must be claimed.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ITC_EXT.2">FDP_ITC_EXT.2</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
+		
+		
+		
 		
        
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.3 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
