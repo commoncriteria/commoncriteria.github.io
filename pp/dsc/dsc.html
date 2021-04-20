@@ -1801,6 +1801,93 @@ users of the same system.
 				
 			</div></div></div></div>
 	
+	<div class="comp" id="FDP_ACF.1"><h4>FDP_ACF.1 Security Attribute Based Access Control</h4>
+		<div class="element"><div class="reqid" id="FDP_ACF.1.1"><a href="#FDP_ACF.1.1" class="abbr">FDP_ACF.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the [<i>Access Control SFP</i>] to objects based on the
+				following:
+				[<i>subjects (defined in <a href="#FDP_ACC.1.1">FDP_ACC.1.1</a>) attempt to perform operations (defined in <a href="#FDP_ACC.1.1">FDP_ACC.1.1</a>)
+				against objects (defined in <a href="#FDP_ACC.1.1">FDP_ACC.1.1</a>). Subject and object attributes may be used to determine
+				whether the desired operations are permitted.<p></p>
+				The following are the SFP-relevant security attributes that are associated with the subjects and
+				objects defined in <a href="#FDP_ACC.1.1">FDP_ACC.1.1</a>, as well as any restrictions on the attribute values:
+				<ul>
+					<li>S.DSC<ul>
+						<li>DSC.ID</li></ul></li>
+					<li>S.Admin – none</li>
+					<li>S.CA<ul>
+						<li>CA.ID</li></ul></li>
+					<li>S.EPS<ul>
+						<li>EPS.ID</li></ul></li>
+					<li>OB.P_SDO<ul>
+						<li>SDO.ID</li>
+						<li>SDO.Type</li>
+						<li>SDO.AuthData</li>
+						<li>SDO.Reauth</li>
+						<li>SDO.Conf</li>
+						<li>SDO.Export</li>
+						<li>SDO.Integrity</li>
+						<li>SDO.Bind</li></ul></li>
+					<li>OB.T_SDO – same as OB.P_SDO</li>
+					<li>OB.AuthData – none</li>
+					<li>OB.Pstate – none</li>
+					<li>OB.FAACntr – none</li>
+					<li>OB.AntiReplay – none</li>
+					<li>OB.Context– none</li>
+				</ul></i>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ACF.1.2"><a href="#FDP_ACF.1.2" class="abbr">FDP_ACF.1.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the following rules to determine if an operation among
+				controlled subjects and controlled objects is allowed: [<i>
+				<ul>
+					<li>Any subject that has been authorized to perform any operation against any OB.P_SDO or
+						OB.T_SDO object can continue to perform this operation if one of the following conditions
+						is true:<ul>
+						<li>The object’s SDO.Reauth attribute has a value of ‘none’, indicating that
+							reauthorization is not required for subsequent interactions with the SDO</li>
+						<li>The object’s SDO.Reauth attribute has a value of ‘each use’, indicating that reauthorization is required for each interaction with the SDO, and the subject has
+							supplied valid authorization data to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></li></ul></li>
+					<li>[assignment: rules automatically enforced by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> that always prohibit certain subjectobject-operation actions]</li>
+					<li>[assignment: rules automatically enforced by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> that always permit certain subjectobject-operation actions]</li>
+					<li>[assignment: rules automatically enforced by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> that conditionally permit certain
+						subject-object-operation actions based on subject security attributes, object security
+						attributes, or other conditions]</li>
+					<li>[selection: [assignment: any configurable rules or parameters that can be modified to
+						affect the behavior of the Access Control SFP], no configurable rules]</li>
+				</ul></i>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_ACF.1.3"><a href="#FDP_ACF.1.3" class="abbr">FDP_ACF.1.3</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall explicitly authorize access of subjects to objects based on the
+				following additional rules: [<b>assignment</b>: 
+     <span class="assignable-content">rules, based on security attributes, that explicitly
+				authorize access of subjects to objects</span>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The expectation of this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is that the reader is given sufficient information to determine, for each
+				object controlled by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the operations that can be performed on it based on the subject
+				attempting to perform the operation, and whether this is conditional based on attribute values or
+				any other circumstances.<p></p>
+				It is expected that many of the subject-object-operation combinations will always be prohibited by
+				the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, either because the target object is not externally modifiable or because the subject lacks
+				the ability to perform the operation in question.<p></p>
+				The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author is not expected to create an exhaustive list of subject-object-operation
+				combinations; it is sufficient to list those that are always permitted and those that are conditionally
+				permitted with the expectation that all remaining combinations are prohibited.<p></p>
+				<a href="#FDP_ACF.1.3">FDP_ACF.1.3</a> and <a href="#FDP_ACF.1">FDP_ACF.1</a>.4 allow the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to optionally specify override conditions to
+				resolve otherwise contradictory Access Control SFP rules. For example, the rule “S.Admin may
+				always modify the SDO.Conf attribute of any OB.P_SDO or OB.T_SDO object” may be
+				overridden by a statement in <a href="#FDP_ACF.1">FDP_ACF.1</a>.4 that identifies any particular SDO objects as nonmodifiable 
+				regardless of subject authorizations.<p></p>
+				The DSC may contain pre-installed SDOs. The DSC will enforce access control for pre-installed
+				SDOs like any other SDO it contains or manages.<p></p>
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ACF.1">FDP_ACF.1</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
+
+						
+						
+						
+						
+				
+		
        
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.3 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
     showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">10</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td>FAU_GEN.1</td><td>'cause FAU_GEN.1 is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> For reasons </td></tr><tr><td>FPT_TUD_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TUD_EXT.2</td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
