@@ -1990,9 +1990,96 @@ users of the same system.
 				
 			</div></div></div></div>
 		
+	<div class="comp" id="FDP_MFW_EXT.1"><h4>FDP_MFW_EXT.1 Mutable/Immutable Firmware</h4>
+		<div class="element"><div class="reqid" id="FDP_MFW_EXT.1.1"><a href="#FDP_MFW_EXT.1.1" class="abbr">FDP_MFW_EXT.1.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be maintained as 
+				[<b>selection</b>: <i id="_s_600">immutable</i>, <i id="_s_601">mutable</i>] firmware.
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must include FDP_MFW_EXT.2, FDP_MFW_EXT.3, FPT_FLS.1/FW, and
+				FPT_RPL.1/Rollback if <u>mutable</u> is selected.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_MFW_EXT.1">FDP_MFW_EXT.1</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
 		
+	<div class="comp" id="FDP_RIP.1"><h4>FDP_RIP.1 Subset Residual Information Protection</h4>
+		<div class="element"><div class="reqid" id="FDP_RIP.1.1"><a href="#FDP_RIP.1.1" class="abbr">FDP_RIP.1.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that any previous information content of a resource is made
+				unavailable upon the [<i>deallocation of the resource from</i>] 
+				the following objects: [<i>
+				<ul>
+					<li>SDOs</li>
+					<li>SDEs</li>
+				</ul></i>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				When an SDE is a key then it is also subject to the key destruction requirements in <a href="#FCS_CKM.4">FCS_CKM.4</a>,
+				depending on where and how it is stored. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to authorization data that are SDEs
+				and security attributes in SDOs.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_RIP.1">FDP_RIP.1</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
+
+	<div class="comp" id="FDP_SDC_EXT.1"><h4>FDP_SDC_EXT.1 Confidentiality of SDEs</h4>
+		<div class="element"><div class="reqid" id="FDP_SDC_EXT.1.1"><a href="#FDP_SDC_EXT.1.1" class="abbr">FDP_SDC_EXT.1.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use 
+				[<b>selection</b>: <ul><li style=""><i id="_s_602">protected storage</i>, </li><li style=""><i id="_s_603">symmetric encryption using
+						[<b>selection</b>: <i id="_s_604"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM</i>, <i id="_s_605"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM</i>, <i id="_s_606"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC</i>, <i id="_s_607"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP</i>, <i id="_s_608"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW</i>, <i id="_s_609">CAM-CBC</i>, <i id="_s_610">CAM-CCM</i>, <i id="_s_611">CAM-GCM</i>] as specified in <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></i>, </li><li style=""><i id="_s_612">key wrapping using 
+						[<b>selection</b>: <i id="_s_613">KAS1</i>, <i id="_s_614">KAS2</i>, <i id="_s_615">KTS-OAEP</i>] as specified in <a href="#FCS_COP.1/KAT">FCS_COP.1/KAT</a></i></li></ul>] to protect the confidentiality of authorization data
+				and [<b>assignment</b>: 
+     <span class="assignable-content">list of internally and externally stored SDEs identified 
+				in the Confidential SDE List attribute of an SDO</span>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_SDC_EXT.1.2"><a href="#FDP_SDC_EXT.1.2" class="abbr">FDP_SDC_EXT.1.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use <a href="#FCS_CKM.1/KEK">FCS_CKM.1/KEK</a> to derive or generate the key to
+				encrypt the SDEs.
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to confidential SDEs, especially secret and private keys, Allowed Random
+				Number Generators’ state data, and vendor verification reference data. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> also applies to
+				all authorization data appearing in the attribute list under SDO.AuthData as well as any
+				administrator authorization data which may be stored implicitly.<p></p>
+				If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> stores these parameters outside of its boundary, it must encrypt them according to the
+				cryptographic requirements for key encryption, as required by FDP_ETC_EXT.2.<p></p>
+				Vendor pre-installed SDOs includes both objects installed during manufacturing, and those
+				provisioned by the vendor before final release to customer. The administrator and no one else
+				owns and controls these objects.<p></p>
+				The confidential-SDE List attribute of the SDO indicates those SDEs that require confidentiality.
+				If SDEs do not require confidentiality, then its omission from this list indicates that confidentiality
+				is not required.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_SDC_EXT.1">FDP_SDC_EXT.1</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
 		
-		
+	<div class="comp" id="FDP_SDI.2"><h4>FDP_SDI.2 Stored Data Integrity Monitoring and Action</h4>
+		<div class="element"><div class="reqid" id="FDP_SDI.2.1"><a href="#FDP_SDI.2.1" class="abbr">FDP_SDI.2.1</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall monitor SDOs and SDEs controlled by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for [<i>integrity errors</i>]
+				on all objects, based on the following attributes: 
+				[<b>selection</b>: <ul><li style=""><i id="_s_616">[<b>assignment</b>: 
+     <span class="assignable-content">attribute associated with presence in protected storage</span>]</i>, </li><li style=""><i id="_s_617">cryptographic hash</i>, </li><li style=""><i id="_s_618">digital signature</i>, </li><li style=""><i id="_s_619">integrity-providing encryption algorithm as specified 
+						in <a href="#FCS_COP.1/KeyEnc">FCS_COP.1/KeyEnc</a> 
+						[<b>selection</b>: <i id="_s_620">SE1</i>, <i id="_s_621">SE2</i>]</i></li></ul>].
+			</div></div>
+		<div class="element"><div class="reqid" id="FDP_SDI.2.2"><a href="#FDP_SDI.2.2" class="abbr">FDP_SDI.2.2</a></div><div class="reqdesc">
+				Upon detection of a data integrity error, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<i><ul>
+				<li>prohibit the use of the altered data</li>
+				<li>send notification of the error where applicable</li>
+				</ul></i>].
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> deals with the mechanism that protects the integrity of the SDEs and security attributes
+				within an SDO. This provides the binding data that ensuresthe prevention of unauthorized changes
+				to the SDEs and attributes.<p></p>
+				The cryptographic requirements for cryptographic hashes and digital signatures apply here.<p></p>
+				No specific requirement is placed here on the nature of the integrity protection data, but the
+				Security Target shall describe this protection measure, and shall identify the iteration of
+				<a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> or <a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a> that covers any cryptographic algorithm used.<p></p>
+				The integrity protection data in <a href="#FDP_SDI.2.1">FDP_SDI.2.1</a> is included in the list of attributes identified in
+				FMT_MSA.1, and protects the value of the SDEs and of the SDO security attributes.<p></p>
+				When an SDO is parsed, its integrity is checked when it is imported into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+			</span></div></div></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_SDI.2">FDP_SDI.2</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
        
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.3 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
     showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">10</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td>FAU_GEN.1</td><td>'cause FAU_GEN.1 is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> For reasons </td></tr><tr><td>FPT_TUD_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TUD_EXT.2</td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
