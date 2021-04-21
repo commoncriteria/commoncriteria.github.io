@@ -664,6 +664,7 @@ The following sections list Common Criteria and technology terms used in this do
 	Is the major distinction going to be related to physical protections?
 
 	    
+	
 	<dl><dt> [USE CASE 1] Server-Class Platform, Data Center-based</dt><dd>
 				Server-class hardware in a data center is assumed to be physically protected by the operational environment. 
           		</dd><dt> [USE CASE 2] Server-Class Platform, Field-based (Edge servers)</dt><dd>
@@ -1512,6 +1513,51 @@ The following sections list Common Criteria and technology terms used in this do
 					
 				</div></div></div></div>	
 		
+		
+        <div class="comp" id="FCS_ENT_EXT.1"><h4>FCS_ENT_EXT.1 Entropy for Tenant Software</h4>
+            <div class="element"><div class="reqid" id="FCS_ENT_EXT.1.1"><a href="#FCS_ENT_EXT.1.1" class="abbr">FCS_ENT_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide one or more mechanisms to make entropy suitable for use in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>
+					available to tenant software.
+                <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+                    This requirement ensures that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> makes available sufficient entropy to any tenant
+					that requires it. Every entropy source need not provide high-quality entropy, but tenant
+					software must have a means of acquiring sufficient entropy.<p></p>
+					A hardware noise source is a component that produces data that cannot be explained
+					by a deterministic rule, due to its physical nature. In other words, a hardware based
+					noise source generates sequences of random numbers from a physical process that
+					cannot be predicted. For example, a sampled ring oscillator consists of an odd number
+					of inverter gates chained into a loop, with an electrical pulse traveling from 
+					inverter to inverter around the loop. The inverters are not clocked, so the precise 
+					time required for a complete circuit around the loop varies slightly as various
+					physical effects modify the small delay time at each inverter on the line to the
+					next inverter. This variance results in an approximate natural frequency that 
+					contains drift and jitter over time. The output of the ring oscillator consists 
+					of the oscillating binary value sampled at a constant rate from one of the 
+					inverters – a rate that is significantly slower than the oscillator’s natural 
+					frequency.
+                </span></div></div></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_ENT_EXT.1">FCS_ENT_EXT.1</a>:<br/><div class="activity">
+                    <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+                        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> documents the entropy sources implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+						It is not necessary to document all the platform features that can be used by tenant software to 
+						contribute to entropy, rather only those features expressly provided as entropy sources. 
+                    
+					<div class="eacategory">Guidance</div>
+						The evaluator shall examine the AGD to ensure that it describes how to configure 
+						entropy sources (if applicable) and how tenant software can access the sources. 
+					
+                    <div class="eacategory">Tests</div>
+                        The evaluator shall perform the following tests:
+                        <ul>
+                            <li><b>Test 1: </b>
+                                The evaluator shall invoke the entropy source(s) from tenant software.
+								The evaluator shall verify that the tenant acquires values from the 
+								interface.
+                            </li>
+                        </ul>
+                    
+                </div></div></div></div>
+
+		
 		<div class="comp" id="FCS_RBG_EXT.1"><h4>FCS_RBG_EXT.1 Random Bit Generation</h4><div class="statustag"><i><b>This is an optional component. However, applied modules or packages might redefine it as mandatory.</b></i></div>
 
 
@@ -1529,10 +1575,23 @@ The following sections list Common Criteria and technology terms used in this do
 					[<b>selection</b>: <i id="_s_249">128</i>, <i id="_s_250">192</i>, <i id="_s_251">256</i>] bits of entropy at least equal to the greatest security strength, 
 					according to <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18031:2011, of the keys and CSPs that it will generate.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+					For the selection in <a href="#FCS_RBG_EXT.1.2">FCS_RBG_EXT.1.2</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the appropriate number 
+					of bits of entropy that corresponds to the greatest security strength of the
+					algorithms included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Security strength is defined in Tables 2 and 3 of 
+					<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-57A. For example, if the implementation includes 2048-bit RSA (security
+					strength of 112 bits), <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> 128 (security strength 128 bits), and <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-256
+					(security strength 256 bits), then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author would select 256 bits.
+				</span></div></div></div>
+			<div class="element"><div class="reqid" id="FCS_RBG_EXT.1.3"><a href="#FCS_RBG_EXT.1.3" class="abbr">FCS_RBG_EXT.1.3</a></div><div class="reqdesc">
+					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of providing output of the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> to applications running on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
+					that request random bits.
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					<abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18031:2011 contains three different methods of generating random numbers. Each of
 					these in turn depends on underlying cryptographic primitives (hash functions/ciphers). This cPP
 					allows <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512 for Hash_DRBG or HMAC_DRBG
-					and only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG. 		
+					and only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG. <p></p>
+					This requirement must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> only if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generates keys for its
+					own use, or if it provides <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> services for tenant software.
 				</span></div></div></div>
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"></div></div></div>		
 		
@@ -1615,6 +1674,89 @@ The following sections list Common Criteria and technology terms used in this do
 					vendor testing.<p></p>
 				
 			</div></div></div></div>	
+	
+	
+	<div class="comp" id="FPT_PHP.1"><h4>FPT_PHP.1 Passive detection of physical attack</h4><div class="statustag"><i><b>This is an optional component. However, applied modules or packages might redefine it as mandatory.</b></i></div>
+		<div class="element"><div class="reqid" id="FPT_PHP.1.1"><a href="#FPT_PHP.1.1" class="abbr">FPT_PHP.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide unambiguous detection of physical tampering
+				that might compromise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_PHP.1.2"><a href="#FPT_PHP.1.2" class="abbr">FPT_PHP.1.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the capability to determine whether physical
+				tampering with the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s devices or <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s elements has occurred. 
+			</div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PHP.1">FPT_PHP.1</a>:<br/><div class="activity">
+				
+			</div></div></div></div>
+	
+	
+	<div class="comp" id="FPT_PHP.2"><h4>FPT_PHP.2 Notification of physical attack</h4><div class="statustag"><i><b>This is an optional component. However, applied modules or packages might redefine it as mandatory.</b></i></div>
+		<div class="element"><div class="reqid" id="FPT_PHP.2.1"><a href="#FPT_PHP.2.1" class="abbr">FPT_PHP.2.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide unambiguous detection of physical tampering that
+				might compromise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_PHP.2.2"><a href="#FPT_PHP.2.2" class="abbr">FPT_PHP.2.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the capability to determine whether physical
+				tampering with the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s devices or <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s elements has occurred. 
+			</div></div>
+		<div class="element"><div class="reqid" id="FPT_PHP.2.3"><a href="#FPT_PHP.2.3" class="abbr">FPT_PHP.2.3</a></div><div class="reqdesc">
+				For [<b>assignment</b>: 
+     <span class="assignable-content">list of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> devices/elements for which active detection is
+				required</span>], the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall monitor the devices and elements and notify
+				[<b>assignment</b>: 
+     <span class="assignable-content">a designated user or role</span>] when physical tampering with the
+				<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s devices or <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s elements has occurred. 
+			</div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PHP.2">FPT_PHP.2</a>:<br/><div class="activity">
+			
+		</div></div></div></div>
+	
+	
+	<div class="comp" id="FPT_PHP.3"><h4>FPT_PHP.3 Resistance to physical attack</h4><div class="statustag"><i><b>This is an optional component. However, applied modules or packages might redefine it as mandatory.</b></i></div>
+		<div class="element"><div class="reqid" id="FPT_PHP.3.1"><a href="#FPT_PHP.3.1" class="abbr">FPT_PHP.3.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall resist [<b>assignment</b>: 
+     <span class="assignable-content">physical tampering scenarios</span>] to the
+				[<b>assignment</b>: 
+     <span class="assignable-content">list of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> devices/elements</span>] by responding automatically
+				such that the SFRs are always enforced. 
+			</div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PHP.3">FPT_PHP.3</a>:<br/><div class="activity">
+			
+		</div></div></div></div>
+
+	
+	<div class="comp" id="FPT_PHP_EXT.1"><h4>FPT_PHP_EXT.1 Hardware component integrity</h4><div class="statustag"><i><b>This is an optional component. However, applied modules or packages might redefine it as mandatory.</b></i></div>
+		<div class="element"><div class="reqid" id="FPT_PHP_EXT.1.1"><a href="#FPT_PHP_EXT.1.1" class="abbr">FPT_PHP_EXT.1.1</a></div><div class="reqdesc">
+				The integrity of all platform hardware components outside of the platform integrity root
+				specified in <a href="#FPT_ROT_EXT.1">FPT_ROT_EXT.1</a> shall be verified 
+				prior to execution or use through: 
+				[<b>assignment</b>: 
+     <span class="assignable-content">method for ensuring integrity of platform hardware components</span>]. 
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				The scope of the project is limited to manufacturing and OEM processes that protect against counterfeits, tampering, and insertion of unexpected software and hardware, and the corresponding customer processes that verify that client and server computing devices and components have not been tampered with or otherwise modified. Manufacturing processes that cannot be verified by the customer are explicitly out of scope.
+			</span></div></div></div>
+		<div class="element"><div class="reqid" id="FPT_PHP_EXT.1.2"><a href="#FPT_PHP_EXT.1.2" class="abbr">FPT_PHP_EXT.1.2</a></div><div class="reqdesc">
+				The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall take the following actions if an integrity check specified in <a href="#FPT_PHP_EXT.1.1">FPT_PHP_EXT.1.1</a> fails:
+				<ol type="1">
+					<li>Halt,</li>
+					<li>Notify an administrator/user by
+						[<b>selection</b>: <i id="sel-audit-integrity">generating an audit event</i>, <i id="_s_270">[<b>assignment</b>: 
+     <span class="assignable-content">other notification method(s)</span>]</i>], and</li>
+					<li>[<b>selection</b>: <ul><li><i id="_s_271">Stop all execution and shut down</i>, </li><li><i id="_s_272">Continue execution without the integrity-compromised component</i></li></ul>]</li>
+				</ol> 
+				[<b>selection</b>: <ul><li><i id="_s_273">automatically</i>, </li><li><i id="_s_274">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_275">by express determination of an administrator/user</i></li></ul>].	
+			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+				Notification of an administrator can take many forms. For server-class platforms, such notification could take the form 
+				of administrator alerts or audit events. For platforms without management controllers, notification could be achieved, for
+				example, by blinking lights, beep codes, screen indications, or local logging.<p></p>
+				If "<i>generating an audit event</i>" is selected then <a href="#FAU_GEN.1">FAU_GEN.1</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+			</span></div></div></div>
+		
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_PHP_EXT.1">FPT_PHP_EXT.1</a>:<br/><div class="activity">
+			
+			</div></div></div></div>
+
+
 		
 	
 	<div class="comp" id="FPT_PPF_EXT.1"><h4>FPT_PPF_EXT.1 Protection of Platform Firmware and Critical Data</h4>
@@ -1663,7 +1805,7 @@ The following sections list Common Criteria and technology terms used in this do
 		
 		<div class="element"><div class="reqid" id="FPT_RVR_EXT.1.1"><a href="#FPT_RVR_EXT.1.1" class="abbr">FPT_RVR_EXT.1.1</a></div><div class="reqdesc">
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement a mechanism for recovering from boot firmware failure consisting of 
-				[<b>selection</b>: <ul><li><i id="_s_269">the secure local update mechanism described in <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></i>, </li><li><i id="_s_270">installation of a known-good or recovery firmware image</i>, </li><li><i id="_s_271">reversion to the prior firmware image</i>, </li><li><i id="_s_272">installation of a recovery image that puts the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into a maintenance mode</i></li></ul>]
+				[<b>selection</b>: <ul><li><i id="_s_276">the secure local update mechanism described in <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></i>, </li><li><i id="_s_277">installation of a known-good or recovery firmware image</i>, </li><li><i id="_s_278">reversion to the prior firmware image</i>, </li><li><i id="_s_279">installation of a recovery image that puts the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into a maintenance mode</i></li></ul>]
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if:
 				<ul>
@@ -1708,7 +1850,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	<div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 TOE Firmware Update</h4>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-				[<b>selection</b>: <ul><li><i id="_s_273">make no provision for platform firmware update</i>, </li><li><i id="sel-auth-update">implement an authenticated platform firmware update mechanism as described in
+				[<b>selection</b>: <ul><li><i id="_s_280">make no provision for platform firmware update</i>, </li><li><i id="sel-auth-update">implement an authenticated platform firmware update mechanism as described in
 						<a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></i>, </li><li><i id="sel-unauth-update">implement an unauthenticated platform firmware update mechanism as described in
 						<a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></i>, </li><li><i id="sel-local-update">implement a secure local platform firmware update mechanism
 						described in <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></i></li></ul>].
@@ -1757,15 +1899,15 @@ The following sections list Common Criteria and technology terms used in this do
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.1"><a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall authenticate the source of all platform firmware updates using a 
 				digital signature algorithm specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> and using a key store 
 				that contains 
-				[<b>selection</b>: <i id="_s_277">the public key</i>, <i id="sel-tud2-hash">hash value of the public key</i>].
+				[<b>selection</b>: <i id="_s_284">the public key</i>, <i id="sel-tud2-hash">hash value of the public key</i>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> if "hash value of the public key" is selected.
 			</span></div></div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.2"><a href="#FPT_TUD_EXT.2.2" class="abbr">FPT_TUD_EXT.2.2</a></div><div class="reqdesc">
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow installation of updates only if the digital signature has been
 				successfully verified as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> and 
-				[<b>selection</b>: <i id="_s_279">the version number of the platform firmware update is more recent than 
-						the version number of the current installed platform firmware</i>, <i id="_s_280">no other conditions</i>].
+				[<b>selection</b>: <i id="_s_286">the version number of the platform firmware update is more recent than 
+						the version number of the current installed platform firmware</i>, <i id="_s_287">no other conditions</i>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should make the selection above if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports rollback prevention. That is, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
 				does not allow "update" to an older version of the platform firmware. In general, rollback should be permitted
@@ -1788,12 +1930,12 @@ The following sections list Common Criteria and technology terms used in this do
 				<ul>
 					<li>Do not install the update,</li>
 					<li>Notify an administrator/user by 
-						[<b>selection</b>: <i id="sel-tud2-audit">generating an audit event</i>, <i id="_s_282">[<b>assignment</b>: 
+						[<b>selection</b>: <i id="sel-tud2-audit">generating an audit event</i>, <i id="_s_289">[<b>assignment</b>: 
      <span class="assignable-content">notification method</span>]</i>]
 					</li>
 				</ul>, and
-				[<b>selection</b>: <ul><li><i id="_s_283">Continue execution</i>, </li><li><i id="_s_284">Halt</i>, </li><li><i id="_s_285">Stop all execution and shut down</i>, </li><li><i id="_s_286">Initiate recovery as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]			
-				[<b>selection</b>: <ul><li><i id="_s_287">automatically</i>, </li><li><i id="_s_288">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_289">by express determination of an administrator/user</i></li></ul>].
+				[<b>selection</b>: <ul><li><i id="_s_290">Continue execution</i>, </li><li><i id="_s_291">Halt</i>, </li><li><i id="_s_292">Stop all execution and shut down</i>, </li><li><i id="_s_293">Initiate recovery as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]			
+				[<b>selection</b>: <ul><li><i id="_s_294">automatically</i>, </li><li><i id="_s_295">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_296">by express determination of an administrator/user</i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The platform firmware authenticated update mechanism employs digital signatures to ensure the authenticity of the
 				firmware update image. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes a signature verification algorithm and a key
@@ -1858,8 +2000,8 @@ The following sections list Common Criteria and technology terms used in this do
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow execution or use of platform firmware updates only if new platform firmware
 				is integrity- and authenticity-checked using the mechanism described in <a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a> prior to its
 				execution or use, and
-				[<b>selection</b>: <i id="_s_290">the version number of the platform firmware update is more recent than 
-						the version number of the previously installed platform firmware</i>, <i id="_s_291">no other conditions</i>].
+				[<b>selection</b>: <i id="_s_297">the version number of the platform firmware update is more recent than 
+						the version number of the previously installed platform firmware</i>, <i id="_s_298">no other conditions</i>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				This update mechanism does not require an integrity or authenticity check prior to installation, but the
 				newly installed platform firmware must have its integrity and authenticity verified prior to 
@@ -1886,11 +2028,11 @@ The following sections list Common Criteria and technology terms used in this do
 				rollback-prevention check fails, or a platform firmware update fails for any other reason:
 				<ul>
 					<li>Notify Notify an administrator/user by 
-						[<b>selection</b>: <i id="sel-tud3-audit">generating an audit event</i>, <i id="_s_293">[<b>assignment</b>: 
+						[<b>selection</b>: <i id="sel-tud3-audit">generating an audit event</i>, <i id="_s_300">[<b>assignment</b>: 
      <span class="assignable-content">notification method</span>]</i>]</li>
 				</ul> and
-				[<b>selection</b>: <ul><li><i id="_s_294">Halt</i>, </li><li><i id="_s_295">Stop all execution and shut down</i>, </li><li><i id="_s_296">Initiate a recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]
-				[<b>selection</b>: <ul><li><i id="_s_297">automatically</i>, </li><li><i id="_s_298">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_299">by express determination of an administrator/user</i></li></ul>].
+				[<b>selection</b>: <ul><li><i id="_s_301">Halt</i>, </li><li><i id="_s_302">Stop all execution and shut down</i>, </li><li><i id="_s_303">Initiate a recovery process as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]
+				[<b>selection</b>: <ul><li><i id="_s_304">automatically</i>, </li><li><i id="_s_305">in accordance with administrator-configurable policy</i>, </li><li><i id="_s_306">by express determination of an administrator/user</i></li></ul>].
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				The platform firmware unauthenticated update mechanism installs platform firmware updates without
 				first checking their integrity or authenticity. Instead, this mechanism either invokes a 
@@ -1949,7 +2091,7 @@ The following sections list Common Criteria and technology terms used in this do
 			</div></div>
 		<div class="element"><div class="reqid" id="FPT_TUD_EXT.4.2"><a href="#FPT_TUD_EXT.4.2" class="abbr">FPT_TUD_EXT.4.2</a></div><div class="reqdesc">
 				The Administrator/User shall assert physical presence to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> through: 
-				[<b>selection</b>: <ul><li><i id="_s_300">login to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a physically connected console or terminal</i>, </li><li><i id="_s_301">physical connection of a jumper or cable</i>, </li><li><i id="_s_302">connection to a debug port</i>, </li><li><i id="_s_303">[<b>assignment</b>: 
+				[<b>selection</b>: <ul><li><i id="_s_307">login to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a physically connected console or terminal</i>, </li><li><i id="_s_308">physical connection of a jumper or cable</i>, </li><li><i id="_s_309">connection to a debug port</i>, </li><li><i id="_s_310">[<b>assignment</b>: 
      <span class="assignable-content">description of other mechanism for asserting physical presence</span>]</i></li></ul>]
 			<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				This requirement pertains to platform firmware update mechanisms that do not use the 
