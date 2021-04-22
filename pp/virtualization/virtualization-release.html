@@ -2873,22 +2873,25 @@ The following sections list Common Criteria and technology terms used in this do
 					
 					
 					
-                    <div class="element"><div class="reqid" id="FMT_SMO_EXT.1.1"><a href="#FMT_SMO_EXT.1.1" class="abbr">FMT_SMO_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support the configuration of separate management and operational networks through
-                            [<b>selection</b>: <i id="_s_184">physical means</i>, <i id="_s_185">logical means</i>, <i id="_s_186">cryptographic means</i>].
+                    <div class="element"><div class="reqid" id="FMT_SMO_EXT.1.1"><a href="#FMT_SMO_EXT.1.1" class="abbr">FMT_SMO_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support the separation of management and operational information through
+                            [<b>selection</b>: <i id="_s_184">physical means</i>, <i id="_s_185">logical means</i>, <i id="_s_186">trusted channel as defined in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></i>, <i id="_s_187">data encryption using an algorithm specified in <a href="#FCS_COP.1/UDE">FCS_COP.1/UDE</a></i>].
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">Management communications must be separate from user workloads. Administrative 
 							communications—including communications between physical hosts concerning load balancing, audit data,
-							<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> startup and shutdown—must be separate from guest operational networks. In particular,
-							management traffic includes VMs transmitted over management networks (whether for backup, live migration,
-							or deployment).<p></p>
+							<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> startup and shutdown—must be separate from guest operational networks. For purposes of this requirement, 
+							management traffic also includes VMs transmitted over management networks whether for backup, live migration,
+							or deployment.<p></p>
                             “Physical means” refers to using separate physical networks for management and operational networks. For
 							example, the machines in the management network are connected by separate cables plugged into separate
 							and dedicated physical ports on each physical host.<p></p>
                             “Logical means” refers to using logical networking constructs to isolate traffic across general-purpose networking ports. 
 							The management and operational networks are kept separate within the
 							hosts using separate virtualized networking components.<p></p>
-                            “Cryptographic means” refers to encrypting traffic using trusted channels to isolate operational and management traffic. 
-							If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects “cryptographic means”, then the protocols used for network separation must be 
-							selected in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a>.
+                            If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects “trusted channel...” then the protocols used for network separation must be 
+							selected in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a>.<p></p>
+							The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "data encryption..." if, for example, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> encrypts VMs as data blobs for backup, storage,
+							deployment, or live migration, and does not send the data through a tunnel. 
+							If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "data encryption..." then the algorithms and key sizes must be selected in <a href="#FCS_COP.1/UDE">FCS_COP.1/UDE</a>.<p></p>
+							The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should select as many mechanisms as apply.
                         </span></div></div></div>
 					
                 <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a>:<br/><div class="activity">
@@ -2965,8 +2968,8 @@ The following sections list Common Criteria and technology terms used in this do
 					
                     <div class="element"><div class="reqid" id="FPT_EEM_EXT.1.1"><a href="#FPT_EEM_EXT.1.1" class="abbr">FPT_EEM_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall take advantage of execution environment-based vulnerability mitigation mechanisms 
 							supported by the Platform such as:
-                            [<b>selection</b>: <ul><li style=""><i id="_s_187">Address space randomization</i>, </li><li style=""><i id="_s_188">Memory execution protection (e.g., <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>)</i>, </li><li style=""><i id="_s_189">Stack buffer overflow protection</i>, </li><li style=""><i id="_s_190">Heap corruption detection</i>, </li><li style=""><i id="_s_191">[<b>assignment</b>: 
-     <span class="assignable-content">other mechanisms</span>]</i>, </li><li style=""><i id="_s_192">No mechanisms</i></li></ul>]
+                            [<b>selection</b>: <ul><li style=""><i id="_s_188">Address space randomization</i>, </li><li style=""><i id="_s_189">Memory execution protection (e.g., <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>)</i>, </li><li style=""><i id="_s_190">Stack buffer overflow protection</i>, </li><li style=""><i id="_s_191">Heap corruption detection</i>, </li><li style=""><i id="_s_192">[<b>assignment</b>: 
+     <span class="assignable-content">other mechanisms</span>]</i>, </li><li style=""><i id="_s_193">No mechanisms</i></li></ul>]
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">Processor manufacturers, compiler developers, and operating system vendors have 
 				developed execution environment-based mitigations that increase the cost to attackers by adding
 				complexity to the task of compromising systems. Software can often take advantage of these mechanisms
@@ -3126,9 +3129,9 @@ The following sections list Common Criteria and technology terms used in this do
 				removable media and virtual or physical removable media devices</span>] are switched between 
 				information domains, then
                             
-                            [<b>selection</b>: <ul><li style=""><i id="_s_197">the Administrator has granted explicit access for the media or device to be connected to
-					the receiving domain</i>, </li><li style=""><i id="_s_198">the media in a device that is being transferred is ejected prior to the receiving domain
-					being allowed access to the device</i>, </li><li style=""><i id="_s_199">the user of the receiving domain expressly authorizes the connection</i>, </li><li style=""><i id="_s_200">the device or media that is being transferred is prevented from being accessed by the 
+                            [<b>selection</b>: <ul><li style=""><i id="_s_198">the Administrator has granted explicit access for the media or device to be connected to
+					the receiving domain</i>, </li><li style=""><i id="_s_199">the media in a device that is being transferred is ejected prior to the receiving domain
+					being allowed access to the device</i>, </li><li style=""><i id="_s_200">the user of the receiving domain expressly authorizes the connection</i>, </li><li style=""><i id="_s_201">the device or media that is being transferred is prevented from being accessed by the 
 					receiving domain</i></li></ul>]
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
                             The purpose of these requirements is to ensure that VMs are not given inadvertent access to information 
@@ -3195,10 +3198,10 @@ The following sections list Common Criteria and technology terms used in this do
 				as well as the most recently installed update.
                         </span></div></div></div>
                     <div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide administrators the ability to manually initiate updates to	<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware/software and
-                            [<b>selection</b>: <i id="_s_201">automatic updates</i>, <i id="_s_202">no other update mechanism</i>].
+                            [<b>selection</b>: <i id="_s_202">automatic updates</i>, <i id="_s_203">no other update mechanism</i>].
                         </div></div>
                     <div class="element"><div class="reqid" id="FPT_TUD_EXT.1.3"><a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide means to authenticate firmware/software updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using a
-                            [<b>selection</b>: <i id="sel-tud-digsign-cert">digital signature mechanism using certificates</i>, <i id="sel-tud-digsign">digital signature mechanism not using certificates</i>, <i id="_s_205">published hash</i>] prior to installing those updates.
+                            [<b>selection</b>: <i id="sel-tud-digsign-cert">digital signature mechanism using certificates</i>, <i id="sel-tud-digsign">digital signature mechanism not using certificates</i>, <i id="_s_206">published hash</i>] prior to installing those updates.
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The digital signature mechanism referenced in <a href="#FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</a> is one of the 
 				algorithms specified in FCS_COP.1/SIG.<br/><br/>
                             If certificates are used by the update verification mechanism, then <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> and <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>
@@ -3406,11 +3409,11 @@ The following sections list Common Criteria and technology terms used in this do
 					<a href="https://www.niap-ccevs.org/MMO/PP/-389-/"><i>Extended Package
 					for Secure Shell</i></a></i></li></ul>]
 			    and
-			    [<b>selection</b>: <ul><li style=""><i id="sel-itc-certauth">certificate-based authentication of the remote peer</i>, </li><li style=""><i id="_s_211">non-certificate-based authentication of the remote peer</i>, </li><li style=""><i id="_s_212">no authentication of the remote peer</i></li></ul>]
+			    [<b>selection</b>: <ul><li style=""><i id="sel-itc-certauth">certificate-based authentication of the remote peer</i>, </li><li style=""><i id="_s_212">non-certificate-based authentication of the remote peer</i>, </li><li style=""><i id="_s_213">no authentication of the remote peer</i></li></ul>]
                             to provide a trusted communication channel between itself, and<br/><br/>
                             <li>audit servers (as required by <a href="#FAU_STG_EXT.1">FAU_STG_EXT.1</a>), and</li>
-                            [<b>selection</b>: <ul><li style=""><i id="_s_213">remote administrators (as required by <a href="#FTP_TRP.1.1">FTP_TRP.1.1</a> if selected in FMT_MOF_EXT.1.1 in the Client or Server <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</i>, </li><li style=""><i id="_s_214">separation of management and operational networks (if selected in <a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a>)</i>, </li><li style=""><i id="_s_215">[<b>assignment</b>: 
-     <span class="assignable-content">other capabilities</span>]</i>, </li><li style=""><i id="_s_216">no other capabilities</i></li></ul>]
+                            [<b>selection</b>: <ul><li style=""><i id="_s_214">remote administrators (as required by <a href="#FTP_TRP.1.1">FTP_TRP.1.1</a> if selected in FMT_MOF_EXT.1.1 in the Client or Server <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>)</i>, </li><li style=""><i id="_s_215">separation of management and operational networks (if selected in <a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a>)</i>, </li><li style=""><i id="_s_216">[<b>assignment</b>: 
+     <span class="assignable-content">other capabilities</span>]</i>, </li><li style=""><i id="_s_217">no other capabilities</i></li></ul>]
                             that is logically distinct from other communication paths and provides assured identification of its
                             endpoints and protection of the communicated data from disclosure and detection of modification of the communicated data.
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects either TLS or HTTPS, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be validated against the 
@@ -4075,9 +4078,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                     <div class="element"><div class="reqid" id="FPT_ML_EXT.1.1"><a href="#FPT_ML_EXT.1.1" class="abbr">FPT_ML_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support a measured launch of the Virtualization System. Measured 
 				components of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> shall include the static executable image of the Hypervisor
 				and:
-                            [<b>selection</b>: <ul><li style=""><i id="_s_193">Static executable images of the Management Subsystem</i>, </li><li style=""><i id="_s_194">[<b>assignment</b>: 
-     <span class="assignable-content">list of (static images of) Service VMs</span>]</i>, </li><li style=""><i id="_s_195">[<b>assignment</b>: 
-     <span class="assignable-content">list of configuration files</span>]</i>, </li><li style=""><i id="_s_196">no other components</i></li></ul>]
+                            [<b>selection</b>: <ul><li style=""><i id="_s_194">Static executable images of the Management Subsystem</i>, </li><li style=""><i id="_s_195">[<b>assignment</b>: 
+     <span class="assignable-content">list of (static images of) Service VMs</span>]</i>, </li><li style=""><i id="_s_196">[<b>assignment</b>: 
+     <span class="assignable-content">list of configuration files</span>]</i>, </li><li style=""><i id="_s_197">no other components</i></li></ul>]
                         </div></div>
                     <div class="element"><div class="reqid" id="FPT_ML_EXT.1.2"><a href="#FPT_ML_EXT.1.2" class="abbr">FPT_ML_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall make the measurements selected in <a href="#FPT_ML_EXT.1.1">FPT_ML_EXT.1.1</a> available to the Management Subsystem.
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
@@ -5492,8 +5495,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						networks.</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FMT_SMO_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a>,
              Separation of Management and Operational Networks,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to separate its management and operational networks through a defined 
-						mechanism.</p><h3>Management: FMT_SMO_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FMT_SMO_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FMT_SMO_EXT.1 Separation of Management and Operational Networks</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FMT_SMO_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support the configuration of separate management and operational networks through
-                            [<b>selection</b>: <i id="_s_184">physical means</i>, <i id="_s_185">logical means</i>, <i id="_s_186">cryptographic means</i>].
+						mechanism.</p><h3>Management: FMT_SMO_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FMT_SMO_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FMT_SMO_EXT.1 Separation of Management and Operational Networks</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FMT_SMO_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support the separation of management and operational information through
+                            [<b>selection</b>: <i id="_s_184">physical means</i>, <i id="_s_185">logical means</i>, <i id="_s_186">trusted channel as defined in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></i>, <i id="_s_187">data encryption using an algorithm specified in <a href="#FCS_COP.1/UDE">FCS_COP.1/UDE</a></i>].
                         <h3>FPT_DDI_EXT Device Driver Isolation</h3><h3>Family Behavior</h3><div>This family defines requirements for isolation of device drivers</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FPT_DDI_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_DDI_EXT.1">FPT_DDI_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_DDI_EXT.1">FPT_DDI_EXT.1</a>,
              Device Driver Isolation,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to isolate device drivers for physical devices from all virtual domains.</p><h3>Management: FPT_DDI_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FPT_DDI_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FPT_DDI_EXT.1 Device Driver Isolation</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FPT_DDI_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that device drivers for physical devices are isolated from the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> and all other
@@ -5511,8 +5514,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to identify the execution environment-based
 						protection mechanisms that it can use for self-protection.</p><h3>Management: FPT_EEM_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FPT_EEM_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FPT_EEM_EXT.1 Execution Environment Mitigations</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FPT_EEM_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall take advantage of execution environment-based vulnerability mitigation mechanisms 
 							supported by the Platform such as:
-                            [<b>selection</b>: <ul><li style=""><i id="_s_187">Address space randomization</i>, </li><li style=""><i id="_s_188">Memory execution protection (e.g., <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>)</i>, </li><li style=""><i id="_s_189">Stack buffer overflow protection</i>, </li><li style=""><i id="_s_190">Heap corruption detection</i>, </li><li style=""><i id="_s_191">[<b>assignment</b>: 
-     <span class="assignable-content">other mechanisms</span>]</i>, </li><li style=""><i id="_s_192">No mechanisms</i></li></ul>]
+                            [<b>selection</b>: <ul><li style=""><i id="_s_188">Address space randomization</i>, </li><li style=""><i id="_s_189">Memory execution protection (e.g., <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>)</i>, </li><li style=""><i id="_s_190">Stack buffer overflow protection</i>, </li><li style=""><i id="_s_191">Heap corruption detection</i>, </li><li style=""><i id="_s_192">[<b>assignment</b>: 
+     <span class="assignable-content">other mechanisms</span>]</i>, </li><li style=""><i id="_s_193">No mechanisms</i></li></ul>]
                         <h3>FPT_GVI_EXT Guest VM Integrity</h3><h3>Family Behavior</h3><div>This family defines requirements for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to assert the integrity of
 						Guest VMs.</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FPT_GVI_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_GVI_EXT.1">FPT_GVI_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_GVI_EXT.1">FPT_GVI_EXT.1</a>,
              Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> Integrity,
@@ -5582,9 +5585,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					</p><h3>FPT_ML_EXT.1 Measured Launch of Platform and VMM</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FPT_ML_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support a measured launch of the Virtualization System. Measured 
 				components of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> shall include the static executable image of the Hypervisor
 				and:
-                            [<b>selection</b>: <ul><li style=""><i id="_s_193">Static executable images of the Management Subsystem</i>, </li><li style=""><i id="_s_194">[<b>assignment</b>: 
-     <span class="assignable-content">list of (static images of) Service VMs</span>]</i>, </li><li style=""><i id="_s_195">[<b>assignment</b>: 
-     <span class="assignable-content">list of configuration files</span>]</i>, </li><li style=""><i id="_s_196">no other components</i></li></ul>]
+                            [<b>selection</b>: <ul><li style=""><i id="_s_194">Static executable images of the Management Subsystem</i>, </li><li style=""><i id="_s_195">[<b>assignment</b>: 
+     <span class="assignable-content">list of (static images of) Service VMs</span>]</i>, </li><li style=""><i id="_s_196">[<b>assignment</b>: 
+     <span class="assignable-content">list of configuration files</span>]</i>, </li><li style=""><i id="_s_197">no other components</i></li></ul>]
                         <h3>FPT_ML_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall make the measurements selected in <a href="#FPT_ML_EXT.1.1">FPT_ML_EXT.1.1</a> available to the Management Subsystem.
                         <h3>FPT_RDM_EXT Removable Devices and Media</h3><h3>Family Behavior</h3><div>This family defines requirements for enforcement of domain isolation when
 						removable devices can be connected to a domain.</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FPT_RDM_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_RDM_EXT.1">FPT_RDM_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_RDM_EXT.1">FPT_RDM_EXT.1</a>,
@@ -5611,9 +5614,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 				removable media and virtual or physical removable media devices</span>] are switched between 
 				information domains, then
                             
-                            [<b>selection</b>: <ul><li style=""><i id="_s_197">the Administrator has granted explicit access for the media or device to be connected to
-					the receiving domain</i>, </li><li style=""><i id="_s_198">the media in a device that is being transferred is ejected prior to the receiving domain
-					being allowed access to the device</i>, </li><li style=""><i id="_s_199">the user of the receiving domain expressly authorizes the connection</i>, </li><li style=""><i id="_s_200">the device or media that is being transferred is prevented from being accessed by the 
+                            [<b>selection</b>: <ul><li style=""><i id="_s_198">the Administrator has granted explicit access for the media or device to be connected to
+					the receiving domain</i>, </li><li style=""><i id="_s_199">the media in a device that is being transferred is ejected prior to the receiving domain
+					being allowed access to the device</i>, </li><li style=""><i id="_s_200">the user of the receiving domain expressly authorizes the connection</i>, </li><li style=""><i id="_s_201">the device or media that is being transferred is prevented from being accessed by the 
 					receiving domain</i></li></ul>]
                         <h3>FPT_TUD_EXT Trusted Updates</h3><h3>Family Behavior</h3><div>This family defines requirements for ensuring that updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> software
 						and firmware are genuine.</div><svg style="max-height: 50px;"><text x="4" fill="black" font-size="11" y="42">FPT_TUD_EXT</text><rect x="2" y="31" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="37" x2="231" y2="17" stroke="black"></line><text x="234" fill="black" font-size="11" y="42"><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></text><rect x="232" y="31" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="37" x2="231" y2="37" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>,
@@ -5632,7 +5635,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					</p><h3>FPT_TUD_EXT.1 Trusted Updates to the Virtualization System</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_COP.1 Cryptographic Operation</p><h3>FPT_TUD_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide administrators the ability to query the currently executed version of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
 				firmware/software as well as the most recently installed version of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware/software.
                         <h3>FPT_TUD_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide administrators the ability to manually initiate updates to	<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware/software and
-                            [<b>selection</b>: <i id="_s_201">automatic updates</i>, <i id="_s_202">no other update mechanism</i>].
+                            [<b>selection</b>: <i id="_s_202">automatic updates</i>, <i id="_s_203">no other update mechanism</i>].
                         <h3>FPT_TUD_EXT.1.3</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide means to authenticate firmware/software updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using a [<b>assignment</b>: 
      <span class="assignable-content">integrity action</span>] prior to installing those updates.
                          <h3>Component Leveling</h3><p><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>,
