@@ -4023,65 +4023,50 @@ The following sections list Common Criteria and technology terms used in this do
 						
 					
 					
-                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.1"><a href="#FPT_HCL_EXT.1.1" class="abbr">FPT_HCL_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow administrators to configure any <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>’s Hypercall interface to 
-				disable access to individual functions, all functions, or groups of functions.
+                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.1"><a href="#FPT_HCL_EXT.1.1" class="abbr">FPT_HCL_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support disabling of unnecessary Hypercall interfaces.
                         </div></div>
-                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.2"><a href="#FPT_HCL_EXT.1.2" class="abbr">FPT_HCL_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall permit exceptions to the configuration of the following Hypercall interface functions:
-				[<b>assignment</b>: 
-     <span class="assignable-content">list of functions that are not subject to the configuration controls in <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a></span>].
-                        </div></div>
-                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.3"><a href="#FPT_HCL_EXT.1.3" class="abbr">FPT_HCL_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to the hypercall interface prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
-				functionality exposed by that interface.
+                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.2"><a href="#FPT_HCL_EXT.1.2" class="abbr">FPT_HCL_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to Hypercall interfaces prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
+				functionality exposed by each interface.
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The purpose of this requirement is to help ensure the integrity of the
-                            <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> by defining the attack surface exposed to Guest VMs through Hypercalls,
-                            testing the mechanisms for reducing that attack surface by disabling Hypercalls, and ensuring that
-                            Hypercall parameters are properly validated prior to use by the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>.<br/><br/>
-                            A Hypercall interface allows a set of <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> functions to be invoked by software running within a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>. 
-				Hypercall interfaces are used by virtualization-aware VMs to communicate and
-				exchange data with the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>. For example, a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> could use a hypercall interface to get information about
+                            <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> by minimizing the attack surface exposed to Guest VMs through Hypercalls. <p></p>
+                            A Hypercall interface allows <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> functionality to be invoked by <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>-aware guest software. 
+				For example, a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> could use a hypercall interface to get information about
 				the real world, such as the time of day or the underlying hardware of the host system. A hypercall 
 				could also be used to transfer data between VMs through a copy-paste mechanism. Because hypercall 
-				interfaces expose the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> to Guest VMs, these interfaces constitute attack surface. In order to
-				minimize attack surface, these interfaces must be limited to the minimum needed to support <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> 
-				functionality.<br/><br/>
-                            For the selection in <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the applicable actions that administrators can 
-				perform to configure functions supported by the interface.<br/><br/>
-                            For the assignment in <a href="#FPT_HCL_EXT.1.2">FPT_HCL_EXT.1.2</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author lists the interface functions that cannot be 
-				configured per <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a>.<br/><br/>
-                            A vendor-provided test harness may reduce evaluation time.<br/><br/>
+				interfaces expose the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> to Guest software, these interfaces constitute attack surface. In order to
+				minimize attack surface, these interfaces must be limited to those needed to support <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> 
+				functionality.<p></p>
+				A hypercall interface is "unnecessary" if there is no chance for it to be used by a particular Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> configuration. 
+				For example, if a <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> exposes hypercalls to improve the performance of a particular Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, these hypercalls should
+				not be made available to a different Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> that cannot take advantage of them. The developer cannot assume that 
+				software that was not intended to access the interface will not access the interface.<p></p>
+				Hypercall interfaces can be disabled automatically or manually by an Admnistrator.<p></p>
                             There is no expectation that the evaluator will need to review source code in order to accomplish the
-                            evaluation activity.  The evaluator documentation review should ensure that there are documented
-                            Hypercall functions in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, that each documented Hypercall function contains the specified
-                            information, and that there are not obvious or publicly known Hypercall functions missing.
+                            evaluation activity.  
                         </span></div></div></div>
 		    
 		    
                 <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a>:<br/><div class="activity">
                             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-                                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or operational guidance to ensure it
-                                documents all Hypercall functions at the level necessary for the evaluator to disable the
-				    functions
-                                and run tests 1 and 2, below. Documentation must include, for each function, how to call the function, 
-				    function
-                                parameters and legal values, configuration settings for enabling/disabling the function, and conditions under
-                                which the function can be disabled. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> must also specify those functions that cannot be
-                                disabled.  While there is no expectation that the evaluator will need to examine source code in order to
-                                accomplish this evaluation activity, the evaluator must ensure that there are no obvious or publicly known
-                                Hypercall functions missing from the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.
+                                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex) to ensure that all hypercall functions are 
+                                documented at the level necessary for the evaluator to disable the functions if configurable, and to run
+				    tests 1 and 2, below. Documentation for each hypercall interface must include: how to invoke the interface, 
+				    parameters and legal values, and whether the interface can be disabled. If the hypercall cannot be disabled 
+				    the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex) must explain why the hypercall is always necessary. 
                             
                             <div class="eacategory">Guidance</div>
                                 The evaluator shall examine the operational guidance to ensure it contains instructions for how to 
-                                configure interface functions per <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a>.
+                                enable/disable configurable hypercall interfaces, and how to programmatically invoke hypercall interfaces.
                             
                             <div class="eacategory">Tests</div>
-                                The evaluator shall perform the following tests:<br/><br/>
+                                The evaluator shall perform the following tests:<p></p>
                                 <ul>
-                                    <li><b>Test 1: </b>For each configurable function that meets <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a>, the evaluator shall follow the 
-					    operational guidance to enable the function. The evaluator shall then attempt to call
-					    each function from within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>. If the call is allowed, then the test succeeds.</li>
-                                    <li><b>Test 2: </b>For each configurable function that meets <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a>, the evaluator shall configure 
-					    the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to disable the function. The evaluator shall then attempt to call the function 
-					    from within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>. If the call is blocked, then the test succeeds.</li>
+                                    <li><b>Test 1: </b>For each configurable interface documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex, the evaluator shall follow the 
+					    operational guidance to disable the function. The evaluator shall then attempt to invoke 
+					    each function from within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>. If the call is blocked, then the test succeeds.</li>
+                                    <li><b>Test 2: </b>For each hypercall interface documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex, the evaluator shall attempt to  
+					    invoke the function from within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> using an invalid parameter (if any). If the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> crashes
+					    or generates an exception, then the test fails. If an error is returned to the guest, then the test succeeds.</li>
                                 </ul>
                             
                         </div></div></div></div>
@@ -5507,13 +5492,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							<li>Attempts to access disabled Hypercall interfaces.</li>
 							<li>Security policy violations.</li>
 						</ol>
-					</p><h3>FPT_HCL_EXT.1 Hypercall Controls</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_SMR.1 Security Roles</p><h3>FPT_HCL_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow administrators to configure any <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>’s Hypercall interface to 
-				disable access to individual functions, all functions, or groups of functions.
-                        <h3>FPT_HCL_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall permit exceptions to the configuration of the following Hypercall interface functions:
-				[<b>assignment</b>: 
-     <span class="assignable-content">list of functions that are not subject to the configuration controls in <a href="#FPT_HCL_EXT.1.1">FPT_HCL_EXT.1.1</a></span>].
-                        <h3>FPT_HCL_EXT.1.3</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to the hypercall interface prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
-				functionality exposed by that interface.
+					</p><h3>FPT_HCL_EXT.1 Hypercall Controls</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_SMR.1 Security Roles</p><h3>FPT_HCL_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support disabling of unnecessary Hypercall interfaces.
+                        <h3>FPT_HCL_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to Hypercall interfaces prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
+				functionality exposed by each interface.
                         <h3>FPT_IDV_EXT Software Identification and Versions</h3><h3>Family Behavior</h3><div>This family defines requirements for the use of <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FPT_IDV_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a>,
              Software Identification and Versions,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to identify itself using <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags.</p><h3>Management: FPT_IDV_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FPT_IDV_EXT.1</h3><p>There are no auditable events foreseen.</p><h3>FPT_IDV_EXT.1 Software Identification and Versions</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: No dependencies.</p><h3>FPT_IDV_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include software identification (<abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr>) tags that contain a SoftwareIdentity element and 
