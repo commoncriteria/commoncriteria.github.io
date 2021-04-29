@@ -2216,7 +2216,7 @@ users of the same system.
 					The following or equivalent steps shall be taken to test the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.<p></p>
 					For each supported modulus size, underlying hash algorithm, and length of the
 					trailer field (1- or 2-byte), the evaluator shall generate NT sets of recoverable
-					message (M1), non-recoverable message (M2), salt, public key and signature (<i>#03A3;</i>).<p></p>
+					message (M1), non-recoverable message (M2), salt, public key and signature (<i>Σ</i>).<p></p>
 					<ol type="1">
 						<li><i>N<sub>T</sub></i> shall be greater than or equal to 20.</li>
 						<li>The length of salts shall be selected from its supported length range of salt.
@@ -2281,10 +2281,10 @@ users of the same system.
 									bit string <i>D</i> in the message representative is set to all zeroes except for
 									the rightmost <i>L<sub>S</sub></i> bits of <i>D</i>.</li>
 								<li> (non-conformant signature length) Altering a signature so that the length
-									of signature <i>#03A3;</i> is changed to modulus size and the most significant bit of
-									signature <i>#03A3;</i> is set equal to '1'.</li>
+									of signature <i>Σ</i> is changed to modulus size and the most significant bit of
+									signature <i>Σ</i> is set equal to '1'.</li>
 								<li>(non-conformant signature) Altering a signature so that the integer
-									converted from signature <i>#03A3;</i> is greater than modulus <i>n</i>.</li>
+									converted from signature <i>Σ</i> is greater than modulus <i>n</i>.</li>
 							</ol>
 						</li>
 					</ol>
@@ -2435,6 +2435,502 @@ users of the same system.
 				</table>
 			</div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of encryption
+					functions used for symmetric key encryption. The evaluator should check that this
+					description of the selected encryption function includes the key sizes and modes of
+					operations as specified in the cPP table 9 “Supported Methods for Symmetric Key
+					Cryptography Operation.”<p></p>
+					The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the means by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					satisfies constraints on algorithm parameters included in the selections made for
+					‘cryptographic algorithm’ and ‘list of standards’.<p></p> 
+				
+				<div class="eacategory">Guidance</div>
+					If the product supports multiple modes, the evaluator shall examine the vendor’s
+					documentation to determine that the method of choosing a specific mode/key size
+					by the end user is described.
+				
+				
+					The evaluator shall examine the KMD to ensure that the points at which symmetric
+					key encryption and decryption occurs are described, and that the complete data path
+					for symmetric key encryption is described. The evaluator checks that this
+					description is consistent with the relevant parts of the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<p></p>
+					Assessment of the complete data path for symmetric key encryption includes
+					confirming that the KMD describes the data flow from the device’s host interface
+					to the device’s non-volatile memory storing the data, and gives information
+					enabling the user data datapath to be distinguished from those situations in which
+					data bypasses the data encryption engine (e.g. read-write operations to an
+					unencrypted Master Boot Record area). The evaluator shall ensure that the
+					documentation of the data path is detailed enough that it thoroughly describes the
+					parts of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that the data passes through (e.g. different memory types,
+					processors and co-processors), its encryption state (i.e. encrypted or unencrypted)
+					in each part, and any places where the data is stored. For example, any caching or
+					buffering of the data should be identified and distinguished from the final
+					destination in non-volatile memory (the latter represents the location from which
+					the host will expect to retrieve the data in future).<p></p>
+					If support for <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR is claimed and the counter value source is internal to the
+					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the evaluator shall verify that the KMD describes the internal counter
+					mechanism used to ensure that it provides unique counter block values.<p></p>
+				
+				<div class="eacategory">Tests</div>
+					The following tests require the developer to provide access to a test platform that
+					provides the evaluator with tools that are typically not found on factory products.<p></p>
+					The following tests are conditional based upon the selections made in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. The
+					evaluator shall perform the following test or witness respective tests executed by
+					the developer. The tests must be executed on a platform that is as close as practically
+					possible to the operational platform (but which may be instrumented in terms of,
+					for example, use of a debug mode). Where the test is not carried out on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					itself, the test platform shall be identified and the differences between test
+					environment and <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> execution environment shall be described.<p></p>
+					Preconditions for testing:<ul>
+					<li>Specification of keys as input parameter to the function to be tested</li>
+					<li>specification of required input parameters such as modes</li>
+					<li>Specification of user data (plaintext)</li>
+					<li>Tapping of encrypted user data (ciphertext) directly in the non-volatile memory</li></ul>
+					<p></p>
+					<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC:</b><br/>
+					For the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC tests described below, the plaintext, ciphertext, and IV values
+					shall consist of 128-bit blocks. To determine correctness, the evaluator shall
+					compare the resulting values to those obtained by submitting the same inputs to a
+					known-good implementation.<p></p>
+					These tests are intended to be equivalent to those described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>’s <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Algorithm Validation Suite (AESAVS)
+					(<a href="http://csrc.nist.gov/groups/STM/cavp/documents/aes/AESAVS.pdf">
+					http://csrc.nist.gov/groups/STM/cavp/documents/aes/AESAVS.pdf</a>). It is not
+					recommended that evaluators use values obtained from static sources such as the
+					example <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>’s <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Known Answer Test Values from the AESAVS document,
+					or use values not generated expressly to exercise the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC implementation.<p></p>
+					<b><i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC Known Answer Tests</i></b><p></p>
+					<u>KAT-1 (GFSBox):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, the evaluator
+					shall supply a set of five different plaintext values for each selected key size and
+					obtain the ciphertext value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC encryption of the given
+					plaintext using a key value of all zeros and an IV of all zeros.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, the evaluator shall supply a set of
+					five different ciphertext values for each selected key size and obtain the plaintext
+					value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC decryption of the given ciphertext using a key
+					value of all zeros and an IV of all zeros.<p></p>
+					<u>KAT-2 (KeySBox):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, the evaluator
+					shall supply a set of five different key values for each selected key size and obtain
+					the ciphertext value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC encryption of an all-zeros plaintext
+					using the given key value and an IV of all zeros.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, the evaluator shall supply a set of
+					five different key values for each selected key size and obtain the plaintext that
+					results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC decryption of an all-zeros ciphertext using the given key
+					and an IV of all zeros.<p></p>
+					<u>KAT-3 (Variable Key):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, the evaluator
+					shall supply a set of keys for each selected key size (as described below) and obtain
+					the ciphertext value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> encryption of an all-zeros plaintext using
+					each key and an IV of all zeros.<p></p>
+					Key i in each set shall have the leftmost i bits set to ones and the remaining bits to
+					zeros, for values of i from 1 to the key size. The keys and corresponding ciphertext
+					are listed in AESAVS, Appendix E.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, the evaluator shall use the same keys
+					as above to decrypt the ciphertext results from above. Each decryption should result
+					in an all-zeros plaintext.<p></p>
+					<u>KAT-4 (Variable Text):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, for each
+					selected key size, the evaluator shall supply a set of 128-bit plaintext values (as 
+					described below) and obtain the ciphertext values that result from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC
+					encryption of each plaintext value using a key of each size and IV consisting of all
+					zeros.<p></p>
+					Plaintext value i shall have the leftmost i bits set to ones and the remaining bits set
+					to zeros, for values of i from 1 to 128. The plaintext values are listed in AESAVS,
+					Appendix D.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC, for each selected key size, use the
+					plaintext values from above as ciphertext input, and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC decrypt each
+					ciphertext value using key of each size consisting of all zeros and an IV of all zeros.<p></p>
+					<b><i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC Multi-Block Message Test</i></b><p></p>
+					The evaluator shall test the encrypt functionality by encrypting nine i-block
+					messages for each selected key size, for 2 ≤ i ≤ 10. For each test, the 
+					evaluator shall supply a key, an IV, and a plaintext message of length i blocks, and encrypt the
+					message using <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC. The resulting ciphertext values shall be compared to the
+					results of encrypting the plaintext messages using a known good implementation.<p></p>
+					The evaluator shall test the decrypt functionality by decrypting nine i-block
+					messages for each selected key size, for 2 ≤ i ≤ 10. For each test, the evaluator shall
+					supply a key, an IV, and a ciphertext message of length i blocks, and decrypt the
+					message using <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC. The resulting plaintext values shall be compared to the
+					results of decrypting the ciphertext messages using a known good implementation.<p></p>
+					<b><i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC Monte Carlo Tests</i></b><p></p>
+					The evaluator shall test the encrypt functionality for each selected key size using
+					100 3-tuples of pseudo-random values for plaintext, IVs, and keys.<p></p>
+					The evaluator shall supply a single 3-tuple of pseudo-random values for each
+					selected key size. This 3-tuple of plaintext, IV, and key is provided as input to the
+					below algorithm to generate the remaining 99 3-tuples, and to run each 3-tuple
+					through 1000 iterations of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC encryption.<p></p>
+					<pre>
+						# Input: PT, IV, Key
+						Key[0] = Key
+						IV[0] = IV
+						PT[0] = PT
+						for i = 0 to 99 {
+							Output Key[i], IV[i], PT[0]
+							for j = 0 to 999 {
+								if (j == 0) {
+									CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], IV[i], PT[j])
+									PT[j+1] = IV[i]
+								} else {
+									CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], PT[j])
+									PT[j+1] = CT[j-1]
+								}
+							}
+							Output CT[j]
+							If (KeySize == 128) Key[i+1] = Key[i] xor CT[j] 
+							If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
+							If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
+							IV[i+1] = CT[j]
+							PT[0] = CT[j-1]
+						}
+					</pre><p></p>
+					The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
+					the 100 3-tuples for each selected key size. This result shall be compared to the
+					result of running 1000 iterations with the same values using a known good
+					implementation.<p></p>
+					The evaluator shall test the decrypt functionality using the same test as above,
+					exchanging CT and PT, and replacing <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt with <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Decrypt.<p></p>
+					<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM:</b><p></p>
+					These tests are intended to be equivalent to those described in the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> document,
+					“The CCM Validation System (CCMVS),” updated 9 Jan 2012, found at
+					<a href="http://csrc.nist.gov/groups/STM/cavp/documents/mac/CCMVS.pdf">
+					http://csrc.nist.gov/groups/STM/cavp/documents/mac/CCMVS.pdf</a>.<p></p>
+					It is not recommended that evaluators use values obtained from static sources such
+					as http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip or use
+					values not generated expressly to exercise the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM implementation.<p></p>
+					The evaluator shall test the generation-encryption and decryption-verification
+					functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM for the following input parameter and tag lengths:<p></p><ul>
+					<li><b>Keys:</b> All supported and selected key sizes (e.g., 128, 192, or 256 bits).</li>
+					<li><b>Associated Data:</b> Two or three values for associated data length: The minimum
+					(≥ 0 bytes) and maximum (≤ 32 bytes) supported associated data lengths, and
+					2^16 (65536) bytes, if supported.</li>
+					<li><b>Payload:</b> Two values for payload length: The minimum (≥ 0 bytes) and
+					maximum (≤ 32 bytes) supported payload lengths.</li>
+					<li><b>Nonces:</b> All supported nonce lengths (e.g., 8, 9, 10, 11, 12, 13) in bytes.</li>
+					<li><b>Tag:</b> All supported tag lengths (e.g., 4, 6, 8, 10, 12, 14, 16) in bytes.</li></ul>
+					The testing for CCM consists of five tests. To determine correctness in each of the
+					below tests, the evaluator shall compare the ciphertext with the result of encryption
+					of the same inputs with a known good implementation.<p></p>
+					Variable Associated Data Test: For each supported key size and associated data
+					length, and any supported payload length, nonce length, and tag length, the
+					evaluator shall supply one key value, one nonce value, and 10 pairs of associated
+					data and payload values, and obtain the resulting ciphertext.<p></p>
+					Variable Payload Text: For each supported key size and payload length, and any
+					supported associated data length, nonce length, and tag length, the evaluator shall 
+					supply one key value, one nonce value, and 10 pairs of associated data and payload
+					values, and obtain the resulting ciphertext.<p></p>
+					Variable Nonce Test: For each supported key size and nonce length, and any
+					supported associated data length, payload length, and tag length, the evaluator shall
+					supply one key value, one nonce value, and 10 pairs of associated data and payload
+					values, and obtain the resulting ciphertext.<p></p>
+					Variable Tag Test: For each supported key size and tag length, and any supported
+					associated data length, payload length, and nonce length, the evaluator shall supply
+					one key value, one nonce value, and 10 pairs of associated data and payload values,
+					and obtain the resulting ciphertext.<p></p>
+					Decryption-Verification Process Test: To test the decryption-verification
+					functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM, for each combination of supported associated data
+					length, payload length, nonce length, and tag length, the evaluator shall supply a
+					key value and 15 sets of input plus ciphertext, and obtain the decrypted payload.
+					Ten of the 15 input sets supplied should fail verification and five should pass.<p></p>
+					<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM:</b>
+					These tests are intended to be equivalent to those described in the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> document,
+					“The Galois/Counter Mode (GCM) and GMAC Validation System (GCMVS) with
+					the Addition of XPN Validation Testing,” rev. 15 Jun 2016, section 6.2, found at
+					<a href="http://csrc.nist.gov/groups/STM/cavp/documents/mac/gcmvs.pdf">
+					http://csrc.nist.gov/groups/STM/cavp/documents/mac/gcmvs.pdf</a>.<p></p>
+					It is not recommended that evaluators use values obtained from static sources such
+					as http://csrc.nist.gov/groups/STM/cavp/documents/mac/gcmtestvectors.zip, or use
+					values not generated expressly to exercise the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM implementation.<p></p>
+					The evaluator shall test the authenticated encryption functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM by
+					supplying 15 sets of Key, Plaintext, AAD, IV, and Tag data for every combination
+					of the following parameters as selected in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and supported by the
+					implementation under test:<ul>
+					<li><b>Key size in bits:</b> Each selected and supported key size (e.g., 128, 192, or
+					256 bits).</li>
+					<li><b>Plaintext length in bits:</b> Up to four values for plaintext length: Two values
+					that are non-zero integer multiples of 128, if supported. And two values that
+					are non-multiples of 128, if supported.</li>
+					<li><b>AAD length in bits:</b> Up to five values for AAD length: Zero-length, if
+					supported. Two values that are non-zero integer multiples of 128, if
+					supported. And two values that are integer non-multiples of 128, if
+					supported.</li>
+					<li><b>IV length in bits:</b> Up to three values for IV length: 96 bits. Minimum and
+					maximum supported lengths, if different.</li>
+					<li><b>MAC length in bits:</b> Each supported length (e.g., 128, 120, 112, 104, 96).</li></ul>
+					To determine correctness, the evaluator shall compare the resulting values to those
+					obtained by submitting the same inputs to a known-good implementation.<p></p>
+					The evaluator shall test the authenticated decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM by
+					supplying 15 Ciphertext-Tag pairs for every combination of the above parameters,
+					replacing Plaintext length with Ciphertext length. For each parameter combination
+					the evaluator shall introduce an error into either the Ciphertext or the Tag such that
+					approximately half of the cases are correct and half the cases contain errors. To
+					determine correctness, the evaluator shall compare the resulting pass/fail status and
+					Plaintext values to the results obtained by submitting the same inputs to a known-good
+					implementation.<p></p>
+					<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR:</b><p></p>
+					For the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR tests described below, the plaintext and ciphertext values shall
+					consist of 128-bit blocks. To determine correctness, the evaluator shall compare the
+					resulting values to those obtained by submitting the same inputs to a known-good
+					implementation.<p></p>
+					These tests are intended to be equivalent to those described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>’s <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>
+					Algorithm Validation Suite (AESAVS)
+					(<a href="http://csrc.nist.gov/groups/STM/cavp/documents/aes/AESAVS.pdf">
+					http://csrc.nist.gov/groups/STM/cavp/documents/aes/AESAVS.pdf</a>). It is not
+					recommended that evaluators use values obtained from static sources such as the
+					example <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>’s <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Known Answer Test Values from the AESAVS document,
+					or use values not generated expressly to exercise the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR implementation.<p></p>
+					<b><i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR Known Answer Tests</i></b><p></p>
+					<u>KAT-1 (GFSBox):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, the evaluator
+					shall supply a set of five different plaintext values for each selected key size and
+					obtain the ciphertext value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR encryption of the given
+					plaintext using a key value of all zeros.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, the evaluator shall supply a set of
+					five different ciphertext values for each selected key size and obtain the plaintext
+					value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR decryption of the given ciphertext using a key
+					value of all zeros.<p></p>
+					<u>KAT-2 (KeySBox):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, the evaluator
+					shall supply a set of five different key values for each selected key size and obtain
+					the ciphertext value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR encryption of an all-zeros plaintext
+					using the given key value.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, the evaluator shall supply a set of
+					five different key values for each selected key size and obtain the plaintext that
+					results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR decryption of an all-zeros ciphertext using the given key.<p></p>
+					<u>KAT-3 (Variable Key):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, the evaluator
+					shall supply a set of keys for each selected key size (as described below) and obtain
+					the ciphertext value that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> encryption of an all-zeros plaintext using
+					each key.<p></p>
+					Key i in each set shall have the leftmost i bits set to ones and the remaining bits to
+					zeros, for values of i from 1 to the key size. The keys and corresponding ciphertext
+					are listed in AESAVS, Appendix E.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, the evaluator shall use the same keys
+					as above to decrypt the ciphertext results from above. Each decryption should result
+					in an all-zeros plaintext.<p></p>
+					<u>KAT-4 (Variable Text):</u> To test the encrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, for each
+					selected key size, the evaluator shall supply a set of 128-bit plaintext values (as
+					described below) and obtain the ciphertext values that result from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR
+					encryption of each plaintext value using a key of each size.<p></p>
+					Plaintext value i shall have the leftmost i bits set to ones and the remaining bits set
+					to zeros, for values of i from 1 to 128. The plaintext values are listed in AESAVS,
+					Appendix D.<p></p>
+					To test the decrypt functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR, for each selected key size, use the
+					plaintext values from above as ciphertext input, and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR decrypt each
+					ciphertext value using key of each size consisting of all zeros.<p></p>
+					<b><i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR Multi-Block Message Test</i></b><p></p>
+					The evaluator shall test the encrypt functionality by encrypting nine i-block
+					messages for each selected key size, for 2 ≤ i ≤ 10. For each test, the evaluator shall
+					supply a key and a plaintext message of length i blocks, and encrypt the message
+					using <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR. The resulting ciphertext values shall be compared to the results of
+					encrypting the plaintext messages using a known good implementation.<p></p>
+					The evaluator shall test the decrypt functionality by decrypting nine i-block
+					messages for each selected key size, for 2 ≤ i ≤ 10. For each test, the evaluator shall
+					supply a key and a ciphertext message of length i blocks, and decrypt the message
+					using <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR. The resulting plaintext values shall be compared to the results of
+					decrypting the ciphertext messages using a known good implementation.<p></p>
+					<b><i><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR Monte Carlo Tests</i></b><p></p>
+					The evaluator shall test the encrypt functionality for each selected key size using
+					100 2-tuples of pseudo-random values for plaintext and keys.<p></p>
+					The evaluator shall supply a single 2-tuple of pseudo-random values for each
+					selected key size. This 2-tuple of plaintext and key is provided as input to the below
+					algorithm to generate the remaining 99 2-tuples, and to run each 2-tuple through
+					1000 iterations of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR encryption.<p></p>
+					<pre>
+						# Input: PT, Key
+						Key[0] = Key
+						PT[0] = PT
+						for i = 0 to 99 {
+							Output Key[i], PT[0]
+							for j = 0 to 999 {
+								CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Encrypt(Key[i], PT[j])
+								PT[j+1] = CT[j]
+							}
+							Output CT[j]
+							If (KeySize == 128) Key[i+1] = Key[i] xor CT[j]
+							If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
+							If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
+							PT[0] = CT[j]
+						}
+					</pre><p></p>
+					The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
+					the 100 2-tuples for each selected key size. This result shall be compared to the
+					result of running 1000 iterations with the same values using a known good
+					implementation.<p></p>
+					The evaluator shall test the decrypt functionality using the same test as above,
+					exchanging CT and PT, and replacing <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Encrypt with <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Decrypt.
+					198 Note additional design considerations for this mode are addressed in the KMD
+					requirements.<p></p>
+					<b>XTS-AES:</b>
+					These tests are intended to be equivalent to those described in the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> document,
+					“The XTS-AES Validation System (XTSVS),” updated 5 Sept 2013, found at
+					<a href="http://csrc.nist.gov/groups/STM/cavp/documents/aes/XTSVS.pdf">
+					http://csrc.nist.gov/groups/STM/cavp/documents/aes/XTSVS.pdf</a><p></p>
+					It is not recommended that evaluators use values obtained from static sources such
+					as the XTS-AES test vectors at
+					http://csrc.nist.gov/groups/STM/cavp/documents/aes/XTSTestVectors.zip or use
+					values not generated expressly to exercise the XTS-AES implementation.<p></p>
+					The evaluator shall generate test values as follows:<p></p>
+					For each supported key size (256 bit (for <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-128) and 512 bit (for <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-256)
+					keys), the evaluator shall provide up to five data lengths:<ul>
+					<li>Two data lengths divisible by the 128-bit block size, If data unit lengths of
+						complete block sizes are supported.</li>
+					<li>Two data lengths not divisible by the 128-bit block size, if data unit lengths
+						of partial block sizes are supported.</li>
+					<li>The largest data length supported by the implementation, or 2^16 (65536),
+						whichever is larger.</li></ul><p></p>
+					The evaluator shall specify whether the implementation supports tweak values of
+					128-bit hexadecimal strings or a data unit sequence numbers, or both.<p></p>
+					For each combination of key size and data length, the evaluator shall provide 100
+					sets of input data and obtain the ciphertext that results from XTS-AES encryption.
+					If both kinds of tweak values are supported then each type of tweak value shall be
+					used in half of every 100 sets of input data, for all combinations of key size and data 
+					length. The evaluator shall verify that the resulting ciphertext matches the results
+					from submitting the same inputs to a known-good implementation of XTS-AES.<p></p>
+					The evaluator shall test the decrypt functionality of XTS-AES using the same test
+					as for encrypt, replacing plaintext values with ciphertext values and XTS-AES
+					encrypt with XTS- <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> decrypt.<p></p>
+					The evaluator shall check that the full length keys are created by methods that
+					ensure that the two halves are different and independent.<p></p>
+					<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP:</b><p></p>
+					The tests below are derived from “The Key Wrap Validation System (KWVS),
+					Updated: June 20, 2014” from the National Institute of Standards and Technology.<p></p>
+					The evaluator shall test the authenticated-encryption functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP
+					(KWP-AE) using the same test as for <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW authenticated-encryption with the
+					following change in the five plaintext lengths:<ul>
+					<li>Four lengths that are multiples of 8 bits</li>
+					<li>The largest supported length less than or equal to 4096 bits.</li></ul><p></p>
+					The evaluator shall test the authenticated-decryption (KWP-AD) functionality of
+					<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP using the same test as for <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP authenticated-encryption,
+					replacing plaintext values with ciphertext values and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP authenticatedencryption with <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP authenticated-decryption. For the Authenticated
+					Decryption test, 20 out of the 100 trials per plaintext length have ciphertext values
+					that fail authentication.<p></p>
+					Additionally, the evaluator shall perform the following negative tests:<p></p>
+					<b>Test 1: (invalid plaintext length):</b><p></p>
+					Determine the valid plaintext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					specification. Verify that the implementation of KWP-AE in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
+					plaintexts of invalid length by testing plaintext of the following lengths: 1) plaintext
+					with length greater than 64 semi-blocks, 2) plaintext with bit-length not divisible
+					by 8, and 3) plaintext with length 0.<p></p>
+					<b>Test 2: (invalid ciphertext length):</b>
+					Determine the valid ciphertext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					specification. Verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
+					ciphertexts of invalid length by testing ciphertext of the following lengths: 1)
+					ciphertext with length greater than 65 semi-blocks, 2) ciphertext with bit-length not
+					divisible by 64, 3) ciphertext with length 0, and 4) ciphertext with length of one
+					semi-block.<p></p>
+					<b>Test 3: (invalid ICV2):</b>
+					Test that the implementation detects invalid ICV2 values by encrypting any
+					plaintext value four times using a different value for ICV2 each time as follows:
+					Start with a base ICV2 of 0xA65959A6. For each of the four tests change a different 
+					byte of ICV2 to a different value, so that each of the four bytes is changed once.
+					Verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL for each test.<p></p>
+					<b>Test 4: (invalid padding length):</b>
+					Generate one ciphertext using algorithm KWP-AE with substring [len(P)/8]32 of S
+					replaced by each of the following 32-bit values, where len(P) is the length of P in
+					bits and [ ]32 denotes the representation of an integer in 32 bits:<ul>
+					<li>[0]32</li>
+					<li>[len(P)/8-8]32</li>
+					<li>[len(P)/8+8]32</li>
+					<li>[513]32.</li></ul><p></p>
+					Verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL on those
+					inputs.<p></p>
+					<b>Test 5: (invalid padding bits):</b><p></p>
+					If the implementation supports plaintext of length not a multiple of 64-bits, then<p></p>
+					<pre>
+					for each PAD length [1..7]
+						for each byte in PAD set a zero PAD value;
+							replace current byte by a non-zero value and use the resulting plaintext as
+								input to algorithm KWP-AE to generate ciphertexts;
+							verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL on
+								this input.
+					</pre><p></p>
+					<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW:</b><p></p>
+					The tests below are derived from “The Key Wrap Validation System (KWVS),
+					Updated: June 20, 2014” from the National Institute of Standards and Technology.<p></p>
+					The evaluator shall test the authenticated-encryption functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW for
+					each combination of the following input parameters:<ul>
+					<li>Supported key lengths selected in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> (e.g. 128 bits, 256 bits)</li>
+					<li>Five plaintext lengths:<ul>
+						<li>Two lengths that are non-zero multiples of 128 bits (two semi-block
+							lengths)</li>
+						<li>Two lengths that are odd multiples of the semi-block length (64 bits)</li>
+						<li>The largest supported plaintext length less than or equal to 4096 bits.</li></ul>
+					</li></ul><p></p>
+					For each set of the above parameters the evaluator shall generate a set of 100 key
+					and plaintext pairs and obtain the ciphertext that results from <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW
+					authenticated encryption. To determine correctness, the evaluator shall compare the 
+					results with those obtained from the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW authenticated-encryption function of
+					a known good implementation.<p></p>
+					The evaluator shall test the authenticated-decryption functionality of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW
+					using the same test as for authenticated-encryption, replacing plaintext values with
+					ciphertext values and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW authenticated-encryption (KW-AE) with <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW
+					authenticated-decryption (KW-AD). For the authenticated-decryption test, 20 out
+					of the 100 trials per plaintext length must have ciphertext values that are not
+					authentic; that is, they fail authentication.<p></p>
+					Additionally, the evaluator shall perform the following negative tests:<p></p>
+					<b>Test 1 (invalid plaintext length):</b><p></p>
+					Determine the valid plaintext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					specification. Verify that the implementation of KW-AE in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
+					plaintexts of invalid length by testing plaintext of the following lengths: 1) plaintext
+					length greater than 64 semi-blocks, 2) plaintext bit-length not divisible by 64, 3)
+					plaintext with length 0, and 4) plaintext with one semi-block.<p></p>
+					<b>Test 2 (invalid ciphertext length):</b><p></p>
+					Determine the valid ciphertext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					specification. Verify that the implementation of KW-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
+					ciphertexts of invalid length by testing ciphertext of the following lengths: 1)
+					ciphertext with length greater than 65 semi-blocks, 2) ciphertext with bit-length not
+					divisible by 64, 3) ciphertext with length 0, 4) ciphertext with length of one semiblock, 
+					and 5) ciphertext with length of two semi-blocks.<p></p>
+					<b>Test 3 (invalid ICV1):</b><p></p>
+					222 Test that the implementation detects invalid ICV1 values by encrypting any
+					plaintext value eight times using a different value for ICV1 each time as follows:
+					Start with a base ICV1 of 0xA6A6A6A6A6A6A6A6. For each of the eight tests
+					change a different byte to a different value, so that each of the eight bytes is changed
+					once. Verify that the implementation of KW-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL for each
+					test.<p></p>
+					<b>CAM-CBC:</b><p></p>
+					To test the encrypt and decrypt functionality of Camellia in CBC mode, the
+					evaluator shall perform the tests as specified in 10.2.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18367:2016.<p></p>
+					<b>CAM-CCM:</b><p></p>
+					To test the encrypt functionality of Camellia in CCM mode, the evaluator shall
+					perform the tests as specified in 10.6.1.1 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18367:2016.<p></p>
+					To test the decrypt functionality of Camellia in CCM mode, the evaluator shall
+					perform the tests as specified in 10.6.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18367:2016.<p></p>
+					As a prerequisite for these tests, the evaluator shall perform the test for encrypt
+					functionality of Camellia in ECB mode as specified in 10.2.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC
+					18367:2016.<p></p>
+					<b>CAM-GCM:</b><p></p>
+					To test the encrypt functionality of Camellia in GCM, the evaluator shall perform
+					the tests as specified in 10.6.1.1 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18367:2016.<p></p>
+					To test the decrypt functionality of Camellia in GCM, the evaluator shall perform
+					the tests as specified in 10.6.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 18367:2016.<p></p>
+					As a prerequisite for these tests, the evaluator shall perform the test for encrypt
+					functionality of Camellia in ECB mode as specified in 10.2.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC
+					18367:2016.<p></p>
+					<b>XTS-CAM:</b><p></p>
+					These tests are intended to be equivalent to those described in the IPA document,
+					ATR-01-B, “Specifications of Cryptographic Algorithm Implementation Testing —
+					Symmetric-Key Cryptography“, found at
+					<a href="https://www.ipa.go.jp/security/jcmvp/jcmvp_e/documents/atr/atr01b_en.pdf">
+					https://www.ipa.go.jp/security/jcmvp/jcmvp_e/documents/atr/atr01b_en.pdf</a>.<p></p>
+					The evaluator shall generate test values as follows:<p></p>
+					For each supported key size (256 bit (for Camellia-128) and 512 bit (for Camellia256) keys),
+					the evaluator shall provide up to five data lengths:<ul>
+					<li>Two data lengths divisible by the 128-bit block size, If data unit lengths of
+						complete block sizes are supported.</li>
+					<li>Two data lengths not divisible by the 128-bit block size, if data unit lengths
+						of partial block sizes are supported.</li>
+					<li>The largest data length supported by the implementation, or 2^16 (65536),
+						whichever is larger.</li></ul><p></p>
+					The evaluator shall specify whether the implementation supports tweak values of
+					128-bit hexadecimal strings or a data unit sequence numbers, or both.<p></p>
+					For each combination of key size and data length, the evaluator shall provide 100
+					sets of input data and obtain the ciphertext that results from XTS-Camellia
+					encryption. If both kinds of tweak values are supported, 50 of each 100 sets of input
+					data shall use each type of tweak value. The resulting ciphertext shall be compared
+					to the results of a known-good implementation.<p></p>
+					As a prerequisite for this test, the evaluator shall perform the test for encrypt
+					functionality of Camellia in ECB mode as specified in 10.2.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC
+					18367:2016.<p></p>
+					The evaluator shall test the decrypt functionality of XTS-Camellia using the same
+					test as for encrypt, replacing plaintext values with ciphertext values and XTSCamellia 
+					encrypt with XTS- Camellia decrypt.<p></p>
+					As a prerequisite for this test, the evaluator shall perform the test for decrypt
+					functionality of Camellia in ECB mode as specified in 10.2.1.2 of <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC
+					18367:2016.<p></p>	
 				
 			</div></div></div></div>
 
