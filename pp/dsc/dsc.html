@@ -2922,7 +2922,60 @@ users of the same system.
 					and only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG. 		
 				</span></div></div></div>
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>:<br/><div class="activity">
-					
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it specifies the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> type,
+					identifies the entropy sources seeding the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, and state the assumed or
+					calculated min-entropy supplied either separately by each source or the min-entropy
+					contained in the combined seed value.<p></p>
+					In addition to the materials below, documentation shall be produced—and the
+					evaluator shall perform the activities—in accordance with Appendix D of
+					[DSCcPP].<p></p>
+				
+				<div class="eacategory">Guidance</div>
+					There are no AGD evaluation activities for this component.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					The following tests require the developer to provide access to a test platform that
+					provides the evaluator with tools that are typically not found on factory products.<p></p>
+					The evaluator shall perform 15 trials for the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> implementation. If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> is
+					configurable, the evaluator shall perform 15 trials for each configuration.<p></p>
+					If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> has prediction resistance enabled, each trial consists of (1) instantiate
+					<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) generate a second block of
+					random bits (4) uninstantiate. The evaluator verifies that the second block of
+					random bits is the expected value. The evaluator shall generate eight input values
+					for each trial. The first is a count (0 – 14). The next three are entropy input, nonce,
+					and personalization string for the instantiate operation. The next two are additional
+					input and entropy input for the first call to generate. The final two are additional
+					input and entropy input for the second call to generate. These values are randomly
+					generated. “generate one block of random bits” means to generate random bits with
+					number of returned bits equal to the Output Block Length (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>
+					SP800-90A).<p></p>
+					If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> does not have prediction resistance, each trial consists of (1) instantiate
+					<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) reseed, (4) generate a second
+					block of random bits (5) uninstantiate. The evaluator verifies that the second block
+					of random bits is the expected value. The evaluator shall generate eight input values
+					for each trial. The first is a count (0 – 14). The next three are entropy input, nonce,
+					and personalization string for the instantiate operation. The fifth value is additional
+					input to the first call to generate. The sixth and seventh are additional input and
+					entropy input to the call to reseed. The final value is additional input to the second
+					generate call.<p></p>
+					The following paragraphs contain more information on some of the input values to
+					be generated/selected by the evaluator. <ul>
+					<li><b>Entropy input:</b> the length of the entropy input value must equal the seed length.</li>
+					<li><b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does
+					not use a nonce), the nonce bit length is one-half the seed length.</li>
+					<li><b>Personalization string:</b> The length of the personalization string must be ≤
+					seed length. If the implementation only supports one personalization string
+					length, then the same length can be used for both values. If more than one string
+					length is support, the evaluator shall use personalization strings of two different
+					lengths. If the implementation does not use a personalization string, no value
+					needs to be supplied.</li>
+					<li><b>Additional input:</b> the additional input bit lengths have the same defaults and
+					restrictions as the personalization string lengths.</li></ul>
+				
 				</div></div></div></div>
 	
 	<div class="comp" id="FCS_SLT_EXT.1"><h4>FCS_SLT_EXT.1 Cryptographic Salt Generation</h4>
@@ -2930,7 +2983,24 @@ users of the same system.
 				<a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.
 			</div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_SLT_EXT.1">FCS_SLT_EXT.1</a>:<br/><div class="activity">
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how salts are generated using the
+				<abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>.
 				
+			<div class="eacategory">Guidance</div>
+				There are no AGD evaluation activities for this component.
+			
+			<div class="eacategory">KMD</div>
+				There are no KMD evaluation activities for this component.
+			
+
+			<div class="eacategory">Tests</div>
+				The evaluator shall confirm by testing that the salts obtained in the cryptographic
+				operations that use the salts are of the length specified in <a href="#FCS_SLT_EXT.1">FCS_SLT_EXT.1</a>, are
+				obtained from the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>, and are fresh on each invocation.<p></p>
+				Note: in general these tests may be carried out as part of the tests of the relevant
+				cryptographic operations.<p></p>
+			
 			</div></div></div></div>
 	
 	<div class="comp" id="FCS_STG_EXT.1"><h4>FCS_STG_EXT.1 Protected Storage</h4>
@@ -2973,7 +3043,69 @@ users of the same system.
 				be the ‘owner’ of that key in the same manner as they would be if they had imported it directly.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>:<br/><div class="activity">
-				
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements the
+				required protected storage. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a
+				description of the protected storage mechanism that justifies the selection of
+				mutable hardware-based or software-based.<p></p>
+			
+			<div class="eacategory">Guidance</div>
+					The evaluator shall examine the operational guidance to ensure that it describes the
+					process for generating keys, importing keys, or both, based on what is claimed by
+					the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall also examine the operational guidance to ensure that it
+					describes the process for destroying keys that have been imported or generated.<p></p>
+			
+			<div class="eacategory">KMD</div>
+				There are no KMD evaluation activities for this component.
+			
+			<div class="eacategory">Tests</div>
+				The evaluator shall test the functionality of each security function as described
+				below. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports both import and generation of keys, the evaluator shall
+				repeat the testing as needed to demonstrate that the keys resulting from both
+				operations are treated in the same manner. The devices used with the tooling may
+				need to be non-production devices in order to enable the execution and gathering of
+				evidence.<p></p>
+				<ul>
+					<li><b>Test 1: </b>
+						The evaluator shall import or generate keys/secrets of each supported type
+						according to the operational guidance. The evaluator shall write, or the developer
+						shall provide access to, an application that generates a key/secret of each supported
+						type and calls the import functions. The evaluator shall verify that no errors occur
+						during import.
+					</li>
+					<li><b>Test 2: </b>The evaluator shall write, or the developer shall provide access to, an
+						application that uses a generated or imported key/secret:<ul>
+							<li>For RSA, the secret shall be used to sign data.</li>
+							<li>For <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr>, the secret shall be used to sign data.</li></ul>
+						The evaluator shall repeat this test with the application-imported or applicationgenerated keys/secrets and a different application’s imported keys/secrets or
+						generated keys/secrets. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires approval
+						before allowing the application to use the key/secret imported or generated by the
+						user or by a different application:<ul>
+						<li>The evaluator shall deny the approvals to verify that the application is not able
+							to use the key/secret as described.</li>
+						<li>The evaluator shall repeat the test, allowing the approvals to verify that the
+							application is able to use the key/secret as described.</li></ul>
+						If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author has selected common application developer, this test is performed
+						by either using applications from different developers or appropriately (according
+						to <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> documentation) not authorizing sharing.<p></p>
+					</li>
+					<li><b>Test 3: </b>The evaluator shall destroy keys/secrets of each supported type according
+						to the operational guidance. The evaluator shall write, or the developer shall provide
+						access to, an application that destroys an imported or generated key/secret. The
+						evaluator shall repeat this test with the application-imported or applicationgenerated keys/secrets and a different application’s imported or generated
+						keys/secrets. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires approval before
+						allowing the application to destroy the key/secret imported by the administrator or
+						by a different application:<ul>
+						<li>The evaluator shall deny the approvals and verify that the application is still
+							able to use the key/secret as described.</li>
+						<li>The evaluator shall repeat the test, allowing the approvals and verifying that
+							the application is no longer able to use the key/secret as described.</li></ul>
+						If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author has selected common application developer, this test is performed
+						by either using applications from different developers or appropriately (according
+						to <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> documentation) not authorizing sharing.<p></p>
+					</li>
+				</ul>
+			
 			</div></div></div></div>
 
 	<div class="comp" id="FCS_STG_EXT.2"><h4>FCS_STG_EXT.2 Key Storage Encryption</h4>
@@ -2984,8 +3116,20 @@ users of the same system.
      <span class="assignable-content">key encryption methods as specified in <a href="#FCS_COP.1/KeyEnc">FCS_COP.1/KeyEnc</a></span>].
 			</div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_STG_EXT.2">FCS_STG_EXT.2</a>:<br/><div class="activity">
-				
-			</div></div></div></div>
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the
+				protection of symmetric keys, KEKs, long-term trusted channel key material, and
+				software-based key storage as claimed in <a href="#FCS_STG_EXT.2.1">FCS_STG_EXT.2.1</a>. 
+			
+			<div class="eacategory">Guidance</div>
+				There are no AGD evaluation activities for this component.
+			
+			<div class="eacategory">KMD</div>
+				There are no KMD evaluation activities for this component
+			
+			<div class="eacategory">Tests</div>
+				There are no test evaluation activities for this component.
+						</div></div></div></div>
 	
 	<div class="comp" id="FCS_STG_EXT.3"><h4>FCS_STG_EXT.3 Key Integrity Protection</h4>
 		<div class="element"><div class="reqid" id="FCS_STG_EXT.3.1"><a href="#FCS_STG_EXT.3.1" class="abbr">FCS_STG_EXT.3.1</a></div><div class="reqdesc">
@@ -3011,6 +3155,18 @@ users of the same system.
 				be submitted as a separate document and marked as developer proprietary.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_STG_EXT.3">FCS_STG_EXT.3</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it contains a description of
+					how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> protects the integrity of its keys.
+				
+				<div class="eacategory">Guidance</div>
+					There are no AGD evaluation activities for this component.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					There are no test evaluation activities for this component.
 				
 			</div></div></div></div>
 
@@ -3034,7 +3190,21 @@ users of the same system.
 				subsequent use of the term “access” should be interpreted to refer to one or more of these events.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ACC.1">FDP_ACC.1</a>:<br/><div class="activity">
-				
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contain the access control policy
+				implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. I.e., the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author lists each object and identifies for each
+				object, which operations the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> permits for each subject (i.e. what can “admins”
+				do vs “users”).
+			
+			<div class="eacategory">Guidance</div>
+				There are no guidance evaluation activities for this component.
+			
+			<div class="eacategory">KMD</div>
+				There are no KMD evaluation activities for this component.
+			
+			<div class="eacategory">Tests</div>
+				Testing for FDP_ACF includes testing this component.
+			
 			</div></div></div></div>
 	
 	<div class="comp" id="FDP_ACF.1"><h4>FDP_ACF.1 Security Attribute Based Access Control</h4>
@@ -3115,12 +3285,78 @@ users of the same system.
 				SDOs like any other SDO it contains or manages.<p></p>
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ACF.1">FDP_ACF.1</a>:<br/><div class="activity">
-				
-			</div></div></div></div>
+		<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+			The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the policy rules for
+			the Access Control SFP. Specifically, the evaluator should be able to identify, for
+			any arbitrary subject-object-operation pairing, which of the following is true:<ol type="a">
+			<li>The subject can always perform the desired operation.</li>
+			<li>The subject can never perform the desired operation, either because they
+				lack sufficient permission or because the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes no interface to
+				support the operation.</li>
+			<li>The subject can only perform the desired operation under certain
+				conditions (which the evaluator shall verify are described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>). For
+				example, “the S.CA subject may only perform the OP.Destroy operation
+				on an OB.SDO object if it was the subject that originally created or
+				imported the SDO.”</li>
+			<li>The subject can only perform the desired operation on one or more
+				attributes of the object as opposed to the entire object itself (which the
+				evaluator shall verify are identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>).</li>
+			<li>Whether the subject can perform the desired operation depends on <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
+				configuration (which the evaluator shall verify is described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as
+				part of the evaluation of FMT_SMF.1).</li>
+			<li>Some combination of c, d, and e.</li></ol>
+				Given that this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> requires a large number of potential subject-object-operation
+				pairings to be identified, it is not the expectation that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contain an exhaustive
+				list of these pairings. It is possible that large numbers of pairings are addressed by
+				blanket statements of policy rules, such as “the subjects S.DSC and S.CA are never
+				able to perform any operation on the OB.AntiReplay object.” For any rules that are
+				not addressed in this manner, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes sufficient
+				data for the evaluator to determine how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will evaluate the action. This can
+				be presented in the form of a table, flowchart, list, or other manner that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author
+				finds suitable.<p></p>
+			Note that the DSC developer may not use the same terminology for its subjects,
+			objects, and operations as the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. If this is the case, the evaluator shall verify that
+			the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a mapping that unambiguously shows how the vendor’s preferred
+			terminology corresponds to what the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> defines.<p></p>
+		
+		<div class="eacategory">Guidance</div>
+			For any access control policy enforcement behavior that is configurable, the
+			evaluator shall ensure that the operational guidance describes how to perform the
+			configuration, including any restrictions on permissible configurable settings.
+		
+		<div class="eacategory">KMD</div>
+			There are no KMD evaluation activities for this component.
+		
+		<div class="eacategory">Tests</div>
+			The following testing may require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer to make a test harness
+			available to the evaluator that allows the evaluator to interface directly with the
+			DSC. Due to the large volume of potential testing that this requires, this test may
+			require the use of an automated script. If a test script is made available, the evaluator
+			shall verify that it includes sufficient detail to validate the claims made in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<p></p>
+			For each subject/object/operation/attribute combination, the evaluator shall attempt
+			to perform the operation or determine that no interface is present to attempt the
+			operation, consistent with the limitations described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<p></p>
+			For each case where an operation is always permitted or never permitted, both
+			positive and negative testing will be conducted implicitly by attempting the
+			operation with all possible subjects and determining that the intended results occur
+			in each case.<p></p>
+			For each case where the operation succeeds or fails based on the target object
+			attribute, the evaluator shall ensure that both positive and negative testing is
+			performed such that only the correct target attributes can be operated upon.<p></p>
+			For each case where the operation succeeds or fails based on one or more specific
+			conditions, the evaluator shall ensure that both positive and negative testing is
+			performed such that the presence of the conditions causes the test to succeed while
+			the absence of the conditions causes the test to fail.<p></p>
+			For each case where the operation succeeds or fails based on an administratively
+			configured setting, the evaluator shall ensure that both positive and negative testing
+			is performed such that the configuration setting can be shown to affect whether or
+			not the operation succeeds.<p></p>
+					
+		</div></div></div></div>
 
 						
-	<div class="comp" id="FCS_ETC_EXT.2"><h4>FCS_ETC_EXT.2 Propagation of SDOs</h4>
-		<div class="element"><div class="reqid" id="FCS_ETC_EXT.2.1"><a href="#FCS_ETC_EXT.2.1" class="abbr">FCS_ETC_EXT.2.1</a></div><div class="reqdesc">
+	<div class="comp" id="FDP_ETC_EXT.2"><h4>FDP_ETC_EXT.2 Propagation of SDOs</h4>
+		<div class="element"><div class="reqid" id="FDP_ETC_EXT.2.1"><a href="#FDP_ETC_EXT.2.1" class="abbr">FDP_ETC_EXT.2.1</a></div><div class="reqdesc">
 				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall propagate only SDO references, wrapped authorization data,
 				and wrapped SDOs such that only 
 				[<b>selection</b>: <i id="_s_578">the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></i>, <i id="_s_579">authorized users</i>] can access them.
@@ -3129,8 +3365,22 @@ users of the same system.
 				a token to the object. The “only the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can unwrap the data” selection refers to data that is
 				stored outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary (i.e., data that has been propagated).
 			</span></div></div></div>
-	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_ETC_EXT.2">FCS_ETC_EXT.2</a>:<br/><div class="activity">
-				
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ETC_EXT.2">FDP_ETC_EXT.2</a>:<br/><div class="activity">
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how it protects the
+				SDO references, authorization data, against access from unauthorized entities. If the
+				<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is selected, then it should describe how it provides confidentiality of the data
+				while it resides outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+			
+			<div class="eacategory">Guidance</div>
+				There are no guidance evaluation activities for this component.
+			
+			<div class="eacategory">KMD</div>
+				There are no KMD evaluation activities for this component.
+			
+			<div class="eacategory">Tests</div>
+				There are no test evaluation activities for this component.
+						
 			</div></div></div></div>
 		
 	<div class="comp" id="FDP_FRS_EXT.1"><h4>FDP_FRS_EXT.1 Factory Reset</h4>
@@ -3151,7 +3401,25 @@ users of the same system.
 				the selectionbased <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FDP_FRS_EXT.2 must be claimed.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_FRS_EXT.1">FDP_FRS_EXT.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it describes each of the
+					conditions which will lead to a factory reset.
 				
+				<div class="eacategory">Guidance</div>
+					The evaluator shall examine the operational guidance to ensure that it describes the
+					ways the administrator can set the conditions to initiate a factory reset.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					The evaluator shall identify all functions that resets the DSC to factory setting. For
+					each function, the evaluator shall identify all methods for authorizing the factory
+					reset. For each function and for each authorization method, the evaluator shall
+					create an SDE or SDO. The evaluator shall then verify the presence of the item just
+					created. The evaluator shall initiate a factory reset using the selected function and
+					authorization method and verify the item no longer exists.
+							
 			</div></div></div></div>
 			
 	<div class="comp" id="FDP_ITC_EXT.1"><h4>FDP_ITC_EXT.1 Parsing of SDEs</h4>
@@ -3185,6 +3453,25 @@ users of the same system.
 				selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FTP_ITC_EXT.1 must be claimed.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a>:<br/><div class="activity">
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+				The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains descriptions of the supported methods
+				the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses to import SDEs into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. For each import method selected, the
+				<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall describe integrity verification schemes employed. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall also list
+				the ways the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generates and binds security attributes to the SDEs.
+			
+			<div class="eacategory">Guidance</div>
+				There are no AGD evaluation activities for this component.
+			
+			<div class="eacategory">KMD</div>
+				There are no KMD evaluation activities for this component.
+			
+			<div class="eacategory">Tests</div>
+				For each supported import method selected in <a href="#FDP_ITC_EXT.1.1">FDP_ITC_EXT.1.1</a> and for each
+				supported integrity verification method selected in <a href="#FDP_ITC_EXT.1.2">FDP_ITC_EXT.1.2</a>. used by the
+				selected import method, provide one SDE with valid integrity credentials, one with
+				invalid integrity credentials (e.g. hash). The operations with invalid integrity
+				credentials must result in error. The operations with valid integrity credentials must
+				return an SDO with valid security attributes in accordance with <a href="#FDP_ITC_EXT.1.4">FDP_ITC_EXT.1.4</a>.
 			
 		</div></div></div></div>	
 
@@ -3223,6 +3510,26 @@ users of the same system.
 				selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FTP_ITC_EXT.1 must be claimed.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_ITC_EXT.2">FDP_ITC_EXT.2</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains descriptions of the supported methods
+					the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses to import SDOs into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. For each import method selected, the
+					<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall describe integrity verification schemes employed. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall also list
+					the ways the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generates and binds security attributes to the SDOs.
+				
+				<div class="eacategory">Guidance</div>
+					There are no AGD evaluation activities for this component.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					For each supported import method selected in <a href="#FDP_ITC_EXT.2.1">FDP_ITC_EXT.2.1</a> and for each
+					supported integrity verification method selected in <a href="#FDP_ITC_EXT.2.2">FDP_ITC_EXT.2.2</a> used by the
+					selected import method, provide one SDO with valid integrity credentials, one with
+					invalid integrity credentials (e.g. hash). The operations with invalid integrity
+					credentials must result in error. The operations with valid integrity credentials must
+					return an SDO with valid security attributes in accordance with <a href="#FDP_ITC_EXT.2.3">FDP_ITC_EXT.2.3</a>,
+					<a href="#FDP_ITC_EXT.2.4">FDP_ITC_EXT.2.4</a>, and <a href="#FDP_ITC_EXT.2.5">FDP_ITC_EXT.2.5</a>.
 				
 			</div></div></div></div>
 		
@@ -3235,6 +3542,23 @@ users of the same system.
 				FPT_RPL.1/Rollback if <u>mutable</u> is selected.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_MFW_EXT.1">FDP_MFW_EXT.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that details of which firmware
+					components are considered mutable and which firmware components are
+					considered immutable, as well as how these firmware components can/cannot be
+					modified or altered, are described. For example, DSC firmware components that
+					are stored in ROM would be considered immutable.
+				
+				<div class="eacategory">Guidance</div>
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has mutable firmware, the evaluator shall examine the operational
+					guidance to ensure that it describes how to modify the firmware.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has mutable firmware, the evaluator shall perform the activities
+					described in the operational guidance to modify the firmware.
 				
 			</div></div></div></div>
 		
@@ -3253,6 +3577,22 @@ users of the same system.
 				and security attributes in SDOs.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_RIP.1">FDP_RIP.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes resource deallocation to
+					the extent that they can determine that no data will be reused when reallocating
+					resources following the destruction of an SDE or SDO. The evaluator shall ensure
+					that this description at a minimum describes how the previous data is destroyed.
+					The evaluator shall also ensure that this destruction method is consistent with
+					<a href="#FCS_CKM.4">FCS_CKM.4</a>.
+				
+				<div class="eacategory">Guidance</div>
+					There are no AGD evaluation activities for this component.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					Testing for <a href="#FCS_CKM.4">FCS_CKM.4</a> is sufficient to address this component.
 				
 			</div></div></div></div>
 
@@ -3275,7 +3615,7 @@ users of the same system.
 				all authorization data appearing in the attribute list under SDO.AuthData as well as any
 				administrator authorization data which may be stored implicitly.<p></p>
 				If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> stores these parameters outside of its boundary, it must encrypt them according to the
-				cryptographic requirements for key encryption, as required by FDP_ETC_EXT.2.<p></p>
+				cryptographic requirements for key encryption, as required by <a href="#FDP_ETC_EXT.2">FDP_ETC_EXT.2</a>.<p></p>
 				Vendor pre-installed SDOs includes both objects installed during manufacturing, and those
 				provisioned by the vendor before final release to customer. The administrator and no one else
 				owns and controls these objects.<p></p>
@@ -3284,6 +3624,35 @@ users of the same system.
 				is not required.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_SDC_EXT.1">FDP_SDC_EXT.1</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it describes the protection
+					for SDEs and authorization data and the methods of protection (e.g. protected
+					storage, symmetric encryption, key wrapping, etc.).<p></p>
+					The evaluator shall also examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> stores this
+					data inside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary or in its operational environment. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> stores
+					this data inside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary, the evaluator shall ensure that <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses one of
+					the listed methods to provide confidentiality. If the data is stored in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s
+					operational environment, the evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses key wrapping
+					to provide confidentiality.<p></p>
+					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to confirm is sufficiently describes each
+					method used to provide confidentiality for SDEs. The evaluator shall also confirm
+					that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports all encryption methods selected.
+				
+				<div class="eacategory">Guidance</div>
+					There are no AGD evaluation activities for this component.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+					
+				<div class="eacategory">Tests</div>
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> stores SDEs and authorization data inside the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, the evaluator shall
+					ensure that external interfaces cannot extract this data in plaintext.<p></p>
+					In this case, use the evaluation activities of the FPT_PHP.3 if protected storage is
+					selected, FCS_COP.1/SK if symmetric encryption using… is selected, and
+					<a href="#FCS_COP.1/KAT">FCS_COP.1/KAT</a> if key wrapping using… is selected.<p></p>
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> stores authentication data inside the operational environment, the
+					evaluator shall ensure that plaintext data is not visible on the interface between the
+					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the operational environment.
 				
 			</div></div></div></div>
 		
@@ -3314,6 +3683,29 @@ users of the same system.
 				When an SDO is parsed, its integrity is checked when it is imported into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
 			</span></div></div></div>
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FDP_SDI.2">FDP_SDI.2</a>:<br/><div class="activity">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+					The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author describes the methods for protecting
+					the integrity of SDOs stored with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, and shall identify the iteration of
+					<a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> or <a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a> that covers any cryptographic algorithm
+					used. The evaluator shall also confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the response upon the
+					detection of an integrity error.<p></p>
+					The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> takes when
+					the integrity verification fails for an SDO, including the circumstances that cause a
+					notification to be sent when this occurs.<p></p>
+					The evaluator shall confirm that <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how integrity of SDOs is protected
+					in FMT_MSA.3 during initialization, and how the integrity of SDOs are verified
+					during parsing (import) in FDP_ITC_EXT.
+				
+				<div class="eacategory">Guidance</div>
+					The evaluator shall examine the operational guidance to verify that it describes the
+					conditions that cause a notification to be sent when an integrity error is detected,
+					and what the contents of the notification are.
+				
+				<div class="eacategory">KMD</div>
+					There are no KMD evaluation activities for this component.
+				
+				<div class="eacategory">Tests</div>
+					The tests for FDP_ITC_EXT and FMT_MSA.3 shall suffice for this component.
 				
 			</div></div></div></div>
        
