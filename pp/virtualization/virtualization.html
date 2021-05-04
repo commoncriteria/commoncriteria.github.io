@@ -288,6 +288,35 @@ function showTarget(id){
 
    .evidence, .test-obj { font-style: normal; font-size: 90%;}
    
+   
+	table.classic {
+    	width: 100%;
+    	background-color: white;
+    	border-collapse: collapse;
+    	border-width: 2px;
+  		border-color: gray;
+  		border-style: solid;
+  		color: black;
+		font-size: small;
+	}
+    table.classic th {
+  		background-color: lightgray;   
+	}
+    table.classic th:empty{
+	    background-color: white;
+		border-top: none;
+		border-left: none;
+	}
+	table.classic td, table.classic th {
+  		border-width: 2px;
+  		border-color: gray;
+  		border-style: solid;
+  		padding: 5px;
+	}
+
+   
+   
+   
           .figure{
               font-weight:bold;
           }
@@ -741,7 +770,7 @@ The following sections list Common Criteria and technology terms used in this do
 		
 
 		<h3 class="indexable" data-level="2" id="Threats">3.1 Threats</h3>
-            <dl><dt class="threat" id="T.DATA_LEAKAGE">T.DATA_LEAKAGE</dt><dd>
+            <dl><dt class="threat,defined" id="T.DATA_LEAKAGE">T.DATA_LEAKAGE</dt><dd>
                     It is a fundamental property of VMs that the domains encapsulated by different VMs remain separate unless 
 					data sharing is permitted by policy. For this reason, all Virtualization Systems shall support a policy
 					that prohibits information transfer between VMs.<br/><br/>
@@ -754,24 +783,24 @@ The following sections list Common Criteria and technology terms used in this do
 					or network can obtain data from another domain. Such cross-domain data leakage can, for example, cause
 					classified information, corporate proprietary information, or personally identifiable information to be
 					made accessible to unauthorized entities.
-                    </dd><dt class="threat" id="T.UNAUTHORIZED_UPDATE">T.UNAUTHORIZED_UPDATE</dt><dd>
+                    </dd><dt class="threat,defined" id="T.UNAUTHORIZED_UPDATE">T.UNAUTHORIZED_UPDATE</dt><dd>
                         It is common for attackers to target outdated versions of software containing known flaws. This means it is
 			    extremely important to update <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> software as soon as possible when updates are
 			    available. But the source of the updates and the updates themselves must be trusted. If an attacker can
 			    write their own update containing malicious code they can take control of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>.
-                    </dd><dt class="threat" id="T.UNAUTHORIZED_MODIFICATION">T.UNAUTHORIZED_MODIFICATION</dt><dd>
+                    </dd><dt class="threat,defined" id="T.UNAUTHORIZED_MODIFICATION">T.UNAUTHORIZED_MODIFICATION</dt><dd>
                         System integrity is a core security objective for Virtualization Systems. To achieve system integrity, the
 			    integrity of each <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> component must be established and maintained. Malware running on the platform must
 			    not be able to undetectably modify <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> components while the system is running or at 
 			    rest. Likewise, malicious code running within a virtual machine must not be able to modify Virtualization
 			    System components.
-                    </dd><dt class="threat" id="T.USER_ERROR">T.USER_ERROR</dt><dd>
+                    </dd><dt class="threat,defined" id="T.USER_ERROR">T.USER_ERROR</dt><dd>
                         If a Virtualization System is capable of simultaneously displaying VMs of different domains to the same user
 			    at the same time, there is always the chance that the user will become confused and unintentionally leak
 			    information between domains. This is especially likely if VMs belonging to different domains are 
 			    indistinguishable. Malicious code may also attempt to interfere with the user’s ability to distinguish
 			    between domains. The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> must take measures to minimize the likelihood of such confusion.
-                    </dd><dt class="threat" id="T.3P_SOFTWARE">T.3P_SOFTWARE</dt><dd>
+                    </dd><dt class="threat,defined" id="T.3P_SOFTWARE">T.3P_SOFTWARE</dt><dd>
                         In some <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> implementations, functions critical to the security of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are by necessity performed by 
 			    software not produced by the virtualization vendor. Such software may include physical device drivers, 
 			    and even non-TOE entities such as Host Operating Systems. Since this software has the same or similar
@@ -779,20 +808,20 @@ The following sections list Common Criteria and technology terms used in this do
 			    Where possible, the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> should mitigate the results of potential vulnerabilities or malicious content in
 			    third-party code on which it relies. For example, physical device drivers (potentially the Host <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>) could 
 			    be encapsulated within VMs in order to limit the effects of compromise. 
-                    </dd><dt class="threat" id="T.VMM_COMPROMISE">T.VMM_COMPROMISE</dt><dd>
+                    </dd><dt class="threat,defined" id="T.VMM_COMPROMISE">T.VMM_COMPROMISE</dt><dd>
                         The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is designed to provide the appearance of exclusivity to the VMs and is designed
 			    to separate or isolate their functions except where specifically shared. Failure of security mechanisms
 			    could lead to unauthorized intrusion into or modification of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>, or bypass of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> altogether,
 			    by non-TOE software, such as that running in Guest or Helper VMs or on the host platform. 
 			    This must be prevented to avoid compromising the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>.
-                    </dd><dt class="threat" id="T.PLATFORM_COMPROMISE">T.PLATFORM_COMPROMISE</dt><dd>
+                    </dd><dt class="threat,defined" id="T.PLATFORM_COMPROMISE">T.PLATFORM_COMPROMISE</dt><dd>
                         The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> must be capable of protecting the platform from threats that originate within VMs and operational
 			    networks connected to the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>. The hosting of untrusted—even malicious—domains by the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> cannot be 
 			    permitted to compromise the security and integrity of the platform on which the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> executes. If an 
 			    attacker can access the underlying platform in a manner not controlled by the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>, the attacker might 
 			    be able to modify system firmware or software—compromising both the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> and the 
 			    underlying platform.
-                    </dd><dt class="threat" id="T.UNAUTHORIZED_ACCESS">T.UNAUTHORIZED_ACCESS</dt><dd>
+                    </dd><dt class="threat,defined" id="T.UNAUTHORIZED_ACCESS">T.UNAUTHORIZED_ACCESS</dt><dd>
                         Functions performed by the management layer include <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> configuration, virtualized network configuration, 
 			    allocation of physical resources, and reporting. Only certain authorized system users (administrators) 
 			    are allowed to exercise management functions.<br/><br/>
@@ -803,7 +832,7 @@ The following sections list Common Criteria and technology terms used in this do
 			    management infrastructure. This would provide an adversary with administrator privilege on the platform,
 			    and administrative control over the VMs and virtual network connections. The adversary could also gain
 			    access to the management network by hijacking the management network channel.
-                    </dd><dt class="threat" id="T.WEAK_CRYPTO">T.WEAK_CRYPTO</dt><dd>
+                    </dd><dt class="threat,defined" id="T.WEAK_CRYPTO">T.WEAK_CRYPTO</dt><dd>
                         To the extent that VMs appear isolated within the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>, a threat of weak cryptography may 
 			    arise if the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> does not provide good entropy to support security-related features that depend on
 			    entropy to implement cryptographic algorithms. For example, a random number generator keeps an estimate
@@ -812,13 +841,13 @@ The following sections list Common Criteria and technology terms used in this do
 			    poor random numbers can be defeated by a sophisticated adversary. Such defeat can result in the compromise
 			    of Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> data and credentials, and of <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> data and credentials, and can enable unauthorized access 
 			    to the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> or VMs.
-                    </dd><dt class="threat" id="T.UNPATCHED_SOFTWARE">T.UNPATCHED_SOFTWARE</dt><dd>
+                    </dd><dt class="threat,defined" id="T.UNPATCHED_SOFTWARE">T.UNPATCHED_SOFTWARE</dt><dd>
                         Vulnerabilities in outdated or unpatched software can be exploited by adversaries to compromise the
 			    <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> or platform.
-                    </dd><dt class="threat" id="T.MISCONFIGURATION">T.MISCONFIGURATION</dt><dd>
+                    </dd><dt class="threat,defined" id="T.MISCONFIGURATION">T.MISCONFIGURATION</dt><dd>
                         The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> may be misconfigured, which could impact its functioning and security. This 
 			    misconfiguration could be due to an administrative error or the use of faulty configuration data.
-                    </dd><dt class="threat" id="T.DENIAL_OF_SERVICE">T.DENIAL_OF_SERVICE</dt><dd>
+                    </dd><dt class="threat,defined" id="T.DENIAL_OF_SERVICE">T.DENIAL_OF_SERVICE</dt><dd>
                         A <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> may block others from system resources (e.g., system memory, persistent storage, and processing time)
 			    via a resource exhaustion attack.
                     </dd></dl>
@@ -827,8 +856,8 @@ The following sections list Common Criteria and technology terms used in this do
         
 	
         <h3 class="indexable" data-level="2" id="s-assumptions">3.2 Assumptions</h3>
-            <dl><dt class="assumption" id="A.PLATFORM_INTEGRITY">A.PLATFORM_INTEGRITY</dt><dd>The platform has not been compromised prior to installation of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>.</dd><dt class="assumption" id="A.PHYSICAL">A.PHYSICAL</dt><dd>Physical security commensurate with the value of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the data it contains is assumed to 
-			    be provided by the environment.</dd><dt class="assumption" id="A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Administrators are trusted to follow and apply all administrator guidance.</dd><dt class="assumption" id="A.NON_MALICIOUS_USER">A.NON_MALICIOUS_USER</dt><dd>The user of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is not willfully negligent or hostile, and uses the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> in compliance with the
+            <dl><dt class="assumption,defined" id="A.PLATFORM_INTEGRITY">A.PLATFORM_INTEGRITY</dt><dd>The platform has not been compromised prior to installation of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>.</dd><dt class="assumption,defined" id="A.PHYSICAL">A.PHYSICAL</dt><dd>Physical security commensurate with the value of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the data it contains is assumed to 
+			    be provided by the environment.</dd><dt class="assumption,defined" id="A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Administrators are trusted to follow and apply all administrator guidance.</dd><dt class="assumption,defined" id="A.NON_MALICIOUS_USER">A.NON_MALICIOUS_USER</dt><dd>The user of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is not willfully negligent or hostile, and uses the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> in compliance with the
 			    applied enterprise security policy and guidance. At the same time, malicious applications could act as
 			    the user, so requirements which confine malicious applications are still in scope.</dd></dl>
         
@@ -842,7 +871,7 @@ The following sections list Common Criteria and technology terms used in this do
 	    
 	
         <h3 class="indexable" data-level="2" id="s-secobjtoe">4.1 Security Objectives for the TOE</h3>
-            <dl><dt class="SO" id="O.VM_ISOLATION">O.VM_ISOLATION</dt><dd>VMs are the fundamental subject of the system. The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> is 
+            <dl><dt class="SO,defined" id="O.VM_ISOLATION">O.VM_ISOLATION</dt><dd>VMs are the fundamental subject of the system. The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> is 
                         responsible for applying the system security policy (<abbr class="dyn-abbr"><a href="#abbr_SSP">SSP</a></abbr>) to the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and 
                         all resources. As basic functionality, the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must support a security policy that mandates 
                         no information transfer between VMs.<br/><br/>
@@ -869,7 +898,7 @@ The following sections list Common Criteria and technology terms used in this do
                         networks and to limit a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>'s access to only those virtual networks for which it has been 
                         configured. The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must also support the mechanisms to control the configurations of 
                         virtual networks according to the <abbr class="dyn-abbr"><a href="#abbr_SSP">SSP</a></abbr>.
-                    </dd><dt class="SO" id="O.VMM_INTEGRITY">O.VMM_INTEGRITY</dt><dd>Integrity is a core security objective for Virtualization Systems. To achieve system integrity, the 
+                    </dd><dt class="SO,defined" id="O.VMM_INTEGRITY">O.VMM_INTEGRITY</dt><dd>Integrity is a core security objective for Virtualization Systems. To achieve system integrity, the 
                         integrity of each <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> component must be established and maintained. This objective concerns 
                         only the integrity of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>—not the integrity of software running inside of Guest 
                         VMs or of the physical platform. The overall objective is to ensure the integrity of 
@@ -880,14 +909,14 @@ The following sections list Common Criteria and technology terms used in this do
                         be possible for software running within a Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> to exploit a vulnerability in a device or
                         hypercall interface and gain control of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>. The vendor must release patches for 
                         vulnerabilities as soon as practicable after discovery.
-                    </dd><dt class="SO" id="O.PLATFORM_INTEGRITY">O.PLATFORM_INTEGRITY</dt><dd>The integrity of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> depends on the integrity of the hardware and software on 
+                    </dd><dt class="SO,defined" id="O.PLATFORM_INTEGRITY">O.PLATFORM_INTEGRITY</dt><dd>The integrity of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> depends on the integrity of the hardware and software on 
                         which the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> relies. Although the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> does not have complete control over the integrity of 
                         the platform, the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> should as much as possible try to ensure that no users or software hosted by the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is 
                         capable of undermining the integrity of the platform.
-                    </dd><dt class="SO" id="O.DOMAIN_INTEGRITY">O.DOMAIN_INTEGRITY</dt><dd>While the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is not responsible for the contents or correct functioning of software that runs within 
+                    </dd><dt class="SO,defined" id="O.DOMAIN_INTEGRITY">O.DOMAIN_INTEGRITY</dt><dd>While the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is not responsible for the contents or correct functioning of software that runs within 
                         Guest VMs, it is responsible for ensuring that the correct functioning of the software 
                         within a Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> is not interfered with by other VMs.
-                    </dd><dt class="SO" id="O.MANAGEMENT_ACCESS">O.MANAGEMENT_ACCESS</dt><dd><abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions include <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> configuration, virtualized 
+                    </dd><dt class="SO,defined" id="O.MANAGEMENT_ACCESS">O.MANAGEMENT_ACCESS</dt><dd><abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions include <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> configuration, virtualized 
                         network configuration, allocation of physical resources, and reporting. Only certain authorized system users 
                         (administrators) are allowed to exercise management functions.<br/><br/>
                         Because of the privileges exercised by the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions, it must not be possible 
@@ -924,40 +953,40 @@ The following sections list Common Criteria and technology terms used in this do
                         run on a separate machine or it could itself run in a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>. When performing remote management, 
                         an administrator must communicate with a privileged management agent over a network. Communications with the 
                         management infrastructure must be protected from Guest VMs and operational networks.
-                    </dd><dt class="SO" id="O.PATCHED_SOFTWARE">O.PATCHED_SOFTWARE</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> must be updated and patched when needed in order to prevent the potential 
+                    </dd><dt class="SO,defined" id="O.PATCHED_SOFTWARE">O.PATCHED_SOFTWARE</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> must be updated and patched when needed in order to prevent the potential 
                         compromise of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>, as well as the networks and VMs that it hosts. 
                         Identifying and applying needed updates must be a normal part of the operating procedure to ensure that 
                         patches are applied in a timely and thorough manner. In order to facilitate this, the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> must support 
                         standards and protocols that help enhance the manageability of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> as an <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product, enabling it to be 
                         integrated as part of a manageable network (e.g., reporting current patch level and patchability).
-                    </dd><dt class="SO" id="O.VM_ENTROPY">O.VM_ENTROPY</dt><dd>VMs must have access to good entropy sources to support security-related features 
+                    </dd><dt class="SO,defined" id="O.VM_ENTROPY">O.VM_ENTROPY</dt><dd>VMs must have access to good entropy sources to support security-related features 
                         that implement cryptographic algorithms. For example, in order to function as members of operational 
                         networks, VMs must be able to communicate securely with other network entities—whether 
                         virtual or physical. They must therefore have access to sources of good entropy to support that secure 
                         communication.
-                    </dd><dt class="SO" id="O.AUDIT">O.AUDIT</dt><dd>An audit log must be created that captures accesses to the objects the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> protects. The log 
+                    </dd><dt class="SO,defined" id="O.AUDIT">O.AUDIT</dt><dd>An audit log must be created that captures accesses to the objects the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> protects. The log 
 			    of these accesses, or audit events, must be protected from modification, unauthorized access,
 			    and destruction. The audit log must be sufficiently detailed to indicate the date and time of
 			    the event, the identify of the user, the type of event, and the success or failure of the event.
-                    </dd><dt class="SO" id="O.CORRECTLY_APPLIED_CONFIGURATION">O.CORRECTLY_APPLIED_CONFIGURATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not apply configurations that violate the current security policy.
+                    </dd><dt class="SO,defined" id="O.CORRECTLY_APPLIED_CONFIGURATION">O.CORRECTLY_APPLIED_CONFIGURATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not apply configurations that violate the current security policy.
                         <br/><br/> The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must correctly apply configurations and policies 
                         to newly created Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>, as well as to existing Guest VMs when 
                         applicable configuration or policy changes are made. All changes to configuration and to policy must conform 
                         to the existing security policy. Similarly, changes made to the configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
                         itself must not violate the existing security policy.
-                    </dd><dt class="SO" id="O.RESOURCE_ALLOCATION">O.RESOURCE_ALLOCATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide mechanisms that enforce constraints on the allocation of 
+                    </dd><dt class="SO,defined" id="O.RESOURCE_ALLOCATION">O.RESOURCE_ALLOCATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide mechanisms that enforce constraints on the allocation of 
                         system resources in accordance with existing security policy.
                     </dd></dl>
         
 	    
 	
         <h3 class="indexable" data-level="2" id="s-secobjoe">4.2 Security Objectives for the Operational Environment</h3>
-            <dl><dt class="SOE" id="OE.CONFIG">OE.CONFIG</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> administrators will configure the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> correctly to create the intended security
+            <dl><dt class="SOE,defined" id="OE.CONFIG">OE.CONFIG</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> administrators will configure the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> correctly to create the intended security
 						policy.
-                    </dd><dt class="SOE" id="OE.PHYSICAL">OE.PHYSICAL</dt><dd>Physical security, commensurate with the value of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the data it contains, is provided by 
+                    </dd><dt class="SOE,defined" id="OE.PHYSICAL">OE.PHYSICAL</dt><dd>Physical security, commensurate with the value of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the data it contains, is provided by 
 						the environment.
-                    </dd><dt class="SOE" id="OE.TRUSTED_ADMIN">OE.TRUSTED_ADMIN</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Administrators are trusted to follow and apply all administrator guidance in a trusted manner.
-                    </dd><dt class="SOE" id="OE.NON_MALICIOUS_USER">OE.NON_MALICIOUS_USER</dt><dd>Users are trusted to be not willfully negligent or hostile and use the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> in compliance with the
+                    </dd><dt class="SOE,defined" id="OE.TRUSTED_ADMIN">OE.TRUSTED_ADMIN</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Administrators are trusted to follow and apply all administrator guidance in a trusted manner.
+                    </dd><dt class="SOE,defined" id="OE.NON_MALICIOUS_USER">OE.NON_MALICIOUS_USER</dt><dd>Users are trusted to be not willfully negligent or hostile and use the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> in compliance with the
 						applied enterprise security policy and guidance.
                     </dd></dl>
         
@@ -1029,7 +1058,7 @@ The following sections list Common Criteria and technology terms used in this do
 							Successful and failed <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> connections to physical devices where connection is governed by configurable
 							policy.
 						</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and physical device identifiers.<br/></td></tr><tr><td><a href="#FDP_PPR_EXT.1">FDP_PPR_EXT.1</a></td><td>Security policy violations.</td><td>Identifier for the security policy that was violated.<br/></td></tr><tr><td><a href="#FDP_RIP_EXT.1">FDP_RIP_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FDP_RIP_EXT.2">FDP_RIP_EXT.2</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FDP_VMS_EXT.1">FDP_VMS_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FDP_VNC_EXT.1">FDP_VNC_EXT.1</a></td><td>Successful and failed attempts to connect VMs to virtual and physical networking
-							components.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and virtual or physical networking component identifiers.<br/></td></tr><tr><td><a href="#FDP_VNC_EXT.1">FDP_VNC_EXT.1</a></td><td>Security policy violations.</td><td>Identifier for the security policy that was violated.<br/><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and virtual or physical networking component identifiers.<br/></td></tr><tr><td><a href="#FDP_VNC_EXT.1">FDP_VNC_EXT.1</a></td><td>Administrator configuration of inter-VM communications channels between VMs.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and virtual or physical networking component identifiers.<br/></td></tr><tr><td><a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a></td><td>Unsuccessful login attempts limit is met or exceeded.</td><td>Origin of attempt (e.g., <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address).<br/></td></tr><tr><td><a href="#FIA_UAU.5">FIA_UAU.5</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FIA_UIA_EXT.1">FIA_UIA_EXT.1</a></td><td>Administrator authentication attempts.</td><td>Provided user identity, origin of the attempt (e.g. console, remote <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address).<br/></td></tr><tr><td><a href="#FIA_UIA_EXT.1">FIA_UIA_EXT.1</a></td><td>All use of the identification and authentication mechanism.</td><td>Provided user identity, origin of the attempt (e.g. console, remote <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address).<br/></td></tr><tr><td><a href="#FIA_UIA_EXT.1">FIA_UIA_EXT.1</a></td><td><b>[selection: </b><i>Start and end of administrator session., None</i><b>]</b></td><td>Start time and end time of administrator session.<br/></td></tr><tr><td><a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_DVD_EXT.1">FPT_DVD_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_EEM_EXT.1">FPT_EEM_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_HAS_EXT.1">FPT_HAS_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a></td><td>Attempts to access disabled hypercall interfaces</td><td>Interface for which access was attempted.<br/></td></tr><tr><td><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a></td><td>Security policy violations.</td><td>Identifier for the security policy that was violated.<br/></td></tr><tr><td><a href="#FPT_RDM_EXT.1">FPT_RDM_EXT.1</a></td><td>Connection/disconnection of removable media or device to/from a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> Identifier, Removable media/device identifier, event description or identifier
+							components.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and virtual or physical networking component identifiers.<br/></td></tr><tr><td><a href="#FDP_VNC_EXT.1">FDP_VNC_EXT.1</a></td><td>Security policy violations.</td><td>Identifier for the security policy that was violated.<br/><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and virtual or physical networking component identifiers.<br/></td></tr><tr><td><a href="#FDP_VNC_EXT.1">FDP_VNC_EXT.1</a></td><td>Administrator configuration of inter-VM communications channels between VMs.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> and virtual or physical networking component identifiers.<br/></td></tr><tr><td><a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a></td><td>Unsuccessful login attempts limit is met or exceeded.</td><td>Origin of attempt (e.g., <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address).<br/></td></tr><tr><td><a href="#FIA_UAU.5">FIA_UAU.5</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FIA_UIA_EXT.1">FIA_UIA_EXT.1</a></td><td>Administrator authentication attempts.</td><td>Provided user identity, origin of the attempt (e.g. console, remote <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address).<br/></td></tr><tr><td><a href="#FIA_UIA_EXT.1">FIA_UIA_EXT.1</a></td><td>All use of the identification and authentication mechanism.</td><td>Provided user identity, origin of the attempt (e.g. console, remote <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address).<br/></td></tr><tr><td><a href="#FIA_UIA_EXT.1">FIA_UIA_EXT.1</a></td><td><b>[selection: </b><i>Start and end of administrator session., None</i><b>]</b></td><td>Start time and end time of administrator session.<br/></td></tr><tr><td><a href="#FMT_SMO_EXT.1">FMT_SMO_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_DVD_EXT.1">FPT_DVD_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_EEM_EXT.1">FPT_EEM_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_HAS_EXT.1">FPT_HAS_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a></td><td>Invalid parameter to hypercall detected</td><td>Hypercall interface for which access was attempted.<br/></td></tr><tr><td><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a></td><td>Security policy violations.</td><td>Identifier for the security policy that was violated.<br/></td></tr><tr><td><a href="#FPT_RDM_EXT.1">FPT_RDM_EXT.1</a></td><td>Connection/disconnection of removable media or device to/from a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> Identifier, Removable media/device identifier, event description or identifier
 				(connect/disconnect, ejection/insertion, etc.)<br/></td></tr><tr><td><a href="#FPT_RDM_EXT.1">FPT_RDM_EXT.1</a></td><td>Ejection/insertion of removable media or device from/to an already connected <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>.</td><td><abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> Identifier, Removable media/device identifier, event description or identifier 
 				(connect/disconnect, ejection/insertion, etc.)<br/></td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>Initiation of update.</td><td></td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>Failure of signature verification.</td><td></td></tr><tr><td><a href="#FPT_VDP_EXT.1">FPT_VDP_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FPT_VIV_EXT.1">FPT_VIV_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FTA_TAB.1">FTA_TAB.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></td><td>Initiation of the trusted channel.</td><td>User ID and remote source (<abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> Address) if feasible.<br/></td></tr><tr><td><a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></td><td>Termination of the trusted channel.</td><td>User ID and remote source (<abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> Address) if feasible.<br/></td></tr><tr><td><a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></td><td>Failures of the trusted path functions.</td><td>User ID and remote source (<abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> Address) if feasible.<br/></td></tr><tr><td><a href="#FTP_UIF_EXT.1">FTP_UIF_EXT.1</a></td><td>No events specified</td><td></td></tr><tr><td><a href="#FTP_UIF_EXT.2">FTP_UIF_EXT.2</a></td><td>No events specified</td><td></td></tr></table>
 			
@@ -3243,7 +3272,7 @@ The following sections list Common Criteria and technology terms used in this do
                                 <li>API-based mechanisms such as Hypercalls</li>
                             </ul>
                             For data transfer mechanisms implemented in terms of Hypercall functions, <a href="#FDP_VMS_EXT.1.3">FDP_VMS_EXT.1.3</a> is met if 
-							<a href="#FPT_HCL_EXT.1.2">FPT_HCL_EXT.1.2</a> is met for those Hypercall functions (<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> access to Hypercall functions is 
+							<a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a>.2 is met for those Hypercall functions (<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> access to Hypercall functions is 
 							configurable).<br/><br/>
                             For data transfer mechanisms that use shared physical devices, <a href="#FDP_VMS_EXT.1.3">FDP_VMS_EXT.1.3</a> is met if the device is 
 							listed in and meets <a href="#FDP_PPR_EXT.1.1">FDP_PPR_EXT.1.1</a> (<abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> access to the physical device is configurable).<br/><br/>
@@ -4018,58 +4047,43 @@ The following sections list Common Criteria and technology terms used in this do
                         </div></div></div></div>
 
                 
-                <div class="comp" id="FPT_HCL_EXT.1"><h4>FPT_HCL_EXT.1 Hypercall Controls</h4>
+                <div class="comp" id="FPT_HCL_EXT.1"><h4>FPT_HCL_EXT.1 Hypercall Functions</h4>
 					
 					
 						
 					
 					
-                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.1"><a href="#FPT_HCL_EXT.1.1" class="abbr">FPT_HCL_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support disabling of unnecessary Hypercall interfaces.
-                        </div></div>
-                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.2"><a href="#FPT_HCL_EXT.1.2" class="abbr">FPT_HCL_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to Hypercall interfaces prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
+                    <div class="element"><div class="reqid" id="FPT_HCL_EXT.1.1"><a href="#FPT_HCL_EXT.1.1" class="abbr">FPT_HCL_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to Hypercall interfaces prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
 				functionality exposed by each interface.
                         <div class="appnote"><span class="note-header">Application Note: </span><span class="note">The purpose of this requirement is to help ensure the integrity of the
-                            <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> by minimizing the attack surface exposed to Guest VMs through Hypercalls. <p></p>
+                            <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> by protecting the attack surface exposed to untrusted Guest VMs through Hypercalls. <p></p>
                             A Hypercall interface allows <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> functionality to be invoked by <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>-aware guest software. 
 				For example, a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> could use a hypercall interface to get information about
 				the real world, such as the time of day or the underlying hardware of the host system. A hypercall 
 				could also be used to transfer data between VMs through a copy-paste mechanism. Because hypercall 
-				interfaces expose the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> to Guest software, these interfaces constitute attack surface. In order to
-				minimize attack surface, these interfaces must be limited to those needed to support <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> 
-				functionality.<p></p>
-				A hypercall interface is "unnecessary" if there is no chance for it to be used by a particular Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> configuration. 
-				For example, if a <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> exposes hypercalls to improve the performance of a particular Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>, these hypercalls should
-				not be made available to a different Guest <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> that cannot take advantage of them. The developer cannot assume that 
-				software that was not intended to access the interface will not access the interface.<p></p>
-				Hypercall interfaces can be disabled automatically or manually by an Admnistrator.<p></p>
-                            There is no expectation that the evaluator will need to review source code in order to accomplish the
-                            evaluation activity.  
+				interfaces expose the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> to Guest software, these interfaces constitute attack surface.<p></p>
+                There is no expectation that the evaluator will need to review source code in order to accomplish the
+                evaluation activity.  
                         </span></div></div></div>
 		    
 		    
                 <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a>:<br/><div class="activity">
                             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
                                 The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex) to ensure that all hypercall functions are 
-                                documented at the level necessary for the evaluator to disable the functions if configurable, and to run
-				    tests 1 and 2, below. Documentation for each hypercall interface must include: how to invoke the interface, 
-				    parameters and legal values, and whether the interface can be disabled. If the hypercall cannot be disabled 
-				    the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> (or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex) must explain why the hypercall is always necessary. 
+                                documented at the level necessary for the evaluator to run the below test. Documentation for each hypercall
+								interface must include: how to invoke the interface, parameters and legal values, 
+								and any conditions under which the interface can be invoked (e.g., from guest user mode, guest privileged mode,
+								during guest boot only). 
                             
                             <div class="eacategory">Guidance</div>
-                                The evaluator shall examine the operational guidance to ensure it contains instructions for how to 
-                                enable/disable configurable hypercall interfaces, and how to programmatically invoke hypercall interfaces.
+								There is no operational guidance for this component.
                             
                             <div class="eacategory">Tests</div>
-                                The evaluator shall perform the following tests:<p></p>
-                                <ul>
-                                    <li><b>Test 1: </b>For each configurable interface documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex, the evaluator shall follow the 
-					    operational guidance to disable the function. The evaluator shall then attempt to invoke 
-					    each function from within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>. If the call is blocked, then the test succeeds.</li>
-                                    <li><b>Test 2: </b>For each hypercall interface documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex, the evaluator shall attempt to  
+                                The evaluator shall perform the following test:<p></p>
+                                For each hypercall interface documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or proprietary <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> Annex, the evaluator shall attempt to  
 					    invoke the function from within the <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> using an invalid parameter (if any). If the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> crashes
 					    or generates an exception, or if no error is returned to the guest, then the test fails. If an error is 
-					    returned to the guest, then the test succeeds.</li>
-                                </ul>
+					    returned to the guest, then the test succeeds.
                             
                         </div></div></div></div>
 
@@ -5481,21 +5495,15 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
      <span class="assignable-content">list of hardware-based virtualization memory-handling assists</span>]
 				to reduce or eliminate the need for shadow page tables.
                         <h3>FPT_HCL_EXT Hypercall Controls</h3><h3>Family Behavior</h3><div>This family defines requirements for control of Hypercall interfaces.</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FPT_HCL_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_HCL_EXT.1">FPT_HCL_EXT.1</a>,
-             Hypercall Controls,
-             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement a Hypercall interface with appropriate access controls
-						to protect Guest VMs from unauthorized access via this interface.</p><h3>Management: FPT_HCL_EXT.1</h3><p>The following actions could be considered for the management functions
-							in FMT:
-							<ol type="a">
-								<li>Ability to enable/disable <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> access to Hypercall functions.</li>
-							</ol>
-						</p><h3>Audit: FPT_HCL_EXT.1</h3><p>The following actions should be auditable if FAU_GEN Security
+             Hypercall Functions,
+             requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement appropriate parameter validation and access controls
+						to protect the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> from unauthorized access through a hypercall interface.</p><h3>Management: FPT_HCL_EXT.1</h3><p>No specific management functions are identified.</p><h3>Audit: FPT_HCL_EXT.1</h3><p>The following actions should be auditable if FAU_GEN Security
 						audit data generation is included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
 						<ol type="a">
-							<li>Attempts to access disabled Hypercall interfaces.</li>
+							<li>Attempts to access Hypercall interfaces using illegal input values.</li>
 							<li>Security policy violations.</li>
 						</ol>
-					</p><h3>FPT_HCL_EXT.1 Hypercall Controls</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_SMR.1 Security Roles</p><h3>FPT_HCL_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support disabling of unnecessary Hypercall interfaces.
-                        <h3>FPT_HCL_EXT.1.2</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to Hypercall interfaces prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
+					</p><h3>FPT_HCL_EXT.1 Hypercall Functions</h3><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_SMR.1 Security Roles</p><h3>FPT_HCL_EXT.1.1</h3><br/>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the parameters passed to Hypercall interfaces prior to execution of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> 
 				functionality exposed by each interface.
                         <h3>FPT_IDV_EXT Software Identification and Versions</h3><h3>Family Behavior</h3><div>This family defines requirements for the use of <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div><svg style="max-height: 30px;"><text x="4" fill="black" font-size="11" y="22">FPT_IDV_EXT</text><rect x="2" y="11" width="120" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="11" y="22"><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></text><rect x="232" y="11" width="120" height="16" fill="none" stroke="black"></rect><line x1="122" y1="17" x2="231" y2="17" stroke="black"></line></svg><h3>Component Leveling</h3><p><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a>,
              Software Identification and Versions,
