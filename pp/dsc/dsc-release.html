@@ -2253,6 +2253,25 @@ users of the same system.
 		</div>
 
 		<div class="comp" id="FMT_MSA.3"><h4>FMT_MSA.3 Static Attribute Initialization</h4>
+			This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> deals with the initialization of the attributes of an SDO when it is created by parsing or
+			provisioning. The generation process includes SDOs created by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (provisioned) and those
+			imported via <a href="#FDP_ITC_EXT.2">FDP_ITC_EXT.2</a> (parsed).<p></p>
+			The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is expected to give an SDO a set of security attributes at the time of its creation. This set
+			is expected to include at least the following attributes:<ul>
+			<li>SDO identifier</li>
+			<li>SDO type</li>
+			<li>SDO reference authorization data (i.e. the data that is used when determining whether to
+			grant access to an SDO, for each relevant mode of access, on the basis of an authorization
+			token presented to the DSC)</li>
+			<li>Re-authorization conditions (i.e. event after which re-authorization is required)</li>
+			<li>Confidential-SDE list (each SDE in this list is held encrypted when the SDO is stored)</li>
+			<li>Export Flag (indicating whether the SDO is allowed to be propagated)</li>
+			<li>Integrity protection data</li>
+			<li>Binding Data (created by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to strongly link or associate the SDO with other entities
+			such as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself or with other SDOs in a hierarchy such as a child to a parent).</li></ul>
+			The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides the capability to protect the contents of an SDO (i.e. the set of its SDEs together
+			with the SDO attributes) from unauthorized modification. The DSC shall check for such
+			modifications before using the SDO or any of its SDEs. <p></p>		
 			<div class="element"><div class="reqid" id="FMT_MSA.3.1"><a href="#FMT_MSA.3.1" class="abbr">FMT_MSA.3.1</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the [<i>Access Control SFP</i>] to provide 
 					[<b>selection</b>: <i id="_s_647">restrictive</i>, <i id="_s_648">permissive</i>, <i id="_s_649">[<b>assignment</b>: 
@@ -2299,26 +2318,6 @@ users of the same system.
      <span class="assignable-content">range of allowed values</span>]</td></tr>
 					</table>
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> deals with the initialization of the attributes of an SDO when it is created by parsing or
-					provisioning. The generation process includes SDOs created by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (provisioned) and those
-					imported via <a href="#FDP_ITC_EXT.2">FDP_ITC_EXT.2</a> (parsed).<p></p>
-					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is expected to give an SDO a set of security attributes at the time of its creation. This set
-					is expected to include at least the following attributes:<ul>
-					<li>SDO identifier</li>
-					<li>SDO type</li>
-					<li>SDO reference authorization data (i.e. the data that is used when determining whether to
-					grant access to an SDO, for each relevant mode of access, on the basis of an authorization
-					token presented to the DSC)</li>
-					<li>Re-authorization conditions (i.e. event after which re-authorization is required)</li>
-					<li>Confidential-SDE list (each SDE in this list is held encrypted when the SDO is stored)</li>
-					<li>Export Flag (indicating whether the SDO is allowed to be propagated)</li>
-					<li>Integrity protection data</li>
-					<li>Binding Data (created by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to strongly link or associate the SDO with other entities
-					such as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself or with other SDOs in a hierarchy such as a child to a parent).</li></ul>
-					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides the capability to protect the contents of an SDO (i.e. the set of its SDEs together
-					with the SDO attributes) from unauthorized modification. The DSC shall check for such
-					modifications before using the SDO or any of its SDEs. <p></p>
-				</span></div><div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					Both admin and client application roles can initiate the import process. The imported object
 					contains the default values for each attribute, where allowed. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can override default values
 					for the following attributes of imported objects: SDO.ID, SDO.Type, SDO.Reauth, SDO.Export,
