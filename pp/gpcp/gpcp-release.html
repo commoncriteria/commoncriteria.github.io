@@ -795,9 +795,8 @@ The following sections list Common Criteria and technology terms used in this do
               as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based SFRs, and 
               Optional SFRs (dated May 2017).
         </dd><dt>CC Conformance Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (conformant) of Common Criteria Version 3.1, Revision 5.</dd><dt>PP Claim </dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to any Protection Profile. </dd><dt>Package Claim</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>  does not claim conformance to any packages.</dd></dl><h2 class="indexable" data-level="1" id="spd">3 Security Problem Description</h2>
-	The security problem is described in terms
-    	of the threats that the <abbr class="dyn-abbr"><a href="#abbr_GPCP">GPCP</a></abbr> is expected to address, assumptions about the
-    	operational environment, and any organizational security policies that the <abbr class="dyn-abbr"><a href="#abbr_GPCP">GPCP</a></abbr>
+	The security problem is described in terms of the threats that the <abbr class="dyn-abbr"><a href="#abbr_GPCP">GPCP</a></abbr> is expected to address, assumptions 
+	about the operational environment, and any organizational security policies that the <abbr class="dyn-abbr"><a href="#abbr_GPCP">GPCP</a></abbr>
     	is expected to enforce.<br/><br/>
   	The platform has three major security responsibilities:
 	<ul>
@@ -819,7 +818,14 @@ The following sections list Common Criteria and technology terms used in this do
       <dl><dt class="threat,defined" id="T.PHYSICAL">T.PHYSICAL</dt><dd>An attacker with physical access might be able to compromise <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> integrity, subvert
 		  <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> protections, or access tenant data through hardware attacks such as probing, physical
 		  manipulation, fault-injection, side-channel analysis, environmental stress, or activating
-		  disabled features or pre-delivery services.</dd><dt class="threat,defined" id="T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</dt><dd>An attacker running in a tenant context might be able to leverage physical
+		  disabled features or pre-delivery services. This threat is included only in the following 
+		  use cases:<ul>
+			<li>Server-Class Platform, Enhanced</li>
+			<li>Portable Clients (laptops, tablets), Enhanced</li>
+			<li>CSfC EUD</li>
+			<li>Tactical EUD</li>
+			<li>IoT Devices</li></ul>
+		  </dd><dt class="threat,defined" id="T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</dt><dd>An attacker running in a tenant context might be able to leverage physical
 		  effects caused by the operation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to derive sensitive information about
 		  other tenants or the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</dd><dt class="threat,defined" id="T.PERSISTENCE">T.PERSISTENCE</dt><dd>An attacker might be able to establish a permanent presence on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in
 		  firmware. This could result in permanent compromise of tenant information, as
@@ -831,7 +837,7 @@ The following sections list Common Criteria and technology terms used in this do
 		  access, change, or modify tenant data, <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data, or other security functionality
 		  of the device.</dd><dt class="threat,defined" id="T.TENANT-BASED_ATTACK">T.TENANT-BASED_ATTACK</dt><dd>An attacker running software as a tenant can attempt to access or modify
 		  <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware or functionality. Note that direct tenant attacks against other
-		  tenants are not encompassed by this threat as they out of scope.</dd><dt class="threat,defined" id="T.REMOTE_ATTACK">T.REMOTE_ATTACK</dt><dd>An attacker from off the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can attempt to compromise the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+		  tenants are not encompassed by this threat as they out of scope.</dd><dt class="threat,defined" id="T.NETWORK_BASED_ATTACK">T.NETWORK_BASED_ATTACK</dt><dd>An attacker from off the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can attempt to compromise the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 		  through a network interface connected to an active <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> component, such
 		  as a management subsystem.</dd><dt class="threat,defined" id="T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</dt><dd>An attacker might be able to modify the configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and alter its 
 		  functionality. This might include, activating dormant subsystems, disabling hardware assists,
@@ -845,7 +851,24 @@ The following sections list Common Criteria and technology terms used in this do
 		  thus is not subject to physical attacks that could compromise its security or its ability
 		  to support the security of tenant workloads. </dd><dt class="assumption,defined" id="A.ROT_INTEGRITY">A.ROT_INTEGRITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes one or more Roots of Trust composed of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware, hardware, and
 		  pre-installed credentials. Roots of Trust are assumed to be free of malicious capabilities as
-		  their integrity cannot be verified. </dd><dt class="assumption,defined" id="A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</dt><dd> The administrator of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is not careless, willfully negligent or hostile.</dd></dl>
+		  their integrity cannot be verified. </dd><dt class="assumption,defined" id="A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</dt><dd> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Administrator are assumed to be trusted and to act in the best interest
+			of security for the organization. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is not expected to be capable of defending against a 
+			malicious Administrator that actively works to bypass or compromise the security of the platform.
+			</dd><dt class="assumption,defined" id="A.MFR_ROT">A.MFR_ROT</dt><dd> The root signing credential of the manufacturer is assumed to be secure and has not been 
+			compromised.
+			</dd><dt class="assumption,defined" id="A.TRUSTED_DEVELOPMENT_AND_BUILD_PROCESSES">A.TRUSTED_DEVELOPMENT_AND_BUILD_PROCESSES</dt><dd> The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> cannot protect itself during its own development and build processes. Therefore
+		  it is assumed that the developers and participants in the build process are not hostile.
+			</dd><dt class="assumption,defined" id="A.SUPPLY_CHAIN_SECURITY">A.SUPPLY_CHAIN_SECURITY</dt><dd>The hardware components that comprise the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are assumed to be non-hostile and not
+		  compromised at the time of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> construction. Likewise, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is assumed to retain its integrity
+		  throughout transportation until delivery to its operational site.
+			</dd><dt class="assumption,defined" id="A.CORRECT_INITIAL_CONFIGURATION">A.CORRECT_INITIAL_CONFIGURATION</dt><dd>It is assumed that the initial setup and configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> at its operational 
+		  site is correct and in accordance with organizational security policy and operational use case.
+			</dd><dt class="assumption,defined" id="A.TRUSTED_USERS">A.TRUSTED_USERS</dt><dd>Physically present non-administrative users of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are assumed to be trusted as 
+		  far as they are assumed to not be actively trying to subvert the system. (Not for all use cases).
+			</dd><dt class="assumption,defined" id="A.REGULAR_UPDATES">A.REGULAR_UPDATES</dt><dd>It is assumed that the manufacturer provides updates to <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware in a timely manner
+		  in response to known vulnerabilities, and that Administrators apply these updates when they are
+		  received.
+			</dd></dl>
     
 	  
 
@@ -858,30 +881,76 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 
     <h3 class="indexable" data-level="2" id="SecurityObjectivesTOE">4.1 Security Objectives for the TOE</h3>
-      <dl><dt class="SO,defined" id="O.ACCOUNTABILITY">O.ACCOUNTABILITY</dt><dd> Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> ensure that information exists that allows
-            administrators to discover unintentional issues with the configuration and operation of
-            the operating system and discover its cause.  Gathering event information and immediately
-            transmitting it to another system can also enable incident response in the event
-            of system compromise.</dd><dt class="SO,defined" id="O.INTEGRITY">O.INTEGRITY</dt><dd>Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> ensure the integrity of their update
-            packages. <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> are seldom if ever shipped without errors, and the
-            ability to deploy patches and updates with integrity is critical to enterprise network
-            security. Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> provide execution environment-based
-            mitigations that increase the cost to attackers by adding complexity to the task of
-            compromising systems. </dd><dt class="SO,defined" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd> To facilitate management by users and the enterprise, conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr>
-	    provide consistent and supported interfaces for their
-            security-relevant configuration and maintenance. This includes the deployment of
-            applications and application updates through the use of platform-supported deployment
-            mechanisms and formats, as well as providing mechanisms for configuration and
-            application execution control. </dd><dt class="SO,defined" id="O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</dt><dd>
-		To address the issue of loss of confidentiality of credentials in the event of
-		loss of physical control of the storage medium, conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr>
-		provide data-at-rest protection for credentials.
-		Conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> also provide access controls which allow users to keep their files private from other
-		users of the same system.
-          </dd><dt class="SO,defined" id="O.PROTECTED_COMMS">O.PROTECTED_COMMS</dt><dd> To address both passive (eavesdropping) and active (packet modification)
-            network attack threats, conformant <abbr class="dyn-abbr"><a href="#abbr_OS">OSes</a></abbr> provide mechanisms to create
-            trusted channels for <abbr class="dyn-abbr"><a href="#abbr_CSP">CSP</a></abbr> and sensitive data. Both <abbr class="dyn-abbr"><a href="#abbr_CSP">CSP</a></abbr> and sensitive data
-            should not be exposed outside of the platform. </dd></dl>
+      <dl><dt class="SO,defined" id="O.PHYSICAL_INTEGRITY">O.PHYSICAL_INTEGRITY</dt><dd>Protect the physical platform and interfaces from access by physical means such as
+		  probing, physical manipulation, fault-injection, side-channel analysis, environmental stress, or 
+		  activating disabled features or pre-delivery services. This includes specification of:<ul>
+			<li>Requirements for tamper detection</li>
+			<li>Requirements for disabling or protection of external debug interfaces</li>
+			<li>Requirements for updateability</li>
+			<li>Requirements for environmental shielding</li></ul>
+		  </dd><dt class="SO,defined" id="O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</dt><dd>Detected attempts to compromise the physical or logical integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must
+		  be indicated to a user or reported to an enterprise security authority. This includes
+		  specification of:<ul>
+			<li>Requirements for responses to particular detected events. (resilience, secure state, etc.)</li>
+			<li>Requirements for basic auditing capabilities and protection of audit records.</li>
+			<li>Requirements for secure transmission of audit records (if applicable)</li></ul>
+			</dd><dt class="SO,defined" id="O.MITIGATE_FUNDAMENTAL_FLAWS">O.MITIGATE_FUNDAMENTAL_FLAWS</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must have a capability for mitigating or fixing fundamental flaws through update 
+		  or some other technical or operational means. This includes specifications of:<ul>
+			<li>Requirements for updateabililty of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware.</li></ul>
+			</dd><dt class="SO,defined" id="O.PROTECTED_FIRMWARE">O.PROTECTED_FIRMWARE</dt><dd>
+		<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware can be modified only through a non-bypassable trusted update process. This ensures the
+		integrity of firmware both during the update process and while at rest. This includes specification
+		of:<ul>
+			<li>Requirements for invocation of the trusted update process</li>
+			<li>Requirements for non-bypassability of the update process</li>
+			<li>Requirements for detection and reporting of attempts to modify <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
+				firmware outside of the trusted update process.</li></ul>
+          </dd><dt class="SO,defined" id="O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</dt><dd>Updates to <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware must be authorized, authenticated, and properly validated prior
+		  to installation. This includes specification of:<ul>
+			<li>Requirements for protection of updates</li>
+			<li>Requirements for authentication of update packages</li>
+			<li>Requirements for management of updates</li>
+			<li>Requirements for detection and reporting of update events, whether authorized or not.
+			</li></ul></dd><dt class="SO,defined" id="O.STRONG_CRYPTOGRAPHY">O.STRONG_CRYPTOGRAPHY</dt><dd>Cryptography must meet the standards required for protection of National Security Systems data 
+		  (in accordance with CNSSP 15, "Use of Public Standards for Secure Information Sharing"). This includes 
+		  specification of:<ul>
+			<li>Requirements for use and configuration of cryptographic operations.</li>
+			<li>Requirements for key generation</li>
+			<li>Requirements for random bit generation support.</li>
+			</ul></dd><dt class="SO,defined" id="O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> should be able not be able to operate with failed or degraded
+		  security functionality in such a way as might compromise the security or integrity of 
+		  the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data.<ul>
+			<li>Requirements for detection of degraded or failed security functionality.</li>
+			<li>Requirements for protection of platform credentials against compromise (secret keys,
+				passwords, etc.)</li>
+			<li>Requirements for secure destruction of platform credentials (if applicable)</li>
+			<li>Requirements for quality of credentials (password lengths and the like)</li>			
+			</ul></dd><dt class="SO,defined" id="O.TENANT_SECURITY">O.TENANT_SECURITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> should provide capabilities and security services to tenant software 
+		  to help tenants help themselves. This includes specification of:<ul>
+			<li>Requirements for providing cryptographic support to tenants (random bit generation,
+				crypto support instructions).</li>
+			<li>Requirements for support for separation of tenant workloads</li>
+			<li>Requirements for supporting secure storage of tenant credentials</li>
+			<li>Requirements for supporting secure boot of a tenant operating system</li>			
+			</ul></dd><dt class="SO,defined" id="O.TRUSTED_CHANNELS">O.TRUSTED_CHANNELS</dt><dd>Certain types of network communications with the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must be protected with guaranteed 
+		  confidentiality, integrity, and authenticity. Such traffic includes communications with remote 
+		  administrators, audit servers, update servers, and credential managers. This objective includes 
+		  specification of:<ul>
+			<li>Requirements for the use of secure network protocols</li>
+			<li>Requirements for the use of public key certificates</li>
+			<li>Requirements for the authentication of endpoints</li>
+			</ul></dd><dt class="SO,defined" id="O.CONFIGURATION_INTEGRITY">O.CONFIGURATION_INTEGRITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> should detect or prevent unauthorized users from being able to modify the system configuration.
+		  This includes:<ul>
+			<li>Requirements for authentication of Administrators before application of configuration modifications.</li>
+			<li>Requirements for detection and reporting of attempts to modify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> configuration.</li>
+			</ul></dd><dt class="SO,defined" id="O.AUTHORIZED_ADMINISTRATOR">O.AUTHORIZED_ADMINISTRATOR</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must ensure that Administrative actions can be taken only by authorized Administrators. This includes 
+		  specification of:<ul>
+			<li>Requirements specifying actions allowable for the Administrator role</li>
+			<li>Requirements for processes for authenticating Administrators</li>
+			<li>Requirements for protection of Administrator credentials</li>
+			<li>Requirements for setup and operation of a secure channel for remote administration</li>
+			<li>Requirements for management of administrator sessions.</li>
+			</ul></dd></dl>
     
 	  
 
@@ -900,20 +969,32 @@ The following sections list Common Criteria and technology terms used in this do
     <h2 id="SOR" class="indexable,h2" data-level="2">4.3 Security Objectives Rationale</h2>   
     This section describes how the assumptions, threats, and organization 
     security policies map to the security objectives.
-    <table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PHYSICAL">T.PHYSICAL</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.PHYSICAL">T.PHYSICAL</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PERSISTENCE">T.PERSISTENCE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.PERSISTENCE">T.PERSISTENCE</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.TENANT-BASED_ATTACK">T.TENANT-BASED_ATTACK</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.TENANT-BASED_ATTACK">T.TENANT-BASED_ATTACK</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.REMOTE_ATTACK">T.REMOTE_ATTACK</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.REMOTE_ATTACK">T.REMOTE_ATTACK</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR">T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR</a><br/></td><td>O.OBJECTIVE</td><td>The threat <a href="#T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR">T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR</a> is countered by O.OBJECTIVE as this
-              provides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PHYSICAL_PROTECTION">A.PHYSICAL_PROTECTION</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.PHYSICAL_PROTECTION</td><td> The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.PHYSICAL_PROTECTION is realized through
+    <table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.PHYSICAL">T.PHYSICAL</a><br/></td><td><a href="#O.PHYSICAL_INTEGRITY">O.PHYSICAL_INTEGRITY</a></td><td>The threat <a href="#T.PHYSICAL">T.PHYSICAL</a> is countered by <a href="#O.PHYSICAL_INTEGRITY">O.PHYSICAL_INTEGRITY</a> as this
+              objective supports detection or prevention of attempts to compromise
+			  the physical platform.</td></tr><tr><td><a href="#O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</a></td><td>The threat <a href="#T.PHYSICAL">T.PHYSICAL</a> is countered by <a href="#O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</a> as this
+              objective supports detection and reporting of attempts to compromise the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a><br/></td><td><a href="#O.MITIGATE_FUNDAMENTAL_FLAWS">O.MITIGATE_FUNDAMENTAL_FLAWS</a></td><td>The threat <a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a> is countered by <a href="#O.MITIGATE_FUNDAMENTAL_FLAWS">O.MITIGATE_FUNDAMENTAL_FLAWS</a> as this
+              objective supports the remedy of critical flaws through update or other technical or
+			  operational means.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PERSISTENCE">T.PERSISTENCE</a><br/></td><td><a href="#O.PROTECTED_FIRMWARE">O.PROTECTED_FIRMWARE</a></td><td>The threat <a href="#T.PERSISTENCE">T.PERSISTENCE</a> is countered by <a href="#O.PROTECTED_FIRMWARE">O.PROTECTED_FIRMWARE</a> as this
+              objective supports maintenance of platform firmware integrity.</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a><br/></td><td><a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a></td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by <a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a> as this
+              objective supports ensuring that platform firmware updates are authentic and 
+			  properly validated prior to installation.</td></tr><tr><td><a href="#O.STRONG_CRYPTOGRAPHY">O.STRONG_CRYPTOGRAPHY</a></td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by <a href="#O.STRONG_CRYPTOGRAPHY">O.STRONG_CRYPTOGRAPHY</a> as this
+              objective supports use of proven, standards-based cryptographic mechanisms 
+			  for ensuring that updates are authentic and maintain their integrity.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a><br/></td><td><a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a></td><td>The threat <a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a> is countered by <a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a>
+			  as this objective supports integrity and proper functioning of security functionality.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.TENANT-BASED_ATTACK">T.TENANT-BASED_ATTACK</a><br/></td><td><a href="#O.TENANT_SECURITY">O.TENANT_SECURITY</a></td><td>The threat <a href="#T.TENANT-BASED_ATTACK">T.TENANT-BASED_ATTACK</a> is countered by <a href="#O.TENANT_SECURITY">O.TENANT_SECURITY</a> as this
+              objective supports tenant-based security mechanisms to prevent tenant compromise.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.NETWORK_BASED_ATTACK">T.NETWORK_BASED_ATTACK</a><br/></td><td><a href="#O.TRUSTED_CHANNELS">O.TRUSTED_CHANNELS</a></td><td>The threat T.REMOTE_ATTACK is countered by <a href="#O.TRUSTED_CHANNELS">O.TRUSTED_CHANNELS</a> as this
+              provides for integrity and confidentiality of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</a><br/></td><td><a href="#O.CONFIGURATION_INTEGRITY">O.CONFIGURATION_INTEGRITY</a></td><td>The threat <a href="#T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</a> is countered by <a href="#O.CONFIGURATION_INTEGRITY">O.CONFIGURATION_INTEGRITY</a> as this
+              provides for integrity of platform configuration.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR">T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR</a><br/></td><td><a href="#O.AUTHORIZED_ADMINISTRATOR">O.AUTHORIZED_ADMINISTRATOR</a></td><td>The threat <a href="#T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR">T.UNAUTHORIZED_PLATFORM_ADMINISTRATOR</a> is countered by <a href="#O.AUTHORIZED_ADMINISTRATOR">O.AUTHORIZED_ADMINISTRATOR</a> as this
+              provides for authentication of privileged administrative users.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PHYSICAL_PROTECTION">A.PHYSICAL_PROTECTION</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.PHYSICAL_PROTECTION</td><td> The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.PHYSICAL_PROTECTION is realized through
               <a href="#A.PHYSICAL_PROTECTION">A.PHYSICAL_PROTECTION</a>. </td></tr><tr class="major-row"><td rowspan="1"><a href="#A.ROT_INTEGRITY">A.ROT_INTEGRITY</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.ROT_INTEGRITY</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.SUPPLY_CHAIN is realized through
               <a href="#A.ROT_INTEGRITY">A.ROT_INTEGRITY</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
-              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><br/></td><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The organizational security policy P.ENTERPRISE is enforced through the
-              objective <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as this objective represents how the enterprise and user assert
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.MFR_ROT">A.MFR_ROT</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.TRUSTED_DEVELOPMENT_AND_BUILD_PROCESSES">A.TRUSTED_DEVELOPMENT_AND_BUILD_PROCESSES</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.SUPPLY_CHAIN_SECURITY">A.SUPPLY_CHAIN_SECURITY</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.CORRECT_INITIAL_CONFIGURATION">A.CORRECT_INITIAL_CONFIGURATION</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.TRUSTED_USERS">A.TRUSTED_USERS</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.REGULAR_UPDATES">A.REGULAR_UPDATES</a><br/></td><td><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN</td><td>The operational environment objective <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr>.TRUSTED_ADMIN is realized through
+              <a href="#A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><br/></td><td>O.MANAGEMENT</td><td>The organizational security policy P.ENTERPRISE is enforced through the
+              objective O.MANAGEMENT as this objective represents how the enterprise and user assert
               management over the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>.</td></tr></table>
   <h2 class="indexable" data-level="1" id="req">5 Security Requirements</h2>
       This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
@@ -1143,11 +1224,7 @@ The following sections list Common Criteria and technology terms used in this do
     				
 	    
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.2 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="2"><a href="#O.ACCOUNTABILITY">O.ACCOUNTABILITY</a><br/></td><td><a href="#FAU_GEN.1">FAU_GEN.1</a></td><td>'cause <a href="#FAU_GEN.1">FAU_GEN.1</a> is awesome</td></tr><tr><td>FTP_ITC_EXT.1</td><td>Cause FTP reasons </td></tr><tr class="major-row"><td rowspan="15"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td>FPT_SBOP_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_ASLR_EXT.1</td><td>ASLR For reasons </td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>For reasons </td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>For reasons </td></tr><tr><td>FCS_COP.1/HASH</td><td>For reasons </td></tr><tr><td>FCS_COP.1/SIGN</td><td>For reasons </td></tr><tr><td>FCS_COP.1/KEYHMAC</td><td>For reasons </td></tr><tr><td>FPT_ACF_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_SRP_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_X509_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_TST_EXT.1</td><td>For reasons </td></tr><tr><td>FTP_ITC_EXT.1</td><td>For reasons </td></tr><tr><td>FPT_W^X_EXT.1</td><td>For reasons </td></tr><tr><td>FIA_AFL.1</td><td>For reasons </td></tr><tr><td>FIA_UAU.5</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td>FMT_MOF_EXT.1</td><td>For reasons </td></tr><tr><td>FMT_SMF_EXT.1</td><td>For reasons </td></tr><tr><td>FTA_TAB.1</td><td>For reasons </td></tr><tr><td>FTP_TRP.1</td><td>For reasons </td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td>FCS_STO_EXT.1, <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</td><td>Rationale for a big chunk</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td>
-            <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>, FCS_CKM.1, <a href="#FCS_CKM.2">FCS_CKM.2</a>, <a href="#FCS_CKM_EXT.4">FCS_CKM_EXT.4</a>, FCS_COP.1/ENCRYPT,
-            FCS_COP.1/HASH, FCS_COP.1/SIGN, <a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a>, FDP_IFC_EXT.1, FIA_X509_EXT.1,
-            FIA_X509_EXT.2, FTP_ITC_EXT.1
-          </td><td>Rationale for a big chunk</td></tr></table></p>
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>OBJECTIVE</th><th>ADDRESSED BY</th><th>RATIONALE</th></tr><tr class="major-row"><td rowspan="7"><a href="#O.PHYSICAL_INTEGRITY">O.PHYSICAL_INTEGRITY</a><br/></td><td><a href="#FPT_PHP.1">FPT_PHP.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_PHP.2">FPT_PHP.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_PHP.3">FPT_PHP.3</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="4"><a href="#O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</a><br/></td><td><a href="#FAU_GEN.1">FAU_GEN.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_PHP.1">FPT_PHP.1</a></td><td>ASLR For reasons </td></tr><tr><td><a href="#FPT_PHP.3">FPT_PHP.3</a></td><td>For reasons </td></tr><tr><td><a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a></td><td>For reasons </td></tr><tr class="major-row"><td rowspan="4"><a href="#O.MITIGATE_FUNDAMENTAL_FLAWS">O.MITIGATE_FUNDAMENTAL_FLAWS</a><br/></td><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="7"><a href="#O.PROTECTED_FIRMWARE">O.PROTECTED_FIRMWARE</a><br/></td><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_PPF_EXT.1">FPT_PPF_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="6"><a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a><br/></td><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FPT_PPF_EXT.1">FPT_PPF_EXT.1</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="15"><a href="#O.STRONG_CRYPTOGRAPHY">O.STRONG_CRYPTOGRAPHY</a><br/></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_CKM.1/KEK">FCS_CKM.1/KEK</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/HMAC">FCS_COP.1/HMAC</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/KAT">FCS_COP.1/KAT</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/KeyEnc">FCS_COP.1/KeyEnc</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/PBKDF">FCS_COP.1/PBKDF</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_SLT_EXT.1">FCS_SLT_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="6"><a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a><br/></td><td><a href="#FPT_PPF_EXT.1">FPT_PPF_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_CKM.4">FCS_CKM.4</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_CKM_EXT.4">FCS_CKM_EXT.4</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_STG_EXT.2">FCS_STG_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_STG_EXT.3">FCS_STG_EXT.3</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="5"><a href="#O.TENANT_SECURITY">O.TENANT_SECURITY</a><br/></td><td><a href="#FCS_ENT_EXT.1">FCS_ENT_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_STG_EXT.2">FCS_STG_EXT.2</a></td><td>Rationale</td></tr><tr><td><a href="#FCS_STG_EXT.3">FCS_STG_EXT.3</a></td><td>Rationale</td></tr><tr><td><a href="#FDP_TEE_EXT.1">FDP_TEE_EXT.1</a></td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.TRUSTED_CHANNELS">O.TRUSTED_CHANNELS</a><br/></td><td><a href="#FCS_ENT_EXT.1">FCS_ENT_EXT.1</a></td><td>Not really this one. No trusted channel in here yet.</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.CONFIGURATION_INTEGRITY">O.CONFIGURATION_INTEGRITY</a><br/></td><td><a href="#FCS_ENT_EXT.1">FCS_ENT_EXT.1</a></td><td>Not really this one.</td></tr><tr class="major-row"><td rowspan="1"><a href="#O.AUTHORIZED_ADMINISTRATOR">O.AUTHORIZED_ADMINISTRATOR</a><br/></td><td><a href="#FCS_ENT_EXT.1">FCS_ENT_EXT.1</a></td><td>Not really this one.</td></tr></table></p>
 	  
 
 	  
@@ -4850,6 +4927,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 			<h2 id="appendix-uc-clients-portable-basic" class="indexable" data-level="2">E.3 Portable Clients (laptops, tablets), Basic</h2>
 			<h2 id="appendix-uc-clients-portable-enhanced" class="indexable" data-level="2">E.4 Portable Clients (laptops, tablets), Enhanced</h2>
 				<div class="uc_inc_fcomp">Include <a href="#FPT_PHP.1">FPT_PHP.1</a> in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> </div> 
+								
 				<div class="uc_not">Choose something other than: 
       <div class="uc_not_sel">* </div></div>				
 			<h2 id="appendix-uc-csfc-eud" class="indexable" data-level="2">E.5 CSfC EUD</h2>
