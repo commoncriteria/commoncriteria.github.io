@@ -52,13 +52,13 @@
 
 <!-- TITLE PAGE -->
 
-<PP xmlns="https://niap-ccevs.org/cc/v1" name="Virtualization"
+<PP xmlns="https://niap-ccevs.org/cc/v1" target-products="Virtualization Systems"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section"
     xmlns:h="http://www.w3.org/1999/xhtml" boilerplate="yes">
     <PPReference>
         <ReferenceTable>
             <PPTitle>Protection Profile for Virtualization</PPTitle>
-            <PPVersion>1.1 Draft</PPVersion>
+            <PPVersion>1.1-DRAFT</PPVersion>
             <PPAuthor>National Information Assurance Partnership</PPAuthor>
 <!--            <PPPubDate>2019-07-19</PPPubDate>  -->
             <PPPubDate>2021-05-19</PPPubDate> 
@@ -361,9 +361,9 @@
 <!--    </chapter>  -->
 	
  <!-- 2. Conformance Claims -->
-	<sec:Conformance_Claims/>
-<!--	<chapter title="Conformance Claims" id="ccl" boilerplate="no">  -->
-		<!-- <cclaims>
+<!--	<sec:Conformance_Claims/>   -->
+	<section title="Conformance Claims" id="ccl" boilerplate="no">
+		<cclaims>
 			<cclaim name="Conformance Statement">
 				<description>A Security Target must claim exact conformance to this Protection Profile, 
 					as defined in the CC and CEM addenda for Exact Conformance, Selection-Based SFRs, and 
@@ -387,12 +387,12 @@
 			<cclaim name="Package Claims">
 				<description>
 					This PP is Functional Package for TLS-conformant. 
+					This PP is Functional Package for Secure Shell-conformant. 
 				</description>
 			</cclaim>
 		</cclaims>
-	</sec:cclaims>-->
-<!--	</chapter>  -->
-	
+<!--	</sec:cclaims>  -->
+	</section>  	
 
     <!-- 3. Security Problem Description -->
 	<sec:spd title="Security Problem Description">
@@ -903,8 +903,8 @@
                                     <selectable id="sel-at2">Auditable events defined in <xref g="t-audit-optional"/> for Strictly Optional SFRs</selectable>
 									<selectable id="sel-at3">Auditable events defined in <xref g="t-audit-objective"/> for Objective SFRs</selectable>
                                     <selectable id="sel-at4">Auditable events defined in <xref g="t-audit-sel-based"/> for Selection-Based SFRs</selectable>
-									<selectable id="sel-attls">Auditable events defined in the audit table for the <xref to="tls"/> (see <xref to="atref-pkgs"/>)</selectable>
-									<selectable id="sel-atssh">Auditable events defined in the audit table for the <xref to="ssh"/> (see <xref to="atref-pkgs"/>)</selectable>
+									<selectable id="sel-attls">Auditable events for the <xref to="tls"/> listed in <xref to="atref-pkgs"/></selectable>
+									<selectable id="sel-atssh">Auditable events defined in the audit table for the <xref to="ssh"/></selectable>
                                     <selectable>no other auditable events</selectable>
 								</selectables></refinement></h:li>
                             </h:ol>
@@ -922,8 +922,8 @@
                                     <selectable>Additional information defined in <xref g="t-audit-optional"/> for Strictly Optional SFRs</selectable>
                                     <selectable>Additional information defined in <xref g="t-audit-objective"/> for Objective SFRs</selectable>
                                     <selectable>Additional information defined in <xref g="t-audit-sel-based"/> for Selection-Based SFRs</selectable>
-									<selectable>Additional information defined in the audit table for the <xref to="tls"/> (see <xref to="atref-pkgs"/>)</selectable>
-									<selectable>Additional information defined in the audit table for the <xref to="ssh"/> (see <xref to="atref-pkgs"/>)</selectable>
+									<selectable>Additional information for the <xref to="tls"/> listed in <xref to="atref-pkgs"/></selectable>
+									<selectable>Additional information defined in the audit table for the <xref to="ssh"/></selectable>
                                     <selectable>no other information</selectable>
 								</selectables></refinement></h:li>
                             </h:ol>
@@ -945,37 +945,13 @@
 							to log every time that the device is accessed. Generally, this is only once at VM
 							startup. However, some devices can be connected and disconnected during operation (e.g., virtual USB
 							devices such as CD-ROMs). All such connection/disconnection events must be logged.<h:p/>
-							The following table contains the events enumerated in the auditable events tables for 
-							the SSH and TLS Functional Packages. Inclusion of these events in the ST is subject to selection above,
+							
+							The following table contains the events enumerated in the auditable events table for 
+							the TLS Functional Package. Inclusion of these events in the ST is subject to selection above,
 							inclusion of the corresponding SFRs in the ST, and support in the FP as represented by a selection in the 
-							FP audit table. This list is included here for reference.<h:p/>
-							<h:b><ctr ctr-type='Table' id="atref-pkgs">: Auditable Events for Functional Packages</ctr></h:b><h:br/>							
+							table below.<h:p/>
+							<h:b><ctr ctr-type='Table' id="atref-pkgs">: Auditable Events for the TLS Functional Package</ctr></h:b><h:br/>							
 							<h:table>
-								<h:tr class="header"><h:td>Requirement</h:td><h:td>Auditable Events</h:td><h:td>Additional Audit Record Contents</h:td></h:tr>
-								<h:tr><h:td>FCS_SSHC_EXT.1</h:td>
-								<h:td>Failure to establish a session.</h:td>
-								<h:td>Reason for failure,<h:br/>Non-TOE endpoint of attempted connection (IP Address).</h:td></h:tr>
-								
-								<h:tr><h:td>FCS_SSHC_EXT.1</h:td>
-								<h:td>Establishment of a session.</h:td>
-								<h:td>Non-TOE endpoint of connection (IP Address).</h:td></h:tr>
-
-								<h:tr><h:td>FCS_SSHC_EXT.1</h:td>
-								<h:td>Termination of a session.</h:td>
-								<h:td>Non-TOE endpoint of connection (IP Address).</h:td></h:tr>
-  
-								<h:tr><h:td>FCS_SSHS_EXT.1</h:td>
-								<h:td>Failure to establish a session.</h:td>
-								<h:td>Reason for failure,<h:br/>Non-TOE endpoint of attempted connection (IP Address).</h:td></h:tr>
-								
-								<h:tr><h:td>FCS_SSHS_EXT.1</h:td>
-								<h:td>Establishment of a session.</h:td>
-								<h:td>Non-TOE endpoint of connection (IP Address).</h:td></h:tr>
-
-								<h:tr><h:td>FCS_SSHS_EXT.1</h:td>
-								<h:td>Termination of a session.</h:td>
-								<h:td>Non-TOE endpoint of connection (IP Address).</h:td></h:tr>
-
 								<h:tr><h:td>FCS_TLSC_EXT.1</h:td>
 								<h:td>Failure to establish a session.</h:td>
 								<h:td>Reason for failure.</h:td></h:tr>
@@ -5981,12 +5957,40 @@
 	This approach is permitted by [CC] Part 1, 8.2 Dependencies between components.<h:p/>
 	This information benefits systems engineering activities which call for inclusion of particular
 	security controls. Evaluation against the PP provides evidence that these controls are present 
-	and have been evaluated.<h:p/>
+	and have been evaluated.<h:p/><h:p/>
 	<h:b><ctr ctr-type="Table" pre="Table " id="imp-sat-reqs-table">: Implicitly Satisfied Requirements</ctr></h:b>
     <h:table>	
 		<h:tr class="header"><h:td>Requirement</h:td><h:td>Rationale for Satisfaction</h:td></h:tr>
-		<h:tr>
-	<h:td>FAU_GEN.1 – Audit Data Generation</h:td>
+	<h:tr>
+	<h:td>FCS_CKM.4 – Cryptographic Key Destruction</h:td>
+	<h:td>
+	  FCS_CKM.1 has a dependency on FCS_CKM.4. The extended SFR FCS_CKM_EXT.4 addresses this dependency 
+	  by defining an alternate requirement for key destruction.
+	</h:td>
+	</h:tr>
+	<h:tr>
+	<h:td>FCS_CKM.4 – Cryptographic Key Destruction</h:td>
+	<h:td>
+	  FCS_CKM.2 has a dependency on FCS_CKM.4. The extended SFR FCS_CKM_EXT.4 addresses this dependency by 
+	  defining an alternate requirement for key destruction.
+	</h:td>
+	</h:tr>
+	<h:tr>
+	<h:td>FCS_CKM.4 – Cryptographic Key Destruction</h:td>
+	<h:td>
+	  Each iteration of FCS_COP.1 has a dependency on FCS_CKM.4. The extended SFR FCS_CKM_EXT.4 addresses this 
+	  dependency by defining an alternate requirement for key destruction.
+	</h:td>
+	</h:tr>
+	<h:tr>
+	<h:td>FIA_UID.1 – Timing of Identification</h:td>
+	<h:td>
+	  FMT_SMR.2 has a dependency on FIA_UID.1. The extended SFR FIA_UID_EXT.1 expresses this dependency by also requiring
+	  user identification for use of the TOE.
+	</h:td>
+	</h:tr>
+	<h:tr>
+	<h:td>FPT_STM.1 – Reliable Time Stamps</h:td>
 	<h:td>
 	  FAU_GEN.1 has a dependency on FPT_STM.1. While not explicitly stated in the PP, it is assumed
 	  that this will be provided by the underlying hardware platform on which the TOE is installed. 
@@ -5995,40 +5999,12 @@
 	</h:td>
 	</h:tr>
 	<h:tr>
-	<h:td>FCS_CKM.1 – Cryptographic Key Generation</h:td>
-	<h:td>
-	  FCS_CKM.1 has a dependency on FCS_CKM.4. The extended SFR FCS_CKM_EXT.4 addresses this dependency 
-	  by defining an alternate requirement for key destruction.
-	</h:td>
-	</h:tr>
-	<h:tr>
-	<h:td>FCS_CKM.2 – Cryptographic Key Establishment</h:td>
-	<h:td>
-	  FCS_CKM.2 has a dependency on FCS_CKM.4. The extended SFR FCS_CKM_EXT.4 addresses this dependency by 
-	  defining an alternate requirement for key destruction.
-	</h:td>
-	</h:tr>
-	<h:tr>
-	<h:td>FCS_COP.1 – Cryptographic Operation</h:td>
-	<h:td>
-	  Each iteration of FCS_COP.1 has a dependency on FCS_CKM.4. The extended SFR FCS_CKM_EXT.4 addresses this 
-	  dependency by defining an alternate requirement for key destruction.
-	</h:td>
-	</h:tr>
-	<h:tr>
-	<h:td>FIA_X509_EXT.1 – X.509 Certificate Validation</h:td>
+	<h:td>FPT_STM.1 – Reliable Time Stamps</h:td>
 	<h:td>
  	  FIA_X509_EXT.1 has a dependency on FPT_STM.1. While not explicitly stated in the PP, it is assumed that
 	  this will be provided by the underlying hardware platform on which the TOE is installed. This is 
 	  because the TOE is installed as a software or firmware product that runs on general-purpose computing
 	  hardware so a hardware clock is assumed to be available.
-	</h:td>
-	</h:tr>
-	<h:tr>
-	<h:td>FMT_SMR.2 – Restrictions on Security Roles</h:td>
-	<h:td>
-	  FMT_SMR.2 has a dependency on FIA_UID.1. The extended SFR FIA_UID_EXT.1 expresses this dependency by also requiring
-	  user identification for use of the TOE.
 	</h:td>
 	</h:tr>
     </h:table>
