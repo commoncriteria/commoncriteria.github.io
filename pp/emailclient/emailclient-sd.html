@@ -350,6 +350,8 @@ The following sections list Common Criteria and technology terms used in this do
 	      <div class="eacategory">TSS</div>
 		If the platform provides the key destruction, then the evaluator examines the TSS to verify that it describes how the key destruction functionality is invoked.
 		<p></p>
+		  If "destruction of reference..." (for volatile memory) is selected, then the evaluator shall examine the relevant interface definition to ensure that the interface supports the selection and description in the TSS.
+		<p></p>
 		  If the application invokes key destruction, the evaluator checks to ensure the TSS describes each of the secret keys (keys used for symmetric encryption or data authentication), private keys, and CSPs used to generate keys; 
 		  when they are zeroized (for example, immediately after use, on system shutdown, etc.); 
 		  and the type of zeroization procedure that is performed (overwrite with zeroes, overwrite three times with random pattern, etc.). 
@@ -400,10 +402,18 @@ The following sections list Common Criteria and technology terms used in this do
 	          <ul>
 	            <li><b>Test 1: </b>The evaluator shall both send and receive a message with no protection (no signature or encryption) and verify that the message is transmitted properly and can be viewed at the receiving agent. This transmission can be performed as part of a number of mechanisms; it is sufficient to observe that the message arrives at the intended recipient with the same content as when sent.</li>
 	            <li><b>Test 2: </b>The evaluator shall both send and receive a signed message using each of the algorithms specified in the ST corresponding to the requirement and verify that the signature is valid for both received and sent messages. After verifying the signatures are valid, the evaluator shall send a signed message using each of the algorithms specified in the ST and use a man-in-the-middle tool to modify at least one byte of the message such that the signature is no longer valid. This can be done by modifying the content of the message over which the signature is calculated or by modifying the signature itself. The evaluator shall then verify that the received message fails the signature validation check.</li>
-	            <li><b>Test 3: </b>The evaluator shall both send and receive an encrypted message using each of the algorithms specified in the ST.</li>
+	            
+	            <li><b>Test 3: </b>The evaluator shall send an encrypted message from the TOE to an OE receiver using each of the algorithms specified in the ST. 
+	              The evaluator shall verify that each message is encrypted and the OE receiver can successfully decrypt each message. 
+	              The evaluator shall then use the OE receiver to send an encrypted reply back to the TOE for each message sent at the start of this test. 
+	              The evaluator shall verify that each reply is encrypted and the TOE can successfully decrypt each reply.</li>
+	            
 	            <li><b>Test 4: </b>The evaluator shall verify that the contents are encrypted in transit and that the received message decrypts.</li> 
 	            <li><b>Test 5: </b>After verifying the message decrypts, the evaluator shall send an encrypted message using each of the algorithms specified in the ST and use a man-in-the-middle tool to modify at least one byte of the message such that the encryption is no longer valid. The evaluator shall then verify that the received message fails to decrypt.</li>
-	            <li><b>Test 6: </b>The evaluator shall both send and receive a message that is both signed and encrypted. In addition, the evaluator uses a man-in-the-middle tool to modify at least one byte of the message such that the encryption and signature are no longer valid. The evaluator shall then verify that the received message fails to decrypt, fails the signature validation check, or both.</li>
+	            
+	            <li><b>Test 6: </b>The evaluator shall send an encrypted message to the email client using an encryption algorithm not supported according to the signatureAlgorithm field. 
+	              The evaluator shall verify that the email client does not display/decrypt the contents of the message.</li>
+	            
 	            <li><b>Test 7: </b>The evaluator shall send a signed message to the email client using a signature algorithm not supported according to the digestAlgorithm ID (e.g., SHA1). The evaluator shall then verify that the email client provides a notification that the contents cannot be verified because the signature algorithm is not supported.</li>
 	            <li><b>Test 8: </b>The evaluator shall send an encrypted message to the email client using an encryption algorithm not supported according to the AlgorithmIdentifier field. The evaluator shall then verify that the email client does not display/decrypt the contents of the message.</li>
 	            <li><b>Test 9: </b>The evaluator shall send the email client a message signed by a certificate without the digitalSignature bit set. The evaluator shall then verify that the email client notifies the user that the signature is invalid.</li>
@@ -491,39 +501,52 @@ The following sections list Common Criteria and technology terms used in this do
 		<div class="eacategory">Tests</div>
 		The evaluator shall perform the following tests:
 		<ul>
-		  <li><b>Test 1: </b>The evaluator shall ensure that the email client is able to initiate communications using any selected or assigned protocols specified in the requirement over TLS, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
-		  <li><b>Test 2: </b>The evaluator shall ensure that the email client is able to initiate communications with a Mail Transfer Agent using SMTP and any assigned protocols specified in the requirement over TLS, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
+		  <li><b>Test 1: </b>The evaluator shall ensure that the email client is able to initiate or receive communications using any selected or assigned protocols specified in the requirement over TLS, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
+		  <li><b>Test 2: </b>The evaluator shall ensure that the email client is able to initiate or receive communications with a Mail Transfer Agent using any assigned protocols specified in the requirement over TLS, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
 		  <li><b>Test 3: </b>The evaluator shall ensure, for each communication channel with an authorized IT entity in tests 1 and 2, the channel data is not sent in plaintext. To perform this test, The evaluator shall use a sniffer and a packet analyzer. The packet analyzer must indicate that the protocol in use is TLS.</li>
 		</ul>
 		</div><h2 class="indexable" data-level="1" id="opt-sfrs">2.3 Evaluation Activities for Optional SFRs</h2><h3 class="indexable" data-level="2" id="opt_fcs">2.3.1 Cryptographic Support (FCS)</h3><div class="comp" id=""><h4>FCS_CKM_EXT.5 Cryptographic Key Derivation (Password/Passphrase Conditioning)</h4>
 	    
 	      
-	        
+	    
 	  <div class="eacategory">TSS</div>
-	    The evaluator shall verify that the TSS specifies the capability that exists to accept passwords/passphrases with the minimum number of characters specified in the ST in this assignment statement.<p></p>
-	      The evaluator shall examine the password hierarchy TSS to ensure that the formation of all keys is described and that the key sizes match that described by the ST author.<p></p>
-	    The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to the SHA algorithm. The evaluator shall then verify that the settings for the algorithm (padding, blocking, etc.)
-	    are described and that this description is consistent with the corresponding selections made in the SFR.<p></p> 
-	    The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the submask that will be input into the function. For the NIST SP 800-132-based conditioning of the password/passphrase, 
-	    the required evaluation activities will be performed when doing the EA for the appropriate requirements (e.g. FCS_COP.1.1(4) in the Base-PP). 
-	      If any manipulation of the key is performed in forming the submask that will be used to form the key, the evaluator shall ensure that the TSS describes this process. 
-	      No explicit testing of the formation of the submask from the input password is required.<p></p>
-	      The evaluator shall verify that the iteration count for PBKDFs performed by the email client comply with 
-	      NIST SP 800-132 by ensuring that the TSS contains a description of the estimated time required to derive key material from passwords and how the email client increases the computation time for 
-	      password-based key derivation (including but not limited to increasing the iteration count).<p></p>
+	      For FCS_CKM_EXT.5.1, there are two aspects of this component that require evaluation: passwords/passphrases of the length specified in the requirement (at least 64 characters) are supported, 
+	      and that the characters that are input are subject to the selected conditioning function. These activities are separately addressed in the text below.
+	      <p></p>
+	      Support for Password/Passphrase length: The evaluator shall check to ensure that the TSS describes the allowable ranges for password/passphrase lengths, and that at least 64 characters may be specified by the user.
+	      <p></p>
+	      Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that the formation of all keys is described and that the key sizes match that described by the ST author.
+	      <p></p>
+	      The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to the SHA algorithm. 
+	      The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
+	      The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the submask that will be input into the function and is the same length as the KEK as specified in FCS_CKM_EXT.4.
+	      <p></p>
+	      For the NIST SP 800-132-based conditioning of the password/passphrase, the required assurance activities will be performed when doing the assurance activities for the appropriate requirements (FCS_COP.1.1(4) from the [AppPP]). 
+	      If any manipulation of the key is performed in forming the submask that will be used to form the FEK or KEK, that process shall be described in the TSS. 
+	      For the claimed iteration count, the evaluator shall verify that the iteration count for PBKDFs performed by the TOE comply with NIST SP 800-132 by ensuring that the TSS contains a description of the estimated time required 
+	      to derive key material from passwords and how the TOE increases the computation time for password-based key derivation (including but not limited to increasing the iteration count).
+	      <p></p>
 	    <div class="eacategory">Guidance</div>
-	    The evaluator shall check the operational guidance to determine that it includes guidance on how to generate large passwords/passphrases external to the email client and 
-	    instructions for how to configure the password/passphrase length and optional complexity settings (note to Management section). 
-	    This is important because many default settings for passwords/passphrases will not meet the necessary entropy needed as specified in this PP-Module.<p></p>
-	      <div class="eacategory">Tests</div>The evaluator shall perform the following tests:
+	        The evaluator shall check the operational guidance to determine that there are instructions on how to generate large passwords/passphrases, 
+	        and instructions on how to configure the password/passphrase length (and optional complexity settings) to provide entropy commensurate with the keys that the authorization factor is protecting. 
+	        This is important because many default settings for passwords/passphrases will not meet the necessary entropy needed as specified in this PP-Module
+	        <p></p>
+	      <div class="eacategory">Tests</div>The evaluator shall compose passwords that either meet the requirements, or fail to meet the requirements, 
+	      and shall verify that the TOE's behavior is consistent with the requirements. 
+	      While the evaluator is not required (nor is it feasible) to test all possible compositions of passwords, 
+	      the evaluator shall ensure that all characters, and minimum and maximum lengths listed in the requirement, are supported, and justify the subset of those characters chosen for testing.
+	      <p></p>
+	      Support for Password/Passphrase characteristics: In addition to the analysis above, the evaluator shall also perform the following tests on a TOE configured according to the Operational Guidance
 	    <ul>
-	      <li><b>Test 1: </b>The evaluator shall ensure that the email client supports passwords/passphrases of exactly 64 characters.</li>
-	      <li><b>Test 2: </b>The evaluator shall ensure that the email client supports a password/passphrase with less than 64 characters.</li>
-	      <li><b>Test 3: </b>[Conditional: the email client supports a maximum character length greater than 64 characters] The evaluator shall ensure that the email client accepts password/passphrases up to the maximum character length and no larger.</li>
-	      
+	      <li><b>Test 1: </b>The evaluator shall ensure that the TOE supports passwords/passphrases of exactly 64 characters.</li>
+	      <li><b>Test 2: </b>The evaluator shall ensure that the TOE does not accept more than the maximum number of characters specified in FCS_CKM_EXT.5.1.</li>
+	      <li><b>Test 3: </b>The evaluator shall ensure that the TOE does not accept less than the minimum number of characters specified in FCS_CKM_EXT.5.4. 
+	        If the minimum length is settable by the administrator, the evaluator determines the minimum length or lengths to test.</li>
+	      <li><b>Test 4: </b>The evaluator shall ensure that the TOE supports passwords consisting of all characters listed in FCS_CKM_EXT.5.2 and of varying lengths within the range specified in FCS_CKM_EXT.5.4.</li>
 	    </ul>
-	          <p></p>
-	          No explicit testing of the formation of the authorization factor from the input password/passphrase is required.
+	      No explicit testing of the formation of the submask from the input password is required.
+	      <p></p>
+	      For password conditioning, no explicit testing of the formation of the authorization factor from the input password/passphrase is required. 
 	        </div><div class="comp" id=""><h4>FCS_IVG_EXT.1 Initialization Vector Generation</h4>
               
               
@@ -634,7 +657,9 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="eacategory">Tests</div>The evaluator shall also perform the following tests:
             <ul>
               <li><b>Test 1: </b>The evaluator shall ensure that the email client is able to initiate communications using POP, IMAP and SMTP and requiring SASL, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
-              <li><b>Test 2: </b>The evaluator shall ensure, for each communication channel with an authorized IT entity in Test 1, that a valid SASL handshake is performed. To perform this test, The evaluator shall use a sniffer and a packet analyzer. The packet analyzer must indicate that the protocol in use is SASL.</li>
+              <li><b>Test 2: </b>The evaluator shall ensure, for each communication channel with an authorized IT entity in Test 1, that a valid SASL handshake is performed. To perform this test, The evaluator shall use a sniffer and a packet analyzer. 
+                The sniffer and packet analyzer must allow the evaluator to view the plaintext email protocol (e.g., proxy, loading the server private key). The evaluator shall identify the SASL handshake within the email protocol.
+                </li>
             </ul>
             </div><h3 class="indexable" data-level="2" id="sel_fpt">2.4.3 Protection of the TSF (FPT)</h3><div class="comp" id=""><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4>
 	    
