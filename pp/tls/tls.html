@@ -421,10 +421,15 @@ function showTarget(id){
               background-color:beige;
               color:green;
           }
+
           div.subaact{
               margin-left:0%;
               margin-top:1em;
           }
+          .subaact-header{
+              font-weight: bold;
+          }
+
           div.activity_pane_body{
               font-style:italic;
               margin-left:0%;
@@ -679,18 +684,10 @@ The following sections list Common Criteria and technology terms used in this do
       Package in its conformance claims.
     
   <h2 class="indexable" data-level="1" id="conf">2 Conformance Claims</h2>
-    <dl><dt class="cclaim,defined" id="Conformance Statement">Conformance Statement</dt><dd>This Package serves to provide Protection Profiles with additional 
-          SFRs and associated Evaluation Activities specific to <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> clients and servers.  
-          <p></p>
-          This Package conforms to Common Criteria
-          <a href="#bibCC">[CC]</a> for Information Technology Security Evaluation, Version 3.1,
-          Revision 5. It is <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2 extended conformant.
-          <p></p>
-          In accordance with <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 1, dependencies are not included when they are addressed
-          by other SFRs. The evaluation activities provide adequate proof that any dependencies are
-          also satisfied.</dd></dl>
-  <h2 class="indexable" data-level="1" id="Security_Requirements">3 Security Requirements</h2>
     
+      This document does not define any additional cclaims.
+    
+  <h2 class="indexable" data-level="1" id="Security_Requirements">3 Security Requirements</h2>
 		This section describes the security requirements
     to be fulfilled by the product. Those requirements comprise functional components from Part 2 of
     <a href="#bibCC">[CC]</a>. The following notations are used:
@@ -707,7 +704,6 @@ The following sections list Common Criteria and technology terms used in this do
       <li>
         <b>Iteration</b> operation: are identified with a number inside parentheses (e.g. "(1)").</li>
     </ul><p></p>
-		
 	
     <h2 id="Security_Functional_Requirements" class="indexable" data-level="2">3.1 Security Functional Requirements</h2>
 
@@ -734,12 +730,12 @@ The following sections list Common Criteria and technology terms used in this do
               If <i><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server</i> is selected, then the
               <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include the requirements from <a href="#FCS_DTLSS_EXT.1">FCS_DTLSS_EXT.1</a>.
             </span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLS_EXT.1">FCS_TLS_EXT.1</a>:<br/><div class="activity">
-	      <div class="eacategory">Guidance</div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLS_EXT.1">FCS_TLS_EXT.1</a></div>
+	      
+            <div class="eacategory">Guidance</div>
 		The evaluator shall ensure that the selections indicated in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> are
               consistent with selections in the dependent components.
-			  <br/>
-            </div></div></div></div>
+			  </div></div></div>
 
         <div class="comp" id="FCS_TLSC_EXT.1"><h4>FCS_TLSC_EXT.1 TLS Client Protocol</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a>.
@@ -830,20 +826,48 @@ The following sections list Common Criteria and technology terms used in this do
               instantiate this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> using only the first selection, preventing the ability to
               allow overrides.
             </span></div></div></div>       
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSC_EXT.1">FCS_TLSC_EXT.1</a>:<br/><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSC_EXT.1">FCS_TLSC_EXT.1</a></div>
+              
+              
+              
+            
+              
+              
+              
+            
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
               The evaluator shall check the description of the implementation of this
               protocol in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to
               ensure that the cipher suites supported are specified. The evaluator shall check the
                 <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the
               cipher suites specified include those listed for this component. 
-			  <br/>
+			  
+              The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the client’s method of establishing all reference
+              identifiers from the application-configured reference identifier, including which
+              types of reference identifiers are supported (e.g. Common Name, DNS Name, URI Name,
+              Service Name, or other application-specific Subject Alternative Names) and whether IP
+              addresses and wildcards are supported. The evaluator shall ensure that this
+              description identifies whether and the manner in which certificate pinning is
+              supported or used by the product.
+              <br/> 
+              
+              If the selection for authorizing override of invalid certificates is made, then
+              the evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of how and when user or administrator
+                authorization is obtained.  The evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
+                any mechanism for storing such authorizations, such that future presentation
+                of such otherwise-invalid certificates permits establishment of a trusted channel
+                without user or administrator action.
               <div class="eacategory">Guidance</div>
               The evaluator shall
               also check the operational guidance to ensure that it contains instructions on
               configuring the product so that
               <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. 
-			  <br/>
+			  
+              The evaluator shall verify that the AGD guidance includes instructions for
+              setting the reference identifier to be used for the purposes of certificate validation
+              in <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>. <br/>
               <div class="eacategory">Tests</div>
               The evaluator shall also perform the following tests:
               <ul>
@@ -929,24 +953,7 @@ The following sections list Common Criteria and technology terms used in this do
                   </ul>
                 </li>
               </ul>
-			  <br/>
-            </div><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-              The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the client’s method of establishing all reference
-              identifiers from the application-configured reference identifier, including which
-              types of reference identifiers are supported (e.g. Common Name, DNS Name, URI Name,
-              Service Name, or other application-specific Subject Alternative Names) and whether IP
-              addresses and wildcards are supported. The evaluator shall ensure that this
-              description identifies whether and the manner in which certificate pinning is
-              supported or used by the product.
-              <br/> 
-              <br/>
-              <div class="eacategory">Guidance</div>
-              The evaluator shall verify that the AGD guidance includes instructions for
-              setting the reference identifier to be used for the purposes of certificate validation
-              in <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>. <br/>
-              <br/>
-              <div class="eacategory">Tests</div>
+			  
               The evaluator shall
               configure the reference identifier according to the AGD guidance and perform the
               following tests during a <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> connection:
@@ -1034,17 +1041,7 @@ The following sections list Common Criteria and technology terms used in this do
                   the connection fails.
                 </li>
               </ul>
-               <br/>
-            </div><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-              If the selection for authorizing override of invalid certificates is made, then
-              the evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of how and when user or administrator
-                authorization is obtained.  The evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
-                any mechanism for storing such authorizations, such that future presentation
-                of such otherwise-invalid certificates permits establishment of a trusted channel
-                without user or administrator action.
-              <br/>
-              <div class="eacategory">Tests</div>
+               
               The evaluator shall demonstrate that using an invalid certificate (unless excepted)
               results in the function failing as follows, unless excepted:
               <ul>
@@ -1062,8 +1059,7 @@ The following sections list Common Criteria and technology terms used in this do
                   not have a valid identifier results in an authentication failure. </li>
               </ul>
               
-             <br/>
-            </div></div></div></div>
+             </div></div></div>
         
         <div class="comp" id="FCS_TLSC_EXT.2"><h4>FCS_TLSC_EXT.2 TLS Client Support for Mutual Authentication</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>.
@@ -1076,24 +1072,25 @@ The following sections list Common Criteria and technology terms used in this do
               Presenting a certificate is not mandatory in all circumstances: it may depend on the
               configuration of the client or other factors.
             </span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSC_EXT.2">FCS_TLSC_EXT.2</a>:<br/><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSC_EXT.2">FCS_TLSC_EXT.2</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
                 The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description required per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1 includes the use of client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>
               mutual authentication.  The evaluator shall also ensure that the 
               <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
               any factors beyond configuration that are necessary in order for the client to engage in mutual
               authentication using X.509v3 certificates.
               <br/>
-			  <br/>
-              <div class="eacategory">Guidance</div>
+			  <div class="eacategory">Guidance</div>
               The evaluator shall ensure that the AGD guidance includes any instructions necessary
               to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform mutual authentication.
               The evaluator also shall verify that the AGD guidance required
               per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1 includes instructions for configuring the
               client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual
               authentication.<br/>
-			  <br/>
-              <div class="eacategory">Tests</div>
+			  <div class="eacategory">Tests</div>
               The evaluator shall also perform the following tests:
               
 	      <ul>
@@ -1111,8 +1108,7 @@ during handshake.
 		Verify (type 15) message.
 		</li>
 	      </ul>
-		  <br/>
-            </div></div></div></div>
+		  </div></div></div>
 		
 		
         <div class="comp" id="FCS_TLSC_EXT.3"><h4>FCS_TLSC_EXT.3 TLS Client Support for Signature Algorithms Extension</h4><div class="statustag"><i><b> This is an objective component.
@@ -1122,18 +1118,19 @@ during handshake.
               the purpose of digital signature verification by the client and limits the server to
               the supported hashes for the purpose of digital signature generation by the server.
               The signature_algorithms extension is only supported by <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2. </span></div></div></div>  
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSC_EXT.3">FCS_TLSC_EXT.3</a>:<br/><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSC_EXT.3">FCS_TLSC_EXT.3</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
               The evaluator shall verify that <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the signature_algorithm extension and whether the
               required behavior is performed by default or may be configured. 
-			  <br/>
-              <div class="eacategory">Guidance</div>
+			  <div class="eacategory">Guidance</div>
               If the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> indicates that the
               signature_algorithm extension must be configured to meet the requirement, the
               evaluator shall verify that AGD guidance includes configuration of the
               signature_algorithm extension. <br/> 
-			<br/>
-              <div class="eacategory">Tests</div>
+			<div class="eacategory">Tests</div>
               The evaluator shall also perform the following
               tests:
               <ul>
@@ -1159,8 +1156,7 @@ during handshake.
                   Key Exchange handshake message.
                 </li>
               </ul>
-			  <br/>
-            </div></div></div></div>
+			  </div></div></div>
 		
         <div class="comp" id="FCS_TLSC_EXT.4"><h4>FCS_TLSC_EXT.4 TLS Client Support for Renegotiation</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>.
@@ -1186,8 +1182,9 @@ during handshake.
             must be presented by the peer initiating renegotiation, and so the client
             must support use of this extension.
             </span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSC_EXT.4">FCS_TLSC_EXT.4</a>:<br/><div class="activity">
-              <div class="eacategory">Tests</div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSC_EXT.4">FCS_TLSC_EXT.4</a></div>
+              
+            <div class="eacategory">Tests</div>
               The evaluator shall perform the following tests:
               <ul>
                 <li><b>Test 1: </b>The evaluator shall use a network packet analyzer/sniffer to capture the traffic between the two
@@ -1202,8 +1199,7 @@ during handshake.
                   the “renegotiation_info” extension.  The evaluator shall modify either the “client_verify_data” or
                   “server_verify_data” value and verify that the client terminates the connection.</li>
               </ul>
-			  <br/>
-            </div></div></div></div>
+			  </div></div></div>
 		
         <div class="comp" id="FCS_TLSC_EXT.5"><h4>FCS_TLSC_EXT.5 TLS Client Support for Supported Groups Extension</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>, <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>.
@@ -1233,11 +1229,12 @@ during handshake.
               elliptic curves the client may propose for authentication and key agreement.
               The Supported Groups Extension was previously referred to as the
               Supported Elliptic Curves Extension and is described in RFC 7919.</span></div></div></div>  
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSC_EXT.5">FCS_TLSC_EXT.5</a>:<br/><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSC_EXT.5">FCS_TLSC_EXT.5</a></div>
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
               The evaluator shall verify that <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the Supported Groups Extension.
-			  <br/>
-              <div class="eacategory">Tests</div>
+			  <div class="eacategory">Tests</div>
               The evaluator shall also perform the following test:
               <br/>
               <ul>
@@ -1246,8 +1243,7 @@ during handshake.
               curves and/or groups. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> successfully connects to the server.
               </li>
               </ul>
-			  <br/>
-            </div></div></div></div>
+			  </div></div></div>
 
         <div class="comp" id="FCS_TLSS_EXT.1"><h4>FCS_TLSS_EXT.1 TLS Server Protocol</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a>.
@@ -1323,20 +1319,42 @@ during handshake.
               If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> lists an ECDHE cipher suite in <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include the
               selection for ECDHE using elliptic curves in the requirement.
             </span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSS_EXT.1">FCS_TLSS_EXT.1</a>:<br/><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSS_EXT.1">FCS_TLSS_EXT.1</a></div>
+              
+              
+              
+            
+              
+              
+              
+            
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
               The evaluator shall check the description of the implementation of this protocol in
               the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that
               the cipher suites supported are specified. The evaluator shall check the
               <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that the
               cipher suites specified include those listed for this component. 
-			  <br/>
-              <div class="eacategory">Guidance</div>
+			  
+              The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a
+              description of the denial of old SSL and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions
+              consistent relative to selections in <a href="#FCS_TLSS_EXT.1.2">FCS_TLSS_EXT.1.2</a>.
+			  
+              The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the key agreement parameters
+              of the server's Key Exchange message.
+			  <div class="eacategory">Guidance</div>
               The evaluator shall
               also check the operational guidance to ensure that it contains instructions on
               configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> conforms to the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.
-			<br/>
-              <div class="eacategory">Tests</div>
+			
+              The evaluator shall verify that the AGD guidance includes any configuration
+              necessary to meet this requirement.
+			  
+              The evaluator shall verify that any configuration guidance necessary to meet
+              the requirement must be contained in the AGD guidance.
+			  <div class="eacategory">Tests</div>
               The evaluator shall
               also perform the following tests:
               <ul>
@@ -1402,18 +1420,7 @@ during handshake.
                   </ul>
                 </li>
               </ul>
-			 <br/>
-            </div><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-              The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a
-              description of the denial of old SSL and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions
-              consistent relative to selections in <a href="#FCS_TLSS_EXT.1.2">FCS_TLSS_EXT.1.2</a>.
-			  <br/>
-              <div class="eacategory">Guidance</div>
-              The evaluator shall verify that the AGD guidance includes any configuration
-              necessary to meet this requirement.
-			  <br/>
-              <div class="eacategory">Tests</div>
+			 
               <ul>
                 <li><b>Test 1: </b>
                   The evaluator shall send a Client Hello requesting a
@@ -1423,17 +1430,7 @@ during handshake.
                   and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1 if it is selected.
                 </li>
               </ul>
-			  <br/>
-            </div><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-              The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the key agreement parameters
-              of the server's Key Exchange message.
-			  <br/>
-              <div class="eacategory">Guidance</div>
-              The evaluator shall verify that any configuration guidance necessary to meet
-              the requirement must be contained in the AGD guidance.
-			  <br/>
-              <div class="eacategory">Tests</div>
+			  
               <ul>
                 The evaluator shall conduct the following tests.  The testing can be carried out
                 manually with a packet analyzer or with an automated framework
@@ -1461,8 +1458,7 @@ during handshake.
                   elliptic curve.
                 </li>
               </ul>
-			  <br/>
-            </div></div></div></div>
+			  </div></div></div>
 
        <div class="comp" id="FCS_TLSS_EXT.2"><h4>FCS_TLSS_EXT.2 TLS Server Support for Mutual Authentication</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a>.
@@ -1493,19 +1489,33 @@ during handshake.
               the client, or may be passed to a directory server for comparison.
               In the latter case, the matching itself may be performed outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
             </span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSS_EXT.2">FCS_TLSS_EXT.2</a>:<br/><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSS_EXT.2">FCS_TLSS_EXT.2</a></div>
+              
+              
+        
+            
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
               The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description required per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1
               includes the use of client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual authentication.
-			  <br/>
-              <div class="eacategory">Guidance</div>
+			  
+              If the product implements mutual authentication, the evaluator shall
+              verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the DN and SAN in the certificate
+              is compared to the expected identifier.
+			  <div class="eacategory">Guidance</div>
               The evaluator shall verify that the AGD guidance required per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1
               includes instructions for configuring the client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual
               authentication.  The evaluator shall ensure that the AGD guidance
               includes instructions for configuring the server to require
               mutual authentication of clients using these certificates.
-			  <br/>
-        <div class="eacategory">Tests</div>
+			  
+              If the DN is not compared automatically to the domain name,
+              IP address, username, or email address, the evaluator shall
+              ensure that the AGD guidance includes configuration of the
+              expected identifier or the directory server for the connection.
+			  <div class="eacategory">Tests</div>
 	      The evaluator shall use <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a function to verify that the validation rules in
 	      <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.1 are adhered to and shall perform the following tests.
         The evaluator shall apply the AGD guidance to configure the server
@@ -1573,20 +1583,7 @@ during handshake.
                   The evaluator shall verify that the server rejects the connection.
                 </li>
               </ul>
-			  <br/>
-            </div><div class="activity">
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-              If the product implements mutual authentication, the evaluator shall
-              verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the DN and SAN in the certificate
-              is compared to the expected identifier.
-			  <br/>
-              <div class="eacategory">Guidance</div>
-              If the DN is not compared automatically to the domain name,
-              IP address, username, or email address, the evaluator shall
-              ensure that the AGD guidance includes configuration of the
-              expected identifier or the directory server for the connection.
-			  <br/>
-              <div class="eacategory">Tests</div>
+			  
               <ul>
                 <li><b>Test 1: </b>
                   The evaluator shall send a client certificate with an identifier that does not match any of the
@@ -1595,8 +1592,7 @@ during handshake.
                   for comparison).
                 </li>
               </ul>
-			  <br/>
-            </div></div></div></div>
+			  </div></div></div>
 
 	<div class="comp" id="FCS_TLSS_EXT.3"><h4>FCS_TLSS_EXT.3 TLS Server Support for Signature Algorithms Extension</h4><div class="statustag"><i><b> This is an objective component.
           </b></i></div>
@@ -1612,21 +1608,22 @@ during handshake.
               client. The supported_signature_algorithms is only
               supported by <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2.
 	    </span></div></div></div>
-	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSS_EXT.3">FCS_TLSS_EXT.3</a>:<br/><div class="activity">
-        <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSS_EXT.3">FCS_TLSS_EXT.3</a></div>
+        
+        
+	      
+	    <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 	      The evaluator shall verify that <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the
 	      supported_signature_algorithms field of the Certificate
 	      Request and whether the required behavior is performed
 	      by default or may be configured.
-		  <br/>
-        <div class="eacategory">Guidance</div>
+		  <div class="eacategory">Guidance</div>
         If the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> indicates
 	      that the supported_signature_algorithms field must be
 	      configured to meet the requirement, the evaluator shall
 	      verify that AGD guidance includes configuration of the
 	      supported_signature_algorithms field.
-		  <br/>
-	      <div class="eacategory">Tests</div>
+		  <div class="eacategory">Tests</div>
 	      The evaluator shall also perform the following test:
 	      <br/>
 	      The evaluator shall configure the server to send the
@@ -1636,8 +1633,7 @@ during handshake.
 	      evaluator shall attempt a connection using that client
 	      certificate and verify that the server denies the
 	      client’s connection.
-		  <br/>
-	    </div></div></div></div>
+		  </div></div></div>
 
 	<div class="comp" id="FCS_TLSS_EXT.4"><h4>FCS_TLSS_EXT.4 TLS Server Support for Renegotiation</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a>.
@@ -1652,8 +1648,9 @@ during handshake.
               RFC 5746 defines an extension to <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> that binds renegotiation
               handshakes to the cryptography in the original handshake.
 	    </span></div></div></div>
-	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_TLSS_EXT.4">FCS_TLSS_EXT.4</a>:<br/><div class="activity">
-        <div class="eacategory">Tests</div>
+	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSS_EXT.4">FCS_TLSS_EXT.4</a></div>
+        
+	    <div class="eacategory">Tests</div>
 	      The following tests require connection with a client that supports secure
         renegotiation and the "renegotiation_info" extension.
 	      <ul>
@@ -1671,8 +1668,7 @@ during handshake.
       verify that the server terminates the connection.
 		</li>
 	      </ul>
-		  <br/>
-	    </div></div></div></div>
+		  </div></div></div>
 
   <div class="comp" id="FCS_DTLSC_EXT.1"><h4>FCS_DTLSC_EXT.1 DTLS Client Protocol</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a>.
@@ -1715,8 +1711,19 @@ during handshake.
     if a message received contains an invalid MAC or if decryption fails in the case of GCM and other
     AEAD ciphersuites.
     </div></div>
-  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_DTLSC_EXT.1">FCS_DTLSC_EXT.1</a>:<br/><div class="activity">
-	<div class="eacategory">Tests</div>
+  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_DTLSC_EXT.1">FCS_DTLSC_EXT.1</a></div>
+	
+      
+      
+      
+        
+      
+      
+      
+    <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+      The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions that take place if a message
+      received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server fails the MAC integrity check.
+	  <div class="eacategory">Tests</div>
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>,
         but ensuring that <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> (and not <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) is used in each evaluation activity.
         <br/><br/>
@@ -1724,26 +1731,15 @@ during handshake.
         is the 1's complement of the corresponding textual <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version numbers. This is described in
         Section 4.1 of RFC 6347 and RFC 4347.  For example, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 is represented by the bytes 0xfe 0xff,
         while the undefined <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.4 would be represented by the bytes 0xfe 0xfb.
-		<br/>
-      </div><div class="activity">
-      <div class="eacategory">Tests</div>
+		
       The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.1.2">FCS_TLSC_EXT.1.2</a>.
-	  <br/>
-      </div><div class="activity">
-        <div class="eacategory">Tests</div>
+	  
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.1.3">FCS_TLSC_EXT.1.3</a>.
-		<br/>
-      </div><div class="activity">
-      <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-      The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions that take place if a message
-      received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server fails the MAC integrity check.
-	  <br/>
-      <div class="eacategory">Tests</div>
+		
       The evaluator shall establish a connection using a server. The evaluator will then modify
       at least one byte in a record message, and verify that the client discards the record or
       terminates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session.
-	  <br/>
-    </div></div></div></div>
+	  </div></div></div>
 
   <div class="comp" id="FCS_DTLSC_EXT.2"><h4>FCS_DTLSC_EXT.2 DTLS Client Support for Mutual Authentication</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a>.
@@ -1755,11 +1751,11 @@ during handshake.
               All application notes listed for <a href="#FCS_TLSC_EXT.2.1">FCS_TLSC_EXT.2.1</a> that are relevant
               to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement.
       </span></div></div></div>
-  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_DTLSC_EXT.2">FCS_DTLSC_EXT.2</a>:<br/><div class="activity">
-	<div class="eacategory">Tests</div>
+  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_DTLSC_EXT.2">FCS_DTLSC_EXT.2</a></div>
+	
+      <div class="eacategory">Tests</div>
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.2.1">FCS_TLSC_EXT.2.1</a>.
-		<br/>
-      </div></div></div></div>
+		</div></div></div>
 
   <div class="comp" id="FCS_DTLSS_EXT.1"><h4>FCS_DTLSS_EXT.1 DTLS Server Protocol</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a>.
@@ -1825,8 +1821,36 @@ during handshake.
       if a message received contains an invalid MAC or if decryption fails in the case of GCM and other
       AEAD ciphersuites.
       </div></div>
-  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_DTLSS_EXT.1">FCS_DTLSS_EXT.1</a>:<br/><div class="activity">
-	<div class="eacategory">Tests</div>
+  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_DTLSS_EXT.1">FCS_DTLSS_EXT.1</a></div>
+	
+      
+        The following evaluation activities shall be conducted unless "none" is assigned.
+        <br/><br/>
+        
+        
+        
+      
+        
+        
+      
+      
+      
+        
+        
+      <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a
+        description of the denial of old <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions
+        consistent relative to selections in <a href="#FCS_DTLSS_EXT.1.2">FCS_DTLSS_EXT.1.2</a>.
+		
+        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client IP address is validated prior to
+        issuing a ServerHello message.
+		
+        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions that take place if a message
+        received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client fails the MAC integrity check.
+		<div class="eacategory">Guidance</div>
+        The evaluator shall verify that the AGD guidance includes any configuration
+        necessary to meet this requirement.
+		<div class="eacategory">Tests</div>
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a>,
         but ensuring that <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> (and not <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) is used in each stage of the evaluation activities.
         <br/><br/>
@@ -1834,20 +1858,7 @@ during handshake.
         is the 1's complement of the corresponding textual <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version numbers. This is described in
         Section 4.1 of RFC 6347 and RFC 4347.  For example, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 is represented by the bytes 0xfe 0xff,
         while the undefined <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.4 would be represented by the bytes 0xfe 0xfb.
-		<br/>
-      </div><div class="activity">
-        The following evaluation activities shall be conducted unless "none" is assigned.
-        <br/><br/>
-        <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a
-        description of the denial of old <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions
-        consistent relative to selections in <a href="#FCS_DTLSS_EXT.1.2">FCS_DTLSS_EXT.1.2</a>.
-		<br/>
-        <div class="eacategory">Guidance</div>
-        The evaluator shall verify that the AGD guidance includes any configuration
-        necessary to meet this requirement.
-		<br/>
-        <div class="eacategory">Tests</div>
+		
         <ul>
           <li><b>Test 1: </b>
             The evaluator shall send a Client Hello requesting a
@@ -1855,31 +1866,16 @@ during handshake.
             and verify that the server denies the connection.
           </li>
         </ul>
-		<br/>
-      </div><div class="activity">
-        <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client IP address is validated prior to
-        issuing a ServerHello message.
-		<br/>
-        <div class="eacategory">Tests</div>
+		
         Modify at least one byte in the cookie from the Server's HelloVerifyRequest message, and verify that the
         Server rejects the Client's handshake message.
-		<br/>
-      </div><div class="activity">
-      <div class="eacategory">Tests</div>
+		
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.1.3">FCS_TLSS_EXT.1.3</a>.
-		<br/>
-      </div><div class="activity">
-        <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-        The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions that take place if a message
-        received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client fails the MAC integrity check.
-		<br/>
-        <div class="eacategory">Tests</div>
+		
         The evaluator shall establish a connection using a client. The evaluator will then modify
         at least one byte in a record message, and verify that the server discards the record or
         terminates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session.
-		<br/>
-      </div></div></div></div>
+		</div></div></div>
 
   <div class="comp" id="FCS_DTLSS_EXT.2"><h4>FCS_DTLSS_EXT.2 DTLS Server Support for Mutual Authentication</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a>.
@@ -1905,19 +1901,19 @@ during handshake.
         All application notes listed for <a href="#FCS_TLSS_EXT.2.3">FCS_TLSS_EXT.2.3</a> that are relevant
         to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement.
       </span></div></div></div>
-      <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><a href="#FCS_DTLSS_EXT.2">FCS_DTLSS_EXT.2</a>:<br/><div class="activity">
-	<div class="eacategory">Tests</div>
+      <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_DTLSS_EXT.2">FCS_DTLSS_EXT.2</a></div>
+	
+      
+	
+      
+        
+      <div class="eacategory">Tests</div>
           The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.1">FCS_TLSS_EXT.2.1</a>.
-		  <br/>
-      </div><div class="activity">
-	<div class="eacategory">Tests</div>
+		  
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a>. 
-		<br/>
-      </div><div class="activity">
-        <div class="eacategory">Tests</div>
+		
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.3">FCS_TLSS_EXT.2.3</a>.
-		<br/>
-      </div></div></div></div>
+		</div></div></div>
       
     
 	
