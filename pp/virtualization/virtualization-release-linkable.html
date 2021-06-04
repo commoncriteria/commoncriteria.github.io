@@ -857,17 +857,17 @@ The following sections list Common Criteria and technology terms used in this do
                         The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must support the necessary mechanisms to isolate the resources of all 
                         VMs<a id="period_185" href="#period_185">. </a>The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> partitions a platform's physical resources for use by the 
                         supported virtual environments<a id="period_186" href="#period_186">. </a>Depending on customer requirements, a <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> may need a completely 
-                        isolated environment with exclusive access to system resources, or share some of its resources with other 
+                        isolated environment with exclusive access to system resources or share some of its resources with other 
                         VMs<a id="period_187" href="#period_187">. </a>It must be possible to enforce a security policy that prohibits the transfer of data 
                         between VMs through shared devices<a id="period_188" href="#period_188">. </a>When the platform security policy allows the sharing of 
                         resources across <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> boundaries, the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must ensure that all access to 
                         those resources is consistent with the policy<a id="period_189" href="#period_189">. </a>The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> may delegate the responsibility for 
-                        the mediation of sharing of particular resources to select Service VMs; however in doing so, 
+                        the mediation of resource sharing to select Service VMs; however in doing so, 
                         it remains responsible for mediating access to the Service VMs, and each Service 
                         <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> must mediate all access to any shared resource that has been delegated to it in 
                         accordance with the <abbr class="dyn-abbr"><a href="#abbr_SSP">SSP</a></abbr><a id="period_190" href="#period_190">. </a><br><br>
-                        Devices, whether virtual or physical, are resources requiring access control<a id="period_191" href="#period_191">. </a>The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must 
-                        enforce access control in accordance to system security policy<a id="period_192" href="#period_192">. </a>Physical devices are platform devices with 
+                        Both virtual and physical devices are resources requiring access control<a id="period_191" href="#period_191">. </a>The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must 
+                        enforce access control in accordance with system security policy<a id="period_192" href="#period_192">. </a>Physical devices are platform devices with 
                         access mediated via the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> per the O.VMM_Integrity objective<a id="period_193" href="#period_193">. </a>Virtual devices may include 
                         virtual storage devices and virtual network devices<a id="period_194" href="#period_194">. </a>Some of the access control restrictions must be enforced
                         internal to Service VMs, as may be the case for isolating virtual networks<a id="period_195" href="#period_195">. </a>
@@ -888,24 +888,25 @@ The following sections list Common Criteria and technology terms used in this do
                         hypercall interface and gain control of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr><a id="period_206" href="#period_206">. </a>The vendor must release patches for 
                         vulnerabilities as soon as practicable after discovery<a id="period_207" href="#period_207">. </a>                    </dd><dt class="SO,defined" id="O.PLATFORM_INTEGRITY">O.PLATFORM_INTEGRITY</dt><dd>The integrity of the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> depends on the integrity of the hardware and software on 
                         which the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> relies<a id="period_208" href="#period_208">. </a>Although the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> does not have complete control over the integrity of 
-                        the platform, the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> should as much as possible try to ensure that no users or software hosted by the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is 
-                        capable of undermining the integrity of the platform<a id="period_209" href="#period_209">. </a>                    </dd><dt class="SO,defined" id="O.DOMAIN_INTEGRITY">O.DOMAIN_INTEGRITY</dt><dd>While the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is not responsible for the contents or correct functioning of software that runs within 
+                        the platform, the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> should as much as possible try to ensure that no users or software hosted by the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> can 
+                        undermine the integrity of the platform<a id="period_209" href="#period_209">. </a>                    </dd><dt class="SO,defined" id="O.DOMAIN_INTEGRITY">O.DOMAIN_INTEGRITY</dt><dd>While the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> is not responsible for the contents or correct functioning of software that runs within 
                         Guest VMs, it is responsible for ensuring that the correct functioning of the software 
                         within a Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> is not interfered with by other VMs<a id="period_210" href="#period_210">. </a>                    </dd><dt class="SO,defined" id="O.MANAGEMENT_ACCESS">O.MANAGEMENT_ACCESS</dt><dd><abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions include <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr> configuration, virtualized 
-                        network configuration, allocation of physical resources, and reporting<a id="period_211" href="#period_211">. </a>Only certain authorized system users 
-                        (administrators) are allowed to exercise management functions<a id="period_212" href="#period_212">. </a><br><br>
+                        network configuration, allocation of physical resources, and reporting<a id="period_211" href="#period_211">. </a>Only authorized users 
+                        (administrators) may exercise management functions<a id="period_212" href="#period_212">. </a><p></p>
                         Because of the privileges exercised by the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions, it must not be possible 
                         for the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>&#8217;s management components to be compromised without administrator notification<a id="period_213" href="#period_213">. </a>
                         This means that unauthorized users cannot be permitted access to the management functions, and the management 
                         components must not be interfered with by Guest VMs or unprivileged users on other 
-                        networks&#8212;including operational networks connected to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a id="period_214" href="#period_214">. </a><br><br> VMMs include a set of management functions that collectively allow administrators 
+                        networks&#8212;including operational networks connected to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a id="period_214" href="#period_214">. </a><p></p> 
+			VMMs include a set of management functions that collectively allow administrators 
                         to configure and manage the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr>, as well as configure Guest VMs<a id="period_215" href="#period_215">. </a>These 
-                        management functions are specific to the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>, distinct from any other management functions 
+                        management functions are specific to the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> and are distinct from any other management functions 
                         that might exist for the internal management of any given Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr><a id="period_216" href="#period_216">. </a>These 
                         <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions are privileged, with the security of the entire system relying on 
                         their proper use<a id="period_217" href="#period_217">. </a>The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> management functions can be classified into different categories 
-                        and the policy for their use and the impact to security may vary accordingly<a id="period_218" href="#period_218">. </a><br><br>
-                        The management functions might be distributed throughout the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> (within the 
+                        and the policy for their use and the impact to security may vary accordingly<a id="period_218" href="#period_218">. </a><p></p>
+                        The management functions are distributed throughout the <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> (within the 
                         <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> and Service VMs)<a id="period_219" href="#period_219">. </a>The <abbr class="dyn-abbr"><a href="#abbr_VMM">VMM</a></abbr> must support the necessary 
                         mechanisms to enable the control of all management functions according to the system security policy<a id="period_220" href="#period_220">. </a>When a 
                         management function is distributed among multiple Service VMs, the VMs 
@@ -940,7 +941,7 @@ The following sections list Common Criteria and technology terms used in this do
 			    of these accesses, or audit events, must be protected from modification, unauthorized access,
 			    and destruction<a id="period_242" href="#period_242">. </a>The audit log must be sufficiently detailed to indicate the date and time of
 			    the event, the identify of the user, the type of event, and the success or failure of the event<a id="period_243" href="#period_243">. </a>                    </dd><dt class="SO,defined" id="O.CORRECTLY_APPLIED_CONFIGURATION">O.CORRECTLY_APPLIED_CONFIGURATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not apply configurations that violate the current security policy<a id="period_244" href="#period_244">. </a>                        <br><br> The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must correctly apply configurations and policies 
-                        to newly created Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>, as well as to existing Guest VMs when 
+                        to a newly created Guest <abbr class="dyn-abbr"><a href="#abbr_VM">VM</a></abbr>, as well as to existing Guest VMs when 
                         applicable configuration or policy changes are made<a id="period_245" href="#period_245">. </a>All changes to configuration and to policy must conform 
                         to the existing security policy<a id="period_246" href="#period_246">. </a>Similarly, changes made to the configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
                         itself must not violate the existing security policy<a id="period_247" href="#period_247">. </a>                    </dd><dt class="SO,defined" id="O.RESOURCE_ALLOCATION">O.RESOURCE_ALLOCATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will provide mechanisms that enforce constraints on the allocation of 
@@ -951,7 +952,7 @@ The following sections list Common Criteria and technology terms used in this do
         <h3 class="indexable" data-level="2" id="s-secobjoe">4.2 Security Objectives for the Operational Environment</h3>
             <dl><dt class="SOE,defined" id="OE.CONFIG">OE.CONFIG</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> administrators will configure the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> correctly to create the intended security
 						policy<a id="period_249" href="#period_249">. </a>                    </dd><dt class="SOE,defined" id="OE.PHYSICAL">OE.PHYSICAL</dt><dd>Physical security, commensurate with the value of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the data it contains, is provided by 
-						the environment<a id="period_250" href="#period_250">. </a>                    </dd><dt class="SOE,defined" id="OE.TRUSTED_ADMIN">OE.TRUSTED_ADMIN</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Administrators are trusted to follow and apply all administrator guidance in a trusted manner<a id="period_251" href="#period_251">. </a>                    </dd><dt class="SOE,defined" id="OE.NON_MALICIOUS_USER">OE.NON_MALICIOUS_USER</dt><dd>Users are trusted to be not willfully negligent or hostile and use the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> in compliance with the
+						the environment<a id="period_250" href="#period_250">. </a>                    </dd><dt class="SOE,defined" id="OE.TRUSTED_ADMIN">OE.TRUSTED_ADMIN</dt><dd><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Administrators are trusted to follow and apply all administrator guidance in a trusted manner<a id="period_251" href="#period_251">. </a>                    </dd><dt class="SOE,defined" id="OE.NON_MALICIOUS_USER">OE.NON_MALICIOUS_USER</dt><dd>Users are trusted to not be willfully negligent or hostile and use the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> in compliance with the
 						applied enterprise security policy and guidance<a id="period_252" href="#period_252">. </a>                    </dd></dl>
         
 	    
