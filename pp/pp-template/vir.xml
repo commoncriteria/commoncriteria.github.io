@@ -53,7 +53,7 @@
 <!-- TITLE PAGE -->
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" target-products="Virtualization Systems"
-    xmlns:sec="https://niap-ccevs.org/cc/v1/section"
+    xmlns:sec="https://niap-ccevs.org/cc/v1/section" short="Virtualization"
     xmlns:h="http://www.w3.org/1999/xhtml" boilerplate="yes">
     <PPReference>
         <ReferenceTable>
@@ -518,12 +518,12 @@
                     <description>
                         Functions performed by the management layer include VM configuration, virtualized network configuration, 
 			    allocation of physical resources, and reporting. Only certain authorized system users (administrators) 
-			    are allowed to exercise management functions.<h:br></h:br><h:br></h:br>
+			    are allowed to exercise management functions or obtain sensitive information from the TOE.<h:br></h:br><h:br></h:br>
                         Virtualization Systems are often managed remotely over communication networks. Members of these networks can
 			    be both geographically and logically separated from each other, and pass through a variety of other 
 			    systems which may be under the control of an adversary, and offer the opportunity for communications to be
 			    compromised. An adversary with access to an open management network could inject commands into the
-			    management infrastructure. This would provide an adversary with administrator privilege on the platform,
+			    management infrastructure or extract sensitive information. This would provide an adversary with administrator privilege on the platform,
 			    and administrative control over the VMs and virtual network connections. The adversary could also gain
 			    access to the management network by hijacking the management network channel.
                     </description>
@@ -696,9 +696,11 @@
 					<addressed-by>FDP_PPR_EXT.1</addressed-by><rationale>Requires support for reducing attack surface through disabling access to unneeded physical platform resources.</rationale>
 					<addressed-by>FDP_VMS_EXT.1</addressed-by><rationale>Ensures that authorized data transfers between VMs are done securely.</rationale>
 					<addressed-by>FDP_VNC_EXT.1</addressed-by><rationale>Ensures that network traffic is visible only to VMs configured to be that network.</rationale>
+					<addressed-by>FPT_DDI_EXT.1</addressed-by><rationale>Requires that physical device drivers be isolated other parts of the TOE and from one another (optional).</rationale>
 					<addressed-by>FPT_EEM_EXT.1</addressed-by><rationale>Requires that the TOE use security mechanisms supported by the physical platform.</rationale>
 					<addressed-by>FPT_HAS_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported virtualization assists to reduce attack surface.</rationale>
 					<addressed-by>FPT_HCL_EXT.1</addressed-by><rationale>Requires that Hypercall parameters be validated.</rationale>
+					<addressed-by>FPT_ML_EXT.1</addressed-by><rationale>Requires measured launch of the platform and VMM (objective).</rationale>
 					<addressed-by>FPT_VDP_EXT.1</addressed-by><rationale>Requires validation of parameter data passed to the hardware abstraction by untrusted VMs.</rationale>
 					<addressed-by>FPT_VIV_EXT.1</addressed-by><rationale>Ensures that untrusted VMs cannot invoke privileged code without proper hypervisor mediation.</rationale>
                 </SO>
@@ -716,6 +718,7 @@
 					<addressed-by>FPT_EEM_EXT.1</addressed-by><rationale>Requires that the TOE use security mechanisms supported by the physical platform.</rationale>
 					<addressed-by>FPT_HAS_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported virtualization assists to reduce attack surface.</rationale>
 					<addressed-by>FPT_HCL_EXT.1</addressed-by><rationale>Requires that Hypercall parameters be validated.</rationale>
+					<addressed-by>FPT_ML_EXT.1</addressed-by><rationale>Requires measured launch of the platform and VMM (objective).</rationale>
 					<addressed-by>FPT_VDP_EXT.1</addressed-by><rationale>Requires validation of parameter data passed to the hardware abstraction by untrusted VMs.</rationale>
 					<addressed-by>FPT_VIV_EXT.1</addressed-by><rationale>Ensures that untrusted VMs cannot invoke privileged code without proper hypervisor mediation.</rationale>
 				</SO>
@@ -732,7 +735,9 @@
 					<addressed-by>FDP_VMS_EXT.1</addressed-by><rationale>Ensures that authorized data transfers between domains are done securely.</rationale>
 					<addressed-by>FDP_VNC_EXT.1</addressed-by><rationale>Ensures that network traffic is visible only to VMs configured to be that network.</rationale>
 					<addressed-by>FPT_EEM_EXT.1</addressed-by><rationale>Requires that the TOE use security mechanisms supported by the physical platform.</rationale>
+					<addressed-by>FPT_GVI_EXT.1</addressed-by><rationale>Requires that the TOE support Guest VM measurements and integrity checks (optional).</rationale>
 					<addressed-by>FPT_HAS_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported virtualization assists to reduce attack surface.</rationale>
+					<addressed-by>FPT_INT_EXT.1</addressed-by><rationale>Requires that the TOE support introspection into Guest VMs (optional).</rationale>
 					<addressed-by>FPT_RDM_EXT.1</addressed-by><rationale>Requires support for rules for switching removeable media between domains to reduce the chance of data spillage.</rationale>
 					<addressed-by>FPT_VDP_EXT.1</addressed-by><rationale>Requires validation of parameter data passed to the hardware abstraction by untrusted VMs.</rationale>
 					<addressed-by>FTP_UIF_EXT.1</addressed-by><rationale>Ensures that users are able to determine the domain with the current input focus.</rationale>
@@ -783,12 +788,18 @@
 					<addressed-by>FCS_CKM.1</addressed-by><rationale>Requires generation of asymmetric keys for trusted communications channels.</rationale>
 					<addressed-by>FCS_CKM.2</addressed-by><rationale>Requires establishment of cryptographic keys for trusted communications channels.</rationale>
 					<addressed-by>FCS_COP.1</addressed-by><rationale>Ensures proper functioning of cryptographic algorithms used to implement access controls.</rationale>
+					<addressed-by>FCS_HTTPS_EXT.1</addressed-by><rationale>Ensures that HTTPS trusted communications channels are implemented properly.</rationale>
+					<addressed-by>FCS_IPSEC_EXT.1</addressed-by><rationale>Ensures that IPsec trusted communications channels are implemented properly.</rationale>
 					<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>Requires that the TOE has access to high-quality entropy for cryptographic purposes.</rationale>
 					<addressed-by>FIA_AFL_EXT.1</addressed-by><rationale>Requires that the TOE detect failed authentication attempts for Administrator access.</rationale>
+					<addressed-by>FIA_PMG_EXT.1</addressed-by><rationale>Ensures that password-based administrator login is properly implemented.</rationale>
 					<addressed-by>FIA_UAU.5</addressed-by><rationale>Ensures that strong mechanisms are used for Administrator authentication.</rationale>
 					<addressed-by>FIA_UIA_EXT.1</addressed-by><rationale>Requires that Administrators be successfully authenticated before performing management functions.</rationale>
+					<addressed-by>FIA_X509_EXT.1</addressed-by><rationale>Ensures that certificate validation is implemented properly.</rationale>
+					<addressed-by>FIA_X509_EXT.2</addressed-by><rationale>Ensures that certificate-based authentication is implemented properly.t functions.</rationale>
 					<addressed-by>FMT_SMO_EXT.1</addressed-by><rationale>Requires that the TOE support having separate management and operational networks.</rationale>
 					<addressed-by>FTP_ITC_EXT.1</addressed-by><rationale>Ensures that trusted communications channels are implemented using good cryptography.</rationale>
+					<addressed-by>FTP_TRP.1</addressed-by><rationale>Ensures that certain communications use a trusted path.</rationale>
 				</SO>
                 <SO name="O.PATCHED_SOFTWARE">
                     <description>The VS must be updated and patched when needed in order to prevent the potential 
@@ -798,7 +809,9 @@
                         standards and protocols that help enhance the manageability of the VS as an IT product, enabling it to be 
                         integrated as part of a manageable network (e.g., reporting current patch level and patchability).
                     </description>
+					<addressed-by>FPT_IDV_EXT.1</addressed-by><rationale>Requires support for software identification labels (optional).</rationale>
 					<addressed-by>FPT_TUD_EXT.1</addressed-by><rationale>Requires support for product updates.</rationale>
+					<addressed-by>FPT_TUD_EXT.2</addressed-by><rationale>Specifies requirements for certificate-based code signing for update.</rationale>
                 </SO>
                 <SO name="O.VM_ENTROPY">
                     <description>VMs must have access to good entropy sources to support security-related features 
@@ -816,7 +829,9 @@
 			    and destruction. The audit log must be sufficiently detailed to indicate the date and time of
 			    the event, the identify of the user, the type of event, and the success or failure of the event.
                     </description>
+					<addressed-by>FAU_ARP.1</addressed-by><rationale>Requires support for automatic responses to audit events (optional).</rationale>
 					<addressed-by>FAU_GEN.1</addressed-by><rationale>Requires reporting of audit events.</rationale>
+					<addressed-by>FAU_SAA.1</addressed-by><rationale>Requires support for rules for indicating security violations based on audit events (optional).</rationale>
 					<addressed-by>FAU_SAR.1</addressed-by><rationale>Requires support for Administrator review of audit records.</rationale>
 					<addressed-by>FAU_STG.1</addressed-by><rationale>Requires protection of stored audit records.</rationale>
 					<addressed-by>FAU_STG_EXT.1</addressed-by><rationale>Requires support for protected transmission of audit records off the TOE.</rationale>
@@ -1039,7 +1054,7 @@
 		    
                 
                 <!-- FAU_SAA.1 -->
-                <f-component cc-id="fau_saa.1" name="Potential Violation Analysis"  status="optional">
+                <f-component cc-id="fau_saa.1" name="Security Audit Analysis"  status="optional">
                     <f-element id="fau-saa-1e1">
                         <title>The TSF shall be able to apply a set of rules in monitoring the audited events and based upon these
 							rules indicate a potential violation of the enforcement of the SFRs.
@@ -1074,7 +1089,7 @@
                 <!-- FAU_SAR.1 -->
                 <f-component cc-id="fau_sar.1" name="Audit Review">
                     <f-element id="fau-sar-1e1">
-                        <title>The TSF shall provide [administrators] with the capability to read [all information] from the audit records.
+			    <title>The TSF shall provide [<h:i>administrators</h:i>] with the capability to read [<h:i>all information</h:i>] from the audit records.
                         </title>
                     </f-element>
                     <f-element id="fau-sar-1e2">
@@ -1103,7 +1118,7 @@
                         </title>
                     </f-element> 
                     <f-element id="fau-stg-1e2">
-                        <title>The TSF shall be able to [prevent] unauthorized modifications to the stored audit records in the audit trail.
+			    <title>The TSF shall be able to [<h:i>prevent</h:i>] unauthorized modifications to the stored audit records in the audit trail.
                         </title>
                         <note role="application">The evaluation activity for this SFR is not intended to imply that the TOE must
 							support an administrator’s ability to designate individual audit records for deletion. That level 
@@ -1406,8 +1421,8 @@
                 <!-- FCS_CKM.2 -->
                 <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment">
                     <f-element id="fcs-ckm-2e1">
-                        <title>The TSF shall <refinement>implement functionality to perform cryptographic key establishment</refinement> in
-				accordance with a specified cryptographic key <refinement>establishment</refinement> method:
+			    <title>The TSF shall <h:s>distribute cryptographic keys</h:s> <refinement>implement functionality to perform cryptographic
+				    key establishment</refinement> in accordance with a specified cryptographic key establishment method:
                             <selectables linebreak="yes">
                                 <selectable>RSA-based key establishment schemes that meets the following: RSAES-PKCS1-v1_5 as specified in
 					Section 7.2 of RFC 8017, “Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.2"</selectable>
@@ -1502,10 +1517,7 @@
 					<comp-lev>requires the TSF to destroy or make unrecoverable empty keys in volatile and 
 						non-volatile memory. Note that component level 4 is used here because of this
 						component’s similarity to the CC Part 2 component FCS_CKM.4.</comp-lev>
-					<management>The following actions could be considered for the management functions in0 FMT:
-						<h:ol type="a">
-							<h:li>Managing the cryptographic functionality.</h:li>
-						</h:ol>
+					<management>No specific management functions are identified.
 					</management>
 					<audit>There are no auditable events foreseen.</audit>
 					<dependencies>[FCS_CKM.1 Cryptographic Key Generation, or<h:p/>
@@ -1607,7 +1619,7 @@
 				<!-- FCS_COP.1/Hash (formerly FCS_COP.1(2)) -->
                 <f-component cc-id="fcs_cop.1" iteration="Hash" name="Cryptographic Operation (Hashing)">
                     <f-element id="fcs-cop-1e1-hash">
-                        <title>The TSF shall perform [cryptographic hashing] in accordance with a specified cryptographic algorithm
+			    <title>The TSF shall perform [<h:i>cryptographic hashing</h:i>] in accordance with a specified cryptographic algorithm
                             <selectables>
                                 <selectable id="sel-hash-sha-1">SHA-1</selectable>
                                 <selectable id="sel-hash-sha-256">SHA-256</selectable>
@@ -1908,7 +1920,7 @@
                 <f-component cc-id="fcs_cop.1" iteration="UDE" name="Cryptographic Operation (AES Data Encryption/Decryption)">
                     <f-element id="fcs-cop-1e1-ude">
                         <title>
-                            The TSF shall perform [encryption and decryption] in accordance with a specified cryptographic algorithm<h:br></h:br>
+				The TSF shall perform [<h:i>encryption and decryption</h:i>] in accordance with a specified cryptographic algorithm<h:br></h:br>
                             <selectables linebreak="yes">
                                 <selectable id="sel-ude-aes-kw">AES Key Wrap (KW) (as defined in NIST SP 800-38F)</selectable>
                                 <selectable id="sel-ude-aes-kwp">AES Key Wrap with Padding (KWP) (as defined in NIST SP 800-38F)</selectable>
@@ -2393,11 +2405,7 @@
 					<depends on-sel="sel-x509-2-ipsec"/>
 					<consistency-rationale/>
 					<comp-lev>requires that IPsec be implemented as specified.</comp-lev>
-					<management>The following actions could be considered for the management 
-						functions in FMT: 
-						<h:ol type="a">
-							<h:li>Managing the cryptographic functionality.</h:li>
-						</h:ol>
+					<management>No specific management functions are identified.
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data 
 						generation is included in the PP/ST:
@@ -3515,7 +3523,6 @@
 						functions in FMT:
 						<h:ol type="a">
 							<h:li>Ability to configure inter-VM data sharing.</h:li>
-							<h:li>Ability to configure virtual networking.</h:li>
 						</h:ol>
 					</management>
 					<audit>There are no auditable events foreseen.</audit>
@@ -3711,13 +3718,12 @@
 						in FMT:
 						<h:ol type="a">
 							<h:li>Ability to configure lockout policy through unsuccessful authentication attempts.</h:li>
-							<h:li>Ability to unlock a locked administrator account.</h:li>
 						</h:ol>
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data generation is 
 						included in the PP/ST: 
 						<h:ol type="a">
-							<h:li>Threshold reached for successive failed authentication attempts.</h:li>
+							<h:li>Unsuccessful login attempts limit is met or exceeded.</h:li>
 						</h:ol>
 					</audit>
 					<dependencies>FIA_UIA_EXT.1 Administrator Identification and Authentication<h:p/>
@@ -3902,7 +3908,7 @@
                         </note>
                     </f-element>
                     <f-element id="fia-uau-5e2">
-                        <title>The TSF shall authenticate any Administrator’s claimed identity according to the <assignable>rules
+                        <title>The TSF shall authenticate any <refinement>Administrator’s</refinement> claimed identity according to the <assignable>rules
 							describing how the multiple authentication mechanisms provide authentication</assignable>.
                         </title>
                         <aactivity>
@@ -4032,7 +4038,7 @@
 					<comp-lev>defines how the TSF must validate X.509 certificates that are presented to it.</comp-lev>
 					<management>The following actions could be considered for the management functions in FMT:
 						<h:ol type="a">
-							<h:li>Configuration of certificate revocation checking method.</h:li>
+							<h:li>Configuration of action to take if unable to determine the validity of a certificate.</h:li>
 						</h:ol>
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data
@@ -4598,7 +4604,7 @@
                 </f-component>
 
                 <!-- FPT_HCL_EXT.1 -->
-                <f-component cc-id="fpt_hcl_ext.1" name="Hypercall Functions">
+                <f-component cc-id="fpt_hcl_ext.1" name="Hypercall Controls">
 					<consistency-rationale/>
 					<comp-lev>requires the TSF to implement appropriate parameter validation
 						to protect the VMM from unauthorized access through a hypercall interface.</comp-lev>
@@ -4606,8 +4612,8 @@
 					<audit>The following actions should be auditable if FAU_GEN Security
 						audit data generation is included in the PP/ST:
 						<h:ol type="a">
-							<h:li>Attempts to invoke Hypercall interfaces using illegal input values.</h:li>
-							<h:li>Attempts to invoke Hypercall interfaces when documented preconditions are not met.</h:li>
+							<h:li>Invalid parameter to hypercall detected.</h:li>
+							<h:li>Hypercall interface invoked when documented preconditions are not met.</h:li>
 						</h:ol>
 					</audit>
 					<dependencies>FMT_SMR.1 Security Roles</dependencies>
@@ -5066,7 +5072,7 @@
                 <!-- FPT_VDP_EXT.1 -->
                 <f-component cc-id="fpt_vdp_ext.1" name="Virtual Device Parameters">
 					<consistency-rationale/>
-					<comp-lev>, requires the TSF to interface with Guest VMs through virtual hardware abstractions
+					<comp-lev>requires the TSF to interface with Guest VMs through virtual hardware abstractions
 						so that any data transmitted to the TOE from a Guest VM can be validated 
 						as well-formed.</comp-lev>
 					<management>No specific management functions are identified.</management>
@@ -5211,11 +5217,7 @@
 					<consistency-rationale/>
 					<comp-lev>requires the TSF to implement one or more cryptographic protocols
 						to secure connectivity between the TSF and various external entities.</comp-lev>
-					<management>The following actions could be considered for the
-						management functions in FMT:
-						<h:ol type="a">
-							<h:li>Ability to configure the cryptographic functionality.</h:li>
-						</h:ol>
+					<management>No specific management functions are identified.
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data
 						generation is included in the PP/ST:
@@ -5234,7 +5236,7 @@
                                 <selectable id="sel-itc-https">TLS/HTTPS as conforming to FCS_HTTPS_EXT.1</selectable>
                                 <selectable id="sel-itc-ipsec">IPsec as conforming to FCS_IPSEC_EXT.1</selectable>
                                 <selectable id="sel-itc-ssh">SSH as conforming to the
-					<h:a href="https://www.niap-ccevs.org/MMO/PP/-389-/"><h:i>Extended Package
+					<h:a href="https://www.niap-ccevs.org/MMO/PP/-459-/"><h:i>Functional Package
 					for Secure Shell</h:i></h:a></selectable>
                             </selectables>
 			    and
@@ -5269,7 +5271,7 @@
 				but if the product includes the capability to perform TLS with mutual authentication, then
 				mutual authentication must be included within the TOE boundary. The TLS Package requires that the X509 
 				requirements be included by the PP, so selection of TLS or HTTPS causes FIA_X509_EXT.* to be selected.<h:br></h:br><h:br></h:br>
-                            If the ST author selects SSH, the TSF shall be validated against the Extended Package for Secure Shell.<h:br/> <h:br/>
+                            If the ST author selects SSH, the TSF shall be validated against the Functional Package for Secure Shell.<h:br/> <h:br/>
 			    If the ST author selects "certificate-based authentication of the remote peer," then FIA_X509_EXT.1 and FIA_X509_EXT.2
 				must be included in the ST. "No authentication of the remote peer" should be selected only if the TOE is acting 
 				as a server in a non-mutual authentication configuration.<h:p/>			    
@@ -5331,19 +5333,19 @@
 			<depends on-sel="sel-mof-1e1-remote-client"><external-doc ref="client-virt"/></depends> 
 			<depends on-sel="sel-mof-1e1-remote-server"><external-doc ref="server-virt"/></depends>
                     <f-element id="ftp-trp-1e1">
-			    <title>The TSF shall use a <refinement>trusted</refinement> channel as specified in FTP_ITC_EXT.1 to provide 
-				    a <refinement>trusted</refinement> communication
-				    path between itself and [<h:i>remote</h:i>] administrators that is logically distinct from other communication
-				paths and provides assured identification of its end points and protection of the communicated data 
-				    from [<h:i>modification, disclosure</h:i>].
+			    <title>The TSF shall <refinement>use a trusted channel as specified in FTP_ITC_EXT.1 to</refinement> 
+				    provide a <refinement>trusted</refinement> communication path between itself and 
+				    [<h:i>remote</h:i>] <refinement>administrators</refinement> that is logically distinct from
+				    other communication paths and provides assured identification of its end points and 
+				    protection of the communicated data from [<h:i>modification, disclosure</h:i>].
                         </title>
                     </f-element>
                     <f-element id="ftp-trp-1e2">
-                        <title>The TSF shall permit remote administrators to initiate communication via the trusted path.
+			    <title>The TSF shall permit [<h:i>remote administrators</h:i>] to initiate communication via the trusted path.
                         </title>
                     </f-element>
 			<f-element id="ftp-trp-1e3">
-                        <title>The TSF shall require the use of the trusted path for [[all remote administration actions]].
+                        <title>The TSF shall require the use of the trusted path for [<h:i>[all remote administration actions]</h:i>].
                         </title>
                         <note role="application">
 				This SFR is included in the ST if "remote" is selected in FMT_MOF_EXT.1.1 of the client or server PP-Module.<h:p/>
@@ -5960,14 +5962,7 @@
 	
 	<!-- Appendix D: Implicity Satisfied Requirements -->
 	<appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
-	This appendix lists requirements that should be considered satisfied by products
-	successfully evaluated against this PP. These requirements are not featured
-	explicitly as SFRs and should not be included in the ST. They are not included as 
-	standalone SFRs because it would increase the time, cost, and complexity of evaluation.
-	This approach is permitted by [CC] Part 1, 8.2 Dependencies between components.<h:p/>
-	This information benefits systems engineering activities which call for inclusion of particular
-	security controls. Evaluation against the PP provides evidence that these controls are present 
-	and have been evaluated.<h:p/><h:p/>
+	<!-- Boilerplate goes here -->
 	<h:b><ctr ctr-type="Table" pre="Table " id="imp-sat-reqs-table">: Implicitly Satisfied Requirements</ctr></h:b>
     <h:table>	
 		<h:tr class="header"><h:td>Requirement</h:td><h:td>Rationale for Satisfaction</h:td></h:tr>
@@ -6292,7 +6287,7 @@
         <h:br />
         The guidance for Product Model (Section 3) specifies that Products intended for use on substantially different operating
           systems (e.g., Windows vs. Linux vs. SunOS) are different Models. Therefore, platforms running substantially different
-          operating systems are de facto not equivalent. Likewise, operating systems with different major version numbers are not
+          operating systems are not equivalent. Likewise, operating systems with different major version numbers are not
           equivalent for purposes of this PP.
         <h:br />
         <h:br />
@@ -6336,7 +6331,7 @@
     </section>
   </section>
 	    
-    <section id="s-specificity" title="Level of Specificity for Tested Configurations and Claimed Equivalent Configurations">
+    <section id="s-specificity" title="Level of Specificity for Tested and Claimed Equivalent Configurations">
       In order to make equivalency determinations, the vendor and evaluator must agree on the equivalency claims. They must
       then provide the scheme with sufficient information about the TOE instances and platforms that were evaluated, and the
       TOE instances and platforms that are claimed to be equivalent.
