@@ -53,15 +53,15 @@
 <!-- TITLE PAGE -->
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" target-products="Virtualization Systems"
-    xmlns:sec="https://niap-ccevs.org/cc/v1/section"
+    xmlns:sec="https://niap-ccevs.org/cc/v1/section" short="Virtualization"
     xmlns:h="http://www.w3.org/1999/xhtml" boilerplate="yes">
     <PPReference>
         <ReferenceTable>
             <PPTitle>Protection Profile for Virtualization</PPTitle>
-            <PPVersion>1.1-DRAFT</PPVersion>
+            <PPVersion>1.1</PPVersion>
             <PPAuthor>National Information Assurance Partnership</PPAuthor>
 <!--            <PPPubDate>2019-07-19</PPPubDate>  -->
-            <PPPubDate>2021-05-19</PPPubDate> 
+            <PPPubDate>2021-06-14</PPPubDate> 
             <Keywords>Virtualization</Keywords>
         </ReferenceTable>
     </PPReference>
@@ -153,11 +153,11 @@
 			terms of [CC] and to define security functional and assurance requirements for such products. This PP is not complete 
 			in itself, but rather provides a set of requirements that are common to the PP-Modules for Server
 			Virtualization and for Client Virtualization. These capabilities have been broken out into this generic ‘base’ PP due
-			to the high degree of similarity between the two product types.<h:br></h:br><h:br></h:br>
+			to the high degree of similarity between the two product types.<h:p/>
             Due to the increasing prevalence of virtualization technology in enterprise computing environments and the shift
 			to cloud computing, it is essential to ensure that this technology is implemented securely in order to mitigate
-			the risk introduced by sharing multiple computers and their data across a single physical system. 
-            <h:br></h:br>
+			the risk introduced by sharing multiple computers and their resident data across a single physical system. 
+            <h:br/>
 		</section>
 	    
 	<!-- 1.2 Terms -->
@@ -165,6 +165,7 @@
 	<!--  (boilerlate) -->
 	<!-- 1.2.2 Technical Terms -->
 		<tech-terms>
+		  <!-- <suppress>Distributed TOE</suppress>  -->
 		  <term full="Administrator">Administrators perform management activities on the VS. These management functions do not 
 			  include administration of software running within Guest VMs, such as the Guest OS. Administrators need not be human 
 			  as in the case of embedded or headless VMs. Administrators are often nothing more than software entities that 
@@ -216,8 +217,8 @@
 		  <term full="Management Network">A network, which may have both physical and virtualized components, used to manage and 
 			  administer a VS. Management networks include networks used by VS Administrators to communicate with management
 			  components of the VS, and networks used by the VS for communications between VS components. For purposes of this
-			  document, networks that connect physical hosts for purposes of VM transfer or coordinate, and backend storage 
-			  networks are considered management networks. </term>
+			  document, networks that connect physical hosts and backend storage networks for purposes of VM transfer or backup 
+			  are considered management networks. </term>
 		  <term full="Management Subsystem">Components of the VS that allow VS Administrators to configure and manage the VMM, as 
 			  well as configure Guest VMs. VMM management functions include VM configuration, virtualized network configuration,
 			  and allocation of physical resources.</term>
@@ -237,7 +238,7 @@
 			  services necessary to support Guest VMs. Service VMs may implement some portion of Hypervisor functionality, but 
 			  also may contain important system functionality that is not necessary for Hypervisor operation. As with any VM,
 			  Service VMs necessarily execute without full Hypervisor privileges—only the privileges required to perform its 
-			  designed functionality. Examples of Service VMs include device driver VMs that manage access to a physical devices,
+			  designed functionality. Examples of Service VMs include device driver VMs that manage access to physical devices,
 			  VMs that provide life-cycle management and provisioning of Hypervisor and Guest VMs, and name-service VMs that 
 			  help establish communication paths between VMs.</term>
 			  <term abbr="SP" full="Special Publication"/>
@@ -256,7 +257,7 @@
 			  VMs, and other components of the VS, such as virtual devices, binary translation systems, and physical device
 			  drivers. It manages concurrent execution of all VMs and virtualizes platform resources as needed.</term>
 		  <term full="Virtualization System" abbr="VS">A software product that enables multiple independent computing systems to 
-			  execute on the same physical hardware platform without interference from one other. For the purposes of this 
+			  execute on the same physical hardware platform without interference from one another. For the purposes of this 
 			  document, the VS consists of a Virtual Machine Manager (VMM), Virtual Machine abstractions, a management subsystem,
 			  and other components.</term>
 		</tech-terms>
@@ -264,28 +265,28 @@
 	<!-- 1.3 Compliant Targets of Evaluation -->
 		<section id="s-complianttargets" title="Compliant Targets of Evaluation">
 				A Virtualization System (VS) is a software product that enables multiple independent computing systems to execute on the 
-			same physical hardware platform without interference from one other. A VS creates a virtualized hardware environment
+			same physical hardware platform without interference from one another. A VS creates a virtualized hardware environment
 			(virtual machines or VMs) for each instance of an operating system permitting these environments to execute 
 			concurrently while maintaining isolation and the appearance of exclusive control over assigned computing resources.
 			For the purposes of this document, the VS consists of a Virtual Machine Manager (VMM), Virtual Machine (VM) 
-			abstractions, a management subsystem, and other components.<h:br></h:br><h:br></h:br>
+			abstractions, a management subsystem, and other components.<h:p/>
 				A VMM is a collection of software components responsible for enabling VMs to function as expected by the software
 			executing within them. Generally, the VMM consists of a Hypervisor, Service VMs, and other components of the VS,
 			such as virtual devices, binary translation systems, and physical device drivers. It manages concurrent execution of 
-			all VMs and virtualizes platform resources as needed.<h:br></h:br><h:br></h:br>
+			all VMs and virtualizes platform resources as needed.<h:p/>
 				The Hypervisor is the software executive of the physical platform of a VS. A hypervisor operates at 
 			the highest CPU privilege level and manages access to all of the physical resources of the hardware platform. It
 			exports a well-defined, protected interface for access to the resources it manages. A Hypervisor’s primary function is 
 			to mediate access to all CPU and memory resources, but it is also responsible for either the direct management or the
 			delegation of the management of all other hardware devices on the hardware platform. This document does not specify
-			any Hypervisor-specific requirements, though many VMM requirements would naturally apply to a Hypervisor.<h:br></h:br><h:br></h:br>
+			any Hypervisor-specific requirements, though many VMM requirements would naturally apply to a Hypervisor.<h:p/>
 				A Service VM is a VM whose purpose is to support the Hypervisor in providing the resources or services necessary to
 			support Guest VMs. Service VMs may implement some portion of Hypervisor functionality, but also may contain important
 			system functionality that is not necessary for Hypervisor operation. As with any VM, Service VMs necessarily execute
 			without full Hypervisor privileges—only the privileges required to perform its designed functionality. Examples of 
 			Service VMs include device driver VMs that manage access to physical devices, VMs that provide life-cycle management and 
 			provisioning of Hypervisor and Guest VMs, and name-service VMs that help establish 
-			communication paths between VMs.<h:br></h:br><h:br></h:br>
+			communication paths between VMs.<h:p/>
 				A Guest VM is a VM that contains a virtual environment for the execution of an independent computing system. Virtual 
 			environments execute mission workloads and implement customer-specific client or server functionality in Guest VMs, 
 			such as a web server or desktop productivity applications. A Helper VM is a VM that performs services on behalf of
@@ -298,7 +299,7 @@
 			be proper to classify the encryption VM as a Helper. But if the encryption VM is necessary for the VMM to isolate
 			Guest VMs, it would be proper to classify the encryption VM as a Service 
 			VM. For the purposes of this document, Helper VMs are subject to all requirements
-			that apply to Guest VMs, unless specifically stated otherwise.<h:br/><h:br/>
+			that apply to Guest VMs, unless specifically stated otherwise.<h:p/>
 			
 			<!-- 1.3.1 TOE Boundary -->
 			<section id="ss-toeboundary" title="TOE Boundary">
@@ -354,7 +355,7 @@
 
 		<!-- 1.4 Use Cases -->
 		<section id="s-usecases" title="Use Cases">
-            This base PP does not define any use cases for virtualization technology. Client Virtualization and Server Virtualization
+            This Base-PP does not define any use cases for virtualization technology. Client Virtualization and Server Virtualization
 			products have different use cases and so these are defined in their respective PP-Modules.
         </section>
 	</sec:Introduction>
@@ -369,15 +370,15 @@
 					as defined in the CC and CEM addenda for Exact Conformance, Selection-Based SFRs, and 
 					Optional SFRs (dated May 2017).<h:p/>
 					The following PPs and PP-Modules are allowed to be specified in a PP-Configuration with this PP-Module
-					this PP.<h:ul>
-						<h:li>PP-Module for Client Virtualization, Version 1.1</h:li>
-						<h:li>PP-Module for Server Virtualization, Version 1.1</h:li>
+					with this PP.<h:ul>
+						<h:li>PP-Module for Client Virtualization Systems, Version 1.1</h:li>
+						<h:li>PP-Module for Server Virtualization Systems, Version 1.1</h:li>
 					</h:ul>
 				</description>
 			</cclaim>
 			<cclaim name="CC Conformance Claims">
 				<description>
-					This PP is conformant to Parts 2 (extended) and 3 (conformant) of Common Criteria Version 3.1, 
+					This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, 
 					Release 5 [CC].
 				</description>
 			</cclaim>
@@ -517,12 +518,12 @@
                     <description>
                         Functions performed by the management layer include VM configuration, virtualized network configuration, 
 			    allocation of physical resources, and reporting. Only certain authorized system users (administrators) 
-			    are allowed to exercise management functions.<h:br></h:br><h:br></h:br>
+			    are allowed to exercise management functions or obtain sensitive information from the TOE.<h:br></h:br><h:br></h:br>
                         Virtualization Systems are often managed remotely over communication networks. Members of these networks can
 			    be both geographically and logically separated from each other, and pass through a variety of other 
 			    systems which may be under the control of an adversary, and offer the opportunity for communications to be
 			    compromised. An adversary with access to an open management network could inject commands into the
-			    management infrastructure. This would provide an adversary with administrator privilege on the platform,
+			    management infrastructure or extract sensitive information. This would provide an adversary with administrator privilege on the platform,
 			    and administrative control over the VMs and virtual network connections. The adversary could also gain
 			    access to the management network by hijacking the management network channel.
                     </description>
@@ -640,17 +641,17 @@
                         The VMM must support the necessary mechanisms to isolate the resources of all 
                         VMs. The VMM partitions a platform's physical resources for use by the 
                         supported virtual environments. Depending on customer requirements, a VM may need a completely 
-                        isolated environment with exclusive access to system resources, or share some of its resources with other 
+                        isolated environment with exclusive access to system resources or share some of its resources with other 
                         VMs. It must be possible to enforce a security policy that prohibits the transfer of data 
                         between VMs through shared devices. When the platform security policy allows the sharing of 
                         resources across VM boundaries, the VMM must ensure that all access to 
                         those resources is consistent with the policy. The VMM may delegate the responsibility for 
-                        the mediation of sharing of particular resources to select Service VMs; however in doing so, 
+                        the mediation of resource sharing to select Service VMs; however in doing so, 
                         it remains responsible for mediating access to the Service VMs, and each Service 
                         VM must mediate all access to any shared resource that has been delegated to it in 
                         accordance with the SSP.<h:br></h:br><h:br></h:br>
-                        Devices, whether virtual or physical, are resources requiring access control. The VMM must 
-                        enforce access control in accordance to system security policy. Physical devices are platform devices with 
+                        Both virtual and physical devices are resources requiring access control. The VMM must 
+                        enforce access control in accordance with system security policy. Physical devices are platform devices with 
                         access mediated via the VMM per the O.VMM_Integrity objective. Virtual devices may include 
                         virtual storage devices and virtual network devices. Some of the access control restrictions must be enforced
                         internal to Service VMs, as may be the case for isolating virtual networks. 
@@ -695,17 +696,19 @@
 					<addressed-by>FDP_PPR_EXT.1</addressed-by><rationale>Requires support for reducing attack surface through disabling access to unneeded physical platform resources.</rationale>
 					<addressed-by>FDP_VMS_EXT.1</addressed-by><rationale>Ensures that authorized data transfers between VMs are done securely.</rationale>
 					<addressed-by>FDP_VNC_EXT.1</addressed-by><rationale>Ensures that network traffic is visible only to VMs configured to be that network.</rationale>
+					<addressed-by>FPT_DDI_EXT.1</addressed-by><rationale>Requires that physical device drivers be isolated other parts of the TOE and from one another (optional).</rationale>
 					<addressed-by>FPT_EEM_EXT.1</addressed-by><rationale>Requires that the TOE use security mechanisms supported by the physical platform.</rationale>
 					<addressed-by>FPT_HAS_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported virtualization assists to reduce attack surface.</rationale>
 					<addressed-by>FPT_HCL_EXT.1</addressed-by><rationale>Requires that Hypercall parameters be validated.</rationale>
+					<addressed-by>FPT_ML_EXT.1</addressed-by><rationale>Requires measured launch of the platform and VMM (objective).</rationale>
 					<addressed-by>FPT_VDP_EXT.1</addressed-by><rationale>Requires validation of parameter data passed to the hardware abstraction by untrusted VMs.</rationale>
 					<addressed-by>FPT_VIV_EXT.1</addressed-by><rationale>Ensures that untrusted VMs cannot invoke privileged code without proper hypervisor mediation.</rationale>
                 </SO>
                 <SO name="O.PLATFORM_INTEGRITY">
                     <description>The integrity of the VMM depends on the integrity of the hardware and software on 
                         which the VMM relies. Although the VS does not have complete control over the integrity of 
-                        the platform, the VS should as much as possible try to ensure that no users or software hosted by the VS is 
-                        capable of undermining the integrity of the platform.
+                        the platform, the VS should as much as possible try to ensure that no users or software hosted by the VS can 
+                        undermine the integrity of the platform.
                     </description>
 					<addressed-by>FDP_HBI_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported mechanisms for access to physical devices.</rationale>
 					<addressed-by>FDP_PPR_EXT.1</addressed-by><rationale>Requires support for reducing attack surface through disabling access to unneeded physical platform resources.</rationale>
@@ -715,6 +718,7 @@
 					<addressed-by>FPT_EEM_EXT.1</addressed-by><rationale>Requires that the TOE use security mechanisms supported by the physical platform.</rationale>
 					<addressed-by>FPT_HAS_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported virtualization assists to reduce attack surface.</rationale>
 					<addressed-by>FPT_HCL_EXT.1</addressed-by><rationale>Requires that Hypercall parameters be validated.</rationale>
+					<addressed-by>FPT_ML_EXT.1</addressed-by><rationale>Requires measured launch of the platform and VMM (objective).</rationale>
 					<addressed-by>FPT_VDP_EXT.1</addressed-by><rationale>Requires validation of parameter data passed to the hardware abstraction by untrusted VMs.</rationale>
 					<addressed-by>FPT_VIV_EXT.1</addressed-by><rationale>Ensures that untrusted VMs cannot invoke privileged code without proper hypervisor mediation.</rationale>
 				</SO>
@@ -731,7 +735,9 @@
 					<addressed-by>FDP_VMS_EXT.1</addressed-by><rationale>Ensures that authorized data transfers between domains are done securely.</rationale>
 					<addressed-by>FDP_VNC_EXT.1</addressed-by><rationale>Ensures that network traffic is visible only to VMs configured to be that network.</rationale>
 					<addressed-by>FPT_EEM_EXT.1</addressed-by><rationale>Requires that the TOE use security mechanisms supported by the physical platform.</rationale>
+					<addressed-by>FPT_GVI_EXT.1</addressed-by><rationale>Requires that the TOE support Guest VM measurements and integrity checks (optional).</rationale>
 					<addressed-by>FPT_HAS_EXT.1</addressed-by><rationale>Requires that the TOE use platform-supported virtualization assists to reduce attack surface.</rationale>
+					<addressed-by>FPT_INT_EXT.1</addressed-by><rationale>Requires that the TOE support introspection into Guest VMs (optional).</rationale>
 					<addressed-by>FPT_RDM_EXT.1</addressed-by><rationale>Requires support for rules for switching removeable media between domains to reduce the chance of data spillage.</rationale>
 					<addressed-by>FPT_VDP_EXT.1</addressed-by><rationale>Requires validation of parameter data passed to the hardware abstraction by untrusted VMs.</rationale>
 					<addressed-by>FTP_UIF_EXT.1</addressed-by><rationale>Ensures that users are able to determine the domain with the current input focus.</rationale>
@@ -740,21 +746,21 @@
                 <SO name="O.MANAGEMENT_ACCESS">
                   
                     <description>VMM management functions include VM configuration, virtualized 
-                        network configuration, allocation of physical resources, and reporting. Only certain authorized system users 
-                        (administrators) are allowed to exercise management functions.<h:br></h:br><h:br></h:br>
+                        network configuration, allocation of physical resources, and reporting. Only authorized users 
+                        (administrators) may exercise management functions.<h:p/>
                         Because of the privileges exercised by the VMM management functions, it must not be possible 
                         for the VMM’s management components to be compromised without administrator notification. 
                         This means that unauthorized users cannot be permitted access to the management functions, and the management 
                         components must not be interfered with by Guest VMs or unprivileged users on other 
-                        networks—including operational networks connected to the TOE.<h:br></h:br><h:br>
-                        </h:br> VMMs include a set of management functions that collectively allow administrators 
+                        networks—including operational networks connected to the TOE.<h:p/> 
+			VMMs include a set of management functions that collectively allow administrators 
                         to configure and manage the VMM, as well as configure Guest VMs. These 
-                        management functions are specific to the VS, distinct from any other management functions 
+                        management functions are specific to the VS and are distinct from any other management functions 
                         that might exist for the internal management of any given Guest VM. These 
                         VMM management functions are privileged, with the security of the entire system relying on 
                         their proper use. The VMM management functions can be classified into different categories 
-                        and the policy for their use and the impact to security may vary accordingly.<h:br></h:br><h:br></h:br>
-                        The management functions might be distributed throughout the VMM (within the 
+                        and the policy for their use and the impact to security may vary accordingly.<h:p/>
+                        The management functions are distributed throughout the VMM (within the 
                         VMM and Service VMs). The VMM must support the necessary 
                         mechanisms to enable the control of all management functions according to the system security policy. When a 
                         management function is distributed among multiple Service VMs, the VMs 
@@ -782,12 +788,18 @@
 					<addressed-by>FCS_CKM.1</addressed-by><rationale>Requires generation of asymmetric keys for trusted communications channels.</rationale>
 					<addressed-by>FCS_CKM.2</addressed-by><rationale>Requires establishment of cryptographic keys for trusted communications channels.</rationale>
 					<addressed-by>FCS_COP.1</addressed-by><rationale>Ensures proper functioning of cryptographic algorithms used to implement access controls.</rationale>
+					<addressed-by>FCS_HTTPS_EXT.1</addressed-by><rationale>Ensures that HTTPS trusted communications channels are implemented properly.</rationale>
+					<addressed-by>FCS_IPSEC_EXT.1</addressed-by><rationale>Ensures that IPsec trusted communications channels are implemented properly.</rationale>
 					<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>Requires that the TOE has access to high-quality entropy for cryptographic purposes.</rationale>
 					<addressed-by>FIA_AFL_EXT.1</addressed-by><rationale>Requires that the TOE detect failed authentication attempts for Administrator access.</rationale>
+					<addressed-by>FIA_PMG_EXT.1</addressed-by><rationale>Ensures that password-based administrator login is properly implemented.</rationale>
 					<addressed-by>FIA_UAU.5</addressed-by><rationale>Ensures that strong mechanisms are used for Administrator authentication.</rationale>
 					<addressed-by>FIA_UIA_EXT.1</addressed-by><rationale>Requires that Administrators be successfully authenticated before performing management functions.</rationale>
+					<addressed-by>FIA_X509_EXT.1</addressed-by><rationale>Ensures that certificate validation is implemented properly.</rationale>
+					<addressed-by>FIA_X509_EXT.2</addressed-by><rationale>Ensures that certificate-based authentication is implemented properly.t functions.</rationale>
 					<addressed-by>FMT_SMO_EXT.1</addressed-by><rationale>Requires that the TOE support having separate management and operational networks.</rationale>
 					<addressed-by>FTP_ITC_EXT.1</addressed-by><rationale>Ensures that trusted communications channels are implemented using good cryptography.</rationale>
+					<addressed-by>FTP_TRP.1</addressed-by><rationale>Ensures that certain communications use a trusted path.</rationale>
 				</SO>
                 <SO name="O.PATCHED_SOFTWARE">
                     <description>The VS must be updated and patched when needed in order to prevent the potential 
@@ -797,7 +809,9 @@
                         standards and protocols that help enhance the manageability of the VS as an IT product, enabling it to be 
                         integrated as part of a manageable network (e.g., reporting current patch level and patchability).
                     </description>
+					<addressed-by>FPT_IDV_EXT.1</addressed-by><rationale>Requires support for software identification labels (optional).</rationale>
 					<addressed-by>FPT_TUD_EXT.1</addressed-by><rationale>Requires support for product updates.</rationale>
+					<addressed-by>FPT_TUD_EXT.2</addressed-by><rationale>Specifies requirements for certificate-based code signing for update.</rationale>
                 </SO>
                 <SO name="O.VM_ENTROPY">
                     <description>VMs must have access to good entropy sources to support security-related features 
@@ -815,7 +829,9 @@
 			    and destruction. The audit log must be sufficiently detailed to indicate the date and time of
 			    the event, the identify of the user, the type of event, and the success or failure of the event.
                     </description>
+					<addressed-by>FAU_ARP.1</addressed-by><rationale>Requires support for automatic responses to audit events (optional).</rationale>
 					<addressed-by>FAU_GEN.1</addressed-by><rationale>Requires reporting of audit events.</rationale>
+					<addressed-by>FAU_SAA.1</addressed-by><rationale>Requires support for rules for indicating security violations based on audit events (optional).</rationale>
 					<addressed-by>FAU_SAR.1</addressed-by><rationale>Requires support for Administrator review of audit records.</rationale>
 					<addressed-by>FAU_STG.1</addressed-by><rationale>Requires protection of stored audit records.</rationale>
 					<addressed-by>FAU_STG_EXT.1</addressed-by><rationale>Requires support for protected transmission of audit records off the TOE.</rationale>
@@ -823,7 +839,7 @@
                 <SO name="O.CORRECTLY_APPLIED_CONFIGURATION">
                     <description>The TOE must not apply configurations that violate the current security policy.
                         <h:br></h:br><h:br></h:br> The TOE must correctly apply configurations and policies 
-                        to newly created Guest VM, as well as to existing Guest VMs when 
+                        to a newly created Guest VM, as well as to existing Guest VMs when 
                         applicable configuration or policy changes are made. All changes to configuration and to policy must conform 
                         to the existing security policy. Similarly, changes made to the configuration of the TOE 
                         itself must not violate the existing security policy.
@@ -859,7 +875,7 @@
                     </description>
                 </SOE>
                 <SOE name="OE.NON_MALICIOUS_USER">
-                    <description>Users are trusted to be not willfully negligent or hostile and use the VS in compliance with the
+                    <description>Users are trusted to not be willfully negligent or hostile and use the VS in compliance with the
 						applied enterprise security policy and guidance.
                     </description>
                 </SOE>
@@ -889,6 +905,32 @@
 					<fam-behavior>This family defines requirements for the TSF to be able to securely 
 						transmit audit data between the TOE and an external IT entity.</fam-behavior>
 				</ext-comp-def>
+		    
+                <!-- FAU_ARP.1 -->
+                <f-component cc-id="fau_arp.1" name="Security Audit Automatic Response"  status="optional">
+                    <f-element id="fau-arp-1e1">
+                        <title>The TSF shall take <assignable>list of actions</assignable> upon detection of a potential security 
+							violation.
+                        </title>
+                        <note role="application">In certain cases, it may be useful for Virtualization Systems to perform automated
+							responses to certain security events. An example may include halting a VM which has taken some action
+							to violate a key system security policy. This may be especially useful with headless endpoints when
+							there is no human user in the loop.<h:br></h:br><h:br></h:br>
+                            The potential security violation mentioned in FAU_ARP.1.1 refers to FAU_SAA.1. </note>
+                        <aactivity>
+                            <Tests>
+                                The evaluator shall generate a potential security violation as defined in FAU_SAA.1 and verify 
+                                that each action in the assignment in FAU_ARP.1.1 is performed by the TSF as a 
+                                result. The evaluator shall perform this action for each security violation that is defined in 
+                                FAU_SAA.1.
+                            </Tests>
+                        </aactivity>
+                    </f-element>
+					<audit-event>   <!-- optional (Table 2) -->
+                        <audit-event-descr>Actions taken due to potential security violations.</audit-event-descr>
+					</audit-event>
+				</f-component>
+		    
 
 			<!-- FAU_GEN.1 -->
 			<f-component cc-id="fau_gen.1" name="Audit Data Generation">
@@ -983,16 +1025,16 @@
                                 The evaluator shall check the TSS and ensure that it lists all of the auditable events 
                                 and provides a format for audit records. Each audit record format type shall be covered, along with a 
                                 brief description of each field. The evaluator shall check to make sure that every audit event type 
-                                mandated by the PP-Configuration is described in the TSS.<h:br></h:br><h:br></h:br>
+                                mandated by the PP-Configuration is described in the TSS.<h:p/>
                             </TSS>
                             <Guidance>
                                 The evaluator shall also make a determination of the administrative actions that are relevant in the 
                                 context of this PP-Configuration. The evaluator shall examine the administrative guide and make a determination of which 
                                 administrative commands, including subcommands, scripts, and configuration files, are related to the 
                                 configuration (including enabling or disabling) of the mechanisms implemented in the TOE 
-                                that are necessary to enforce the requirements specified in the PP and PP-Module(s). The evaluator shall document the 
+                                that are necessary to enforce the requirements specified in the PP and PP-Modules. The evaluator shall document the 
                                 methodology or approach taken while determining which actions in the administrative guide are 
-                                security-relevant with respect to this PP-Configuration.<h:br></h:br><h:br></h:br>
+                                security-relevant with respect to this PP-Configuration.<h:p/>
                             </Guidance>
                             <Tests>
                                 The evaluator shall test the TOE’s ability to correctly generate audit records by 
@@ -1003,17 +1045,51 @@
                                 administrative guide, and that the fields in each audit record have the proper entries.<h:br></h:br>
                                 <h:br></h:br>
                                 Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms 
-                                directly.<h:br></h:br>
+                                directly.<h:p/>
                             </Tests>   
                         </aactivity>
                     </f-element>
 					<audit-event />
 				</f-component>
+		    
+                
+                <!-- FAU_SAA.1 -->
+                <f-component cc-id="fau_saa.1" name="Security Audit Analysis"  status="optional">
+                    <f-element id="fau-saa-1e1">
+                        <title>The TSF shall be able to apply a set of rules in monitoring the audited events and based upon these
+							rules indicate a potential violation of the enforcement of the SFRs.
+                        </title>
+                    </f-element>
+                    <f-element id="fau-saa-1e2">
+                        <title>The TSF shall enforce the following rules for monitoring audited events:
+                            <h:ol type="a">
+                                <h:li>Accumulation or combination of <assignable>subset of defined auditable events</assignable> known to indicate a
+					potential security violation;</h:li>
+                                <h:li><assignable>any other rules</assignable>.</h:li>
+                            </h:ol>
+                        </title>
+                        <note role="application">The potential security violation described in FAU_SAA.1 can be used as a trigger 
+							for automated responses as defined in FAU_ARP.1.</note>
+                        <aactivity>
+                            <Tests>
+                                The evaluator shall cause each combination of auditable events defined in FAU_SAA.1.2 to occur,
+                                and verify that a potential security violation is indicated by the TSF.
+                            </Tests>
+                        </aactivity>
+                    </f-element>
+					<audit-event> <!-- optional (table 2) -->
+                        <audit-event-descr>Enabling and disabling of any of the analysis mechanisms.</audit-event-descr>
+					</audit-event>
+					<audit-event>
+                        <audit-event-descr>Automated responses performed by the TSF.</audit-event-descr>
+					</audit-event>
+				</f-component>
+
                 
                 <!-- FAU_SAR.1 -->
                 <f-component cc-id="fau_sar.1" name="Audit Review">
                     <f-element id="fau-sar-1e1">
-                        <title>The TSF shall provide [administrators] with the capability to read [all information] from the audit records.
+			    <title>The TSF shall provide [<h:i>administrators</h:i>] with the capability to read [<h:i>all information</h:i>] from the audit records.
                         </title>
                     </f-element>
                     <f-element id="fau-sar-1e2">
@@ -1042,7 +1118,7 @@
                         </title>
                     </f-element> 
                     <f-element id="fau-stg-1e2">
-                        <title>The TSF shall be able to [prevent] unauthorized modifications to the stored audit records in the audit trail.
+			    <title>The TSF shall be able to [<h:i>prevent</h:i>] unauthorized modifications to the stored audit records in the audit trail.
                         </title>
                         <note role="application">The evaluation activity for this SFR is not intended to imply that the TOE must
 							support an administrator’s ability to designate individual audit records for deletion. That level 
@@ -1174,61 +1250,6 @@
 					</audit-event>
                 </f-component>
                 
-                <!-- FAU_ARP.1 -->
-                <f-component cc-id="fau_arp.1" name="Security Audit Automatic Response"  status="optional">
-                    <f-element id="fau-arp-1e1">
-                        <title>The TSF shall take <assignable>list of actions</assignable> upon detection of a potential security 
-							violation.
-                        </title>
-                        <note role="application">In certain cases, it may be useful for Virtualization Systems to perform automated
-							responses to certain security events. An example may include halting a VM which has taken some action
-							to violate a key system security policy. This may be especially useful with headless endpoints when
-							there is no human user in the loop.<h:br></h:br><h:br></h:br>
-                            The potential security violation mentioned in FAU_ARP.1.1 refers to FAU_SAA.1. </note>
-                        <aactivity>
-                            <Tests>
-                                The evaluator shall generate a potential security violation as defined in FAU_SAA.1 and verify 
-                                that each action in the assignment in FAU_ARP.1.1 is performed by the TSF as a 
-                                result. The evaluator shall perform this action for each security violation that is defined in 
-                                FAU_SAA.1.
-                            </Tests>
-                        </aactivity>
-                    </f-element>
-					<audit-event>   <!-- optional (Table 2) -->
-                        <audit-event-descr>Actions taken due to potential security violations.</audit-event-descr>
-					</audit-event>
-				</f-component>
-                
-                <!-- FAU_SAA.1 -->
-                <f-component cc-id="fau_saa.1" name="Security Audit Analysis"  status="optional">
-                    <f-element id="fau-saa-1e1">
-                        <title>The TSF shall be able to apply a set of rules in monitoring the audited events and based upon these
-							rules indicate a potential violation of the enforcement of the SFRs.
-                        </title>
-                    </f-element>
-                    <f-element id="fau-saa-1e2">
-                        <title>The TSF shall enforce the following rules for monitoring audited events:
-                            <h:ol type="a">
-                                <h:li>accumulation or combination of <assignable>subset of defined auditable events</assignable> known to indicate a potential security violation</h:li>
-                                <h:li><assignable>any other rules</assignable></h:li>
-                            </h:ol>
-                        </title>
-                        <note role="application">The potential security violation described in FAU_SAA.1 can be used as a trigger 
-							for automated responses as defined in FAU_ARP.1.</note>
-                        <aactivity>
-                            <Tests>
-                                The evaluator shall cause each combination of auditable events defined in FAU_SAA.1.2 to occur,
-                                and verify that a potential security violation is indicated by the TSF.
-                            </Tests>
-                        </aactivity>
-                    </f-element>
-					<audit-event> <!-- optional (table 2) -->
-                        <audit-event-descr>Enabling and disabling of any of the analysis mechanisms.</audit-event-descr>
-					</audit-event>
-					<audit-event>
-                        <audit-event-descr>Automated responses performed by the TSF.</audit-event-descr>
-					</audit-event>
-				</f-component>
             </section>
             
 			<!-- 5.1.3 Cryptographic Support (FCS) -->
@@ -1274,8 +1295,8 @@
                                 <selectable>
                                     ECC schemes using [“NIST curves” P-256, P-384, and
                                     <selectables>
-                                        <selectable> P-521 </selectable>
-                                        <selectable> no other curves </selectable>
+                                        <selectable>P-521</selectable>
+                                        <selectable>no other curves</selectable>
                                     </selectables>
                                     that meet the following: [FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]
                                     </selectable>
@@ -1304,7 +1325,7 @@
                             </TSS>
                             <Guidance>
                                 The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
-                                the TOE to use the selected key generation scheme(s) and key size(s) for all uses defined in this PP.
+                                the TOE to use the selected key generation schemes and key sizes for all uses defined in this PP.
                             </Guidance>
                             <Tests>
                                 Note: The following tests require the developer to provide access to a test platform that 
@@ -1333,31 +1354,31 @@
                                 </h:ul><h:br></h:br><h:br></h:br>
                                 To test the key generation method for the Random Provable primes method and for all the Primes with
 								Conditions methods, the evaluator shall seed the TSF key generation routine with sufficient data
-								to deterministically generate the RSA key pair. This includes the random seed(s), the public
+								to deterministically generate the RSA key pair. This includes the random seeds, the public
 								exponent of the RSA key, and the desired key length. For each key length supported, the evaluator
 								shall have the TSF generate 25 key pairs. The evaluator shall verify the correctness of the
 								TSF’s implementation by comparing values generated by the TSF with those generated from a known
 								good implementation.<h:br></h:br><h:br></h:br>
                                 <h:b>Key Generation for Elliptic Curve Cryptography (ECC)</h:b><h:br></h:br><h:br></h:br>
                                 <h:p> FIPS 186-4 ECC Key Generation Test</h:p><h:br></h:br><h:br></h:br>
-                                For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall require the
+                                For each supported NIST curve (i.e., P-256, P-384 and P-521) the evaluator shall require the
 								implementation under test (IUT) to generate 10 private/public key pairs. The private key shall
 								be generated using an approved random bit generator (RBG). To determine correctness, the evaluator
 								shall submit the generated key pairs to the public key verification (PKV) function of a known
 								good implementation.
                                 <h:br/>
                                 <h:p>FIPS 186-4 Public Key Verification (PKV) Test</h:p>
-                                For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall generate 10
+                                For each supported NIST curve (i.e., P-256, P-384 and P-521) the evaluator shall generate 10
 								private/public key pairs using the key generation function of a known good implementation and
 								modify five of the public key values so that they are incorrect, leaving five values unchanged
 								(i.e., correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.<h:br></h:br><h:br></h:br>
-                                <h:b>Key Generation for Finite-Field Cryptography (FFC)</h:b><h:br></h:br><h:br></h:br>
+                                <h:b>Key Generation for Finite-Field Cryptography (FFC)</h:b><h:p/>
                                 The evaluator shall verify the implementation of the Parameters Generation and the Key Generation for
 								FFC by the TOE using the Parameter Generation and Key Generation test. This test verifies the 
 								ability of the TSF to correctly produce values for the field prime p, the cryptographic prime q 
 								(dividing p-1), the cryptographic group generator g, and the calculation of the private key x and 
 								public key y.<h:br></h:br><h:br></h:br>
-											The Parameter generation specifies 2 ways (or methods) to generate the cryptographic prime q and the
+											The Parameter generation specifies two ways (or methods) to generate the cryptographic prime q and the
 								field prime p:<h:br></h:br><h:br></h:br>
                                 <h:ul>
                                     <h:li>Primes q and p shall both be provable primes</h:li>
@@ -1368,7 +1389,7 @@
                                     <h:li>Generator g constructed through a verifiable process</h:li>
                                     <h:li>Generator g constructed through an unverifiable process.</h:li>
                                 </h:ul>
-                                The Key generation specifies 2 ways to generate the private key x:
+                                The Key generation specifies two ways to generate the private key x:
                                 <h:ul>
                                     <h:li>len(q) bit output of RBG where  1 &#2264; x &#2264; q-1 <!-- the special characters 1 <=x <= q-1 --></h:li>
                                     <h:li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 1 &#2264; x &#2264; q-1 <!-- 1<= x<=q-1. --></h:li>
@@ -1390,7 +1411,7 @@
                                 </h:ul>
                                 for each FFC parameter set and key pair.<h:p/>
                                 <h:b>Diffie-Hellman Group 14 and FFC Schemes using "safe-prime" groups</h:b><h:br></h:br>
-				Testing for FFC Schemes using Diffie-Hellman group 14 and/or "safe-prime" groups is done as part of testing in FCS_CKM.2.1.<h:p/>				    
+				Testing for FFC Schemes using Diffie-Hellman group 14 and "safe-prime" groups is done as part of testing in FCS_CKM.2.1.<h:p/>				    
                             </Tests>
                         </aactivity>
                     </f-element>
@@ -1400,11 +1421,11 @@
                 <!-- FCS_CKM.2 -->
                 <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment">
                     <f-element id="fcs-ckm-2e1">
-                        <title>The TSF shall <refinement>implement functionality to perform cryptographic key establishment</refinement> in
-				accordance with a specified cryptographic key <refinement>establishment</refinement> method:
+			    <title>The TSF shall <h:s>distribute cryptographic keys</h:s> <refinement>implement functionality to perform cryptographic
+				    key establishment</refinement> in accordance with a specified cryptographic key establishment method:
                             <selectables linebreak="yes">
                                 <selectable>RSA-based key establishment schemes that meets the following: RSAES-PKCS1-v1_5 as specified in
-					Section 7.2 of RFC 8017, “Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.2</selectable>
+					Section 7.2 of RFC 8017, “Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.2"</selectable>
 				<selectable>Elliptic curve-based key establishment schemes that meets the following: NIST Special Publication 800-56A Revision 3,
 					“Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</selectable>
 				<selectable>Finite field-based key establishment schemes that meets the following: NIST Special Publication 800-56A Revision 3,
@@ -1422,7 +1443,7 @@
                             </TSS>
                             <Guidance>
                                 The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
-                                the TOE to use the selected key establishment scheme(s).<h:br></h:br><h:br></h:br>
+                                the TOE to use the selected key establishment schemes.<h:br></h:br><h:br></h:br>
                             </Guidance>
                             <Tests>
                                 The evaluator shall verify the implementation of the key establishment schemes of the supported by the TOE 
@@ -1441,15 +1462,15 @@
 					confirmation have been implemented correctly, using the test procedures described below. This includes
 					the parsing of the DKM, the generation of MACdata and the calculation of MACtag.<h:br></h:br><h:br></h:br>
                                 <h:i>Function Test</h:i><h:br></h:br><h:br></h:br>
-                                The Function test verifies the ability of the to implement the key agreement schemes correctly. To conduct 
+                                The Function test verifies the ability of the TOE to implement the key agreement schemes correctly. To conduct 
 					this test, the evaluator shall generate or obtain test vectors from a known good implementation of 
 					the TOE supported schemes. For each supported key agreement scheme-key agreement role combination, KDF
 					type, and, if supported, key confirmation role- key confirmation type combination, the tester shall 
 					generate 10 sets of test vectors. The data set consists of one set of domain parameter values (FFC) or 
-					the NIST approved curve (ECC) per 10 sets of public keys. These keys are static, ephemeral or both
+					the NIST approved curve (ECC) per 10 sets of public keys. These keys are static, ephemeral, or both
 					depending on the scheme being tested.<h:br></h:br><h:br></h:br>
-                                The evaluator shall obtain the DKM, the corresponding TOE’s public keys (static and/or ephemeral), the
-					MAC tag(s), and any inputs used in the KDF, such as the Other Information field OI and TOE id fields.<h:br></h:br><h:br></h:br>
+                                The evaluator shall obtain the DKM, the corresponding TOE’s public keys (static and ephemeral), the
+					MAC tags, and any inputs used in the KDF, such as the Other Information field OI and TOE ID fields.<h:br></h:br><h:br></h:br>
                                 If the TOE does not use a KDF defined in SP 800-56A, the evaluator shall obtain only the public keys 
 					and the hashed value of the shared secret.<h:br></h:br><h:br></h:br>
                                 The evaluator shall verify the correctness of the TSF’s implementation of a given scheme by using a 
@@ -1464,14 +1485,14 @@
 					implementation to determine which errors the TOE should be able to recognize. The evaluator
 					generates a set of 24 (FFC) or 30 (ECC) test vectors consisting of data sets including domain
 					parameter values or NIST approved curves, the evaluator’s public keys, the TOE’s public/private
-					key pairs, MACTag, and any inputs used in the KDF, such as the other info and TOE id fields.<h:br></h:br><h:br></h:br>
+					key pairs, MACTag, and any inputs used in the KDF, such as the other info and TOE ID fields.<h:br></h:br><h:br></h:br>
                                 The evaluator shall inject an error in some of the test vectors to test that the TOE recognizes
 					invalid key agreement results caused by the following fields being incorrect: the shared secret
 					value Z, the DKM, the other information field OI, the data to be MACed, or the generated MACTag.
 					If the TOE contains the full or partial (only ECC) public key validation, the evaluator will also 
 					individually inject errors in both parties’ static public keys, both parties’ ephemeral public
 					keys and the TOE’s static private key to assure the TOE detects errors in the public key 
-					validation function and/or the partial key validation function (in ECC only). At least two of the
+					validation function and the partial key validation function (in ECC only). At least two of the
 					test vectors shall remain unmodified and therefore should result in valid key agreement results
 					(they should pass).<h:br></h:br><h:br></h:br>
                                 The TOE shall use these modified test vectors to emulate the key agreement scheme using the 
@@ -1496,10 +1517,7 @@
 					<comp-lev>requires the TSF to destroy or make unrecoverable empty keys in volatile and 
 						non-volatile memory. Note that component level 4 is used here because of this
 						component’s similarity to the CC Part 2 component FCS_CKM.4.</comp-lev>
-					<management>The following actions could be considered for the management functions in0 FMT:
-						<h:ol type="a">
-							<h:li>Managing the cryptographic functionality.</h:li>
-						</h:ol>
+					<management>No specific management functions are identified.
 					</management>
 					<audit>There are no auditable events foreseen.</audit>
 					<dependencies>[FCS_CKM.1 Cryptographic Key Generation, or<h:p/>
@@ -1513,8 +1531,8 @@
                             The TSF must destroy or cause to be destroyed all copies of cryptographic keys created and
 							managed by the TOE once the keys are no longer needed. This requirement is the same for all instances
 							of keys within TOE volatile memory regardless of whether the memory is controlled by TOE manufacturer 
-							software or by 3rd party TOE modules. The evaluation activities are designed with flexibility to
-							address cases where the TOE manufacturer has limited insight into the behavior of 3rd party TOE 
+							software or by third-party TOE modules. The evaluation activities are designed with flexibility to
+							address cases where the TOE manufacturer has limited insight into the behavior of third-party TOE 
 							components.<h:br></h:br><h:br></h:br>
 							The preferred method for destroying keys in TOE volatile memory is by direct overwrite of the memory
 							occupied by the keys. The values used for overwriting can be all zeros, all ones, or any other pattern
@@ -1556,7 +1574,7 @@
 							the TOE’s control.<h:br></h:br><h:br></h:br>
                             But in cases where the TOE has insight into the non-volatile storage technologies used by the platform, 
 							or where the TOE can specify a preference or method for destroying keys, the destruction should be
-							executed by a single, direct overwrite consisting of pseudo-random data or a new key, by a repeating 
+							executed by a single, direct overwrite consisting of pseudorandom data or a new key, by a repeating 
 							pattern of any static value, or by a block erase.<h:br></h:br><h:br></h:br>
                             For keys stored on encrypted media, it is sufficient for the media encryption keys to be destroyed for 
 							all keys stored on the media to be considered destroyed.
@@ -1575,7 +1593,7 @@
 									builds (developmental, debug, or release) to demonstrate that keys are cleared correctly,
 									including all intermediate copies of the key that may have been created internally by the
 									TOE during normal cryptographic processing.</h:li>
-                                    <h:li>In cases where testing reveals that 3rd-party software modules or programming language
+                                    <h:li>In cases where testing reveals that third-party software modules or programming language
 									run-time environments do not properly overwrite keys, this fact must be documented. 
 									Likewise, it must be documented if there is no practical way to determine whether such
 									modules or environments destroy keys properly.</h:li>
@@ -1597,12 +1615,312 @@
                     </f-element>
 					<audit-event />
                 </f-component>
+		    
+				<!-- FCS_COP.1/Hash (formerly FCS_COP.1(2)) -->
+                <f-component cc-id="fcs_cop.1" iteration="Hash" name="Cryptographic Operation (Hashing)">
+                    <f-element id="fcs-cop-1e1-hash">
+			    <title>The TSF shall perform [<h:i>cryptographic hashing</h:i>] in accordance with a specified cryptographic algorithm
+                            <selectables>
+                                <selectable id="sel-hash-sha-1">SHA-1</selectable>
+                                <selectable id="sel-hash-sha-256">SHA-256</selectable>
+                                <selectable id="sel-hash-sha-384">SHA-384</selectable>
+                                <selectable id="sel-hash-sha-512">SHA-512</selectable>
+				<selectable id="sel-hash-sha-3-224">SHA-3-224</selectable>
+				<selectable id="sel-hash-sha-3-256">SHA-3-256</selectable>
+				<selectable id="sel-hash-sha-3-384">SHA-3-384</selectable>
+				<selectable id="sel-hash-sha-3-512">SHA-3-512</selectable>		    
+                            </selectables> and message digest sizes
+                            <selectables>
+                                <selectable>160</selectable>
+<!-- Is this a thing?		<selectable>224</selectable>    -->
+                                <selectable>256</selectable>
+                                <selectable>384</selectable>
+                                <selectable>512 bits</selectable>
+                            </selectables> that meet the following:
+							<selectables>
+								<selectable>FIPS PUB 180-4 "Secure Hash Standard"</selectable>
+								<selectable>ISO/IEC 10118-3:2018</selectable>
+							</selectables>   
+                        </title>
+                        <note role="application">
+                            Per NIST SP 800-131A, SHA-1 for generating digital signatures is no longer allowed, and SHA-1 for 
+							verification of digital signatures is strongly discouraged as there may be risk in accepting these
+							signatures. It is expected that vendors will implement SHA-2 algorithms in accordance with SP 800-131A.
+                            <h:br></h:br><h:br></h:br>
+                            The intent of this requirement is to specify the hashing function. The hash selection shall support the
+							message digest size selection. The hash selection should be consistent with the overall strength of
+							the algorithm used (for example, SHA 256 for 128-bit keys).
+                            <h:br></h:br><h:br></h:br>
+                        </note>
+                        <aactivity>
+                            <TSS>
+                                The evaluator shall check that the association of the hash function with other TSF 
+                                cryptographic functions (for example, the digital signature verification function) is documented 
+                                in the TSS.
+                            </TSS>
+                            <Guidance>
+                                The evaluator checks the AGD documents to determine that any configuration that is required to 
+                                be done to configure the functionality for the required hash sizes is present. 
+                            </Guidance>
+                            <Tests>
+								<h:b><h:u>SHA-1 and SHA-2 Tests</h:u></h:b>
+                                The TSF hashing functions can be implemented in one of two modes. The first mode is the byte-oriented
+								mode. In this mode the TSF only hashes messages that are an integral number of bytes in length;
+								i.e., the length (in bits) of the message to be hashed is divisible by 8. The second mode is the
+								bit-oriented mode. In this mode the TSF hashes messages of arbitrary length. As there are different
+								tests for each mode, an indication is given in the following sections for the bit-oriented vs. the
+								byte-oriented testmacs.
+                                <h:br></h:br><h:br></h:br>
+                                The evaluator shall perform all of the following tests for each hash algorithm implemented by the TSF
+								and used to satisfy the requirements of this PP.
+                                <h:br></h:br><h:br></h:br>
+                                The following tests require the developer to provide access
+								to a test platform that provides the evaluator with tools that are typically not found on factory 
+								products.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b>Short Messages Test Bit-oriented Mode</h:b><h:br></h:br><h:br></h:br>
+                                The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash
+								algorithm. The length of the messages range sequentially from 0 to m bits. The message text shall
+								be pseudorandomly generated. The evaluators compute the message digest for each of the messages
+								and ensure that the correct result is produced when the messages are provided to the TSF.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b>Short Messages Test Byte-oriented Mode</h:b><h:br></h:br><h:br></h:br>
+                                The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the 
+								hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each 
+								message being an integral number of bytes. The message text shall be pseudorandomly generated.
+								The evaluators compute the message digest for each of the messages and ensure that the correct
+								result is produced when the messages are provided to the TSF.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b>Selected Long Messages Test Bit-oriented Mode</h:b><h:br></h:br><h:br></h:br>
+                                The evaluators devise an input set consisting of m messages, where m is the block length
+                                of the hash algorithm. The length of the ith message is 512 + 99*i, where
+                                1 &#2264; i &#2264; m <!--   1 = i = m -->. The message text shall be pseudorandomly
+                                generated. The evaluators compute the message digest for each of the messages and ensure
+                                that the correct result is produced when the messages are provided to the TSF.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b>Selected Long Messages Test Byte-oriented Mode</h:b><h:br></h:br><h:br></h:br>
+                                The evaluators devise an input set consisting of m/8 messages,
+                                where m is the block length of the hash algorithm. The length of the ith message
+                                is 512 + 8*99*i, where 1 &#2264; i &#2264; m/8 <!--   1 = i = m/8-->.
+                                The message text shall be pseudorandomly generated. The evaluators compute the message
+                                digest for each of the messages and ensure that the correct result is produced when
+                                the messages are provided to the TSF.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b>Pseudorandomly Generated Messages Test</h:b><h:br></h:br><h:br></h:br>
+                                This test is for byte-oriented implementations only. The evaluators randomly generate a
+                                seed that is n bits long, where n is the length of the message digest produced by the
+                                hash function to be tested. The evaluators then formulate a set of 100 messages and
+                                associated digests by following the algorithm provided in Figure 1 of [SHAVS]. The
+                                evaluators then ensure that the correct result is produced when the messages are
+                                provided to the TSF.<h:br></h:br><h:br></h:br>
+								<h:b><h:u>SHA-3 Tests</h:u></h:b>
+								The tests below are derived from the The Secure Hash Algorithm-3 Validation System (SHA3VS), 
+								Updated: April 7, 2016, from the National Institute of Standards and Technology.<h:br/><h:br/>
+								For each SHA-3-XXX implementation, XXX represents d, the digest length in bits. The capacity, c,
+								is equal to 2d bits. The rate is equal to 1600-c bits.  <h:br/><h:br/>
+								The TSF hashing functions can be implemented with one of two orientations. The first is a bit-oriented
+								mode that hashes messages of arbitrary length. The second is a byte-oriented mode that hashes messages 
+								that are an integral number of bytes in length (i.e., the length (in bits) of the message to be
+								hashed is divisible by 8). Separate tests for each orientation are given below. <h:br/><h:br/>
+								The evaluator shall perform all of the following tests for each hash algorithm and orientation
+								implemented by the TSF and used to satisfy the requirements of this PP. The evaluator shall
+								compare digest values produced by a known-good SHA-3 implementation against those generated by
+								running the same values through the TSF.<h:br/><h:br/><h:br/><h:br/>
+								<h:b>Short Messages Test, Bit-oriented Mode</h:b><h:br/><h:br/>
+								The evaluators devise an input set consisting of rate+1 short messages. The length of the messages
+								ranges sequentially from 0 to rate bits. The message text shall be pseudorandomly generated. The
+								evaluators compute the message digest for each of the messages and ensure that the correct result
+								is produced when the messages are provided to the TSF. The message of length 0 is omitted if the
+								TOE does not support zero-length messages.<h:br/><h:br/><h:br/>
+								<h:b>Short Messages Test, Byte-oriented Mode</h:b><h:br/><h:br/>
+								The evaluators devise an input set consisting of rate/8+1 short messages. The length of the
+								messages ranges sequentially from 0 to rate/8 bytes, with each message being an integral number of 
+								bytes. The message text shall be pseudorandomly generated. The evaluators compute the message
+								digest for each of the messages and ensure that the correct result is produced when the messages
+								are provided to the TSF. The message of length 0 is omitted if the TOE does not support zero-length
+								messages.<h:br/><h:br/><h:br/>
+								<h:b>Selected Long Messages Test, Bit-oriented Mode</h:b><h:br/><h:br/>
+								The evaluators devise an input set consisting of 100 long messages ranging in size from 
+								rate+(rate+1) to rate+(100*(rate+1)), incrementing by rate+1. (For example, SHA-3-256 has a rate
+								of 1088 bits. Therefore, 100 messages will be generated with lengths 2177, 3266, …, 109988 bits.)
+								The message text shall be pseudorandomly generated. The evaluators compute the message digest for
+								each of the messages and ensure that the correct result is produced when the messages are provided
+								to the TSF.<h:br/><h:br/><h:br/>
+								<h:b>Selected Long Messages Test, Byte-oriented Mode</h:b><h:br/><h:br/>
+								The evaluators devise an input set consisting of 100 messages ranging in size from (rate+(rate+8))
+								to (rate+100*(rate+8)), incrementing by rate+8. (For example, SHA-3-256 has a rate of 1088 bits.
+								Therefore 100 messages will be generated of lengths 2184, 3280, 4376, …, 110688 bits.) The message
+								text shall be pseudorandomly generated. The evaluators compute the message digest for each of the
+								messages and ensure that the correct result is produced when the messages are provided to the TSF.<h:br/><h:br/><h:br/>
+								<h:b>Pseudorandomly Generated Messages Monte Carlo) Test, Byte-oriented Mode</h:b><h:br/><h:br/>
+								The evaluators supply a seed of d bits (where d is the length of the message digest produced by
+								the hash function to be tested. This seed is used by a pseudorandom function to generate 100,000 
+								message digests. One hundred of the digests (every 1000th digest) are recorded as checkpoints. The
+								TOE then uses the same procedure to generate the same 100,000 message digests and 100 checkpoint
+								values. The evaluators then compare the results generated to ensure that the correct result is
+								produced when the messages are generated by the TSF.<h:br/><h:br/>
+                            </Tests>
+                        </aactivity>
+                    </f-element>
+					<audit-event />
+                </f-component>
+		    
+                <!-- FCS_COP.1/KeyedHash (formerly FCS_COP.1(4)) -->
+				<!-- Added SHA-3 hashes 20190919 -->
+                <f-component cc-id="fcs_cop.1" iteration="KeyedHash" name="Cryptographic Operation (Keyed Hash Algorithms)">
+                    <f-element id="fcs-cop-1e1-keyedhash">
+                        <title>The TSF shall perform [<h:i>keyed-hash message authentication</h:i>] in accordance with a specified
+							cryptographic algorithm
+                            <selectables>
+                                <selectable id="sel-hmac-sha-1">HMAC-SHA-1</selectable>
+                                <selectable id="sel-hmac-sha-256">HMAC-SHA-256</selectable>
+                                <selectable id="sel-hmac-sha-384">HMAC-SHA-384</selectable>
+                                <selectable id="sel-hmac-sha-512">HMAC-SHA-512</selectable>
+				<selectable id="sel-hmac-sha-3-224">SHA-3-224</selectable>
+				<selectable id="sel-hmac-sha-3-256">SHA-3-256</selectable>
+				<selectable id="sel-hmac-sha-3-384">SHA-3-384</selectable>
+				<selectable id="sel-hmac-sha-3-512">SHA-3-512</selectable>		    
+			    </selectables>
+                            and cryptographic key sizes
+                            <assignable>key size (in bits) used in HMAC</assignable> and message digest sizes
+                            <selectables>
+                                <selectable>160</selectable>
+<!--                                <selectable>224</selectable>   -->
+				 <selectable>256</selectable>
+                                <selectable>384</selectable>
+                                <selectable>512 bits</selectable>
+                            </selectables>
+                            that meet the following:
+                            [<h:b><h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code," and FIPS Pub 180-4, “Secure Hash
+							Standard"</h:i></h:b>].
+                        </title>
+                        <note role="application">The selection in this requirement must be consistent with the key size specified for
+							the size of the keys used in conjunction with the keyed-hash message authentication.</note>
+                        <aactivity>
+                            <TSS>
+                                The evaluator shall examine the TSS to ensure that it specifies the following
+                                values used by the HMAC function: key length, hash function used, block size, and output MAC 
+                                length used.
+                            </TSS>
+                            <Tests> 
+                                The following tests require the developer to provide access to a test platform that provides the 
+								evaluator with tools that are typically not found on factory products.<h:br></h:br><h:br></h:br>
+                                For each of the supported parameter sets, the evaluator shall compose 15 sets of test data. Each set
+								shall consist of a key and message data. The evaluator shall have the TSF generate HMAC tags for 
+								these sets of test data. The resulting MAC tags shall be compared to the result of generating HMAC
+								tags with the same key and IV using a known good implementation.
+                            </Tests>
+                        </aactivity>
+			<rule id="keyedhash-alg-match-sha-1">
+                <description>If "<h:i><xref to="sel-hmac-sha-1"/></h:i>" is selected in FCS_COP.1/KeyedHash 
+						  then "<h:i><xref to="sel-hash-sha-1"/></h:i>" must be selected in FCS_COP.1.1/Hash.</description>
+                        <if><ref-id>sel-hmac-sha-1</ref-id></if><then><ref-id>sel-hash-sha-1</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-256">
+			  <description>If "<h:i><xref to="sel-hmac-sha-256"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-256"/></h:i>" 
+						must be selected in FCS_COP.1/Hash.</description>
+				<if><ref-id>sel-hmac-sha-256</ref-id></if><then><ref-id>sel-hash-sha-256</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-384">
+			  <description>If "<h:i><xref to="sel-hmac-sha-384"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-384"/></h:i>"
+                          must be selected in FCS_COP.1/Hash.</description>
+				<if><ref-id>sel-hmac-sha-384</ref-id></if><then><ref-id>sel-hash-sha-384</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-512">
+			  <description>If "<h:i><xref to="sel-hmac-sha-512"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-512"/></h:i>"
+                          must be selected in FCS_COP.1/Hash.</description>
+				<if><ref-id>sel-hmac-sha-512</ref-id></if><then><ref-id>sel-hash-sha-512</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-3-224">
+			  <description>If "<h:i><xref to="sel-hmac-sha-3-224"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-3-224"/></h:i>"
+                          must be selected in FCS_COP.1/Hash.</description>
+			<if><ref-id>sel-hmac-sha-3-224</ref-id></if><then><ref-id>sel-hash-sha-3-224</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-3-256">
+			  <description>If "<h:i><xref to="sel-hmac-sha-3-256"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-3-256"/></h:i>"
+                          must be selected in FCS_COP.1/Hash.</description>
+			<if><ref-id>sel-hmac-sha-3-256</ref-id></if><then><ref-id>sel-hash-sha-3-256</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-3-384">
+			  <description>If "<h:i><xref to="sel-hmac-sha-3-384"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-3-384"/></h:i>"
+                          must be selected in FCS_COP.1/Hash.</description>
+				<if><ref-id>sel-hmac-sha-3-384</ref-id></if><then><ref-id>sel-hash-sha-3-384</ref-id></then></rule>
+			<rule id="keyedhash-alg-match-sha-3-512">
+			  <description>If "<h:i><xref to="sel-hmac-sha-3-512"/></h:i>" is selected in FCS_COP.1/KeyedHash then "<h:i><xref to="sel-hash-sha-3-512"/></h:i>"
+                          must be selected in FCS_COP.1/Hash.</description>
+				<if><ref-id>sel-hmac-sha-3-512</ref-id></if><then><ref-id>sel-hash-sha-3-512</ref-id></then></rule>
+                    </f-element>
+		    <audit-event />
+                </f-component>
+ 		    
+		    
+                
+                <!-- FCS_COP.1/Sig (formerly FCS_COP.1(3)) -->
+				<!-- Added SHA-3 hashes 20190919 -->
+                <f-component cc-id="fcs_cop.1" iteration="Sig" name="Cryptographic Operation (Signature Algorithms)">
+                    <f-element id="fcs-cop-1e1-sig">
+                        <title>The TSF shall perform [<h:i>cryptographic signature services (generation and verification)</h:i>] in 
+							accordance with a specified cryptographic algorithm
+                            <selectables linebreak="yes">
+                                <selectable id="sel-sig-rsa">RSA schemes using cryptographic key sizes [2048-bit or greater] that meet
+									the following: [<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</h:i>]</selectable>
+                                <selectable id="sel-sig-ecdsa">ECDSA schemes using [“NIST curves” P-256, P-384 and
+                                    <selectables>
+                                        <selectable>P-521</selectable>
+                                        <selectable>no other curves</selectable>
+                                    </selectables>] that meet the following: [FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5]
+                                </selectable>
+                            </selectables>.
+                        </title>
+                        <note role="application">The ST Author should choose the algorithm implemented to perform digital signatures;
+							if more than one algorithm is available, this requirement should be iterated to specify the
+							functionality. For the algorithm chosen, the ST author should make the appropriate 
+							assignments/selections to specify the parameters that are implemented for that algorithm.
+                        </note>
+                        <aactivity>
+                            <Tests>
+                                The following tests require the developer to provide access to a test platform that provides the 
+								evaluator with tools that are typically not found on factory products.
+                                <h:br></h:br><h:br></h:br>
+								<h:b>ECDSA Algorithm Tests</h:b><h:br></h:br><h:br></h:br>
+                                <h:b><h:i>ECDSA FIPS 186-4 Signature Generation Test</h:i></h:b><h:br></h:br><h:br></h:br>
+                                For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator
+								shall generate 10 1024-bit long messages and obtain for each message a public key and the 
+								resulting signature values R and S. To determine correctness, the evaluator shall use the 
+								signature verification function of a known good implementation.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b><h:i>ECDSA FIPS 186-4 Signature Verification Test</h:i></h:b><h:br></h:br><h:br></h:br>
+                                For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator 
+								shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of
+								the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain 
+								in response a set of 10 PASS/FAIL values.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b>RSA Signature Algorithm Tests</h:b><h:br></h:br><h:br></h:br>
+                                <h:b><h:i>Signature Generation Test</h:i></h:b><h:br></h:br><h:br></h:br>
+                                The evaluator shall verify the implementation of RSA Signature Generation by the TOE using the
+								Signature Generation Test. To conduct this test, the evaluator shall generate or obtain 10 
+								messages from a trusted reference implementation for each modulus size/SHA combination supported
+								by the TSF. The evaluator shall have the TOE use their private key and modulus value to sign these
+								messages.
+                                <h:br></h:br><h:br></h:br>
+                                The evaluator shall verify the correctness of the TSF’s signature using a known good implementation
+								and the associated public keys to verify the signatures.
+                                <h:br></h:br><h:br></h:br>
+                                <h:b><h:i>Signature Verification Test</h:i></h:b><h:br></h:br><h:br></h:br>
+                                The evaluator shall perform the Signature Verification test to verify the ability of the TOE to
+								recognize another party’s valid and invalid signatures. The evaluator shall inject errors into 
+								the test vectors produced during the Signature Verification Test by introducing errors in some 
+								of the public keys e, messages, IR format, or signatures. The TOE attempts to verify the
+								signatures and returns success or failure.
+                                <h:br></h:br><h:br></h:br>
+                                The evaluator shall use these test vectors to emulate the signature verification test using the 
+								corresponding parameters and verify that the TOE detects these errors.
+							</Tests>
+                        </aactivity>
+                    </f-element>
+					<audit-event />
+                </f-component>
+                
        
                 <!-- FCS_COP.1/UDE (formerly FCS_COP.1(1)) -->
                 <f-component cc-id="fcs_cop.1" iteration="UDE" name="Cryptographic Operation (AES Data Encryption/Decryption)">
                     <f-element id="fcs-cop-1e1-ude">
                         <title>
-                            The TSF shall perform [encryption and decryption] in accordance with a specified cryptographic algorithm<h:br></h:br>
+				The TSF shall perform [<h:i>encryption and decryption</h:i>] in accordance with a specified cryptographic algorithm<h:br></h:br>
                             <selectables linebreak="yes">
                                 <selectable id="sel-ude-aes-kw">AES Key Wrap (KW) (as defined in NIST SP 800-38F)</selectable>
                                 <selectable id="sel-ude-aes-kwp">AES Key Wrap with Padding (KWP) (as defined in NIST SP 800-38F)</selectable>
@@ -1783,15 +2101,15 @@
 								a known good implementation.<h:br></h:br><h:br></h:br>
 								<h:b><h:u>XTS-AES Test</h:u></h:b><h:br></h:br><h:br></h:br>
                                 The evaluator shall test the encrypt functionality of XTS-AES for each combination of the following
-								input parameter lengths:<h:br></h:br><h:br></h:br>
+								input parameter lengths:<h:p/>
                                 <h:ul>
                                     <h:li>256 bit (for AES-128) and 512 bit (for AES-256) keys</h:li>
-                                    <h:li></h:li><h:b>Three data unit (i.e., plaintext) lengths.</h:b> One of the data unit lengths 
+                                    <h:li><h:b>Three data unit (i.e., plaintext) lengths.</h:b> One of the data unit lengths 
 								shall be a non-zero integer multiple of 128 bits, if supported. One of the data unit lengths
 								shall be an integer multiple of 128 bits, if supported. The third data unit length shall be 
 								either the longest supported data unit length or 2<h:sup>16</h:sup> bits, whichever is
-								smaller.
-                                </h:ul><h:br></h:br><h:br></h:br>
+								smaller.</h:li>
+                                </h:ul><h:p/>
                                 using a set of 100 (key, plaintext and 128-bit random tweak value) 3-tuples and obtain the ciphertext
 								that results from XTS-AES encrypt.<h:br></h:br><h:br></h:br>
                                 The evaluator may supply a data unit sequence number instead of the tweak value if the implementation
@@ -1953,305 +2271,9 @@
 				<audit-event />
 				</f-component>
                
-				<!-- FCS_COP.1/Hash (formerly FCS_COP.1(2)) -->
-                <f-component cc-id="fcs_cop.1" iteration="Hash" name="Cryptographic Operation (Hashing)">
-                    <f-element id="fcs-cop-1e1-hash">
-                        <title>The TSF shall perform [cryptographic hashing] in accordance with a specified cryptographic algorithm
-                            <selectables>
-                                <selectable id="sel-hash-sha-1">SHA-1</selectable>
-                                <selectable id="sel-hash-sha-256">SHA-256</selectable>
-                                <selectable id="sel-hash-sha-384">SHA-384</selectable>
-                                <selectable id="sel-hash-sha-512">SHA-512</selectable>
-				<selectable id="sel-hash-sha-3-224">SHA-3-224</selectable>
-				<selectable id="sel-hash-sha-3-256">SHA-3-256</selectable>
-				<selectable id="sel-hash-sha-3-384">SHA-3-384</selectable>
-				<selectable id="sel-hash-sha-3-512">SHA-3-512</selectable>		    
-                            </selectables> and message digest sizes
-                            <selectables>
-                                <selectable>160</selectable>
-<!-- Is this a thing?		<selectable>224</selectable>    -->
-                                <selectable>256</selectable>
-                                <selectable>384</selectable>
-                                <selectable>512 bits</selectable>
-                            </selectables> that meet the following:
-							<selectables>
-								<selectable>FIPS PUB 180-4 "Secure Hash Standard"</selectable>
-								<selectable>ISO/IEC 10118-3:2018</selectable>
-							</selectables>   
-                        </title>
-                        <note role="application">
-                            Per NIST SP 800-131A, SHA-1 for generating digital signatures is no longer allowed, and SHA-1 for 
-							verification of digital signatures is strongly discouraged as there may be risk in accepting these
-							signatures. It is expected that vendors will implement SHA-2 algorithms in accordance with SP 800-131A.
-                            <h:br></h:br><h:br></h:br>
-                            The intent of this requirement is to specify the hashing function. The hash selection shall support the
-							message digest size selection. The hash selection should be consistent with the overall strength of
-							the algorithm used (for example, SHA 256 for 128-bit keys).
-                            <h:br></h:br><h:br></h:br>
-                        </note>
-                        <aactivity>
-                            <TSS>
-                                The evaluator shall check that the association of the hash function with other TSF 
-                                cryptographic functions (for example, the digital signature verification function) is documented 
-                                in the TSS.
-                            </TSS>
-                            <Guidance>
-                                The evaluator checks the AGD documents to determine that any configuration that is required to 
-                                be done to configure the functionality for the required hash sizes is present. 
-                            </Guidance>
-                            <Tests>
-								<h:b><h:u>SHA-1 and SHA-2 Tests</h:u></h:b>
-                                The TSF hashing functions can be implemented in one of two modes. The first mode is the byteoriented
-								mode. In this mode the TSF only hashes messages that are an integral number of bytes in length;
-								i.e., the length (in bits) of the message to be hashed is divisible by 8. The second mode is the
-								bitoriented mode. In this mode the TSF hashes messages of arbitrary length. As there are different
-								tests for each mode, an indication is given in the following sections for the bitoriented vs. the
-								byteoriented testmacs.
-                                <h:br></h:br><h:br></h:br>
-                                The evaluator shall perform all of the following tests for each hash algorithm implemented by the TSF
-								and used to satisfy the requirements of this PP.
-                                <h:br></h:br><h:br></h:br>
-                                The following tests require the developer to provide access
-								to a test platform that provides the evaluator with tools that are typically not found on factory 
-								products.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b>Short Messages Test Bit-oriented Mode</h:b><h:br></h:br><h:br></h:br>
-                                The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash
-								algorithm. The length of the messages range sequentially from 0 to m bits. The message text shall
-								be pseudo-randomly generated. The evaluators compute the message digest for each of the messages
-								and ensure that the correct result is produced when the messages are provided to the TSF.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b>Short Messages Test Byte-oriented Mode</h:b><h:br></h:br><h:br></h:br>
-                                The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the 
-								hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each 
-								message being an integral number of bytes. The message text shall be pseudo-randomly generated.
-								The evaluators compute the message digest for each of the messages and ensure that the correct
-								result is produced when the messages are provided to the TSF.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b>Selected Long Messages Test Bit-oriented Mode</h:b><h:br></h:br><h:br></h:br>
-                                The evaluators devise an input set consisting of m messages, where m is the block length
-                                of the hash algorithm. The length of the ith message is 512 + 99*i, where
-                                1 &#2264; i &#2264; m <!--   1 = i = m -->. The message text shall be pseudo-randomly
-                                generated. The evaluators compute the message digest for each of the messages and ensure
-                                that the correct result is produced when the messages are provided to the TSF.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b>Selected Long Messages Test Byte-oriented Mode</h:b><h:br></h:br><h:br></h:br>
-                                The evaluators devise an input set consisting of m/8 messages,
-                                where m is the block length of the hash algorithm. The length of the ith message
-                                is 512 + 8*99*i, where 1 &#2264; i &#2264; m/8 <!--   1 = i = m/8-->.
-                                The message text shall be pseudo-randomly generated. The evaluators compute the message
-                                digest for each of the messages and ensure that the correct result is produced when
-                                the messages are provided to the TSF.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b>Pseudo-randomly Generated Messages Test</h:b><h:br></h:br><h:br></h:br>
-                                This test is for byte-oriented implementations only. The evaluators randomly generate a
-                                seed that is n bits long, where n is the length of the message digest produced by the
-                                hash function to be tested. The evaluators then formulate a set of 100 messages and
-                                associated digests by following the algorithm provided in Figure 1 of [SHAVS]. The
-                                evaluators then ensure that the correct result is produced when the messages are
-                                provided to the TSF.<h:br></h:br><h:br></h:br>
-								<h:b><h:u>SHA-3 Tests</h:u></h:b>
-								The tests below are derived from the The Secure Hash Algorithm-3 Validation System (SHA3VS), 
-								Updated: April 7, 2016, from the National Institute of Standards and Technology.<h:br/><h:br/>
-								For each SHA-3-XXX implementation, XXX represents d, the digest length in bits. The capacity, c,
-								is equal to 2d bits. The rate is equal to 1600-c bits.  <h:br/><h:br/>
-								The TSF hashing functions can be implemented with one of two orientations. The first is a bit-oriented
-								mode that hashes messages of arbitrary length. The second is a byte-oriented mode that hashes messages 
-								that are an integral number of bytes in length (i.e., the length (in bits) of the message to be
-								hashed is divisible by 8). Separate tests for each orientation are given below. <h:br/><h:br/>
-								The evaluator shall perform all of the following tests for each hash algorithm and orientation
-								implemented by the TSF and used to satisfy the requirements of this PP. The evaluator shall
-								compare digest values produced by a known-good SHA-3 implementation against those generated by
-								running the same values through the TSF.<h:br/><h:br/><h:br/><h:br/>
-								<h:b>Short Messages Test, Bit-oriented Mode</h:b><h:br/><h:br/>
-								The evaluators devise an input set consisting of rate+1 short messages. The length of the messages
-								ranges sequentially from 0 to rate bits. The message text shall be pseudo-randomly generated. The
-								evaluators compute the message digest for each of the messages and ensure that the correct result
-								is produced when the messages are provided to the TSF. The message of length 0 is omitted if the
-								TOE does not support zero-length messages.<h:br/><h:br/><h:br/>
-								<h:b>Short Messages Test, Byte-oriented Mode</h:b><h:br/><h:br/>
-								The evaluators devise an input set consisting of rate/8+1 short messages. The length of the
-								messages ranges sequentially from 0 to rate/8 bytes, with each message being an integral number of 
-								bytes. The message text shall be pseudo-randomly generated. The evaluators compute the message
-								digest for each of the messages and ensure that the correct result is produced when the messages
-								are provided to the TSF. The message of length 0 is omitted if the TOE does not support zero-length
-								messages.<h:br/><h:br/><h:br/>
-								<h:b>Selected Long Messages Test, Bit-oriented Mode</h:b><h:br/><h:br/>
-								The evaluators devise an input set consisting of 100 long messages ranging in size from 
-								rate+(rate+1) to rate+(100*(rate+1)), incrementing by rate+1. (For example, SHA-3-256 has a rate
-								of 1088 bits. Therefore, 100 messages will be generated with lengths 2177, 3266, …, 109988 bits.)
-								The message text shall be pseudo-randomly generated. The evaluators compute the message digest for
-								each of the messages and ensure that the correct result is produced when the messages are provided
-								to the TSF.<h:br/><h:br/><h:br/>
-								<h:b>Selected Long Messages Test, Byte-oriented Mode</h:b><h:br/><h:br/>
-								The evaluators devise an input set consisting of 100 messages ranging in size from (rate+(rate+8))
-								to (rate+100*(rate+8)), incrementing by rate+8. (For example, SHA-3-256 has a rate of 1088 bits.
-								Therefore 100 messages will be generated of lengths 2184, 3280, 4376, …, 110688 bits.) The message
-								text shall be pseudo-randomly generated. The evaluators compute the message digest for each of the
-								messages and ensure that the correct result is produced when the messages are provided to the TSF.<h:br/><h:br/><h:br/>
-								<h:b>Pseudo-randomly Generated Messages Monte Carlo) Test, Byte-oriented Mode</h:b><h:br/><h:br/>
-								The evaluators supply a seed of d bits (where d is the length of the message digest produced by
-								the hash function to be tested. This seed is used by a pseudorandom function to generate 100,000 
-								message digests. One hundred of the digests (every 1000th digest) are recorded as checkpoints. The
-								TOE then uses the same procedure to generate the same 100,000 message digests and 100 checkpoint
-								values. The evaluators then compare the results generated ensure that the correct result is
-								produced when the messages are generated by the TSF.<h:br/><h:br/>
-                            </Tests>
-                        </aactivity>
-                    </f-element>
-					<audit-event />
-                </f-component>
-                
-                <!-- FCS_COP.1/Sig (formerly FCS_COP.1(3)) -->
-				<!-- Added SHA-3 hashes 20190919 -->
-                <f-component cc-id="fcs_cop.1" iteration="Sig" name="Cryptographic Operation (Signature Algorithms)">
-                    <f-element id="fcs-cop-1e1-sig">
-                        <title>The TSF shall perform [<h:i>cryptographic signature services (generation and verification)</h:i>] in 
-							accordance with a specified cryptographic algorithm
-                            <selectables linebreak="yes">
-                                <selectable id="sel-sig-rsa">RSA schemes using cryptographic key sizes [2048-bit or greater] that meet
-									the following: [<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</h:i>]</selectable>
-                                <selectable id="sel-sig-ecdsa">ECDSA schemes using [“NIST curves” P-256, P-384 and
-                                    <selectables>
-                                        <selectable>P-521</selectable>
-                                        <selectable>no other curves</selectable>
-                                    </selectables>] that meet the following: [FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5]
-                                </selectable>
-                            </selectables>.
-                        </title>
-                        <note role="application">The ST Author should choose the algorithm implemented to perform digital signatures;
-							if more than one algorithm is available, this requirement should be iterated to specify the
-							functionality. For the algorithm chosen, the ST author should make the appropriate 
-							assignments/selections to specify the parameters that are implemented for that algorithm.
-                        </note>
-                        <aactivity>
-                            <Tests>
-                                The following tests require the developer to provide access to a test platform that provides the 
-								evaluator with tools that are typically not found on factory products.
-                                <h:br></h:br><h:br></h:br>
-								<h:b>ECDSA Algorithm Tests</h:b><h:br></h:br><h:br></h:br>
-                                <h:b><h:i>ECDSA FIPS 186-4 Signature Generation Test</h:i></h:b><h:br></h:br><h:br></h:br>
-                                For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator
-								shall generate 10 1024-bit long messages and obtain for each message a public key and the 
-								resulting signature values R and S. To determine correctness, the evaluator shall use the 
-								signature verification function of a known good implementation.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b><h:i>ECDSA FIPS 186-4 Signature Verification Test</h:i></h:b><h:br></h:br><h:br></h:br>
-                                For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator 
-								shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of
-								the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain 
-								in response a set of 10 PASS/FAIL values.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b>RSA Signature Algorithm Tests</h:b><h:br></h:br><h:br></h:br>
-                                <h:b><h:i>Signature Generation Test</h:i></h:b><h:br></h:br><h:br></h:br>
-                                The evaluator shall verify the implementation of RSA Signature Generation by the TOE using the
-								Signature Generation Test. To conduct this test, the evaluator shall generate or obtain 10 
-								messages from a trusted reference implementation for each modulus size/SHA combination supported
-								by the TSF. The evaluator shall have the TOE use their private key and modulus value to sign these
-								messages.
-                                <h:br></h:br><h:br></h:br>
-                                The evaluator shall verify the correctness of the TSF’s signature using a known good implementation
-								and the associated public keys to verify the signatures.
-                                <h:br></h:br><h:br></h:br>
-                                <h:b><h:i>Signature Verification Test</h:i></h:b><h:br></h:br><h:br></h:br>
-                                The evaluator shall perform the Signature Verification test to verify the ability of the TOE to
-								recognize another party’s valid and invalid signatures. The evaluator shall inject errors into 
-								the test vectors produced during the Signature Verification Test by introducing errors in some 
-								of the public keys e, messages, IR format, and/or signatures. The TOE attempts to verify the
-								signatures and returns success or failure.
-                                <h:br></h:br><h:br></h:br>
-                                The evaluator shall use these test vectors to emulate the signature verification test using the 
-								corresponding parameters and verify that the TOE detects these errors.
-							</Tests>
-                        </aactivity>
-                    </f-element>
-					<audit-event />
-                </f-component>
-                
-                <!-- FCS_COP.1/KeyHash (formerly FCS_COP.1(4)) -->
-				<!-- Added SHA-3 hashes 20190919 -->
-                <f-component cc-id="fcs_cop.1" iteration="KeyHash" name="Cryptographic Operation (Keyed Hash Algorithms)">
-                    <f-element id="fcs-cop-1e1-keyhash">
-                        <title>The TSF shall perform [<h:i>keyed-hash message authentication</h:i>] in accordance with a specified
-							cryptographic algorithm
-                            <selectables>
-                                <selectable id="sel-hmac-sha-1">HMAC-SHA-1</selectable>
-                                <selectable id="sel-hmac-sha-256">HMAC-SHA-256</selectable>
-                                <selectable id="sel-hmac-sha-384">HMAC-SHA-384</selectable>
-                                <selectable id="sel-hmac-sha-512">HMAC-SHA-512</selectable>
-				<selectable id="sel-hmac-sha-3-224">SHA-3-224</selectable>
-				<selectable id="sel-hmac-sha-3-256">SHA-3-256</selectable>
-				<selectable id="sel-hmac-sha-3-384">SHA-3-384</selectable>
-				<selectable id="sel-hmac-sha-3-512">SHA-3-512</selectable>		    
-			    </selectables>
-                            and cryptographic key sizes
-                            <assignable>key size (in bits) used in HMAC</assignable> and message digest sizes
-                            <selectables>
-                                <selectable>160</selectable>
-<!--                                <selectable>224</selectable>   -->
-				 <selectable>256</selectable>
-                                <selectable>384</selectable>
-                                <selectable>512 bits</selectable>
-                            </selectables>
-                            that meet the following:
-                            [<h:b><h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code, and FIPS Pub 180-4, “Secure Hash
-							Standard"</h:i></h:b>].
-                        </title>
-                        <note role="application">The selection in this requirement must be consistent with the key size specified for
-							the size of the keys used in conjunction with the keyed-hash message authentication.</note>
-                        <aactivity>
-                            <TSS>
-                                The evaluator shall examine the TSS to ensure that it specifies the following
-                                values used by the HMAC function: key length, hash function used, block size, and output MAC 
-                                length used.
-                            </TSS>
-                            <Tests> 
-                                The following tests require the developer to provide access to a test platform that provides the 
-								evaluator with tools that are typically not found on factory products.<h:br></h:br><h:br></h:br>
-                                For each of the supported parameter sets, the evaluator shall compose 15 sets of test data. Each set
-								shall consist of a key and message data. The evaluator shall have the TSF generate HMAC tags for 
-								these sets of test data. The resulting MAC tags shall be compared to the result of generating HMAC
-								tags with the same key and IV using a known good implementation.
-                            </Tests>
-                        </aactivity>
-			<rule id="keyhash-alg-match-sha-1">
-                <description>If "<h:i><xref to="sel-hmac-sha-1"/></h:i>" is selected in FCS_COP.1/KeyHash 
-						  then "<h:i><xref to="sel-hash-sha-1"/></h:i>" must be selected in FCS_COP.1/Hash.</description>
-                        <if><ref-id>sel-hmac-sha-1</ref-id></if><then><ref-id>sel-hash-sha-1</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-256">
-			  <description>If "<h:i><xref to="sel-hmac-sha-256"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-256"/></h:i>" 
-						must be selected in FCS_COP.1/Hash.</description>
-				<if><ref-id>sel-hmac-sha-256</ref-id></if><then><ref-id>sel-hash-sha-256</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-384">
-			  <description>If "<h:i><xref to="sel-hmac-sha-384"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-384"/></h:i>"
-                          must be selected in FCS_COP.1/Hash.</description>
-				<if><ref-id>sel-hmac-sha-384</ref-id></if><then><ref-id>sel-hash-sha-384</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-512">
-			  <description>If "<h:i><xref to="sel-hmac-sha-512"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-512"/></h:i>"
-                          must be selected in FCS_COP.1/Hash.</description>
-				<if><ref-id>sel-hmac-sha-512</ref-id></if><then><ref-id>sel-hash-sha-512</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-3-224">
-			  <description>If "<h:i><xref to="sel-hmac-sha-3-224"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-3-224"/></h:i>"
-                          must be selected in FCS_COP.1/Hash.</description>
-			<if><ref-id>sel-hmac-sha-3-224</ref-id></if><then><ref-id>sel-hash-sha-3-224</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-3-256">
-			  <description>If "<h:i><xref to="sel-hmac-sha-3-256"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-3-256"/></h:i>"
-                          must be selected in FCS_COP.1/Hash.</description>
-			<if><ref-id>sel-hmac-sha-3-256</ref-id></if><then><ref-id>sel-hash-sha-3-256</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-3-384">
-			  <description>If "<h:i><xref to="sel-hmac-sha-3-384"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-3-384"/></h:i>"
-                          must be selected in FCS_COP.1/Hash.</description>
-				<if><ref-id>sel-hmac-sha-3-384</ref-id></if><then><ref-id>sel-hash-sha-3-384</ref-id></then></rule>
-			<rule id="keyhash-alg-match-sha-3-512">
-			  <description>If "<h:i><xref to="sel-hmac-sha-3-512"/></h:i>" is selected in FCS_COP.1/KeyHash then "<h:i><xref to="sel-hash-sha-3-512"/></h:i>"
-                          must be selected in FCS_COP.1/Hash.</description>
-				<if><ref-id>sel-hmac-sha-3-512</ref-id></if><then><ref-id>sel-hash-sha-3-512</ref-id></then></rule>
-                    </f-element>
-		    <audit-event />
-                </f-component>
-                
+               
                 <!-- FCS_ENT_EXT.1 -->
-                <f-component cc-id="fcs_ent_ext.1" name="Extended: Entropy for Virtual Machines">
+                <f-component cc-id="fcs_ent_ext.1" name="Entropy for Virtual Machines">
 					<consistency-rationale/>
 					<comp-lev>requires the TSF to provide entropy data to VMs in a specified manner.</comp-lev>
 					<management>No specific management functions are identified.</management>
@@ -2297,7 +2319,7 @@
                         </note>
                          <aactivity>
                             <TSS>
-                                The evaluator shall verify that the TSS describes how the TOE provides entropy to Guest VM"s, and
+                                The evaluator shall verify that the TSS describes how the TOE provides entropy to Guest VMs, and
 								how to access the interface to acquire entropy or random numbers. The evaluator shall verify that
 								the TSS describes the mechanisms for ensuring that one VM does not affect the entropy acquired by 
 								another. 
@@ -2345,7 +2367,7 @@
                         </title>
                         <note role="application">This SFR is included in the ST if the ST Author selects "TLS/HTTPS" in FTP_ITC_EXT.1.1.<h:br/><h:br/>
 						The ST author must provide enough detail to determine how the implementation is 
-						complying with the standard(s) identified; this can be done either by adding elements to this 
+						complying with the standards identified; this can be done either by adding elements to this 
 						component, or by additional detail in the TSS.</note>
                     </f-element>
                     <f-element id="fcs-https-ext-1e2">
@@ -2383,11 +2405,7 @@
 					<depends on-sel="sel-x509-2-ipsec"/>
 					<consistency-rationale/>
 					<comp-lev>requires that IPsec be implemented as specified.</comp-lev>
-					<management>The following actions could be considered for the management 
-						functions in FMT: 
-						<h:ol type="a">
-							<h:li>Managing the cryptographic functionality.</h:li>
-						</h:ol>
+					<management>No specific management functions are identified.
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data 
 						generation is included in the PP/ST:
@@ -2460,7 +2478,7 @@
                                 The evaluator shall examine the TSS and determine that it describes how the IPsec capabilities
 				    are implemented.<h:p/>
 				The evaluator shall ensure that the TSS describes at a high level the architectural relationship between
-				    the IPsec implementation and the rest of the TOE (e.g. is the IPsec implementation an integrated part 
+				    the IPsec implementation and the rest of the TOE (e.g., is the IPsec implementation an integrated part 
 				    of the VS or is it a standalone executable that is bundled into the VS).<h:p/> 		    
 				The evaluator shall ensure that the TSS describes how the SPD is implemented and the rules for processing
 				both inbound and outbound packets in terms of the IPsec policy. The TSS describes the rules that are
@@ -2531,7 +2549,7 @@
 			 </note>
                         <aactivity level="element">
                             <TSS>
-                                The evaluator checks the TSS to ensure it states that am IPsec VPN can be 
+                                The evaluator checks the TSS to ensure it states that an IPsec VPN can be 
                                 established to operate in tunnel mode or transport mode (as selected).<h:p/>
                             </TSS>
                             <Guidance>
@@ -2541,7 +2559,7 @@
 				guidance to determine how the use of a given mode is specified.<h:p/>
                             </Guidance>
                             <Tests>
-                                The evaluator shall perform the following test(s) based on the selections chosen:
+                                The evaluator shall perform the following tests based on the selections chosen:
                                 <testlist>
                                     <test>(conditional): If tunnel mode is selected, the evaluator uses the operational guidance to 
 					configure the TOE/platform to operate in tunnel mode and also configures 
@@ -2606,7 +2624,7 @@
 			        AES-GCM-256 are implemented. If the "ST" author has selected either 
                                 AES-CBC-128 or AES-CBC-256 in the requirement, then the evaluator verifies the
                                 TSS describes these as well. In addition, the evaluator ensures that the 
-                                SHA-based HMAC algorithm conforms to the algorithms specified in FCS_COP.1/KeyHash Cryptographic 
+                                SHA-based HMAC algorithm conforms to the algorithms specified in FCS_COP.1/KeyedHash Cryptographic 
                                 Operations (Keyed Hash Algorithms).<h:p/>
                             </TSS>
                             <Guidance>
@@ -2654,14 +2672,14 @@
 					select RFC 4868. </note>
                         <aactivity level="element">
                             <TSS>
-                                The evaluator shall examine the TSS to verify that IKEv1 and/or IKEv2 are implemented. If IKEv1 is
+                                The evaluator shall examine the TSS to verify that IKEv1 or IKEv2 (as selected) are implemented. If IKEv1 is
 				implemented, the evaluator shall verify that the TSS indicates whether or not XAUTH is supported, and
 				that aggressive mode is not used for IKEv1 Phase 1 exchanges (i.e. only main mode is used). It may be that
 				these are configurable options.<h:p/>
                             </TSS>
                             <Guidance>
                                 The evaluator shall check the operational guidance to ensure it instructs the administrator how to
-				configure the TOE to use IKEv1 and/or IKEv2 (as selected), and uses the guidance to configure the TOE to
+				configure the TOE to use IKEv1 or IKEv2 (as selected), and uses the guidance to configure the TOE to
 				perform NAT traversal for the test below. If XAUTH is implemented, the evaluator shall verify that the
 				operational guidance provides instructions on how it is enabled or disabled.<h:p/>
 				If the TOE supports IKEv1, the evaluator shall verify that the operational guidance either asserts that only
@@ -2702,7 +2720,7 @@
                         </title>
                         <aactivity level="element">
                             <TSS>
-                                The evaluator shall ensure the TSS identifies the algorithms used for encrypting the IKEv1 and/or IKEv2
+                                The evaluator shall ensure the TSS identifies the algorithms used for encrypting the IKEv1 or IKEv2
 				payload, and that the algorithms AES-CBC-128, AES-CBC-256 are specified, and if others are chosen in the
 				selection of the requirement, those are included in the TSS discussion.<h:p/>
                             </TSS>
@@ -2717,7 +2735,7 @@
 				Environment to have the TOE receive configuration) to perform the following test for each ciphersuite
 				selected:<h:p/>
 				<testlist>
-					<test>The evaluator shall configure the TOE to use the ciphersuite under test to encrypt the IKEv1 and/or
+					<test>The evaluator shall configure the TOE to use the ciphersuite under test to encrypt the IKEv1 or
 					IKEv2 payload and establish a connection with a peer device, which is configured to only accept the
 					payload encrypted using the indicated ciphersuite. The evaluator will confirm the algorithm was that used
 					in the negotiation. The evaluator will confirm that the connection is successful by confirming that data
@@ -2818,7 +2836,7 @@
 					for Phase 2 SAs, except that the lifetime will be 8 hours or less instead of 24 hours or less.</test>
 				    <test> [conditional]: If a fixed limit for IKEv1 SAs is supported, the evaluator
 					    shall establish an SA and observe that the connection is closed after
-					    the fixed traffic and/or time value is reached.</test>
+					    the fixed traffic or time value is reached.</test>
 				</testlist>				    
                             </Tests>
                         </aactivity>
@@ -2872,7 +2890,7 @@
                         <title>The TSF shall generate the secret value x used in the IKE Diffie-Hellman key
 				exchange (“x” in gx mod p) using the random bit generator specified in
 				FCS_RBG_EXT.1, and having a length of at least 
-				<assignable>(one or more) number(s) of bits that is at least twice the “bits of
+				<assignable>(one or more) number of bits that is at least twice the “bits of
 					security” value associated with the negotiated Diffie-Hellman group as 
 					listed in Table 2 of NIST SP 800-57, Recommendation for Key Management – Part
 					1: General</assignable> bits.
@@ -2895,7 +2913,7 @@
                     <f-element id="fcs-ipsec-ext-1e10">  
                         <title>The TSF shall generate nonces used in IKE exchanges in a manner such that the
 				probability that a specific nonce value will be repeated during the life a specific
-				IPsec SA is less than 1 in 2^<assignable>(one or more) “bits of security” value(s)
+				IPsec SA is less than 1 in 2^<assignable>(one or more) “bits of security” value
 				associated with the negotiated Diffie-Hellman group as listed in Table 2 of NIST
 				SP 800-57, Recommendation for Key Management – Part 1: General</assignable>.
 			</title>
@@ -2928,7 +2946,7 @@
 			</note>
                         <aactivity level="element">
                             <TSS>
-                               The evaluator ensures that the TSS identifies RSA and/or ECDSA as being used to perform peer
+                               The evaluator ensures that the TSS identifies RSA or ECDSA as being used to perform peer
 				authentication.<h:p/>
 				If pre-shared keys are chosen in the selection, the evaluator shall check to ensure that the TSS describes
 				how pre-shared keys are established and used in authentication of IPsec connections. The description in
@@ -2936,7 +2954,7 @@
 				TSF can generate a pre-shared key, accept a pre-shared key, or both.<h:p/>
 				The evaluator shall ensure that the TSS describes how the TOE compares the peer’s presented identifier
 				to the reference identifier. This description shall include whether the certificate presented identifier is
-				compared to the ID payload presented identifier, which field(s) of the certificate are used as the presented
+				compared to the ID payload presented identifier, which fields of the certificate are used as the presented
 				identifier (DN, Common Name, or SAN) and, if multiple fields are supported, the logical order comparison.
 				If the ST author assigned an additional identifier type, the TSS description shall also include a description
 				of that type and the method by which that type is compared to the peer’s presented certificate.<h:p/>
@@ -2945,12 +2963,12 @@
 				The evaluator shall check that the operational guidance describes how pre-shared keys are to be
 				generated and established.<h:p/>
 				The evaluator ensures the operational guidance describes how to set up the TOE to use the cryptographic
-				algorithms RSA and/or ECDSA.<h:p/>
+				algorithms RSA or ECDSA (as selected).<h:p/>
 				In order to construct the environment and configure the TOE for the following tests, the evaluator will
 				ensure that the operational guidance also describes how to configure the TOE to connect to a trusted CA,
 				and ensure a valid certificate for that CA is loaded into the TOE as a trusted CA.<h:p/>
 				The evaluator shall also ensure that the operational guidance includes the configuration of the reference
-				identifier(s) for the peer.<h:p/>
+				identifiers for the peer.<h:p/>
 			</Guidance>
 			<Tests>
 				For efficiency’s sake, the testing that is performed here has been combined with the testing for
@@ -3022,7 +3040,7 @@
 				<selectables>
 					<selectable>no other reference identifier type</selectable>
 					<selectable><assignable>other supported reference identifier types</assignable></selectable>
-				</selectables>] contained in a certificate does not match the expected value(s) for the
+				</selectables>] contained in a certificate does not match the expected values for the
 				entity attempting to establish a connection.
 			</title>
                         <note role="application">
@@ -3088,7 +3106,7 @@
 				If this functionality is configurable, the TSF may be configured by a VPN Gateway
 				or by an Administrator of the TOE itself.<h:p/>
 				The ST author chooses either or both of the IKE selections based on what is
-				implemented by the TOE. Obviously, the IKE version(s) chosen should be
+				implemented by the TOE. Obviously, the IKE versions chosen should be
 				consistent not only in this element, but with other choices for other elements in
 				this component. While it is acceptable for this capability to be configurable, the
 				default configuration in the evaluated configuration (either "out of the box" or
@@ -3099,9 +3117,9 @@
                             <TSS>
                                 The evaluator shall check that the TSS describes the potential strengths (in terms of the number of bits in
 				the symmetric key) of the algorithms that are allowed for the IKE and ESP exchanges. The TSS shall also
-				describe the checks that are done when negotiating IKEv1 Phase 2 and/or IKEv2 CHILD_SA suites to ensure
+				describe the checks that are done when negotiating IKEv1 Phase 2 and IKEv2 CHILD_SA suites to ensure
 				that the strength (in terms of the number of bits of key in the symmetric algorithm) of the negotiated
-				algorithm is less than or equal to that of the IKE SA this is protecting the negotiation.
+				algorithm is less than or equal to that of the IKE SA that is protecting the negotiation.
                           </TSS>
 			    <Guidance>
 				    There are no AGD EAs for this requirement.
@@ -3186,14 +3204,13 @@
                         </note>
                         <aactivity>
                             Documentation shall be produced—and the evaluator shall perform the activities—in accordance with 
-                            Appendix D, Entropy Documentation and Assessment.<h:br></h:br><h:br></h:br>
                             <Tests>
                                 The evaluator shall also perform the following tests, depending on the standard to which the RBG
 								conforms.<h:br></h:br><h:br></h:br>
                                 The evaluator shall perform 15 trials for the RBG implementation. If the RBG is configurable, the 
 								evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that
 								the operational guidance contains appropriate instructions for configuring the RBG functionality.<h:br></h:br><h:br></h:br>
-                                If the RBG has prediction resistance enabled, each trial consists of (1) instantiate drbg, (2)
+                                If the RBG has prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2)
 								generate the first block of random bits (3) generate a second block of random bits (4) 
 								uninstantiate. The evaluator verifies that the second block of random bits is the expected value. 
 								The evaluator shall generate eight input values for each trial. The first is a count (0 – 14). The
@@ -3202,13 +3219,13 @@
 								additional input and entropy input for the second call to generate. These values are randomly
 								generated. “generate one block of random bits” means to generate random bits with number of 
 								returned bits equal to the Output Block Length (as defined in NIST SP 800-90A).<h:br></h:br><h:br></h:br>
-                                If the RBG does not have prediction resistance, each trial consists of (1) instantiate drbg, (2) 
+                                If the RBG does not have prediction resistance, each trial consists of (1) instantiate DRBG, (2) 
 								generate the first block of random bits (3) reseed, (4) generate a second block of random bits (5)
 								uninstantiate. The evaluator verifies that the second block of random bits is the expected value.
 								The evaluator shall generate eight input values for each trial. The first is a count (0 – 14). The
 								next three are entropy input, nonce, and personalization string for the instantiate operation. The
 								fifth value is additional input to the first call to generate. The sixth and seventh are additional
-								input and entropy input to the call to re-seed. The final value is additional input to the second
+								input and entropy input to the call to reseed. The final value is additional input to the second
 								generate call.<h:br></h:br><h:br></h:br>
                                 The following paragraphs contain more information on some of the input values to be generated/selected 
 								by the evaluator.<h:br></h:br><h:br></h:br>
@@ -3218,7 +3235,7 @@
 										length is one-half the seed length.
 										Personalization string: The length of the personalization string must be &lt;= seed length.
 										If the implementation only supports one personalization string length, then the same 
-										length can be used for both values. If more than one string length is support, the
+										length can be used for both values. If more than one string length is supported, the
 										evaluator shall use personalization strings of two different lengths. If the implementation
 										does not use a personalization string, no value needs to be supplied.</h:li>
                                     <h:li>Additional input: the additional input bit lengths have the same defaults and 
@@ -3228,7 +3245,7 @@
                         </aactivity>
                     </f-element>
                     <audit-event>
-						<audit-event-descr>Failure of the randomization process</audit-event-descr>
+						<audit-event-descr>Failure of the randomization process.</audit-event-descr>
 					</audit-event>
                 </f-component>		
             </section>
@@ -3340,14 +3357,14 @@
                         <note role="application">
 				For purposes of this requirement, physical platform resources are divided into three categories: 
 				<h:ol a="1">
-					<h:li>those to which Guest OS access is configurable and moderated by the VMM,</h:li>
+					<h:li>those to which Guest OS access is configurable and moderated by the VMM</h:li>
 					<h:li>those to which the Guest OS is never allowed to have direct access, and</h:li>
 					<h:li>those to which the Guest OS is always allowed to have direct access.</h:li>
 				</h:ol>
-                            	For element 1, The ST author lists the physical platform resources that can be configured for Guest VM access by 
+                            	For element 1, the ST author lists the physical platform resources that can be configured for Guest VM access by 
 				an administrator. For element 2, the ST author lists the physical platform resources to which 
 				Guest VMs may never be allowed direct access. If there are no such resources, the ST author selects "no physical platform 
-				resources". Likewise, any resources to which all Guest VMs automatically have access to are to be listed in 
+				resources." Likewise, any resources to which all Guest VMs automatically have access to are to be listed in 
 				the third element. If there are no such resources, then "no physical platform resources" is selected.
                         </note>
                         <aactivity>
@@ -3358,11 +3375,11 @@
                                 how each physical platform resource that is controllable (that is, listed in the assignment
                                 statement in the first element) is identified to an Administrator.<h:p/> 
 				The evaluator shall ensure that the TSS describes how the Guest VM is associated with each 
-                                physical resources, and how other Guest VMs cannot access a physical resource
+                                physical resource, and how other Guest VMs cannot access a physical resource
                                 without being granted explicit access. For TOEs that implement a robust 
                                 interface (other than just "allow access" or "deny access"), the evaluator shall ensure that the
                                 TSS describes the possible operations or modes of access between a Guest 
-                                VMs and physical platform resources.<h:br></h:br><h:br></h:br>
+                                VM's and physical platform resources.<h:br></h:br><h:br></h:br>
                                 If physical resources are listed in the second element, the evaluator shall examine the 
                                 TSS and operational guidance to determine that there appears to be no way to
                                 configure those resources for access by a Guest VM. The evaluator shall
@@ -3506,7 +3523,6 @@
 						functions in FMT:
 						<h:ol type="a">
 							<h:li>Ability to configure inter-VM data sharing.</h:li>
-							<h:li>Ability to configure virtual networking.</h:li>
 						</h:ol>
 					</management>
 					<audit>There are no auditable events foreseen.</audit>
@@ -3618,7 +3634,7 @@
 						FMT_SMR.1 Security Roles</dependencies>
                     <f-element id="fdp-vnc-ext-1e1">
                         <title>The TSF shall allow Administrators to configure virtual networking components to connect VMs to each
-							other, and to physical networks.
+							other and to physical networks.
                         </title>
                     </f-element>
                     <f-element id="fdp-vnc-ext-1e2">
@@ -3702,13 +3718,12 @@
 						in FMT:
 						<h:ol type="a">
 							<h:li>Ability to configure lockout policy through unsuccessful authentication attempts.</h:li>
-							<h:li>Ability to unlock a locked administrator account.</h:li>
 						</h:ol>
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data generation is 
 						included in the PP/ST: 
 						<h:ol type="a">
-							<h:li>Threshold reached for successive failed authentication attempts.</h:li>
+							<h:li>Unsuccessful login attempts limit is met or exceeded.</h:li>
 						</h:ol>
 					</audit>
 					<dependencies>FIA_UIA_EXT.1 Administrator Identification and Authentication<h:p/>
@@ -3734,19 +3749,19 @@
                         <title>When the defined number of unsuccessful authentication attempts has been met, the TSF
                             shall:
                             <selectables>
-                                <selectable>prevent the offending Administrator from successfully establishing remote session using
+                                <selectable>prevent the offending Administrator from successfully establishing a remote session using
                                     any authentication method that involves a password or PIN until
                                     <assignable>action to unlock</assignable> is taken by an Administrator</selectable>
-                                <selectable>prevent the offending Administrator from successfully establishing remote session using
-                                    any authentication method that involves a password or PIN until an Administrator defined time
+                                <selectable>prevent the offending Administrator from successfully establishing a remote session using
+                                    any authentication method that involves a password or PIN until an Administrator-defined time
                                     period has elapsed</selectable>
                             </selectables>
                         </title>
                         <note role="application">The action to be taken shall be populated in the selection of the ST
-                            and defined in the Administrator guidance.<h:br></h:br><h:br></h:br>
+                            and defined in the Administrator guidance.<h:p/>
                             This requirement applies to a defined number of successive unsuccessful remote password or PIN-based
                             authentication attempts and does not apply to local Administrative access. Compliant TOEs may optionally
-                            include cryptographic authentication failures and local authentication failures in the number of
+                            include cryptographic and local authentication failures in the number of
                             unsuccessful authentication attempts.
                         </note>
                         <aactivity>
@@ -3831,13 +3846,12 @@
 							passwords” refers to passwords used by administrators to gain access to the Management Subsystem.</note>
                         <aactivity>
                             <Guidance>
-                                The evaluator shall examine the operational guideance to determine that it provides guidance to
+                                The evaluator shall examine the operational guidance to determine that it provides guidance to
                                 security administrators in the composition of strong passwords, and that it provides instructions
                                 on setting the minimum password length. 
                             </Guidance>
                             <Tests>
-                                The evaluator shall also perform the following tests. 
-                                Note that one or more of these tests may be performed with a single test case.
+                                The evaluator shall also perform the following test. 
                             <testlist>
                                 <test>The evaluator shall compose passwords that either meet the requirements, or fail to meet the 
 									requirements, in some way. For each password, the evaluator shall verify that the TOE supports
@@ -3894,7 +3908,7 @@
                         </note>
                     </f-element>
                     <f-element id="fia-uau-5e2">
-                        <title>The TSF shall authenticate any Administrator’s claimed identity according to the <assignable>rules
+                        <title>The TSF shall authenticate any <refinement>Administrator’s</refinement> claimed identity according to the <assignable>rules
 							describing how the multiple authentication mechanisms provide authentication</assignable>.
                         </title>
                         <aactivity>
@@ -4001,11 +4015,11 @@
                     </f-element>
 					<audit-event> 
 						<audit-event-descr>Administrator authentication attempts.</audit-event-descr>
-						<audit-event-info>Provided user identity, origin of the attempt (e.g. console, remote IP address).</audit-event-info>
+						<audit-event-info>Provided user identity, origin of the attempt (e.g., console, remote IP address).</audit-event-info>
 					</audit-event> 
 					<audit-event> 
 						<audit-event-descr>All use of the identification and authentication mechanism.</audit-event-descr>
-                        <audit-event-info>Provided user identity, origin of the attempt (e.g. console, remote IP address).</audit-event-info>
+                        <audit-event-info>Provided user identity, origin of the attempt (e.g., console, remote IP address).</audit-event-info>
 					</audit-event> 
 					<!-- Below event used to be in Table 3 -->
 					<audit-event type="optional"> 
@@ -4024,7 +4038,7 @@
 					<comp-lev>defines how the TSF must validate X.509 certificates that are presented to it.</comp-lev>
 					<management>The following actions could be considered for the management functions in FMT:
 						<h:ol type="a">
-							<h:li>Configuration of certificate revocation checking method.</h:li>
+							<h:li>Configuration of action to take if unable to determine the validity of a certificate.</h:li>
 						</h:ol>
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data
@@ -4125,7 +4139,7 @@
 										function failing.</test>
                                     <test>The evaluator shall test that the TOE can properly handle revoked certificates – conditional
 										on whether CRL, OCSP, OCSP stapling, or OCSP multi-stapling is selected; if multiple
-										methods are selected, and then a test is performed for each method. The evaluator has to 
+										methods are selected, then a test is performed for each method. The evaluator has to 
 										only test one up in the trust chain (future revisions may require to ensure the validation
 										is done up the entire chain). The evaluator shall ensure that a valid certificate is used,
 										and that the validation function succeeds. The evaluator shall then attempt the test with
@@ -4229,8 +4243,8 @@
                                 can use the certificates.<h:br></h:br><h:br></h:br>
                                 The evaluator shall examine the TSS to confirm that it describes the behavior of the
                                 TOE when a connection cannot be established during the validity check of a
-                                certificate used in establishing a trusted channel. If the requirement that the administrator is able
-                                to specify the default action, then the evaluator shall ensure that the operational guidance contains
+                                certificate used in establishing a trusted channel. If the requirement states that the administrator  
+                                specifies the default action, then the evaluator shall ensure that the operational guidance contains
                                 instructions on how this configuration action is performed.
                             </TSS>
                             <Tests>
@@ -4242,8 +4256,8 @@
 										then load a certificate or certificates needed to validate the certificate to be used in
 										the function, and demonstrate that the function succeeds. The evaluator then shall delete
 										one of the certificates, and show that the function fails.</test>
-                                    <test>The evaluator shall demonstrate that using a valid certificate that requires certificate 
-										validation checking to be performed in at least some part by communicating with a non-TOE
+                                    <test>The evaluator shall demonstrate that using a valid certificate requires that certificate 
+										validation checking be performed in at least some part by communicating with a non-TOE
 										IT entity. The evaluator shall then manipulate the environment so that the TOE is unable
 										to verify the validity of the certificate, and observe that the action selected in
 										FIA_X509_EXT.2.2 is performed. If the selected action is administrator-configurable, then
@@ -4440,7 +4454,7 @@
                         </title>
                         <note role="application">The virtualized hardware abstraction implemented by a particular VS might include the
 				virtualized interfaces for many different devices. Sometimes these devices are not present in a
-				particular instantiation of a VM. The interface for devices not present must not accessible by the
+				particular instantiation of a VM. The interface for devices not present must not be accessible by the
 				VM.<h:p/>
                             Such interfaces include memory buffers, PCI Bus interfaces, and processor I/O ports.<h:p/>
                             The purpose of this requirement is to reduce the attack surface of the VMM by blocking access to unused interfaces.
@@ -4487,7 +4501,7 @@
                             This requirement does not mandate that these protections be enabled throughout the Virtualization 
 				System—only that they be enabled where they have likely impact. For example, code that receives and 
 				processes user input should take advantage of these mechanisms.<h:br></h:br><h:br></h:br>
-                            For the selection, the ST author selects the supported mechanism(s) and uses the assignment to include 
+                            For the selection, the ST author selects the supported mechanisms and uses the assignment to include 
 				mechanisms not listed in the selection, if any.</note>
                         <aactivity>
                             <TSS>
@@ -4590,7 +4604,7 @@
                 </f-component>
 
                 <!-- FPT_HCL_EXT.1 -->
-                <f-component cc-id="fpt_hcl_ext.1" name="Hypercall Functions">
+                <f-component cc-id="fpt_hcl_ext.1" name="Hypercall Controls">
 					<consistency-rationale/>
 					<comp-lev>requires the TSF to implement appropriate parameter validation
 						to protect the VMM from unauthorized access through a hypercall interface.</comp-lev>
@@ -4598,8 +4612,8 @@
 					<audit>The following actions should be auditable if FAU_GEN Security
 						audit data generation is included in the PP/ST:
 						<h:ol type="a">
-							<h:li>Attempts to invoke Hypercall interfaces using illegal input values.</h:li>
-							<h:li>Attempts to invoke Hypercall interfaces when documented preconditions are not met.</h:li>
+							<h:li>Invalid parameter to hypercall detected.</h:li>
+							<h:li>Hypercall interface invoked when documented preconditions are not met.</h:li>
 						</h:ol>
 					</audit>
 					<dependencies>FMT_SMR.1 Security Roles</dependencies>
@@ -4638,7 +4652,7 @@
                         </aactivity>
                     </f-element>
 		    <audit-event>
-			<audit-event-descr>Invalid parameter to hypercall detected</audit-event-descr>
+			<audit-event-descr>Invalid parameter to hypercall detected.</audit-event-descr>
 			<audit-event-info>Hypercall interface for which access was attempted.</audit-event-info>
 		    </audit-event>
 		    <audit-event>
@@ -4756,7 +4770,7 @@
                         <note role="application">
                             A measured launch of the platform and VS demonstrates that the proper TOE software was
 				loaded. A measured launch process employs verifiable integrity measurement mechanisms. For example, a
-				VS may hash components such as: the hypervisor, service VMs and/or the Management Subsystem. A 
+				VS may hash components such as the hypervisor, service VMs, or the Management Subsystem. A 
 				measured launch process only allows components to be executed after the measurement has been recorded.
 				An example process may add each component’s hash before it is executed so that the final hash reflects
 				the evidence of a component’s state prior to execution. The measurement may be verified as the system
@@ -4772,7 +4786,7 @@
 				and reporting measurements.<h:br></h:br><h:br></h:br>
                             Platforms with a root of trust for measurement (RTM) should initiate the measured launch process. This may 
 				include core BIOS or the chipset. The chipset is the preferred RTM, but core BIOS or other firmware is
-				acceptable. In system without a traditional RTM, the first component that boots would be considered
+				acceptable. In a system without a traditional RTM, the first component that boots would be considered
 				the RTM, this is not preferred.
                         </note>
                         <aactivity>
@@ -4783,7 +4797,7 @@
                                 the Management Subsystem.
                             </TSS>
                             <Tests>
-                                The evaluator shall perform the following tests:<h:br></h:br><h:br></h:br>
+                                The evaluator shall perform the following test:<h:p/>
                                 <testlist>
                                     <test>The evaluator shall start the VS, login as an Administrator, and verify that the measurements for the specified components are viewable in the Management Subsystem.</test>
                               </testlist>
@@ -4804,10 +4818,10 @@
 						domains.</comp-lev>
 					<management>The following actions could be considered for the 
 						management functions in FMT:
-						<h:ol type="a">
+						<h:ul>
 							<h:li>Ability to configure removable media policy.</h:li>
 							<h:li>Ability to connect/disconnect removable devices to/from a VM.</h:li>
-						</h:ol>
+						</h:ul>
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security 
 						audit data generation is included in the PP/ST:
@@ -4863,7 +4877,7 @@
                             For clarity, the ST author may iterate this requirement so that like actions are grouped with the 
 				removable media or devices to which they apply (e.g., the first iteration could contain all devices
 				for which media is ejected on a switch; the second iteration could contain all devices for which 
-				access is prevented on switch, etc.).
+				access is prevented on a switch, etc.).
                         </note>
                         <aactivity>
                             <TSS>
@@ -4889,12 +4903,12 @@
 		    <audit-event>
 			<audit-event-descr>Connection/disconnection of removable media or device to/from a VM.</audit-event-descr>
                         <audit-event-info>VM Identifier, Removable media/device identifier, event description or identifier
-				(connect/disconnect, ejection/insertion, etc.)</audit-event-info>
+				(connect/disconnect, ejection/insertion, etc.).</audit-event-info>
 		    </audit-event>
 		    <audit-event>
 			<audit-event-descr>Ejection/insertion of removable media or device from/to an already connected VM.</audit-event-descr>
                         <audit-event-info>VM Identifier, Removable media/device identifier, event description or identifier 
-				(connect/disconnect, ejection/insertion, etc.)</audit-event-info>
+				(connect/disconnect, ejection/insertion, etc.).</audit-event-info>
 		    </audit-event>
                 </f-component>
 
@@ -5058,7 +5072,7 @@
                 <!-- FPT_VDP_EXT.1 -->
                 <f-component cc-id="fpt_vdp_ext.1" name="Virtual Device Parameters">
 					<consistency-rationale/>
-					<comp-lev>, requires the TSF to interface with Guest VMs through virtual hardware abstractions
+					<comp-lev>requires the TSF to interface with Guest VMs through virtual hardware abstractions
 						so that any data transmitted to the TOE from a Guest VM can be validated 
 						as well-formed.</comp-lev>
 					<management>No specific management functions are identified.</management>
@@ -5085,7 +5099,7 @@
 								accessible by the guest OS. The TSS, or a separate proprietary document, must
 								also document all virtual device interfaces at the level of I/O ports or PCI Bus 
 				    				interfaces - including
-								port number(s) (absolute or relative to a base), port name, address range, and a description of
+								port numbers (absolute or relative to a base), port name, address range, and a description of
 								legal input values.<h:p/>
 								The TSS must also describe the expected behavior of the interface when presented with illegal input 
 								values. This behavior must be deterministic and indicative of parameter checking by the TSF.<h:p/>
@@ -5134,18 +5148,18 @@
                             FPT_VIV_EXT.1.2 addresses several specific mechanisms that must not be permitted to bypass the VMM and
 							invoke privileged code on the Platform.<h:br></h:br><h:br></h:br>
                             At a minimum, the TSF should enforce the following:<h:br></h:br><h:br></h:br>
-                            <h:ol type="a">
+                            <h:ul>
                                 <h:li>On the x86 platform, a virtual System Management Interrupt (SMI) cannot invoke platform System 
-									Management Mode (SMM)</h:li>
+									Management Mode (SMM).</h:li>
                                 <h:li>An attempt to update virtual firmware or virtual BIOS cannot cause physical platform firmware
-									or physical platform BIOS to be modified</h:li>
-                                <h:li>An attempt to update virtual firmware or virtual BIOS cannot cause the VMM to be modified</h:li>
-                            </h:ol>
-                            Of the above, (a) does not apply to platforms that do not support SMM. The rationale behind activity (c) 
+									or physical platform BIOS to be modified.</h:li>
+                                <h:li>An attempt to update virtual firmware or virtual BIOS cannot cause the VMM to be modified.</h:li>
+                            </h:ul>
+                            Of the above, the first bullet does not apply to platforms that do not support SMM. The rationale behind the third bullet  
 							is that a firmware update of a single VM must not affect other VMs. So if multiple VMs share the same
 							firmware image as part of a common hardware abstraction, then the update of a single machine’s BIOS 
 							must not be allowed to change the common abstraction. The virtual hardware abstraction is part of the
-							VMM.<h:br></h:br>
+							VMM.<h:br/>
                         </note>
                         <aactivity>
 							<TSS>
@@ -5160,7 +5174,7 @@
             </section>
 
 	    <!-- 5.1.8 TOE Access -->
-            <section id="ss-fta" title="TOE Access (FTA)">
+            <section id="ss-fta" title="TOE Access Banner (FTA)">
 	
                 <!-- FTA_TAB.1 -->
                 <f-component cc-id="fta_tab.1" name="TOE Access Banner">
@@ -5203,11 +5217,7 @@
 					<consistency-rationale/>
 					<comp-lev>requires the TSF to implement one or more cryptographic protocols
 						to secure connectivity between the TSF and various external entities.</comp-lev>
-					<management>The following actions could be considered for the
-						management functions in FMT:
-						<h:ol type="a">
-							<h:li>Ability to configure the cryptographic functionality.</h:li>
-						</h:ol>
+					<management>No specific management functions are identified.
 					</management>
 					<audit>The following actions should be auditable if FAU_GEN Security audit data
 						generation is included in the PP/ST:
@@ -5226,7 +5236,7 @@
                                 <selectable id="sel-itc-https">TLS/HTTPS as conforming to FCS_HTTPS_EXT.1</selectable>
                                 <selectable id="sel-itc-ipsec">IPsec as conforming to FCS_IPSEC_EXT.1</selectable>
                                 <selectable id="sel-itc-ssh">SSH as conforming to the
-					<h:a href="https://www.niap-ccevs.org/MMO/PP/-389-/"><h:i>Extended Package
+					<h:a href="https://www.niap-ccevs.org/MMO/PP/-459-/"><h:i>Functional Package
 					for Secure Shell</h:i></h:a></selectable>
                             </selectables>
 			    and
@@ -5261,7 +5271,7 @@
 				but if the product includes the capability to perform TLS with mutual authentication, then
 				mutual authentication must be included within the TOE boundary. The TLS Package requires that the X509 
 				requirements be included by the PP, so selection of TLS or HTTPS causes FIA_X509_EXT.* to be selected.<h:br></h:br><h:br></h:br>
-                            If the ST author selects SSH, the TSF shall be validated against the Extended Package for Secure Shell.<h:br/> <h:br/>
+                            If the ST author selects SSH, the TSF shall be validated against the Functional Package for Secure Shell.<h:br/> <h:br/>
 			    If the ST author selects "certificate-based authentication of the remote peer," then FIA_X509_EXT.1 and FIA_X509_EXT.2
 				must be included in the ST. "No authentication of the remote peer" should be selected only if the TOE is acting 
 				as a server in a non-mutual authentication configuration.<h:p/>			    
@@ -5271,12 +5281,12 @@
                         <aactivity>
                             <TSS>
                                 The evaluator will review the TSS to determine that it lists all trusted channels 
-                                the TOE uses for remote communications, including both the external entities and/or 
+                                the TOE uses for remote communications, including both the external entities and 
                                 remote users used for the channel as well as the protocol that is used for each.
                             </TSS>
                             <Tests>
                                 The evaluator will configure the TOE to communicate with each external IT entity 
-                                and/or type of remote user identified in the TSS. The evaluator will monitor network
+                                and type of remote user identified in the TSS. The evaluator will monitor network
                                 traffic while the VS performs communication with each of these destinations. The evaluator will ensure
                                 that for each session a trusted channel was established in conformance with the protocols identified 
                                 in the selection.
@@ -5316,6 +5326,84 @@
                         <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
 		    </audit-event>    
                 </f-component>
+		    
+                <!-- FTP_TRP.1 -->
+                <!-- Included in th ST if "remote" is selected in FMT_MOF_EXT.1.1 in the server or client PP-Module. -->
+                <f-component cc-id="ftp_trp.1" name="Trusted Path" status="sel-based">
+			<depends on-sel="sel-mof-1e1-remote-client"><external-doc ref="client-virt"/></depends> 
+			<depends on-sel="sel-mof-1e1-remote-server"><external-doc ref="server-virt"/></depends>
+                    <f-element id="ftp-trp-1e1">
+			    <title>The TSF shall <refinement>use a trusted channel as specified in FTP_ITC_EXT.1 to</refinement> 
+				    provide a <refinement>trusted</refinement> communication path between itself and 
+				    [<h:i>remote</h:i>] <refinement>administrators</refinement> that is logically distinct from
+				    other communication paths and provides assured identification of its end points and 
+				    protection of the communicated data from [<h:i>modification, disclosure</h:i>].
+                        </title>
+                    </f-element>
+                    <f-element id="ftp-trp-1e2">
+			    <title>The TSF shall permit [<h:i>remote administrators</h:i>] to initiate communication via the trusted path.
+                        </title>
+                    </f-element>
+			<f-element id="ftp-trp-1e3">
+                        <title>The TSF shall require the use of the trusted path for [<h:i>[all remote administration actions]</h:i>].
+                        </title>
+                        <note role="application">
+				This SFR is included in the ST if "remote" is selected in FMT_MOF_EXT.1.1 of the client or server PP-Module.<h:p/>
+				Protocols used to implement the remote administration trusted channel must be
+				selected in FTP_ITC_EXT.1.<h:br/><h:br/>
+                            This requirement ensures that authorized remote administrators initiate all communication with the
+				TOE via a trusted path, and that all communications with the TOE by remote administrators is performed
+				over this path. The data passed in this trusted communication channel are encrypted as defined the 
+				protocol chosen in the first selection in FTP_ITC_EXT.1. The ST author chooses the mechanism or mechanisms supported by
+				the TOE, and then ensures that the detailed requirements in Appendix B corresponding to their selection
+				are copied to the ST if not already present.</note>
+                        <aactivity>
+                            <TSS>
+                                The evaluator shall examine the TSS to determine that the methods of remote 
+                                TOE administration are indicated, along with how those communications are protected.
+                                The evaluator shall also confirm that all protocols listed in the TSS in support of 
+                                TOE administration are consistent with those specified in the requirement, and are 
+                                included in the requirements in the ST. 
+                            </TSS>
+                            <Guidance>
+                                The evaluator shall confirm that the 
+                                operational guidance contains instructions for establishing the remote administrative sessions for
+                                each supported method. 
+                            </Guidance>
+                            <Tests>
+                                The evaluator shall also perform the following tests:
+                                <testlist>
+                                    <test>The evaluators shall ensure that communications using each specified (in the operational
+					    guidance) remote administration method is tested during the course of the evaluation,
+					    setting up the connections as described in the operational guidance and ensuring that
+					    communication is successful.</test>
+                                    <test>For each method of remote administration supported, the evaluator shall follow the 
+					    operational guidance to ensure that there is no available interface that can be used by
+					    a remote user to establish remote administrative sessions without invoking the trusted 
+					    path.</test>
+                                    <test>The evaluator shall ensure, for each method of remote administration, the channel data is
+					    not sent in plaintext.</test>
+                                    <test>The evaluator shall ensure, for each method of remote administration, modification of the 
+					    channel data is detected by the TOE.</test>
+                             </testlist>
+                            Additional evaluation activities are associated with the specific protocols.
+                            </Tests>
+                        </aactivity>
+                    </f-element>
+		    <audit-event>
+			<audit-event-descr>Initiation of the trusted channel.</audit-event-descr>
+                        <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
+		    </audit-event>    
+		    <audit-event>
+			<audit-event-descr>Termination of the trusted channel.</audit-event-descr>
+                        <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
+		    </audit-event>    
+		    <audit-event>
+			<audit-event-descr>Failures of the trusted path functions.</audit-event-descr>
+                        <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
+		    </audit-event>    
+                </f-component>
+		    
 
                 <!-- FTP_UIF_EXT.1 -->
                 <f-component cc-id="ftp_uif_ext.1" name="User Interface: I/O Focus">
@@ -5390,82 +5478,6 @@
 		    <audit-event />
                 </f-component>
 
-                <!-- FTP_TRP.1 -->
-                <!-- Included in th ST if "remote" is selected in FMT_MOF_EXT.1.1 in the server or client PP-Module. -->
-                <f-component cc-id="ftp_trp.1" name="Trusted Path" status="sel-based">
-			<depends on-sel="sel-mof-1e1-remote-client"><external-doc ref="client-virt"/></depends> 
-			<depends on-sel="sel-mof-1e1-remote-server"><external-doc ref="server-virt"/></depends>
-                    <f-element id="ftp-trp-1e1">
-			    <title>The TSF shall use a <refinement>trusted</refinement> channel as specified in FTP_ITC_EXT.1 to provide 
-				    a <refinement>trusted</refinement> communication
-				    path between itself and [<h:i>remote</h:i>] administrators that is logically distinct from other communication
-				paths and provides assured identification of its end points and protection of the communicated data 
-				    from [<h:i>modification, disclosure</h:i>].
-                        </title>
-                    </f-element>
-                    <f-element id="ftp-trp-1e2">
-                        <title>The TSF shall permit remote administrators to initiate communication via the trusted path.
-                        </title>
-                    </f-element>
-			<f-element id="ftp-trp-1e3">
-                        <title>The TSF shall require the use of the trusted path for [[all remote administration actions]].
-                        </title>
-                        <note role="application">
-				This SFR is included in the ST if "remote" is selected in FMT_MOF_EXT.1.1 of the client or server PP-Module.<h:br/><h:br/>
-				Protocols used to implement the remote administration trusted channel must be
-				selected in FTP_ITC_EXT.1.<h:br/><h:br/>
-                            This requirement ensures that authorized remote administrators initiate all communication with the
-				TOE via a trusted path, and that all communications with the TOE by remote administrators is performed
-				over this path. The data passed in this trusted communication channel are encrypted as defined the 
-				protocol chosen in the first selection. The ST author chooses the mechanism or mechanisms supported by
-				the TOE, and then ensures that the detailed requirements in Appendix B corresponding to their selection
-				are copied to the ST if not already present.</note>
-                        <aactivity>
-                            <TSS>
-                                The evaluator shall examine the TSS to determine that the methods of remote 
-                                TOE administration are indicated, along with how those communications are protected.
-                                The evaluator shall also confirm that all protocols listed in the TSS in support of 
-                                TOE administration are consistent with those specified in the requirement, and are 
-                                included in the requirements in the ST. 
-                            </TSS>
-                            <Guidance>
-                                The evaluator shall confirm that the 
-                                operational guidance contains instructions for establishing the remote administrative sessions for
-                                each supported method. 
-                            </Guidance>
-                            <Tests>
-                                The evaluator shall also perform the following tests:
-                                <testlist>
-                                    <test>The evaluators shall ensure that communications using each specified (in the operational
-					    guidance) remote administration method is tested during the course of the evaluation,
-					    setting up the connections as described in the operational guidance and ensuring that
-					    communication is successful.</test>
-                                    <test>For each method of remote administration supported, the evaluator shall follow the 
-					    operational guidance to ensure that there is no available interface that can be used by
-					    a remote user to establish remote administrative sessions without invoking the trusted 
-					    path.</test>
-                                    <test>The evaluator shall ensure, for each method of remote administration, the channel data is
-					    not sent in plaintext.</test>
-                                    <test>The evaluator shall ensure, for each method of remote administration, modification of the 
-					    channel data is detected by the TOE.</test>
-                             </testlist>
-                            Additional evaluation activities are associated with the specific protocols.
-                            </Tests>
-                        </aactivity>
-                    </f-element>
-		    <audit-event>
-			<audit-event-descr>Initiation of the trusted channel.</audit-event-descr>
-                        <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
-		    </audit-event>    
-		    <audit-event>
-			<audit-event-descr>Termination of the trusted channel.</audit-event-descr>
-                        <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
-		    </audit-event>    
-		    <audit-event>
-			<audit-event-descr>Failures of the trusted path functions.</audit-event-descr>
-                        <audit-event-info>User ID and remote source (IP Address) if feasible.</audit-event-info>
-		    </audit-event>    
-                </f-component>
             </section>
 		
 	    <!-- 5.1.10 TOE Security Functional Requirements Rationale -->
@@ -5477,10 +5489,10 @@
             The Security Objectives for the TOE in Section 4 were constructed to address threats identified in Section 3.1. The 
 		Security Functional Requirements (SFRs) in Section 5.1 are a formal instantiation of the Security Objectives. The PP
 		identifies the Security Assurance Requirements (SARs) to frame the extent to which the evaluator assesses the
-		documentation applicable for the evaluation and performs independent testing.<h:br></h:br><h:br></h:br>
+		documentation applicable for the evaluation and performs independent testing.<h:p/>
             This section lists the set of Security Assurance Requirements (SARs) from Part 3 of the Common Criteria for Information 
-		Technology Security Evaluation, Version 3.1, Revision 4 that are required in evaluations against this PP. Individual
-		evaluation activities to be performed are specified in both Section 5.1 as well as in this section.<h:br></h:br><h:br></h:br>
+		Technology Security Evaluation, Version 3.1, Revision 5 that are required in evaluations against this PP. Individual
+		evaluation activities to be performed are specified in both Section 5.1 as well as in this section.<h:p/>
             After the ST has been approved for evaluation, the Information Technology Security Evaluation Facility (ITSEF) will obtain
 		the TOE, supporting environmental IT, and the administrative/user guides for the TOE. The ITSEF is expected to perform
 		actions mandated by the CEM for the ASE and ALC SARs. The ITSEF also performs the evaluation activities contained 
@@ -5543,7 +5555,7 @@
 				is provided to support the evaluation activities described in Section 5.2, and other activities described for
 				AGD, ATE, and AVA SARs. The requirements on the content of the functional specification information is 
 				implicitly assessed by virtue of the other evaluation activities being performed; if the evaluator is unable 
-				to perform an activity because the there is insufficient interface information, then an adequate functional
+				to perform an activity because there is insufficient interface information, then an adequate functional
 				specification has not been provided.
                         </note>
                     </a-element>
@@ -5578,21 +5590,21 @@
                     </a-element>
                     
                     <a-element type="C">
-                        <title>The operational user guidance shall describe what <refinement>the authorized user-</refinement>accessible functions and
+                        <title>The operational user guidance shall describe what <h:s>for each user role </h:s><refinement>the authorized user-</refinement>accessible functions and
 				privileges that should be controlled in a secure processing environment, including appropriate
 				warnings.</title>
                     </a-element>
                     <a-element type="C">
-                        <title>The operational user guidance shall describe, for <refinement>the authorized user</refinement>, how to use the available
+                        <title>The operational user guidance shall describe, for <h:s>each user role </h:s><refinement>the authorized user</refinement>, how to use the available
 				interfaces provided by the TOE in a secure manner.</title>
                     </a-element>
                     <a-element type="C">
-                        <title>The operational user guidance shall describe, for <refinement>the authorized user</refinement>, the available functions and 
+                        <title>The operational user guidance shall describe, for <h:s>each user role </h:s><refinement>the authorized user</refinement>, the available functions and 
 				interfaces, in particular all security parameters under the control of the user, indicating secure
 				values as appropriate.</title>
                     </a-element>
                     <a-element type="C">
-                        <title>The operational user guidance shall, for <refinement>the authorized user</refinement>, clearly present each type of 
+                        <title>The operational user guidance shall, for <h:s>each user role </h:s><refinement>the authorized user</refinement>, clearly present each type of 
 				security-relevant event relative to the user-accessible functions that need to be performed,
 				including changing the security characteristics of entities under the control of the TSF.</title>
                     </a-element>
@@ -5602,7 +5614,7 @@
 				maintaining secure operation.</title>
                     </a-element>
                     <a-element type="C">
-                        <title>The operational user guidance shall, for <refinement>the authorized user</refinement>, describe the security measures to be 
+                        <title>The operational user guidance shall, for <h:s>each user role </h:s><refinement>the authorized user</refinement>, describe the security measures to be 
 				followed in order to fulfill the security objectives for the operational environment as described in 
 				the ST.</title>
                     </a-element>
@@ -5711,11 +5723,11 @@
                         </title>
                         <aactivity>
                                 The evaluator shall check the ST to ensure that it contains an identifier (such as a product
-                                name/version number) that specifically identifies the version that meets the requirements of the ST.<h:br/><h:br/>
+                                name/version number) that specifically identifies the version that meets the requirements of the ST.<h:p/>
                                 The evaluator shall check the AGD guidance and TOE samples received for testing to ensure
-                                that the version number is consistent with that in the ST. <h:br/><h:br/>
-                                If the vendor maintains a web site advertising the TOE, the evaluator shall examine the information on the web site to ensure that
-                                the information in the ST is sufficient to distinguish the product.<h:br/><h:br/>
+                                that the version number is consistent with that in the ST. <h:p/>
+                                If the vendor maintains a website advertising the TOE, the evaluator shall examine the information on the website to ensure that
+                                the information in the ST is sufficient to distinguish the product.<h:p/>
                         </aactivity>
                     </a-element>
                 </a-component>
@@ -5746,7 +5758,7 @@
                                 guidance for their platform) one or more development environments appropriate for use in developing
                                 applications for the developer’s platform. For each of these development environments, the developer
                                 shall provide information on how to configure the environment to ensure that buffer overflow protection
-                                mechanisms in the environment(s) are invoked (e.g., compiler and linker flags). The evaluator shall
+                                mechanisms in the environment are invoked (e.g., compiler and linker flags). The evaluator shall
                                 ensure that this documentation also includes an indication of whether such protections are on by
                                 default, or have to be specifically enabled.
                                 The evaluator shall ensure that the TSF is uniquely identified (with respect to other products from
@@ -5786,7 +5798,7 @@
                         <title>The description shall include the mechanisms publicly available for reporting security issues
 				pertaining to the TOE.</title>
                         <note role="application">
-                            The reporting mechanism could include web sites, email addresses, and a means to protect the sensitive
+                            The reporting mechanism could include websites, email addresses, and a means to protect the sensitive
 				nature of the report (e.g., public keys that could be used to encrypt the details of a 
 				proof-of-concept exploit).</note>
                     </a-element>
@@ -5802,7 +5814,7 @@
 	    <!-- 5.2.5 Class ATE: Tests -->
             <section id="ss-ate" title="Class ATE: Tests">
                 Testing is specified for functional aspects of the system as well as aspects that take advantage of design or
-		    implementation weaknesses. The former is done through ATE_IND family, while the latter is through the AVA_VAN
+		    implementation weaknesses. The former is done through the ATE_IND family, while the latter is through the AVA_VAN
 		    family. At the assurance level specified in this PP, testing is based on advertised functionality and interfaces
 		    with dependency on the availability of design information. One of the primary outputs of the evaluation process is
 		    the test report as specified in the following requirements.
@@ -5950,14 +5962,7 @@
 	
 	<!-- Appendix D: Implicity Satisfied Requirements -->
 	<appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
-	This appendix lists requirements that should be considered satisfied by products
-	successfully evaluated against this PP. These requirements are not featured
-	explicitly as SFRs and should not be included in the ST. They are not included as 
-	standalone SFRs because it would increase the time, cost, and complexity of evaluation.
-	This approach is permitted by [CC] Part 1, 8.2 Dependencies between components.<h:p/>
-	This information benefits systems engineering activities which call for inclusion of particular
-	security controls. Evaluation against the PP provides evidence that these controls are present 
-	and have been evaluated.<h:p/><h:p/>
+	<!-- Boilerplate goes here -->
 	<h:b><ctr ctr-type="Table" pre="Table " id="imp-sat-reqs-table">: Implicitly Satisfied Requirements</ctr></h:b>
     <h:table>	
 		<h:tr class="header"><h:td>Requirement</h:td><h:td>Rationale for Satisfaction</h:td></h:tr>
@@ -6146,7 +6151,7 @@
         <h:tr>
           <h:td valign="top">Target Platform</h:td>
           <h:td valign="top">Different</h:td>
-          <h:td valign="top">Product Models that virtualize different instruction sets (e.g. x86, ARM, POWER, SPARC, MIPS)
+          <h:td valign="top">Product Models that virtualize different instruction sets (e.g., x86, ARM, POWER, SPARC, MIPS)
               are not equivalent.</h:td>
         </h:tr>
         <h:tr>
@@ -6281,13 +6286,13 @@
         <h:br />
         <h:br />
         The guidance for Product Model (Section 3) specifies that Products intended for use on substantially different operating
-          systems (e.g. Windows vs. Linux vs. SunOS) are different Models. Therefore, platforms running substantially different
-          operating systems are de facto not equivalent. Likewise, operating systems with different major version numbers are not
+          systems (e.g., Windows vs. Linux vs. SunOS) are different Models. Therefore, platforms running substantially different
+          operating systems are not equivalent. Likewise, operating systems with different major version numbers are not
           equivalent for purposes of this PP.
         <h:br />
         <h:br />
           As a result, Software Platform equivalence is largely concerned with revisions and variations of operating systems that
-          are substantially the same (e.g. different versions and revision levels of Windows or Linux).<h:br/><h:br/>
+          are substantially the same (e.g., different versions and revision levels of Windows or Linux).<h:br/><h:br/>
 	
 	      <h:b><ctr ctr-type="Table" pre="Table " id="equiv-sw-platform">: Factors for Determining Software Platform Equivalence</ctr></h:b><h:br/>
 	      <h:table border="1">
@@ -6326,7 +6331,7 @@
     </section>
   </section>
 	    
-    <section id="s-specificity" title="Level of Specificity for Tested Configurations and Claimed Equivalent Configurations">
+    <section id="s-specificity" title="Level of Specificity for Tested and Claimed Equivalent Configurations">
       In order to make equivalency determinations, the vendor and evaluator must agree on the equivalency claims. They must
       then provide the scheme with sufficient information about the TOE instances and platforms that were evaluated, and the
       TOE instances and platforms that are claimed to be equivalent.
