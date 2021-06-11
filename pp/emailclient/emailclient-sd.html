@@ -333,7 +333,7 @@ The following sections list Common Criteria and technology terms used in this do
         
         <h3 class="indexable" data-level="3" id="mod_fcs">2.1.1.1 Cryptographic Support (FCS)</h3>
           
-            This SFR is changed from its definition in the Base-PP to remove one of the available selection options because it will never apply in the case where the TOE conforms to this PP-Module.
+            This SFR is changed from its definition in the App PP to remove one of the available selection options because it will never apply in the case where the TOE conforms to this PP-Module.
             
               The application shall 
                 
@@ -352,7 +352,7 @@ The following sections list Common Criteria and technology terms used in this do
           
           
           
-            This SFR is changed from its definition in the Base-PP to remove one of the available selection options because it will never apply in the case where the TOE conforms to this PP-Module.
+            This SFR is changed from its definition in the App PP to remove one of the available selection options because it will never apply in the case where the TOE conforms to this PP-Module.
             
                The application shall
                 
@@ -386,7 +386,7 @@ The following sections list Common Criteria and technology terms used in this do
         
         <h3 class="indexable" data-level="3" id="mod_fia">2.1.1.2 Identification and Authentication (FIA)</h3>
           
-            This SFR is unchanged from its definition in the Base-PP; the SFR is recategorized from selection-based to mandatory when the TOE conforms to this PP-Module.
+            This SFR is unchanged from its definition in the App PP; the SFR is recategorized from selection-based to mandatory when the TOE conforms to this PP-Module.
             
               This SFR is selection-based in the App PP. When the TOE conforms to this PP-Module, it is mandatory because of the modifications that this PP-Module makes to FTP_DIT_EXT.1.
               
@@ -398,7 +398,7 @@ The following sections list Common Criteria and technology terms used in this do
             
           
           
-            This SFR is unchanged from its definition in the Base-PP; the SFR is recategorized from selection-based to mandatory when the TOE conforms to this PP-Module.
+            This SFR is unchanged from its definition in the App PP; the SFR is recategorized from selection-based to mandatory when the TOE conforms to this PP-Module.
             
               This SFR is selection-based in the App PP. When the TOE conforms to this PP-Module, it is mandatory because of the modifications that this PP-Module makes to FTP_DIT_EXT.1.
               
@@ -426,17 +426,17 @@ The following sections list Common Criteria and technology terms used in this do
         
         <h3 class="indexable" data-level="3" id="mod_ftp">2.1.1.3 Trusted Path/Channels (FTP)</h3>
           
-            This SFR is changed from its definition in the Base-PP to modify the selection options such that some options are mandated 
+            This SFR is changed from its definition in the App PP to modify the selection options such that some options are mandated 
               if another selection is chosen and some are removed entirely, due to the specific cryptographic needs of email client applications.
             
               The application shall 
                 
                   encrypt all transmitted [sensitive data] with [TLS as defined in the TLS Package]
-                  invoke platform-provided functionality to encrypt all transmitted sensitive data with TLS	    
+                  invoke platform-provided functionality to encrypt all transmitted sensitive data with [TLS]	    
                 
                 between itself and another trusted IT product.
               
-              This SFR is modified from its definition in the Base-PP to require that the TOE supports TLS and that its use of TLS is only limited to sensitive data. A conformant TOE must support the use of TLS for email 
+              This SFR is modified from its definition in the App PP to require that the TOE supports TLS and that its use of TLS is only limited to sensitive data. A conformant TOE must support the use of TLS for email 
               encryption but is permitted to send and receive non-sensitive email messages over an untrusted channel.
               Either the TOE or its platform is permitted to implement TLS. If the TOE implements TLS, FCS_TLS_EXT.1 and FCS_TLSC_EXT.1 from the TLS package must be claimed at minimum.
               
@@ -461,8 +461,8 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 	        
 	      <div class="eacategory">TSS</div>
-		The evaluator shall verify the TSS for a high-level description of method used to protect keys stored in nonvolatile memory.<p></p>
-		The evaluator shall verify the TSS to ensure it describes the storage location of all keys and the protection of all keys stored in nonvolatile memory. The description of the key chain shall be reviewed to ensure FCS_COP_EXT.2 is followed for the storage of wrapped or encrypted keys in nonvolatile memory and plaintext keys in nonvolatile memory meet one of the criteria for storage.<p></p>
+		The evaluator shall verify the TSS for a high-level description of method used to protect keys stored in non-volatile memory.<p></p>
+		The evaluator shall verify the TSS to ensure it describes the storage location of all keys and the protection of all keys stored in non-volatile memory. The description of the key chain shall be reviewed to ensure FCS_COP_EXT.2 is followed for the storage of wrapped or encrypted keys in non-volatile memory and plaintext keys in non-volatile memory meet one of the criteria for storage.<p></p>
 		<div class="eacategory">Guidance</div>
 	          There are no guidance EAs for this component.<p></p>
 	        <div class="eacategory">Tests</div>
@@ -472,15 +472,15 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 		
 	      <div class="eacategory">TSS</div>
-		If the platform provides the key destruction, then the evaluator examines the TSS to verify that it describes how the key destruction functionality is invoked.
+		If the platform provides the key destruction, then the evaluator shall examine the TSS to verify that it describes how the key destruction functionality is invoked.
 		<p></p>
 		  If "destruction of reference..." (for volatile memory) is selected, then the evaluator shall examine the relevant interface definition to ensure that the interface supports the selection and description in the TSS.
 		<p></p>
-		  If the application invokes key destruction, the evaluator checks to ensure the TSS describes each of the secret keys (keys used for symmetric encryption or data authentication), private keys, and critical security parameters (CSPs) used to generate keys; 
+		  If the application invokes key destruction, the evaluator shall check to ensure the TSS describes each of the secret keys (keys used for symmetric encryption or data authentication), private keys, and critical security parameters (CSPs) used to generate keys; 
 		  when they are zeroized (for example, immediately after use, on system shutdown, etc.); 
 		  and the type of zeroization procedure that is performed (overwrite with zeroes, overwrite three times with random pattern, etc.). 
-		  If different types of memory are used to store the materials to be protected, the evaluator checks to ensure that the TSS describes the zeroization procedure in terms of the memory in which the data are stored 
-		  (for example, "secret keys stored on a drive are zeroized by overwriting once with zeros, while secret keys stored on the internal hard drive are zeroized by overwriting three times with a random pattern that is changed before each write").
+		  If different types of memory are used to store the materials to be protected, the evaluator shall check to ensure that the TSS describes the zeroization procedure in terms of the memory in which the data are stored 
+		  (for example, "secret keys stored on a drive are zeroized by overwriting once with zeros, while secret akeys stored on the internal hard drive are zeroized by overwriting three times with a random pattern that is changed before each write").
 		<p></p>  
 		<div class="eacategory">Guidance</div>
 	          There are no guidance EAs for this component.<p></p>
@@ -488,7 +488,17 @@ The following sections list Common Criteria and technology terms used in this do
 		  If the TSF performs its own key destruction, the evaluator shall perform the following test:
 		<ul>
 		<li><b>Test 1: </b>
-		For each type of authorization service, encryption mode, and encryption operation, a known authorization factor, and chain of keys must be provided to the evaluator with an associated ciphertext data set (e.g. if a passphrase is used to create an intermediate key, then the ciphertext containing the encrypted key as well as the intermediate key itself must be provided to the evaluator.) The evaluator shall use the email client in conjunction with a debugging or forensics utility to attempt to authorize themselves, resulting in the generation of a key or decryption of a key. The evaluator shall ascertain from the TSS what the vendor defines as "no longer needed" and execute the sequence of actions via the email client to invoke this state. At this point, the evaluator should take a dump of volatile memory and search the retrieved dump for the provided authorization credentials or keys (e.g. if the password was "PaSSw0rd", perform a string search of the forensics dump for "PaSSw0rd"). The evaluator must document each command, program or action taken during this process, and must confirm that no plaintext keying material resides in volatile memory. The evaluator must perform this test three times to ensure repeatability. If during the course of this testing the evaluator finds that keying material remains in volatile memory, they should be able to identify the cause (i.e. execution of the grep command for "PaSSw0rd" caused a false positive) and document the reason for failure to comply with this requirement. The evaluator shall repeat this same test, but looking for keying material in nonvolatile memory.<p></p>
+		For each type of authorization service, encryption mode, and encryption operation, a known authorization factor, and chain of keys must be provided to the evaluator with an associated ciphertext data set 
+		(e.g. if a passphrase is used to create an intermediate key, then the ciphertext containing the encrypted key as well as the intermediate key itself must be provided to the evaluator). 
+		The evaluator shall use the email client in conjunction with a debugging or forensics utility to attempt to authorize themselves, resulting in the generation of a key or decryption of a key. 
+		The evaluator shall ascertain from the TSS what the vendor defines as "no longer needed" and execute the sequence of actions via the email client to invoke this state. 
+		At this point, the evaluator should take a dump of volatile memory and search the retrieved dump for the provided authorization credentials or keys 
+		(e.g. if the password was "PaSSw0rd", perform a string search of the forensics dump for "PaSSw0rd"). 
+		The evaluator must document each command, program, or action taken during this process, and must confirm that no plaintext keying material resides in volatile memory. 
+		The evaluator must perform this test three times to ensure repeatability. 
+		If during the course of this testing the evaluator finds that keying material remains in volatile memory, they should be able to identify the cause 
+		(i.e. execution of the grep command for "PaSSw0rd" caused a false positive) and document the reason for failure to comply with this requirement. 
+		The evaluator shall repeat this same test, but looking for keying material in non-volatile memory.<p></p>
 		</li>
 		</ul>
 		</div><div class="comp" id=""><h4>FCS_KYC_EXT.1 Key Chaining</h4><div class="component-activity-header">FCS_KYC_EXT.1</div>
@@ -496,7 +506,7 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 	        
 	      <div class="eacategory">TSS</div>
-		  The evaluator shall verify that the TSS* describes a high-level description of the key hierarchy for all authorizations methods that are used to protect the encryption keys. 
+		  The evaluator shall verify that the TSS* includes a high-level description of the key hierarchy for all authorizations methods that are used to protect the encryption keys. 
 		  The evaluator shall examine the TSS to ensure it describes the key chain in detail. The description of the key chain shall be reviewed to ensure it maintains a chain of keys using key wrap that meets FCS_COP_EXT.2. 
 		<p></p>  
 		  The evaluator shall then verify that the TSS* describes how the key chain process functions, such that it does not expose any material that might compromise any key in the chain. A high-level description should include a diagram illustrating the key hierarchy implemented and detail where all keys and keying material is stored or what it is derived from. The evaluator shall examine the key hierarchy to ensure that at no point the chain could be broken without a cryptographic exhaust or knowledge of the key within the chain and the effective strength of the data encryption key is maintained throughout the key chain.
@@ -511,9 +521,9 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 	      <div class="eacategory">TSS</div>
 	          The evaluator shall verify that the version of S/MIME implemented by the email client is present in the TSS. The evaluator shall also verify that the algorithms supported are specified, and that the algorithms specified are those listed for this component.
-	          <p></p>The evaluator shall verify that the TSS describes the ContentEncryptionAlgorithmIdentifier and whether the required behavior is performed by default or may be configured.
-	          <p></p>The evaluator shall verify that the TSS describes the digestAlgorithm and whether the required behavior is performed by default or may be configured.
-	          <p></p>The evaluator shall verify that the TSS describes the AlgorithmIdentifier and whether the required behavior is performed by default or may be configured.
+	          <p></p>The evaluator shall verify that the TSS describes the ContentEncryptionAlgorithmIdentifier and if the required behavior is performed by default or may be configured.
+	          <p></p>The evaluator shall verify that the TSS describes the digestAlgorithm and if the required behavior is performed by default or may be configured.
+	          <p></p>The evaluator shall verify that the TSS describes the AlgorithmIdentifier and if the required behavior is performed by default or may be configured.
 	          <p></p>The evaluator shall verify that the TSS describes the retrieval mechanisms for both certificates and certificate revocation as well as the frequency at which these mechanisms are implemented.<p></p>
 	        <div class="eacategory">Guidance</div>
 	          The evaluator shall review the operational guidance to ensure that it contains instructions on configuring the email client such that it complies with the description in the TSS.
@@ -580,9 +590,9 @@ The following sections list Common Criteria and technology terms used in this do
 		  <div class="eacategory">Tests</div>The evaluator shall perform the following tests:
 		<ul>
 		  <li><b>Test 1: </b>The evaluator shall perform Test 1 for each function listed in FIA_X509_EXT.2.1 (from the Base-PP) that requires the use of certificates. The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. The evaluator shall then load into the platform's root store any certificates needed to validate the certificate to be used in the function, and demonstrate that the function succeeds.<p></p></li> 
-		  <li><b>Test 2: </b>The evaluator shall demonstrate that using a valid certificate that requires certificate validation checking to be performed in at least some part by communicating with a non-TOE IT entity. 
-		    The evaluator shall then manipulate the environment so that the email client is unable to verify the validity of the certificate, and observe that the action selected in FIA_X509_EXT.2.2 (from the Base-PP) is performed. 
-		    If the selected action is administrator-configurable, then The evaluator shall follow the operational guidance to determine that all supported administrator configurable options behave in their documented manner.</li>
+		  <li><b>Test 2: </b>The evaluator shall use the TOE to communicate with a non-TOE IT entity that presents a certificate that can be validated.
+		    The evaluator shall then manipulate the environment so that the TOE is unable to verify the validity of the presented certificate (e.g. by deliberately making the method of revocation checking unavailable), and observe that the action selected in FIA_X509_EXT.2.2 (from the Base-PP) is performed. 
+		    If the selected action is administrator-configurable, then The evaluator shall follow the operational guidance to determine that all supported administrator-configurable options behave in their documented manner.</li>
 		</ul>
 		</div><h2 class="indexable" data-level="2" id="man_fmt">2.2.4 Security Management (FMT)</h2><div class="comp" id=""><h4>FMT_MOF_EXT.1 Management of Functions Behavior</h4><div class="component-activity-header">FMT_MOF_EXT.1</div>
 		The evaluation activities for this component will be driven by the selections made by the ST author. If a capability is not selected in the ST, the noted evaluation activity does not need to be performed. 
@@ -658,7 +668,7 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="eacategory">TSS</div>
                 The evaluator shall ensure the TSS describes how salts are generated. 
                 The evaluator shall confirm that the salt is generated using a DRBG as described in FCS_RBG_EXT.1 in <a href="#bibAppPP">[App PP]</a> or by the Operational Environment. 
-                If an external function is used for this purpose, the evaluator shall ensure tha the TSS references the specific API that is called with inputs.<p></p>
+                If an external function is used for this purpose, the evaluator shall ensure that the TSS references the specific API that is called with inputs.<p></p>
                 If the email client is relying on random bit generation from the host platform, 
                 the evaluator shall verify that the TSS includes the name/manufacturer of the external DRBG and describes the function call and parameters used when calling the external DRBG function. 
                 If different external DRBGs are used for different platforms, the evaluator shall ensure that the TSS identifies each RBG for each platform.<p></p> 
@@ -676,7 +686,7 @@ The following sections list Common Criteria and technology terms used in this do
 	    <div class="eacategory">Guidance</div>
 	    The evaluator shall ensure that the operational guidance includes instructions (with any appropriate visual figures) for viewing the URI of an embedded link.<p></p>
 	    <div class="eacategory">Tests</div>The evaluator shall send the client an HTML message with an embedded link whose tag is not the URI itself (for example, "click here"). 
-	      The evaluator shall view the message and, following the instructions in the operational guidance, verify that the full URI of the embedded link is displayed.<p></p>
+	      The evaluator shall view the message and verify that the full URI of the embedded link is displayed by following the instructions in the operational guidance.<p></p>
 	    </div><div class="comp" id=""><h4>FDP_PST_EXT.1 Storage of Persistent Information</h4><div class="component-activity-header">FDP_PST_EXT.1</div>
 	    
 	      
@@ -795,9 +805,9 @@ The following sections list Common Criteria and technology terms used in this do
 	    The evaluator shall examine the operational guidance to verify that it includes instructions on how to configure the email client with trusted add-on sources.<p></p>
 	    <div class="eacategory">Tests</div>The evaluator shall perform the following tests:
 	    <ul>
-	      <li><b>Test 1: </b>The evaluator shall create or obtain an add-on signed by a trusted source and attempt to install it. The evaluator shall then verify that the signature on the addon is valid and that the add-on can be installed.</li>
-	      <li><b>Test 2: </b>The evaluator shall create or obtain an add-on signed with an invalid certificate and attempt to install it. The evaluator shall then verify that the signed addon is rejected and cannot be installed.</li>
-	      <li><b>Test 3: </b>The evaluator shall create or obtain an add-on signed by a trusted source, modify the addon without resigning it, and attempt to install it. The evaluator shall then verify that the signed add-on is rejected and cannot be installed.</li>
+	      <li><b>Test 1: </b>The evaluator shall create or obtain an add-on signed by a trusted source and attempt to install it. The evaluator shall then verify that the signature on the add-on is valid and that the add-on can be installed.</li>
+	      <li><b>Test 2: </b>The evaluator shall create or obtain an add-on signed with an invalid certificate and attempt to install it. The evaluator shall then verify that the signed add-on is rejected and cannot be installed.</li>
+	      <li><b>Test 3: </b>The evaluator shall create or obtain an add-on signed by a trusted source, modify the add-on without resigning it, and attempt to install it. The evaluator shall then verify that the signed add-on is rejected and cannot be installed.</li>
 	    </ul>
 	    </div><h2 class="indexable" data-level="1" id="obj-sfrs">2.5 Evaluation Activities for Objective SFRs</h2>The PP-Module does not define any objective requirements.<h1 id="sar_aas" class="indexable" data-level="0">3 Evaluation Activities for SARs</h1><p>The PP-Module does not define any SARs beyond those defined within the
     
