@@ -660,6 +660,11 @@ The following sections list Common Criteria and technology terms used in this do
 		on behalf of an Administrator.</td></tr><tr><td><div id="Operating_System">Operating System (<abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr>)</div></td><td>
 		Software that manages physical and logical resources and provides services
 		for applications. Operating systems are the generally the primary tenant of a <abbr class="dyn-abbr"><a href="#abbr_GPCP">GPCP</a></abbr>.
+      </td></tr><tr><td><div id="Physical_Presence">Physical Presence</div></td><td>
+	      A user or administrator having physical access to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. An assertion of physical presence
+	      can take the form, for example, of requiring entry of a password at a boot screen, unlocking 
+	      of a physical lock (e.g., a motherboard jumper), or inserting a <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> cable before permitting
+	      platform firmware to be updated.
       </td></tr><tr><td><div id="Sensitive_Data">Sensitive Data</div></td><td>
 		Sensitive data may include all user or enterprise data or may be specific
 		application data such as PII, emails, messaging, documents, calendar items, and contacts.
@@ -5860,7 +5865,17 @@ The following sections list Common Criteria and technology terms used in this do
 					The evaluator shall examine the guidance to ensure that it describes how administrators assert 
 					physical presence to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
 				<div class="eacategory">Tests</div>
-					TODO: Design a test for determining that tenant software cannot access the ports.
+					<ul>
+						<li><b>Test 1: </b>
+							The evaluator shall attempt to access the debug port without authenticating
+							as an administrator. The attempt should fail.
+						</li>
+						<li><b>Test 2: </b>
+							[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports an Administrator role, the evaluator 
+							shall autenticate as an Administrator and then attempt to access
+							the debug port. The attempt should succeed.
+						</li>
+					</ul>
 				</div></div></div>
 
 	
