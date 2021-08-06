@@ -1021,8 +1021,8 @@ The following sections list Common Criteria and technology terms used in this do
 		
 		
 
+		
         
-
 
 
 
@@ -1048,7 +1048,7 @@ The following sections list Common Criteria and technology terms used in this do
                   [<b>assignment</b>: 
      <span class="assignable-content">list of credentials</span>]
                   according to
-                  [<b>selection</b>: <i id="_s_78"><a href="#FCS_COP.1/1">FCS_COP.1/1</a></i>, <i id="_s_79"><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a></i>]
+                  [<b>selection</b>: <i id="_s_78"><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></i>, <i id="_s_79"><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a></i>]
                 </i></li></ul>]
                to non-volatile memory.<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
               This requirement ensures that persistent credentials (secret keys, <abbr class="dyn-abbr"><a href="#abbr_PKI">PKI</a></abbr> private keys, passwords, etc) are stored securely, and never persisted in cleartext form. 
@@ -1058,7 +1058,7 @@ The following sections list Common Criteria and technology terms used in this do
               If <i>invoke the functionality provided by the platform to securely store</i> is selected then the Application developer must closely review the EA for their 
               platform and provide documentation indicating which platform mechanisms are used to store credentials. 
     If <i>implement functionality to securely store credentials</i> is selected, then the following components must be included in 
-              the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: <a href="#FCS_COP.1/1">FCS_COP.1/1</a> or <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>.
+              the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>.
 	  If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
               If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is Linux and Java KeyStores are used to store credentials, <i>implement functionality to securely store credentials</i> must be selected.
             </span></div></div></div>
@@ -1070,7 +1070,7 @@ The following sections list Common Criteria and technology terms used in this do
               confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists for what purpose it is used, and how it is stored. 
 	    <div class="eacategory">Tests</div>
               For all credentials for which the application implements functionality, the evaluator shall 
-              verify credentials are encrypted according to <a href="#FCS_COP.1/1">FCS_COP.1/1</a> or conditioned according to
+              verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to
               <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a> and <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>.
               
               For all credentials for which the application invokes platform-provided
@@ -2097,7 +2097,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
        
 
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.7 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="4"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a> for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses appropriately restrictive platform permissions on its binaries and data</td></tr><tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> and stack overflow protection.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be patched and that any updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have appropriate integrity protection.</td></tr><tr class="major-row"><td rowspan="13"><a href="#O.QUALITY">O.QUALITY</a><br/></td><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing FCS_CKM_EXT.1 to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr><tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided random bit generation services.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided data-at-rest protection services.</td></tr><tr><td><a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can use platform services to store and set configuration options.</td></tr><tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr><tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided services to implement trusted communications.</td></tr><tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.2">FCS_CKM.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key establishment services.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided X.509 certificate validation services.</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may leverage the platform-supported package manager for application distribution and leverages platform-provided mechanisms to remove all traces of itself when removed from the platform system.</td></tr><tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media formats.</td></tr><tr class="major-row"><td rowspan="5"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.</td></tr><tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a methodology for identifying the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> versioning.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to define how updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are deployed and verified.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the mechanism used to verify <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements this functionality rather than the underlying platform.</td></tr><tr class="major-row"><td rowspan="9"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether random bit generation services are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform. Depending on how data at rest is protected, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr><tr><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> (optional)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/1">FCS_COP.1/1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/1">FCS_COP.1/1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td></tr><tr class="major-row"><td rowspan="14"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr><tr><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_CKM_EXT.1 to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr><tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/1">FCS_COP.1/1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/1">FCS_COP.1/1</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define the hash algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the digital signature algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define the <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td>FCS_HTTPS_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_HTTPS_EXT.1 to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> trusted communications protocol.</td></tr><tr><td><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to define X.509 certificate validation activities in support of trusted communications.</td></tr><tr><td><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</td></tr></table></p>  
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="4"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a> for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses appropriately restrictive platform permissions on its binaries and data</td></tr><tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> and stack overflow protection.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be patched and that any updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have appropriate integrity protection.</td></tr><tr class="major-row"><td rowspan="13"><a href="#O.QUALITY">O.QUALITY</a><br/></td><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing FCS_CKM_EXT.1 to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr><tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided random bit generation services.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided data-at-rest protection services.</td></tr><tr><td><a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can use platform services to store and set configuration options.</td></tr><tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr><tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided services to implement trusted communications.</td></tr><tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.2">FCS_CKM.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key establishment services.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided X.509 certificate validation services.</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may leverage the platform-supported package manager for application distribution and leverages platform-provided mechanisms to remove all traces of itself when removed from the platform system.</td></tr><tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media formats.</td></tr><tr class="major-row"><td rowspan="5"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.</td></tr><tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a methodology for identifying the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> versioning.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to define how updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are deployed and verified.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the mechanism used to verify <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements this functionality rather than the underlying platform.</td></tr><tr class="major-row"><td rowspan="9"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether random bit generation services are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform. Depending on how data at rest is protected, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr><tr><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> (optional)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td></tr><tr class="major-row"><td rowspan="14"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr><tr><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_CKM_EXT.1 to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr><tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define the hash algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the digital signature algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define the <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td>FCS_HTTPS_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_HTTPS_EXT.1 to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> trusted communications protocol.</td></tr><tr><td><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to define X.509 certificate validation activities in support of trusted communications.</td></tr><tr><td><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</td></tr></table></p>  
 	  
 	  
 	
@@ -2927,216 +2927,182 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					</div></div></div><div class="comp" id="FCS_CKM.2"><h4>FCS_CKM.2 Cryptographic Key Establishment</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
            <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
            </i></b></div>
-	  
-          <div class="element"><div class="reqid" id="FCS_CKM.2.1"><a href="#FCS_CKM.2.1" class="abbr">FCS_CKM.2.1</a></div><div class="reqdesc">
-              The application shall 
-              [<b>selection</b>: <i id="_s_36">invoke platform-provided functionality</i>, <i id="_s_37">implement functionality</i>] 
-              to perform cryptographic key establishment in accordance with a specified 
-              cryptographic key establishment method:<p></p>
-              [<b>selection</b>: <ul><li style=""><i id="_s_38">
-                  <b>[RSA-based key establishment schemes]</b> that meets the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> 
-                    Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
-                    Schemes Using Integer Factorization Cryptography”]</b>
-                </i>, </li><li style=""><i id="_s_39"><b>[RSA-based key establishment schemes]</b>
-			      that meet the following: 
-			      <b>RSAES-PKCS1-v1_5 as specified in Section 7.2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8017,
-				      “Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</b>
-		      </i>, </li><li style=""><i id="_s_40">
-                  <b>[Elliptic curve-based key establishment schemes]</b> that meets the 
-                  following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
-                  Schemes Using Discrete Logarithm Cryptography”]</b>
-                </i>, </li><li style=""><i id="_s_41">
-                  <b>[Finite field-based key establishment schemes]</b> that meets the following: 
-                  <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key 
-                  Establishment Schemes Using Discrete Logarithm Cryptography”]</b>
-                </i>, </li><li style=""><i id="_s_42"><b>[Key establishment scheme using Diffie-Hellman group 14]</b>
-			      that meets the following: 
-			      <b><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</b>
-		      </i>, </li><li style=""><i id="_s_43"><b>[FFC Schemes using “safe-prime” groups]</b>
-			      that meet the following: 
-			      <b>‘<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3,
-				      “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</b>
-				      and 
-			      [<b>selection</b>: <i id="_s_44"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</i>, <i id="_s_45"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</i>].
-		      </i></li></ul>].
-            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall select all key establishment schemes used for the selected cryptographic 
-              protocols. <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> requires cipher suites that use RSA-based key establishment 
-              schemes.
-              <br/>
-              The RSA-based key establishment schemes are described in Section 9 of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-56B; 
-              however, Section 9 relies on implementation of other sections in <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-56B. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts 
-              as a receiver in the RSA key establishment scheme, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not need to implement 
-              RSA key generation.
-              <br/>
-              The elliptic curves used for the key establishment scheme shall correlate with the curves 
-              specified in <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>.
-              <br/>
-              The domain parameters used for the finite field-based key establishment scheme are specified 
-              by the key generation according to <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>.
-            </span></div></div></div>
+			
+			<div class="element"><div class="reqid" id="FCS_CKM.2.1"><a href="#FCS_CKM.2.1" class="abbr">FCS_CKM.2.1</a></div><div class="reqdesc">
+					The application shall 
+						[<b>selection</b>: <i id="_s_36">invoke platform-provided functionality</i>, <i id="_s_37">implement functionality</i>] 
+					to perform cryptographic key establishment in accordance with a specified 
+					cryptographic key establishment method:<p></p>
+					[<b>selection</b>: <ul><li style=""><i id="_s_38">
+							<b>[RSA-based key establishment schemes]</b> that meets the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> 
+							Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
+							Schemes Using Integer Factorization Cryptography”]</b>
+						</i>, </li><li style=""><i id="_s_39"><b>[RSA-based key establishment schemes]</b>
+							that meet the following: <b>RSAES-PKCS1-v1_5 as specified in Section 7.2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8017,
+							“Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</b>
+						</i>, </li><li style=""><i id="_s_40">
+							<b>[Elliptic curve-based key establishment schemes]</b> that meets the 
+							following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
+							Schemes Using Discrete Logarithm Cryptography”]</b>
+						</i>, </li><li style=""><i id="_s_41">
+							<b>[Finite field-based key establishment schemes]</b> that meets the following: 
+							<b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key 
+							Establishment Schemes Using Discrete Logarithm Cryptography”]</b>
+						</i>, </li><li style=""><i id="_s_42"><b>[Key establishment scheme using Diffie-Hellman group 14]</b>
+							that meets the following: <b><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</b>
+						</i>, </li><li style=""><i id="_s_43"><b>[FFC Schemes using “safe-prime” groups]</b>
+							that meet the following: <b>‘<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3,
+							“Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</b>
+							and [<b>selection</b>: <i id="_s_44"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</i>, <i id="_s_45"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</i>].
+						</i></li></ul>].
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall select all key establishment schemes used for the selected cryptographic 
+					protocols. <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> requires cipher suites that use RSA-based key establishment 
+					schemes. <p></p>
+					The RSA-based key establishment schemes are described in Section 9 of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-56B; 
+					however, Section 9 relies on implementation of other sections in <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-56B. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts 
+					as a receiver in the RSA key establishment scheme, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not need to implement 
+					RSA key generation.<p></p>
+					The elliptic curves used for the key establishment scheme shall correlate with the curves 
+					specified in <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>.<p></p>
+					The domain parameters used for the finite field-based key establishment scheme are specified 
+					by the key generation according to <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>.
+				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.2.1">FCS_CKM.2.1</a></div>
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall ensure that the supported key establishment schemes correspond to the 
-              key generation schemes identified in <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one 
-              scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it identifies the usage for each 
-              scheme.
-	      <br/>
-              <div class="eacategory">Guidance</div> The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
-              the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key establishment scheme(s).
-              
-	      <br/>
-                <div class="eacategory">Tests</div>
-		      Evaluation Activity Note: The following tests require the developer to provide access to a test 
-              platform that provides the evaluator with tools that are typically not found on factory 
-              products.
-              <br/><br/>
-              <b>Key Establishment Schemes</b><p></p>
-              The evaluator shall verify the implementation of the key establishment schemes supported by 
-              the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the applicable tests below. 
-              <br/><br/>
-              <b>SP800-56A Key Establishment Schemes</b><p></p>
-              The evaluator shall verify a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s implementation of SP800-56A key agreement schemes 
-              using the following Function and Validity tests. These validation tests for each key agreement 
-              scheme verify that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has implemented the components of the key agreement scheme 
-              according to the specifications in the Recommendation. These components include the 
-              calculation of the DLC primitives (the shared secret value Z) and the calculation of the 
-              derived keying material (DKM) via the Key Derivation Function (KDF). If key confirmation 
-              is supported, the evaluator shall also verify that the components of key confirmation have 
-              been implemented correctly, using the test procedures described below. This includes the 
-              parsing of the DKM, the generation of MACdata and the calculation of MACtag.
-              <br/><br/>
-              
-		      <b>Function Test</b><p></p>
-                The Function test verifies the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to implement the key agreement 
-                schemes correctly. To conduct this test the evaluator shall generate or obtain test vectors 
-                from a known good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each supported 
-                key agreement scheme-key agreement role combination, KDF type, and, if supported, 
-                key confirmation role- key confirmation type combination, the tester shall generate 10 
-                sets of test vectors. The data set consists of one set of domain parameter values (FFC) or 
-                the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> approved curve (ECC) per 10 sets of public keys. These keys are static, 
-                ephemeral or both depending on the scheme being tested.
-                <br/>
-                The evaluator shall obtain the DKM, the corresponding <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s public keys (static and/or 
-                ephemeral), the MAC tag(s), and any inputs used in the KDF, such as the Other 
-                Information <i>(OtherInfo)</i> and <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> id fields.
-                <br/>
-                If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not use a KDF defined in <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-56A, the evaluator shall obtain only 
-                the public keys and the hashed value of the shared secret.
-                <br/>
-                The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of a given 
-                scheme by using a known good implementation to calculate the shared secret value, 
-                derive the keying material DKM, and compare hashes or MAC tags generated from 
-                these values.
-                <br/>
-                If key confirmation is supported, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform the above for each implemented 
-                approved MAC algorithm.
-                <br/><br/>
-                <b>Validity Test</b><p></p>
-                The Validity test verifies the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party’s valid and 
-                invalid key agreement results with or without key confirmation. To conduct this test, the 
-                evaluator shall obtain a list of the supporting cryptographic functions included in the 
-                SP800-56A key agreement implementation to determine which errors the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> should 
-                be able to recognize. The evaluator generates a set of 24 (FFC) or 30 (ECC) test vectors 
-                consisting of data sets including domain parameter values or <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> approved curves, the 
-                evaluator’s public keys, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s public/private key pairs, MACTag, and any inputs 
-                used in the KDF, such as the OtherInfo and <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> id fields.
-                <br/>
-                The evaluator shall inject an error in some of the test vectors to test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
-                recognizes invalid key agreement results caused by the following fields being incorrect: 
-                the shared secret value Z, the DKM, the OtherInfo field, the data to be 
-                MACed, or the generated MACTag. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> contains the full or partial (only ECC) 
-                public key validation, the evaluator will also individually inject errors in both parties’ 
-                static public keys, both parties’ ephemeral public keys and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s static private key 
-                to assure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> detects errors in the public key validation function and/or the partial 
-                key validation function (in ECC only). At least two of the test vectors shall remain 
-                unmodified and therefore should result in valid key agreement results (they should 
-                pass).
-                <br/>
-                The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall use these modified test vectors to emulate the key agreement scheme 
-                using the corresponding parameters. The evaluator shall compare the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s results with 
-                the results using a known good implementation verifying that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> detects these 
-                errors.
-                <br/><br/>
-              <b>SP800-56B Key Establishment Schemes</b><p></p>
-              The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, a 
-              recipient, or both for RSA-based key establishment schemes.
-              <br/>
-              If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, the following evaluation activity shall be performed to ensure the 
-              proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment 
-              scheme:
-              <br/>
-              <div class="indent">
-                To conduct this test the evaluator shall generate or obtain test vectors from a known 
-                good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
-                supported key establishment scheme and its options (with or without key confirmation 
-                if supported, for each supported key confirmation MAC function if key confirmation 
-                is supported, and for each supported mask generation function if KTS-OAEP is 
-                supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
-                include the RSA public key, the plaintext keying material, any additional input 
-                parameters if applicable, the MacKey and MacTag if key confirmation is 
-                incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
-                perform a key establishment encryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the same inputs 
-                (in cases where key confirmation is incorporated, the test shall use the MacKey from 
-                the test vector instead of the randomly generated MacKey used in normal operation) 
-                and ensure that the outputted ciphertext is equivalent to the ciphertext in the test 
-                vector.
-	      </div>
-              <br/>
-              If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver, the following evaluation activities shall be performed to ensure 
-              the proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment 
-              scheme:
-              <br/>
-	      <div class="indent">
-                To conduct this test the evaluator shall generate or obtain test vectors from a known 
-                good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
-                supported key establishment scheme and its options (with our without key 
-                confirmation if supported, for each supported key confirmation MAC function if key 
-                confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
-                supported), the tester shall generate 10 sets of test vectors. Each test vector 
-                shall include the RSA private key, the plaintext keying material (KeyData), any 
-                additional input parameters if applicable, the MacTag in cases where key 
-                confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
-                evaluator shall perform the key establishment decryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and 
-                ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
-                plaintext keying material in the test vector. In cases where key confirmation is 
-                incorporated, the evaluator shall perform the key confirmation steps and ensure that 
-                the outputted MacTag is equivalent to the MacTag in the test vector.
-	      </div>
-              <br/>
-              The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> handles decryption errors. In 
-              accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not reveal the particular 
-              error that occurred, either through the contents of any outputted or logged error message or 
-              through timing variations. If KTS-OAEP is supported, the evaluator shall create separate 
-              contrived ciphertext values that trigger each of the three decryption error checks described in 
-              <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B section 7.2.2.3, ensure that each decryption attempt 
-              results in an error, and ensure that any outputted or logged error message is identical for each. 
-              If KTS-KEM-KWS is supported, the evaluator shall create separate contrived ciphertext 
-              values that trigger each of the three decryption error checks described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special 
-              Publication 800-56B section 7.2.3.3, ensure that each decryption attempt results in an error, 
-              and ensure that any outputted or logged error message is identical for each.
-		    
-		    
-		    
-              <br/><br/>
-              <b>RSA-based key establishment</b><p></p>
-		The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of RSAES-PKCS1-v1_5 by using a known good implementation for each protocol selected in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> that uses RSAES-PKCS1-v1_5.    
-		    
-		    
-              <br/><br/>
-              <b>Diffie-Hellman Group 14</b><p></p>
-		 The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of Diffie-Hellman group 14 by using a known good implementation for each protocol selected in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> that uses Diffie-Hellman group 14.   
-		    
-		    
-              <br/><br/>
-              <b>FFC Schemes using “safe-prime” groups</b><p></p>
-		    The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of safe-prime groups by using a known good implementation for each protocol selected in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> that uses safe-prime groups. This test must be performed for each safe-prime group that each protocol uses.
-		<br/>
-	      </div></div></div><div class="comp" id="FCS_COP.1/1"><h4>FCS_COP.1/1 Cryptographic Operation - Encryption/Decryption</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator shall ensure that the supported key establishment schemes correspond to the 
+						key generation schemes identified in <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one 
+						scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it identifies the usage for each 
+						scheme.
+					<br/>
+					<div class="eacategory">Guidance</div> 
+						The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
+						the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key establishment scheme(s).    
+					<br/>
+					<div class="eacategory">Tests</div>
+						Evaluation Activity Note: The following tests require the developer to provide access to a test 
+						platform that provides the evaluator with tools that are typically not found on factory 
+						products. <p></p>
+						<b>Key Establishment Schemes</b><p></p>
+						The evaluator shall verify the implementation of the key establishment schemes supported by 
+						the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the applicable tests below. <p></p>
+						<b>SP800-56A Key Establishment Schemes</b><p></p>
+						The evaluator shall verify a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s implementation of SP800-56A key agreement schemes 
+						using the following Function and Validity tests. These validation tests for each key agreement 
+						scheme verify that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has implemented the components of the key agreement scheme 
+						according to the specifications in the Recommendation. These components include the 
+						calculation of the DLC primitives (the shared secret value Z) and the calculation of the 
+						derived keying material (DKM) via the Key Derivation Function (KDF). If key confirmation 
+						is supported, the evaluator shall also verify that the components of key confirmation have 
+						been implemented correctly, using the test procedures described below. This includes the 
+						parsing of the DKM, the generation of MACdata and the calculation of MACtag. <p></p>
+						<b>Function Test</b><p></p>
+						The Function test verifies the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to implement the key agreement 
+						schemes correctly. To conduct this test the evaluator shall generate or obtain test vectors 
+						from a known good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each supported 
+						key agreement scheme-key agreement role combination, KDF type, and, if supported, 
+						key confirmation role- key confirmation type combination, the tester shall generate 10 
+						sets of test vectors. The data set consists of one set of domain parameter values (FFC) or 
+						the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> approved curve (ECC) per 10 sets of public keys. These keys are static, 
+						ephemeral or both depending on the scheme being tested.<p></p>
+						The evaluator shall obtain the DKM, the corresponding <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s public keys (static and/or 
+						ephemeral), the MAC tag(s), and any inputs used in the KDF, such as the Other 
+						Information <i>(OtherInfo)</i> and <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> id fields. <p></p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not use a KDF defined in <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-56A, the evaluator shall obtain only 
+						the public keys and the hashed value of the shared secret.<p></p>
+						The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of a given 
+						scheme by using a known good implementation to calculate the shared secret value, 
+						derive the keying material DKM, and compare hashes or MAC tags generated from 
+						these values. <p></p>
+						If key confirmation is supported, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform the above for each implemented 
+						approved MAC algorithm. <p></p>
+						<b>Validity Test</b><p></p>
+						The Validity test verifies the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party’s valid and 
+						invalid key agreement results with or without key confirmation. To conduct this test, the 
+						evaluator shall obtain a list of the supporting cryptographic functions included in the 
+						SP800-56A key agreement implementation to determine which errors the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> should 
+						be able to recognize. The evaluator generates a set of 24 (FFC) or 30 (ECC) test vectors 
+						consisting of data sets including domain parameter values or <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> approved curves, the 
+						evaluator’s public keys, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s public/private key pairs, MACTag, and any inputs 
+						used in the KDF, such as the OtherInfo and <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> id fields. <p></p>
+						The evaluator shall inject an error in some of the test vectors to test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
+						recognizes invalid key agreement results caused by the following fields being incorrect: 
+						the shared secret value Z, the DKM, the OtherInfo field, the data to be 
+						MACed, or the generated MACTag. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> contains the full or partial (only ECC) 
+						public key validation, the evaluator will also individually inject errors in both parties’ 
+						static public keys, both parties’ ephemeral public keys and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s static private key 
+						to assure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> detects errors in the public key validation function and/or the partial 
+						key validation function (in ECC only). At least two of the test vectors shall remain 
+						unmodified and therefore should result in valid key agreement results (they should pass).<p></p>
+						The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall use these modified test vectors to emulate the key agreement scheme 
+						using the corresponding parameters. The evaluator shall compare the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s results with 
+						the results using a known good implementation verifying that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> detects these errors.<p></p>
+						<b>SP800-56B Key Establishment Schemes</b><p></p>
+						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, a 
+						recipient, or both for RSA-based key establishment schemes. <p></p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, the following evaluation activity shall be performed to ensure the 
+						proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme: <p></p>
+						<div class="indent">
+							To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key confirmation 
+							if supported, for each supported key confirmation MAC function if key confirmation 
+							is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
+							include the RSA public key, the plaintext keying material, any additional input 
+							parameters if applicable, the MacKey and MacTag if key confirmation is 
+							incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
+							perform a key establishment encryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the same inputs 
+							(in cases where key confirmation is incorporated, the test shall use the MacKey from 
+							the test vector instead of the randomly generated MacKey used in normal operation) 
+							and ensure that the outputted ciphertext is equivalent to the ciphertext in the test vector.
+						</div><p></p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver, the following evaluation activities shall be performed to ensure 
+						the proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme:<p></p>
+						<div class="indent">
+							To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
+							supported key establishment scheme and its options (with our without key 
+							confirmation if supported, for each supported key confirmation MAC function if key 
+							confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector 
+							shall include the RSA private key, the plaintext keying material (KeyData), any 
+							additional input parameters if applicable, the MacTag in cases where key 
+							confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
+							evaluator shall perform the key establishment decryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and 
+							ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
+							plaintext keying material in the test vector. In cases where key confirmation is 
+							incorporated, the evaluator shall perform the key confirmation steps and ensure that 
+							the outputted MacTag is equivalent to the MacTag in the test vector.
+						</div> <p></p>
+						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> handles decryption errors. In 
+						accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not reveal the particular 
+						error that occurred, either through the contents of any outputted or logged error message or 
+						through timing variations. If KTS-OAEP is supported, the evaluator shall create separate 
+						contrived ciphertext values that trigger each of the three decryption error checks described in 
+						<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B section 7.2.2.3, ensure that each decryption attempt 
+						results in an error, and ensure that any outputted or logged error message is identical for each. 
+						If KTS-KEM-KWS is supported, the evaluator shall create separate contrived ciphertext 
+						values that trigger each of the three decryption error checks described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special 
+						Publication 800-56B section 7.2.3.3, ensure that each decryption attempt results in an error, 
+						and ensure that any outputted or logged error message is identical for each.<p></p>
+						<b>RSA-based key establishment</b><p></p>
+						The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of RSAES-PKCS1-v1_5 by using a
+						known good implementation for each protocol selected in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> that uses RSAES-PKCS1-v1_5.  <p></p>
+						<b>Diffie-Hellman Group 14</b><p></p>
+						The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of Diffie-Hellman group 14 by using
+						a known good implementation for each protocol selected in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> that uses Diffie-Hellman group 14.<p></p>
+						<b>FFC Schemes using “safe-prime” groups</b><p></p>
+						The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation of safe-prime groups by using a
+						known good implementation for each protocol selected in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> that uses safe-prime groups. This test
+						must be performed for each safe-prime group that each protocol uses.
+					<br/>
+				</div></div></div><div class="comp" id="FCS_COP.1/SKC"><h4>FCS_COP.1/SKC Cryptographic Operation - Encryption/Decryption</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
            <a href="#FCS_STO_EXT.1.1">FCS_STO_EXT.1.1</a>, <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
            </i></b></div>
 			
 			
-			<div class="element"><div class="reqid" id="FCS_COP.1.1/1"><a href="#FCS_COP.1.1/1" class="abbr">FCS_COP.1.1/1</a></div><div class="reqdesc">
+			<div class="element"><div class="reqid" id="FCS_COP.1.1/SKC"><a href="#FCS_COP.1.1/SKC" class="abbr">FCS_COP.1.1/SKC</a></div><div class="reqdesc">
 					The <b>application</b> shall perform <i>encryption/decryption</i> in accordance with a specified 
 					cryptographic algorithm  
 					[<b>selection</b>: <ul><li style=""><i id="_s_46"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</i>, </li><li style=""><i id="_s_47"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D) mode</i>, </li><li style=""><i id="_s_48"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-XTS (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38E) mode</i>, </li><li style=""><i id="_s_49"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38C) mode</i>, </li><li style=""><i id="_s_50"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</i></li></ul>]
@@ -3149,7 +3115,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					choose the key sizes that are supported by this functionality. 128-bit key size 
 					is required in order to comply with certain <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementations.<p></p>
 				</span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/1">FCS_COP.1/1</a></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></div>
 					
 					
 				<div class="eacategory">Guidance</div> 
@@ -3569,7 +3535,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 			  used by the application (e.g., trusted channel). The hash selection must
 			  support the message digest size selection. The hash selection
 			  should be consistent with the overall strength of the algorithm
-			  used for <a href="#FCS_COP.1/1">FCS_COP.1/1</a>.
+			  used for <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a>.
             </span></div></div></div>
           <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/4">FCS_COP.1/4</a></div>The evaluator shall perform the following activities based on the selections
               in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
@@ -3818,14 +3784,14 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								certificate fails to validate. (The signature on the certificate will not validate.)
 							</li>
 							<li><b>Test 8: </b>
-								 (Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall establish a valid,
+								 (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/3">FCS_COP.1/3</a>). The evaluator shall establish a valid,
 								 trusted certificate chain consisting of an EC leaf certificate, an EC Intermediate CA certificate not 
 								 designated as a trust anchor, and an EC certificate designated as a trusted anchor, where the elliptic 
 								 curve parameters are specified as a named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates 
 								 the certificate chain.
 							</li>
 							<li><b>Test 9: </b>
-								(Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall replace
+								(Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/3">FCS_COP.1/3</a>). The evaluator shall replace
 								the intermediate certificate in the certificate chain for Test 8a with a modified certificate, where 
 								the modified intermediate CA has a public key information field where the EC parameters uses an 
 								explicit format version of the Elliptic Curve parameters in the public key information field of the
