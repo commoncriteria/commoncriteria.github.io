@@ -987,349 +987,307 @@ The following sections list Common Criteria and technology terms used in this do
 						methods listed here (e.g. higher-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> invokes identical low-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>).
 					</div></div></div>
 	      
-         <div class="comp" id="FCS_RBG_EXT.2"><h4>FCS_RBG_EXT.2 Random Bit Generation from Application</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+		
+        <div class="comp" id="FCS_RBG_EXT.2"><h4>FCS_RBG_EXT.2 Random Bit Generation from Application</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>.
           </i></b></div>
-           
-          <div class="element"><div class="reqid" id="FCS_RBG_EXT.2.1"><a href="#FCS_RBG_EXT.2.1" class="abbr">FCS_RBG_EXT.2.1</a></div><div class="reqdesc"> The application shall perform all deterministic random bit generation (<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>)
-              services in accordance with 
-                <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <i id="_s_10">Hash_DRBG (any)</i>, <i id="_s_11">HMAC_DRBG (any)</i>, <i id="_s_12">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</i>]
-            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement shall be included in STs in which 
-			  <i>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i> is chosen in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. 
-			  The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author 
-              should select the standard to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> services comply (either <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A or <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 
-              140-2 Annex C). 
-              <br/>
-              <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A contains three different methods of generating random numbers; each of 
-              these, in turn, depends on underlying cryptographic primitives 
-              (hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used (if <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A 
-              is selected), and include the specific underlying cryptographic primitives used in the 
-              requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, 
-              <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based 
-              implementations for CTR_DRBG are allowed.
-            </span></div></div></div>
-          <div class="element"><div class="reqid" id="FCS_RBG_EXT.2.2"><a href="#FCS_RBG_EXT.2.2" class="abbr">FCS_RBG_EXT.2.2</a></div><div class="reqdesc">The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by an entropy source that accumulates
-              entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: <ul><li style=""><i id="_s_13">a software-based noise source</i>, </li><li style=""><i id="_s_14">a hardware-based noise source</i>, </li><li style=""><i id="_s_15">no other noise source</i></li></ul>] with a minimum of [<b>selection</b>: <ul><li style=""><i id="_s_16">128 bits</i>, </li><li style=""><i id="_s_17">256 bits</i></li></ul>] of entropy at least equal to the greatest security strength (according
-              to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57) of the keys and hashes that it will generate. <div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement shall be included in STs in which 
-			  <i>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i> is chosen in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. For the first
-              selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects 'software-based noise source' if 
-              any additional noise sources are used as input to the application's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. Note that 
-              the application must use the platform's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> to seed its <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. 
-              <br/>In the second selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the 
-              appropriate number of bits of entropy that corresponds to the greatest security 
-              strength of the algorithms included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Security strength is defined in Tables 
-              2 and 3 of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57A. For example, if the implementation includes 2048-bit RSA 
-              (security strength of 112 bits) and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> 256 (security strength 256 bits),
-	      then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author would select 256 bits.
-            </span></div></div></div>
+			
+			<div class="element"><div class="reqid" id="FCS_RBG_EXT.2.1"><a href="#FCS_RBG_EXT.2.1" class="abbr">FCS_RBG_EXT.2.1</a></div><div class="reqdesc"> The application shall perform all deterministic random bit generation (<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>)
+					services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <i id="_s_10">Hash_DRBG (any)</i>, <i id="_s_11">HMAC_DRBG (any)</i>, <i id="_s_12">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</i>]
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement shall be included in STs in which 
+					<i>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i> is chosen in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. 
+					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should select the standard to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> services comply (either <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A or <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 
+					140-2 Annex C). <p></p>
+					<abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A contains three different methods of generating random numbers; each of 
+					these, in turn, depends on underlying cryptographic primitives 
+					(hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used (if <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A 
+					is selected), and include the specific underlying cryptographic primitives used in the 
+					requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, 
+					<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based 
+					implementations for CTR_DRBG are allowed.
+				</span></div></div></div>
+			<div class="element"><div class="reqid" id="FCS_RBG_EXT.2.2"><a href="#FCS_RBG_EXT.2.2" class="abbr">FCS_RBG_EXT.2.2</a></div><div class="reqdesc">
+					The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by an entropy source that accumulates
+					entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: <ul><li style=""><i id="_s_13">a software-based noise source</i>, </li><li style=""><i id="_s_14">a hardware-based noise source</i>, </li><li style=""><i id="_s_15">no other noise source</i></li></ul>] with a minimum of [<b>selection</b>: <ul><li style=""><i id="_s_16">128 bits</i>, </li><li style=""><i id="_s_17">256 bits</i></li></ul>] of entropy at least equal to the greatest security strength (according
+					to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57) of the keys and hashes that it will generate. 
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">This requirement shall be included in STs in which 
+					<i>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i> is chosen in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. For the first
+					selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects 'software-based noise source' if 
+					any additional noise sources are used as input to the application's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. Note that 
+					the application must use the platform's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> to seed its <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. <p></p>
+					In the second selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the 
+					appropriate number of bits of entropy that corresponds to the greatest security 
+					strength of the algorithms included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Security strength is defined in Tables 
+					2 and 3 of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57A. For example, if the implementation includes 2048-bit RSA 
+					(security strength of 112 bits) and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> 256 (security strength 256 bits),
+					then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author would select 256 bits.
+				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_RBG_EXT.2.1">FCS_RBG_EXT.2.1</a></div>
-              <div class="eacategory">Tests</div>The evaluator shall perform the following tests, depending on the standard
-              to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> conforms. 
-              <br/>
-              Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 140-2 Annex C. 
-              <br/>
-              The reference for the tests contained in this section is The Random Number Generator
-              Validation System (<abbr class="dyn-abbr"><a href="#abbr_RNGVS">RNGVS</a></abbr>). The evaluators shall conduct the following two tests. Note 
-              that the "expected values" are produced by a reference implementation of the algorithm 
-              that is known to be correct. Proof of correctness is left to each Scheme.
-              <ul>
-                <li><b>Test 1: </b>The evaluators shall perform a Variable Seed Test. The evaluators shall
-                  provide a set of 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function, 
-                  each 128 bits. The evaluators shall also provide a key (of the length appropriate 
-                  to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant for all 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs. The <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value 
-                  is incremented by 1 for each set. The seed values shall have no repeats within
-                  the set. The evaluators ensure that the values returned by the 
-                  <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values.
-                </li>
-                <li><b>Test 2: </b>
-                  The evaluators shall perform a Monte Carlo Test. For this test, they supply
-                  an initial Seed and <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function; each of 
-                  these is 128 bits. The evaluators shall also provide a key (of the length 
-                  appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant throughout the test. The 
-                  evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> 10,000 times, with the <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> 
-                  value being incremented by 1 on each iteration, and the new seed for the 
-                  subsequent iteration produced as specified in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-Recommended Random Number 
-                  Generator Based on <abbr class="dyn-abbr"><a href="#abbr_ANSI">ANSI</a></abbr> X9.31 Appendix A.2.4 Using the 3-Key Triple <abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> 
-                  Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
-                  matches the expected value.
-                </li>
-              </ul>
-              Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A
-              <ul>
-                <li><b>Test 1: </b>
-                  The evaluator shall perform 15 trials for the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> implementation. If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> is
-                  configurable, the evaluator shall perform 15 trials for each configuration. The
-                  evaluator shall also confirm that the operational guidance contains appropriate
-                  instructions for configuring the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> functionality.
-                  <br/>
-                  If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> has prediction resistance enabled, each trial consists of (1) 
-                  instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) generate a 
-                  second block of random bits (4) uninstantiate. The evaluator verifies that the 
-                  second block of random bits is the expected value. The evaluator shall generate 
-                  eight input values for each trial. The first is a count (0 – 14). The next three 
-                  are entropy input, nonce, and personalization string for the instantiate 
-                  operation. The next two are additional input and entropy input for the first call 
-                  to generate. The final two are additional input and entropy input for the second
-                  call to generate. These values are randomly generated. “generate one block of 
-                  random bits” means to generate random bits with number of returned bits equal to 
-                  the Output Block Length (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A).
-                  <br/>
-                  If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> does not have prediction resistance, each trial consists of (1) 
-                  instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) reseed, (4) 
-                  generate a second block of random bits (5) uninstantiate. The evaluator verifies 
-                  that the second block of random bits is the expected value. The evaluator shall 
-                  generate eight input values for each trial. The first is a count (0 – 14). The 
-                  next three are entropy input, nonce, and personalization string for the 
-                  instantiate operation. The fifth value is additional input to the first call to
-                  generate. The sixth and seventh are additional input and entropy input to the call 
-                  to reseed. The final value is additional input to the second generate call.
-                  <br/>
-                  The following paragraphs contain more information on some of the input values to 
-                  be generated/selected by the evaluator.
-                  <br/>
-                  <b>Entropy input:</b> the length of the entropy input value must equal the seed length.
-                  <br/>
-                  <b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
-                  a nonce), the nonce bit length is one-half the seed length. 
-                  <br/>
-                  <b>Personalization string:</b> The length of the personalization string must be 
-                  less then or equal to seed length. If the implementation only supports one 
-                  personalization string length, then the same length can be used for both values. 
-                  If more than one string length is support, the evaluator shall use personalization 
-                  strings of two different lengths. If the implementation does not use a 
-                  personalization string, no value needs to be supplied. 
-                  <br/>
-                  <b>Additional input:</b> the additional input bit lengths have the same defaults 
-                  and restrictions as the personalization string lengths.
-                </li>
-		      
-              </ul>
-	      <br/>
-            <div class="element-activity-header"><a href="#FCS_RBG_EXT.2.2">FCS_RBG_EXT.2.2</a></div>
-	      <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>Documentation shall be produced - and the evaluator shall perform the
-              activities - in accordance with <a href="#entropyappendix" class="dynref"> Appendix B -  Entropy Documentation and Assessment</a> and
-              the
-	      <a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
-		Clarification to the Entropy Documentation and Assessment Annex</a>.
-	    <br/>
-              <div class="eacategory">Tests</div> In the future, specific statistical testing (in line with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90B) will 
-              be required to verify the entropy estimates.
-	      <br/>
-            </div></div></div>
+					<div class="eacategory">Tests</div>
+						The evaluator shall perform the following tests, depending on the standard
+						to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> conforms. <p></p>
+						Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 140-2 Annex C. <p></p>
+						The reference for the tests contained in this section is The Random Number Generator
+						Validation System (<abbr class="dyn-abbr"><a href="#abbr_RNGVS">RNGVS</a></abbr>). The evaluators shall conduct the following two tests. Note 
+						that the "expected values" are produced by a reference implementation of the algorithm 
+						that is known to be correct. Proof of correctness is left to each Scheme.
+						<ul>
+							<li><b>Test 1: </b>
+								The evaluators shall perform a Variable Seed Test. The evaluators shall
+								provide a set of 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function, 
+								each 128 bits. The evaluators shall also provide a key (of the length appropriate 
+								to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant for all 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs. The <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value 
+								is incremented by 1 for each set. The seed values shall have no repeats within
+								the set. The evaluators ensure that the values returned by the 
+								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values.
+							</li>
+							<li><b>Test 2: </b>
+								The evaluators shall perform a Monte Carlo Test. For this test, they supply
+								an initial Seed and <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function; each of 
+								these is 128 bits. The evaluators shall also provide a key (of the length 
+								appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant throughout the test. The 
+								evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> 10,000 times, with the <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> 
+								value being incremented by 1 on each iteration, and the new seed for the 
+								subsequent iteration produced as specified in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-Recommended Random Number 
+								Generator Based on <abbr class="dyn-abbr"><a href="#abbr_ANSI">ANSI</a></abbr> X9.31 Appendix A.2.4 Using the 3-Key Triple <abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> 
+								Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
+								matches the expected value.
+							</li>
+						</ul>
+						Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A
+						<ul>
+							<li><b>Test 1: </b>
+								The evaluator shall perform 15 trials for the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> implementation. If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> is
+								configurable, the evaluator shall perform 15 trials for each configuration. The
+								evaluator shall also confirm that the operational guidance contains appropriate
+								instructions for configuring the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> functionality. <p></p>
+								If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> has prediction resistance enabled, each trial consists of (1) 
+								instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) generate a 
+								second block of random bits (4) uninstantiate. The evaluator verifies that the 
+								second block of random bits is the expected value. The evaluator shall generate 
+								eight input values for each trial. The first is a count (0 – 14). The next three 
+								are entropy input, nonce, and personalization string for the instantiate 
+								operation. The next two are additional input and entropy input for the first call 
+								to generate. The final two are additional input and entropy input for the second
+								call to generate. These values are randomly generated. “generate one block of 
+								random bits” means to generate random bits with number of returned bits equal to 
+								the Output Block Length (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A). <p></p>
+								If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> does not have prediction resistance, each trial consists of (1) 
+								instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) reseed, (4) 
+								generate a second block of random bits (5) uninstantiate. The evaluator verifies 
+								that the second block of random bits is the expected value. The evaluator shall 
+								generate eight input values for each trial. The first is a count (0 – 14). The 
+								next three are entropy input, nonce, and personalization string for the 
+								instantiate operation. The fifth value is additional input to the first call to
+								generate. The sixth and seventh are additional input and entropy input to the call 
+								to reseed. The final value is additional input to the second generate call. <p></p>
+								The following paragraphs contain more information on some of the input values to 
+								be generated/selected by the evaluator. <p></p>
+								<b>Entropy input:</b> the length of the entropy input value must equal the seed length.<p></p>
+								<b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
+								a nonce), the nonce bit length is one-half the seed length. 
+								<p></p>
+								<b>Personalization string:</b> The length of the personalization string must be 
+								less then or equal to seed length. If the implementation only supports one 
+								personalization string length, then the same length can be used for both values. 
+								If more than one string length is support, the evaluator shall use personalization 
+								strings of two different lengths. If the implementation does not use a 
+								personalization string, no value needs to be supplied. <p></p>
+								<b>Additional input:</b> the additional input bit lengths have the same defaults 
+								and restrictions as the personalization string lengths.
+							</li>   
+						</ul>
+					<br/>
+				<div class="element-activity-header"><a href="#FCS_RBG_EXT.2.2">FCS_RBG_EXT.2.2</a></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						Documentation shall be produced - and the evaluator shall perform the
+						activities - in accordance with <a href="#entropyappendix" class="dynref"> Appendix B -  Entropy Documentation and Assessment</a> and the
+						<a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
+						Clarification to the Entropy Documentation and Assessment Annex</a>.
+					<br/>
+					<div class="eacategory">Tests</div> 
+						In the future, specific statistical testing (in line with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90B) will 
+						be required to verify the entropy estimates.
+					<br/>
+				</div></div></div>
 
-
+		
         <div class="comp" id="FCS_CKM.1"><h4>FCS_CKM.1 Cryptographic Key Generation Services</h4>
-          <div class="element"><div class="reqid" id="FCS_CKM.1.1"><a href="#FCS_CKM.1.1" class="abbr">FCS_CKM.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <ul><li style=""><i id="_s_18">generate no asymmetric cryptographic keys</i>, </li><li style=""><i id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</i>, </li><li style=""><i id="sel_impl_genkey">implement asymmetric key generation</i></li></ul>].
-            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">If <i>implement asymmetric key generation</i> or 
-			  <i>invoke platform-provided functionality for asymmetric key generation</i> is chosen, then
-              additional <a href="#FCS_CKM.1">FCS_CKM.1</a>/1 elements shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
-            </span></div></div></div>
+			<div class="element"><div class="reqid" id="FCS_CKM.1.1"><a href="#FCS_CKM.1.1" class="abbr">FCS_CKM.1.1</a></div><div class="reqdesc">
+					The application shall [<b>selection</b>: <ul><li style=""><i id="_s_18">generate no asymmetric cryptographic keys</i>, </li><li style=""><i id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</i>, </li><li style=""><i id="sel_impl_genkey">implement asymmetric key generation</i></li></ul>].
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">If <i>implement asymmetric key generation</i> or 
+					<i>invoke platform-provided functionality for asymmetric key generation</i> is chosen, then
+					additional <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> elements shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.1.1">FCS_CKM.1.1</a></div>
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall inspect the application and its developer documentation 
-              to determine if the application needs asymmetric key generation services. If not, the 
-              evaluator shall verify the <b>generate no asymmetric cryptographic keys</b> selection is present 
-              in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Otherwise, the evaluation activities shall be performed as stated in the 
-              selection-based requirements.
-	      <br/>
-            </div></div></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator shall inspect the application and its developer documentation 
+						to determine if the application needs asymmetric key generation services. If not, the 
+						evaluator shall verify the <b>generate no asymmetric cryptographic keys</b> selection is present 
+						in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Otherwise, the evaluation activities shall be performed as stated in the 
+						selection-based requirements.
+					<br/>
+				</div></div></div>
 
-        <div class="comp" id="FCS_CKM.1/ALGO"><h4>FCS_CKM.1/ALGO Cryptographic Asymmetric Key Generation</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+		
+        <div class="comp" id="FCS_CKM.1/AK"><h4>FCS_CKM.1/AK Cryptographic Asymmetric Key Generation</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
           <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>, <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>.
           </i></b></div>
-          
-          <div class="element"><div class="reqid" id="FCS_CKM.1.1/ALGO"><a href="#FCS_CKM.1.1/ALGO" class="abbr">FCS_CKM.1.1/ALGO</a></div><div class="reqdesc">            
-              The <b>application</b> shall [<b>selection</b>: <ul><li style=""><i id="_s_21">invoke platform-provided functionality</i>, </li><li style=""><i id="_s_22">implement functionality</i></li></ul>]
-               <b>to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm</b>
-              [<b>selection</b>: <ul><li style=""><i id="_s_23">
-                  <b>[RSA schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> that meet the following <b>
-                    <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, "Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>), Appendix B.3"</b>
-                </i>, </li><li style=""><i id="_s_24">
-                  <b>[ECC schemes]</b> using <b>[“<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” P-256, P-384 and
-                  [<b>selection</b>: <i id="_s_25"> P-521 </i>, <i id="_s_26"> no other curves </i>] 
-                    ]</b>that meet the following: 
-                  <b>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.4]</b>
-                </i>, </li><li style=""><i id="_s_27">
-                  <b>[FFC schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> 
-                  that meet the following: 
-                  <b>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.1]</b>
-                </i>, </li><li style=""><i id="_s_28">[FFC Schemes]<b> using Diffie-Hellman group 14</b> 
-			      that meet the following: 
-			      <b><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</b>
-		      </i>, </li><li style=""><i id="_s_29">[FFC Schemes]<b> using “safe-prime” groups</b>
-			      that meet the following: 
-			      <b><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
-				      Using Discrete Logarithm Cryptography”</b>
-			      and 
-			      [<b>selection</b>: <i id="_s_30"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</i>, <i id="_s_31"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</i>]
-		      </i></li></ul>].
-            <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall select all key generation schemes used for key 
-              establishment and entity authentication. When key generation is used for key 
-              establishment, the schemes in <a href="#FCS_CKM.2.1">FCS_CKM.2.1</a> and selected cryptographic protocols must 
-              match the selection. When key generation is used for entity authentication, the public 
-              key is expected to be associated with an X.509v3 certificate.
-              <br/>
-              If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver in the RSA key establishment scheme, 
-              the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not need to implement RSA key generation. 
-            </span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.1.1/ALGO">FCS_CKM.1.1/ALGO</a></div>
-	      <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-		<p>The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the key sizes 
-		supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more 
-		than one scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that 
-		it identifies the usage for each scheme.
-		</p>
-	      <p>
-		If the application <b>invokes platform-provided functionality for asymmetric key generation</b>,
-		then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes 
-		how the key generation functionality is invoked.
-	      </p>
-	      <br/>
-		
-              <div class="eacategory">Guidance</div> The evaluator shall verify that the AGD guidance instructs the administrator how to 
-		configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key generation scheme(s) and 
-		key size(s) for all uses defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
-		<br/>
-		<div class="eacategory">Tests</div>
-		  <p>
-		      If the application <b>implements asymmetric key generation</b>, then the following test
-		activities shall be carried out. <br/><br/>
-	      
-		    Evaluation Activity Note: The following tests may require the developer to provide access 
-              to a developer environment that provides the evaluator with tools that are typically available
-			  to end-users of the application.<br/><br/>
-		      
-	<b>Key Generation for <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4 RSA Schemes</b><br/><br/>
-	      
-              
-	      
-		    
-		    The evaluator shall verify the implementation of RSA Key Generation by the 
-              <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Key Generation test. This test verifies the ability of 
-              the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to correctly produce values for the key components including 
-              the public verification exponent e, the private prime factors p and q, the public 
-              modulus n and the calculation of the private signature exponent d. Key Pair generation 
-              specifies 5 ways (or methods) to generate the primes p and q. 
-              These include:
-              <ol>
-                <li>
-                  Random Primes:
-                  <ul>
-                    <li>Provable primes</li>
-                    <li>Probable primes</li>
-                  </ul>
-                </li>
-                <li>
-                  Primes with Conditions:
-                  <ul>
-                    <li>Primes p1, p2, q1,q2, p and q shall all be provable primes</li>
-                    <li>Primes p1, p2, q1, and q2 shall be provable primes and p and q shall be 
-                      probable primes</li>
-                    <li>Primes p1, p2, q1,q2, p and q shall all be probable primes</li>
-                  </ul>
-                </li>
-              </ol>
-              To test the key generation method for the Random Provable primes method and for all 
-              the Primes with Conditions methods, the evaluator must seed the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
-              key generation routine with sufficient data to deterministically generate the RSA key 
-              pair. This includes the random seed(s), the public exponent of the RSA key, and the 
-              desired key length. For each key length supported, the evaluator shall have the 
-              <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generate 25 key pairs. The evaluator shall verify the 
-              correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation by comparing values 
-              generated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> with those generated from a known good 
-              implementation.
-
-	    </p>
-	      <p>
-              If possible, the Random Probable primes method should also be verified against a 
-              known good implementation as described above. Otherwise, the evaluator shall have 
-              the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generate 10 keys pairs for each supported key length nlen 
-              and verify:
-	      <ul>
-                <li>n = p⋅q,</li>
-                <li>p and q are probably prime according to Miller-Rabin tests,</li>
-                <li>GCD(p-1,e) = 1,</li>
-                <li>GCD(q-1,e) = 1,</li>
-                <li>2<sup>16</sup> ≤ e ≤ 2<sup>256</sup> and e is an odd integer,</li>
-                <li>|p-q| &gt; 2<sup>nlen/2 - 100</sup>,</li>
-                <li>p ≥ 2<sup>nlen/2 -1/2</sup>,</li>
-                <li>q ≥ 2<sup>nlen/2 -1/2</sup>,</li>
-                <li>2<sup>(nlen/2)</sup> &lt; d &lt; LCM(p-1,q-1),</li>
-                <li>e⋅d = 1 mod LCM(p-1,q-1).</li>
-              </ul>
-              <b>Key Generation for Elliptic Curve Cryptography (ECC)</b><p></p>
-              <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-4 ECC Key Generation Test
-              For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve, i.e., P-256, P-384 and P-521, the evaluator shall
-              require the implementation under test (IUT) to generate 10 private/public key pairs.
-              The private key shall be generated using an approved random bit generator (<abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>). To 
-              determine correctness, the evaluator shall submit the generated key pairs to the 
-              public key verification (PKV) function of a known good implementation.
-	      </p>
-	      <p>
-              <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-4 Public Key Verification (PKV) Test
-              For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve, i.e., P-256, P-384 and P-521, the evaluator shall
-              generate 10 private/public key pairs using the key generation function of a known 
-              good implementation and modify five of the public key values so that they are 
-              incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain 
-              in response a set of 10 PASS/FAIL values.
-
-		    </p>
-	      <p>
-              <b>Key Generation for Finite-Field Cryptography (FFC)</b><p></p>
-              The evaluator shall verify the implementation of the Parameters Generation and the 
-              Key Generation for FFC by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Parameter Generation and 
-              Key Generation test. This test verifies the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to 
-              correctly produce values for the field prime p, the cryptographic prime q (dividing 
-              p-1), the cryptographic group generator g, and the calculation of the private key x 
-              and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
-              the cryptographic prime q and the field prime p:
-	      </p>
-	      <p>
-	      Cryptographic and Field Primes:
-              <ul>
-                <li>Primes q and p shall both be provable primes</li>
-                <li>Primes q and field prime p shall both be probable primes</li>
-              </ul>
-              and two ways to generate the cryptographic group generator g:
-              <br/>
-              Cryptographic Group Generator:
-              <ul>
-                <li>Generator g constructed through a verifiable process</li>
-                <li>Generator g constructed through an unverifiable process.</li>
-              </ul>
-              The Key generation specifies 2 ways to generate the private key x:
-              Private Key:
-              <ul>
-                <li>len(q) bit output of <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> where 1 ≤x ≤ q-1</li>
-                <li>len(q) + 64 bit output of <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>, followed by a mod q-1 operation where 
-              1≤ x≤q-1.</li>
-              </ul>
-              The security strength of the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> must be at least that of the security offered by the 
-              FFC parameter set.
-              To test the cryptographic and field prime generation method for the provable primes 
-              method and/or the group generator g for a verifiable process, the evaluator must seed 
-              the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> parameter generation routine with sufficient data to 
-              deterministically generate the parameter set.
-              For each key length supported, the evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
-              generate 25 parameter sets and key pairs. The evaluator shall verify the correctness 
-              of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation by comparing values generated by the 
-              <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> with those generated from a known good implementation. 
-              Verification must also confirm
-              <ul>
-                <li>g ≠ 0,1</li>
-                <li>q divides p-1</li>
-                <li>g<sup>q</sup> mod p = 1</li>
-                <li>g<sup>x</sup> mod p = y</li>
-              </ul>
-              for each FFC parameter set and key pair.
-	      </p>
-		    
-		    
-		     <b>Diffie-Hellman Group 14 and FFC Schemes using “safe-prime” groups</b><p></p>
-		     Testing for FFC Schemes using Diffie-Hellman group 14 and/or safe-prime groups is done as part of testing in CKM.2.1.
-		   <br/>
-
-            </div></div></div>
+			
+			<div class="element"><div class="reqid" id="FCS_CKM.1.1/AK"><a href="#FCS_CKM.1.1/AK" class="abbr">FCS_CKM.1.1/AK</a></div><div class="reqdesc">            
+					The <b>application</b> shall [<b>selection</b>: <ul><li style=""><i id="_s_21">invoke platform-provided functionality</i>, </li><li style=""><i id="_s_22">implement functionality</i></li></ul>]
+					<b>to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm</b>
+					[<b>selection</b>: <ul><li style=""><i id="_s_23"><b>[RSA schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> that meet
+							the following <b> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, "Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>), Appendix B.3"</b></i>, </li><li style=""><i id="_s_24"><b>[ECC schemes]</b> using <b>[“<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” P-256, P-384 and [<b>selection</b>: <i id="_s_25"> P-521 </i>, <i id="_s_26"> no other curves </i>] 
+							]</b>that meet the following: 
+							<b>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.4]</b>
+						</i>, </li><li style=""><i id="_s_27">
+							<b>[FFC schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> 
+							that meet the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.1]</b>
+						</i>, </li><li style=""><i id="_s_28">[FFC Schemes]<b> using Diffie-Hellman group 14</b> that meet the following: 
+							<b><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</b>
+						</i>, </li><li style=""><i id="_s_29">[FFC Schemes]<b> using “safe-prime” groups</b> that meet the following: 
+							<b><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
+								Using Discrete Logarithm Cryptography”</b> and 
+							[<b>selection</b>: <i id="_s_30"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</i>, <i id="_s_31"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</i>]
+						</i></li></ul>].
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall select all key generation schemes used for key 
+					establishment and entity authentication. When key generation is used for key 
+					establishment, the schemes in <a href="#FCS_CKM.2.1">FCS_CKM.2.1</a> and selected cryptographic protocols must 
+					match the selection. When key generation is used for entity authentication, the public 
+					key is expected to be associated with an X.509v3 certificate.<p></p>
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver in the RSA key establishment scheme, 
+					the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not need to implement RSA key generation. 
+				</span></div></div></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the key sizes 
+						supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more 
+						than one scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that 
+						it identifies the usage for each scheme.<p></p>
+						If the application <b>invokes platform-provided functionality for asymmetric key generation</b>,
+						then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes 
+						how the key generation functionality is invoked.<p></p>
+					<br/>
+					<div class="eacategory">Guidance</div> 
+						The evaluator shall verify that the AGD guidance instructs the administrator how to 
+						configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key generation scheme(s) and 
+						key size(s) for all uses defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+					<br/>
+					<div class="eacategory">Tests</div>
+						If the application <b>implements asymmetric key generation</b>, then the following test
+						activities shall be carried out. <p></p>
+						Evaluation Activity Note: The following tests may require the developer to provide access 
+						to a developer environment that provides the evaluator with tools that are typically available
+						to end-users of the application.<p></p>
+						<b>Key Generation for <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4 RSA Schemes</b><p></p>
+						The evaluator shall verify the implementation of RSA Key Generation by the 
+						<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Key Generation test. This test verifies the ability of 
+						the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to correctly produce values for the key components including 
+						the public verification exponent e, the private prime factors p and q, the public 
+						modulus n and the calculation of the private signature exponent d. Key Pair generation 
+						specifies 5 ways (or methods) to generate the primes p and q. 
+						These include: <ol>
+						<li>Random Primes:
+							<ul>
+								<li>Provable primes</li>
+								<li>Probable primes</li>
+							</ul>
+						</li>
+						<li>Primes with Conditions:
+							<ul>
+								<li>Primes p1, p2, q1,q2, p and q shall all be provable primes</li>
+								<li>Primes p1, p2, q1, and q2 shall be provable primes and p and q shall be 
+									probable primes</li>
+								<li>Primes p1, p2, q1,q2, p and q shall all be probable primes</li>
+							</ul>
+						</li></ol>
+						To test the key generation method for the Random Provable primes method and for all 
+						the Primes with Conditions methods, the evaluator must seed the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
+						key generation routine with sufficient data to deterministically generate the RSA key 
+						pair. This includes the random seed(s), the public exponent of the RSA key, and the 
+						desired key length. For each key length supported, the evaluator shall have the 
+						<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generate 25 key pairs. The evaluator shall verify the 
+						correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation by comparing values 
+						generated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> with those generated from a known good 
+						implementation.<p></p>
+						If possible, the Random Probable primes method should also be verified against a 
+						known good implementation as described above. Otherwise, the evaluator shall have 
+						the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generate 10 keys pairs for each supported key length nlen 
+						and verify: <ul>
+							<li>n = p⋅q,</li>
+							<li>p and q are probably prime according to Miller-Rabin tests,</li>
+							<li>GCD(p-1,e) = 1,</li>
+							<li>GCD(q-1,e) = 1,</li>
+							<li>2<sup>16</sup> ≤ e ≤ 2<sup>256</sup> and e is an odd integer,</li>
+							<li>|p-q| &gt; 2<sup>nlen/2 - 100</sup>,</li>
+							<li>p ≥ 2<sup>nlen/2 -1/2</sup>,</li>
+							<li>q ≥ 2<sup>nlen/2 -1/2</sup>,</li>
+							<li>2<sup>(nlen/2)</sup> &lt; d &lt; LCM(p-1,q-1),</li>
+							<li>e⋅d = 1 mod LCM(p-1,q-1).</li>
+						</ul>
+						<b>Key Generation for Elliptic Curve Cryptography (ECC)</b><p></p>
+						<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-4 ECC Key Generation Test
+						For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve, i.e., P-256, P-384 and P-521, the evaluator shall
+						require the implementation under test (IUT) to generate 10 private/public key pairs.
+						The private key shall be generated using an approved random bit generator (<abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>). To 
+						determine correctness, the evaluator shall submit the generated key pairs to the 
+						public key verification (PKV) function of a known good implementation.<p></p>
+						<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-4 Public Key Verification (PKV) Test
+						For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve, i.e., P-256, P-384 and P-521, the evaluator shall
+						generate 10 private/public key pairs using the key generation function of a known 
+						good implementation and modify five of the public key values so that they are 
+						incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain 
+						in response a set of 10 PASS/FAIL values.<p></p>
+						<b>Key Generation for Finite-Field Cryptography (FFC)</b><p></p>
+						The evaluator shall verify the implementation of the Parameters Generation and the 
+						Key Generation for FFC by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Parameter Generation and 
+						Key Generation test. This test verifies the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to 
+						correctly produce values for the field prime p, the cryptographic prime q (dividing 
+						p-1), the cryptographic group generator g, and the calculation of the private key x 
+						and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
+						the cryptographic prime q and the field prime p:<p></p>
+						Cryptographic and Field Primes:	<ul>
+							<li>Primes q and p shall both be provable primes</li>
+							<li>Primes q and field prime p shall both be probable primes</li>
+						</ul>
+						and two ways to generate the cryptographic group generator g:<p></p>
+						Cryptographic Group Generator:
+						<ul>
+							<li>Generator g constructed through a verifiable process</li>
+							<li>Generator g constructed through an unverifiable process.</li>
+						</ul>
+						The Key generation specifies 2 ways to generate the private key x:<p></p>
+						Private Key:
+						<ul>
+							<li>len(q) bit output of <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> where 1 ≤x ≤ q-1</li>
+							<li>len(q) + 64 bit output of <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>, followed by a mod q-1 operation where 
+								1≤ x≤q-1.</li>
+						</ul>
+						The security strength of the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> must be at least that of the security offered by the 
+						FFC parameter set.
+						To test the cryptographic and field prime generation method for the provable primes 
+						method and/or the group generator g for a verifiable process, the evaluator must seed 
+						the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> parameter generation routine with sufficient data to 
+						deterministically generate the parameter set.
+						For each key length supported, the evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
+						generate 25 parameter sets and key pairs. The evaluator shall verify the correctness 
+						of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s implementation by comparing values generated by the 
+						<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> with those generated from a known good implementation. 
+						Verification must also confirm
+						<ul>
+							<li>g ≠ 0,1</li>
+							<li>q divides p-1</li>
+							<li>g<sup>q</sup> mod p = 1</li>
+							<li>g<sup>x</sup> mod p = y</li>
+						</ul>
+						for each FFC parameter set and key pair. <p></p>
+						<b>Diffie-Hellman Group 14 and FFC Schemes using “safe-prime” groups</b><p></p>
+						Testing for FFC Schemes using Diffie-Hellman group 14 and/or safe-prime groups is done as part of testing
+						in CKM.2.1.
+					<br/>
+				</div></div></div>
 
         <div class="comp" id="FCS_CKM.1/2"><h4>FCS_CKM.1/2 Cryptographic Symmetric Key Generation</h4><div class="statustag"><i><b>This is an optional component. However, applied modules or packages might redefine it as mandatory.</b></i></div>
           <div class="element"><div class="reqid" id="FCS_CKM.1.1/2"><a href="#FCS_CKM.1.1/2" class="abbr">FCS_CKM.1.1/2</a></div><div class="reqdesc">The <b>application</b> shall generate <b>symmetric</b> cryptographic keys <b>using a Random Bit
@@ -1447,10 +1405,10 @@ The following sections list Common Criteria and technology terms used in this do
               RSA key generation.
               <br/>
               The elliptic curves used for the key establishment scheme shall correlate with the curves 
-              specified in <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>/1.
+              specified in <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>.
               <br/>
               The domain parameters used for the finite field-based key establishment scheme are specified 
-              by the key generation according to <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>/1.
+              by the key generation according to <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>.
             </span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.2.1">FCS_CKM.2.1</a></div>
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall ensure that the supported key establishment schemes correspond to the 
@@ -2105,7 +2063,7 @@ The following sections list Common Criteria and technology terms used in this do
 	    <div class="eacategory">Tests</div>
               For all credentials for which the application implements functionality, the evaluator shall 
               verify credentials are encrypted according to <a href="#FCS_COP.1/1">FCS_COP.1/1</a> or conditioned according to
-              <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>/1 and <a href="#FCS_CKM.1/3">FCS_CKM.1/3</a>.
+              <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a> and <a href="#FCS_CKM.1/3">FCS_CKM.1/3</a>.
               
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
@@ -3600,7 +3558,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
        
 
     <h3 id="obj-req-map" class="indexable" data-level="3">5.1.8 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="4"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a> for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses appropriately restrictive platform permissions on its binaries and data</td></tr><tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> and stack overflow protection.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be patched and that any updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have appropriate integrity protection.</td></tr><tr class="major-row"><td rowspan="13"><a href="#O.QUALITY">O.QUALITY</a><br/></td><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing FCS_CKM_EXT.1 to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr><tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided random bit generation services.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided data-at-rest protection services.</td></tr><tr><td><a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can use platform services to store and set configuration options.</td></tr><tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr><tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided services to implement trusted communications.</td></tr><tr><td><a href="#FCS_CKM.1">FCS_CKM.1</a>/1 (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.1">FCS_CKM.1</a>/1 to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.2">FCS_CKM.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key establishment services.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided X.509 certificate validation services.</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may leverage the platform-supported package manager for application distribution and leverages platform-provided mechanisms to remove all traces of itself when removed from the platform system.</td></tr><tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media formats.</td></tr><tr class="major-row"><td rowspan="5"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.</td></tr><tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a methodology for identifying the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> versioning.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to define how updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are deployed and verified.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the mechanism used to verify <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements this functionality rather than the underlying platform.</td></tr><tr class="major-row"><td rowspan="9"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether random bit generation services are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform. Depending on how data at rest is protected, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr><tr><td><a href="#FCS_CKM.1/2">FCS_CKM.1/2</a> (optional)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/2">FCS_CKM.1/2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_CKM.1/3">FCS_CKM.1/3</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/3">FCS_CKM.1/3</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/1">FCS_COP.1/1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/1">FCS_COP.1/1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td></tr><tr class="major-row"><td rowspan="14"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr><tr><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_CKM_EXT.1 to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr><tr><td><a href="#FCS_CKM.1">FCS_CKM.1</a>/1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1">FCS_CKM.1</a>/1 to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/1">FCS_COP.1/1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/1">FCS_COP.1/1</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define the hash algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the digital signature algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define the <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td>FCS_HTTPS_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_HTTPS_EXT.1 to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> trusted communications protocol.</td></tr><tr><td><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to define X.509 certificate validation activities in support of trusted communications.</td></tr><tr><td><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</td></tr></table></p>  
+    showing that the SFRs are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="4"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a> for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses appropriately restrictive platform permissions on its binaries and data</td></tr><tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> and stack overflow protection.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be patched and that any updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have appropriate integrity protection.</td></tr><tr class="major-row"><td rowspan="13"><a href="#O.QUALITY">O.QUALITY</a><br/></td><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing FCS_CKM_EXT.1 to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr><tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided random bit generation services.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided data-at-rest protection services.</td></tr><tr><td><a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can use platform services to store and set configuration options.</td></tr><tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr><tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided services to implement trusted communications.</td></tr><tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.2">FCS_CKM.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key establishment services.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided X.509 certificate validation services.</td></tr><tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may leverage the platform-supported package manager for application distribution and leverages platform-provided mechanisms to remove all traces of itself when removed from the platform system.</td></tr><tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media formats.</td></tr><tr class="major-row"><td rowspan="5"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.</td></tr><tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a methodology for identifying the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> versioning.</td></tr><tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to define how updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are deployed and verified.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the mechanism used to verify <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements this functionality rather than the underlying platform.</td></tr><tr class="major-row"><td rowspan="9"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether random bit generation services are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform. Depending on how data at rest is protected, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</td></tr><tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr><tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr><tr><td><a href="#FCS_CKM.1/2">FCS_CKM.1/2</a> (optional)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/2">FCS_CKM.1/2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_CKM.1/3">FCS_CKM.1/3</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/3">FCS_CKM.1/3</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/1">FCS_COP.1/1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/1">FCS_COP.1/1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td></tr><tr class="major-row"><td rowspan="14"><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr><tr><td>FCS_CKM_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_CKM_EXT.1 to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr><tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr><tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr><tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/1">FCS_COP.1/1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/1">FCS_COP.1/1</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/2">FCS_COP.1/2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/2">FCS_COP.1/2</a> to define the hash algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/3">FCS_COP.1/3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/3">FCS_COP.1/3</a> to define the digital signature algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_COP.1/4">FCS_COP.1/4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/4">FCS_COP.1/4</a> to define the <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td></tr><tr><td>FCS_HTTPS_EXT.1</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_HTTPS_EXT.1 to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> trusted communications protocol.</td></tr><tr><td><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</td></tr><tr><td><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> to define X.509 certificate validation activities in support of trusted communications.</td></tr><tr><td><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</td></tr></table></p>  
 	  
 	  
 	
