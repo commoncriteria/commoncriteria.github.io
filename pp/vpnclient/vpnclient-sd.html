@@ -254,7 +254,7 @@
         </span></a><a href="#os-m-fcs" style="text-indent:30px">2.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#qq-sfrs-bpp-gpos-Additional" style="text-indent:20px">2.1.2<span>Additional SFRs
         </span></a><a href="#os-a-fcs" style="text-indent:30px">2.1.2.1<span>Cryptographic Support (FCS)</span></a><a href="#os-a-fia" style="text-indent:30px">2.1.2.2<span>Identification and Authentication (FIA)</span></a><a href="#os-a-ftp" style="text-indent:30px">2.1.2.3<span>Trusted Path/Channels (FTP)</span></a><a href="#aa-bpp-mdf" style="text-indent:10px">2.2<span>
     Protection Profile for Mobile Devices</span></a><a href="#qq-sfrs-bpp-mdf-Modified" style="text-indent:20px">2.2.1<span>Modified SFRs
-        </span></a><a href="#md-m-fcs" style="text-indent:30px">2.2.1.1<span>Cryptographic Support (FCS)</span></a><a href="#md-m-fia" style="text-indent:30px">2.2.1.2<span>Identification and Authentication (FIA)</span></a><a href="#md-m-ftp" style="text-indent:30px">2.2.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#aa-bpp-app" style="text-indent:10px">2.3<span>
+        </span></a><a href="#md-m-fcs" style="text-indent:30px">2.2.1.1<span>Cryptographic Support (FCS)</span></a><a href="#md-m-fdp" style="text-indent:30px">2.2.1.2<span>Data Protection (FDP)</span></a><a href="#md-m-fia" style="text-indent:30px">2.2.1.3<span>Identification and Authentication (FIA)</span></a><a href="#md-m-ftp" style="text-indent:30px">2.2.1.4<span>Trusted Path/Channels (FTP)</span></a><a href="#aa-bpp-app" style="text-indent:10px">2.3<span>
     Protection Profile for Application Software</span></a><a href="#qq-sfrs-bpp-app-Modified" style="text-indent:20px">2.3.1<span>Modified SFRs
         </span></a><a href="#ap-m-fcs" style="text-indent:30px">2.3.1.1<span>Cryptographic Support (FCS)</span></a><a href="#ap-m-fia" style="text-indent:30px">2.3.1.2<span>Identification and Authentication (FIA)</span></a><a href="#ap-m-ftp" style="text-indent:30px">2.3.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#qq-sfrs-bpp-app-Additional" style="text-indent:20px">2.3.2<span>Additional SFRs
         </span></a><a href="#ap-a-fcs" style="text-indent:30px">2.3.2.1<span>Cryptographic Support (FCS)</span></a><a href="#aa-bpp-mdm" style="text-indent:10px">2.4<span>
@@ -869,23 +869,17 @@ The following sections list Common Criteria and technology terms used in this do
               The TSF shall generate asymmetric cryptographic keys in accordance with a specified cryptographic key
                 generation algorithm: 
                 
-                  ECC schemes using 
-                    
-                      “NIST curves” P-256, P-384, and 
-                        
-                          P-521
-                          no other curves
+					ECC schemes using “NIST curves” 
+						
+							P-256
+							P-384
+						 and
+						
+							P-521
+							no other curves
                          
-                        that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS),” Appendix B.4, and
-                      
-                      
-                        
-                          Curve25519 schemes that meet the following: RFC 7748
-                          No other curve
-                        
-                      , and
-                    
-                  
+                        that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS),” Appendix B.4;
+					
                 
                 
                   FFC schemes using
@@ -893,28 +887,31 @@ The following sections list Common Criteria and technology terms used in this do
                       cryptographic key sizes of 2048-bit or greater that meet
                         the following: FIPS PUB 186-4, “Digital Signature Standard (DSS),”
                         Appendix B.1
-                      Diffie-Hellman group 14 that meet the following: RFC 3526, Section 3
+                      Diffie-Hellman group 14 that meet the following: RFC 3526
                       “safe-prime” groups that meet the following: ‘NIST Special Publication 800-56A Revision 3,
                         “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography
                     , and
                   
-                  
+                 
                     RSA schemes using cryptographic key sizes of 2048-bit or greater
                     that meet FIPS PUB 186-4, “Digital Signature Standard (DSS),”
                     Appendix B.3,
+				 ECC schemes using Curve25519 schemes that meet the following: RFC 7748
                   No other key generation methods
                 .
-                
               
               
                 This SFR is functionally identical to what is defined in the MDF PP except that
-                ECC key generation with support for P-256 and P-384 has been made mandatory
-                in support of IPsec due to the mandated support for DH groups 19 and 20 in
-                FCS_IPSEC_EXT.1.8. Curve25519 schemes are included to satisfy
-                FDP_DAR_EXT.2.2 in the MDF PP; these schemes are not used in support of
-                IPsec. RSA remains present as a selection since it may be used by facets of the
-                MDF TOE that are not specifically related to VPN client functionality.
-              
+				ECC key generation with support for at least one of P-256 and P-384 has been
+				made mandatory in support of IPsec due to the mandated support for at least
+				one of DH groups 19 and 20 in FCS_IPSEC_EXT.1.8. Support for “safe-prime”
+				groups has also been added as a selectable option for DH groups that use finite
+				field algorithms. Curve25519 schemes remain selectable for their potential use in
+				satisfying FDP_DAR_EXT.2.2 in the MDF PP; these schemes are not used in
+				support of IPsec. RSA and ECC support for P-521 remain present as selections
+				since they may be used by parts of the TOE that are not specifically related to
+				VPN client functionality.
+				
               
                 Refer to the EA for FCS_CKM.1 in the MDF PP.
                 
@@ -936,7 +933,7 @@ The following sections list Common Criteria and technology terms used in this do
                     NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key
                     Establishment Schemes Using Discrete Logarithm Cryptography,”
                   
-                and
+                
                 
                   Finite field-based key establishment schemes that meets the following: NIST
                     Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key
@@ -956,15 +953,15 @@ The following sections list Common Criteria and technology terms used in this do
               
               
                 This SFR differs from its definition in the MDF PP by moving elliptic curve-based
-                key establishment schemes from selectable to mandatory (due to the mandated
-                support for DH groups 19 and 20 in FCS_IPSEC_EXT.1.8). It also provides the
-                ability to claim either NIST SP 800-56A or RFC 3526 for key establishment using
-                finite field cryptography if DH group 14 is claimed. The use of RSA is not
-                explicitly mandated by the VPN client but may be selected in the MDF PP, which
-                is why it remains here.
+				key establishment schemes from selectable to mandatory (due to the mandated
+				support for DH groups 19 and 20 in FCS_IPSEC_EXT.1.8). Finite field and Group
+				14 selections remain present if groups 14, 15, or 24 are selected in
+				FCS_IPSEC_EXT.1.8. This PP-Module does not require the use of RSA for any
+				function but it is present in the selection in case other MDF PP functions require
+				its use.
               
                
-                For all key establishment schemes refer to the AA for FCS_CKM.2(1) in the MDF PP. Note that because a
+                For all key establishment schemes refer to the AA for FCS_CKM.2/UNLOCKED in the MDF PP. Note that because a
 		TOE that conforms to this PP-Module must implement IPsec, the tested protocols shall include IPsec at
 		minimum.
                 
@@ -979,7 +976,7 @@ The following sections list Common Criteria and technology terms used in this do
               address VPN client requirements; the SFR behavior itself is
               unmodified.
             
-              The TSF shall perform [encryption/decryption] in accordance with
+              The TSF shall perform encryption/decryption in accordance with
                 a specified cryptographic algorithm
                 
                   AES-CBC (as defined in FIPS PUB 197, NIST SP 800-38A),
@@ -1003,7 +1000,7 @@ The following sections list Common Criteria and technology terms used in this do
                 address the requirements for FCS_IPSEC_EXT.1.
               
               
-                Refer to the EA for FCS_COP.1(1) in the MDF PP.
+                Refer to the EA for FCS_COP.1/ENCRYPT in the MDF PP.
                 
               
             
@@ -1018,21 +1015,56 @@ The following sections list Common Criteria and technology terms used in this do
               </div>
 
           
-          <div class="comp" id="MD-FCS-CKM-2-1"><h4>FCS_CKM.2/1 Cryptographic Key Establishment</h4><div class="component-activity-header">FCS_CKM.2/1</div> 
-                For all key establishment schemes refer to the AA for <span class="no-link">FCS_CKM.2(1)</span> in the MDF PP. Note that because a
+          <div class="comp" id="MD-FCS-CKM-2-1"><h4>FCS_CKM.2/UNLOCKED Cryptographic Key Establishment</h4><div class="component-activity-header">FCS_CKM.2/UNLOCKED</div> 
+                For all key establishment schemes refer to the AA for <span class="no-link">FCS_CKM.2/UNLOCKED</span> in the MDF PP. Note that because a
 		TOE that conforms to this PP-Module must implement IPsec, the tested protocols shall include IPsec at
 		minimum.
                 
               </div>
 
           
-          <div class="comp" id="MD-FCS-COP-1-1"><h4>FCS_COP.1/1 Cryptographic Operation</h4><div class="component-activity-header">FCS_COP.1/1</div>
-                Refer to the EA for <span class="no-link">FCS_COP.1(1)</span> in the MDF PP.
+          <div class="comp" id="MD-FCS-COP-1-1"><h4>FCS_COP.1/ENCRYPT Cryptographic Operation</h4><div class="component-activity-header">FCS_COP.1/ENCRYPT</div>
+                Refer to the EA for <span class="no-link">FCS_COP.1/ENCRYPT</span> in the MDF PP.
                 
               </div>
         
+
+        <h3 class="indexable" data-level="3" id="md-m-fdp">2.2.1.2 Data Protection (FDP)</h3>
+		
+          
+          
+            TODO: The ST author is instructed to make specific selections at minimum to
+              address VPN client requirements; the SFR behavior itself is
+              unmodified.
+            
+              The TSF shall [
+					provide a VPN client which can protect all IP traffic using IPsec as
+						defined in the PP-Module for VPN Client
+					] with the exception of IP traffic required to establish the VPN connection.
+              
+              
+                This SFR is identical to its definition in the Base-PP except that the selection item
+				that requires the TOE to implement its own VPN client is always selected when
+				the TOE’s conformance claim includes this PP-Module
+			  
+              
+                Refer to the EA for FIA_X509_EXT.2 in the MDF PP.
+                
+              
+            
+            
+          
         
-        <h3 class="indexable" data-level="3" id="md-m-fia">2.2.1.2 Identification and Authentication (FIA)</h3>
+		
+          
+          <div class="comp" id="MD-FDP-IFC-EXT-1-1"><h4>FDP_IFC_EXT.1 Subset Information Flow Control</h4><div class="component-activity-header">FDP_IFC_EXT.1</div>
+                Refer to the EA for <span class="no-link">FIA_X509_EXT.2</span> in the MDF PP.
+                
+              </div>
+        
+		
+		
+        <h3 class="indexable" data-level="3" id="md-m-fia">2.2.1.3 Identification and Authentication (FIA)</h3>
           
           
           
@@ -1040,14 +1072,15 @@ The following sections list Common Criteria and technology terms used in this do
               certificate authentication is used.
             
               The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
-                authentication for IPsec and 
-                
-                  TLS
-                  HTTPS
-                  DTLS
-                  no other protocols
-                , and 
-                
+                authentication for mutually authenticated TLS as defined in the Package for
+				Transport Layer Security, HTTPS, IPsec in accordance with the PP-Module for
+				VPN Client, 
+					
+						 mutually authenticated DTLS as defined in the Package
+							for Transport Layer Security
+						no other protocols
+					, and
+					
                   code signing for system software updates
                   code signing for mobile applications
                   code signing for integrity verification
@@ -1068,10 +1101,9 @@ The following sections list Common Criteria and technology terms used in this do
               
               
                 This SFR is identical to what is defined in the MDF PP except that support for
-                IPsec is mandated. Since the original SFR did not explicitly require at least one of
-                TLS, HTTPS, or DTLS to be selected, “no other protocols” has also been added as
-                a selection in the event that IPsec is the only protocol for which the TOE uses
-                X.509v3 certificates for authentication.
+				IPsec is mandated. The selection of “no other protocols” is added to address the
+				case where the TOE only claims support for the protocols that are mandated by
+				the SFR.
               
                
                 Refer to the EA for FIA_X509_EXT.2 in the MDF PP.
@@ -1089,7 +1121,10 @@ The following sections list Common Criteria and technology terms used in this do
               </div>
         
         
-        <h3 class="indexable" data-level="3" id="md-m-ftp">2.2.1.3 Trusted Path/Channels (FTP)</h3>
+		
+		
+		
+        <h3 class="indexable" data-level="3" id="md-m-ftp">2.2.1.4 Trusted Path/Channels (FTP)</h3>
           
           
           
