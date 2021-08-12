@@ -254,7 +254,8 @@
         </span></a><a href="#os-m-fcs" style="text-indent:30px">2.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#qq-sfrs-bpp-gpos-Additional" style="text-indent:20px">2.1.2<span>Additional SFRs
         </span></a><a href="#os-a-fcs" style="text-indent:30px">2.1.2.1<span>Cryptographic Support (FCS)</span></a><a href="#os-a-fia" style="text-indent:30px">2.1.2.2<span>Identification and Authentication (FIA)</span></a><a href="#os-a-ftp" style="text-indent:30px">2.1.2.3<span>Trusted Path/Channels (FTP)</span></a><a href="#aa-bpp-mdf" style="text-indent:10px">2.2<span>
     Protection Profile for Mobile Devices</span></a><a href="#qq-sfrs-bpp-mdf-Modified" style="text-indent:20px">2.2.1<span>Modified SFRs
-        </span></a><a href="#md-m-fcs" style="text-indent:30px">2.2.1.1<span>Cryptographic Support (FCS)</span></a><a href="#md-m-fdp" style="text-indent:30px">2.2.1.2<span>User Data Protection (FDP)</span></a><a href="#md-m-fia" style="text-indent:30px">2.2.1.3<span>Identification and Authentication (FIA)</span></a><a href="#md-m-fmt" style="text-indent:30px">2.2.1.4<span>Security Management (FMT)</span></a><a href="#md-m-ftp" style="text-indent:30px">2.2.1.5<span>Trusted Path/Channels (FTP)</span></a><a href="#aa-bpp-app" style="text-indent:10px">2.3<span>
+        </span></a><a href="#md-m-fcs" style="text-indent:30px">2.2.1.1<span>Cryptographic Support (FCS)</span></a><a href="#md-m-fdp" style="text-indent:30px">2.2.1.2<span>User Data Protection (FDP)</span></a><a href="#md-m-fia" style="text-indent:30px">2.2.1.3<span>Identification and Authentication (FIA)</span></a><a href="#md-m-fmt" style="text-indent:30px">2.2.1.4<span>Security Management (FMT)</span></a><a href="#md-m-ftp" style="text-indent:30px">2.2.1.5<span>Trusted Path/Channels (FTP)</span></a><a href="#qq-sfrs-bpp-mdf-Additional" style="text-indent:20px">2.2.2<span>Additional SFRs
+        </span></a><a href="#md-a-fdp" style="text-indent:30px">2.2.2.1<span>User Data Protection (FDP)</span></a><a href="#aa-bpp-app" style="text-indent:10px">2.3<span>
     Protection Profile for Application Software</span></a><a href="#qq-sfrs-bpp-app-Modified" style="text-indent:20px">2.3.1<span>Modified SFRs
         </span></a><a href="#ap-m-fcs" style="text-indent:30px">2.3.1.1<span>Cryptographic Support (FCS)</span></a><a href="#ap-m-fia" style="text-indent:30px">2.3.1.2<span>Identification and Authentication (FIA)</span></a><a href="#ap-m-ftp" style="text-indent:30px">2.3.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#qq-sfrs-bpp-app-Additional" style="text-indent:20px">2.3.2<span>Additional SFRs
         </span></a><a href="#ap-a-fcs" style="text-indent:30px">2.3.2.1<span>Cryptographic Support (FCS)</span></a><a href="#aa-bpp-mdm" style="text-indent:10px">2.4<span>
@@ -1255,7 +1256,118 @@ The following sections list Common Criteria and technology terms used in this do
                 
               </div>
         
-      <h2 class="indexable" data-level="1" id="aa-bpp-app">2.3 
+      <h3 class="indexable" data-level="2" id="qq-sfrs-bpp-mdf-Additional">2.2.2 Additional SFRs
+        </h3>
+
+	<h3 class="indexable" data-level="3" id="md-a-fdp">2.2.2.1 User Data Protection (FDP)</h3>
+
+	
+        
+          
+          requires the TSF to process all IP traffic through its VPN client
+            functionality.
+          No specific management functions are identified.
+          There are no auditable events foreseen.
+          FCS_IPSEC_EXT.1 IPsec
+          
+            
+				The TSF shall ensure that all IP traffic (other than IP traffic required to establish
+				the VPN connection) flow through the IPsec VPN client. 
+			
+            
+		    This SFR is mandatory when MDF is the base-PP. Otherwise it is optional, see . 
+				This requirement is used when the VPN client is able to enforce the requirement
+				through its own components. This generally will have to be done through using
+				hooks provided by the platform such that the TOE is able to ensure that no IP
+				traffic can flow through other network interfaces.
+			
+            
+              The evaluator shall verify that the TSS section of the ST describes the routing of IP traffic through processes
+		on the TSF when a VPN client is enabled. The evaluator shall ensure that the description indicates which
+		traffic does not go through the VPN and which traffic does and that a configuration exists for each
+		baseband protocol in which only the traffic identified by the ST author is necessary for establishing the
+		VPN connection (IKE traffic and perhaps HTTPS or DNS traffic) is not encapsulated by the VPN protocol 
+		(IPsec). The ST author shall also identify in the TSS section any differences in the routing of IP traffic when
+		using any supported baseband protocols (e.g. WiFi or, LTE).
+		
+              
+              The evaluator shall verify that the following is addressed by the documentation:
+                
+                The description above indicates that if a VPN client is enabled, all configurations route all IP traffic
+			(other than IP traffic required to establish the VPN connection) through the VPN client.
+                The AGD guidance describes how the user and/or administrator can configure the TSF to meet
+			this requirement.
+                
+              
+              
+                The evaluator shall perform the following test:
+                Step 1 - The evaluator shall use the platform to enable a network connection without using IPsec. The
+		evaluator shall use a packet sniffing tool between the platform and an Internet-connected network. The
+		evaluator shall turn on the sniffing tool and perform actions with the device such as navigating to
+		websites, using provided applications, accessing other Internet resources (Use Case 1), accessing another
+		VPN client (Use Case 2), or accessing an IPsec-capable network device (Use Case 3). The evaluator shall
+		verify that the sniffing tool captures the traffic generated by these actions, turn off the sniffing tool, and
+		save the session data. 
+                Step 2 - The evaluator shall configure an IPsec VPN client that supports the routing specified in this
+		requirement, and if necessary, configure the device to perform the routing specified as described in the
+		AGD guidance. The evaluator shall turn on the sniffing tool, establish the VPN connection, and perform
+		the same actions with the device as performed in the first step. The evaluator shall verify that the sniffing
+		tool captures traffic generated by these actions, turn off the sniffing tool, and save the session data.
+                Step 3 - The evaluator shall examine the traffic from both step one and step two to verify that all IP traffic,
+		aside from and after traffic necessary for establishing the VPN (such as IKE, DNS, and possibly HTTPS), is
+		encapsulated by IPsec.
+                Step 4 - The evaluator shall attempt to send packets to the TOE outside the VPN connection and shall
+		verify that the TOE discards them.
+              
+            
+          
+	  
+        
+	      
+
+	
+        <div class="comp" id="MD-FDP-IFC-EXT-1-VPN"><h4>FDP_IFC_EXT.1/VPN Subset Information Flow Control</h4><div class="component-activity-header">FDP_IFC_EXT.1/VPN</div>
+              
+              
+              
+            <div class="eacategory">TSS</div>The evaluator shall verify that the TSS section of the ST describes the routing of IP traffic through processes
+		on the TSF when a VPN client is enabled. The evaluator shall ensure that the description indicates which
+		traffic does not go through the VPN and which traffic does and that a configuration exists for each
+		baseband protocol in which only the traffic identified by the ST author is necessary for establishing the
+		VPN connection (IKE traffic and perhaps HTTPS or DNS traffic) is not encapsulated by the VPN protocol 
+		(IPsec). The ST author shall also identify in the TSS section any differences in the routing of IP traffic when
+		using any supported baseband protocols (e.g. WiFi or, LTE).
+		<p></p>
+              <div class="eacategory">Guidance</div>The evaluator shall verify that the following is addressed by the documentation:
+                <ul>
+                <li>The description above indicates that if a VPN client is enabled, all configurations route all IP traffic
+			(other than IP traffic required to establish the VPN connection) through the VPN client.</li>
+                <li>The AGD guidance describes how the user and/or administrator can configure the TSF to meet
+			this requirement.</li>
+                </ul><p></p>
+              <div class="eacategory">Tests</div>
+                The evaluator shall perform the following test:<p></p>
+                Step 1 - The evaluator shall use the platform to enable a network connection without using IPsec. The
+		evaluator shall use a packet sniffing tool between the platform and an Internet-connected network. The
+		evaluator shall turn on the sniffing tool and perform actions with the device such as navigating to
+		websites, using provided applications, accessing other Internet resources (Use Case 1), accessing another
+		VPN client (Use Case 2), or accessing an IPsec-capable network device (Use Case 3). The evaluator shall
+		verify that the sniffing tool captures the traffic generated by these actions, turn off the sniffing tool, and
+		save the session data. <p></p>
+                Step 2 - The evaluator shall configure an IPsec VPN client that supports the routing specified in this
+		requirement, and if necessary, configure the device to perform the routing specified as described in the
+		AGD guidance. The evaluator shall turn on the sniffing tool, establish the VPN connection, and perform
+		the same actions with the device as performed in the first step. The evaluator shall verify that the sniffing
+		tool captures traffic generated by these actions, turn off the sniffing tool, and save the session data.<p></p>
+                Step 3 - The evaluator shall examine the traffic from both step one and step two to verify that all IP traffic,
+		aside from and after traffic necessary for establishing the VPN (such as IKE, DNS, and possibly HTTPS), is
+		encapsulated by IPsec.<p></p>
+                Step 4 - The evaluator shall attempt to send packets to the TOE outside the VPN connection and shall
+		verify that the TOE discards them.
+              </div>
+	      
+		
+	   <h2 class="indexable" data-level="1" id="aa-bpp-app">2.3 
     Protection Profile for Application Software</h2>
       The EAs defined in this section are only applicable in cases where the TOE claims conformance
       to a PP-Configuration that includes the Application Software PP.
@@ -2875,7 +2987,7 @@ The following sections list Common Criteria and technology terms used in this do
 			justifying the set of tests as representative and sufficient to exercise the capability.
                 </li>
               </ul>
-              </div><h2 class="indexable" data-level="2" id="ob-fdp">2.8.2 User Data Protection (FDP)</h2><div class="comp" id="FDP-IFC-EXT-1"><h4>FDP_IFC_EXT.1 Subset Information Flow Control</h4><div class="component-activity-header">FDP_IFC_EXT.1</div>
+              </div><h2 class="indexable" data-level="2" id="ob-fdp">2.8.2 User Data Protection (FDP)</h2><div class="comp" id="FDP-IFC-EXT-1-VPN"><h4>FDP_IFC_EXT.1/VPN Subset Information Flow Control</h4><div class="component-activity-header">FDP_IFC_EXT.1/VPN</div>
               
               
               
