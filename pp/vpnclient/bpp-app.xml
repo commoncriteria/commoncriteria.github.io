@@ -11,7 +11,7 @@
   <PPReference>
     <ReferenceTable>
       <PPTitle>(Draft) Protection Profile for Application Software</PPTitle>
-      <PPVersion>1.3.1</PPVersion>
+      <PPVersion>1.4</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
       <PPPubDate>2021-08-06</PPPubDate>
       <Keywords>application; software</Keywords>
@@ -49,13 +49,16 @@
           </subject>
     </entry>
     <entry>
-          <version>v 1.3.1 Draft</version>
+          <version>v 1.4 Draft</version>
           <date>2021-08-06</date>
           <subject>Incorporated applicable Technical Decisions</subject>
     </entry>
   </RevisionHistory>
   
   <!-- TDs incorporated: 
+	XXXXXX:	 Replaced SSH EP 1.0 with SSH FP 1.0
+	TQ1882:  Updating FTP_DIT_EXT.1 to conform to changes in FCS_HTTPS_EXT (subject of a later TD).
+	TD0600:  Conformance claim sections updated to allow for MOD_VPNC_V2.3
 	TD0598:  Expanded AES Modes in FCS_COP for App PP
 	TD0587:  X.509 SFR Applicability in App PP
 	TD0582:  PP-Configuration for Application Software and Virtual Private Network (VPN) Clients now allowed
@@ -101,14 +104,21 @@
      <val id="sad-mac" full="Apple macOS Platform"></val>
   </subaactivity-decl> 
   -->
-  <include-pkg id="p-tls">
+   <include-pkg id="p-tls">
 	  <raw-url>
 		 https://raw.githubusercontent.com/commoncriteria/tls/ed2d9042c27f7793d1f96e08e47bd12b04970977/input/tls.xml
 	  </raw-url>
 	  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
-	  <depends on="sel_all_tlsc" also="sel_all_dtls"/>
-  </include-pkg>
+	  <depends on-sel="sel_all_tls" on-also="sel_all_dtls"/>
+   </include-pkg>
+
+    <include-pkg id="p-ssh">
+            <raw-url>https://raw.githubusercontent.com/commoncriteria/ssh/c9d1ac04e158b4b1c28dddb8e83785036e09868c/input/ssh.xml</raw-url>
+		<url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
+	    <depends on-sel="sel_all_ssh"/>
+    </include-pkg>
 	
+
 	<!-- 1.0 Introdiction -->
 	<sec:Introduction>
 
@@ -357,7 +367,8 @@
   </sec:Introduction>
   
 	<!-- 2.0 Conformance Claims -->
-	<!-- incorporates TD582 -->
+	<!-- incorporates TD0600 -->
+	<!-- incorporates TD0582 -->
 	<sec:Conformance_Claims  boilerplate="no">
 		<cclaims>
 			<cclaim name="Conformance Statement">
@@ -380,31 +391,15 @@
 				</description>
 			</cclaim>
 			<cclaim name="Package Claim">
-				<description>This PP is TLS Package Version 1.1 Conformant.</description>
+				<description><h:ul>
+					<h:li>This PP is TLS Package Version 1.1 Conformant.</h:li>
+					<h:li>This PP is SSH Package Version 1.0 Conformant.</h:li>
+					</h:ul>
+				</description>
 			</cclaim>
 		</cclaims>
 	</sec:Conformance_Claims>
   
-  <!--   <cclaims> -->
-  <!--     <cclaim id="Conformance Statement"> -->
-  <!--       <description> -->
-  <!--     To be conformant to this PP-Module, an ST must demonstrate  -->
-  <!--     Exact Conformance, a subset of Strict Conformance as defined by the <cite linkend="bibCC"/> and <cite linkend="bibCEM"/> addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017)."  -->    
-  <!-- 	</description> -->
-  <!--     </cclaim> -->
-  <!--     <cclaim id="CC Conformance Claims"> -->
-  <!--       <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria -->
-  <!--         Version 3.1, Revision 5. <cite linkend="bibCC"/>.</description> -->
-  <!--     </cclaim> -->
-  <!--     <cclaim id="PP Claim"> -->
-  <!--       <description>This PP does not claim conformance to any other Protection -->
-  <!--         Profile.</description> -->
-  <!--     </cclaim> -->
-  <!--     <cclaim id="Package Claim"> -->
-  <!--       <description>This PP does not claim conformance to any packages.</description> -->
-  <!--     </cclaim> -->
-  <!--   </cclaims> -->
-  <!-- </chapter> -->
   
 	<!-- 3.0 Security Problem Description -->
 	<sec:Security_Problem_Description>
@@ -1196,7 +1191,7 @@
 
 		<!-- FCS_CKM.2 -->
         <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
-			<depends on="sel_all_tlsc"/>
+			<depends on="sel_all_tls"/>
 			<f-element id="fel-key-est">
 				<title>
 					The application shall 
@@ -1490,7 +1485,7 @@ functionality (such as these)
 
 		<!-- FCS_COP.1/SKC (formerly FCS_COP.1/1) Symmetric-Key Cryptography -->
         <f-component cc-id="fcs_cop.1" id="fcom_crypto" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
-			<depends on="sel_all_tlsc"/>
+			<depends on="sel_all_tls"/>
 			<depends on="sel-fcs-sto-skc"/>
 			<f-element id="fel-sym-encrypt">
 				<title>
@@ -1772,7 +1767,7 @@ functionality (such as these)
 		
 	    <!-- FCS_COP.1/Hash (former;y FCS_COP.1/2) -->
         <f-component cc-id="fcs_cop.1" id="fcom_hash" iteration="Hash" name="Cryptographic Operation - Hashing" status="sel-based">
-			<depends on="sel_all_tlsc"/>
+			<depends on="sel_all_tls"/>
 			<f-element id="fel-crypt-hash">
 				<title>
 					The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
@@ -1866,7 +1861,7 @@ functionality (such as these)
 	      
 	    <!-- FCS_COP.1/Sig (formerly FCS_COP.1/3) -->
         <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing"  status="sel-based">
-			<depends on="sel_all_tlsc"/>
+			<depends on="sel_all_tls"/>
 			<f-element id="fel-sign">
 				<title>
 					The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
@@ -1937,7 +1932,7 @@ functionality (such as these)
 	      
 	    <!-- FCS_COP.1/KeyedHash (formerly FCS_COP.1/4) -->
         <f-component cc-id="fcs_cop.1" id="fcom_key_hash" iteration="KeyedHash" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
-			<depends on="sel_all_tlsc"/>
+			<depends on="sel_all_tls"/>
 			<f-element id="fel-keyed-hash">
 				<title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
 					specified cryptographic algorithm<h:ul>
@@ -2053,7 +2048,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		<!-- FCS_HTTPS_EXT.1/Client -->
 		<!-- Added by TD473 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
-			<depends on1="sel_all_https" on2="sel_sen_https"/>
+			<depends on-se1="sel_all_https_cl"/>
 			<f-element id="fel-https-wath-cl">
 				<title>
 					The application shall implement the HTTPS protocol that complies with RFC 2818.
@@ -2123,7 +2118,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		<!-- FCS_HTTPS_EXT.1/Server -->
 		<!-- Added by TD473 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Server" status="sel-based">
-			<depends on1="sel_all_https" on2="sel_sen_https"/>
+			<depends on1="sel_all_https_sv"/>
 			<f-element id="fel-https-wath-sv">
 				<title>
 					The application shall implement the HTTPS protocol that complies with RFC 2818.
@@ -2156,7 +2151,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
 		<!-- Added by TD473 -->
         <f-component cc-id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
-			<depends on1="sel_all_https" on2="sel_sen_https"/>
+			<depends on1="sel_all_https_ma"/>
 			<f-element id="fel-https-wath-m">
 				<title>
 					The application shall 
@@ -2475,7 +2470,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		<!-- Modified by TD495 -->
 		<!-- Modified by TD587 -->
         <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
-			<depends on1="sel_all_https" on2="sel_all_tlsc" on3="sel_all_tlss" on4="sel_all_dtls" on5="sel_sen_https" on6="sel_sen_tlsc" on7="sel_sen_tlss" on8="sel_sen_dtls"/>
+			<depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
 			<f-element id="fel-certauth-how">
 				<title>
 					The application shall 
@@ -2669,7 +2664,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		<!-- FIA_X509_EXT.2 X.509 Certificate Authentication -->
 		<!-- Incorporates TD587 -->
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
-			<depends on1="sel_all_https" on2="sel_all_tlsc" on3="sel_all_tlss" on4="sel_all_dtls" on5="sel_sen_https" on6="sel_sen_tlsc" on7="sel_sen_tlss" on8="sel_sen_dtls"/>
+			<depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
 			<f-element id="fel-certs-who">
 				<title>
 					The application shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
@@ -3639,13 +3634,14 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 								<selectable exclusive="yes">data</selectable>
 							</selectables> with
 							<selectables>
-<!--								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable>
+								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable>
 								<selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable>
-								<selectable id="sel_all_https_sv">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable>  -->
-								<selectable id="sel_all_https">HTTPS in accordance with FCS_HTTPS_EXT.1</selectable>
-								<selectable id="sel_all_tlsc">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
+								<selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable>
+<!--								<selectable id="sel_all_https">HTTPS in accordance with FCS_HTTPS_EXT.1</selectable> -->
+								<selectable id="sel_all_tls">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
 								<selectable id="sel_all_dtls">DTLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
-								<selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
+<!--								<selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>  -->
+								<selectable id="sel_all_ssh">SSH as conforming to the Functional Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><h:i>Secure Shell</h:i></h:a></selectable>
 								<selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
 							</selectables>
 						</selectable>
@@ -3678,21 +3674,22 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 					If <h:i>encrypt all transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
 					TOE acts as a client, FCS_HTTPS_EXT.1/Client is required. If <h:i>encrypt all 
 					transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
-					TOE acts as a server, FCS_HTTPS_EXT.1/Server is required.  If the TOE acts as a server
-					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
-					also required.
+					TOE acts as a server, FCS_HTTPS_EXT.1/Server is required.  
 					<!-- If the TOE acts as a server
 					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
-					also required. --> <h:p/> 
+					also required.  -->
+					If the TOE acts as a server
+					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
+					also required. <h:p/> 
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, 
 					FCS_DTLS_EXT.1 is required.<h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the 
-					TSF shall be validated against the <h:i>Extended Package for 
-					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">
+					TSF shall be validated against the <h:i>Functional Package for 
+					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">
 					Secure Shell</h:a></h:i>.<h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>IPsec</h:i> is selected, the
 					TSF must claim conformance to a <h:i>PP-Configuration that includes the
-					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419">
+					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=461&amp;id=461">
 					VPN Client PP-Module</h:a></h:i><h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 
 					requirements will be included.<h:p/>

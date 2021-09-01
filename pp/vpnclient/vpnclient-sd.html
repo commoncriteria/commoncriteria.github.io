@@ -2687,18 +2687,22 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="element-activity-header">FCS_IPSEC_EXT.1.11</div>
               <div class="eacategory">TSS</div>The evaluator ensures that the TSS identifies RSA and/or ECDSA as being used to perform peer
 		authentication.<p></p>
-                If pre-shared keys are chosen in the selection, the evaluator shall check to ensure that the TSS describes
+                If any selection with pre-shared keys is chosen in the selection, the evaluator shall check to ensure that the TSS describes
 		how pre-shared keys are established and used in authentication of IPsec connections. The description in
 		the TSS shall also indicate how pre-shared key establishment is accomplished depending on whether the
 		TSF can generate a pre-shared key, accept a pre-shared key, or both.<p></p>
+		If any selection with TOTP is chosen in the selection, the evaluator shall check to ensure that the TSS describes how TOTP keys is used in authentication of IPsec connections. <p></p>
+		If any selection with HOTP is chosen in the selection, the evaluator shall check to ensure that the TSS describes how HOTP keys is used in authentication of IPsec connections. <p></p>
+		If Pre-shared Keys and HOTP  or Pre-shared Keys and TOTP are chosen in the selection, the evaluator shall check to ensure that the TSS describes how both selections work in conjunction in authentication of IPsec connections.<p></p>
                 The evaluator shall ensure that the TSS describes how the TOE compares the peer’s presented identifier
 		to the reference identifier. This description shall include whether the certificate presented identifier is
 		compared to the ID payload presented identifier, which field(s) of the certificate are used as the presented
 		identifier (DN, Common Name, or SAN) and, if multiple fields are supported, the logical order comparison.
 		If the ST author assigned an additional identifier type, the TSS description shall also include a description
 		of that type and the method by which that type is compared to the peer’s presented certificate.<p></p><br/>
-              <div class="eacategory">Guidance</div>The evaluator shall check that the operational guidance describes how pre-shared keys are to be
+              <div class="eacategory">Guidance</div>If pre-shared keys are chosen in the selection, the evaluator shall check that the operational guidance describes how pre-shared keys are to be
 		generated and established. <p></p>
+		If any method other than no other method is selected, the evaluator shall check that the operational guidance describes any configuration necessary to enable any selected authentication mechanisms.<p></p>
                 The evaluator ensures the operational guidance describes how to set up the TOE to use the cryptographic
 		algorithms RSA and/or ECDSA.<p></p>
                In order to construct the environment and configure the TOE for the following tests, the evaluator will
@@ -2728,8 +2732,8 @@ The following sections list Common Criteria and technology terms used in this do
 			certificate that will be revoked (for each method chosen in the selection) to ensure when the certificate
 			is no longer valid that the TOE will not establish an SA
                 </li>
-                <li><b>Test 4: </b> [conditional]: The evaluator shall generate a pre-shared key and use it, as indicated in the
-			operational guidance, to establish an IPsec connection with the VPN GW peer. If the generation of the
+                <li><b>Test 4: </b> [conditional]: For each selection made, the evaluator shall verify factors are required, as indicated in the
+			operational guidance, to establish an IPsec connection with the server. If the generation of the
 			pre-shared key is supported, the evaluator shall ensure that establishment of the key is carried out for an
 			instance of the TOE generating the key as well as an instance of the TOE merely taking in and using the
 			key.</li>
