@@ -232,7 +232,7 @@
    </style></head><body><div style="text-align: center; margin-left: auto; margin-right: auto;"><h1 class="title" style="page-break-before:auto;">Supporting Document<br/>
         Mandatory Technical Document</h1><img src="images/niaplogo.png" alt="NIAP"></img><hr width="50%"></hr><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><br/>
     PP-Module for SSL/TLS Inspection Proxies<br/>
-      Version: 1.1<br/>2021-12-31<br/><b>National Information Assurance Partnership</b></div><div class="foreword"><h1 style="text-align: center">Foreword</h1><p>This is a Supporting Document (SD), intended to complement the Common Criteria version 3
+      Version: 1.1<br/>2021-09-10<br/><b>National Information Assurance Partnership</b></div><div class="foreword"><h1 style="text-align: center">Foreword</h1><p>This is a Supporting Document (SD), intended to complement the Common Criteria version 3
       and the associated Common Evaluation Methodology for
       Information Technology Security Evaluation.</p><p>SDs may be “Guidance Documents”, that highlight specific approaches 
       and application of the standard to areas where no mutual recognition of
@@ -242,7 +242,7 @@
       The usage of the latter class is not only mandatory, but certificates
       issued as a result of their application are recognized under the CCRA.</p><p><b>Technical Editor:</b><br/>
       National Information Assurance Partnership (NIAP)
-      </p><p><b style="page-break-before:always;">Document history:</b><table><tr class="header"><th>Version</th><th>Date</th><th style="align:left;">Comment</th></tr><tr><td>1.1</td><td>2021-12-31</td><td>Update</td></tr><tr><td>1.0</td><td>2019-08-23</td><td>Update release</td></tr></table></p><p><b>General Purpose:</b><br/>
+      </p><p><b style="page-break-before:always;">Document history:</b><table><tr class="header"><th>Version</th><th>Date</th><th style="align:left;">Comment</th></tr><tr><td>1.1</td><td>2021-09-10</td><td>Updates to reflect Github conversion, compatibility with NDcPP v2.2E, and Technical Decisions applied to version 1.0</td></tr><tr><td>1.0</td><td>2019-08-23</td><td>Update release</td></tr></table></p><p><b>General Purpose:</b><br/>
       The purpose of this SD is to define evaluation methods for the functional behavior of 
       SSL/TLS Inspection Proxies  products.
       </p><p><b>Acknowledgements:</b><br/>
@@ -292,45 +292,63 @@ Although Evaluation Activities are defined mainly for the evaluators to follow, 
 The following sections list Common Criteria and technology terms used in this document.
     <h3 id="cc-terms" class="indexable" data-level="2">1.3.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a TOE meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (Base-PP)</div></td><td>Protection Profile used as a basis to build a PP-Configuration.</td></tr><tr><td><div id="Common_Criteria">Common Criteria (CC)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
       Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an IT security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations.
-    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (CEM)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed TOE</div></td><td>A TOE composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (OE)</div></td><td>Hardware and software that are outside the TOE boundary that support the TOE functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (PP)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (PP-Configuration)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one Base-PP and at least one PP-Module.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (PP-Module)</div></td><td>An implementation-independent statement of security needs for a TOE type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (SAR)</div></td><td>A requirement to assure the security of the TOE.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (SFR)</div></td><td>A requirement for security enforcement by the TOE.</td></tr><tr><td><div id="Security_Target">Security Target (ST)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality">TOE Security Functionality (TSF)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (TOE)</div></td><td>The product under evaluation. </td></tr></table><h3 id="tech-terms" class="indexable" data-level="2">1.3.2 Technical Terms</h3><table style="width: 100%"><tr><td><div id="Administrator">Administrator</div></td><td>
-        A user that has administrative privilege to configure the TOE in privileged
-        mode. </td></tr><tr><td><div id="Authorized">Authorized</div></td><td>
-        An entity granted access privileges to an object, system or system entity.
-      </td></tr><tr><td><div id="Critical_Security_Parameter">Critical Security Parameter (CSP)</div></td><td>
-        Security related information, e.g. secret and private cryptographic keys, and
-        authentication data such as passwords and PINs, whose disclosure or
-        modification can compromise the security of a cryptographic module. </td></tr><tr><td><div id="Entropy_Source">Entropy Source</div></td><td>
-        This cryptographic function provides a seed for a random number generator
-        by accumulating the outputs from one or more noise sources. The
-        functionality includes a measure of the minimum work required to guess a
-        given output and tests to ensure that the noise sources are operating
-        properly.
-      </td></tr><tr><td><div id="IT_Environment">IT Environment</div></td><td>
-        Hardware and software that are outside the TOE boundary that support the
-        TOE functionality and security policy. </td></tr><tr><td><div id="Operational_Environment">Operational Environment</div></td><td>
-        The environment in which the TOE is operated.</td></tr><tr><td><div id="Private_Network">Private Network</div></td><td>
-        A network that is protected from access by unauthorized users or entities.
-      </td></tr><tr><td><div id="Privileged_Mode">Privileged Mode</div></td><td>
-        A TOE operational mode that allows a user to perform functions that require
-        IT Environment administrator privileges.
-      </td></tr><tr><td><div id="Public_Network">Public Network</div></td><td>
-        A network that is visible to all users and entities and does not protect against
-        unauthorized access (e.g. internet).
-      </td></tr><tr><td><div id="Threat_Agent">Threat Agent</div></td><td>
-        An entity that tries to harm an information system through destruction,
-        disclosure, modification of data, and/or denial of service.</td></tr><tr><td><div id="Unauthorized_User">Unauthorized User</div></td><td>
-        An entity (device or user) who has not been authorized by an authorized
-        administrator to access the TOE or private network.
-      </td></tr><tr><td><div id="Unprivileged_Mode">Unprivileged Mode</div></td><td>
-        A TOE operational mode that only provides VPN client functions for the VPN
-        Client user. </td></tr><tr><td><div id="VPN_Client">VPN Client</div></td><td>
-        The TOE; allows remote users to use client computers to establish an
-        encrypted IPsec tunnel across an unprotected public network to a private
-        network.
-      </td></tr><tr><td><div id="VPN_Client_User">VPN Client User</div></td><td>
-        A user operating the TOE in unprivileged mode.</td></tr><tr><td><div id="VPN_Gateway">VPN Gateway</div></td><td>
-        A component that performs encryption and decryption of IP packets as they
-        cross the boundary between a private network and a public network. </td></tr></table><h1 id="sfr" class="indexable" data-level="0">2 Evaluation Activities for SFRs</h1><p>The EAs presented in this section capture the actions the evaluator performs 
+    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (CEM)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed TOE</div></td><td>A TOE composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (OE)</div></td><td>Hardware and software that are outside the TOE boundary that support the TOE functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (PP)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (PP-Configuration)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one Base-PP and at least one PP-Module.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (PP-Module)</div></td><td>An implementation-independent statement of security needs for a TOE type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (SAR)</div></td><td>A requirement to assure the security of the TOE.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (SFR)</div></td><td>A requirement for security enforcement by the TOE.</td></tr><tr><td><div id="Security_Target">Security Target (ST)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality">TOE Security Functionality (TSF)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (TOE)</div></td><td>The product under evaluation. </td></tr></table><h3 id="tech-terms" class="indexable" data-level="2">1.3.2 Technical Terms</h3><table style="width: 100%"><tr><td><div id="Attribute">Attribute</div></td><td>
+        A characterization of an entity (monitored client or the server requested by a
+        monitored client) used in the TLS session establishment policy or the plaintext
+        processing policy implemented by the TOE that describes the entity. Common
+        attributes include IP address, name, and certificates associated to an entity. </td></tr><tr><td><div id="Block_operation">Block operation</div></td><td>
+        A high-level operation of the TLS session establishment policy implemented
+        by the TOE that prevents TLS sessions between a monitored client and the
+        server requested by the client. </td></tr><tr><td><div id="Bypass_operation">Bypass operation</div></td><td>
+        A high-level operation of the TLS session establishment policy implemented
+        by the TOE that allows a TLS session between a monitored client and the
+        server requested by the client.
+        <p></p>
+        Alternatively, an operation of the plaintext processing policy implemented by
+        the TOE to bypass certain inspection processing functional components for
+        plaintext data flows established under the SSL/TLS session establishment
+        policy.</td></tr><tr><td><div id="Inspect_operation">Inspect operation</div></td><td>
+        A high-level operation of the TLS session establishment policy implemented
+        by the TOE that establishes a TLS session thread between a monitored client
+        and a server requested by the monitored client in order to provide security
+        services on the underlying plaintext application data. </td></tr><tr><td><div id="Inspection_processing_functional_components">Inspection processing functional components</div></td><td>
+        A discrete set of security functions implemented within a single logical
+        component, internal or external to the TOE that provides security services
+        based on a plaintext data flow controlled by the TOE intended to protect a
+        monitored client from defined security threats, or to enforce a defined policy
+        regarding the servers allowed to be accessed by monitored clients. </td></tr><tr><td><div id="Monitored_Client">Monitored Client</div></td><td>
+        A TLS client that uses the TOE as an SSL/TLS Inspection Proxy. This device
+        requires a trust anchor to be installed for the internal CA of the TOE, and
+        makes SSL/TLS requests for services external to the enclave. This client makes
+        SSL/TLS requests to a “requested server” through the TOE. </td></tr><tr><td><div id="Requested_Server">Requested Server</div></td><td>
+        The target of an SSL/TLS request by a monitored client through the TOE. It is
+        typically a service provider for clients using SSL/TLS. If mutual authentication
+        is to be supported, this device requires a trust anchor to be installed for the
+        internal CA of the TOE. </td></tr><tr><td><div id="Secure_Sockets_Layer/Transport_Layer_Security">Secure Sockets Layer/Transport Layer Security (SSL/TLS)</div></td><td>
+        A set of security
+        protocols defined by IETF RFCs to establish a secure point-to-point channel
+        between a client and a server. The secure channel provides confidentiality,
+        integrity and proof of origin to plaintext application data transferred between
+        the client and server. SSL refers to early implementations of the SSL/TLS
+        protocols that are deprecated. TLS refers to current versions of the SSL/TLS
+        protocol.  </td></tr><tr><td><div id="TLS_messages">TLS messages</div></td><td>
+        Specific messages defined by TLS protocol standards. The TLS messages
+        addressed in this PP-Module include TLS handshake messages: Client Hello,
+        Server Hello, Server Certificate, Server Key Exchange, Client Key Exchange,
+        Certificate Request, Client Certificate, Client Certificate Verify, Server Finished
+        and Client Finished messages. </td></tr><tr><td><div id="TLS_session_parameters">TLS session parameters</div></td><td>
+        The parameters of a TLS session established by the TOE for protecting thrutraffic, minimally to include: the negotiated version, negotiated cipher suite,
+        the size of any key exchange values sent or received in key exchange
+        messages, the server certificate received, (a reference to) the server
+        certificate sent, the client certificate received, (a reference to) the client
+        certificate sent, and other negotiated values determined by the TLS
+        handshake that are not fixed for all TLS sessions established. </td></tr><tr><td><div id="TLS_session_thread">TLS session thread</div></td><td>
+        A connection negotiated by the TOE consisting of a TLS secure point-to-point
+        channel between a monitored client and the TOE, a TLS secure point-to-point
+        channel between the TOE and the requested server, and any traffic flow
+        containing the underlying application plaintext decrypted from one of the
+        SSL/TLS channels, that is transferred within or between inspection processing
+        functional components controlled by the TOE. </td></tr></table><h1 id="sfr" class="indexable" data-level="0">2 Evaluation Activities for SFRs</h1><p>The EAs presented in this section capture the actions the evaluator performs 
     to address technology specific aspects covering specific SARs (e.g. ASE_TSS.1, 
     ADV_FSP.1, AGD_OPE.1, and ATE_IND.1) – this is in addition to the CEM workunits 
     that are performed in Section <a href="#sar_aas" class="dynref"> 3 Evaluation Activities for SARs</a>.</p><p>Regarding design descriptions (designated by the subsections labelled TSS, as 
