@@ -1,0 +1,988 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
+<?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<PP xmlns="http://common-criteria.rhcloud.com/ns/cc" name="Secure Shell"
+xmlns:h="http://www.w3.org/1999/xhtml">
+  <PPReference title="PP Reference" id="ID006">
+    <ReferenceTable>
+      <PPTitle>Extended Package for Secure Shell (SSH)</PPTitle>
+      <PPVersion>1.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2016-02-19</PPPubDate>
+      <PPCertificationID>unassigned</PPCertificationID>
+      <CCVersion>Version 3.1R4</CCVersion>
+      <Keywords>SSH; secure shell</Keywords>
+      <entry>
+        <name>Registration</name>
+        <description>National Information Assurance Partnership</description>
+      </entry>
+    </ReferenceTable>
+  </PPReference>
+  <RevisionHistory role="draft">
+    <entry>
+      <version>v .9</version>
+      <date>2015-08-19</date>
+      <subject>First Draft - Extended Package for Secure Shell</subject>
+    </entry>
+  </RevisionHistory>
+  <RevisionHistory role="final">
+    <entry>
+      <version>1.0</version>
+      <date>2016-02-19</date>
+      <subject>Initial Release - EP for OS PP, MDM PP, App PP</subject>
+    </entry>
+  </RevisionHistory>
+  <chapter title="Introduction" id="int">
+    <section title="Overview" id="ppoverview">Secure Shell (SSH) is a
+    protocol for secure remote login and other secure network services over
+    an untrusted network. SSH software can act as a client, server, or both.</section>
+    <section id="glossary" title="Terms">The following sections provide both Common Criteria and
+    technology terms used in this Extended Package. 
+    <subsection title="Common Criteria Terms" id="ccterms">
+      <glossary>
+        <entry>
+          <term>
+            <abbr title="Common Criteria">CC</abbr>
+          </term>
+          <description>Common Criteria for Information Technology Security
+          Evaluation.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="Extended Package">EP</abbr>
+          </term>
+          <description>An implementation-independent set of security requirements for a category of
+          products, which extends those in a Protection Profile.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="Protection Profile">PP</abbr>
+          </term>
+          <description>An implementation-independent set of security requirements for a category of
+          products.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="Security Target">ST</abbr>
+          </term>
+          <description>A set of implementation-dependent security requirements for a specific
+          product.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="Target of Evaluation">TOE</abbr>
+          </term>
+          <description>The product under evaluation.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="TOE Security Functionality">TSF</abbr>
+          </term>
+          <description>The security functionality of the product under evaluation.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="TOE Summary Specification">TSS</abbr>
+          </term>
+          <description>A description of how a 
+          <abbr linkend="TOE" /> satisfies the SFRs in a 
+          <abbr linkend="ST" />.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="Security Functional Requirement">SFR</abbr>
+          </term>
+          <description>A requirement for security enforcement by the 
+          <abbr linkend="TOE" />.</description>
+        </entry>
+        <entry>
+          <term>
+            <abbr title="Security Assurance Requirement">SAR</abbr>
+          </term>
+          <description>A requirement to assure the security of the 
+          <abbr linkend="TOE" />.</description>
+        </entry>
+      </glossary>
+    </subsection>
+    <subsection id="techterms" title="Technology Terms">
+      <glossary>
+        <entry>
+          <term>
+            <abbr title="Secure Shell">SSH</abbr>
+          </term>
+          <description>Cryptographic network protocol for initiating text-based shell sessions on remote systems.
+          </description>
+        </entry>
+		</glossary>
+    </subsection>
+	</section>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">The Target of Evaluation
+    (TOE) in this 
+    <abbr linkend="EP" /> is a product which acts as an SSH client or server, or both. 
+    <h:br/>This 
+    <abbr linkend="EP" /> describes the extended security functionality of SSH in terms of
+    
+    <cite linkend="bibCC" />. This EP can extend the Protection Profiles for <h:i>Application Software</h:i>,
+    <h:i>General-Purpose Operating Systems</h:i>, or <h:i>Mobile Device Management</h:i>. It is
+    expected that the content of this 
+    <abbr linkend="EP" /> will be appropriately combined with the base PP to include selection-based
+    requirements in accordance with the selections and/or assignments made, and any optional and/or
+    objective components.
+    <h:br />
+      This EP combind with the <cite linkend="bibAppPP" /> must include selection-based requirements in accordance with the
+    selections and/or assignments made, and any optional and/or objective components to include:
+    FCS_CKM.2.1, FCS_COP.1.1(*), FCS_RBG_EXT.2.*, FCS_TLSC_EXT.1.*, FIA_X509_EXT.1.*,
+    FIA_X509_EXT.2.*.
+    <h:br />
+      This EP combind with the <cite linkend="bibGPOS" /> must include selection-based requirements in accordance with the
+    selections and/or assignments made, and any optional and/or objective components to include:
+    FCS_CKM.2.1, FCS_COP.1.1(*), FCS_RBG_EXT.1.*, FCS_TLSC_EXT.1.*, FIA_X509_EXT.1.*,
+    FIA_X509_EXT.2.*.  
+    <h:br />
+      This EP combind with the <cite linkend="bibMDM" /> must include selection-based requirements in accordance with the
+      selections and/or assignments made, and any optional and/or objective components to include:
+      FCS_CKM.1.1, FCS_COP.1.1(*), FCS_RBG_EXT.1.*, FCS_TLSC_EXT.1.*, FIA_X509_EXT.1.*,
+      FIA_X509_EXT.2.*.  
+      <h:br />
+    An ST must identify the applicable version of the base PP and this 
+    <abbr linkend="EP" /> in its conformance claims.</section>
+  </chapter>
+  <chapter title="Conformance Claims" id="conf">
+    <cclaims>
+      <cclaim id="Conformance Statement">
+        <description>This 
+        <abbr linkend="EP" /> serves to extend the PP baselines with additional SFRs and associated
+        Assurance Activities specific to SSH clients and servers. Assurance Activities are the
+        actions that the evaluator performs in order to determine an SSH client or server's
+        compliance to the SFRs.
+          <h:br/>This 
+        <abbr linkend="EP" /> conforms to Common Criteria 
+        <cite linkend="bibCC" /> for Information Technology Security Evaluation, Version 3.1,
+        Revision 4. It is CC Part 2 extended and CC Part 3 conformant. In order to be conformant to
+        this 
+        <abbr linkend="EP" />, the 
+        <abbr linkend="ST" /> must include all components in this 
+        <abbr linkend="EP" /> and the associated base PP that are: 
+        <ul>
+          <li>unconditional (which are always required)</li>
+          <li>selection-based (which are required when certain selections are chosen in the
+          unconditional requirements)</li>
+        </ul>and may include optional and/or objective components that are desirable but not
+        required for conformance. 
+          <h:br/>In accordance with CC Part 1, dependencies are not included when they are addressed
+        by other SFRs. The assurance activities provide adequate proof that any dependencies are
+        also satisfied.</description>
+      </cclaim>
+    </cclaims>
+  </chapter>
+
+  <chapter title="Security Problem Description" id="spd">
+  This Extended Package does not repeat the threats, assumptions, and organizational security
+  policies identified in any base PPs, though they all apply given the conformance and hence
+  dependence of this 
+  <abbr linkend="EP" /> on it. Together the threats, assumptions and organizational security
+  policies of the base PP and those defined in this 
+  <abbr linkend="EP" /> describe those addressed by the product as the Target of
+  Evaluation.
+  </chapter>
+  
+  <!--  
+  <chapter title="Security Objectives" id="sobj">This Extended Package adds SFRs to objectives
+  identified in the base PP.
+  <section title="Security Objectives for the TOE" id="SecurityObjectivesTOE">
+    <SOs>
+      <SO id="O.PROTECTED_COMMS">
+        <description>To address both network eavesdropping and network attack threats concerning 
+          transmission of Enterprise and user data between the TOE and remote 
+          network entities.
+        </description>
+        <component-refer ref="fcs_ssh_ext.1" />
+      </SO>
+    </SOs>
+  </section>
+  </chapter>
+  -->
+  
+  <chapter title="Security Requirements" id="req">This chapter describes the security requirements
+  to be fulfilled by the product. Those requirements comprise functional components from Part 2 of 
+  <cite linkend="bibCC" />. The following notations are used: 
+  <ul>
+    <li>
+    <b>Selection</b> (denoted by 
+    <h:i>italicized text</h:i>): is used to select one or more options provided by the [CC] in stating
+    a requirement.</li>
+    <li>
+    <b>Assignment</b> operation (denoted by 
+    <h:span class="assignable-content">italicized text</h:span>): is used to assign a specific value to an unspecified parameter, such
+    as the length of a password. Showing the value in square brackets indicates assignment.</li>
+    <li>
+    <b>Iteration</b> operation: are identified with a number inside parentheses (e.g. "(1)").</li>
+  </ul>
+  <section title="Security Functional Requirements" id="sfr">The Security Functional Requirements
+  included in this section are derived from Part 2 of the Common Criteria for Information
+  Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
+  components. 
+  <subsection title="Cryptographic Support (FCS)" id="fcs">
+    <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption (Refined)" status="threshold">
+      <f-element id="fcs_cop.1.1(1)">
+        <title>The SSH software shall perform encryption/decryption services for data in accordance
+          with a specified cryptographic algorithm AES-CTR (as defined in NIST SP 800-38A)
+          mode and cryptographic key sizes
+          <selectables>
+            <selectable>128-bit</selectable>
+            <selectable>256-bit</selectable>
+          </selectables>.
+        </title>
+        <note role="application">If this EP is extending the Protection Profile for Application Software, 
+          it may not be necessary to include the FCS claims (in the base PP) since the SSH application 
+          could rely on the platform for this functionality.  If the SSH software does provide its own crypto 
+          the FCS claims will need to reflect that in the FCS selections from the base PP.
+        </note>
+        <aactivity>
+          The evaluator shell review the TSF of the base PP to verify consistency with the functionality that
+          was claimed by the base PP to ensure that applicable dependencies are met.
+          <h:br />
+         
+          The evaluator shall verify that the TSS describes the counter mechanism including 
+          rationale that the counter values provided are unique. 
+          <h:br />
+          <h:br />
+          AES-CTR Tests:
+          <testlist>
+            <test>
+              Known Answer Tests (KATs)
+              <h:br />
+              There are four Known Answer Tests (KATs) described below.  For all KATs, the plaintext,
+              IV, and ciphertext values shall be 128-bit blocks.  The results from each test may
+              either be obtained by the validator directly or by supplying the inputs to the implementer
+              and receiving the results in response.  To determine correctness, the evaluator shall
+              compare the resulting values to those obtained by submitting the same inputs to a known
+              good implementation.
+              
+              <h:br />
+              <h:br />
+              To test the encrypt functionality, the evaluator shall supply a set of 10 plaintext 
+              values and obtain the ciphertext value that results from encryption of the given plaintext
+              using a key value of all zeros and an IV of all zeros.  Five plaintext values shall be encrypted
+              with a 128-bit all zeros key, and the other five shall be encrypted with a 256-bit all zeros key. 
+              To test the decrypt functionality, the evaluator shall perform the same 
+              test as for encrypt, using 10 ciphertext values as input.
+              <h:br />
+              <h:br />
+              To test the encrypt functionality, the evaluator shall supply a set of 10 key values
+              and obtain the ciphertext value that results from encryption of an all zeros plaintext
+              using the given key value and an IV of all zeros.  Five of the key values shall be 128-bit
+              keys, and the other five shall be 256-bit keys. To test the decrypt functionality, the
+              evaluator shall perform the same test as for encrypt, using an all zero ciphertext
+              value as input.
+              <h:br />
+              <h:br />
+              To test the encrypt functionality, the evaluator shall supply the two sets of key values
+              described below and obtain the ciphertext values that result from AES encryption of an
+              all zeros plaintext using the given key values an an IV of all zeros.  The first set of
+              keys shall have 128 128-bit keys, and the second shall have 256 256-bit keys.  Key_i in
+              each set shall have the leftmost i bits be ones and the rightmost N-i bits be zeros,
+              for i in [1, N]. To test the decrypt functionality, the evaluator shall supply the two
+              sets of key and ciphertext value pairs described below and obtain the plaintext value
+              that results from decryption of the given ciphertext using the given key values and an
+              IV of all zeros.  The first set of key/ciphertext pairs shall have 128 128-bit
+              key/ciphertext pairs, and the second set of key/ciphertext pairs shall have 256 256-bit
+              pairs. Key_i in each set shall have the leftmost i bits be ones and the rightmost N-i
+              bits be zeros for i in [1, N].  The ciphertext value in each pair shall be the value 
+              that results in an all zeros plaintext when decrypted with its corresponding key.
+              <h:br />
+              <h:br />
+              To test the encrypt functionality, the evaluator shall supply the set of
+              128 plaintext values described below and obtain the two ciphertext values that
+              result from encryption of the given plaintext using a 128-bit key value of all
+              zeros and using a 256 bit key value of all zeros, respectively, and an IV of all
+              zeros. Plaintext value i in each set shall have the leftmost bits be ones and
+              the rightmost 128-i bits be zeros, for i in [1, 128].  To test the decrypt functionality,
+              the evaluator shall perform the same test as for encrypt, using ciphertext
+              values of the same form as the plaintext in the encrypt test as input.
+            </test>
+            <test>
+              Multi-Block Message Test
+              <h:br />
+              The evaluator shall test the encrypt functionality by encrypting an i-block 
+              message where 1 less-than i less-than-or-equal to 10. For each i the evaluator 
+              shall choose a key, IV, and plaintext message of length i blocks and encrypt
+              the message, using the mode to be tested, with the chosen key. The ciphertext
+              shall be compared to the result of encrypting the same plaintext message with
+              the same key and IV using a known good implementation. The evaluator shall also 
+              test the decrypt functionality by decrypting an i-block message where 1 less-than
+              i less-than-or-equal to 10. For each i the evaluator shall choose a key and
+              a ciphertext message of length i blocks and decrypt the message, using the mode 
+              to be tested, with the chosen key. The plaintext shall be compared to the result
+              of decrypting the same ciphertext message with the same key using a known good implementation.
+            </test>
+            <test>
+              Monte-Carlo Test
+              <h:br />
+              For AES-CTR mode perform the Monte Carlo Test for ECB Mode on the encryption 
+              engine of the counter mode implementation. There is no need to test the decryption engine.
+              <h:br />
+              <h:br />
+              The evaluator shall test the encrypt functionality using 200 plaintext/key pairs. 
+              100 of these shall use 128 bit keys, and 100 of these shall use 256 bit keys.  
+              The plaintext values shall be 128-bit blocks.  For each pair, 1000 iterations shall be run as follows:
+              <h:br />
+              <h:br />
+              For AES-ECB mode<h:br />
+              # Input: PT, Key<h:br />
+              for i = 1 to 1000:<h:br />
+              CT[i] = AES-ECB-Encrypt(Key, PT)<h:br />
+              PT = CT[i]
+              <h:br />
+              The ciphertext computed in the 1000th iteration is the result for that 
+              trial.  This result shall be compared to the result of running 1000 
+              iterations with the same values using a known good implementation.  
+            </test>
+          </testlist>
+        </aactivity>
+      </f-element>
+    </f-component>
+    <f-component id="fcs_ssh_ext.1" name="SSH Protocol" status="threshold">
+	<f-element id="fcs_ssh_ext.1.1">
+        <title>The SSH software shall implement the SSH protocol that complies with RFCs 4251, 4252, 4253,
+        4254 and 
+        <selectables>
+          <selectable>5647</selectable>
+          <selectable>5656</selectable>
+          <selectable>6187</selectable>
+          <selectable>6668</selectable>
+          <selectable>no other RFCs</selectable>
+        </selectables> as a 
+		<selectables>
+		  <selectable>client</selectable>
+		  <selectable>server</selectable>
+		</selectables>
+		</title>
+        <note role="application">The ST author selects which of the additional RFCs to which
+        conformance is being claimed. An SSH product can implement additional RFCs, but only those
+        listed in the selection can be claimed as conformant under common criteria. 
+        The RFC selections for this requirement need to be consistent with selections in
+        later elements of this Extended Package (e.g., cryptographic algorithms permitted). 
+        <h:br/>
+        RFC 4253 indicates that certain cryptographic algorithms are "REQUIRED". This means that from the 
+        IETF's perspective the implementation must include support, not that the algorithms must 
+        be enabled for use. Ensuring that algorithms indicated as "REQUIRED" but not listed 
+        in later elements of this Extended Package is out of scope for the assurance activity 
+        for this requirement.
+        <h:br/>
+        If client is selected, then the ST must include the requirements from <linkref linkend="FCS_SSHC_EXT.1" />. 
+        If server is selected, then the ST must include the requirements from <linkref linkend="FCS_SSHS_EXT.1" />.
+	</note>
+        <aactivity>The evaluator will ensure that the selections indicated in the ST are 
+	consistent with selections in the dependent components.
+        </aactivity>
+      </f-element>
+      </f-component>
+
+      <f-component id="fcs_sshc_ext.1" name="SSH Protocol - Client" status="sel-based">
+      <selection-depends req="fcs_ssh_ext.1.1"/>
+        
+      <f-element id="fcs_sshc_ext.1.1">
+        <title>The SSH client shall ensure that the SSH protocol implementation supports the following
+        authentication methods as described in RFC 4252: public key-based, and
+          <selectables>
+            <selectable>password-based</selectable>
+            <selectable>none</selectable>
+          </selectables>.
+        </title>
+        <aactivity>The evaluator will check to ensure that the TSS contains a description of the
+        public key algorithms that are acceptable for use for authentication, that this list
+        conforms to 
+        <linkref linkend="FCS_SSHC_EXT.1.4" />, and ensure that password-based authentication
+        methods are also allowed. 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will, for each public key algorithm supported, show that the TOE
+          supports the use of that public key algorithm to authenticate a user connection to an SSH
+          server. Any configuration activities required to support this test shall be performed
+          according to instructions in the guidance documentation.</test>
+          <test>Using the guidance documentation, the evaluator will configure the TOE to perform
+          password-based authentication to an SSH server, and demonstrate that a user can be
+          successfully authenticated by the TOE to an SSH server using a password as an
+          authenticator.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.2">
+        <title>The SSH client shall ensure that, as described in RFC 4253, packets greater than 
+        <assignable>number of bytes</assignable>bytes in an SSH transport connection are
+        dropped.</title>
+        <note role="application">RFC 4253 provides for the acceptance of “large packets” with the
+        caveat that the packets should be of “reasonable length” or dropped. The assignment should
+        be filled in by the ST author with the maximum packet size accepted, thus defining
+        “reasonable length” for the TOE.</note>
+        <aactivity>The evaluator will check that the TSS describes how “large packets” in terms of
+        RFC 4253 are detected and handled. 
+        <h:br />The evaluator will demonstrate that if the TOE receives a packet larger than that
+        specified in this component, that packet is dropped.</aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.3">
+        <title>The SSH software shall ensure that the SSH transport implementation uses the following
+        encryption algorithms and rejects all other encryption algorithms: aes128-ctr, aes256-ctr, 
+        <selectables>
+          <selectable>aes128-cbc</selectable>
+          <selectable>aes256-cbc</selectable>
+          <selectable>AEAD_AES_128_GCM</selectable>
+          <selectable>AEAD_AES_256_GCM</selectable>
+          <selectable>no other algorithms</selectable>
+        </selectables>.
+        </title>
+        <note role="application">RFC 5647 specifies the use of the AEAD_AES_128_GCM and
+        AEAD_AES_256_GCM algorithms in SSH. As described in RFC 5647, AEAD_AES_128_GCM and
+        AEAD_AES_256_GCM can only be chosen as encryption algorithms when the same algorithm is
+        being used as the MAC algorithm.
+        If AES-GCM is selected,
+        there should be corresponding FCS_COP entries in the ST.</note>
+        <aactivity>The evaluator will check the description of the implementation of this protocol
+        in the TSS to ensure that optional characteristics are specified, and the encryption
+        algorithms supported are specified as well. The evaluator will check the TSS to ensure that
+        the encryption algorithms specified are identical to those listed for this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions on configuring the TOE so that SSH conforms to the description in the TSS (for
+        instance, the set of algorithms advertised by the TOE may have to be restricted to meet the
+        requirements). 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will establish an SSH connection using each of the encryption
+          algorithms specified by the requirement. It is sufficient to observe (on the wire) the
+          successful negotiation of the algorithm to satisfy the intent of the test.</test>
+          <test>The evaluator will configure an SSH server to only allow the 3des-cbc encryption
+          algorithm and no other encryption algorithms. The evaluator will attempt to establish an
+          SSH connection from the TOE to the SSH server and observe that the connection is
+          rejected.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.4">
+        <title>The SSH client shall ensure that the SSH transport implementation uses 
+        <selectables>
+          <selectable>ssh-rsa</selectable>
+          <selectable>ecdsa-sha2-nistp256</selectable>
+        </selectables>and 
+        <selectables>
+          <selectable>ecdsa-sha2-nistp384</selectable>
+          <selectable>x509v3-ecdsa-sha2-nistp256</selectable>
+          <selectable>x509v3-ecdsa-sha2-nistp384</selectable>
+          <selectable>no other public key algorithms</selectable>
+        </selectables>as its public key algorithm(s) and rejects all other public key
+        algorithms.</title>
+        <note role="application">Implementations that select only ssh-rsa will not achieve the
+        112-bit security strength in the digital signature generation for SSH authentication as is
+        recommended in NIST SP 800-131A. Future versions of this document may remove ssh-rsa as a
+        selection. If x509v3-ecdsa-sha2-nistp256 or x509v3-ecdsa-sha2-nistp384 are selected, then
+        the list of trusted certification authorities must be selected in 
+        <linkref linkend="FCS_SSHC_EXT.1.8" />.
+        <h:br/>
+        The SFRs for cryptographic key generation and certificate validation are inherited
+        from the base PP.
+        </note>
+        <aactivity>The evaluator will check the description of the implementation of this protocol
+        in the TSS to ensure that optional characteristics are specified, and the public key
+        algorithms supported are specified as well. The evaluator will check the TSS to ensure that
+        the public key algorithms specified are identical to those listed for this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions on configuring the TOE so that SSH conforms to the description in the TSS (for
+        instance, the set of algorithms advertised by the TOE may have to be restricted to meet the
+        requirements). 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will establish a SSH connection using each of the public key
+          algorithms specified by the requirement to authenticate an SSH server to the TOE. It is
+          sufficient to observe (on the wire) the successful negotiation of the algorithm to
+          satisfy the intent of the test.</test>
+          <test>The evaluator will configure an SSH server to only allow the ssh-dsa public key
+          algorithm and no other public key algorithms. The evaluator will attempt to establish an
+          SSH connection from the TOE to the SSH server and observe that the connection is
+          rejected.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.5">
+        <title>The SSH client shall ensure that the SSH transport implementation uses 
+        <selectables>
+          <selectable>hmac-sha1</selectable>
+          <selectable>hmac-sha1-96</selectable>
+          <selectable>hmac-sha2-256</selectable>
+          <selectable>hmac-sha2-512</selectable>
+        </selectables>and 
+        <selectables>
+          <selectable>AEAD_AES_128_GCM</selectable>
+          <selectable>AEAD_AES_256_GCM</selectable>
+          <selectable>no other MAC algorithms</selectable>
+        </selectables>as its data integrity MAC algorithm(s) and rejects all other MAC
+        algorithm(s).</title>
+        <note role="application">RFC 5647 specifies the use of the AEAD_AES_128_GCM and
+        AEAD_AES_256_GCM algorithms in SSH. As described in RFC 5647, AEAD_AES_128_GCM and
+        AEAD_AES_256_GCM can only be chosen as MAC algorithms when the same algorithm is being used
+        as the encryption algorithm. RFC 6668 specifies the use of the sha2 algorithms in
+        SSH.
+        <h:br/>
+        The SFRs for cryptographic operations, encryption and hashing, are inherited from 
+        the base PP.
+        </note>
+        <aactivity>The evaluator will check the TSS to ensure that it lists the supported data
+        integrity algorithms, and that that list corresponds to the list in this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions to the administrator on how to ensure that only the allowed data integrity
+        algorithms are used in SSH connections with the TOE (specifically, that the “none” MAC
+        algorithm is not allowed). 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will establish a SSH connection using each of the integrity
+          algorithms specified by the requirement. It is sufficient to observe (on the wire) the
+          successful negotiation of the algorithm to satisfy the intent of the test.</test>
+          <test>The evaluator will configure an SSH server to only allow the “none” MAC algorithm.
+          The evaluator will attempt to connect from the TOE to the SSH server and observe that the
+          attempt fails.</test>
+          <test>The evaluator will configure an SSH server to only allow the hmac- md5 MAC
+          algorithm. The evaluator will attempt to connect from the TOE to the SSH server and
+          observe that the attempt fails.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.6">
+        <title>The SSH client shall ensure that 
+          <selectables>
+            <selectable>diffie-hellman-group14-sha1</selectable>
+            <selectable>ecdh-sha2-nistp256</selectable>
+          </selectables>
+          and
+          <selectables>
+            <selectable>ecdh-sha2-nistp384</selectable>
+            <selectable>ecdh-sha2-nistp521</selectable>
+            <selectable>no other methods</selectable>
+          </selectables>
+        are the only allowed key exchange methods used for the SSH protocol.</title>
+        <aactivity>The evaluator will check the TSS to ensure that it lists the supported key
+        exchange algorithms, and that that list corresponds to the list in this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions to the administrator on how to ensure that only the allowed key exchange
+        algorithms are used in SSH connections with the TOE. 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will configure an SSH server to permit all allowed key exchange
+          methods. The evaluator will attempt to connect from the TOE to the SSH server using each
+          allowed key exchange method, and observe that each attempt succeeds.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.7">
+        <title>The SSH server shall ensure that the SSH connection be rekeyed after 
+          <selectables>
+            <selectable>no more than 2 <h:sup>28</h:sup> packets have been transmitted</selectable>
+            <selectable>no more than 1 Gigabyte of data has been transmitted</selectable>
+            <selectable>no more than 1 hour</selectable>
+          </selectables>
+          using that key.</title>
+        <aactivity>
+          <testlist>
+            <test>The evaluator will configure an SSH server to create a log entry when a rekey
+              occurs. The evaluator will connect to an SSH server with the TOE and cause a rekey to
+              occur according to the selection(s) in the ST, and
+            subsequently review the audit log to ensure that a rekey occurred.</test>
+          </testlist>          
+        </aactivity>
+      </f-element>
+      <f-element id="fcs_sshc_ext.1.8">
+          <title>The SSH client shall ensure that the SSH client authenticates the identity of the SSH server
+            using a local database associating each host name with its corresponding public key or 
+            <selectables>
+              <selectable>a list of trusted certification authorities</selectable>
+              <selectable>no other methods</selectable>
+            </selectables>as described in RFC 4251 section 4.1.</title>
+          <note role="application">The list of trusted certification authorities can only be selected
+            if x509v3-ecdsa-sha2-nistp256 or x509v3-ecdsa-sha2-nistp384 are selected in 
+            <linkref linkend="FCS_SSHC_EXT.1.4" />.</note>
+          <aactivity>
+            <testlist>
+              <test>The evaluator will delete all entries in the TOE’s list of recognized SSH server
+                host keys and, if selected, all entries in the TOE’s list of trusted certification
+                authorities. The evaluator will initiate a connection from the TOE to an SSH server.
+                The evaluator shall ensure that the TOE either rejects the connection or displays the
+                SSH server’s public key (either the key bytes themselves or a hash of the key using any
+                allowed hash algorithm) and prompts the user to accept or deny the key before
+                continuing the connection.</test>
+              <test>The evaluator will add an entry associating a host name with a public key into
+                the TOE’s local database. The evaluator will replace, on the corresponding SSH server,
+                the server’s host key with a different host key. The evaluator will initiate a
+                connection from the TOE to the SSH server using password-based authentication, shall
+                ensure that the TOE rejects the connection, and shall ensure that the password was not
+                transmitted to the SSH server (for example, by instrumenting the SSH server with a
+                debugging capability to output received passwords).</test>
+            </testlist>
+          </aactivity>
+       </f-element>
+      </f-component>
+
+    <f-component id="fcs_sshs_ext.1" name="SSH Protocol - Server" status="sel-based">
+      <selection-depends req="fcs_ssh_ext.1.1"/>
+      
+      <f-element id="fcs_sshs_ext.1.1"> 
+        <title>The SSH server shall ensure that the SSH protocol implementation supports the following
+        authentication methods as described in RFC 4252: public key-based, and
+          <selectables>
+            <selectable>password-based</selectable>
+            <selectable>none</selectable>
+          </selectables>.
+        </title>
+        <aactivity>The evaluator will check to ensure that the TSS contains a description of the
+        public key algorithms that are acceptable for use for authentication, that this list
+        conforms to 
+        <linkref linkend="FCS_SSHS_EXT.1.4" />, and ensure that password-based authentication
+        methods are also allowed. 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will, for each public key algorithm supported, show that the TOE
+          supports the use of that public key algorithm to authenticate a user connection from an
+          SSH client. Any configuration activities required to support this test shall be performed
+          according to instructions in the guidance documentation.</test>
+          <test>
+          The evaluator shall choose one public key algorithm supported by the
+          TOE. The evaluator shall generate a new key pair for that algorithm without
+          configuring the TOE to recognize the public key for authentication. The
+          evaluator shall use an SSH client to attempt to connect to the TOE with the
+          new key pair and demonstrate that authentication fails.
+          </test>
+          <test>Using the guidance documentation, the evaluator will configure the TOE to perform
+          password-based authentication on a client, and demonstrate that a user can be
+          successfully authenticated by the TOE using a password as an authenticator.</test>
+          <test>
+            The evaluator shall use an SSH client, enter an incorrect password to
+            attempt to authenticate to the TOE, and demonstrate that the authentication
+            fails.
+          </test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshs_ext.1.2">
+        <title>The SSH server shall ensure that, as described in RFC 4253, packets greater than 
+        <assignable>number of bytes</assignable>bytes in an SSH transport connection are
+        dropped.</title>
+        <note role="application">RFC 4253 provides for the acceptance of “large packets” with the
+        caveat that the packets should be of “reasonable length” or dropped. The assignment should
+        be filled in by the ST author with the maximum packet size accepted, thus defining
+        “reasonable length” for the TOE.</note>
+        <aactivity>The evaluator will check that the TSS describes how “large packets” in terms of
+        RFC 4253 are detected and handled. 
+        <h:br />The evaluator will demonstrate that if the TOE receives a packet larger than that
+        specified in this component, that packet is dropped.</aactivity>
+      </f-element>
+      <f-element id="fcs_sshs_ext.1.3">
+        <title>The SSH server shall ensure that the SSH transport implementation uses the following
+          encryption algorithms and rejects all other encryption algorithms: aes128-ctr, 
+          aes256-ctr, <selectables>
+            <selectable>aes128-cbc</selectable>
+            <selectable>aes256-cbc</selectable>
+            <selectable>AEAD_AES_128_GCM</selectable>
+            <selectable>AEAD_AES_256_GCM</selectable>
+            <selectable>no other algorithms</selectable>
+          </selectables>
+        .</title>
+        <note role="application">
+          RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM
+          algorithms in SSH. As described in RFC 5647, AEAD_AES_128_GCM and
+          AEAD_AES_256_GCM can only be chosen as encryption algorithms when the same
+          algorithm is being used as the MAC algorithm.
+        </note>
+        <aactivity>The evaluator will check the description of the implementation of this protocol
+        in the TSS to ensure that optional characteristics are specified, and the encryption
+        algorithms supported are specified as well. The evaluator will check the TSS to ensure that
+        the encryption algorithms specified are identical to those listed for this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions on configuring the TOE so that SSH conforms to the description in the TSS (for
+        instance, the set of algorithms advertised by the TOE may have to be restricted to meet the
+        requirements). 
+        <h:br/>
+        <testlist>
+          <test>The evaluator will initiate an SSH connection using each of the encryption
+          algorithms specified by the requirement. It is sufficient to observe (on the wire) the
+          successful negotiation of the algorithm to satisfy the intent of the test.</test>
+          <test>The evaluator will configure an SSH client to only propose the 3des-cbc encryption
+          algorithm and no other encryption algorithms. The evaluator will attempt to establish an
+          SSH connection from the client to the TOE server and observe that the connection is
+          rejected.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshs_ext.1.4">
+        <title>The SSH server shall ensure that the SSH transport implementation uses 
+          <selectables>
+            <selectable>ssh-rsa</selectable>
+            <selectable>ecdsa-sha2-nistp256</selectable>
+          </selectables>
+           and 
+          <selectables>
+            <selectable>ecdsa-sha2-nistp384</selectable>
+            <selectable>x509v3-ecdsa-sha2-nistp256</selectable>
+            <selectable>x509v3-ecdsa-sha2-nistp256</selectable>
+            <selectable>no other public key algorithms</selectable>
+          </selectables>
+        as its public key algorithm(s) and
+        rejects all other public key algorithms.
+        </title>
+        <note role="application">
+          Implementations that select only ssh-rsa will not achieve the 112-bit security strength in the
+          digital signature generation for SSH authentication as is recommended in NIST SP 800-131A. 
+          Future versions of this profile may remove ssh-rsa as a selection.
+          <h:br/>
+          The SFRs for cryptographic key generation and certificate validation are inherited
+          from the base PP.
+        </note>
+        <aactivity>The evaluator will check the description of the implementation of this protocol
+        in the TSS to ensure that optional characteristics are specified, and the public key
+        algorithms supported are specified as well. The evaluator will check the TSS to ensure that
+        the public key algorithms specified are identical to those listed for this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions on configuring the TOE so that SSH conforms to the description in the TSS (for
+        instance, the set of algorithms advertised by the TOE may have to be restricted to meet the
+        requirements). 
+        <h:br/>
+        <testlist>
+          <test>Using an appropriately configured client, the evaluator will establish an SSH
+          connection using each of the public key algorithms specified by the requirement to
+          authenticate. It is sufficient to observe (on the wire) the successful negotiation of the
+          algorithm to satisfy the intent of the test.</test>
+          <test>The evaluator will configure an SSH client to propose only the ssh-dsa public key
+          algorithm and no other public key algorithms. Using this client, the evaluator will
+          attempt to establish an SSH connection to the TOE and observe that the connection is
+          rejected.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshs_ext.1.5">
+        <title>The SSH server shall ensure that the SSH transport implementation uses 
+        <selectables>
+          <selectable>hmac-sha1</selectable>
+          <selectable>hmac-sha1-96</selectable>
+          <selectable>hmac-sha2-256</selectable>
+          <selectable>hmac-sha2-512</selectable>
+        </selectables>
+          and
+        <selectables>
+          <selectable>AEAD_AES_128_GCM</selectable>
+          <selectable>AEAD_AES_256_GCM</selectable>
+          <selectable>no other MAC algorithms</selectable>
+        </selectables>
+        as its MAC algorithm(s) and rejects all
+        other MAC algorithm(s).</title>
+        <note role="application">
+          RFC 5647 specifies the use of the AEAD_AES_128_GCM and AEAD_AES_256_GCM
+          algorithms in SSH. As described in RFC 5647, AEAD_AES_128_GCM and
+          AEAD_AES_256_GCM can only be chosen as MAC algorithms when the same algorithm is
+          being used as the encryption algorithm. RFC 6668 specifies the use of the sha2 algorithms
+          in SSH.
+          <h:br/>
+          The SFRs for cryptographic operations, encryption and hashing, are inherited from 
+          the base PP.
+        </note>
+        <aactivity>The evaluator will check the TSS to ensure that it lists the supported data
+        integrity algorithms, and that that list corresponds to the list in this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions to the administrator on how to ensure that only the allowed data integrity
+        algorithms are used in SSH connections with the TOE (specifically, that the “none” MAC
+        algorithm is not allowed). 
+        <h:br/>
+        <testlist>
+          <test>Using an appropriately configured client, the evaluator will establish a SSH
+          connection using each of the integrity algorithms specified by the requirement. It is
+          sufficient to observe (on the wire) the successful negotiation of the algorithm to
+          satisfy the intent of the test.</test>
+          <test>The evaluator will configure an SSH client to only propose the “none” MAC
+          algorithm. Using this client, the evaluator will attempt to connect to the TOE and
+          observe that the attempt fails.</test>
+          <test>The evaluator will configure an SSH client to only propose the hmac-md5 MAC
+          algorithm. Using this client, the evaluator will attempt to connect to the TOE and
+          observe that the attempt fails.</test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshs_ext.1.6">
+        <title>The SSH server shall ensure that 
+        <selectables>
+          <selectable>diffie-hellman-group14-sha1</selectable>
+          <selectable>ecdh-sha2-nistp256</selectable>
+        </selectables>
+          and
+        <selectables>
+          <selectable>ecdh-sha2-nistp384</selectable>
+          <selectable>ecdh-sha2-nistp521</selectable>
+          <selectable>no other methods</selectable>
+        </selectables>
+        are the only allowed key exchange
+        methods used for the SSH protocol.</title>
+        <aactivity>The evaluator will check the TSS to ensure that it lists the supported key
+        exchange algorithms, and that that list corresponds to the list in this component. 
+        <h:br />The evaluator will also check the guidance documentation to ensure that it contains
+        instructions to the administrator on how to ensure that only the allowed key exchange
+        algorithms are used in SSH connections to the TOE. 
+        <h:br/>
+        <testlist>
+          <test>For each of the allowed key exchange methods, the evaluator will configure an SSH
+          client to propose only it and attempt to connect to the TOE and observe that each attempt
+          succeeds.</test>
+          <test>The evaluator shall configure an SSH client to only allow the diffiehellman-group1-sha1
+            key exchange. The evaluator shall attempt to connect from the SSH client to the SSH Server
+            and observe that the attempt fails. </test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fcs_sshs_ext.1.7">
+        <title>The SSH server shall ensure that the SSH connection be rekeyed after 
+          <selectables>
+            <selectable>no more than 2 <h:sup>28</h:sup> packets have been transmitted</selectable>
+            <selectable>no more than 1 Gigabyte of data has been transmitted</selectable>
+            <selectable>no more than 1 hour</selectable>
+          </selectables>
+         using that key.</title>
+        <aactivity>
+          <testlist>
+            <test>The evaluator will configure the TOE to create a log entry when a rekey occurs.
+            The evaluator will connect to the TOE with an SSH client and cause a rekey to 
+            occur according to the selection(s) in the ST, and
+            subsequently review the audit log to ensure that a rekey occurred.</test>
+          </testlist>
+        </aactivity>
+      </f-element>
+    </f-component>
+  </subsection></section></chapter>
+  
+  <appendix title="Optional Requirements" id="optional">The baseline requirements (those that must
+  be performed by the 
+  <abbr linkend="TOE" />) are contained in the body of this 
+  <abbr linkend="EP" />. Additionally, there are three other types of requirements specified in 
+  <appref linkend="optional" />, 
+  <appref linkend="sel-based" />, and 
+  <appref linkend="objective" />. The first type (in this Appendix) are requirements that can be
+  included in the 
+  <abbr linkend="ST" />, but are not required in order for products to claim conformance to
+  this 
+  <abbr linkend="EP" />. The second type (in 
+  <appref linkend="sel-based" />) are requirements based on selections in the body of the 
+  <abbr linkend="EP" />: if certain selections are made, then additional requirements in that
+  appendix must be included. The third type (in 
+  <appref linkend="objective" />) are components that are not required in order to conform to this 
+  <abbr linkend="EP" />, but will be included in the baseline requirements in future versions of
+  this 
+  <abbr linkend="EP" />, so adoption by vendors is encouraged. Note that the 
+  <abbr linkend="ST" /> author is responsible for ensuring that requirements that may be associated
+  with those in 
+  <appref linkend="optional" />, 
+  <appref linkend="sel-based" />, and 
+  <appref linkend="objective" /> but are not listed (e.g., FMT-type requirements) are also included
+  in the 
+  <abbr linkend="ST" />.
+  <h:br />None exists presently.
+  </appendix>
+  
+  <appendix title="Selection-Based Requirements" id="sel-based">As indicated in the introduction to
+  this 
+  <abbr linkend="EP" />, the baseline requirements (those that must be performed by the base PP or
+  its underlying platform) are contained in the base PP and in the body of this 
+  <abbr linkend="EP" />. There are additional requirements based on selections from the base PP
+  and/or in the body of the 
+  <abbr linkend="EP" />: if certain selections are made, then additional requirements below will
+  need to be included.</appendix>
+  
+  <appendix title="Objective Requirements" id="objective">This Annex includes requirements that
+  specify security functionality which also addresses threats. The requirements are not currently
+  mandated in the body of this 
+  <abbr linkend="EP" /> as they describe security functionality not yet widely-available in
+  commercial technology. However, these requirements may be included in the 
+  <abbr linkend="ST" /> such that the product is still conformant to this 
+  <abbr linkend="EP" />, and it is expected that they be included as soon as possible.
+  <h:br/>None exists presently.</appendix>
+  
+  <appendix id="biblio" title="References">
+    <bibliography>
+      <entry id="bibCC">
+        <tag>CC</tag>
+        <description>Common Criteria for Information Technology Security Evaluation - 
+        <ul>
+          <li>
+          <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R4.pdf">Part 1:
+            Introduction and General Model</h:a>, CCMB-2012-09-001, Version 3.1 Revision 4, September
+          2012.</li>
+          <li>
+          <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R4.pdf">Part 2:
+            Security Functional Components</h:a>, CCMB-2012-09-002, Version 3.1 Revision 4, September
+          2012.</li>
+          <li>
+          <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R4.pdf">Part 3:
+            Security Assurance Components</h:a>, CCMB-2012-09-003, Version 3.1 Revision 4, September
+          2012.</li>
+        </ul></description>
+      </entry>
+      <entry id="bibGPOS">
+        <tag>GPOSPP</tag>
+        <description>
+          <h:a href="https://www.niap-ccevs.org/pp/PP_OS_v4.0/">Protection Profile for General 
+            Purpose Operating Systems
+            </h:a>
+        </description>
+      </entry>
+      <entry id="bibMDM">
+        <tag>MDMPP</tag>
+        <description>
+          <h:a href="https://www.niap-ccevs.org/pp/PP_MDM_V2.0/">Protection Profile for Mobile 
+            Device Management
+          </h:a>
+        </description>
+      </entry>
+      <entry id="bibAppPP">
+        <tag>AppPP</tag>
+        <description>
+          <h:a href="https://www.niap-ccevs.org/pp/PP_APP_v1.1/">Protection Profile for Application
+            Software</h:a>
+        </description>
+      </entry>
+    </bibliography>
+  </appendix>
+  <appendix title="Acronyms" id="acronyms">
+    <acronyms>
+      <entry>
+        <term>AES</term>
+        <description>Advanced Encryption Standard</description>
+      </entry>
+      <entry>
+        <term>CBC</term>
+        <description>Cipher Block Chaining</description>
+      </entry>
+      <entry>
+        <term>ECDSA</term>
+        <description>Elliptic Curve Digital Signature Algorithm</description>
+      </entry>
+      <entry>
+        <term>GCM</term>
+        <description>Galois/Counter Mode</description>
+      </entry>
+      <entry>
+        <term>IETF</term>
+        <description>Internet Engineering Task Force</description>
+      </entry>
+      <entry>
+        <term>IV</term>
+        <description>Initialization Vector</description>
+      </entry>
+      <entry>
+        <term>MAC</term>
+        <description>Message Authentication Code</description>
+      </entry>
+      <entry>
+        <term>NIST</term>
+        <description>National Institute of Standards and Technology</description>
+      </entry>
+      <entry>
+        <term>PBKDF</term>
+        <description>Password-Based Key Derivation Function</description>
+      </entry>     
+      <entry>
+        <term>RFC</term>
+        <description>Request for Comment (IETF)</description>
+      </entry>
+      <entry>
+        <term>RSA</term>
+        <description>Rivest Shamir Adelman</description>
+      </entry>
+      <entry>
+        <term>SSH</term>
+        <description>Secure Shell</description>
+      </entry>
+
+    </acronyms>
+  </appendix>
+</PP>
