@@ -1175,68 +1175,65 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="element-activity-header">FPF_RUL_EXT.1.6</div>
               <div class="eacategory">TSS</div>The evaluator shall verify that the TSS describes the process for applying Packet Filtering rules and also
                 that the behavior (either by default, or as configured by the administrator) is to discard packets when
-                there is no rule match.<p></p><br/>
+                there is no rule match. The evaluator shall verify the TSS describes when the IPv4/IPv6 protocols supported by the TOE differ from the full list provided in the RFC Values for IPv4 and IPv6 table. <p></p><br/>
               <div class="eacategory">Guidance</div>The evaluator shall verify that the operational guidance describes the behavior if no rules or special
                 conditions apply to the network traffic. If the behavior is configurable, the evaluator shall verify that the
                 operational guidance provides the appropriate instructions to configure the behavior to discard packets
-                with no matching rules.<p></p>
+                with no matching rules. The evaluator shall verify that the operational guidance describes the range of IPv4/IPv6 protocols supported by the TOE.<p></p>
               <br/>
               <div class="eacategory">Tests</div>
                 The evaluator shall perform the following tests:
                 <ul>
-                  <li><b>Test 1: </b>The evaluator shall configure the TOE to permit and log each defined IPv4 Transport Layer Protocol
-                    (see table below) in conjunction with a specific source address and specific destination address, specific
-                    source address and wildcard destination address, wildcard source address and specific destination
-                    address, and wildcard source address and wildcard destination address. The evaluator shall generate
-                    packets matching each defined IPv4 Transport Layer Protocol and within the configured source and
-                    destination addresses in order to ensure that they are permitted (i.e., by capturing the packets after
-                    passing through the TOE) and logged.</li>
-                  <li><b>Test 2: </b>The evaluator shall configure the TOE to permit all traffic except to discard and log each defined
-                    IPv4 Transport Layer Protocol (see table below) in conjunction with a specific source address and specific
-                    destination address, specific source address and wildcard destination address, wildcard source address
-                    and specific destination address, and wildcard source address and wildcard destination address. The
-                    evaluator shall generate packets matching each defined IPv4 Transport Layer Protocol and within the
-                    configured source and destination addresses in order to ensure that they are denied (i.e., by capturing no
-                    applicable packets passing through the TOE) and logged.
+                  <li><b>Test 1: </b>The evaluator shall configure the TOE to permit and log each supported IPv4 Transport Layer Protocol (see RFC Values for IPv4 and IPv6 table for full possible list) 
+                    in conjunction with a specific source address and specific destination address, specific source address and wildcard destination address, 
+                    wildcard source address and specific destination address, and wildcard source address and wildcard destination address. 
+                    The evaluator shall generate packets matching each supported IPv4 Transport Layer Protocol and within the configured source and destination addresses 
+                    in order to ensure that the supported protocols are permitted (i.e., by capturing the packets after passing through the TOE) and logged. 
+                    Any protocols not supported by the TOE must be denied.</li>
+                  <li><b>Test 2: </b>The evaluator shall configure the TOE to permit all traffic except to discard and log each supported IPv4 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table for full possible list) in conjunction with a specific source address and specific destination address, 
+                    specific source address and wildcard destination address, wildcard source address and specific destination address, 
+                    and wildcard source address and wildcard destination address. The evaluator shall generate packets matching each defined IPv4 Transport Layer Protocol 
+                    and within the configured source and destination addresses in order to ensure that the supported protocols are denied 
+                    (i.e., by capturing no applicable packets passing through the TOE) and logged. Any protocols not supported by the TOE must also be denied but are not required to be logged.
                   </li>
-                  <li><b>Test 3: </b>The evaluator shall configure the TOE to permit and log each defined IPv4 Transport Layer Protocol
-                    (see table below) in conjunction with a specific source address and specific destination address, specific
-                    source address and wildcard destination address, wildcard source address and specific destination
-                    address, and wildcard source address and wildcard destination address. Additionally, the evaluator shall 
-                    configure the TOE to discard and log each defined IPv4 Transport Layer Protocol (See table below) in
-                    conjunction with different (than those permitted above) combinations of a specific source address and
-                    specific destination address, specific source address and wildcard destination address, wildcard source
-                    address and specific destination address, and wildcard source address and wildcard destination address.
-                    The evaluator shall generate packets matching each defined IPv4 Transport Layer Protocol and outside
-                    the scope of all source and destination addresses configured above in order to ensure that they are denied
-                    (i.e., by capturing no applicable packets passing through the TOE) and logged.
+                  <li><b>Test 3: </b>The evaluator shall configure the TOE to permit and log each supported IPv4 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table for full possible list) in conjunction with a specific source address and specific destination address, 
+                    specific source address and wildcard destination address, wildcard source address and specific destination address, 
+                    and wildcard source address and wildcard destination address. 
+                    Additionally, the evaluator shall configure the TOE to discard and log each supported IPv4 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table for full possible list) in conjunction with different (than those permitted above) 
+                    combinations of a specific source address and specific destination address, specific source address and wildcard destination address, 
+                    wildcard source address and specific destination address, and wildcard source address and wildcard destination address. 
+                    The evaluator shall generate packets matching each supported IPv4 Transport Layer Protocol and outside the scope of all source and destination addresses 
+                    configured above in order to ensure that the supported protocols are denied (i.e., by capturing no applicable packets passing through the TOE) and logged. 
+                    Any protocols not supported by the TOE must be denied.
                   </li>
-                  <li><b>Test 4: </b>The evaluator shall configure the TOE to permit and log each defined IPv6 Transport Layer Protocol
-                    (see table below) in conjunction with a specific source address and specific destination address, specific
-                    source address and wildcard destination address, wildcard source address and specific destination
-                    address, and wildcard source address and wildcard destination address. The evaluator shall generate
-                    packets matching each defined IPv6 Transport Layer Protocol and within the configured source and
-                    destination addresses in order to ensure that they are permitted (i.e., by capturing the packets after
-                    passing through the TOE) and logged.</li>
-                  <li><b>Test 5: </b>The evaluator shall configure the TOE to permit all traffic except to discard and log each defined
-                    IPv6 Transport Layer Protocol (see table below) in conjunction with a specific source address and specific
-                    destination address, specific source address and wildcard destination address, wildcard source address
-                    and specific destination address, and wildcard source address and wildcard destination address. The
-                    evaluator shall generate packets matching each defined IPv6 Transport Layer Protocol and within the
-                    configured source and destination addresses in order to ensure that they are denied (i.e., by capturing no
-                    applicable packets passing through the TOE) and logged.
+                  <li><b>Test 4: </b>The evaluator shall configure the TOE to permit and log each supported IPv6 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table  for full possible list) in conjunction with a specific source address and specific destination address, 
+                    specific source address and wildcard destination address, wildcard source address and specific destination address, 
+                    and wildcard source address and wildcard destination address. 
+                    The evaluator shall generate packets matching each defined IPv6 Transport Layer Protocol and 
+                    within the configured source and destination addresses in order to ensure that the supported protocols are permitted 
+                    (i.e., by capturing the packets after passing through the TOE) and logged. Any protocols not supported by the TOE must be denied.</li>
+                  <li><b>Test 5: </b>The evaluator shall configure the TOE to permit all traffic except to discard and log each supported IPv6 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table for full possible list) in conjunction with a specific source address and specific destination address, 
+                    specific source address and wildcard destination address, wildcard source address and specific destination address, 
+                    and wildcard source address and wildcard destination address. 
+                    The evaluator shall generate packets matching each defined IPv6 Transport Layer Protocol and within the configured source and destination addresses 
+                    in order to ensure that the supported protocols are denied (i.e., by capturing no applicable packets passing through the TOE) and logged. 
+                    Any protocols not supported by the TOE must also be denied but are not required to be logged.
                   </li>
-                  <li><b>Test 6: </b>The evaluator shall configure the TOE to permit and log each defined IPv6 Transport Layer Protocol
-                    (see table below) in conjunction with a specific source address and specific destination address, specific
-                    source address and wildcard destination address, wildcard source address and specific destination
-                    address, and wildcard source address and wildcard destination address. Additionally, the evaluator shall
-                    configure the TOE to discard and log each defined IPv6 Transport Layer Protocol (see table below) in
-                    conjunction with different (than those permitted above) combinations of a specific source address and
-                    specific destination address, specific source address and wildcard destination address, wildcard source
-                    address and specific destination address, and wildcard source address and wildcard destination address.
-                    The evaluator shall generate packets matching each defined IPv6 Transport Layer Protocol and outside
-                    the scope of all source and destination addresses configured above in order to ensure that they are
-                    dropped (i.e., by capturing no applicable packets passing through the TOE) and logged.
+                  <li><b>Test 6: </b>The evaluator shall configure the TOE to permit and log each supported IPv6 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table for full possible list) in conjunction with a specific source address and specific destination address, 
+                    specific source address and wildcard destination address, wildcard source address and specific destination address, 
+                    and wildcard source address and wildcard destination address. Additionally, the evaluator shall configure the TOE to discard and log each supported IPv6 Transport Layer Protocol 
+                    (see RFC Values for IPv4 and IPv6 table for full possible list) in conjunction with different (than those permitted above) 
+                    combinations of a specific source address and specific destination address, specific source address and wildcard destination address, 
+                    wildcard source address and specific destination address, and wildcard source address and wildcard destination address. 
+                    The evaluator shall generate packets matching each defined IPv6 Transport Layer Protocol and outside the scope of all source and destination 
+                    addresses configured above in order to ensure that the supported protocols are dropped (i.e., by capturing no applicable packets passing through the TOE) and logged. 
+                    Any protocols not supported by the TOE must be denied.
                   </li>
                   <li><b>Test 7: </b>The evaluator shall configure the TOE to permit and log protocol 6 (TCP) using a selected source
                     port, a selected destination port, and a selected source and destination port combination. The evaluator
