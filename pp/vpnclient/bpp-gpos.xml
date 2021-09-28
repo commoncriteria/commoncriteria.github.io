@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
 
-<PP xmlns="https://niap-ccevs.org/cc/v1" name="General Purpose Operating System"
+<PP xmlns="https://niap-ccevs.org/cc/v1" target-products="General Purpose Operating Systems"
+    xmlns:sec="https://niap-ccevs.org/cc/v1/section"
     xmlns:h="http://www.w3.org/1999/xhtml" boilerplate="yes">
   <PPReference>
     <ReferenceTable>
@@ -9,8 +10,6 @@
       <PPVersion>4.3-DRAFT</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
       <PPPubDate>2019-07-01</PPPubDate>
-      <PPCertificationID>unassigned</PPCertificationID>
-      <CCVersion>3.1R5</CCVersion>
       <Keywords>OS; operating system</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -37,234 +36,174 @@
       <subject>Release - significant revision</subject>
     </entry>
   </RevisionHistory>
-
-  <chapter title="Introduction" id="int">
-    <section title="Overview" id="ppoverview"> The scope of this Protection Profile (PP) is to
-      describe the security functionality of operating systems in terms of <cite linkend="bibCC"/>
-      and to define functional and assurance requirements for such products.
-      An operating system is software that manages computer hardware and software
-      resources, and provides common services for application programs. The hardware
-      it manages may be physical or virtual.
-    </section>
-    <section title="Terms" id="glossary">
-      The following sections provide both Common Criteria and
-      technology terms used in this Protection Profile.
-      <subsection title="Common Criteria Terms" id="terms">
-	<glossary>
-          <entry>
-            <term><abbr title="Common Criteria">CC</abbr></term>
-            <description>Common Criteria for Information Technology Security
-              Evaluation.</description>
-          </entry>
-          <entry>
-            <term><abbr title="Common Evaluation Methodology">CEM</abbr></term>
-            <description>Common Evaluation Methodology for Information Technology Security
-              Evaluation.</description>
-          </entry>
-          <entry>
-            <term><abbr title="Extended Package">EP</abbr></term>
-            <description>An implementation-independent set of security
-	    requirements for a specific subset of products described.</description>
-          </entry>
-          <entry>
-            <term><abbr title="Protection Profile">PP</abbr></term>
-            <description>An implementation-independent set of security requirements for a category
-              of products.</description>
-          </entry>
-          <entry>
-            <term><abbr title="Security Target">ST</abbr></term>
-            <description>A set of implementation-dependent security requirements for a specific
-              product.</description>
-          </entry>
-          <entry>
-            <term><abbr title="Target of Evaluation">TOE</abbr></term>
-            <description>
-	      The product under evaluation. In this case, the Operating System as described in section
-	      <secref linkend="toeboundary"/> and its
-              supporting documentation.
-	    </description>
-          </entry>
-          <entry>
-            <term><abbr title="TOE Security Functionality">TSF</abbr></term>
-            <description>The security functionality of the product under evaluation.</description>
-          </entry>
-          <entry>
-            <term><abbr title="TOE Summary Specification">TSS</abbr></term>
-            <description>A description of how a <abbr linkend="TOE"/> satisfies the SFRs in a <abbr
-                linkend="ST"/>. </description>
-          </entry>
-          <entry>
-            <term><abbr title="Security Functional Requirement">SFR</abbr></term>
-            <description>A requirement for security enforcement by the <abbr linkend="TOE"/>.
-            </description>
-          </entry>
-          <entry>
-            <term><abbr title="Security Assurance Requirement">SAR</abbr></term>
-            <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
-            </description>
-          </entry>
-	</glossary>
-  </subsection>
-  <subsection title="Technical Terms" id="tech-terms">
-	<glossary>
-          <entry>
-            <term><abbr title="Address Space Layout Randomization">ASLR</abbr></term>
-            <description>An anti-exploitation feature which loads memory mappings into unpredictable
-              locations. ASLR makes it more difficult for an attacker to redirect control to code
-              that they have introduced into the address space of a process.</description>
-          </entry>
-          <entry>
-            <term>Administrator</term>
-	    <description>
-	      An administrator is responsible for management
-	      activities, including setting policies that are applied by the
-	      enterprise on the operating system.
-	      This administrator could be
-	      acting remotely through a management server, from which the system
-	      receives configuration policies.
-	      An administrator can enforce
-	      settings on the system which cannot be overridden by
-	      non-administrator users.
-            </description>
-	  </entry>
-          <entry>
-            <term><abbr title="Application">app</abbr></term>
-            <description>Software that runs on a platform and performs tasks on behalf of the user
-              or owner of the platform, as well as its supporting documentation. </description>
-          </entry>
-          <entry>
-            <term><abbr title="Application Programming Interface">API</abbr></term>
-            <description>A specification of routines, data structures, object classes, and variables
-              that allows an application to make use of services provided by another software
-              component, such as a library. APIs are often provided for a set of libraries included
-              with the platform.</description>
-          </entry>
-          <entry>
-            <term>Credential</term>
-            <description>Data that establishes the identity of a user, e.g. a cryptographic key or
-              password.</description>
-          </entry>
-          <entry>
-            <term><abbr title="Critical Security Parameters">CSP</abbr></term>
-            <description>
-              Information that is either user or system defined and
-              is used to operate a cryptographic module in processing encryption functions including
-              cryptographic keys and authentication data, such as passwords, the disclosure or modification
-              of which can compromise the security of a cryptographic module or the security of the
-              information protected by the module.
-            </description>
-          </entry>
-      	  <entry>
-      	    <term><abbr title="Data At Rest">DAR</abbr> Protection</term>
-      	    <description>
-      	      Countermeasures that prevent attackers, even those with physical access,
-      	      from extracting data from non-volatile storage.
-      	      Common techniques include data encryption and wiping.
-      	    </description>
-      	  </entry>
-          <entry>
-            <term><abbr title="Data Execution Prevention">DEP</abbr></term>
-            <description>An anti-exploitation feature of modern operating systems executing on
-              modern computer hardware, which enforces a non-execute permission on pages of memory.
-              DEP prevents pages of memory from containing both data and instructions, which makes
-              it more difficult for an attacker to introduce and execute code.</description>
-          </entry>
-          <entry>
-            <term>Developer</term>
-            <description>An entity that writes <abbr linkend="OS"/> software. For the purposes of this document,
-              vendors and developers are the same.</description>
-          </entry>
-	  <entry>
-	    <term>General Purpose Operating System</term>
-	    <description>A class of <abbr linkend="OS"/>es designed to support a wide-variety of workloads consisting of many concurrent applications or services.
-	    Typical characteristics for OSes in this class include support for third-party applications,
-	    support for multiple users, and security separation between users and their respective resources.
-	    General Purpose Operating Systems also lack the real-time constraint that defines Real Time Operating Systems (RTOS).
-	    RTOSes typically power routers, switches, and embedded devices.</description>
-	  </entry>
-          <entry>
-            <term>Host-based Firewall</term>
-            <description>
-	      A software-based firewall implementation running on the <abbr linkend="OS"/> for filtering inbound and
-              outbound network traffic to and from processes running on the <abbr linkend="OS"/>.
-	    </description>
-          </entry>
-          <entry>
-            <term><abbr title="Operating System">OS</abbr></term>
-            <description> Software that manages physical and logical resources and provides services
-              for applications. The terms <h:i>TOE</h:i> and <h:i>OS</h:i> are interchangeable in this
-              document. </description>
-          </entry>
-          <entry>
-            <term><abbr title="Personally Identifiable Information">PII</abbr></term>
-            <description>Any information about an individual maintained by an agency, including, but
-              not limited to, education, financial transactions, medical history, and criminal or
-              employment history and information which can be used to distinguish or trace an
-              individual's identity, such as their name, social security number, date and place of
-              birth, mother's maiden name, biometric records, etc., including any other personal
-              information which is linked or linkable to an individual.<cite linkend="bibOMB"/></description>
-          </entry>
-          <entry>
-            <term>Sensitive Data</term>
-            <description> Sensitive data may include all user or enterprise data or may be specific
-              application data such as PII, emails, messaging, documents, calendar items, and contacts.
-              Sensitive data must minimally include credentials and keys. Sensitive data shall
-              be identified in the <abbr linkend="OS"/>'s <abbr linkend="TSS"/> by the <abbr linkend="ST"/> author. </description>
-          </entry>
-          <entry>
-            <term>User</term>
-	    <description> A user is subject to configuration policies applied
-            to the operating system by administrators.  On some systems under certain
-            configurations, a normal user can temporarily elevate privileges to that of an administrator.
-            At that time, such a user should be considered an administrator.
-            </description>
-          </entry>
-        </glossary>
-      </subsection>
-      </section>
-      <section title="Format of this Document" id="docformat">
-        <secref linkend="req"/> contains baseline requirements
-        which must be implemented in the product and included in any Security Target (ST)
-        that claims conformance to this Protection Profile (PP).
-        There are three other types of requirements that can be included in an ST
-        claiming conformance to this PP:
-        <h:ul>
-        <h:li>
-        <appref linkend="optional"/> contains requirements that may optionally be included
-        in the ST, but inclusion is at the discretion of the ST
-        author.
-        </h:li>
-        <h:li>
-        <appref linkend="sel-based"/> contains requirements based on selections
-        in the requirements in <secref linkend="req"/>: if certain selections are
-        made, then the corresponding requirements in that appendix must be included.
-        </h:li>
-        <h:li>
-        <appref linkend="objective"/> contains requirements that will
-        be included in the baseline requirements in future versions of this package. Earlier adoption by vendors is
-        encouraged and may influence acquisition decisions.
-        Otherwise, these are treated the same as Optional Requirements.
-        </h:li>
-        </h:ul>
-    </section>
-    <section title="Compliant Targets of Evaluation" id="TOEdescription">
-      <subsection title="TOE Boundary" id="toeboundary">
-        The TOE boundary encompasses the <abbr linkend="OS"/> kernel and its drivers, shared
-        software libraries, and some application software included with the <abbr linkend="OS"/>. The applications considered within the TOE
+  <include-pkg id="pkg-tls">
+      <raw-url>https://raw.githubusercontent.com/commoncriteria/tls/
+               ed2d9042c27f7793d1f96e08e47bd12b04970977/
+               input/tls.xml</raw-url>
+      <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
+  </include-pkg>
+  <sec:Introduction>
+    <sec:Overview>
+The scope of this Protection Profile (PP) is to
+describe the security functionality of operating systems in terms of <xref g='CC'/>
+and to define functional and assurance requirements for such products.
+An operating system is software that manages computer hardware and software
+resources, and provides common services for application programs. The hardware
+it manages may be physical or virtual.
+    </sec:Overview>
+    <tech-terms>
+      <term abbr='AES' full="Advanced Encryption Standard"/>
+      <term full="Address Space Layout Randomization" abbr="ASLR">
+	An anti-exploitation feature which loads memory mappings into unpredictable
+	locations. ASLR makes it more difficult for an attacker to redirect control to code
+	that they have introduced into the address space of a process.
+      </term>
+      <term full="Administrator">
+	An administrator is responsible for management activities, including setting policies that are 
+	applied by the enterprise on the operating system.
+	This administrator could be acting remotely through a management server, from which the system
+	receives configuration policies.
+	An administrator can enforce settings on the system which cannot be overridden by non-administrator users.
+      </term>
+      <term full="Application" abbr="app">
+	Software that runs on a platform and performs tasks on behalf of the user
+	or owner of the platform, as well as its supporting documentation. 
+      </term>
+      <term full="Application Programming Interface" abbr="API">
+	A specification of routines, data structures, object classes, and variables
+	that allows an application to make use of services provided by another software
+	component, such as a library. APIs are often provided for a set of libraries included
+	with the platform.
+      </term>
+      <term abbr='CESG' full="Communications-Electronics Security Group"/>
+      <term abbr='CMC' full="Certificate Management over CMS"/>
+      <term abbr='CMS' full="Cryptographic Message Syntax"/>
+      <term abbr='CN' full="Common Names"/>
+      <term full="Credential">
+	Data that establishes the identity of a user, e.g. a cryptographic key or
+	password.
+      </term>
+      <term abbr='CRL' full="Certificate Revocation List"/>
+      <term abbr='CSA' full="Computer Security Act"/>
+      <term full="Critical Security Parameters" abbr="CSP">
+	Information that is either user or system defined and
+	is used to operate a cryptographic module in processing encryption functions including
+	cryptographic keys and authentication data, such as passwords, the disclosure or modification
+	of which can compromise the security of a cryptographic module or the security of the
+	information protected by the module.
+      </term>
+      <term full="Data At Rest" abbr="DAR" />
+      <term full="DAR Protection">
+	Countermeasures that prevent attackers, even those with physical access,
+	from extracting data from non-volatile storage.
+	Common techniques include data encryption and wiping.
+      </term>
+      <term full="Data Execution Prevention" abbr="DEP">
+	An anti-exploitation feature of modern operating systems executing on
+	modern computer hardware, which enforces a non-execute permission on pages of memory.
+	DEP prevents pages of memory from containing both data and instructions, which makes
+	it more difficult for an attacker to introduce and execute code.
+      </term>
+      <term abbr='DES' full="Data Encryption Standard"/>
+      <term full="Developer">
+	An entity that writes OS software. For the purposes of this document,
+	vendors and developers are the same.
+      </term>
+      <term full="General Purpose Operating System">
+	A class of OSes designed to support a wide-variety of workloads consisting of many concurrent applications or services.
+	Typical characteristics for OSes in this class include support for third-party applications,
+	support for multiple users, and security separation between users and their respective resources.
+	General Purpose Operating Systems also lack the real-time constraint that defines Real Time Operating Systems (RTOS).
+	RTOSes typically power routers, switches, and embedded devices.
+      </term>
+      <term abbr='DHE' full="Diffie-Hellman Ephemeral"/>
+      <term abbr='DNS' full="Domain Name System"/>
+      <term abbr='DRBG' full="Deterministic Random Bit Generator"/>
+      <term abbr='DSS' full="Digital Signature Standard"/>
+      <term abbr='DT' full="Date/Time Vector"/>
+      <term abbr='DTLS' full="Datagram Transport Layer Security"/>
+      <term abbr='EAP' full="Extensible Authentication Protocol"/>
+      <term abbr='ECDHE' full="Elliptic Curve Diffie-Hellman Ephemeral"/>
+      <term abbr='ECDSA' full="Elliptic Curve Digital Signature Algorithm"/>
+      <term abbr='EST' full="Enrollment over Secure Transport"/>
+      <term abbr='FIPS' full="Federal Information Processing Standards"/>
+      <term abbr='HMAC' full="Hash-based Message Authentication Code"/>
+      <term full="Host-based Firewall">
+	A software-based firewall implementation running on the OS for filtering inbound and
+	outbound network traffic to and from processes running on the OS.
+      </term>
+      <term abbr='HTTP' full="Hypertext Transfer Protocol"/>
+      <term abbr='HTTPS' full="Hypertext Transfer Protocol Secure"/>
+      <term abbr='IETF' full="Internet Engineering Task Force"/>
+      <term abbr='IP' full="Internet Protocol"/>
+      <term abbr='ISO' full="International Organization for Standardization"/>
+      <term abbr='IT' full="Information Technology"/>
+      <term abbr='ITSEF' full="Information Technology Security Evaluation Facility"/>
+      <term abbr='NIAP' full="National Information Assurance Partnership"/>
+      <term abbr='NIST' full="National Institute of Standards and Technology"/>
+      <term abbr='OCSP' full="Online Certificate Status Protocol"/>
+      <term abbr='OID' full="Object Identifier"/>
+      <term abbr='OMB' full="Office of Management and Budget"/>
+      <term full="Operating System" abbr="OS">
+	Software that manages physical and logical resources and provides services
+	for applications. The terms <h:i>TOE</h:i> and <h:i>OS</h:i> are interchangeable in this
+	document. 
+      </term>
+      <term abbr='PKI' full="Public Key Infrastructure"/>
+      <term abbr='RBG' full="Random Bit Generator"/>
+      <term abbr='RFC' full="Request for Comment"/>
+      <term abbr='RNG' full="Random Number Generator"/>
+      <term abbr='RNGVS' full="Random Number Generator Validation System"/>
+      <term full="Personally Identifiable Information" abbr="PII">
+	Any information about an individual maintained by an agency, including, but
+	not limited to, education, financial transactions, medical history, and criminal or
+	employment history and information which can be used to distinguish or trace an
+	individual's identity, such as their name, social security number, date and place of
+	birth, mother's maiden name, biometric records, etc., including any other personal
+	information which is linked or linkable to an individual.<xref to="bibOMB"/>
+      </term>
+      <term abbr='SAN' full="Subject Alternative Name"/>
+      <term abbr='SHA' full="Secure Hash Algorithm"/>
+      <term abbr='S/MIME' full="Secure/Multi-purpose Internet Mail Extensions"/>
+      <term full="Sensitive Data">
+	Sensitive data may include all user or enterprise data or may be specific
+	application data such as PII, emails, messaging, documents, calendar items, and contacts.
+	Sensitive data must minimally include credentials and keys. Sensitive data shall
+	be identified in the OS's TSS by the ST author. 
+      </term>
+      <term abbr='SIP' full="Session Initiation Protocol"/>
+      <term abbr='SWID' full="Software Identification"/>
+      <term abbr='TLS' full="Transport Layer Security"/>
+      <term abbr='URI' full="Uniform Resource Identifier"/>
+      <term abbr='URL' full="Uniform Resource Locator"/>
+      <term abbr='USB' full="Universal Serial Bus"/>
+      <term full="User">
+	A user is subject to configuration policies applied
+	to the operating system by administrators.  On some systems under certain
+	configurations, a normal user can temporarily elevate privileges to that of an administrator.
+	At that time, such a user should be considered an administrator.
+      </term>
+      <term abbr='XCCDF' full="eXtensible Configuration Checklist Description Format"/>
+      <term abbr='XOR' full="Exclusive Or"/>
+    </tech-terms>    
+    <sec:Compliant_Targets_of_Evaluation>
+      <sec:TOE_Boundary>
+        The TOE boundary encompasses the OS kernel and its drivers, shared
+        software libraries, and some application software included with the OS. The applications considered within the TOE
         are those that provide essential security services, many of which run with elevated
         privileges.  Applications which are covered by more-specific Protection Profiles cannot
-        claim evaluation as part of the <abbr linkend="OS"/> evaluation, even when it is necessary to evaluate
-        some of their functionality as it relates to their role as part of the <abbr linkend="OS"/>.
+        claim evaluation as part of the OS evaluation, even when it is necessary to evaluate
+        some of their functionality as it relates to their role as part of the OS.
         <figure entity="images/Toe.png" title="General TOE " id="toe"/>
-      </subsection>
-      <subsection title="TOE Platform" id="TOEplatform">
+      </sec:TOE_Boundary>
+      <sec:TOE_Platform>
 	The TOE platform, which consists of the physical or virtual hardware on which the TOE executes,
         is outside the scope of evaluation.  At the same time, the security of the TOE relies upon it.
         Other hardware components which independently run their own software and are
         relevant to overall system security are also outside the scope of evaluation.
-      </subsection>
-    </section>
-    <section title="Use Cases" id="usecases">Requirements in this Protection Profile are designed to
+      </sec:TOE_Platform>
+    </sec:Compliant_Targets_of_Evaluation>
+    <sec:Use_Cases>Requirements in this Protection Profile are designed to
       address the security problems in at least the following use cases. These use cases are intentionally
       very broad, as many specific use cases exist for an operating system. These use cases may also
       overlap with one another.  An operating system's functionality may even be effectively extended by
@@ -311,16 +250,16 @@
 	  </description>
         </usecase>
       </usecases>
-    </section>
-  </chapter>
-  <chapter title="Conformance Claims" id="ccl"/>
-  <chapter title="Security Problem Description" id="spd">The security problem is described in terms
+    </sec:Use_Cases>
+  </sec:Introduction>
+  <sec:Conformance_Claims/>
+  <sec:Security_Problem_Description>The security problem is described in terms
     of the threats that the OS is expected to address, assumptions about the
     operational environment, and any organizational security policies that the OS
     is expected to enforce.
-    <section title="Threats" id="threats">
+    <sec:Threats>
       <threats>
-        <threat id="T.NETWORK_ATTACK">
+        <threat name="T.NETWORK_ATTACK">
           <description> An attacker is positioned on a communications channel or elsewhere on the
             network infrastructure. Attackers may engage in communications with applications and
             services running on or part of the OS with the intent of compromise. Engagement may
@@ -343,7 +282,7 @@
               attack has occurred.</rationale>
           </objective-refer>
         </threat>
-        <threat id="T.NETWORK_EAVESDROP">
+        <threat name="T.NETWORK_EAVESDROP">
           <description> An attacker is positioned on a communications channel or elsewhere on the
             network infrastructure. Attackers may monitor and gain access to data exchanged between
             applications and services that are running on or part of the OS. </description>
@@ -357,14 +296,14 @@
               data.</rationale>
           </objective-refer>
         </threat>
-        <threat id="T.LOCAL_ATTACK">
+        <threat name="T.LOCAL_ATTACK">
           <description> An attacker may compromise applications running on the OS. The
             compromised application may provide maliciously formatted input to the OS through a
             variety of channels including unprivileged system calls and messaging via the
             file system. </description>
           <objective-refer ref="O.INTEGRITY">
             <rationale>The objective O.INTEGRITY protects against the use of mechanisms that weaken
-              the <abbr linkend="TOE"/> with regard to attack by other software on the
+              the TOE with regard to attack by other software on the
               platform.</rationale>
           </objective-refer>
           <objective-refer ref="O.ACCOUNTABILITY">
@@ -373,19 +312,19 @@
               has occurred.</rationale>
           </objective-refer>
         </threat>
-        <threat id="T.LIMITED_PHYSICAL_ACCESS">
+        <threat name="T.LIMITED_PHYSICAL_ACCESS">
           <description> An attacker may attempt to access data on the OS while having a limited
             amount of time with the physical device. </description>
           <objective-refer ref="O.PROTECTED_STORAGE">
             <rationale>The objective O.PROTECTED_STORAGE protects against unauthorized attempts to
-              access physical storage used by the <abbr linkend="TOE"/>.</rationale>
+              access physical storage used by the TOE.</rationale>
           </objective-refer>
         </threat>
       </threats>
-    </section>
-    <section title="Assumptions" id="assumptions">
+    </sec:Threats>
+    <sec:Assumptions>
       <assumptions>
-        <assumption id="A.PLATFORM">
+        <assumption name="A.PLATFORM">
           <description> The OS relies upon a trustworthy computing platform for
             its execution. This underlying platform is out of scope of this PP. </description>
           <objective-refer ref="OE.PLATFORM">
@@ -393,7 +332,7 @@
               A.PLATFORM. </rationale>
           </objective-refer>
         </assumption>
-        <assumption id="A.PROPER_USER">
+        <assumption name="A.PROPER_USER">
           <description> The user of the OS is not willfully negligent or hostile, and uses the
             software in compliance with the applied enterprise security policy. At the same time,
             malicious software could act <h:i>as</h:i> the user, so requirements which
@@ -403,7 +342,7 @@
               A.PROPER_USER.</rationale>
           </objective-refer>
         </assumption>
-        <assumption id="A.PROPER_ADMIN">
+        <assumption name="A.PROPER_ADMIN">
           <description> The administrator of the OS is not careless, willfully negligent or hostile,
             and administers the OS within compliance of the applied enterprise security policy. </description>
           <objective-refer ref="OE.PROPER_ADMIN">
@@ -412,7 +351,7 @@
           </objective-refer>
         </assumption>
       </assumptions>
-    </section>
+    </sec:Assumptions>
 <!--    <section title="Organizational Security Policies" id="OSPs">
       <OSPs>
         <OSP id="P.ENTERPRISE">
@@ -427,76 +366,44 @@
         </OSP>
       </OSPs>
     </section> -->
-  </chapter>
-  <chapter title="Security Objectives" id="obj">
-    <section title="Security Objectives for the TOE" id="SecurityObjectivesTOE">
+  </sec:Security_Problem_Description>
+  <sec:Security_Objectives>
+    <sec:Security_Objectives_for_the_TOE>
       <SOs>
-        <SO id="O.ACCOUNTABILITY">
+        <SO name="O.ACCOUNTABILITY">
           <description> Conformant OSes ensure that information exists that allows
             administrators to discover unintentional issues with the configuration and operation of
             the operating system and discover its cause.  Gathering event information and immediately
             transmitting it to another system can also enable incident response in the event
             of system compromise.</description>
-          <component-refer ref="fau_gen.1"/>
-          <component-refer ref="ftp_itc_ext.1"/>
-          <rationale>FAU_GEN.1 defines the auditable events that must be generated to diagnose the
-          cause of unexpected system behavior. FTP_ITC_EXT.1 provides a mechanism for the TSF to
-          transmit the audit data to a remote system.
-          </rationale>
+          <addressed-by>FAU_GEN.1, FTP_ITC_EXT.1</addressed-by>
+          <rationale>QQQ </rationale>
         </SO>
-        <SO id="O.INTEGRITY">
+        <SO name="O.INTEGRITY">
           <description>Conformant OSes ensure the integrity of their update
             packages. OSes are seldom if ever shipped without errors, and the
             ability to deploy patches and updates with integrity is critical to enterprise network
             security. Conformant OSes provide execution environment-based
             mitigations that increase the cost to attackers by adding complexity to the task of
             compromising systems. </description>
-          <component-refer ref="fpt_sbop_ext.1"/>
-          <component-refer ref="fpt_aslr_ext.1"/>
-          <component-refer ref="fpt_tud_ext.1"/>
-          <component-refer ref="fpt_tud_ext.2"/>
-          <component-refer ref="fcs_cop.1(2)"/>
-          <component-refer ref="fcs_cop.1(3)"/>
-          <component-refer ref="fcs_cop.1(4)"/>
-          <component-refer ref="fpt_acf_ext.1"/>
-          <component-refer ref="fpt_srp_ext.1"/>
-          <component-refer ref="fia_x509_ext.1"/>
-          <component-refer ref="fpt_tst_ext.1"/>
-	        <component-refer ref="ftp_itc_ext.1"/>
-	        <component-refer ref="fpt_w^x_ext.1"/>
-          <component-refer ref="fia_afl.1"/>
-          <component-refer ref="fia_uau.5"/>
-          <rationale>FPT_SBOP_EXT.1 enforces stack buffer overflow protection that makes it more
-            difficult to exploit running code. FPT_ASLR_EXT.1 prevents attackers from exploiting
-            code that executes in static known memory locations. FPT_TUD_EXT.1 and FPT_TUD_EXT.2
-            enforce integrity of software updates. FCS_COP.1(2), FCS_COP.1(3), and FCS_COP.1(4)
-            provide the cryptographic mechanisms that are used to verify integrity values.
-            FPT_ACF_EXT.1 guarantees the integrity of critical components by preventing unauthorized
-            modifications of them. FPT_SRP_EXT.1 restricts the execution of unauthorized software.
-            FPT_X509_EXT.1 provides X.509 certificates as a way of validating software integrity.
-            FPT_TST_EXT.1 verifies the integrity of stored code. FPT_W^X_EXT.1 prevents execution
-            of data in writable memory. FIA_UAU.5 provides mechanisms that prevent untrusted users
-            from accessing the TSF and FIA_AFL.1 prevents brute-force authentication attempts.
-            FTP_ITC_EXT.1 provides trusted remote communications which makes a remote authenticated
-            session less susceptible to compromise.
-          </rationale>
+            <addressed-by>
+              FPT_SBOP_EXT.1, FPT_ASLR_EXT.1, FPT_TUD_EXT.1, FPT_TUD_EXT.2, FCS_COP.1/HASH,
+              FCS_COP.1/SIGN, FCS_COP.1/KEYHMAC, FPT_ACF_EXT.1, FPT_SRP_EXT.1, FIA_X509_EXT.1,
+              FPT_TST_EXT.1, FTP_ITC_EXT.1, FPT_W^X_EXT.1, FIA_AFL.1, FIA_UAU.5
+            </addressed-by>
+          <rationale>QQQ </rationale>
         </SO>
-        <SO id="O.MANAGEMENT">
-          <description> To facilitate management by users and the enterprise, conformant <abbr
-              linkend="OS"/>es provide consistent and supported interfaces for their
+        <SO name="O.MANAGEMENT">
+          <description> To facilitate management by users and the enterprise, conformant OSes
+	    provide consistent and supported interfaces for their
             security-relevant configuration and maintenance. This includes the deployment of
             applications and application updates through the use of platform-supported deployment
             mechanisms and formats, as well as providing mechanisms for configuration and
             application execution control. </description>
-          <component-refer ref="fmt_mof_ext.1"/>
-          <component-refer ref="fmt_smf_ext.1"/>
-          <component-refer ref="fta_tab.1"/>
-          <component-refer ref="ftp_trp.1"/>
-          <rationale>FMT_SMF_EXT.1 defines the TOE's management functions and FMT_MOF_EXT.1
-            defines the privileges required to invoke them. FTP_TRP.1 provides one or more secure
-            remote interfaces for management of the TSF and FTA_TAB.1 provides actionable warnings
-            against misuse of these interfaces.
-          </rationale>
+            <addressed-by>
+            FMT_MOF_EXT.1, FMT_SMF_EXT.1, FTA_TAB.1, FTP_TRP.1
+            </addressed-by>
+          <rationale>QQQ </rationale>
         </SO>
 	<!-- <SO id="O.RESILIENCE"> -->
 	<!--   <description>  -->
@@ -504,7 +411,7 @@
 	<!--     conformant OSs employ industry-standard exploitation countermeasures. -->
 	<!--   </description> -->
 	<!-- </SO> -->
-        <SO id="O.PROTECTED_STORAGE">
+        <SO name="O.PROTECTED_STORAGE">
           <description>
 To address the issue of loss of confidentiality of credentials in the event of
 loss of physical control of the storage medium, conformant OSes
@@ -512,86 +419,57 @@ provide data-at-rest protection for credentials.
 Conformant OSes also provide access controls which allow users to keep their files private from other
 users of the same system.
           </description>
-          <component-refer ref="fcs_sto_ext.1"/>
-          <component-refer ref="fcs_rbg_ext.1"/>
-          <component-refer ref="fcs_cop.1(1)"/>
-          <component-refer ref="fdp_acf_ext.1"/>
-          <rationale>FCS_STO_EXT.1 provides a mechanism by which the TOE can designate
-            data as ‘sensitive’ and subsequently require it to be encrypted. FCS_COP.1(1)
-            defines the symmetric algorithm used to encrypt and decrypt sensitive data.
-            FCS_RBG_EXT.1 defines the random bit generator used to create the symmetric
-            keys used to perform this encryption and decryption. FDP_ACF_EXT.1 enforces
-            logical access control on stored data.
-          </rationale>
+          <addressed-by>FCS_STO_EXT.1, FCS_RBG_EXT.1, FCS_COP.1/ENCRYPT, FDP_ACF_EXT.1</addressed-by>
+          <rationale>QQQ </rationale>
         </SO>
-        <SO id="O.PROTECTED_COMMS">
+        <SO name="O.PROTECTED_COMMS">
           <description> To address both passive (eavesdropping) and active (packet modification)
             network attack threats, conformant OSes provide mechanisms to create
-            trusted channels for <abbr linkend="CSP"/> and sensitive data. Both CSP and sensitive data
+            trusted channels for CSP and sensitive data. Both CSP and sensitive data
             should not be exposed outside of the platform. </description>
-          <component-refer ref="fcs_rbg_ext.1"/>
-          <component-refer ref="fcs_ckm.1"/>
-          <component-refer ref="fcs_ckm.2"/>
-          <component-refer ref="fcs_ckm_ext.4"/>
-          <component-refer ref="fcs_cop.1(1)"/>
-          <component-refer ref="fcs_cop.1(2)"/>
-          <component-refer ref="fcs_cop.1(3)"/>
-          <component-refer ref="fcs_cop.1(4)"/>
-          <component-refer ref="fdp_ifc_ext.1"/>
-          <component-refer ref="fia_x509_ext.1"/>
-          <component-refer ref="fia_x509_ext.2"/>
-          <component-refer ref="ftp_itc_ext.1"/>
-          <rationale>
-            FCS_CKM.1, FCS_CKM.2, FCS_COP.1(1), FCS_COP.1(2), FCS_COP.1(3), FCS_COP.1(4), and
-            FCS_RBG_EXT.1 define the cryptographic operations and key lifecycle activity used to support
-            the establishment of protected communications. FIA_X509_EXT.1 defines how the TSF validates
-            x.509 certificates as part of establishing protected communications. FIA_X509_EXT.2 defines
-            the trusted communication protocols for which the TOE must perform certificate validation
-            operations. FDP_IFC_EXT.1 defines the extent to which the TSF provides an IPsec VPN as a
-            protected communications method. FTP_ITC_EXT.1 defines the trusted communications channels
-            supported by the TOE.
-          </rationale>
+          <addressed-by>
+            FCS_RBG_EXT.1, FCS_CKM.1, FCS_CKM.2, FCS_CKM_EXT.4, FCS_COP.1/ENCRYPT,
+            FCS_COP.1/HASH, FCS_COP.1/SIGN, FCS_COP.1/KEYHMAC, FDP_IFC_EXT.1, FIA_X509_EXT.1,
+            FIA_X509_EXT.2, FTP_ITC_EXT.1
+          </addressed-by>
+          <rationale>QQQ </rationale>
         </SO>
       </SOs>
-    </section>
-    <section title="Security Objectives for the Operational Environment"
-      id="SecurityObjectivesTOEorEnvironment">The following security objectives for the operational
+    </sec:Security_Objectives_for_the_TOE>
+    <sec:Security_Objectives_for_the_Operational_Environment>
+      The following security objectives for the operational
       environment assist the OS in correctly providing its security functionality.
       These track with the assumptions about the environment. <SOEs>
-        <SOE id="OE.PLATFORM">
+        <SOE name="OE.PLATFORM">
           <description>The OS relies on being installed on trusted
             hardware.</description>
         </SOE>
-        <SOE id="OE.PROPER_USER">
+        <SOE name="OE.PROPER_USER">
           <description> The user of the OS is not willfully negligent or hostile,
             and uses the software within compliance of the applied enterprise security policy.
             Standard user accounts are provisioned in accordance with the least privilege model.
             Users requiring higher levels of access should have a separate account dedicated for
             that use. </description>
         </SOE>
-        <SOE id="OE.PROPER_ADMIN">
+        <SOE name="OE.PROPER_ADMIN">
           <description> The administrator of the OS is not careless, willfully
             negligent or hostile, and administers the OS within compliance of the applied enterprise
             security policy. </description>
         </SOE>
-      </SOEs></section>
-    <section title="Security Objectives Rationale" id="SOR">
-      <!-- This section is populated by boilerplates.xsl in transforms. -->
-      </section>
-  </chapter>
+      </SOEs>
+    </sec:Security_Objectives_for_the_Operational_Environment>
+    <sec:Security_Objectives_Rationale/>
+  </sec:Security_Objectives>
 
-  <chapter title="Security Requirements" id="req">
-    <section title="Security Functional Requirements" id="SFRs">The Security Functional Requirements
-      included in this section are derived from Part 2 of the Common Criteria for Information
-      Technology Security Evaluation, Version 3.1, Revision 5, with additional extended functional
-      components.
-      <subsection title="Cryptographic Support (FCS)" id="fcs">
-        <f-component id="fcs_ckm.1" name="Cryptographic Key Generation (Refined)">
-          <f-element id="fcs_ckm.1.1">
+  <sec:Security_Requirements>
+    <sec:SFRs title="Security Functional Requirements">
+      <section title="Cryptographic Support (FCS)" id="fcs">
+        <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation (Refined)">
+          <f-element id="fel-asym-gen">
             <title> The <h:b>OS</h:b> shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with a
               specified cryptographic key generation algorithm <h:b><selectables linebreak="yes">
                 <selectable>RSA schemes using cryptographic key sizes of 2048-bit or greater that
-                meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.3
+         f-component    meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.3
                 </selectable>
                 <selectable>ECC schemes using "NIST curves" P-256, P-384 and
                   <selectables>
@@ -612,10 +490,10 @@ users of the same system.
             </title>
             <note role="application">
 	      <h:p>
-	      The <abbr linkend="ST"/> author shall select all key
+	      The ST author shall select all key
               generation schemes used for key establishment and entity authentication. When key
               generation is used for key establishment, the schemes in
-	      <linkref linkend="FCS_CKM.2"/> and selected cryptographic protocols must match the
+	      FCS_CKM.2 and selected cryptographic protocols must match the
               selection. When key generation is used for entity authentication, the public key is
               expected to be associated with an X.509v3 certificate.
 	      </h:p><h:p>
@@ -626,9 +504,9 @@ users of the same system.
             <aactivity>
 	      <Tests>
 	      <h:p>
-	      The evaluator will ensure that the <abbr linkend="TSS"/> identifies the key
-              sizes supported by the OS. If the <abbr linkend="ST"/> specifies
-              more than one scheme, the evaluator will examine the <abbr linkend="TSS"/> to verify
+	      The evaluator will ensure that the TSS identifies the key
+              sizes supported by the OS. If the ST specifies
+              more than one scheme, the evaluator will examine the TSS to verify
               that it identifies the usage for each scheme.
 	      </h:p><h:p>
 	      The evaluator will verify that
@@ -644,7 +522,7 @@ users of the same system.
 		<h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b><h:br/>
 		The evaluator will verify
               the implementation of RSA Key Generation by the OS using the Key
-              Generation test. This test verifies the ability of the <abbr linkend="TSF"/> to
+              Generation test. This test verifies the ability of the TSF to
               correctly produce values for the key components including the public verification
               exponent e, the private prime factors p and q, the public modulus n and the
               calculation of the private signature exponent d. Key Pair generation specifies 5 ways
@@ -665,18 +543,18 @@ users of the same system.
                 </h:li>
               </h:ol>
 	      To test the key generation method for the Random Provable primes method and for
-              all the Primes with Conditions methods, the evaluator must seed the <abbr
-                linkend="TSF"/> key generation routine with sufficient data to deterministically
+              all the Primes with Conditions methods, the evaluator must seed the TSF
+	      key generation routine with sufficient data to deterministically
               generate the RSA key pair. This includes the random seed(s), the public exponent of
               the RSA key, and the desired key length. For each key length supported, the evaluator
-              shall have the <abbr linkend="TSF"/> generate 25 key pairs. The evaluator will verify
-              the correctness of the <abbr linkend="TSF"/>'s implementation by comparing values
-              generated by the <abbr linkend="TSF"/> with those generated from a known good
+              shall have the TSF generate 25 key pairs. The evaluator will verify
+              the correctness of the TSF's implementation by comparing values
+              generated by the TSF with those generated from a known good
               implementation.
 	      </h:p><h:p>
 	      If possible, the Random Probable primes method should also be
               verified against a known good implementation as described above. Otherwise, the
-              evaluator will have the <abbr linkend="TSF"/> generate 10 keys pairs for each
+              evaluator will have the TSF generate 10 keys pairs for each
               supported key length nlen and verify: <h:ul>
                 <h:li>n = p&#x22c5;q,</h:li>
                 <h:li>p and q are probably prime according to Miller-Rabin tests,</h:li>
@@ -713,9 +591,9 @@ users of the same system.
               <h:b>Key Generation for Finite-Field Cryptography (FFC)</h:b>
               <h:br/>
               The evaluator will verify the implementation of the Parameters Generation
-              and the Key Generation for FFC by the <abbr linkend="TOE"/> using the Parameter Generation
+              and the Key Generation for FFC by the TOE using the Parameter Generation
               and Key Generation test.
-	      This test verifies the ability of the <abbr linkend="TSF"/> to correctly
+	      This test verifies the ability of the TSF to correctly
               produce values for the field prime p, the cryptographic prime q (dividing p-1),
               the cryptographic group generator g, and the calculation of the private
               key x and public key y.
@@ -748,12 +626,12 @@ users of the same system.
               The security strength of the RBG must be at least that of the security offered by the FFC parameter set.
               
               To test the cryptographic and field prime generation method for the provable primes method and/or the
-              group generator g for a verifiable process, the evaluator must seed the <abbr linkend="TSF"/> parameter
+              group generator g for a verifiable process, the evaluator must seed the TSF parameter
               generation routine with sufficient data to deterministically generate the parameter set.
               
-              For each key length supported, the evaluator will have the <abbr linkend="TSF"/> generate 25 parameter sets
+              For each key length supported, the evaluator will have the TSF generate 25 parameter sets
               and key pairs. The evaluator will verify the correctness of the TSF's implementation
-              by comparing values generated by the <abbr linkend="TSF"/> with those generated from a known good
+              by comparing values generated by the TSF with those generated from a known good
               implementation. Verification must also confirm:
               <h:ul>
                 <h:li>g != 0,1</h:li>
@@ -768,8 +646,8 @@ users of the same system.
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment (Refined)">
-          <f-element id="fcs_ckm.2.1">
+        <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment (Refined)">
+          <f-element id="fel-crypt-key-estab">
             <title>The OS shall <h:b>implement functionality to perform cryptographic key establishment</h:b>
               in accordance with a specified cryptographic key <h:b>establishment</h:b> method:
 	      <h:p/>
@@ -801,16 +679,16 @@ users of the same system.
               in the RSA key establishment scheme, the OS does not need to implement RSA key generation.
               </h:p><h:p>
 	      The elliptic curves used for the key establishment scheme shall correlate with
-              the curves specified in <linkref linkend="FCS_CKM.1.1"/>. The domain parameters
+              the curves specified in <xref to="fel-asym-gen"/>. The domain parameters
               used for the finite field-based key establishment scheme are specified by the
-              key generation according to <linkref linkend="FCS_CKM.1.1"/>.
+              key generation according to <xref to="fel-asym-gen"/>.
 	    </h:p>
 	    </note>
             <aactivity>
 	      <Tests>
 	      <h:p>
 		The evaluator will ensure that the supported key establishment schemes
-		correspond to the key generation schemes identified in FCS_CKM.1.1.
+		correspond to the key generation schemes identified in  <xref to="fel-asym-gen"/>
 		If the ST specifies more than one scheme,
 		the evaluator will examine the TSS to verify that it identifies the usage for each scheme.
 	      </h:p>
@@ -975,8 +853,8 @@ These keys are static, ephemeral or both depending on the scheme being tested.
         </f-component>
                 
 
-	<f-component id="fcs_ckm_ext.4" name="Cryptographic Key Destruction" >
-          <f-element id="fcs_ckm_ext.4.1">
+	<f-component cc-id="fcs_ckm_ext.4" name="Cryptographic Key Destruction" >
+          <f-element id="fel-key-kill">
 	    <title>
 The OS shall destroy cryptographic keys and key material in accordance with a specified cryptographic key destruction method
               <selectables>
@@ -991,54 +869,104 @@ The OS shall destroy cryptographic keys and key material in accordance with a sp
 		  <selectable>removal of power to the memory</selectable>
 		  <selectable>destruction of reference to the key directly followed by a request for garbage collection</selectable>
 		</selectables></selectable>
-		<selectable>For non-volatile memory that consists of the invocation of an interface provided by the underlying platform that <selectables>
-		    <selectable>logically addresses the storage location of the key and performs a <selectables>
-			<selectable>single</selectable>
-			<selectable><assignable>ST author defined multi-pass</assignable></selectable>
-		      </selectables>
-overwrite consisting of
-                      <selectables>
-			<selectable>zeroes</selectable><selectable>ones</selectable>
-			<selectable>pseudo-random pattern</selectable>
-			<selectable>a new value of a key of the same size</selectable>
-			<selectable><assignable>any value that does not contain any CSP</assignable></selectable>
-		      </selectables></selectable>
-		    <selectable>instructs the underlying platform to destroy the abstraction that represents the key</selectable>
-		  </selectables></selectable>
+		<selectable>For non-volatile memory that consists of 
+		    <selectables>
+			<selectable>destruction
+			of all key encrypting keys protecting the target key
+			according to <xref to="fel-key-kill"/>, where none of the KEKs protecting the target key are derived
+			</selectable>
+			<selectable>the
+invocation of an interface provided by the underlying platform that
+				<selectables>
+					<selectable>logically
+addresses the storage location of the key and performs a 
+						<selectables>
+							<selectable>single</selectable>
+							<selectable><assignable>ST author defined multi-pass</assignable></selectable>
+						</selectables>overwrite consisting of
+						<selectables>
+							<selectable>zeroes</selectable><selectable>ones</selectable>
+							<selectable>pseudo-random pattern</selectable>
+							<selectable>a new value of a key of the same size</selectable>
+							<selectable><assignable>any value that does not contain any CSP</assignable></selectable></selectables></selectable>
+					<selectable>instructs the underlying platform to destroy the abstraction that represents the key</selectable>
+			        </selectables>
+			</selectable>
+		    </selectables>
+		</selectable>
 	      </selectables>
 	      .
 	    </title>
 	    <note role="application">
 	      <h:p>
-The interface referenced in the requirement could take different forms, the most likely of which is an application programming interface to an OS kernel. There may be various levels of abstraction visible. For instance, in a given implementation, selection a, the application may have access to the file system details and may be able to logically address specific memory locations. In another implementation, selection b, the application may simply have a handle to a resource and can only ask the platform to delete the resource, as may be the case with a platforms secure key store. Selection b should only be used for the most restricted access. The level of detail to which the TOE has access will be reflected in the TSS section of the ST.
+The interface referenced in the requirement could take different forms, 
+the most likely of which is an application programming interface to an OS kernel. 
+There may be various levels of abstraction visible.
+For instance, in a given implementation that overwrites a key stored in non-volatile memory, 
+the application may have access to the file system details and 
+may be able to logically address specific memory locations.
+In another implementation, that instructs the underlying platform to destroy the 
+representation of a key stored in non-volatile memory, 
+the application may simply have a handle to a resource and 
+can only ask the platform to delete the resource, as may be the case with a platforms secure key store.
+The latter implementation should only be used for the most restricted access.
+The level of detail to which the TOE has access will be reflected in the TSS section of the ST.
 	      </h:p>
-	      <h:p>
-Several selections allow assignment of a 'value that does not contain any CSP'. This means that the TOE uses some other specified data not drawn from a source that may contain key material or reveal information about key material, and not being any of the particular values listed as other selection options. The point of the phrase 'does not contain any CSP' is to ensure that the overwritten data is carefully selected, and not taken from a general 'pool' that might contain current or residual data that itself requires confidentiality protection.
+        <h:p>
+Several selections allow assignment of a 'value that does not contain any CSP'.
+This means that the TOE uses some other specified data not drawn from a source that 
+may contain key material or reveal information about key material, 
+and not being any of the particular values listed as other selection options. 
+The point of the phrase 'does not contain any CSP' is to ensure that the overwritten 
+data is carefully selected, and not taken from a general 'pool' that might contain current or 
+residual data that itself requires confidentiality protection.
+	      </h:p>
+	      <h:p>      
+For the selection <h:i>destruction of all key encrypting keys protecting target key according
+to FCS_CKM_EXT.4.1, where none of the KEKs protecting the target key are derived</h:i>,
+a key can be considered destroyed by destroying the key that protects the key.
+If a key is wrapped or encrypted it is not necessary to “overwrite” that key,
+overwriting the key that is used to wrap or encrypt the key used to encrypt/decrypt data,
+using the appropriate method for the memory type involved, will suffice.
+For example, if a product uses a Key Encryption Key (KEK) to encrypt a Data Encryption Key
+(DEK), destroying the KEK using one of the methods in FCS_CKM_EXT.4 is sufficient, 
+since the DEK would no longer be usable (of course, presumes the DEK is still encrypted 
+and the KEK cannot be recovered or re-derived.).
 	      </h:p>
 	    </note>
 	  </f-element>
-          <f-element id="fcs_ckm_ext.4.2">
+          <f-element id="fel-key-kill-when">
 	    <title>The OS shall destroy all keys and key material when no longer needed.</title>
 	    <note role="application">
 	      <h:p>
 		For the purposes of this requirement, key material refers to authentication data, passwords, secret/private symmetric keys, private asymmetric keys, data used to derive keys, values derived from passwords, etc.
 	      </h:p>
-	      <h:p>Key destruction procedures are performed in accordance with <linkref linkend='fcs_ckm_ext.4.1'/>.</h:p>
+	      <h:p>Key destruction procedures are performed in accordance with <xref to="fel-key-kill"/>.</h:p>
 	    </note>
 	    <aactivity>
 	      <TSS>
-	      <h:p>
+	        <h:p>
 The evaluator examines the TSS to ensure it describes how the keys are managed in volatile memory. This description includes details of how each identified key is introduced into volatile memory (e.g. by derivation from user input, or by unwrapping a wrapped key stored in non-volatile memory) and how they are overwritten.
-	      </h:p>
-	      <h:p>
+	        </h:p>
+	        <h:p>
 The evaluator will check to ensure the TSS lists each type of key that is stored in in non-volatile memory, and identifies how the TOE interacts with the underlying platform to manage keys (e.g., store, retrieve, destroy). The description includes details on the method of how the TOE interacts with the platform, including an identification and description of the interfaces it uses to manage keys (e.g., file system APIs, platform key store APIs).
-	      </h:p>
-	      <h:p>
+	        </h:p>
+	        <h:p>
 If the ST makes use of the open assignment and fills in the type of pattern that is used, the evaluator examines the TSS to ensure it describes how that pattern is obtained and used. The evaluator will verify that the pattern does not contain any CSPs.
-	      </h:p>
-	      <h:p>
+	        </h:p>
+	        <h:p>
 The evaluator will check that the TSS identifies any configurations or circumstances that may not strictly conform to the key destruction requirement.
-	      </h:p>
+	        </h:p>
+	        <h:p>
+If the selection “destruction of all key encrypting keys protecting target key according to 
+FCS_CKM_EXT.4.1, where none of the KEKs protecting the target key are derived” is included 
+the evaluator shall examine the TOE’s keychain in the TSS and identify each instance when a 
+key is destroyed by this method.
+In each instance the evaluator shall verify all keys capable of decrypting the target key are 
+destroyed in accordance with a specified key destruction method in FCS_CKM_EXT.4.1.
+The evaluator shall verify that all of the keys capable of decrypting the target key are not
+able to be derived to reestabish the keychain after their destruction. 	      
+	        </h:p>      
 	      </TSS>
 	      <Guidance>
 	      <h:h3>Operational Guidance</h:h3>
@@ -1085,12 +1013,14 @@ Steps 1-6 ensure that the complete key does not exist anywhere in volatile memor
 </h:p>
 </test>
 <test>
-<h:p>
-  The following tests apply only to selection a), since the TOE in this instance has more visibility into what is happening within the underlying platform (e.g., a logical view of the media). In selection b), the TOE has no visibility into the inner workings and completely relies on the underlying platform, so there is no reason to test the TOE beyond test 2.
-</h:p>
-<h:p>
-For selection a), the following tests are used to determine the TOE is able to request the platform to overwrite the key with a TOE supplied pattern.
-</h:p>
+  <h:p>
+Tests 3 and 4 do not apply for the selection 
+<h:i>instructing the underlying platform to destroy the representation of the key</h:i>
+as the TOE has no visibility into the inner workings and completely relies on the underlying platform.
+  </h:p>
+  <h:p>
+The following tests are used to determine if the TOE is able to request the platform to overwrite the key with a TOE supplied pattern.
+  </h:p>
 <h:p>
 
 Applied to each key held in non-volatile memory and subject to destruction by overwrite by the TOE. The evaluator will use a tool that provides a logical view of the media (e.g., MBR file system):
@@ -1125,8 +1055,8 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
           </f-element>
         </f-component>
  
-        <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption (Refined)">
-          <f-element id="fcs_cop.1.1(1)">
+        <f-component cc-id="fcs_cop.1" iteration="ENCRYPT" name="Cryptographic Operation - Encryption/Decryption (Refined)">
+          <f-element id="fel-encrypt-how">
             <title>
               The <h:b>OS</h:b> shall perform [<h:i>encryption/decryption services for data</h:i>] in
 	      accordance with a specified cryptographic algorithm<h:b>
@@ -1155,7 +1085,7 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
             <note role="application">
 	      <h:p>
               AES CCMP (which uses AES in CCM as specified in SP 800-38C) becomes mandatory and must
-              be selected if the ST includes the WLAN Client <abbr linkend="EP"/>.
+              be selected if the ST includes the WLAN Client EP.
 	      </h:p>
 	      <h:p>
 	            For the second selection, the ST author should choose the mode
@@ -1469,8 +1399,8 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
 	  </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Hashing (Refined)">
-          <f-element id="fcs_cop.1.1(2)">
+        <f-component cc-id="fcs_cop.1" iteration="HASH" name="Cryptographic Operation - Hashing (Refined)">
+          <f-element id="fel-hash-how">
             <title>The <h:b>OS</h:b> shall perform [<h:i>cryptographic hashing services</h:i>] in accordance with a
               specified cryptographic algorithm <h:b>
               <selectables linebreak="yes">
@@ -1510,18 +1440,18 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
 	      <h:p>
 	      The evaluator will check that the association of the hash function with
               other application cryptographic functions (for example, the digital signature
-              verification function) is documented in the <abbr linkend="TSS"/>.
+              verification function) is documented in the TSS.
 	      </h:p>
 	      <h:p>
-		The <abbr linkend="TSF"/>
+		The TSF
               hashing functions can be implemented in one of two modes. The first mode is the
-              byte-oriented mode. In this mode the <abbr linkend="TSF"/> only hashes messages that
+              byte-oriented mode. In this mode the TSF only hashes messages that
               are an integral number of bytes in length; i.e., the length (in bits) of the message
               to be hashed is divisible by 8. The second mode is the bit-oriented mode. In this mode
-              the <abbr linkend="TSF"/> hashes messages of arbitrary length. As there are different
+              the TSF hashes messages of arbitrary length. As there are different
               tests for each mode, an indication is given in the following sections for the
               bit-oriented vs. the byte-oriented testmacs. The evaluator will perform all of the
-              following tests for each hash algorithm implemented by the <abbr linkend="TSF"/> and
+              following tests for each hash algorithm implemented by the TSF and
               used to satisfy the requirements of this PP.
 	      </h:p>
 	      <h:p>
@@ -1533,34 +1463,34 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
                   length of the messages range sequentially from 0 to m bits. The message text shall
                   be pseudorandomly generated. The evaluator will compute the message digest for each of
                   the messages and ensure that the correct result is produced when the messages are
-                  provided to the <abbr linkend="TSF"/>.</test>
+                  provided to the TSF.</test>
                 <test>Short Messages Test (Byte oriented Mode) - The evaluator will generate an input set
                   consisting of m/8+1 messages, where m is the block length of the hash algorithm.
                   The length of the messages range sequentially from 0 to m/8 bytes, with each
                   message being an integral number of bytes. The message text shall be
                   pseudorandomly generated. The evaluator will compute the message digest for each of
                   the messages and ensure that the correct result is produced when the messages are
-                  provided to the <abbr linkend="TSF"/>.</test>
+                  provided to the TSF.</test>
                 <test>Selected Long Messages Test (Bit oriented Mode) - The evaluator will generate an input
                   set consisting of m messages, where m is the block length of the hash algorithm.
                   The length of the <h:i>i</h:i>th message is 512 + 99&#x22c5;i, where 1 ≤ i ≤ m. The message
                   text shall be pseudorandomly generated. The evaluator will compute the message digest
                   for each of the messages and ensure that the correct result is produced when the
-                  messages are provided to the <abbr linkend="TSF"/>.</test>
+                  messages are provided to the TSF.</test>
                 <test>Selected Long Messages Test (Byte oriented Mode) - The evaluator will generate an
                   input set consisting of m/8 messages, where m is the block length of the hash
                   algorithm. The length of the <h:i>i</h:i>th message is 512 + 8&#x22c5;99&#x22c5;i,
 		  where 1 ≤ i ≤ m/8. The message text shall be pseudorandomly generated.
 		  The evaluator will compute
                   the message digest for each of the messages and ensure that the correct result is
-                  produced when the messages are provided to the <abbr linkend="TSF"/>.</test>
+                  produced when the messages are provided to the TSF.</test>
                 <test>Pseudorandomly Generated Messages Test -  This test is for byte-oriented
                   implementations only. The evaluator will randomly generate a seed that is n bits long,
                   where n is the length of the message digest produced by the hash function to be
                   tested. The evaluator will then formulate a set of 100 messages and associated digests
                   by following the algorithm provided in Figure 1 of [SHAVS]. The evaluator will then
                   ensure that the correct result is produced when the messages are provided to the
-                  <abbr linkend="TSF"/>.
+                  TSF.
 		</test>
               </testlist>
 	      </h:p>
@@ -1568,8 +1498,8 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop.1(3)" name="Cryptographic Operation - Signing (Refined)">
-          <f-element id="fcs_cop.1.1(3)">
+        <f-component cc-id="fcs_cop.1" iteration="SIGN" name="Cryptographic Operation - Signing (Refined)">
+          <f-element id="fel-sign-how">
             <title>The <h:b>OS</h:b> shall perform [<h:i>cryptographic signature services (generation and
               verification)</h:i>] in accordance with a specified cryptographic algorithm <h:b><selectables
                 linebreak="yes">
@@ -1594,7 +1524,7 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
 	      <Tests>
 	      <h:p>
 		The evaluator will perform the following activities based on the selections
-		in the <abbr linkend="ST"/>.
+		in the ST.
 	      </h:p>
 	      <h:p>
 		The following tests require the developer to
@@ -1626,10 +1556,10 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
                   RSA Signature Generation by the OS using the Signature
                   Generation Test. To conduct this test the evaluator must generate or obtain 10
                   messages from a trusted reference implementation for each modulus size/SHA
-                  combination supported by the <abbr linkend="TSF"/>.
+                  combination supported by the TSF.
 		  The evaluator will have the
                     OS use its private key and modulus value to sign these
-                  messages. The evaluator will verify the correctness of the <abbr linkend="TSF"
+                  messages. The evaluator will verify the correctness of the TSF"
                   />'s signature using a known good implementation and the associated public keys to
                   verify the signatures. </test>
                 <test>Signature Verification Test. The evaluator will perform the Signature
@@ -1647,8 +1577,8 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop.1(4)" name="Cryptographic Operation - Keyed-Hash Message Authentication (Refined)">
-          <f-element id="fcs_cop.1.1(4)">
+        <f-component cc-id="fcs_cop.1" iteration="KEYHMAC" name="Cryptographic Operation - Keyed-Hash Message Authentication (Refined)">
+          <f-element id="fel-keyed-hash-how">
             <title>The <h:b>OS</h:b> shall perform [<h:i>keyed-hash message authentication services</h:i>]
             in accordance with a specified cryptographic algorithm<h:b>
               <selectables>
@@ -1673,7 +1603,7 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
 	      cryptographic protocols used by the OS (e.g., trusted channel).
 	      The hash selection must support the message digest size selection.
 	      The hash selection should be consistent with the overall strength of the
-	      algorithm used for <linkref linkend="FCS_COP.1(1)"/>.
+	      algorithm used for FCS_COP.1/HASH.
 	      </h:p>
 	      <h:p>
         Evaluation of SHA-1 is currently permitted in order to allow for evaluation
@@ -1685,7 +1615,7 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
 	      <h:p>
 
 		The evaluator will perform the following activities based on the selections
-              in the <abbr linkend="ST"/>.
+              in the ST.
 	      </h:p><h:p>
 	      For each of the supported parameter sets, the
               evaluator will compose 15 sets of test data. Each set shall consist of a key and
@@ -1698,8 +1628,8 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
           </f-element>
         </f-component>
 
-        <f-component id="fcs_rbg_ext.1" name="Random Bit Generation">
-          <f-element id="fcs_rbg_ext.1.1">
+        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation">
+          <f-element id="fel-rbg-how">
             <title>
               The OS shall perform all deterministic random bit generation (DRBG) services in
               accordance with NIST Special Publication 800-90A using
@@ -1713,7 +1643,7 @@ Applied to each key held in non-volatile memory and subject to destruction by ov
             <note role="application">
 NIST SP 800-90A contains three different methods of generating random numbers;
 each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers).
-The <abbr linkend="ST"/> author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the <abbr linkend="TSS"/>.
+The ST author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the TSS.
 While any of the identified hash functions (SHA-1, SHA-224, SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG,
 only AES-based implementations for CTR_DRBG are allowed.
             </note>
@@ -1771,7 +1701,7 @@ only AES-based implementations for CTR_DRBG are allowed.
             </aactivity>
           </f-element>
           
-          <f-element id="fcs_rbg_ext.1.2">
+          <f-element id="fel-rbg-seed-how">
             <title>
               The deterministic RBG used by the OS shall be seeded by an entropy source that
               accumulates entropy from a
@@ -1790,23 +1720,23 @@ only AES-based implementations for CTR_DRBG are allowed.
             <note role="application">
 	      <h:p>
 		For the first
-		selection in this requirement, the <abbr linkend="ST"/> author selects 'software-based noise source' if
+		selection in this requirement, the ST author selects 'software-based noise source' if
 		any additional noise sources are used as input to the DRBG.
 	      </h:p><h:p>
-	      In the second selection in this requirement, the <abbr linkend="ST"/> author selects the
+	      In the second selection in this requirement, the ST author selects the
               appropriate number of bits of entropy that corresponds to the greatest security
-              strength of the algorithms included in the <abbr linkend="ST"/>.
+              strength of the algorithms included in the ST.
 	      Security strength is defined in Tables
               2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA
               (security strength of 112 bits), AES 128 (security strength 128 bits), and
-              HMAC-SHA-256 (security strength 256 bits), then the <abbr linkend="ST"/> author would select 256 bits.
+              HMAC-SHA-256 (security strength 256 bits), then the ST author would select 256 bits.
 	    </h:p>
             </note>
             <aactivity>
 	    <Tests>
 	      <h:p>
 		Documentation shall be produced - and the evaluator will perform the
-		activities - in accordance with <appref linkend="entropyappendix"/> and
+		activities - in accordance with <xref to="entropyappendix"/> and
 		the
 		<h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf"
 		     >Clarification to the Entropy Documentation and Assessment Annex</h:a>.
@@ -1819,8 +1749,8 @@ only AES-based implementations for CTR_DRBG are allowed.
           </f-element>
         </f-component>
         
-        <f-component id="fcs_sto_ext.1" name="Storage of Sensitive Data">
-          <f-element id="fcs_sto_ext.1.1">
+        <f-component cc-id="fcs_sto_ext.1" name="Storage of Sensitive Data">
+          <f-element id="fel-store-sdata">
             <title>
 	      The OS shall implement functionality to encrypt sensitive data
 	      stored in non-volatile storage and provide interfaces to applications to invoke this functionality.
@@ -1837,7 +1767,7 @@ only AES-based implementations for CTR_DRBG are allowed.
               sensitive data for which the OS provides a storage capability.  For each of these
               items, the evaluator will confirm that the TSS lists for what purpose it can be used,
               and how it is stored.
-	      The evaluator will confirm that cryptographic operations used to protect the data occur as specified in <linkref linkend="fcs_cop.1(1)"/>.
+	      The evaluator will confirm that cryptographic operations used to protect the data occur as specified in FCS_COP.1/HASH.
 	      </h:p><h:p>
 	      The evaluator will also consult the developer documentation to verify that an interface
 	      exists for applications to securely store credentials.
@@ -1846,10 +1776,10 @@ only AES-based implementations for CTR_DRBG are allowed.
             </aactivity>
           </f-element>
         </f-component>
-      </subsection>
-      <subsection title="User Data Protection (FDP)" id="fdp">
-        <f-component id="fdp_acf_ext.1" name="Access Controls for Protecting User Data">
-          <f-element id="fdp_acf_ext.1.1">
+      </section>
+      <section title="User Data Protection (FDP)" id="fdp">
+        <f-component cc-id="fdp_acf_ext.1" name="Access Controls for Protecting User Data">
+          <f-element id="fel-protect-user-data">
             <title>
 	      The OS shall implement access controls which can prohibit unprivileged users from
               accessing files and directories owned by other users.
@@ -1912,8 +1842,8 @@ only AES-based implementations for CTR_DRBG are allowed.
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_ifc_ext.1" name="Information flow control" status="optional">
-          <f-element id="fdp_ifc_ext.1.1">
+        <f-component cc-id="fdp_ifc_ext.1" name="Information flow control" status="optional">
+          <f-element id="fel-dit-vpn">
             <title> The OS shall
 	    <selectables linebreak="yes">
               <selectable>provide an interface which allows a VPN client to protect all IP traffic using IPsec</selectable>
@@ -1941,18 +1871,18 @@ only AES-based implementations for CTR_DRBG are allowed.
 		  network stack to perform the required Information Flow Control.
 	      </h:p>
 	      <h:p>
-		  The ST author shall select the second option if the <abbr linkend="TSF"/> implements a
+		  The ST author shall select the second option if the TSF implements a
 		  native VPN client (IPsec is selected in FTP_ITC_EXT.1). If the native
-		  VPN client is to be validated (IPsec is selected in
-		  <linkref linkend="FTP_ITC_EXT.1"/> and
-		  the <abbr linkend="TSF"/> is validated against the <h:i><abbr linkend="EP"/> for IPsec
+		  VPN client is to be validated (IPsec is selected in <xref to="fel-trust-comms"/>
+		  and
+		  the TSF is validated against the <h:i>EP for IPsec
 		  Virtual Private Network (VPN) Clients</h:i>), the ST author shall also
-		  include <linkref linkend="FDP_IFC_EXT.1"/> from this package.  In the
+		  include FDP_IFC_EXT.1 from this package.  In the
 		  future, this requirement may also make a distinction between the
 		  current requirement (which requires that when the IPsec trusted
-		  channel is enabled, all traffic from the <abbr linkend="TSF"/> is routed through that
+		  channel is enabled, all traffic from the TSF is routed through that
 		  channel) and having an option to force the establishment of an IPsec
-		  trusted channel to allow any communication by the <abbr linkend="TSF"/>.
+		  trusted channel to allow any communication by the TSF.
 	      </h:p>
 	    </note>
             <aactivity>
@@ -1979,24 +1909,25 @@ only AES-based implementations for CTR_DRBG are allowed.
                   </step>
                   <step>
 		  The evaluator will examine the traffic from both step one and step two to verify that all non-excepted Data Plane traffic in Step 2 is encapsulated by IPsec.
-		  The evaluator will examine the Security Parameter Index (SPI) value present in the encapsulated packets captured in Step 2 from the <abbr linkend="TOE"/> to the Gateway and shall verify this value is the same for all actions used to generate traffic through the VPN.
-		  Note that it is expected that the SPI value for packets from the Gateway to the <abbr linkend="TOE"/> is different than the SPI value for packets from the <abbr linkend="TOE"/> to the Gateway.
+		  The evaluator will examine the Security Parameter Index (SPI) value present in the encapsulated packets captured in Step 2 from the TOE to the Gateway and shall verify this value is the same for all actions used to generate traffic through the VPN.
+		  Note that it is expected that the SPI value for packets from the Gateway to the TOE is different than the SPI value for packets from the TOE to the Gateway.
 		  </step>
 		  <step>
-                  The evaluator will perform a ping on the <abbr linkend="TOE"/> host on the local network and verify that no packets sent are captured with the sniffer.
-		  The evaluator will attempt to send packets to the <abbr linkend="TOE"/> outside the VPN tunnel (i.e. not through the VPN gateway), including from the local network, and verify that the <abbr linkend="TOE"/> discards them.
+                  The evaluator will perform a ping on the TOE host on the local network and verify that no packets sent are captured with the sniffer.
+		  The evaluator will attempt to send packets to the TOE outside the VPN tunnel (i.e. not through the VPN gateway), including from the local network, and verify that the TOE discards them.
 		  </step>
 	      </steplist></test></testlist>
 	      </Tests>
 	    </aactivity>
           </f-element>
         </f-component>
-      </subsection>
-      <subsection title="Security Management (FMT)" id="fmt">
-        <f-component id="fmt_mof_ext.1" name="Management of security functions behavior">
-	  <f-element id="fmt_mof_ext.1.1">
+      </section>
+      <section title="Security Management (FMT)" id="fmt">
+        <f-component cc-id="fmt_mof_ext.1" name="Management of security functions behavior">
+	  <f-element id="fel-man-sec-func">
 	    <title>
-	      The OS shall restrict the ability to perform the function indicated in the "Administrator" column in <linkref linkend="fmt_smf_ext.1.1"/> to the administrator.
+	      The OS shall restrict the ability to perform the function indicated in the "Administrator" column in 
+              <xref to="fel-manage-functions"/> to the administrator.
 	    </title>
 	    <note role="application">
         The functions with an "X" in the "Administrator" column must be restricted
@@ -2029,14 +1960,14 @@ only AES-based implementations for CTR_DRBG are allowed.
             </aactivity>
 	  </f-element>
 	</f-component>
-	<f-component id="fmt_smf_ext.1" name="Specification of Management Functions">
-	  <f-element id="fmt_smf_ext.1.1">
+	<f-component cc-id="fmt_smf_ext.1" name="Specification of Management Functions">
+	  <f-element id="fel-manage-functions">
 	    <title>
 	      The OS shall be capable of performing the following management functions:
 	      <h:br/>
 	      <management-function-set default="O">
-		<manager id="a">Administrator</manager>
-		<manager id="u">User</manager>
+		<manager cid="a">Administrator</manager>
+		<manager cid="u">User</manager>
 		<management-function><text>Enable/disable <selectables><selectable>screen lock</selectable><selectable>session timeout</selectable></selectables></text><M ref="a"/></management-function>
 		<management-function><text>Configure <selectables><selectable>screen lock</selectable><selectable>session</selectable></selectables> inactivity timeout</text><M ref="a"/></management-function>
 		<management-function><text>Configure local audit storage capacity</text></management-function>
@@ -2075,7 +2006,7 @@ Configure lockout policy for unsuccessful authentication attempts through
           how to indicate Administrator or User capability.
 	      </h:p>
 	      <h:p>
-          The terms "Administrator" and "User" are defined in <secref linkend="glossary"/>.
+          The terms "Administrator" and "User" are defined in <xref g="glossary"/>.
           The intent of this requirement is to ensure that the ST is populated with the
           relevant management functions that are provided by the OS.	      </h:p>
 	      <h:p>
@@ -2094,10 +2025,10 @@ The OS can enroll in such account management and enable the overall information 
 	    </aactivity>
 	  </f-element>
 	</f-component>
-      </subsection>
-      <subsection title="Protection of the TSF (FPT)" id="fpt">
-        <f-component id="fpt_acf_ext.1" name="Access controls">
-          <f-element id="fpt_acf_ext.1.1">
+      </section>
+      <section title="Protection of the TSF (FPT)" id="fpt">
+        <f-component cc-id="fpt_acf_ext.1" name="Access controls">
+          <f-element id="fel-protect-priv">
             <title> The OS shall implement access controls which prohibit unprivileged users from
               modifying: <h:ul>
                 <h:li>Kernel and its drivers/modules</h:li>
@@ -2132,7 +2063,7 @@ The OS can enroll in such account management and enable the overall information 
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element id="fpt_acf_ext.1.2">
+          <f-element id="fel-no-read">
             <title> The OS shall implement access controls which prohibit unprivileged users from
               reading: <h:ul>
                 <h:li>Security audit logs</h:li>
@@ -2159,8 +2090,8 @@ The OS can enroll in such account management and enable the overall information 
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_aslr_ext.1" name="Address Space Layout Randomization">
-          <f-element id="fpt_aslr_ext.1.1">
+        <f-component cc-id="fpt_aslr_ext.1" name="Address Space Layout Randomization">
+          <f-element id="fel-aslr">
             <title>The OS shall always randomize process address space memory locations with
 	    <selectables>
 	      <selectable>8</selectable>
@@ -2171,9 +2102,9 @@ The OS can enroll in such account management and enable the overall information 
             </title>
             <aactivity>
 	      <Tests>
-The evaluator will select 3 executables included with the <abbr linkend="TSF"/>.
-If the <abbr linkend="TSF"/> includes a web browser it must be selected.
-If the <abbr linkend="TSF"/> includes a mail client it must be selected.
+The evaluator will select 3 executables included with the TSF.
+If the TSF includes a web browser it must be selected.
+If the TSF includes a mail client it must be selected.
 For each of these apps, the evaluator will launch the same executables on two separate instances of the
 OS on identical hardware and compare all memory mapping locations.
 The evaluator will ensure that no memory mappings are placed in the same location.
@@ -2184,7 +2115,7 @@ This test can also be completed on the same hardware and rebooting between appli
 	      </Tests>
 	    </aactivity>
           </f-element>
-<!--          <f-element id="fpt_aslr_ext.1.2" status="optional">
+<!--          <f-element>
             <title>The OS shall always randomize kernel address space memory locations</title>
                 <note role="application">
                   Randomizing the location of the kernel address spaces provides some defense against
@@ -2196,7 +2127,7 @@ This test can also be completed on the same hardware and rebooting between appli
           </f-element> -->
 	</f-component>
         <!-- <f-component id="fpt_php_ext.1" name="External Interface Controls">-->
-        <!--   <f-element id="fpt_php_ext.1.1"> -->
+        <!--   <f-element> -->
         <!--     <title> -->
 	<!--       The OS shall provide a mechanism to  -->
 	<!--       <selectables> -->
@@ -2273,8 +2204,8 @@ This test can also be completed on the same hardware and rebooting between appli
         <!--     </aactivity> -->
         <!--   </f-element> -->
         <!-- </f-component> -->
-        <f-component id="fpt_sbop_ext.1" name="Stack Buffer Overflow Protection">
-          <f-element id="fpt_sbop_ext.1.1">
+        <f-component cc-id="fpt_sbop_ext.1" name="Stack Buffer Overflow Protection">
+          <f-element id="fel-sbop">
             <title>
 The OS shall <selectables>
   <selectable>employ stack-based buffer overflow protections</selectable>
@@ -2289,28 +2220,28 @@ OSes that store parameters and variables separately from control flow values do 
             </note>
             <aactivity>
 	      <Tests>
-<h:p>For stack-based OSes, the evaluator will determine that the <abbr linkend="TSS"/> contains a description of stack-based buffer overflow protections used by the OS.
+<h:p>For stack-based OSes, the evaluator will determine that the TSS contains a description of stack-based buffer overflow protections used by the OS.
 These are referred to by a variety of terms, such as stack cookie, stack guard, and stack canaries.
-The <abbr linkend="TSS"/> must include a rationale for any binaries that are not protected in this manner.
+The TSS must include a rationale for any binaries that are not protected in this manner.
 The evaluator will also preform the following test:
             <testlist>
                 <test>
                   The evaluator will inventory the kernel, libraries, and application binaries
                   to determine those that do not implement stack-based buffer overflow protections. This list should
-                  match up with the list provided in the <abbr linkend="TSS"/>.
+                  match up with the list provided in the TSS.
                 </test>
             </testlist>
 </h:p>
 
-<h:p>For OSes that store parameters/variables separately from control flow values, the evaluator will verify that the <abbr linkend="TSS"/> describes what data structures control values, parameters, and variables are stored.
+<h:p>For OSes that store parameters/variables separately from control flow values, the evaluator will verify that the TSS describes what data structures control values, parameters, and variables are stored.
 The evaluator will also ensure that the TSS includes a description of the safeguards that ensure parameters and variables do not intermix with control flow values.
 </h:p>
               </Tests>
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_srp_ext.1" name="Software Restriction Policies" status="objective">
-          <f-element id="fpt_srp_ext.1.1">
+        <f-component cc-id="fpt_srp_ext.1" name="Software Restriction Policies" status="objective">
+          <f-element id="fel-srp">
             <title> The OS shall restrict execution to only programs which match an administrator-specified
               <selectables linebreak="yes">
                 <selectable>file path</selectable>
@@ -2388,8 +2319,8 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_tst_ext.1" name="Boot Integrity">
-          <f-element id="fpt_tst_ext.1.1">
+        <f-component cc-id="fpt_tst_ext.1" name="Boot Integrity">
+          <f-element id="fel-boot">
             <title>The OS shall verify the integrity of the bootchain up through the OS kernel and
               <selectables linebreak="yes">
                 <selectable>all executable code stored in mutable media</selectable>
@@ -2430,7 +2361,7 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 	      <TSS>
 	      <h:p>
               The evaluator will verify that the TSS section of the ST includes a comprehensive description of the boot
-              procedures, including a description of the entire bootchain, for the <abbr linkend="TSF"/>.
+              procedures, including a description of the entire bootchain, for the TSF.
               The evaluator will ensure that the OS cryptographically verifies each
 	      piece of software it loads in the bootchain to include bootloaders and the kernel.
 	      Software loaded for execution directly by the platform (e.g. first-stage bootloaders) is out of scope.
@@ -2453,12 +2384,12 @@ The evaluator will also ensure that the TSS includes a description of the safegu
               The evaluator will also perform the following tests:
               <testlist>
                 <test>
-                  The evaluator will perform actions to cause <abbr linkend="TSF"/> software to load and observe that the
+                  The evaluator will perform actions to cause TSF software to load and observe that the
                   integrity mechanism does not flag any executables as containing integrity errors and that the
                   OS properly boots.
                 </test>
                 <test>
-                  The evaluator will modify a <abbr linkend="TSF"/> executable that is part of the bootchain verified by the <abbr linkend="TSF"/> (i.e. Not the first-stage bootloader)
+                  The evaluator will modify a TSF executable that is part of the bootchain verified by the TSF (i.e. Not the first-stage bootloader)
 		  and attempt to boot.
 		  The evaluator will ensure that an integrity violation is triggered and the OS does not boot
 		  (Care must be taken so that the integrity
@@ -2468,7 +2399,7 @@ The evaluator will also ensure that the TSS includes a description of the safegu
                 <test>
                   If the ST author indicates that the integrity verification is performed
                   using a public key, the evaluator will verify that the update mechanism includes a certificate
-                  validation according to <linkref linkend="FIA_X509_EXT.1"/>.
+                  validation according to FIA_X509_EXT.1.
                 </test>
               </testlist>
 	      </h:p>
@@ -2477,13 +2408,13 @@ The evaluator will also ensure that the TSS includes a description of the safegu
           </f-element>
         </f-component>
 
-        <f-component id="fpt_tud_ext.1" name="Trusted Update">
-          <f-element id="fpt_tud_ext.1.1">
+        <f-component cc-id="fpt_tud_ext.1" name="Trusted Update">
+          <f-element id="fel-os-update">
             <title>The OS shall provide the ability to check for updates to the OS
               software itself. </title>
             <note role="application">This requirement is about the ability to check for the availability of
-			authentic updates, while the installation of authentic updates is covered by <linkref
-            linkend="FPT_TUD_EXT.1.2"/>.
+			authentic updates, while the installation of authentic updates is covered by
+                        <xref to="fel-verify-updates"/>.
 			</note>
             <aactivity>
 	      <Tests>
@@ -2494,15 +2425,21 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 			  configuration in conflict with secure configuration guidance
 			  which specifies automatic update.
 			  (The evaluator is also to ensure that this query occurs over a
-			  trusted channel as described in <linkref linkend="ftp_itc_ext.1"/>.)
+			  trusted channel as described in FTP_ITC_EXT.1.)
               </Tests>
 	    </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.1.2">
+          <f-element id="fel-verify-updates">
             <title>
-              The OS shall cryptographically verify updates to itself using a digital
-              signature prior to installation using schemes specified in <linkref linkend="FCS_COP.1(3)"/>.
+              The OS shall 
+		<selectables>
+			<selectable>cryptographically verify</selectable>
+			<selectable>invoke platform-provided functionality to cryptographically verify</selectable>
+		</selectables>
+              updates to itself using a digital
+              signature prior to installation using schemes specified in FCS_COP.1/SIGN.
 	    </title>
+		 <note role="application">The intent of the requirement is to ensure that only digitally signed and verified TOE updates are applied to the TOE.</note>
             <aactivity>
 	      <Tests>
                   For the following tests, the evaluator will initiate the download of an update and
@@ -2533,16 +2470,16 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 	    </aactivity>
           </f-element>
 	</f-component>
-        <f-component id="fpt_tud_ext.2" name="Trusted Update for Application Software">
+        <f-component cc-id="fpt_tud_ext.2" name="Trusted Update for Application Software">
           <!-- TO DO: Cite references. -->
-          <f-element id="fpt_tud_ext.2.1">
+          <f-element id="fel-app-check-update">
             <title>
 	      The OS shall provide the ability to check for updates to
               application software.
 	    </title>
             <note role="application">This requirement is about the ability to check for authentic updates,
-              while the actual installation of such updates is covered by <linkref
-                linkend="FPT_TUD_EXT.2.2"/>.
+              while the actual installation of such updates is covered by 
+	      <xref to="fel-verify-app-updates"/>.
             </note>
             <aactivity>
 	      <Tests>
@@ -2553,16 +2490,15 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 			  temporarily placing the system into a configuration in conflict
 			  with secure configuration guidance which specifies automatic
 			  update.  (The evaluator is also to ensure that this query occurs
-			  over a trusted channel as described in <linkref
-			  linkend="ftp_itc_ext.1"/>.)
+			  over a trusted channel as described in FTP_ITC_EXT.1.)
               </Tests>
 	    </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.2.2">
+          <f-element id="fel-verify-app-updates">
             <title>
 	      The OS shall cryptographically verify the integrity of updates
 	      to applications using a digital signature specified by
-	      <linkref linkend="FCS_COP.1(3)"/> prior to installation.
+	      FCS_COP.1/SIGN prior to installation.
 	    </title>
             <aactivity>
 	      <Tests>
@@ -2593,13 +2529,13 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_w^x_ext.1" name="Write XOR Execute Memory Pages" status="objective">
-          <f-element id="fpt_w^x_ext.1.1">
+        <f-component cc-id="fpt_w^x_ext.1" name="Write XOR Execute Memory Pages" status="objective">
+          <f-element id="fel-no-rw-mem">
             <title> The OS shall prevent allocation of any memory region with both write and
               execute permissions except for <assignable>list of exceptions</assignable>.
             </title>
             <note role="application">Requesting a memory mapping with both write and execute
-              permissions subverts the platform protection provided by <abbr linkend="DEP"/>.
+              permissions subverts the platform protection provided by DEP.
 	      If the OS provides no exceptions (such as for just-in-time compilation),
 	      then "no exceptions" should be indicated in the assignment.
 	      Full realization of this requirement requires hardware support, but this is commonly available.
@@ -2638,10 +2574,10 @@ The evaluator will also ensure that the TSS includes a description of the safegu
 	    </aactivity>
           </f-element>
         </f-component>
-      </subsection>
-      <subsection title="Audit Data Generation (FAU)" id="fau">
-        <f-component id="fau_gen.1" name="Audit Data Generation (Refined)">
-          <f-element id="fau_gen.1.1">
+      </section>
+      <section title="Audit Data Generation (FAU)" id="fau">
+        <f-component cc-id="fau_gen.1" name="Audit Data Generation (Refined)">
+          <f-element id="fel-faugen">
             <title>
 The <h:b>OS</h:b> shall be able to generate an audit record of the following auditable
               events:
@@ -2692,7 +2628,7 @@ The <h:b>OS</h:b> shall be able to generate an audit record of the following aud
               </Tests>
 	    </aactivity>
           </f-element>
-          <f-element id="fau_gen.1.2">
+          <f-element id="fel-audit-content">
             <title> The <h:b>OS</h:b> shall record within each audit record at least the following information:
 	    <h:ol type='a'>
 	      <h:li>Date and time of the event, type of event, subject identity (if applicable),
@@ -2734,10 +2670,10 @@ The <h:b>OS</h:b> shall be able to generate an audit record of the following aud
 	    </aactivity>
         </f-element>
         </f-component>
-      </subsection>
-      <subsection title="Identification and Authentication (FIA)" id="fia">
-        <f-component id="fia_afl.1" name="Authentication failure handling (Refined)">
-          <f-element id="fia_afl.1.1">
+      </section>
+      <section title="Identification and Authentication (FIA)" id="fia">
+        <f-component cc-id="fia_afl.1" name="Authentication failure handling (Refined)">
+          <f-element id="fel-id-and-auth">
             <title>
             The <h:b>OS</h:b> shall detect when
             <selectables linebreak='yes'>
@@ -2763,12 +2699,12 @@ The <h:b>OS</h:b> shall be able to generate an audit record of the following aud
 		  incorrect password, PIN, or certificate until the number of attempts
 		  reaches the threshold.  Note that the authentication attempts and
 		  lockouts must also be logged as specified in
-		  <linkref linkend="fau_gen.1"/>.
+		  FAU_GEN.1.
 
 	      </Tests>
 	    </aactivity>
           </f-element>
-          <f-element id="fia_afl.1.2">
+          <f-element id="fel-bad-attempts">
             <title>
 	      When the defined number of unsuccessful authentication attempts for an
 	      account has been <h:b>met</h:b>, the <h:b>OS</h:b> shall:
@@ -2814,8 +2750,8 @@ The <h:b>OS</h:b> shall be able to generate an audit record of the following aud
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_uau.5" name="Multiple Authentication Mechanisms (Refined)">
-          <f-element id="fia_uau.5.1">
+        <f-component cc-id="fia_uau.5" name="Multiple Authentication Mechanisms (Refined)">
+          <f-element id="fel-mult-auth">
             <title>
 The <h:b>OS</h:b> shall provide the following authentication mechanisms
 <h:b><selectables linebreak='yes'>
@@ -2823,16 +2759,16 @@ The <h:b>OS</h:b> shall provide the following authentication mechanisms
   <selectable>authentication based on user name and a PIN that releases an asymmetric key stored
   in OE-protected storage</selectable>
   <selectable>authentication based on X.509 certificates</selectable>
-  <selectable>for use in SSH only, SSH public key-based authentication as specified by the <abbr linkend="EP"/> for Secure Shell</selectable>
+  <selectable>for use in SSH only, SSH public key-based authentication as specified by the EP for Secure Shell</selectable>
 </selectables>
 </h:b>
 to support user authentication.
             </title>
             <note role="application">
-	      The "for use in SSH only, SSH public key-based authentication as specified by the <abbr linkend="EP"/>
+	      The "for use in SSH only, SSH public key-based authentication as specified by the EP
 		    for Secure Shell" selection can only be included, and must be included, if
-		    <linkref linkend="ftp_itc_ext.1.1"/> selects
-		    "SSH as conforming to the <abbr linkend="EP"/> for Secure Shell".
+		    <xref to="fel-trust-comms"/> selects
+		    "SSH as conforming to the EP for Secure Shell".
 	    </note>
             <aactivity>
 	      <Tests>
@@ -2873,8 +2809,8 @@ to support user authentication.
 			  Authentication Enhanced Key Usage field set. The evaluator will
 			  provision the OS for authentication with the X.509v3 certificate.
 			  The evaluator will ensure that the
-			  certificates are validated by the OS as per <linkref
-			  linkend="FIA_X509_EXT.1.1"/> and then conduct the following tests:
+			  certificates are validated by the OS as per
+                          <xref to="fel-cert-val"/> and then conduct the following tests:
               <testlist>
                  <test>
 					The evaluator will attempt to authenticate to the OS using
@@ -2893,7 +2829,7 @@ to support user authentication.
               </Tests>
 	    </aactivity>
           </f-element>
-           <f-element id="fia_uau.5.2">
+           <f-element id="fel-auth-how">
             <title>
 The <h:b>OS</h:b> shall authenticate any user's claimed identity according to the
               <assignable>
@@ -2902,22 +2838,23 @@ The <h:b>OS</h:b> shall authenticate any user's claimed identity according to th
               </assignable>.
             </title>
             <note role="application">
-For all authentication mechanisms specified in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="TSS"/> shall describe the rules as to how each authentication mechanism is used.
+For all authentication mechanisms specified in <xref to="fel-mult-auth"/>,
+the TSS shall describe the rules as to how each authentication mechanism is used.
 Example rules are how the authentication mechanism authenticates the user (i.e.
-how does the <abbr linkend="TSF"/> verify that the correct password or authentication
+how does the TSF verify that the correct password or authentication
 factor is used), the result of a successful authentication (i.e.
 is the user input used to derive or unlock a key) and which
 authentication mechanism can be used at which authentication factor
 interfaces (i.e. if there are times, for example, after a reboot,
 that only specific authentication mechanisms can be used).
 Rules regarding how the authentication factors interact in terms of
-unsuccessful authentication are covered in <linkref linkend="fia_afl.1"/>.
+unsuccessful authentication are covered in FIA_AFL.1.
 	    </note>
 
               <aactivity>
 		<TSS>
 		<h:p>
-		The evaluator will ensure that the <abbr linkend="TSS"/>
+		The evaluator will ensure that the TSS
               describes each mechanism provided to support user authentication and
               the rules describing how the authentication mechanism(s) provide
               authentication.
@@ -2938,15 +2875,15 @@ unsuccessful authentication are covered in <linkref linkend="fia_afl.1"/>.
 		the specified authentication factor interfaces. </test>
 		<test>
 For each authentication mechanism rule, the evaluator will ensure that
-the authentication mechanism(s) behave as documented in the <abbr linkend='TSS'/>.
+the authentication mechanism(s) behave as documented in the TSS.
 		</test>
               </testlist>
 	      </Tests>
           </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_x509_ext.1" name="X.509 Certificate Validation">
-          <f-element id="fia_x509_ext.1.1">
+        <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation">
+          <f-element id="fel-cert-val">
             <title>
 The OS shall implement functionality to validate certificates in accordance with
 the following rules: <h:ul>
@@ -2985,24 +2922,24 @@ the following rules: <h:ul>
             </title>
             <note role="application">
 	      FIA_X509_EXT.1.1 lists the rules for validating certificates.
-              The <abbr linkend="ST"/> author shall select whether revocation status is verified
-              using OCSP or CRLs. <linkref linkend="FIA_X509_EXT.2"/> requires that certificates are
+              The ST author shall select whether revocation status is verified
+              using OCSP or CRLs. FIA_X509_EXT.2 requires that certificates are
               used for HTTPS, TLS and DTLS; this use requires that the <h:i>extendedKeyUsage</h:i> rules are
               verified.
             </note>
             <aactivity>
 	      <TSS>
 	      <h:p>
-	      The evaluator will ensure the <abbr linkend="TSS"/> describes where the
+	      The evaluator will ensure the TSS describes where the
               check of validity of the certificates takes place.
-	      The evaluator ensures the <abbr linkend="TSS"/> also provides a description of the certificate path validation algorithm.
+	      The evaluator ensures the TSS also provides a description of the certificate path validation algorithm.
 	      </h:p>
 	      </TSS>
 	      <Tests>
 	      <h:p>
 	      The tests described must be performed in conjunction with the other
-              certificate services evaluation activities, including the functions in <linkref
-                linkend="FIA_X509_EXT.2.1"/>. The tests for the <h:i>extendedKeyUsage</h:i> rules are performed
+              certificate services evaluation activities, including the functions in 
+	      <xref to="fel-cert-auth"/>. The tests for the <h:i>extendedKeyUsage</h:i> rules are performed
               in conjunction with the uses that require those rules. The evaluator will create a
               chain of at least four certificates: the node certificate to be tested, two
               Intermediate CAs, and the self-signed Root CA. <testlist>
@@ -3043,19 +2980,19 @@ the following rules: <h:ul>
               </Tests>
 	    </aactivity>
           </f-element>
-          <f-element id="fia_x509_ext.1.2">
+          <f-element id="fel-cacert">
             <title>
 The OS shall only treat a certificate as a CA certificate if the
 <h:i>basicConstraints</h:i> extension is present and the CA flag is set to TRUE.
 	    </title>
             <note role="application"> This requirement applies to certificates that are used and
-              processed by the <abbr linkend="TSF"/> and restricts the certificates that may be
+              processed by the TSF and restricts the certificates that may be
               added as trusted CA certificates. </note>
             <aactivity>
 	      <Tests>
 The tests described must be performed in conjunction with the other
 certificate services evaluation activities, including the functions in
-<linkref linkend="FIA_X509_EXT.2.1"/>.
+<xref to="fel-cert-auth"/>.
 The evaluator will create a chain of at least four certificates:
 the node certificate to be tested, two Intermediate CAs, and the
               self-signed Root CA.
@@ -3075,8 +3012,8 @@ the node certificate to be tested, two Intermediate CAs, and the
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_x509_ext.2" name="X.509 Certificate Authentication">
-          <f-element id="fia_x509_ext.2.1">
+        <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication">
+          <f-element id="fel-cert-auth">
             <title> The OS shall use X.509v3 certificates as defined by RFC 5280 to support
               authentication for TLS and
 			  <selectables>
@@ -3102,10 +3039,10 @@ the node certificate to be tested, two Intermediate CAs, and the
 	    </aactivity>
           </f-element>
         </f-component>
-      </subsection>
-      <subsection title="TOE Access (FTA)" id="fta">
-        <f-component id="fta_tab.1" name="Default TOE access banners" status="optional">
-          <f-element id="fta_tab.1.1">
+      </section>
+      <section title="TOE Access (FTA)" id="fta">
+        <f-component cc-id="fta_tab.1" name="Default TOE access banners" status="optional">
+          <f-element id="fel-banner">
             <title>
             Before establishing a user session, the <h:b>OS</h:b> shall display an advisory
             warning message regarding unauthorized use of the OS.
@@ -3120,17 +3057,17 @@ the node certificate to be tested, two Intermediate CAs, and the
 	    </aactivity>
           </f-element>
         </f-component>
-      </subsection>
-      <subsection title="Trusted Path/Channels (FTP)" id="ftp">
-      	<f-component id="ftp_itc_ext.1" name="Trusted channel communication">
-      	  <f-element id="ftp_itc_ext.1.1">
+      </section>
+      <section title="Trusted Path/Channels (FTP)" id="ftp">
+      	<f-component cc-id="ftp_itc_ext.1" name="Trusted channel communication">
+      	  <f-element id="fel-trust-comms">
       	    <title>
               The OS shall use
       	      <selectables linebreak='yes'>
                 <selectable id="tls">TLS as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Package for Transport Layer Security</h:i></h:a></selectable>
                 <selectable id="dtls">DTLS as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Package for Transport Layer Security</h:i></h:a></selectable>
-      	        <selectable>IPsec as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i><abbr linkend="EP"/> for IPsec VPN Clients</h:i></h:a></selectable>
-      	        <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i><abbr linkend="EP"/> for Secure Shell</h:i></h:a></selectable>
+      	        <selectable>IPsec as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>EP for IPsec VPN Clients</h:i></h:a></selectable>
+      	        <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>EP for Secure Shell</h:i></h:a></selectable>
         	    </selectables>
 		    to provide a trusted communication channel between itself and
 		    authorized IT entities supporting the following capabilities:
@@ -3146,18 +3083,18 @@ the node certificate to be tested, two Intermediate CAs, and the
       	    </title>
       	    <note role="application">
               The ST author must include the security functional requirements for the trusted
-              channel protocol selected in <linkref linkend="ftp_itc_ext.1"/> in the main body of the ST.
+              channel protocol selected in <xref to="fel-trust-comms"/> in the main body of the ST.
               <h:br/>
-              If the ST author selects TLS or DTLS, the <abbr linkend="TSF"/> shall be validated
+              If the ST author selects TLS or DTLS, the TSF shall be validated
               against requirements from the
               <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Package for Transport Layer Security</h:i></h:a>.
               The TSF can act as TLS client or server, or both.
               <h:br/>
-              If the ST author selects IPsec, the <abbr linkend="TSF"/> shall be validated
-              against the <h:i><abbr linkend="EP"/> for IPsec Virtual Private Network (VPN) Clients</h:i>.
+              If the ST author selects IPsec, the TSF shall be validated
+              against the <h:i>EP for IPsec Virtual Private Network (VPN) Clients</h:i>.
               <h:br/>
-              If the ST author selects SSH, the <abbr linkend="TSF"/> shall be validated against
-              the <h:i><abbr linkend="EP"/> for Secure Shell</h:i>.
+              If the ST author selects SSH, the TSF shall be validated against
+              the <h:i>EP for Secure Shell</h:i>.
       	    </note>
       	    <aactivity>
 	      <Tests>
@@ -3171,8 +3108,8 @@ the node certificate to be tested, two Intermediate CAs, and the
 	    </aactivity>
       	  </f-element>
       	</f-component>
-        <f-component id="ftp_trp.1" name="Trusted Path">
-            <f-element id="ftp_trp.1.1">
+        <f-component cc-id="ftp_trp.1" name="Trusted Path">
+            <f-element id="fel-trust-ends">
 	      <title>
 The <h:b>OS</h:b> shall provide a communication path between itself and
 <selectables><selectable>remote</selectable><selectable>local</selectable></selectables>
@@ -3186,19 +3123,19 @@ This requirement ensures that all remote administrative actions are protected.
 Authorized remote administrators must initiate all communication with the OS via
 a trusted path and all communication with the OS by remote administrators must
 be performed over this path. The data passed in this trusted communication
-channel is encrypted as defined in <linkref linkend="ftp_itc_ext.1"/>.
+channel is encrypted as defined in <xref to="fel-trust-comms"/>.
 If local users access is selected and no unprotected traffic is sent to remote
 users, then this requirement is met.  If remote users access is selected, the
 ST author must include the security functional requirements for the trusted
 channel protocol selected in
-<linkref linkend="ftp_itc_ext.1"/> in the main body of the ST.
+<xref to="fel-trust-comms"/> in the main body of the ST.
 		</h:p>
 		<h:p>
-This requirement is tested with the  evaluation activities for  <linkref linkend="ftp_trp.1.3"/>.
+This requirement is tested with the  evaluation activities for  <xref to="fel-trust-path"/>.
 		</h:p>
 	      </note>
             </f-element>
-            <f-element id="ftp_trp.1.2">
+            <f-element id="fel-trust-users">
               <title> The <h:b>OS</h:b> shall permit
                 <selectables>
                   <selectable>the TSF</selectable>
@@ -3209,11 +3146,11 @@ This requirement is tested with the  evaluation activities for  <linkref linkend
               </title>
 	      <note role="application">
 		<h:p>
-This requirement is tested with the  evaluation activities for  <linkref linkend="ftp_trp.1.3"/>.
+This requirement is tested with the  evaluation activities for  <xref to="fel-trust-path"/>.
 		</h:p>
 	      </note>
             </f-element>
-            <f-element id="ftp_trp.1.3">
+            <f-element id="fel-trust-path">
               <title> The <h:b>OS</h:b> shall require use of the trusted path for
               [[<h:i>all remote administrative actions</h:i>]].
               </title>
@@ -3222,10 +3159,10 @@ This requirement is tested with the  evaluation activities for  <linkref linkend
 		  This requirement ensures that authorized remote administrators initiate all communication
                 with the OS via a trusted path, and that all communication with the OS by remote administrators
                 is performed over this path. The data passed in this trusted communication channel is encrypted as
-                defined in <linkref linkend="FTP_ITC_EXT.1"/>.
+                defined in FTP_ITC_EXT.1.
 	      </h:p><h:p>
 	      The evaluation activities for this requirement also test requirements
-	      <linkref linkend="FTP_TRP.1.1"/> and <linkref linkend="FTP_TRP.1.2"/>.
+	      <xref to="fel-trust-ends"/> and <xref to="fel-trust-users"/>
 	    </h:p>
               </note>
               <aactivity>
@@ -3269,41 +3206,43 @@ The evaluator will also perform the following
 	      </aactivity>
             </f-element>
         </f-component>
-      </subsection>
-    </section>
-    <section title="Security Assurance Requirements" id="SARs">
+      </section>
+    </sec:SFRs>
+    <sec:Security_Assurance_Requirements>
       <h:p>
-	The Security Objectives in <secref linkend="obj"/> were constructed to
-	address threats identified in <secref linkend="threats"/>.
-	The Security Functional Requirements (<abbr linkend="SFR"/>s) in <secref linkend="SFRs"/>
+	The Security Objectives in <xref to="Security_Objectives"/> were constructed to
+	address threats identified in <xref to="Threats"/>.
+	The Security Functional Requirements (SFRs) in <xref to="SFRs"/>
 	are a formal instantiation of the Security Objectives.
-	The PP identifies the Security Assurance Requirements (<abbr linkend="SAR"/>s) to frame
+	The PP identifies the Security Assurance Requirements (SARs) to frame
 	the extent to which the evaluator assesses the documentation applicable for the
 	evaluation and performs independent testing.
       </h:p>
       <h:p>
-	This section lists the set of <abbr linkend="SAR"/>s from CC part 3
-	that are required in evaluations against this PP. Individual evaluation activities
-	to be performed are specified both in <secref linkend="req"/> as well as in this section.
+	This section lists the set of SARs from CC part 3
+	that are required in evaluations against this PP.
+        Individual evaluation activities to be performed are specified both in 
+        <xref to="Security_Requirements"/> as well as in this section.
       </h:p>
       <h:p>
       The general model for evaluation of TOEs against STs written to conform to this PP is as follows:
       <h:br/>
-      After the <abbr linkend="ST"/> has been approved for evaluation,
-      the
-      <abbr class="expanded" title="Information Technology Security Evaluation Facility">ITSEF</abbr>
+      After the ST has been approved for evaluation, the ITSEF
       will obtain the OS, supporting environmental IT, and the administrative/user guides for
       the OS. The ITSEF is expected to perform actions mandated by the Common Evaluation
-      Methodology (CEM) for the ASE and ALC SARs. The ITSEF also performs the evaluation activities
-      contained within <secref linkend="req"/>, which are intended to be an interpretation of the
+      Methodology (CEM) for the ASE and ALC SARs.
+      The ITSEF also performs the evaluation activities contained within 
+      <xref to="Security_Requirements"/>, which are intended to be an interpretation of the
       other CEM assurance requirements as they apply to the specific technology instantiated in the
-      OS. The evaluation activities that are captured in <secref linkend="req"/> also provide
+      OS.
+      The evaluation activities that are captured in 
+      <xref to="Security_Requirements"/> also provide
       clarification as to what the developer needs to provide to demonstrate the OS is compliant
       with the PP.
       </h:p>
 
-      <subsection title="Class ASE: Security Target" id="ase">
-        The following ASE components as defined in <cite linkend="bibCEM"/> are required:
+      <section title="Class ASE: Security Target" id="ase">
+        The following ASE components as defined in <xref to="bibCEM"/> are required:
         <h:ul>
         <h:li>Conformance claims (ASE_CCL.1)</h:li>
         <h:li>Extended components definition (ASE_ECD.1)</h:li>
@@ -3313,78 +3252,75 @@ The evaluator will also perform the following
         <h:li>Security Problem Definition (ASE_SPD.1)</h:li>
         <h:li>TOE summary specification (ASE_TSS.1)</h:li>
         </h:ul>
-        The requirements for exact conformance of the Security Target are described in <secref linkend="ccl"/>.
-      </subsection>
+        The requirements for exact conformance of the Security Target are described in 
+        <xref to="Conformance_Claims"/>.
+      </section>
 
-      <subsection title="Class ADV: Development" id="adv">The information about the <abbr
-          linkend="OS"/> is contained in the guidance documentation available to the end user as
-        well as the <abbr linkend="TSS"/> portion of the <abbr linkend="ST"/>. The <abbr
-          linkend="OS"/> developer must concur with the description of the product that is
+      <section title="Class ADV: Development" id="adv">The information about the OS is contained in the guidance documentation available to the end user as
+        well as the TSS portion of the ST. The OS developer must concur with the description of the product that is
         contained in the TSS as it relates to the functional requirements. The evaluation activities
-        contained in <secref linkend="SFRs"/> should provide the <abbr linkend="ST"/> authors with
+        contained in <xref to="SFRs"/> should provide the ST authors with
         sufficient information to determine the appropriate content for the TSS section.
-          <a-component id="adv_fsp.1" name="Basic Functional Specification (ADV_FSP.1)">The
-          functional specification describes the <abbr title="TSF Interface">TSFI</abbr>s. It is not
+          <a-component cc-id="adv_fsp.1" name="Basic Functional Specification (ADV_FSP.1)">The
+          functional specification describes the TSFIs. It is not
           necessary to have a formal or complete specification of these interfaces. Additionally,
           because OSes conforming to this PP will necessarily have interfaces to
           the Operational Environment that are not directly invokable by OS
           users, there is little point specifying that such interfaces be described in and of
           themselves since only indirect testing of such interfaces may be possible. For this PP,
           the activities for this family should focus on understanding the interfaces presented in
-          the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces
+          the TSS in response to the functional requirements and the interfaces
           presented in the AGD documentation. No additional "functional specification" documentation
           is necessary to satisfy the evaluation activities specified. The interfaces that need to be
           evaluated are characterized through the information needed to perform the assurance
           activities listed, rather than as an independent, abstract list.
-	          <evalactionlabel title="Developer action elements:"/>
-            <a-element id="adv_fsp.1.1d">
+
+            <a-element type="D">
               <title>The developer shall provide a functional specification.</title>
             </a-element>
-            <a-element id="adv_fsp.1.2d">
+            <a-element type="D">
               <title>The developer shall provide a tracing from the functional specification to the
               SFRs.</title>
               <note role="application">As indicated in the introduction to this section, the
               functional specification is comprised of the information contained in the AGD_OPE and
               AGD_PRE documentation. The developer may reference a website accessible to application
               developers and the evaluator. The evaluation activities in the functional requirements
-              point to evidence that should exist in the documentation and <abbr linkend="TSS"/>
+              point to evidence that should exist in the documentation and TSS
               section; since these are directly associated with the SFRs, the tracing in element
               ADV_FSP.1.2D is implicitly already done and no additional documentation is
               necessary.</note>
             </a-element>
 	  
-	          <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="adv_fsp.1.1c">
+
+            <a-element type="C">
               <title>The functional specification shall describe the purpose and method of use for
-              each SFR-enforcing and SFR-supporting <abbr title="TSF Interface">TSFI</abbr>.</title>
+              each SFR-enforcing and SFR-supporting TSFI.</title>
             </a-element>
-            <a-element id="adv_fsp.1.2c">
+            <a-element type="C">
               <title>The functional specification shall identify all parameters associated with each
-              SFR-enforcing and SFR-supporting <abbr title="TSF Interface">TSFI</abbr>.</title>
+              SFR-enforcing and SFR-supporting TSFI.</title>
             </a-element>
-            <a-element id="adv_fsp.1.3c">
+            <a-element type="C">
               <title>The functional specification shall provide rationale for the implicit
               categorization of interfaces as SFR-non-interfering.</title>
             </a-element>
-            <a-element id="adv_fsp.1.4c">
+            <a-element type="C">
               <title>
-		The tracing shall demonstrate that the SFRs trace to
-		<abbr title="TSF Interface">TSFI</abbr>s
+		The tracing shall demonstrate that the SFRs trace to TSFIs
 		in the functional specification.
 	      </title>
             </a-element>
 	  
-	          <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="adv_fsp.1.1e">
+            <a-element type="E">
               <title>The evaluator will confirm that the information provided meets all requirements
               for content and presentation of evidence.</title>
             </a-element>
-            <a-element id="adv_fsp.1.2e">
+            <a-element type="E">
               <title>The evaluator will determine that the functional specification is an accurate
               and complete instantiation of the SFRs.</title>
               <aactivity>There are no specific evaluation activities associated with these SARs, except
               ensuring the information is provided. The functional specification documentation is
-              provided to support the evaluation activities described in <secref linkend="SFRs"/>, and
+              provided to support the evaluation activities described in <xref to="SFRs"/>, and
               other activities described for AGD, ATE, and AVA SARs. The requirements on the content
               of the functional specification information is implicitly assessed by virtue of the
               other evaluation activities being performed; if the evaluator is unable to perform an
@@ -3394,21 +3330,21 @@ The evaluator will also perform the following
             </a-element>
 	  
         </a-component>
-      </subsection>
-      <subsection id="agd" title="Class AGD: Guidance Documentation">The guidance documents will be
-        provided with the <abbr linkend="ST"/>. Guidance must include a description of how the IT
+      </section>
+      <section id="agd" title="Class AGD: Guidance Documentation">The guidance documents will be
+        provided with the ST. Guidance must include a description of how the IT
         personnel verifies that the Operational Environment can fulfill its role for the security
         functionality. The documentation should be in an informal style and readable by the IT
         personnel. Guidance must be provided for every operational environment that the product
-        supports as claimed in the <abbr linkend="ST"/>. This guidance includes instructions to
-        successfully install the <abbr linkend="TSF"/> in that environment; and Instructions to
-        manage the security of the <abbr linkend="TSF"/> as a product and as a component of the
+        supports as claimed in the ST. This guidance includes instructions to
+        successfully install the TSF in that environment; and Instructions to
+        manage the security of the TSF as a product and as a component of the
         larger operational environment. Guidance pertaining to particular security functionality is
         also provided; requirements on such guidance are contained in the Evaluation Activities
         specified with each requirement.
-	<a-component id="agd_ope.1" name="Operational User Guidance (AGD_OPE.1)">
-	          <evalactionlabel title="Developer action elements:"/>
-	    <a-element id="agd_ope.1.1d">
+	<a-component cc-id="agd_ope.1" name="Operational User Guidance (AGD_OPE.1)">
+
+	    <a-element type="D">
 	      <title>The developer shall provide operational user guidance.</title>
 	      <note role="application">The operational user guidance does not have to be contained in a
 	      single document. Guidance to users, administrators and application developers can be
@@ -3419,19 +3355,19 @@ The evaluator will also perform the following
               information for the preparation of acceptable guidance.</note>
             </a-element>
           
-	          <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="agd_ope.1.1c">
+
+            <a-element type="C">
               <title>The operational user guidance shall describe, for each user role, the
               user-accessible functions and privileges that should be controlled in a secure
               processing environment, including appropriate warnings.</title>
               <note role="application">User and administrator are to be considered in the definition
               of user role.</note>
             </a-element>
-            <a-element id="agd_ope.1.2c">
+            <a-element type="C">
               <title>The operational user guidance shall describe, for each user role, how to use the
               available interfaces provided by the OS in a secure manner.</title>
             </a-element>
-            <a-element id="agd_ope.1.3c">
+            <a-element type="C">
               <title>The operational user guidance shall describe, for each user role, the available
               functions and interfaces, in particular all security parameters under the control of
               the user, indicating secure values as appropriate.</title>
@@ -3447,56 +3383,60 @@ The evaluator will also perform the following
 		instructions for achieving the secure configuration, and any relevant rationale.
               </note>
             </a-element>
-            <a-element id="agd_ope.1.4c">
+            <a-element type="C">
               <title>The operational user guidance shall, for each user role, clearly present each
               type of security-relevant event relative to the user-accessible functions that need to
               be performed, including changing the security characteristics of entities under the
-              control of the <abbr linkend="TSF"/>.</title>
+              control of the TSF.</title>
             </a-element>
-            <a-element id="agd_ope.1.5c">
+            <a-element type="C">
               <title>The operational user guidance shall identify all possible modes of operation of
               the OS (including operation following failure or operational
               error), their consequences, and implications for maintaining secure operation.</title>
             </a-element>
-            <a-element id="agd_ope.1.6c">
+            <a-element type="C">
               <title>The operational user guidance shall, for each user role, describe the security
               measures to be followed in order to fulfill the security objectives for the
-              operational environment as described in the <abbr linkend="ST"/>.</title>
+              operational environment as described in the ST.</title>
             </a-element>
-            <a-element id="agd_ope.1.7c">
+            <a-element type="C">
               <title>The operational user guidance shall be clear and reasonable.</title>
             </a-element>
 	  
-	          <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="agd_ope.1.1e">
+
+            <a-element type="E">
               <title>The evaluator will confirm that the information provided meets all requirements
               for content and presentation of evidence. </title>
               <aactivity>Some of the contents of the operational guidance are verified by the
-              evaluation activities in <secref linkend="SFRs"/> and evaluation of the <abbr
-              linkend="OS"/> according to the <cite linkend="bibCEM"/>. The following additional
-              information is also required. If cryptographic functions are provided by the <abbr
-              linkend="OS"/>, the operational guidance shall contain instructions for configuring
-              the cryptographic engine associated with the evaluated configuration of the <abbr
-              linkend="OS"/>. It shall provide a warning to the administrator that use of other
+              evaluation activities in <xref to="SFRs"/> and evaluation of the OS according to the <xref to="bibCEM"/>.
+              The following additional information is also required.
+              If cryptographic functions are provided by the OS, the operational guidance shall contain instructions for configuring
+              the cryptographic engine associated with the evaluated configuration of the OS.
+              It shall provide a warning to the administrator that use of other
               cryptographic engines was not evaluated nor tested during the CC evaluation of the
-              OS. The documentation must describe the process for verifying
+              OS.
+              The documentation must describe the process for verifying
               updates to the OS by verifying a digital signature – this may be
-              done by the OS or the underlying platform. The evaluator will
+              done by the OS or the underlying platform.
+              The evaluator will
               verify that this process includes the following steps: Instructions for obtaining the
-              update itself. This should include instructions for making the update accessible to
-              the OS (e.g., placement in a specific directory). Instructions for
-              initiating the update process, as well as discerning whether the process was
-              successful or unsuccessful. This includes generation of the hash/digital signature.
+              update itself.
+              This should include instructions for making the update accessible to
+              the OS (e.g., placement in a specific directory).
+              Instructions for initiating the update process, as well as discerning whether the process was
+              successful or unsuccessful.
+              This includes generation of the hash/digital signature.
               The OS will likely contain security functionality that does not
-              fall in the scope of evaluation under this PP. The operational guidance shall make it
+              fall in the scope of evaluation under this PP.
+              The operational guidance shall make it
               clear to an administrator which security functionality is covered by the evaluation
               activities. </aactivity>
           </a-element>
 	  
         </a-component>
-        <a-component id="agd_pre.1" name="Preparative Procedures (AGD_PRE.1)">
-	          <evalactionlabel title="Developer action elements:"/>
-            <a-element id="agd_pre.1.1d">
+        <a-component cc-id="agd_pre.1" name="Preparative Procedures (AGD_PRE.1)">
+
+            <a-element type="D">
               <title>The developer shall provide the OS, including its preparative
               procedures.</title>
               <note role="application">As with the operational guidance, the developer should look to
@@ -3504,55 +3444,53 @@ The evaluator will also perform the following
               procedures.</note>
             </a-element>
 	  
-	          <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="agd_pre.1.1c">
+
+            <a-element type="C">
               <title>The preparative procedures shall describe all the steps necessary for secure
               acceptance of the delivered OS in accordance with the developer's
               delivery procedures.</title>
             </a-element>
-            <a-element id="agd_pre.1.2c">
+            <a-element type="C">
               <title>The preparative procedures shall describe all the steps necessary for secure
               installation of the OS and for the secure preparation of the
               operational environment in accordance with the security objectives for the operational
-              environment as described in the <abbr linkend="ST"/>.</title>
+              environment as described in the ST.</title>
             </a-element>
 	  
-	          <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="agd_pre.1.1e">
+
+            <a-element type="E">
               <title>The evaluator will confirm that the information provided meets all requirements
               for content and presentation of evidence.</title>
             </a-element>
-            <a-element id="agd_pre.1.2e">
-              <title>The evaluator will apply the preparative procedures to confirm that the <abbr
-              linkend="OS"/> can be prepared securely for operation.</title>
+            <a-element type="E">
+              <title>The evaluator will apply the preparative procedures to confirm that the OS can be prepared securely for operation.</title>
               <aactivity>As indicated in the introduction above, there are significant expectations
               with respect to the documentation—especially when configuring the operational
               environment to support OS functional requirements. The evaluator
               shall check to ensure that the guidance provided for the OS
-              adequately addresses all platforms claimed for the OS in the <abbr
-              linkend="ST"/>. </aactivity>
+              adequately addresses all platforms claimed for the OS in the ST. </aactivity>
             </a-element>
 	  
         </a-component>
-      </subsection>
-      <subsection id="alc" title="Class ALC: Life-cycle Support"> At the assurance level provided
+      </section>
+      <section id="alc" title="Class ALC: Life-cycle Support"> At the assurance level provided
         for OSes conformant to this PP, life-cycle support is limited to end-user-visible aspects of
         the life-cycle, rather than an examination of the OS vendor's development and configuration
         management process. This is not meant to diminish the critical role that a developer's
         practices play in contributing to the overall trustworthiness of a product; rather, it is a
         reflection on the information to be made available for evaluation at this assurance level.
-          <a-component id="alc_cmc.1" name="Labeling of the TOE (ALC_CMC.1)">This component is
+          <a-component cc-id="alc_cmc.1" name="Labeling of the TOE (ALC_CMC.1)">This component is
           targeted at identifying the OS such that it can be distinguished from
           other products or versions from the same vendor and can be easily specified when being
           procured by an end user.
-	          <evalactionlabel title="Developer action elements:"/>
-            <a-element id="alc_cmc.1.1d">
+
+            <a-element type="D">
               <title>The developer shall provide the OS and a reference for the
               OS.</title>
             </a-element>
 	  
-	          <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="alc_cmc.1.1c">
+
+            <a-element type="C">
               <title>The OS shall be labeled with a unique reference.</title>
               <note role="application">Unique reference information includes:
 	      <h:ul>
@@ -3564,57 +3502,54 @@ The evaluator will also perform the following
               </note>
             </a-element>
 	  
-	          <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="alc_cmc.1.1e">
+
+            <a-element type="E">
               <title>The evaluator will confirm that the information provided meets all requirements
               for content and presentation of evidence.</title>
-              <aactivity>The evaluator will check the <abbr linkend="ST"/> to ensure that it contains
+              <aactivity>The evaluator will check the ST to ensure that it contains
               an identifier (such as a product name/version number) that specifically identifies the
-              version that meets the requirements of the <abbr linkend="ST"/>. Further, the
+              version that meets the requirements of the ST. Further, the
               evaluator will check the AGD guidance and OS samples received for
-              testing to ensure that the version number is consistent with that in the <abbr
-              linkend="ST"/>. If the vendor maintains a web site advertising the <abbr
-              linkend="OS"/>, the evaluator will examine the information on the web site to
-              ensure that the information in the <abbr linkend="ST"/> is sufficient to distinguish
+              testing to ensure that the version number is consistent with that in the ST. If the vendor maintains a web site advertising the OS, the evaluator will examine the information on the web site to
+              ensure that the information in the ST is sufficient to distinguish
               the product.</aactivity>
             </a-element>
 	  
         </a-component>
-        <a-component id="alc_cms.1" name="TOE CM Coverage (ALC_CMS.1)">
+        <a-component cc-id="alc_cms.1" name="TOE CM Coverage (ALC_CMS.1)">
 	  Given the scope of the OS and its associated evaluation
 	  evidence requirements, this component's evaluation activities are covered
 	  by the evaluation activities listed for ALC_CMC.1.
-                  <evalactionlabel title="Developer action elements:"/>
-            <a-element id="alc_cms.1.1d">
+
+            <a-element type="D">
               <title>
 		The developer shall provide a configuration list for the  OS.
 	      </title>
             </a-element>
 	  
-	          <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="alc_cms.1.1c">
+
+            <a-element type="C">
               <title>The configuration list shall include the following: the OS
               itself; and the evaluation evidence required by the SARs.</title>
             </a-element>
-            <a-element id="alc_cms.1.2c">
+            <a-element type="C">
               <title>The configuration list shall uniquely identify the configuration items.</title>
             </a-element>
 	  
-                  <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="alc_cms.1.1e">
+
+            <a-element type="E">
               <title>The evaluator will confirm that the information provided meets all requirements
               for content and presentation of evidence.</title>
               <aactivity>
 		<h:p>
 		  The "evaluation evidence required by the SARs" in this PP is limited to the
-              information in the <abbr linkend="ST"/> coupled with the guidance provided to
-              administrators and users under the AGD requirements. By ensuring that the <abbr
-              linkend="OS"/> is specifically identified and that this identification is
-              consistent in the <abbr linkend="ST"/> and in the AGD guidance (as done in the
+              information in the ST coupled with the guidance provided to
+              administrators and users under the AGD requirements. By ensuring that the OS is specifically identified and that this identification is
+              consistent in the ST and in the AGD guidance (as done in the
               evaluation activity for ALC_CMC.1), the evaluator implicitly confirms the information
               required by this component. Life-cycle support is targeted aspects of the developer's
               life-cycle and instructions to providers of applications for the developer's devices,
-              rather than an in-depth examination of the <abbr linkend="TSF"/> manufacturer's
+              rather than an in-depth examination of the TSF manufacturer's
               development and configuration management process. This is not meant to diminish the
               critical role that a developer's practices play in contributing to the overall
               trustworthiness of a product; rather, it's a reflection on the information to be made
@@ -3628,17 +3563,17 @@ The evaluator will also perform the following
               environment to ensure that buffer overflow protection mechanisms in the environment(s)
               are invoked (e.g., compiler and linker flags). The evaluator will ensure that this documentation
               also includes an indication of whether such protections are on by default, or have to
-              be specifically enabled. The evaluator will ensure that the <abbr linkend="TSF"/> is
-              uniquely identified (with respect to other products from the <abbr linkend="TSF"/>
+              be specifically enabled. The evaluator will ensure that the TSF is
+              uniquely identified (with respect to other products from the TSF
               vendor), and that documentation provided by the developer in association with the
-              requirements in the <abbr linkend="ST"/> is associated with the <abbr linkend="TSF"/>
+              requirements in the ST is associated with the TSF
               using this unique identification.
 	      </h:p>
 	      </aactivity>
           </a-element>
 	  
         </a-component>
-        <a-component id="alc_tsu_ext.1" name="Timely Security Updates"> This component requires the
+        <a-component cc-id="alc_tsu_ext.1" name="Timely Security Updates"> This component requires the
           OS developer, in conjunction with any other necessary parties, to provide information as
           to how the end-user devices are updated to address security issues in a timely manner. The
           documentation describes the process of providing updates to the public from the time a
@@ -3646,22 +3581,22 @@ The evaluator will also perform the following
           includes the parties involved (e.g., the developer, carriers(s)) and the steps that are
           performed (e.g., developer testing, carrier testing), including worst case time periods,
           before an update is made available to the public.
-	          <evalactionlabel title="Developer action elements:"/>
-            <a-element id="alc_tsu_ext.1.1d">
+
+            <a-element type="D">
               <title>The developer shall provide a description in the TSS of how timely security
               updates are made to the OS.</title>
             </a-element>
-            <a-element id="alc_tsu_ext.1.2d">
+            <a-element type="D">
               <title> The developer shall provide a description in the TSS of how users are notified
               when updates change security properties or the configuration of the product. </title>
             </a-element>
 	  
-	          <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="alc_tsu_ext.1.1c">
+
+            <a-element type="C">
               <title>The description shall include the process for creating and deploying security
               updates for the OS software.</title>
             </a-element>
-            <a-element id="alc_tsu_ext.1.2c">
+            <a-element type="C">
               <title>The description shall include the mechanisms publicly available for reporting
               security issues pertaining to the OS.</title>
               <note> The reporting mechanism could include web sites, email addresses, as well as a
@@ -3669,8 +3604,8 @@ The evaluator will also perform the following
               used to encrypt the details of a proof-of-concept exploit). </note>
             </a-element>
 	  
-	          <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="alc_tsu_ext.1.1e">
+
+            <a-element type="E">
               <title>The evaluator will confirm that the information provided meets all
               requirements for content and presentation of evidence.</title>
               <aactivity>
@@ -3700,43 +3635,46 @@ The evaluator will also perform the following
             </a-element>
 	  
         </a-component>
-      </subsection>
-      <subsection id="ate" title="Class ATE: Tests">Testing is specified for functional aspects of
+      </section>
+      <section id="ate" title="Class ATE: Tests">Testing is specified for functional aspects of
         the system as well as aspects that take advantage of design or implementation weaknesses.
         The former is done through the ATE_IND family, while the latter is through the AVA_VAN
         family. At the assurance level specified in this PP, testing is based on advertised
         functionality and interfaces with dependency on the availability of design information. One
         of the primary outputs of the evaluation process is the test report as specified in the
-        following requirements. <a-component id="ate_ind.1"
-          name="Independent Testing - Conformance (ATE_IND.1)"> Testing is performed to confirm the
-          functionality described in the <abbr linkend="TSS"/> as well as the administrative
+        following requirements.
+	<a-component cc-id="ate_ind.1" name="Independent Testing - Conformance (ATE_IND.1)">
+	  Testing is performed to confirm the
+          functionality described in the TSS as well as the administrative
           (including configuration and operational) documentation provided. The focus of the testing
-          is to confirm that the requirements specified in <secref linkend="SFRs"/> being met,
-          although some additional testing is specified for SARs in <secref linkend="SARs"/>. The
+          is to confirm that the requirements specified in <xref to="SFRs"/> being met,
+          although some additional testing is specified for SARs in
+          <xref to="Security_Assurance_Requirements"/>. 
+          The
           evaluation activities identify the additional testing activities associated with these
           components. The evaluator produces a test report documenting the plan for and results of
           testing, as well as coverage arguments focused on the platform/OS
-          combinations that are claiming conformance to this PP. Given the scope of the <abbr
-            linkend="OS"/> and its associated evaluation evidence requirements, this component's
+          combinations that are claiming conformance to this PP.
+	  Given the scope of the OS and its associated evaluation evidence requirements, this component's
           evaluation activities are covered by the evaluation activities listed for ALC_CMC.1.
-	          <evalactionlabel title="Developer action elements:"/>
-            <a-element id="ate_ind.1.1d">
+
+            <a-element type="D">
               <title>The developer shall provide the OS for testing.</title>
             </a-element>
 	  
-                  <evalactionlabel title="Content and presentation elements:"/>
-            <a-element id="ate_ind.1.1c">
+
+            <a-element type="C">
               <title>The OS shall be suitable for testing.</title>
             </a-element>
 	  
-	          <evalactionlabel title="Evaluator action elements:"/>
-            <a-element id="ate_ind.1.1e">
+
+            <a-element type="E">
               <title>The evaluator <h:i>shall confirm</h:i> that the information provided meets all
               requirements for content and presentation of evidence.</title>
             </a-element>
-            <a-element id="ate_ind.1.2e">
-              <title>The evaluator will test a subset of the <abbr linkend="TSF"/> to confirm that
-              the <abbr linkend="TSF"/> operates as specified.</title>
+            <a-element type="E">
+              <title>The evaluator will test a subset of the TSF to confirm that
+              the TSF operates as specified.</title>
               <note role="application">The evaluator will test the OS on the most current fully
               patched version of the platform.</note>
               <aactivity>
@@ -3744,20 +3682,21 @@ The evaluator will also perform the following
 		  The evaluator will prepare a test plan and report documenting the testing
               aspects of the system, including any application crashes during testing. The evaluator
               shall determine the root cause of any application crashes and include that information
-              in the report. The test plan covers all of the testing actions contained in the <cite
-                linkend="bibCEM"/> and the body of this PP's evaluation activities.
+              in the report.
+              The test plan covers all of the testing actions contained in the <xref to="bibCEM"/>
+              and the body of this PP's evaluation activities.
 	      </h:p><h:p>
 	      While it is
               not necessary to have one test case per test listed in an evaluation activity, the
               evaluator must document in the test plan that each applicable testing requirement in
-              the <abbr linkend="ST"/> is covered. The test plan identifies the platforms to be
+              the ST is covered. The test plan identifies the platforms to be
               tested, and for those platforms not included in the test plan but included in the
-                <abbr linkend="ST"/>, the test plan provides a justification for not testing the
+                ST, the test plan provides a justification for not testing the
               platforms. This justification must address the differences between the tested
               platforms and the untested platforms, and make an argument that the differences do not
               affect the testing to be performed. It is not sufficient to merely assert that the
               differences have no affect; rationale must be provided. If all platforms claimed in
-              the <abbr linkend="ST"/> are tested, then no rationale is necessary. The test plan
+              the ST are tested, then no rationale is necessary. The test plan
               describes the composition of each platform to be tested, and any setup that is
               necessary beyond what is contained in the AGD documentation. It should be noted that
               the evaluator is expected to follow the AGD documentation for installation and setup
@@ -3784,33 +3723,33 @@ The evaluator will also perform the following
             </a-element>
 	  
         </a-component>
-      </subsection>
-      <subsection id="ava" title="Class AVA: Vulnerability Assessment">For the first generation of
+      </section>
+      <section id="ava" title="Class AVA: Vulnerability Assessment">For the first generation of
         this protection profile, the evaluation lab is expected to survey open sources to discover
         what vulnerabilities have been discovered in these types of products. In most cases, these
         vulnerabilities will require sophistication beyond that of a basic attacker. Until
         penetration tools are created and uniformly distributed to the evaluation labs, the
-        evaluator will not be expected to test for these vulnerabilities in the <abbr linkend="OS"
-        />. The labs will be expected to comment on the likelihood of these vulnerabilities given
+        evaluator will not be expected to test for these vulnerabilities in the OS.
+        The labs will be expected to comment on the likelihood of these vulnerabilities given
         the documentation provided by the vendor. This information will be used in the development
         of penetration testing tools and for the development of future protection profiles.
-        <a-component id="ava_van.1" name="Vulnerability Survey (AVA_VAN.1)">
-	  <evalactionlabel title="Developer action elements:"/>
-          <a-element id="ava_van.1.1d">
+        <a-component cc-id="ava_van.1" name="Vulnerability Survey (AVA_VAN.1)">
+
+          <a-element type="D">
             <title>The developer shall provide the OS for testing.</title>
           </a-element>
 	  
-	  <evalactionlabel title="Content and presentation elements:"/>
-	  <a-element id="ava_van.1.1c">
+
+	  <a-element type="C">
             <title>The OS shall be suitable for testing.</title>
           </a-element>
 	  
-	  <evalactionlabel title="Evaluator action elements:"/>
-          <a-element id="ava_van.1.1e">
+
+          <a-element type="E">
             <title>The evaluator will confirm that the information provided meets all requirements
             for content and presentation of evidence.</title>
           </a-element>
-          <a-element id="ava_van.1.2e">
+          <a-element type="E">
             <title>The evaluator will perform a search of public domain sources to identify
               potential vulnerabilities in the OS.</title>
             <note role="application">Public domain sources include the Common Vulnerabilities
@@ -3818,7 +3757,7 @@ The evaluator will also perform the following
               sources also include sites which provide free checking of files for viruses.</note>
             <!-- their Usage statement does not permit us to mention VirusTotal by name without permission -->
           </a-element>
-          <a-element id="ava_van.1.3e">
+          <a-element type="E">
             <title>The evaluator will conduct penetration testing, based on the identified
               potential vulnerabilities, to determine that the OS is resistant to
               attacks performed by an attacker possessing Basic attack potential.</title>
@@ -3845,15 +3784,9 @@ The evaluator will also perform the following
           </a-element>
 	  
         </a-component>
-      </subsection>
-    </section>
-  </chapter>
-
-  <appendix title="Optional Requirements" id="optional"/>
-
-  <appendix title="Selection-Based Requirements" id="sel-based"/>
-
-  <appendix title="Objective Requirements" id="objective"/>
+      </section>
+    </sec:Security_Assurance_Requirements>
+  </sec:Security_Requirements>
 
   <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
      <h:table>
@@ -3864,7 +3797,7 @@ The evaluator will also perform the following
 	<h:tr>
 	<h:td>FIA_UAU.1 - Timing of authentication</h:td>
 	<h:td>
-	  <linkref linkend="FIA_AFL.1"/> implicitly requires that the OS perform all necessary actions,
+	  FIA_AFL.1 implicitly requires that the OS perform all necessary actions,
 	  including those on behalf of the user who has not been authenticated,
 	  in order to authenticate;
 	  therefore it is duplicative to include these actions as a
@@ -3874,7 +3807,7 @@ The evaluator will also perform the following
 	<h:tr>
 	<h:td>FIA_UID.1 - Timing of identification</h:td>
 	<h:td>
-	  <linkref linkend="FIA_AFL.1"/> implicitly requires that the OS perform all necessary actions,
+	  FIA_AFL.1 implicitly requires that the OS perform all necessary actions,
 	  including those on behalf of the user who has not been identified,
 	  in order to authenticate;
 	  therefore it is duplicative to include these actions as a
@@ -3884,7 +3817,7 @@ The evaluator will also perform the following
 	<h:tr>
 	<h:td>FMT_SMR.1 - Security roles</h:td>
 	<h:td>
-	  <linkref linkend="FMT_MOF_EXT.1"/> specifies role-based management functions that implicitly defines
+	  FMT_MOF_EXT.1 specifies role-based management functions that implicitly defines
 	  user and privileged accounts;
 	  therefore, it is duplicative to include separate role requirements.
 	</h:td>
@@ -3892,35 +3825,35 @@ The evaluator will also perform the following
 	<h:tr>
 	<h:td>FPT_STM.1 - Reliable time stamps</h:td>
 	<h:td>
-	  <linkref linkend="FAU_GEN.1.2"/> explicitly requires that the OS associate timestamps with audit records;
+	  FAU_GEN.1.2 explicitly requires that the OS associate timestamps with audit records;
 	  therefore it is duplicative to include a separate timestamp requirement.
 	</h:td>
 	</h:tr>
 	<h:tr>
 	<h:td>FTA_SSL.1 - TSF-initiated session locking</h:td>
 	<h:td>
-	  <linkref linkend="FMT_MOF_EXT.1"/> defines requirements for managing session locking;
+ 	  FMT_MOF_EXT.1 defines requirements for managing session locking;
 	  therefore, it is duplicative to include a separate session locking requirement.
 	</h:td>
 	</h:tr>
 	<h:tr>
 	<h:td>FTA_SSL.2 - User-initiated locking</h:td>
 	<h:td>
-	  <linkref linkend="FMT_MOF_EXT.1"/> defines requirements for user-initiated session locking;
+	  FMT_MOF_EXT.1 defines requirements for user-initiated session locking;
 	  therefore, it is duplicative to include a separate session locking requirement.
 	</h:td>
 	</h:tr>
 	<h:tr>
 	<h:td>FAU_STG.1 - Protected audit trail storage</h:td>
 	<h:td>
-	  <linkref linkend="FPT_ACF_EXT.1"/> defines a requirement to protect audit logs;
+	  FPT_ACF_EXT.1 defines a requirement to protect audit logs;
 	  therefore, it is duplicative to include a separate protection of audit trail requirements.
 	</h:td>
 	</h:tr>
 	<h:tr>
 	<h:td>FAU_GEN.2 - User identity association</h:td>
 	<h:td>
-<linkref linkend="FAU_GEN.1.2"/> explicitly requires that the OS record
+	  <xref to="fel-audit-content"/> explicitly requires that the OS record
 	  any user account associated with each event; therefore, it is duplicative
 	  to include a separate requirement to associate a user account with each
 	  event.
@@ -3929,7 +3862,7 @@ The evaluator will also perform the following
 	<h:tr>
 	  <h:td>FAU_SAR.1 - Audit review</h:td>
 	  <h:td>
-	    <linkref linkend="FPT_ACF_EXT.1.2"/> requires that audit logs (and other objects)
+	    <xref to="fel-no-read"/> requires that audit logs (and other objects)
 	    are protected from reading by unprivileged users; therefore, it is duplicative
 	    to include a separate requirement to protect only the audit information.
 	  </h:td>
@@ -3947,7 +3880,7 @@ The evaluator will also perform the following
     evaluator will thoroughly understand the entropy source and why it can be relied upon to provide
     sufficient entropy. This documentation should include multiple detailed sections: design
     description, entropy justification, operating conditions, and health testing. This documentation
-    is not required to be part of the <abbr linkend="TSS"/>.
+    is not required to be part of the TSS.
     </h:p>
     <section id="entropydesign" title="Design Description">
       <h:p>
@@ -4037,30 +3970,29 @@ The evaluator will also perform the following
     </section>
   </appendix>
 
-  <appendix title="References" id="biblio">
-    <bibliography>
-      <cc-entry/>
-      <entry id="bibCEM">
-        <tag>CEM</tag>
+  <bibliography>
+    <cc-entry/>
+    <entry id="bibCEM">
+      <tag>CEM</tag>
         <description>
-          <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R5.pdf">Common
-            Evaluation Methodology for Information Technology Security - Evaluation Methodology</h:a>,
-          CCMB-2017-04-004, Version 3.1, Revision 5, April 2017. </description>
-      </entry>
-      <entry id="bibNCSC">
-        <tag>NCSC</tag>
-        <description>National Cyber Security Centre - <h:a
-            href="https://www.ncsc.gov.uk/collection/end-user-device-security">
+        <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R5.pdf">Common
+          Evaluation Methodology for Information Technology Security - Evaluation Methodology</h:a>,
+        CCMB-2017-04-004, Version 3.1, Revision 5, April 2017. </description>
+    </entry>
+    <entry id="bibNCSC">
+      <tag>NCSC</tag>
+      <description>National Cyber Security Centre - <h:a
+          href="https://www.ncsc.gov.uk/collection/end-user-device-security">
             End User Device (EUD) Security Guidance
             </h:a></description>
-      </entry>
-      <entry id="bibCSA">
+    </entry>
+    <entry id="bibCSA">
         <tag>CSA</tag>
         <description>
           <h:a href="http://csrc.nist.gov/groups/SMA/ispab/documents/csa_87.txt">Computer Security Act
             of 1987</h:a>, H.R. 145, June 11, 1987. </description>
-      </entry>
-      <entry id="bibOMB">
+    </entry>
+    <entry id="bibOMB">
         <tag>OMB</tag>
         <description>
           <h:a href="http://www.whitehouse.gov/sites/default/files/omb/memoranda/fy2006/m06-19.pdf">
@@ -4068,252 +4000,15 @@ The evaluator will also perform the following
             Cost for Security in Agency Information Technology Investments</h:a>, OMB M-06-19, July
           12, 2006.
         </description>
-      </entry>
-      <entry id="bibx509">
-        <tag>x509</tag>
-        <description>
-          <h:a href="https://tools.ietf.org/html/rfc5280">
+    </entry>
+    <entry id="bibx509">
+      <tag>x509</tag>
+      <description>
+        <h:a href="https://tools.ietf.org/html/rfc5280">
             Internet X.509 Public Key Infrastructure Certificate
              and Certificate Revocation List (CRL) Profile</h:a>, May 2008.
-        </description>
-      </entry>
-    </bibliography>
-  </appendix>
+      </description>
+    </entry>
+  </bibliography>
 
-  <appendix title="Acronyms" id="acronyms">
-    <acronyms>
-      <entry>
-        <term>AES</term>
-        <description>Advanced Encryption Standard</description>
-      </entry>
-      <entry>
-        <term>API</term>
-        <description>Application Programming Interface</description>
-      </entry>
-      <entry>
-        <term>ASLR</term>
-        <description>Address Space Layout Randomization</description>
-      </entry>
-      <entry>
-        <term>CESG</term>
-        <description>Communications-Electronics Security Group</description>
-      </entry>
-      <entry>
-        <term>CMC</term>
-        <description>Certificate Management over CMS</description>
-      </entry>
-      <entry>
-        <term>CMS</term>
-        <description>Cryptographic Message Syntax</description>
-      </entry>
-      <entry>
-        <term>CN</term>
-        <description>Common Names</description>
-      </entry>
-      <entry>
-        <term>CRL</term>
-        <description>Certificate Revocation List</description>
-      </entry>
-      <entry>
-        <term>CSA</term>
-        <description>Computer Security Act</description>
-      </entry>
-      <entry>
-        <term>DEP</term>
-        <description>Data Execution Prevention</description>
-      </entry>
-      <entry>
-        <term>DES</term>
-        <description>Data Encryption Standard</description>
-      </entry>
-      <entry>
-        <term>DHE</term>
-        <description>Diffie-Hellman Ephemeral</description>
-      </entry>
-      <entry>
-        <term>DNS</term>
-        <description>Domain Name System</description>
-      </entry>
-      <entry>
-        <term>DRBG</term>
-        <description>Deterministic Random Bit Generator</description>
-      </entry>
-      <entry>
-        <term>DSS</term>
-        <description>Digital Signature Standard</description>
-      </entry>
-      <entry>
-        <term>DT</term>
-        <description>Date/Time Vector</description>
-      </entry>
-      <entry>
-        <term>DTLS</term>
-        <description>Datagram Transport Layer Security</description>
-      </entry>
-      <entry>
-        <term>EAP</term>
-        <description>Extensible Authentication Protocol</description>
-      </entry>
-      <entry>
-        <term>ECDHE</term>
-        <description>Elliptic Curve Diffie-Hellman Ephemeral</description>
-      </entry>
-      <entry>
-        <term>ECDSA</term>
-        <description>Elliptic Curve Digital Signature Algorithm</description>
-      </entry>
-      <entry>
-        <term>EST</term>
-        <description>Enrollment over Secure Transport</description>
-      </entry>
-      <entry>
-        <term>FIPS</term>
-        <description>Federal Information Processing Standards</description>
-      </entry>
-      <entry>
-        <term>DSS</term>
-        <description>Digital Signature Standard</description>
-      </entry>
-      <entry>
-        <term>HMAC</term>
-        <description>Hash-based Message Authentication Code</description>
-      </entry>
-      <entry>
-        <term>HTTP</term>
-        <description>Hypertext Transfer Protocol</description>
-      </entry>
-      <entry>
-        <term>HTTPS</term>
-        <description>Hypertext Transfer Protocol Secure</description>
-      </entry>
-      <entry>
-        <term>DSS</term>
-        <description>Digital Signature Standard</description>
-      </entry>
-      <entry>
-        <term>IETF</term>
-        <description>Internet Engineering Task Force</description>
-      </entry>
-      <entry>
-        <term>IP</term>
-        <description>Internet Protocol</description>
-      </entry>
-      <entry>
-        <term>ISO</term>
-        <description>International Organization for Standardization</description>
-      </entry>
-      <entry>
-        <term>IT</term>
-        <description>Information Technology</description>
-      </entry>
-      <entry>
-        <term>ITSEF</term>
-        <description>Information Technology Security Evaluation Facility</description>
-      </entry>
-      <entry>
-        <term>NIAP</term>
-        <description>National Information Assurance Partnership</description>
-      </entry>
-      <entry>
-        <term>NIST</term>
-        <description>National Institute of Standards and Technology</description>
-      </entry>
-      <entry>
-        <term>OCSP</term>
-        <description>Online Certificate Status Protocol</description>
-      </entry>
-      <entry>
-        <term>OID</term>
-        <description>Object Identifier</description>
-      </entry>
-      <entry>
-        <term>OMB</term>
-        <description>Office of Management and Budget</description>
-      </entry>
-      <entry>
-        <term>OS</term>
-        <description>Operating System</description>
-      </entry>
-      <entry>
-        <term>PII</term>
-        <description>Personally Identifiable Information</description>
-      </entry>
-      <entry>
-        <term>PKI</term>
-        <description>Public Key Infrastructure</description>
-      </entry>
-      <entry>
-        <term>PP</term>
-        <description>Protection Profile</description>
-      </entry>
-      <entry>
-        <term>RBG</term>
-        <description>Random Bit Generator</description>
-      </entry>
-      <entry>
-        <term>RFC</term>
-        <description>Request for Comment</description>
-      </entry>
-      <entry>
-        <term>RNG</term>
-        <description>Random Number Generator</description>
-      </entry>
-      <entry>
-        <term>RNGVS</term>
-        <description>Random Number Generator Validation System</description>
-      </entry>
-      <entry>
-        <term>SAN</term>
-        <description>Subject Alternative Name</description>
-      </entry>
-      <entry>
-        <term>SAR</term>
-        <description>Security Assurance Requirement</description>
-      </entry>
-      <entry>
-        <term>SFR</term>
-        <description>Security Functional Requirement</description>
-      </entry>
-      <entry>
-        <term>SHA</term>
-        <description>Secure Hash Algorithm</description>
-      </entry>
-      <entry>
-        <term>S/MIME</term>
-        <description>Secure/Multi-purpose Internet Mail Extensions</description>
-      </entry>
-      <entry>
-        <term>SIP</term>
-        <description>Session Initiation Protocol</description>
-      </entry>
-      <entry>
-        <term>SWID</term>
-        <description>Software Identification</description>
-      </entry>
-      <entry>
-        <term>TLS</term>
-        <description>Transport Layer Security</description>
-      </entry>
-      <entry>
-        <term>URI</term>
-        <description>Uniform Resource Identifier</description>
-      </entry>
-      <entry>
-        <term>URL</term>
-        <description>Uniform Resource Locator</description>
-      </entry>
-      <entry>
-        <term>USB</term>
-        <description>Universal Serial Bus</description>
-      </entry>
-      <entry>
-        <term>XCCDF</term>
-        <description>eXtensible Configuration Checklist Description Format</description>
-      </entry>
-      <entry>
-        <term>XOR</term>
-        <description>Exclusive Or</description>
-      </entry>
-    </acronyms>
-  </appendix>
 </PP>
