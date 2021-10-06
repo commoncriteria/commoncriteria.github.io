@@ -2678,12 +2678,10 @@ The following sections list Common Criteria and technology terms used in this do
 					The application shall use X.509v3 certificates as defined by <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 to support authentication for 
 					[<b>selection</b>: <i id="_s_115"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></i>, <i id="_s_116"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>, <i id="_s_117"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></i>, <i id="_s_118"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></i>, <i id="_s_119">IPsec</i>]. 
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author's selection shall match the selection in <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.<p></p> 
-					This requirement is included if the protocol(s) selected in <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a> 
-					require the use of certificates to authenticate the remote entity. For example, 
-					if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or platform implements <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server with no mutual 
-					authentication, X509 authentication is not claimed for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or 
-					platform operates as a <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client, X509 authentication must be claimed. 					
+					This requirement is included if the protocol(s) selected in <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a> require the use of certificates
+					to authenticate the remote entity. For example, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or platform implements <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server
+					with no mutual authentication, X509 authentication is not claimed for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or platform operates
+					as a <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client, X509 authentication must be claimed.				
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_X509_EXT.2.2"><a href="#FIA_X509_EXT.2.2" class="abbr">FIA_X509_EXT.2.2</a></div><div class="reqdesc">
 					When the application cannot establish a connection to determine the validity of a 
@@ -2898,7 +2896,7 @@ The following sections list Common Criteria and technology terms used in this do
 							locally.</div></div></div>
 						<div class="dependent">Platforms:<a href="#linux">Linux...
           </a><div class="dependent-content"><div> 
-							The evaluator shall run the command <code>find . -perm /002</code> 
+							The evaluator shall run the command <code>find -L . -perm /002</code> 
 							inside the application's data directories to ensure that all files are 
 							not world-writable. The command should not print any files.
 						</div></div></div>
@@ -3309,19 +3307,73 @@ The following sections list Common Criteria and technology terms used in this do
 						</p>
 					<br/>
 				</div></div></div>
+		
+		
+	    <div class="comp" id="FPT_IDV_EXT.1"><h4>FPT_IDV_EXT.1 Software Identification and Versions</h4>
+			<div class="element"><div class="reqid" id="FPT_IDV_EXT.1.1"><a href="#FPT_IDV_EXT.1.1" class="abbr">FPT_IDV_EXT.1.1</a></div><div class="reqdesc">The application shall be versioned with
+					[<b>selection</b>: <i id="_s_137"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags 
+							that comply with minimum requirements from <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015                 
+						</i>, <i id="_s_138">[<b>assignment</b>: 
+     <span class="assignable-content">other version information</span>]</i>].
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">The use of <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tag to identify application software
+					is a requirement for DOD <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> based on DoD Instruction 8500.01 which requires
+					the use of SCAP which includes <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags per the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> standard. The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> selection
+					of "other version information" will be removed in the next major release of
+					this protection profile. Vendors should begin to version software with valid <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags.
+					<p></p>
+					Valid <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags must contain a SoftwareIdentity element and an Entity element as 
+					defined in the <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015 standard. <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags must be stored with a .swidtag 
+					file extensions as defined in the <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015.
+				</span></div></div></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></div>
+					
+					
+					
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+						If "other version information" is selected the evaluator shall verify that the 
+						<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains an explanation of the versioning methodology.<p></p>
+					<div class="eacategory">Guidance</div>None.<p></p><div class="eacategory">Tests</div>
+						The evaluator shall install the application, then check for the
+						existence of version information. If <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags is selected the evaluator shall 
+						check for a .swidtag file. The evaluator shall open the file and verify that 
+						is contains at least a SoftwareIdentity element and an Entity element.
+					</div></div></div>
+   
+		
+        <div class="comp" id="FPT_LIB_EXT.1"><h4>FPT_LIB_EXT.1 Use of Third Party Libraries</h4>
+			<div class="element"><div class="reqid" id="FPT_LIB_EXT.1.1"><a href="#FPT_LIB_EXT.1.1" class="abbr">FPT_LIB_EXT.1.1</a></div><div class="reqdesc"> The application shall be packaged with only
+					[<b>assignment</b>: 
+     <span class="assignable-content">list of third-party libraries</span>]. 
+				<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
+					The intention of this requirement is for the evaluator to discover and document whether the 
+					application is including unnecessary or unexpected third-party libraries.  This includes
+					adware libraries which could present a privacy threat, as well as ensuring
+					documentation of such libraries in case vulnerabilities are later discovered.
+				</span></div></div></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></div> 
+					
+					
+					
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>None.<p></p><div class="eacategory">Guidance</div>None.<p></p><div class="eacategory">Tests</div>
+						The evaluator shall install the application and survey its installation directory for 
+						dynamic libraries. 
+						The evaluator shall verify that libraries found to be packaged with or employed by the 
+						application are limited to those in the assignment.
+					</div></div></div>
 	      
-	      
+	          
+		
 		
 		
         <div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4>
-			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <i id="_s_137">provide the ability</i>, <i id="_s_138">leverage the platform</i>] to check for updates and patches to the application software. 
+			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <i id="_s_139">provide the ability</i>, <i id="_s_140">leverage the platform</i>] to check for updates and patches to the application software. 
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This requirement is about the ability to "check" for updates.
 					The actual installation of any updates should be done by the platform. This requirement
 					is intended to ensure that the application can check for updates provided by the vendor,
 					as updates provided by another source may contain malicious code.
 				</span></div></div></div>
-			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The application shall [<b>selection</b>: <i id="_s_139">provide the ability</i>, <i id="_s_140">leverage the platform</i>]
+			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The application shall [<b>selection</b>: <i id="_s_141">provide the ability</i>, <i id="_s_142">leverage the platform</i>]
 					to query the current version of the application software.
 				</div></div>
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.3"><a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a></div><div class="reqdesc"> 
@@ -3373,7 +3425,12 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory">Guidance</div>None.<p></p><br/>
 					<div class="eacategory">Tests</div>
 						The evaluator shall verify that the application's executable files are
-						not changed by the application. The evaluator shall complete the following test:
+						not changed by the application. 
+						<div class="dependent">Platforms:<a href="#ios">Apple iOS...
+          </a><div class="dependent-content"><div>The evaluator shall consider the requirement met because the platform forces
+							applications to write all data within the application working directory (sandbox).
+						</div></div></div>
+						<br/>For all other platforms, the evaluator shall perform the following test:
 						<ul>
 							<li><b>Test 1: </b>The evaluator shall install the application and then locate all of its executable files. 
 								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
@@ -3519,57 +3576,6 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory">Tests</div>None.<br/>
 				</div></div></div>
        
-        <div class="comp" id="FPT_LIB_EXT.1"><h4>FPT_LIB_EXT.1 Use of Third Party Libraries</h4>
-			<div class="element"><div class="reqid" id="FPT_LIB_EXT.1.1"><a href="#FPT_LIB_EXT.1.1" class="abbr">FPT_LIB_EXT.1.1</a></div><div class="reqdesc"> The application shall be packaged with only
-					[<b>assignment</b>: 
-     <span class="assignable-content">list of third-party libraries</span>]. 
-				<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> 
-					The intention of this requirement is for the evaluator to discover and document whether the 
-					application is including unnecessary or unexpected third-party libraries.  This includes
-					adware libraries which could present a privacy threat, as well as ensuring
-					documentation of such libraries in case vulnerabilities are later discovered.
-				</span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></div> 
-					
-					
-					
-				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>None.<p></p><div class="eacategory">Guidance</div>None.<p></p><div class="eacategory">Tests</div>
-						The evaluator shall install the application and survey its installation directory for 
-						dynamic libraries. 
-						The evaluator shall verify that libraries found to be packaged with or employed by the 
-						application are limited to those in the assignment.
-					</div></div></div>
-	      
-	      
-        <div class="comp" id="FPT_IDV_EXT.1"><h4>FPT_IDV_EXT.1 Software Identification and Versions</h4>
-			<div class="element"><div class="reqid" id="FPT_IDV_EXT.1.1"><a href="#FPT_IDV_EXT.1.1" class="abbr">FPT_IDV_EXT.1.1</a></div><div class="reqdesc">The application shall be versioned with
-					[<b>selection</b>: <i id="_s_143"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags 
-							that comply with minimum requirements from <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015                 
-						</i>, <i id="_s_144">[<b>assignment</b>: 
-     <span class="assignable-content">other version information</span>]</i>].
-				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">The use of <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tag to identify application software
-					is a requirement for DOD <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> based on DoD Instruction 8500.01 which requires
-					the use of SCAP which includes <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags per the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> standard. The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> selection
-					of "other version information" will be removed in the next major release of
-					this protection profile. Vendors should begin to version software with valid <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags.
-					<p></p>
-					Valid <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags must contain a SoftwareIdentity element and an Entity element as 
-					defined in the <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015 standard. <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags must be stored with a .swidtag 
-					file extensions as defined in the <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015.
-				</span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></div>
-					
-					
-					
-				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						If "other version information" is selected the evaluator shall verify that the 
-						<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains an explanation of the versioning methodology.<p></p>
-					<div class="eacategory">Guidance</div>None.<p></p><div class="eacategory">Tests</div>
-						The evaluator shall install the application, then check for the
-						existence of version information. If <abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags is selected the evaluator shall 
-						check for a .swidtag file. The evaluator shall open the file and verify that 
-						is contains at least a SoftwareIdentity element and an Entity element.
-					</div></div></div>
 
       
 	    
