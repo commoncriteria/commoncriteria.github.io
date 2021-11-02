@@ -872,9 +872,10 @@ The following sections list Common Criteria and technology terms used in this do
 					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> protections, or access tenant data through hardware attacks such as probing, physical
 					manipulation, fault-injection, side-channel analysis, environmental stress, or activating
 					disabled features or pre-delivery services. This threat is addressed by <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objectives 
-					for the use cases listed below. For other use cases, this threat is mitigated by Operational 
-					Environment Objectives as mapped to Assumptions. 
-					use cases:<ul>
+					O.PHYSICAL_SECURITY and <a href="#O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</a> for the use cases listed below. 
+					For other use cases, this threat is mitigated by Operational Environment Objective 
+					<a href="#OE.PHYSICAL_PROTECTION">OE.PHYSICAL_PROTECTION</a> as mapped to Assumption <a href="#A.PHYSICAL_PROTECTION">A.PHYSICAL_PROTECTION</a>. 
+					<ul>
 						<li>Server-Class Platform, Enhanced</li>
 						<li>Portable Clients (laptops, tablets), Enhanced</li>
 						<li>CSfC <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr></li>
@@ -904,7 +905,17 @@ The following sections list Common Criteria and technology terms used in this do
     <h2 class="indexable" data-level="2" id="assumptions">3.2 Assumptions</h2>
 		<dl><dt class="assumption,defined" id="A.PHYSICAL_PROTECTION">A.PHYSICAL_PROTECTION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is assumed to be physically protected in its operational environment and
 					thus is not subject to physical attacks that could compromise its security or its ability
-					to support the security of tenant workloads. </dd><dt class="assumption,defined" id="A.ROT_INTEGRITY">A.ROT_INTEGRITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes one or more Roots of Trust composed of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware, hardware, and
+					to support the security of tenant workloads. This assumption does not apply if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					implements any of the below, in which case physical protection from the 
+					Operational Environment is not assumed and the threat <a href="#T.PHYSICAL">T.PHYSICAL</a> and its
+					associated <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objectives apply:
+					<ul>
+						<li>Server-Class Platform, Enhanced</li>
+						<li>Portable Clients (laptops, tablets), Enhanced</li>
+						<li>CSfC <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr></li>
+						<li>Tactical <abbr class="dyn-abbr"><a href="#abbr_EUD">EUD</a></abbr></li>
+						<li>IoT Devices</li></ul>
+					</dd><dt class="assumption,defined" id="A.ROT_INTEGRITY">A.ROT_INTEGRITY</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes one or more Roots of Trust composed of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> firmware, hardware, and
 					pre-installed credentials. Roots of Trust are assumed to be free of malicious capabilities as
 					their integrity cannot be verified. </dd><dt class="assumption,defined" id="A.TRUSTED_ADMIN">A.TRUSTED_ADMIN</dt><dd> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Administrator are assumed to be trusted and to act in the best interest
 					of security for the organization. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is not expected to be capable of defending against a 
@@ -944,6 +955,7 @@ The following sections list Common Criteria and technology terms used in this do
 					<li>Requirements for disabling or protection of external debug interfaces</li>
 					<li>Requirements for updateability</li>
 					<li>Requirements for environmental shielding</li></ul>
+					This Objective applies only if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> immplements a use case that addresses the threat <a href="#T.PHYSICAL">T.PHYSICAL</a>.
 				</dd><dt class="SO,defined" id="O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must be capable of detecting attempts to compromise the physical or logical integrity
 					of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and respond by notifying a user or reporting the attempt to an enterprise security
 					authority. This includes specification of:<ul>
@@ -1034,11 +1046,12 @@ The following sections list Common Criteria and technology terms used in this do
 						objective supports detection and reporting of attempts to compromise the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a><br/></td><td><a href="#O.MITIGATE_FUNDAMENTAL_FLAWS">O.MITIGATE_FUNDAMENTAL_FLAWS</a></td><td>The threat <a href="#T.SIDE_CHANNEL_LEAKAGE">T.SIDE_CHANNEL_LEAKAGE</a> is countered by <a href="#O.MITIGATE_FUNDAMENTAL_FLAWS">O.MITIGATE_FUNDAMENTAL_FLAWS</a> as this
 						objective supports the remedy of critical flaws through update or other technical or
 						operational means.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PERSISTENCE">T.PERSISTENCE</a><br/></td><td><a href="#O.PROTECTED_FIRMWARE">O.PROTECTED_FIRMWARE</a></td><td>The threat <a href="#T.PERSISTENCE">T.PERSISTENCE</a> is countered by <a href="#O.PROTECTED_FIRMWARE">O.PROTECTED_FIRMWARE</a> as this
-						objective supports maintenance of platform firmware integrity.</td></tr><tr class="major-row"><td rowspan="2"><a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a><br/></td><td><a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a></td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by <a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a> as this
+						objective supports maintenance of platform firmware integrity.</td></tr><tr class="major-row"><td rowspan="3"><a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a><br/></td><td><a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a></td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by <a href="#O.UPDATE_INTEGRITY">O.UPDATE_INTEGRITY</a> as this
 						objective supports ensuring that platform firmware updates are authentic and 
 						properly validated prior to installation.</td></tr><tr><td><a href="#O.STRONG_CRYPTOGRAPHY">O.STRONG_CRYPTOGRAPHY</a></td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by <a href="#O.STRONG_CRYPTOGRAPHY">O.STRONG_CRYPTOGRAPHY</a> as this
 						objective supports use of proven, standards-based cryptographic mechanisms 
-						for ensuring that updates are authentic and maintain their integrity.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a><br/></td><td><a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a></td><td>The threat <a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a> is countered by <a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a>
+						for ensuring that updates are authentic and maintain their integrity.</td></tr><tr><td><a href="#O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</a></td><td>The threat <a href="#T.UPDATE_COMPROMISE">T.UPDATE_COMPROMISE</a> is countered by <a href="#O.ATTACK_DETECTION_AND_RESPONSE">O.ATTACK_DETECTION_AND_RESPONSE</a> as this
+						objective supports detection and reporting of attempts to compromise the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a><br/></td><td><a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a></td><td>The threat <a href="#T.SECURITY_FUNCTIONALITY_FAILURE">T.SECURITY_FUNCTIONALITY_FAILURE</a> is countered by <a href="#O.SECURITY_FUNCTIONALITY_INTEGRITY">O.SECURITY_FUNCTIONALITY_INTEGRITY</a>
 						as this objective supports integrity and proper functioning of security functionality.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.TENANT_BASED_ATTACK">T.TENANT_BASED_ATTACK</a><br/></td><td><a href="#O.TENANT_SECURITY">O.TENANT_SECURITY</a></td><td>The threat <a href="#T.TENANT_BASED_ATTACK">T.TENANT_BASED_ATTACK</a> is countered by <a href="#O.TENANT_SECURITY">O.TENANT_SECURITY</a> as this
 						objective supports tenant-based security mechanisms to prevent tenant compromise.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.NETWORK_BASED_ATTACK">T.NETWORK_BASED_ATTACK</a><br/></td><td><a href="#O.TRUSTED_CHANNELS">O.TRUSTED_CHANNELS</a></td><td>The threat <a href="#T.NETWORK_BASED_ATTACK">T.NETWORK_BASED_ATTACK</a> is countered by <a href="#O.TRUSTED_CHANNELS">O.TRUSTED_CHANNELS</a> as this
 						provides for integrity and confidentiality of transmitted data.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</a><br/></td><td><a href="#O.CONFIGURATION_INTEGRITY">O.CONFIGURATION_INTEGRITY</a></td><td>The threat <a href="#T.UNAUTHORIZED_RECONFIGURATION">T.UNAUTHORIZED_RECONFIGURATION</a> is countered by <a href="#O.CONFIGURATION_INTEGRITY">O.CONFIGURATION_INTEGRITY</a> as this
