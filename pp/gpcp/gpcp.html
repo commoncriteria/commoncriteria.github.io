@@ -5060,11 +5060,13 @@ The following sections list Common Criteria and technology terms used in this do
 			<div class="element"><div class="reqid" id="FIA_AFL_EXT.1.1"><a href="#FIA_AFL_EXT.1.1" class="abbr">FIA_AFL_EXT.1.1</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall consider password and [<i>no other</i>] as critical authentication mechanisms.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <a href="#FIA_UAU.5">FIA_UAU.5</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.<p></p>
+					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <a href="#FIA_UAU.5">FIA_UAU.5</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. <a href="#FIA_UAU.5">FIA_UAU.5</a> specifies 
+					all mechanisms for authentication of Administrators. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> specifies the actions to be taken
+					in the event of multiple autnentication failures.<p></p>
 
 					This requirement applies to both critical and non-critical authentication mechanisms. The difference 
-					between the two is that excessive authentication failures using critical authentication mechanisms 
-					result in the wiping of all protected data (see FIA_AFL_EXT1.5.).
+					between the two is that excessive authentication failures of critical authentication mechanisms 
+					result in the wiping of all protected data (see <a href="#FIA_AFL_EXT.1.5">FIA_AFL_EXT.1.5</a>.).
 					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements multiple Authentication Factor interfaces (for example, a <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> decryption
 					interface, a lockscreen interface, an auxiliary boot mode interface), this element applies
 					to all available interfaces. For example, a password is a critical authentication mechanism 
@@ -5078,16 +5080,20 @@ The following sections list Common Criteria and technology terms used in this do
 					of [<b>selection</b>: <i id="_s_581">unique</i>, <i id="_s_582">non-unique</i>] unsuccessful authentication attempts occur related to last successful authentication for
 					each authentication mechanism.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					The positive integer(s) is configured according to <a onclick="showTarget('t-manfunc')" href="#t-manfunc" class="t-manfunc-ref">Table <span class="counter">14</span></a> in <a href="#FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</a>.<p></p>
-					An unique authentication attempt is defined as any attempt to verify a password 
+					The positive integer is configured according to <a onclick="showTarget('t-manfunc')" href="#t-manfunc" class="t-manfunc-ref">Table <span class="counter">14</span></a> in <a href="#FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</a>.<p></p>
+					An unique authentication attempt is defined as any attempt to verify a authentication attempt
 					in which the input is different from a previous attempt. ‘Unique’ must be selected if
 					the authentication system increments the counter only for unique unsuccessful authentication
 					attempts. For example, if the same incorrect password is attempted twice the authentication 
 					system increments the counter once. "<i>Non-unique</i>" must be selected if the authentication system 
-					increments the counter for each unsuccessful authentication attempt, regardless of if the
+					increments the counter for each unsuccessful authentication attempt, regardless of whether the
 					input is unique. For example, if the same incorrect password is attempted twice the
 					authentication system increments the counter twice.<p></p>
-
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports multiple authentication mechanisms per <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, this element applies
+					to all authentication mechanisms. It is acceptable for each authentication mechanism to
+					utilize an independent counter or for multiple authentication mechanisms to utilize a shared 
+					counter. The interaction between the authentication factors with regard to the authentication
+					counter must be in accordance with <a href="#FIA_UAU.5.2">FIA_UAU.5.2</a>.<p></p>
 					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements multiple Authentication Factor interfaces (for example, a <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> decryption 
 					interface, a lockscreen interface, an auxiliary boot mode interface), this element applies
 					to all available interfaces. However, it is acceptable for each Authentication Factor interface
@@ -5106,16 +5112,17 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_AFL_EXT.1.4"><a href="#FIA_AFL_EXT.1.4" class="abbr">FIA_AFL_EXT.1.4</a></div><div class="reqdesc">
 					When the defined number of unsuccessful authentication attempts has exceeded the maximum
-					allowed for a given authentication mechanism, all future authentication attempts will be
+					allowed for a given authentication mechanism, all future authentication attempts shall be
 					limited to other available authentication mechanisms, unless the given mechanism is designated
-					as a critical authentication mechanism. See <a href="#FIA_AFL_EXT.1.5">FIA_AFL_EXT.1.5</a>.
+					as a critical authentication mechanism. 
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
+					See <a href="#FIA_AFL_EXT.1.5">FIA_AFL_EXT.1.5</a> for exceeding the maximum failure threshold for critical authentication mechanisms.<p></p>
 					In accordance with <a href="#FIA_AFL_EXT.1.3">FIA_AFL_EXT.1.3</a>, this requirement also applies after the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is powered off 
 					and powered back on.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_AFL_EXT.1.5"><a href="#FIA_AFL_EXT.1.5" class="abbr">FIA_AFL_EXT.1.5</a></div><div class="reqdesc">
 					When the defined number of unsuccessful authentication attempts for the last available
-					authentication mechanism or single critical authentication mechanism has been surpassed, the 
+					authentication mechanism or a critical authentication mechanism has been surpassed, the 
 					<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform a wipe of all protected data.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					Wipe is performed in accordance with <a href="#FCS_CKM_EXT.4">FCS_CKM_EXT.4</a>. Protected data is all non-TSF data, 
@@ -6639,9 +6646,9 @@ The following sections list Common Criteria and technology terms used in this do
 						<li>Notify an 
 						[<b>selection</b>: <i id="sel-tud2-admin-notify">administrator</i>, <i id="_s_665">user</i>] by 
 							[<b>selection</b>: <i id="sel-tud2-audit">generating an audit event</i>, <i id="_s_667">[<b>assignment</b>: 
-     <span class="assignable-content">notification method</span>]</i>]
+     <span class="assignable-content">notification method</span>]</i>],
 						</li>
-					</ul>, and
+					</ul>and
 					[<b>selection</b>: <ul><li style=""><i id="_s_668">Continue execution</i>, </li><li style=""><i id="_s_669">Halt</i>, </li><li style=""><i id="_s_670">Stop all execution and shut down</i>, </li><li style=""><i id="sel-tud2-recovery">Initiate recovery as specified in <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a></i></li></ul>]			
 					[<b>selection</b>: <ul><li style=""><i id="_s_672">automatically</i>, </li><li style=""><i id="sel-tud2-admin-config">in accordance with administrator-configurable policy</i>, </li><li style=""><i id="_s_674">by express determination of an [<b>selection</b>: <i id="sel-tud2-admin-det">administrator</i>, <i id="_s_676">user</i>]</i></li></ul>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
@@ -6836,7 +6843,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.4.2"><a href="#FPT_TUD_EXT.4.2" class="abbr">FPT_TUD_EXT.4.2</a></div><div class="reqdesc">
 					The 
-					[<b>selection</b>: <i id="sel-tud4-admin-assert">Administrator</i>, <i id="_s_692">User</i>]shall assert physical presence to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> through: 
+					[<b>selection</b>: <i id="sel-tud4-admin-assert">Administrator</i>, <i id="_s_692">User</i>] shall assert physical presence to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> through: 
 					[<b>selection</b>: <ul><li style=""><i id="_s_693">login to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a physically connected console or terminal</i>, </li><li style=""><i id="_s_694">physical connection of a jumper or cable</i>, </li><li style=""><i id="_s_695">connection to a debug port</i>, </li><li style=""><i id="_s_696">[<b>assignment</b>: 
      <span class="assignable-content">description of other mechanism for asserting physical presence</span>]</i></li></ul>]
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
@@ -7835,12 +7842,12 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					upon power off.
 				<h4 id="ext-comp-FIA_AFL_EXT.1.4">FIA_AFL_EXT.1.4</h4>
 					When the defined number of unsuccessful authentication attempts has exceeded the maximum
-					allowed for a given authentication mechanism, all future authentication attempts will be
+					allowed for a given authentication mechanism, all future authentication attempts shall be
 					limited to other available authentication mechanisms, unless the given mechanism is designated
-					as a critical authentication mechanism. See <a href="#FIA_AFL_EXT.1.5">FIA_AFL_EXT.1.5</a>.
+					as a critical authentication mechanism. 
 				<h4 id="ext-comp-FIA_AFL_EXT.1.5">FIA_AFL_EXT.1.5</h4>
 					When the defined number of unsuccessful authentication attempts for the last available
-					authentication mechanism or single critical authentication mechanism has been surpassed, the 
+					authentication mechanism or a critical authentication mechanism has been surpassed, the 
 					<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform a wipe of all protected data.
 				<h4 id="ext-comp-FIA_AFL_EXT.1.6">FIA_AFL_EXT.1.6</h4>
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall increment the number of unsuccessful authentication attempts prior to notifying the 
