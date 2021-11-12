@@ -4619,30 +4619,30 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						selected key size. This 3-tuple of plaintext, IV, and key is provided as input to the
 						below algorithm to generate the remaining 99 3-tuples, and to run each 3-tuple
 						through 1000 iterations of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC encryption.<p></p>
-					<pre>
-					# Input: PT, IV, Key
-					Key[0] = Key
-					IV[0] = IV
-					PT[0] = PT
-					for i = 0 to 99 {
-						Output Key[i], IV[i], PT[0]
-						for j = 0 to 999 {
-							if (j == 0) {
-								CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], IV[i], PT[j])
-								PT[j+1] = IV[i]
-							} else {
-								CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], PT[j])
-								PT[j+1] = CT[j-1]
-							}
+				<pre>
+				# Input: PT, IV, Key
+				Key[0] = Key
+				IV[0] = IV
+				PT[0] = PT
+				for i = 0 to 99 {
+					Output Key[i], IV[i], PT[0]
+					for j = 0 to 999 {
+						if (j == 0) {
+							CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], IV[i], PT[j])
+							PT[j+1] = IV[i]
+						} else {
+							CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], PT[j])
+							PT[j+1] = CT[j-1]
 						}
-						Output CT[j]
-						If (KeySize == 128) Key[i+1] = Key[i] xor CT[j] 
-						If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
-						If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
-						IV[i+1] = CT[j]
-						PT[0] = CT[j-1]
 					}
-					</pre><p></p>
+					Output CT[j]
+					If (KeySize == 128) Key[i+1] = Key[i] xor CT[j] 
+					If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
+					If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
+					IV[i+1] = CT[j]
+					PT[0] = CT[j-1]
+				}
+				</pre>	<p></p>
 						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
 						the 100 3-tuples for each selected key size. This result shall be compared to the
 						result of running 1000 iterations with the same values using a known good
@@ -4793,21 +4793,21 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						algorithm to generate the remaining 99 2-tuples, and to run each 2-tuple through
 						1000 iterations of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR encryption.<p></p>
 				<pre>
-					# Input: PT, Key
-					Key[0] = Key
-					PT[0] = PT
-					for i = 0 to 99 {
-						Output Key[i], PT[0]
-						for j = 0 to 999 {
-							CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Encrypt(Key[i], PT[j])
-							PT[j+1] = CT[j]
-						}
-						Output CT[j]
-						If (KeySize == 128) Key[i+1] = Key[i] xor CT[j]
-						If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
-						If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
-						PT[0] = CT[j]
+				# Input: PT, Key
+				Key[0] = Key
+				PT[0] = PT
+				for i = 0 to 99 {
+					Output Key[i], PT[0]
+					for j = 0 to 999 {
+						CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Encrypt(Key[i], PT[j])
+						PT[j+1] = CT[j]
 					}
+					Output CT[j]
+					If (KeySize == 128) Key[i+1] = Key[i] xor CT[j]
+					If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
+					If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
+					PT[0] = CT[j]
+				}
 				</pre><p></p>
 						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
 						the 100 2-tuples for each selected key size. This result shall be compared to the
@@ -6536,111 +6536,88 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 			
 			
 			
-			<div class="element"><div class="reqid" id="FMT_SMF_EXT.1.1"><a href="#FMT_SMF_EXT.1.1" class="abbr">FMT_SMF_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions: <p></p>
+			<div class="element"><div class="reqid" id="FMT_SMF_EXT.1.1"><a href="#FMT_SMF_EXT.1.1" class="abbr">FMT_SMF_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support Administrators performing the following management functions: <p></p>
 					<b><span class="ctr" data-myid="t-manfunc" data-counter-type="ct-Table" id="t-manfunc">Table <span class="counter">14</span>: Management Functions</span></b><p></p> 
-						Status Markers:<br/> M - Mandatory<br/> O - Optional/Objective<br/>
-						
-					<div class="table-key" style="border-style: solid; padding: 5px;">
-						M = Mandatory (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide that function to that role)<br/>
-						O = Optional (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may or may not provide that function to that role)<br/>
-						S = Selection-Based (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide that function to that role if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> claims a particular selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)<br/>
-					</div>
                     <table>
                         <tr>
 							<th>Number</th> 
                             <th>Function</th> 
-                            <th>Admin</th> 
                             <th>Notes</th> 
                         </tr>
 		    
                         <tr>
                             <td>1</td>
                             <td>Ability to configure and manage the audit functionality and audit data</td>
-                            <td>X</td>
                             <td>See <a href="#FAU_GEN.1">FAU_GEN.1</a>.</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Ability to configure name/address of audit/logging server to which to send audit/logging records</td>
-                            <td>X</td>
                             <td>See <a href="#FAU_STG_EXT.1">FAU_STG_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Ability to review audit records.</td>
-                            <td>X</td>
                             <td>See <a href="#FAU_SAR.1">FAU_SAR.1</a>.</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Ability to configure the cryptographic functionality.</td>
-                            <td>X</td>
                             <td>See <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>Ability to initiate a trusted channel for remote administration.</td>
-                            <td>X</td>
                             <td>See <a href="#FTP_TRP.1">FTP_TRP.1</a>.</td>
                         </tr>
                         <tr>
                             <td>6</td>
                             <td>Ability to set parameters for allowable number of authentication failures.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>7</td>
                             <td>Ability to configure password length and complexity.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_PMG_EXT.1">FIA_PMG_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td>Ability to configure authentication throttling policy.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_TRT_EXT.1">FIA_TRT_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>9</td>
                             <td>Ability to manage authentication methods and change default authorization factors</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_PMG_EXT.1">FIA_PMG_EXT.1</a></td>
                         </tr>
                         <tr>
                             <td>10</td>
                             <td>Ability to configure of certificate revocation checking methods.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>11</td>
                             <td>Ability to configure <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> behavior when certificate revocation status cannot be determined.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.</td>
                         </tr>
                         <tr>
                             <td>12</td>
                             <td>Ability to configure action to take on integrity failure.</td>
-                            <td>X</td>
                             <td>See <a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>, <a href="#FPT_ROT_EXT.3">FPT_ROT_EXT.3</a>, and <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>13</td>
                             <td>Ability to initiate the update process.</td>
-                            <td>X</td>
                             <td>See <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>14</td>
                             <td>Ability to action to take on update failure.</td>
-                            <td>X</td>
                             <td>See <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> and <a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a>.</td>
                         </tr>
                         <tr>
                             <td>15</td>
                             <td>Ability to manage import and export keys/secrets to and from protected storage.</td>
-                            <td>X</td>
                             <td>See <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>.</td>
                         </tr>
                     </table><br/>]
@@ -6651,11 +6628,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					travel on a network. <p></p>
 					The first column lists the management function number. The second column lists the management functions
 					identified in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. <p></p>
-					In the following columns: <ul>
-						<li>‘M’ means Mandatory</li>
-						<li>‘O’ means Optional/Objective</li>
-						<li>‘S’ means Selection-based</li>
-					</ul>
+					The Administrator role is the only role for which Management these management functions are defined.
 				</span></div></div></div>
 			
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FMT_SMF_EXT.1">FMT_SMF_EXT.1</a></div>
@@ -6672,7 +6645,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.	<p></p>
 					<div class="eacategory">Guidance</div>
                        	The evaluator shall examine the AGD to ensure that it
-						describes how the Administrator and User are able to perform
+						describes how the Administrator is able to perform
 						each management function that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> claims the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports.<p></p>
                         The evaluator shall verify for each claimed management function that 
 						the guidance is sufficiently detailed to allow the 
@@ -7866,111 +7839,88 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					<a onclick="showTarget('t-manfunc')" href="#t-manfunc" class="t-manfunc-ref">Table <span class="counter">17</span></a> to an authenticated administrator. 
 				</div></div><h3 id="ext-comp-FMT_SMF_EXT" class="indexable" data-level="4">C.2.5.3 FMT_SMF_EXT Specification of Security Management Functions</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines all security management functions for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FMT_SMF_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FMT_SMF_EXT.1">FMT_SMF_EXT.1</a>,
              Specification of Management Functions,
-             requires that certain security functionality be configurable.</p><h4>Management: FMT_SMF_EXT.1</h4><p>No additional management functions are envisioned</p><h4>Audit: FMT_SMF_EXT.1</h4><p>No auditable events are forseen.</p><h4>FMT_SMF_EXT.1 Specification of Management Functions</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_MOF_EXT: Management of Security Functions Behavior</p><h4 id="ext-comp-FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions: <p></p>
+             requires that certain security functionality be configurable.</p><h4>Management: FMT_SMF_EXT.1</h4><p>No additional management functions are envisioned</p><h4>Audit: FMT_SMF_EXT.1</h4><p>No auditable events are forseen.</p><h4>FMT_SMF_EXT.1 Specification of Management Functions</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FMT_MOF_EXT: Management of Security Functions Behavior</p><h4 id="ext-comp-FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support Administrators performing the following management functions: <p></p>
 					<b><span class="ctr" data-myid="t-manfunc" data-counter-type="ct-Table" id="t-manfunc">Table <span class="counter">17</span>: Management Functions</span></b><p></p> 
-						Status Markers:<br/> M - Mandatory<br/> O - Optional/Objective<br/>
-						
-					<div class="table-key" style="border-style: solid; padding: 5px;">
-						M = Mandatory (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide that function to that role)<br/>
-						O = Optional (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may or may not provide that function to that role)<br/>
-						S = Selection-Based (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must provide that function to that role if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> claims a particular selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>)<br/>
-					</div>
                     <table>
                         <tr>
 							<th>Number</th> 
                             <th>Function</th> 
-                            <th>Admin</th> 
                             <th>Notes</th> 
                         </tr>
 		    
                         <tr>
                             <td>1</td>
                             <td>Ability to configure and manage the audit functionality and audit data</td>
-                            <td>X</td>
                             <td>See <a href="#FAU_GEN.1">FAU_GEN.1</a>.</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Ability to configure name/address of audit/logging server to which to send audit/logging records</td>
-                            <td>X</td>
                             <td>See <a href="#FAU_STG_EXT.1">FAU_STG_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Ability to review audit records.</td>
-                            <td>X</td>
                             <td>See <a href="#FAU_SAR.1">FAU_SAR.1</a>.</td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Ability to configure the cryptographic functionality.</td>
-                            <td>X</td>
                             <td>See <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>Ability to initiate a trusted channel for remote administration.</td>
-                            <td>X</td>
                             <td>See <a href="#FTP_TRP.1">FTP_TRP.1</a>.</td>
                         </tr>
                         <tr>
                             <td>6</td>
                             <td>Ability to set parameters for allowable number of authentication failures.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>7</td>
                             <td>Ability to configure password length and complexity.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_PMG_EXT.1">FIA_PMG_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td>Ability to configure authentication throttling policy.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_TRT_EXT.1">FIA_TRT_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>9</td>
                             <td>Ability to manage authentication methods and change default authorization factors</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_PMG_EXT.1">FIA_PMG_EXT.1</a></td>
                         </tr>
                         <tr>
                             <td>10</td>
                             <td>Ability to configure of certificate revocation checking methods.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>11</td>
                             <td>Ability to configure <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> behavior when certificate revocation status cannot be determined.</td>
-                            <td>X</td>
                             <td>See <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.</td>
                         </tr>
                         <tr>
                             <td>12</td>
                             <td>Ability to configure action to take on integrity failure.</td>
-                            <td>X</td>
                             <td>See <a href="#FPT_ROT_EXT.2">FPT_ROT_EXT.2</a>, <a href="#FPT_ROT_EXT.3">FPT_ROT_EXT.3</a>, and <a href="#FPT_RVR_EXT.1">FPT_RVR_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>13</td>
                             <td>Ability to initiate the update process.</td>
-                            <td>X</td>
                             <td>See <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a>.</td>
                         </tr>
                         <tr>
                             <td>14</td>
                             <td>Ability to action to take on update failure.</td>
-                            <td>X</td>
                             <td>See <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> and <a href="#FPT_TUD_EXT.3">FPT_TUD_EXT.3</a>.</td>
                         </tr>
                         <tr>
                             <td>15</td>
                             <td>Ability to manage import and export keys/secrets to and from protected storage.</td>
-                            <td>X</td>
                             <td>See <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>.</td>
                         </tr>
                     </table><br/>]
