@@ -3566,8 +3566,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					with P-521. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author selects the standard based on the algorithms selected.<p></p>
 					<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 may be used for the following applications: generating and verifying hash-based message
 					authentication codes (HMACs), key derivation functions (KDFs), and random bit/number
-					generation (In certain cases, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 may also be used for verifying old digital signatures and time
-					stamps, provided that this is explicitly allowed by the application domain).
+					generation.  In certain cases, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1 may also be used for verifying old digital signatures and time
+					stamps, provided that this is explicitly allowed by the application domain.
                 </span></div></div></div>
 			
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></div> 
@@ -3577,7 +3577,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                     
                 <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
                         The evaluator shall check that the association of the hash function with other <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
-                        cryptographic functions (for example, the digital signature verification function) is documented 
+                        cryptographic functions (e.g., the digital signature verification function) is documented 
                         in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<p></p>
                     <div class="eacategory">Guidance</div>
                         The evaluator checks the AGD to determine that any configuration that is required to 
@@ -3696,7 +3696,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					or if it is used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself to support or implement <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.<p></p> 
 					
 					The <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> key size falls into a range between L1 and L2 defined in <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/IEC 10118 for the
-					appropriate hash function (for example for <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256 L1 = 512, L2 = 256) where L2 ≤ k ≤ L1.
+					appropriate hash function (e.g., for <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256 L1 = 512, L2 = 256) where L2 ≤ k ≤ L1.
 				</span></div></div></div>
 			
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></div>
@@ -4619,30 +4619,30 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						selected key size. This 3-tuple of plaintext, IV, and key is provided as input to the
 						below algorithm to generate the remaining 99 3-tuples, and to run each 3-tuple
 						through 1000 iterations of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC encryption.<p></p>
-				<pre>
-				# Input: PT, IV, Key
-				Key[0] = Key
-				IV[0] = IV
-				PT[0] = PT
-				for i = 0 to 99 {
-					Output Key[i], IV[i], PT[0]
-					for j = 0 to 999 {
-						if (j == 0) {
-							CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], IV[i], PT[j])
-							PT[j+1] = IV[i]
-						} else {
-							CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], PT[j])
-							PT[j+1] = CT[j-1]
-						}
-					}
-					Output CT[j]
-					If (KeySize == 128) Key[i+1] = Key[i] xor CT[j] 
-					If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
-					If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
-					IV[i+1] = CT[j]
-					PT[0] = CT[j-1]
+		<pre>
+		# Input: PT, IV, Key
+		Key[0] = Key
+		IV[0] = IV
+		PT[0] = PT
+		for i = 0 to 99 {
+			Output Key[i], IV[i], PT[0]
+			for j = 0 to 999 {
+				if (j == 0) {
+					CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], IV[i], PT[j])
+					PT[j+1] = IV[i]
+				} else {
+					CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-Encrypt(Key[i], PT[j])
+					PT[j+1] = CT[j-1]
 				}
-				</pre>	<p></p>
+			}
+			Output CT[j]
+			If (KeySize == 128) Key[i+1] = Key[i] xor CT[j] 
+			If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
+			If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
+			IV[i+1] = CT[j]
+			PT[0] = CT[j-1]
+		}
+		</pre>	<p></p>
 						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
 						the 100 3-tuples for each selected key size. This result shall be compared to the
 						result of running 1000 iterations with the same values using a known good
@@ -4792,23 +4792,23 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						selected key size. This 2-tuple of plaintext and key is provided as input to the below
 						algorithm to generate the remaining 99 2-tuples, and to run each 2-tuple through
 						1000 iterations of <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR encryption.<p></p>
-				<pre>
-				# Input: PT, Key
-				Key[0] = Key
-				PT[0] = PT
-				for i = 0 to 99 {
-					Output Key[i], PT[0]
-					for j = 0 to 999 {
-						CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Encrypt(Key[i], PT[j])
-						PT[j+1] = CT[j]
-					}
-					Output CT[j]
-					If (KeySize == 128) Key[i+1] = Key[i] xor CT[j]
-					If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
-					If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
-					PT[0] = CT[j]
-				}
-				</pre><p></p>
+		<pre>
+		# Input: PT, Key
+		Key[0] = Key
+		PT[0] = PT
+		for i = 0 to 99 {
+			Output Key[i], PT[0]
+			for j = 0 to 999 {
+				CT[j] = <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR-Encrypt(Key[i], PT[j])
+				PT[j+1] = CT[j]
+			}
+			Output CT[j]
+			If (KeySize == 128) Key[i+1] = Key[i] xor CT[j]
+			If (KeySize == 192) Key[i+1] = Key[i] xor (last 64 bits of CT[j-1] || CT[j])
+			If (KeySize == 256) Key[i+1] = Key[i] xor ((CT[j-1] | CT[j])
+			PT[0] = CT[j]
+		}
+		</pre><p></p>
 						The ciphertext computed in the 1000th iteration (CT[999]) is the result for each of
 						the 100 2-tuples for each selected key size. This result shall be compared to the
 						result of running 1000 iterations with the same values using a known good
@@ -4862,7 +4862,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						Decryption test, 20 out of the 100 trials per plaintext length have ciphertext values
 						that fail authentication.<p></p>
 						Additionally, the evaluator shall perform the following negative tests:<p></p>
-						<b>Test 1: (invalid plaintext length):</b><p></p>
+						<b>Test 1: (invalid plaintext length):</b>
 						Determine the valid plaintext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 						specification. Verify that the implementation of KWP-AE in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
 						plaintexts of invalid length by testing plaintext of the following lengths: 1) plaintext
@@ -4891,16 +4891,16 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						<li>[513]32.</li></ul><p></p>
 						Verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL on those
 						inputs.<p></p>
-						<b>Test 5: (invalid padding bits):</b><p></p>
+						<b>Test 5: (invalid padding bits):</b>
 						If the implementation supports plaintext of length not a multiple of 64-bits, then<p></p>
-				<pre>
-				for each PAD length [1..7]
-					for each byte in PAD set a zero PAD value;
-						replace current byte by a non-zero value and use the resulting plaintext as
-							input to algorithm KWP-AE to generate ciphertexts;
-						verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL on
-							this input.
-				</pre><p></p>
+		<pre>
+		for each PAD length [1..7]
+			for each byte in PAD set a zero PAD value;
+				replace current byte by a non-zero value and use the resulting plaintext as
+					input to algorithm KWP-AE to generate ciphertexts;
+				verify that the implementation of KWP-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> outputs FAIL on
+					this input.
+		</pre><p></p>
 						<b><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW:</b><p></p>
 						The tests below are derived from “The Key Wrap Validation System (KWVS),
 						Updated: June 20, 2014” from the National Institute of Standards and Technology.<p></p>
@@ -4925,20 +4925,20 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						of the 100 trials per plaintext length must have ciphertext values that are not
 						authentic; that is, they fail authentication.<p></p>
 						Additionally, the evaluator shall perform the following negative tests:<p></p>
-						<b>Test 1 (invalid plaintext length):</b><p></p>
+						<b>Test 1 (invalid plaintext length):</b>
 						Determine the valid plaintext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 						specification. Verify that the implementation of KW-AES in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
 						plaintexts of invalid length by testing plaintext of the following lengths: 1) plaintext
 						length greater than 64 semi-blocks, 2) plaintext bit-length not divisible by 64, 3)
 						plaintext with length 0, and 4) plaintext with one semi-block.<p></p>
-						<b>Test 2 (invalid ciphertext length):</b><p></p>
+						<b>Test 2 (invalid ciphertext length):</b>
 						Determine the valid ciphertext lengths of the implementation from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 						specification. Verify that the implementation of KW-AD in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects
 						ciphertexts of invalid length by testing ciphertext of the following lengths: 1)
 						ciphertext with length greater than 65 semi-blocks, 2) ciphertext with bit-length not
 						divisible by 64, 3) ciphertext with length 0, 4) ciphertext with length of one semiblock, 
 						and 5) ciphertext with length of two semi-blocks.<p></p>
-						<b>Test 3 (invalid ICV1):</b><p></p>
+						<b>Test 3 (invalid ICV1):</b>
 						Test that the implementation detects invalid ICV1 values by encrypting any
 						plaintext value eight times using a different value for ICV1 each time as follows:
 						Start with a base ICV1 of 0xA6A6A6A6A6A6A6A6. For each of the eight tests
@@ -5037,8 +5037,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							[<b>selection</b>: <i id="_s_486">support for XAUTH</i>, <i id="_s_487">no support for XAUTH</i>]
 						</i>, </li><li style=""><i id="_s_488">IKEv2 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7296 (with mandatory support for NAT traversal 
 							as specified in section 2.23), <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8784, <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8247, and 
-                            [<b>selection</b>: <i id="_s_489">no other RFCs for hash functions</i>, <i id="_s_490"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4868 for hash functions</i>].
-						</i></li></ul>]
+                            [<b>selection</b>: <i id="_s_489">no other RFCs for hash functions</i>, <i id="_s_490"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4868 for hash functions</i>]
+						</i></li></ul>].
                 <div class="appnote"><span class="note-header">Application Note: </span><span class="note">If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-2 hash algorithms for IKEv1 or IKEv2, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author shall
 					select <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4868. </span></div></div></div>
             <div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.6"><a href="#FCS_IPSEC_EXT.1.6" class="abbr">FCS_IPSEC_EXT.1.6</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure the encrypted payload in the
@@ -5057,7 +5057,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							[<b>selection</b>: <i id="_s_507">number of packets/number of bytes</i>, <i id="_s_508">length of time</i>]. If length of time is used, it must include at least 
 							one option that is 24 hours or less for Phase 1 SAs and 8 hours or
 							less for Phase 2 SAs.
-						</i></li></ul>]
+						</i></li></ul>].
                 <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author is afforded a selection based on the version of IKE in their
 					implementation. There is a further selection within this selection that allows the
@@ -5123,20 +5123,17 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					[<b>selection</b>: <i id="_s_515">Pre-shared Keys</i>, <i id="_s_516">no other method</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					At least one public-key-based Peer Authentication method is required in order to
-					conform to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>; one or more of the public key schemes is chosen by
+					conform to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>. One or more of the public key schemes is chosen by
 					the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author to reflect what is implemented. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author also ensures that
 					appropriate FCS requirements reflecting the algorithms used (and key
-					generation capabilities, if provided) are listed to support those methods. Note
-					that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> will elaborate on the way in which these algorithms are to be used 
-					(for example, 2409 specifies three authentication methods using public keys;
-					each one supported will be described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>).<p></p>
+					generation capabilities, if provided) are listed to support those methods.<p></p>
 					If “<i>pre-shared keys</i>” is selected, the selection-based requirement FIA_PSK_EXT.1
 					must be claimed.
 				</span></div></div></div>
-            <div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.12"><a href="#FCS_IPSEC_EXT.1.12" class="abbr">FCS_IPSEC_EXT.1.12</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not establish an SA if the [
+            <div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.12"><a href="#FCS_IPSEC_EXT.1.12" class="abbr">FCS_IPSEC_EXT.1.12</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not establish an SA if the
 					[<b>selection</b>: <i id="_s_517"><abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address</i>, <i id="_s_518">Fully Qualified Domain Name (FQDN)</i>, <i id="_s_519">user FQDN</i>, <i id="_s_520">Distinguished Name (DN)</i>] and 
 					[<b>selection</b>: <i id="_s_521">no other reference identifier type</i>, <i id="_s_522">[<b>assignment</b>: 
-     <span class="assignable-content">other supported reference identifier types</span>]</i>]] contained in a certificate does not match the expected value(s) for the
+     <span class="assignable-content">other supported reference identifier types</span>]</i>] contained in a certificate does not match the expected value(s) for the
 					entity attempting to establish a connection.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must support at least one of the following identifier types: <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address,
@@ -5232,8 +5229,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                         The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and determine that it describes how the IPsec capabilities
 						are implemented.<p></p>
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes at a high level the architectural relationship between
-						the IPsec implementation and the rest of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (e.g. is the IPsec implementation an integrated part 
-						of the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr> or is it a standalone executable that is bundled into the <abbr class="dyn-abbr"><a href="#abbr_VS">VS</a></abbr>).<p></p> 		    
+						the IPsec implementation and the rest of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<p></p> 		    
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the SPD is implemented and the rules for processing
 						both inbound and outbound packets in terms of the IPsec policy. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the rules that are
 						available and the resulting actions available after matching a rule. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the available
@@ -5247,7 +5243,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						inbound and outbound packets) is sufficient to determine the action that will be applied, especially in the
 						case where two different rules may apply. This description shall cover both the initial packets (that is, no
 						SA is established on the interface or for that particular packet) as well as packets that are part of an
-						established SA. <br/>
+						established SA.
                     <br/>
                     <div class="eacategory">Guidance</div>
                         The evaluator shall examine the AGD to verify it instructs the Administrator how 
@@ -5257,10 +5253,10 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                         that the description in the AGD is consistent with the description in the 
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, and that the level of detail in the AGD is sufficient to
                         allow the administrator to set up the SPD in an unambiguous fashion. This includes a discussion 
-                        of how ordering of rules impacts the processing of an <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> packet.<br/>
+                        of how ordering of rules impacts the processing of an <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> packet.
                     <br/>
 					<div class="eacategory">KMD</div>
-						There are no KMD evaluation activities for this element.<p></p>
+						There are no KMD evaluation activities for this element.
 					<br/>
                     <div class="eacategory">Tests</div>
                         The evaluator uses the operational guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to carry out the following tests:<p></p>
@@ -5288,7 +5284,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                     <br/>
                 <div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.2">FCS_IPSEC_EXT.1.2</a></div>
                     <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-                        The evaluator checks the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it states that am IPsec VPN can be 
+                        The evaluator checks the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it states that an IPsec VPN can be 
                         established to operate in tunnel mode or transport mode (as selected).<br/>
                     <br/>
                     <div class="eacategory">Guidance</div>
@@ -5433,7 +5429,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                     <br/>
                 <div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.7">FCS_IPSEC_EXT.1.7</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this requirement.<br/>
+						There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this element.<br/>
 					<br/>
                     <div class="eacategory">Guidance</div>
                         The evaluator shall check the AGD to ensure it provides instructions on how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
@@ -5497,13 +5493,13 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						length of "x" and the nonces meet the stipulations in the requirement.<br/>
                     <br/>
 					<div class="eacategory">Guidance</div>
-						There are no AGD EAs for this requirement.<br/>
+						There are no AGD EAs for this element.<br/>
 					<br/>
 					<div class="eacategory">KMD</div>
 						There are no KMD evaluation activities for this element.<p></p>
 					<br/>
 					<div class="eacategory">Tests</div>
-						There are no test EAs for this requirement.
+						There are no test EAs for this element.
 					<br/>
                 <div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.10">FCS_IPSEC_EXT.1.10</a></div>
 					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>.
@@ -5608,7 +5604,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						algorithm is less than or equal to that of the IKE SA this is protecting the negotiation.<br/>
                     <br/>
 					<div class="eacategory">Guidance</div>
-						There are no AGD EAs for this requirement.<br/>
+						There are no AGD EAs for this element.<br/>
 					<br/>
 					<div class="eacategory">KMD</div>
 						There are no KMD evaluation activities for this element.<p></p>
@@ -5682,8 +5678,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					these in turn depends on underlying cryptographic primitives (hash functions/ciphers). This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>
 					allows <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512 for Hash_DRBG or HMAC_DRBG
 					and only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG. <p></p>
-					This requirement must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generates keys, signatures, or Salts for its
-					own use or for tenant software (<a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a>, <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a>, <a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a>, FCS_SKT_EXT.1) or if it provides 
+					This requirement must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generates keys, signatures, or salts for its
+					own use or for tenant software (<a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a>, <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a>, <a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a>, <a href="#FCS_SLT_EXT.1">FCS_SLT_EXT.1</a>) or if it provides 
 					<abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> services for tenant software (<a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>).
 				</span></div></div></div>
             
@@ -7554,8 +7550,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							[<b>selection</b>: <i id="_s_486">support for XAUTH</i>, <i id="_s_487">no support for XAUTH</i>]
 						</i>, </li><li style=""><i id="_s_488">IKEv2 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7296 (with mandatory support for NAT traversal 
 							as specified in section 2.23), <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8784, <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8247, and 
-                            [<b>selection</b>: <i id="_s_489">no other RFCs for hash functions</i>, <i id="_s_490"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4868 for hash functions</i>].
-						</i></li></ul>]
+                            [<b>selection</b>: <i id="_s_489">no other RFCs for hash functions</i>, <i id="_s_490"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4868 for hash functions</i>]
+						</i></li></ul>].
                 <h4 id="ext-comp-FCS_IPSEC_EXT.1.6">FCS_IPSEC_EXT.1.6</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure the encrypted payload in the
                     [<b>selection</b>: <i id="_s_491">IKEv1</i>, <i id="_s_492">IKEv2</i>] protocol uses the cryptographic algorithms <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-128, <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC-256 as specified in 
 					<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6379 and
@@ -7571,7 +7567,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							[<b>selection</b>: <i id="_s_507">number of packets/number of bytes</i>, <i id="_s_508">length of time</i>]. If length of time is used, it must include at least 
 							one option that is 24 hours or less for Phase 1 SAs and 8 hours or
 							less for Phase 2 SAs.
-						</i></li></ul>]
+						</i></li></ul>].
                 <h4 id="ext-comp-FCS_IPSEC_EXT.1.8">FCS_IPSEC_EXT.1.8</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that all IKE protocols implement DH groups [19 (256-bit
 					Random ECP), 20 (384-bit Random ECP), and 
 					[<b>selection</b>: <i id="_s_509">24 (2048-bit MODP with 256-bit POS)</i>, <i id="_s_510">15 (3072-bit MODP)</i>, <i id="_s_511">14 (2048-bit MODP)</i>, <i id="_s_512">no other DH groups</i>]].
@@ -7592,10 +7588,10 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 				<h4 id="ext-comp-FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that all IKE protocols perform peer authentication using a
 					[<b>selection</b>: <i id="_s_513">RSA</i>, <i id="_s_514"><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr></i>] that use X.509v3 certificates that conform to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4945 and 
 					[<b>selection</b>: <i id="_s_515">Pre-shared Keys</i>, <i id="_s_516">no other method</i>].
-				<h4 id="ext-comp-FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not establish an SA if the [
+				<h4 id="ext-comp-FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not establish an SA if the
 					[<b>selection</b>: <i id="_s_517"><abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address</i>, <i id="_s_518">Fully Qualified Domain Name (FQDN)</i>, <i id="_s_519">user FQDN</i>, <i id="_s_520">Distinguished Name (DN)</i>] and 
 					[<b>selection</b>: <i id="_s_521">no other reference identifier type</i>, <i id="_s_522">[<b>assignment</b>: 
-     <span class="assignable-content">other supported reference identifier types</span>]</i>]] contained in a certificate does not match the expected value(s) for the
+     <span class="assignable-content">other supported reference identifier types</span>]</i>] contained in a certificate does not match the expected value(s) for the
 					entity attempting to establish a connection.
 				<h4 id="ext-comp-FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not establish an SA if the presented identifier does not match the
 					configured reference identifier of the peer.
