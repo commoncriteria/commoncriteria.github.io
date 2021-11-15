@@ -5397,20 +5397,25 @@ The following sections list Common Criteria and technology terms used in this do
 				
 			          
 			<div class="element"><div class="reqid" id="FIA_UAU.7.1"><a href="#FIA_UAU.7.1" class="abbr">FIA_UAU.7.1</a></div><div class="reqdesc">
-					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide only obscured feedback to the device’s display to the user while the 
-					authentication is in progress.
+					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide only [<i>obscured feedback</i>] to the user
+					while the authentication is in progress. 
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <a href="#FIA_UAU.5">FIA_UAU.5</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. <p></p>
-					This applies to all authentication methods specified in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may briefly 
-					(1 second or less) display each character or provide an option to allow the user to unmask 
-					the password; however, the password must be obscured by default.<p></p>
+					This requirement applies to all authentication mechanisms specified in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> that provide 
+					feedback to a user or Administrator during authentication.<p></p>
+					For authentication mechanisms that require the user or Admnistrator to enter a
+					password or PIN, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may briefly (1 second or less) display each character or provide an option
+					to allow the user to unmask the user input; however, the user input must be obscured by default.<p></p>
 					If a BAF is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must not display sensitive information regarding
-					the biometric that could aid an adversary in identifying and/or spoofing the respective 
+					the biometric that could aid an adversary in identifying or spoofing the respective 
 					biometric characteristics of a given human user. While it is true that biometric samples, by
 					themselves, are not secret, the analysis performed by the respective biometric algorithms, as
 					well as output data from these biometric algorithms, is considered sensitive and must be kept
 					secret. Where applicable, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must not reveal or make public the reasons for
-					authentication failure.
+					authentication failure.<p></p>
+					In the cases of SSH- or X.509-based authentication, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must likewise not not display sensitive
+					information regarding the authentication factors that could aid an adversary in spoofing or
+					circumventing the authentication protocols.
 				</span></div></div></div>
 			
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_UAU.7">FIA_UAU.7</a></div>
@@ -5420,10 +5425,10 @@ The following sections list Common Criteria and technology terms used in this do
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the means of obscuring the authentication
-						entry, for all authentication methods specified in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>.<p></p>
+						information for all authentication methods specified in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>.<p></p>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall verify that any configuration of this requirement is addressed in the 
-						AGD guidance and that the password is obscured by default.<p></p>
+						AGD guidance and that user authentication input is obscured by default.<p></p>
 					<div class="eacategory">KMD</div>
 						There are no KMD evaluation activities for this component.<p></p>
 					<div class="eacategory">Tests</div>
@@ -5446,7 +5451,10 @@ The following sections list Common Criteria and technology terms used in this do
 								for the BAF to state that it was unable to physically read the biometric sample,
 								for example, if the sensor is unclean or the biometric sample was removed too
 								quickly. However, specifics regarding why the presented biometric sample failed
-								authentication shall not be revealed to the user.	
+								authentication shall not be revealed to the user.
+								[conditional] For each SSH- or X.509-based authentication mechanism, the evaluator shall
+								examine whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> displays sensitive information during the authentication process
+								for both successful and failed authentication attempts.
 							</li>
 						</ul>
 					</div></div></div>
@@ -5522,12 +5530,12 @@ The following sections list Common Criteria and technology terms used in this do
 			
             <div class="element"><div class="reqid" id="FIA_X509_EXT.1.1"><a href="#FIA_X509_EXT.1.1" class="abbr">FIA_X509_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate certificates in accordance with the following rules:
                     <ul>
-                        <li><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 certificate validation and certificate path validation</li>
-                        <li>The certificate path must terminate with a trusted certificate</li>
+                        <li><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 certificate validation and certificate path validation.</li>
+                        <li>The certificate path must terminate with a trusted certificate.</li>
                         <li>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall validate a certificate path by ensuring the presence of the basicConstraints
 							extension, that the CA flag is set to TRUE for all CA certificates, and that any path
 							constraints are met.</li>
-						<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate that any CA certificate includes caSigning purpose in the key usage field</li>
+						<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate that any CA certificate includes caSigning purpose in the key usage field.</li>
 						<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate revocation status of the certificate using 
 							[<b>selection</b>: <i id="_s_603">OCSP as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6960</i>, <i id="_s_604">a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8603</i>, <i id="_s_605">an OCSP <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Status Request Extension (OCSP stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6066</i>, <i id="_s_606">OCSP <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Multi-Certificate Status Request Extension (i.e., OCSP 
 									Multi-Stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6961</i>]. </li>
@@ -5622,7 +5630,7 @@ The following sections list Common Criteria and technology terms used in this do
 								shall establish a valid, trusted certificate chain consisting of an EC leaf certificate, 
 								an EC Intermediate CA certificate not designated as a trust anchor, and an EC certificate
 								designated as a trusted anchor, where the elliptic curve parameters are specified as a
-								named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates the certificate chain..</li>
+								named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates the certificate chain.</li>
 							<li><b>Test 6: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports EC certificates as indicated in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a>, then the 
 								evaluator shall replace the intermediate certificate in the certificate chain for Test 5 with a modified 
 								certificate, where the modified intermediate CA has a public key information field where
@@ -7816,12 +7824,12 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 				<a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> Random Bit Generation
 			</p><h4 id="ext-comp-FIA_X509_EXT.1.1">FIA_X509_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate certificates in accordance with the following rules:
                     <ul>
-                        <li><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 certificate validation and certificate path validation</li>
-                        <li>The certificate path must terminate with a trusted certificate</li>
+                        <li><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 certificate validation and certificate path validation.</li>
+                        <li>The certificate path must terminate with a trusted certificate.</li>
                         <li>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall validate a certificate path by ensuring the presence of the basicConstraints
 							extension, that the CA flag is set to TRUE for all CA certificates, and that any path
 							constraints are met.</li>
-						<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate that any CA certificate includes caSigning purpose in the key usage field</li>
+						<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate that any CA certificate includes caSigning purpose in the key usage field.</li>
 						<li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate revocation status of the certificate using 
 							[<b>selection</b>: <i id="_s_603">OCSP as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6960</i>, <i id="_s_604">a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8603</i>, <i id="_s_605">an OCSP <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Status Request Extension (OCSP stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6066</i>, <i id="_s_606">OCSP <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Multi-Certificate Status Request Extension (i.e., OCSP 
 									Multi-Stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6961</i>]. </li>
