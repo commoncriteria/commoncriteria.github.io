@@ -1870,7 +1870,7 @@ The following sections list Common Criteria and technology terms used in this do
 					that meets the following: [<i>no standard</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> handles sensitive cryptographic keys or credentials.
-					In particular, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> creates or stores keys, it must be able to destroy them. Specifically, this SDF
+					In particular, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> creates or stores keys, it must be able to destroy them. Specifically, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>
 					must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if any of the following SFRs are claimed: <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a>, <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a>,
 					<a href="#FCS_CKM.2">FCS_CKM.2</a>, <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>, <a href="#FCS_COP.1/KAT">FCS_COP.1/KAT</a>, <a href="#FCS_COP.1/PBKDF">FCS_COP.1/PBKDF</a>, <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>, or <a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a><p></p>
 					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then <a href="#FCS_CKM_EXT.4">FCS_CKM_EXT.4</a> must also be claimed.<p></p>
@@ -2221,6 +2221,14 @@ The following sections list Common Criteria and technology terms used in this do
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if key derivation is a service provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to tenant software,
 					or if it is used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself to support or implement <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.<p></p> 
 					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then <a href="#FCS_CKM.4">FCS_CKM.4</a> must also be claimed.<p></p>
+					If at least one of "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-XOR</i>" or "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-ENC</i>" is selected AND password-based key derivation
+					is used to create at least one of the inputs, the selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_COP.1/PBKDF">FCS_COP.1/PBKDF</a> must also
+					be claimed.<p></p>
+					If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-XOR</i>" and at least one of the <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> hashes is selected, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must be claimed.<p></p>
+					If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-HASH</i>" or "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-MAC</i>" is selected, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must be claimed.<p></p>
+					If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-MAC</i>" is selected, then <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must be claimed.<p></p>
+					If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-CTR</i>," "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-FB</i>," or "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-DPI</i>" is selected, and 
+					<abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> is selected as part of the key derivation algorithm, then <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must be claimed.<p></p>
 					For Authorization Factor Submasks, the key size to be used in the <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> falls into a range between
 					L1 and L2 defined in <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 10118 for the appropriate hash function (for example for <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256
 					L1 = 512, L2 = 256) where L2 &lt;= k &lt;= L1.<p></p>
@@ -2230,12 +2238,7 @@ The following sections list Common Criteria and technology terms used in this do
 					use a submask key as input, which could be an authorization factor or derived from a <abbr class="dyn-abbr"><a href="#abbr_PBKDF">PBKDF</a></abbr>. In
 					these cases the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author must explicitly declare this option and should present a reasonable
 					argument that the entropy of the inputs to the KDFs will result in full entropy of the expected
-					output.<p></p>
-					If at least one of "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-XOR</i>" or "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-ENC</i>" is selected AND password-based key derivation
-					is used to create at least one of the inputs, the selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_COP.1/PBKDF">FCS_COP.1/PBKDF</a> must also
-					be claimed.<p></p>
-					If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-XOR</i>" and at least one of the <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> hashes is selected, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must be claimed.<p></p>
-					If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-HASH</i>" or "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-MAC</i>" is selected, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must be claimed.<p></p>
+					output.
 				</span></div></div></div>
 			
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a></div>
@@ -2635,6 +2638,17 @@ The following sections list Common Criteria and technology terms used in this do
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if it is a service provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to tenant software,
 					or if it is used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself to support or implement <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.<p></p> 
+					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if either <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> or FCS_COP,1/<abbr class="dyn-abbr"><a href="#abbr_PBKDF">PBKDF</a></abbr> is claimed.<p></p>
+					Also, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be claimed under the following conditions:<ul>
+					<li>If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-MAC</i>" is selected in <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a></li>
+					<li>If "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-CTR,</i>" "<i><abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-FB,</i>" "<i></i>"<abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>-DPI is selected in <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a> 
+					and <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> is selected for use by the key derivation algorithm.</li>
+					<li>If "<i>A keyed hash of the stored key in accordance with <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></i>"
+					is selected in <a href="#FCS_STG_EXT.3.1">FCS_STG_EXT.3.1</a></li>
+					<li>If "<i><abbr class="dyn-abbr"><a href="#abbr_ECIES">ECIES</a></abbr></i>" is selected in <a href="#FCS_COP.1/KAT">FCS_COP.1/KAT</a></li>
+					<li>If "<i>HMAC_DRBG (any)</i>" is selected in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a></li>
+					<li>If "<i>keyed hash as specified in <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></i>" is selected in <a href="#FDP_ITC_EXT.1.2">FDP_ITC_EXT.1.2</a></li>
+					</ul>
 					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must also be claimed.<p></p>
 					The <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> key size falls into a range between L1 and L2 defined in <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 10118 for the
 					appropriate hash function (e.g., for <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256 L1 = 512, L2 = 256) where L2 ≤ k ≤ L1.
@@ -2771,6 +2785,7 @@ The following sections list Common Criteria and technology terms used in this do
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if key agreement or transport is a service provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to 
 					tenant software, or if they are used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself to support or implement <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security 
 					functionality.<p></p> 
+					If "<i><abbr class="dyn-abbr"><a href="#abbr_ECIES">ECIES</a></abbr></i>" is selected, then <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must be claimed.<p></p>
 					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then <a href="#FCS_CKM.4">FCS_CKM.4</a> must also be claimed.<p></p>
 					The selections in this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be consistent with the algorithms selected in <a href="#FCS_CKM.2">FCS_CKM.2</a>.	
 				</span></div></div></div>
@@ -2964,7 +2979,7 @@ The following sections list Common Criteria and technology terms used in this do
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if it is a service provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to tenant software,
 					or if it is used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself to support or implement <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.<p></p> 
-					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then <a href="#FCS_CKM.4">FCS_CKM.4</a> must also be claimed.<p></p>
+					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then <a href="#FCS_CKM.4">FCS_CKM.4</a> and <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must also be claimed.<p></p>
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must condition a password into a string of bits prior to using it as input to algorithms that
 					form SKs and KEKs. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can perform conditioning using one of the identified hash functions
 					or the process described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-132; the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author selects the method used. <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP
@@ -2972,8 +2987,7 @@ The following sections list Common Criteria and technology terms used in this do
 					approved hash function.<p></p>
 					Appendix A of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-132 recommends setting the iteration count in order to increase the
 					computation needed to derive a key from a password and therefore increase the workload of
-					performing a dictionary attack.<p></p>
-					If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> includes this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, then it must also include <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a>.
+					performing a dictionary attack.
 				</span></div></div></div>
 			
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/PBKDF">FCS_COP.1/PBKDF</a></div>
@@ -4084,7 +4098,8 @@ The following sections list Common Criteria and technology terms used in this do
 			
             <div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.1"><a href="#FCS_IPSEC_EXT.1.1" class="abbr">FCS_IPSEC_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement the IPsec architecture as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4301.
                 <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author selected "<i>IPsec</i>" in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a>.<p></p>
+					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author selected "<i>IPsec</i>" in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a>.<p></p>
+					If this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed, then <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must also be claimed.<p></p>
 					<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4301 calls for an IPsec implementation to protect <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> traffic through the use
 					of a Security Policy Database (<abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr>). The <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> is used to define how <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> packets are
 					to be handled: PROTECT the packet (e.g., encrypt the packet), BYPASS the IPsec
@@ -4735,8 +4750,8 @@ The following sections list Common Criteria and technology terms used in this do
 					accordance with <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 18031:2011 using 
 					[<b>selection</b>: <i id="sel-rbg-hash">Hash_DRBG (any)</i>, <i id="sel-rbg-hmac">HMAC_DRBG (any)</i>, <i id="sel-rbg-ctr">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					If "<i>Hash_DRBG (any)</i>" or "<i>HMAC_DRBG (any)</i>" is selected, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> 
-					must be claimed.<p></p>
+					If "<i>HMAC_DRBG (any)</i>" is selected, then <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must be claimed.<p></p>
+					If "<i>Hash_DRBG (any)</i>" is selected, then <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must be claimed.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FCS_RBG_EXT.1.2"><a href="#FCS_RBG_EXT.1.2" class="abbr">FCS_RBG_EXT.1.2</a></div><div class="reqdesc">The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by at least one entropy source in
 					accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90B that accumulates entropy from 
@@ -5056,29 +5071,13 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>
 			<div class="element"><div class="reqid" id="FDP_ITC_EXT.1.2"><a href="#FDP_ITC_EXT.1.2" class="abbr">FDP_ITC_EXT.1.2</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall verify the integrity of imported keys/key material using 
-						[<b>selection</b>: <ul><li style=""><i id="sel-fdp-itc-ext-1e2-hash">cryptographic hash as specified in <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></i>, </li><li style=""><i id="sel-fdp-itc-ext-1e2-mac">keyed hash as specified in <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></i>, </li><li style=""><i id="sel-fdp-itc-ext-1e2-sk">integrity-providing encryption algorithm as specified in FCS_COP.1/<abbr class="dyn-abbr"><a href="#abbr_AK">AK</a></abbr>
+						[<b>selection</b>: <ul><li style=""><i id="sel-fdp-itc-ext-1e2-hash">cryptographic hash as specified in <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></i>, </li><li style=""><i id="sel-fdp-itc-ext-1e2-mac">keyed hash as specified in <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></i>, </li><li style=""><i id="sel-fdp-itc-ext-1e2-sk">integrity-providing encryption algorithm as specified in <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a>
 								[<b>selection</b>: <i id="_s_577"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM</i>, <i id="_s_578"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM</i>, <i id="_s_579"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KW</i>, <i id="_s_580"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-KWP</i>]</i>, </li><li style=""><i id="sel-fdp-itc-ext-1e2-sig">digital signature as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></i>, </li><li style=""><i id="_s_582">integrity verification supported by <a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a></i></li></ul>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> when "<i>importing keys/secrets into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></i>"
 					is selected in <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>.<p></p>
 					The way the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> checks the integrity of the keys depends on the method of importation. For
-					example, the encrypted data channel may provide data integrity as part of its service.<p></p>
-					When a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> parses an SDE, it should generate security attributes and create an SDO by binding
-					the security attributes to the SDE.
-					If "<i>physically protected channels as specified in <a href="#FTP_ITP_EXT.1">FTP_ITP_EXT.1</a></i>" is selected, the selection-based
-					<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FTP_ITP_EXT.1">FTP_ITP_EXT.1</a> must be claimed.<p></p>
-					If "<i>encrypted data buffers as specified in <a href="#FTP_ITE_EXT.1">FTP_ITE_EXT.1</a></i>" is selected, the selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>
-					<a href="#FTP_ITE_EXT.1">FTP_ITE_EXT.1</a> must be claimed.<p></p>
-					If "<i>cryptographically protected data channels as specified in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></i>" is selected, the
-					selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> must be claimed.<p></p>
-					If "<i>integrity-providing encryption algorithm as specified in FCS_COP.1/<abbr class="dyn-abbr"><a href="#abbr_AK">AK</a></abbr></i>" is selected, the 
-					selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> FCS_COP.1/<abbr class="dyn-abbr"><a href="#abbr_AK">AK</a></abbr> must be claimed.<p></p>
-					If "<i>digital signature as specified in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></i>" is selected, the
-					selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> must be claimed.<p></p>
-					If "<i>cryptographic hash as specified in <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></i>" is selected, the selection-based 
-					<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> must be claimed.<p></p>
-					If "<i>keyed hash as specified in <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></i>" is selected, the selection-based
-					<abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> must be claimed.<p></p>
+					example, the encrypted data channel may provide data integrity as part of its service.
 				</span></div></div></div>
 			
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a></div>
