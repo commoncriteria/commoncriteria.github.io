@@ -1352,18 +1352,19 @@ The following sections list Common Criteria and technology terms used in this do
 					
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists the location of all logs and the access 
+						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists the locations of all logs and the access 
 						controls of those files such that unauthorized modification and deletion are prevented.<p></p>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall ensure that the AGD describes the steps necessary for an authorized 
-						administrator to delete audit records.<p></p>
+						administrator to delete audit records, if such a capability is implemented.<p></p>
 					<div class="eacategory">KMD</div>
 						There are no KMD evaluation activities for this component.<p></p>
 					<div class="eacategory">Tests</div>
 						The evaluator shall perform the following tests:
 						<ul>
 							<li><b>Test 1: </b>
-								The evaluator shall attempt to delete the audit trail in a manner that the access 
+								[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements an audit record deletion capability, then
+								the evaluator shall attempt to delete the audit trail in a manner that the access 
 								controls should prevent (as an unauthorized user) and shall verify that the attempt
 								fails.
 							</li>
@@ -1453,7 +1454,7 @@ The following sections list Common Criteria and technology terms used in this do
 						trusted channel to the audit server, as well as describe any requirements 
                         on the audit server (particular audit server protocol, version of the protocol required, etc.), as well 
                         as configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> needed to communicate with the audit server. Furthermore, it must describe whether the 
-			    transfer mechanism ois periodic or continuous, and what happens in the event of a loss of connectivity. <p></p>
+			    transfer mechanism is periodic or continuous, and what happens in the event of a loss of connectivity. <p></p>
 						If "removable media" is selected, the evaluator shall ensure that the AGD describes the process for
 						accessing audit data and copying it to media. The AGD must also include high-level guidance on 
 				  		how frequently this operation may need to be done to minimize risk of data loss.<br/>
@@ -5330,8 +5331,8 @@ The following sections list Common Criteria and technology terms used in this do
 						attempts are not able to be automated. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes 
 						either how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> disables authentication via external interfaces (other than the 
 						ordinary user interface) or how authentication attempts are delayed in order to slow 
-						automated entry and shall ensure that this delay totals at least 500 milliseconds over 10
-						attempts for all authentication mechanisms selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>.<p></p>
+						automated entry and shall ensure that no more than 10 attempts can be attempted
+						per 500 milliseconds for all authentication mechanisms selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>.<p></p>
 					<div class="eacategory">Guidance</div>
 						There are no AGD evaluation activities for this component.<p></p>
 					<div class="eacategory">KMD</div>
@@ -6169,8 +6170,7 @@ The following sections list Common Criteria and technology terms used in this do
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it describes the methods used by the
-						<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to detect physical tampering and how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will respond when physical
-						tampering has been detected.<p></p>
+						<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to detect physical tampering and how tampering is indicated when detected.<p></p>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall ensure that the AGD describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> indicates to users
 						and Administrators that it has detected tampering.  <p></p>
@@ -6180,7 +6180,7 @@ The following sections list Common Criteria and technology terms used in this do
 						The evaluator shall verify that attempts to open the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> enclosure  
 						result in indications consistent with the operational guidance. Such indications 
 						could include damaged tamper seals, logged events, or other physical or 
-						electronic manifestations.						
+						electronic manifestations.
 					</div></div></div>
 	
 		
@@ -6599,24 +6599,14 @@ The following sections list Common Criteria and technology terms used in this do
 					functions.<p></p>
 				<div class="eacategory">Guidance</div>
 					The evaluator shall examine the AGD to ensure it instructs the
-					administrator how to set the time or indicates any configuration steps required for
-					the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to receive time data from an external source.<p></p>
+					Administrator on any mechanisms for configuring the time source.<p></p>
 				<div class="eacategory">KMD</div>
 					There are no KMD evaluation activities for this component.<p></p>
 				<div class="eacategory">Tests</div>
-					The evaluator shall perform the following tests:
-					<ul>
-						<li><b>Test 1: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides a mechanism to manually set the time, the
-							evaluator shall use the guidance documentation to set the time. The evaluator shall
-							then use an available interface to observe that the time was set correctly.
-						</li>
-						<li><b>Test 2: </b>
-							[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> receives time data from some source outside the
-							<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the evaluator shall use the guidance documentation to configure the external
-							time source (if applicable). The evaluator shall observe that the time has been set to
-							the expected value.
-						</li>
-					</ul>
+					The evaluator shall perform the following tests:<p></p>
+					[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides a mechanism to manually set the time, the
+					evaluator shall use the guidance documentation to set the time. The evaluator shall
+					then use an available interface to observe that the time is reported correctly.
 				</div></div></div>
 		
 		
@@ -7010,7 +7000,7 @@ The following sections list Common Criteria and technology terms used in this do
 					This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if a trusted channel is used to offload audit data 
 					or if the platform is administered remotely. That is, if "<i>a trusted channel as specified in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a></i>" 
 					is selected in <a href="#FAU_STG_EXT.1.1">FAU_STG_EXT.1.1</a>, if "<i>physically protected channels as specified in <a href="#FTP_ITP_EXT.1">FTP_ITP_EXT.1</a></i>" is 
-					selected in <a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a>., or if "<i>remotely</i>" is selected in Management Function 1 in FMP_SMF.1.1.<p></p>
+					selected in <a href="#FDP_ITC_EXT.1">FDP_ITC_EXT.1</a>., or if "<i>remotely</i>" is selected in Management Function 1 in <a href="#FMT_SMF.1.1">FMT_SMF.1.1</a>.<p></p>
 					If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author selects either "<i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>" or "<i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></i>," the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against the 
 					Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not mandate that a product implement <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> with mutual authentication,
 					but if the product includes the capability to perform <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> with mutual authentication, then
@@ -7031,11 +7021,11 @@ The following sections list Common Criteria and technology terms used in this do
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator will review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it lists all trusted channels 
-						the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses for remote communications, including both the external entities and/or 
-						remote users used for the channel as well as the protocol that is used for each.<p></p>
+						the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses for remote communications, including both the external <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> entities and 
+						remote users that use the channel as well as the protocol that is used for each.<p></p>
 					<div class="eacategory">Guidance</div> The evaluator shall confirm that the AGD contains
-						instructions for establishing the connection to access points, <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateways, and
-						other trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> products. <p></p>
+						instructions for establishing connections to external <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> entities and
+						remote users. <p></p>
 					<div class="eacategory">KMD</div>
 						There are no KMD evaluation activities for this component.<p></p>
 					<div class="eacategory">Tests</div>
