@@ -1287,7 +1287,31 @@ The following sections list Common Criteria and technology terms used in this do
               
               
               
-            <div class="eacategory">TSS</div>TSS TBD after public review of SRFs.<div class="eacategory">Guidance</div>Guidance TBD after public review of SRFs.<div class="eacategory">Tests</div>Tests TBD after public review of SRFs.</div><h2 class="indexable" data-level="2" id="s-fia">2.7.2 Identification and Authentication (FIA)</h2><div class="comp" id="FIA-PSK-EXT-1"><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4><div class="component-activity-header">FIA_PSK_EXT.1</div>
+            <div class="eacategory">TSS</div>TSS TBD after public review of SRFs.<div class="eacategory">Guidance</div>Guidance TBD after public review of SRFs.<div class="eacategory">Tests</div>Tests TBD after public review of SRFs.</div><h2 class="indexable" data-level="2" id="s-fia">2.7.2 Identification and Authentication (FIA)</h2><div class="comp" id="FIA-HOTP-EXT-1"><h4>FIA_HOTP_EXT.1 HMAC-Based One-Time Password Pre-Shared Keys</h4><div class="component-activity-header">FIA_HOTP_EXT.1</div>
+              
+              
+              
+            <div class="eacategory">TSS</div>
+                <p></p>The evaluator shall confirm the TSS describes how the TOE complies with the RFC.
+                <p></p>The evaluator shall confirm the TSS describes how the HOTP seed is generated and ensure it aligns with FCS_RBG_EXT.1
+                <p></p>The evaluator shall confirm the TSS describes how the HOTP seed is protected and ensure it aligns with the storage requirements of the base PP. 
+                <p></p>The evaluator shall confirm the TSS describes how a new HOTP seed is assigned for each client and how each client is uniquely identified.
+                <p></p>The evaluator shall confirm the TSS describes how the HOTP seed is conditioned into a HOTP hash and verify it matches the selection in FIA_HOTP_EXT.1.4.
+                <p></p>The evaluator shall confirm the TSS describes how the HOTP hash is truncated and verify it matches the selection in FIA_HOTP_EXT.1.5.
+                <p></p>The evaluator shall confirm the TSS describes how the TOE handles multiple incoming invalid requests and verify it provides anti-hammer mechanism that match the selections FIA_HOTP_EXT.1.6.
+                <p></p>The evaluator shall confirm the TSS describes how the TOE handles resynchronization and how it rejects attempts outside of the look-ahead window selected in FIA_TOTP_EXT.1.7
+                <p></p>The evaluator shall confirm the TSS describes how the TOE how the counter is incremented after each successful authentication.
+              <div class="eacategory">Guidance</div>The evaluator shall verify the operational guidance contains all configuration guidance for setting any administrative value that is configurable in the FIA_HOTP_EXT.1 requirements.
+              <div class="eacategory">Tests</div>
+                The evaluator shall configure the TOE to use a supported HOTP factor then:
+                <ul>
+                  <li><b>Test 1: </b>Attempt to establish a connection using a factor from a different client, the test passes if the client fails to connect.
+                  </li><li><b>Test 2: </b>Attempt multiple connections outside the boundary set in FIA_HOTP_EXT.1.6 and verify the remediation is triggered.  The test passes if remediation is triggered as defined in the selections and assignments.
+                  </li><li><b>Test 3: </b>Attempt to use a HOTP that is outside of the value allowed with for resynchronization. The test passes if the client fails to connect.
+                  </li><li><b>Test 4: </b>Attempt to connect with a valid HOTP, disconnect and attempt to authenticate again with the same HOTP value.  The test passes if the client connects the first time and fails to connect the second time. If the HOTP generated is duplicated the test may be repeated.
+                  </li>
+                </ul>
+              </div><div class="comp" id="FIA-PSK-EXT-1"><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4><div class="component-activity-header">FIA_PSK_EXT.1</div>
               
               
               
@@ -1386,30 +1410,6 @@ The following sections list Common Criteria and technology terms used in this do
                     The evaluator shall verify the client prompts the user for the TOTP before initiating the connection.  
                     The evaluator shall verify the server validates the TOTP or receives confirmation from an authentication server before establishing the channel.</li>
                   
-                </ul>
-              </div><div class="comp" id="FIA-HOTP-EXT-1"><h4>FIA_HOTP_EXT.1 HMAC-Based One-Time Password Pre-Shared Keys</h4><div class="component-activity-header">FIA_HOTP_EXT.1</div>
-              
-              
-              
-            <div class="eacategory">TSS</div>
-                <p></p>The evaluator shall confirm the TSS describes how the TOE complies with the RFC.
-                <p></p>The evaluator shall confirm the TSS describes how the HOTP seed is generated and ensure it aligns with FCS_RBG_EXT.1
-                <p></p>The evaluator shall confirm the TSS describes how the HOTP seed is protected and ensure it aligns with the storage requirements of the base PP. 
-                <p></p>The evaluator shall confirm the TSS describes how a new HOTP seed is assigned for each client and how each client is uniquely identified.
-                <p></p>The evaluator shall confirm the TSS describes how the HOTP seed is conditioned into a HOTP hash and verify it matches the selection in FIA_HOTP_EXT.1.4.
-                <p></p>The evaluator shall confirm the TSS describes how the HOTP hash is truncated and verify it matches the selection in FIA_HOTP_EXT.1.5.
-                <p></p>The evaluator shall confirm the TSS describes how the TOE handles multiple incoming invalid requests and verify it provides anti-hammer mechanism that match the selections FIA_HOTP_EXT.1.6.
-                <p></p>The evaluator shall confirm the TSS describes how the TOE handles resynchronization and how it rejects attempts outside of the look-ahead window selected in FIA_TOTP_EXT.1.7
-                <p></p>The evaluator shall confirm the TSS describes how the TOE how the counter is incremented after each successful authentication.
-                <div class="eacategory">Guidance</div>The evaluator shall verify the operational guidance contains all configuration guidance for setting any administrative value that is configurable in the FIA_HOTP_EXT.1 requirements.
-              <div class="eacategory">Tests</div>
-                The evaluator shall configure the TOE to use a supported HOTP factor then:
-                <ul>
-                <li><b>Test 1: </b>Attempt to establish a connection using a factor from a different client, the test passes if the client fails to connect.
-                </li><li><b>Test 2: </b>Attempt multiple connections outside the boundary set in FIA_HOTP_EXT.1.6 and verify the remediation is triggered.  The test passes if remediation is triggered as defined in the selections and assignments.
-                </li><li><b>Test 3: </b>Attempt to use a HOTP that is outside of the value allowed with for resynchronization. The test passes if the client fails to connect.
-                </li><li><b>Test 4: </b>Attempt to connect with a valid HOTP, disconnect and attempt to authenticate again with the same HOTP value.  The test passes if the client connects the first time and fails to connect the second time. If the HOTP generated is duplicated the test may be repeated.
-                </li>
                 </ul>
               </div><div class="comp" id="FIA-TOTP-EXT-1"><h4>FIA_TOTP_EXT.1 Time-Based One-Time Password Pre-Shared Keys</h4><div class="component-activity-header">FIA_TOTP_EXT.1</div>
               
