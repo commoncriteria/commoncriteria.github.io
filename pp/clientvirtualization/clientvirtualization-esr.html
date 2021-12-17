@@ -47,9 +47,10 @@
 					    margin-bottom:0.5em;
 					    margin-top:0.25em;
 					}</style></head><body><table class="intro"><tr><td style="width: 50%;"><img style="max-width:100%;" src="images/cclogo.png"></img></td><td style="vertical-align: middle;"><b>Common Criteria Evaluation and Validation Scheme</b><p></p>National Information
-					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">Server Virtualization Essential Security Requirements</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">National Information Assurance Partnership</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">42</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">1.0</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">final</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr">19 October 2016</issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="status">Status</div>
-		This Essential Security Requirements (ESR) document specifies the essential 
-		requirements for server virtualization software. 
+					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">Client Virtualization Essential Security Requirements</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">National Information Assurance Partnership</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">42</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">1.0</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">final</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr">7 March 2016</issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="status">Status</div>
+		This Essential Security Requirements (ESR) document specifies the essential requirements 
+		for client virtualization software.  The creation of an ESR is a necessary prerequisite 
+		for the recognition of the Client Virtualization Protection Profile as a PP.
 	<div class="section" id="purpose">Background and Purpose</div>
 		<!-- This section sets the context for not only the ESR, but what is 
 			expected of the resulting Protection Profile (PP). The intent is 
@@ -61,17 +62,19 @@
 			elaborate on subtleties not apparent in the “bulleted” high level
 			statements.
 		-->
-		Server Virtualization, for the purposes of this EP, refers to a virtualization 
-		system (VS) that implements virtualized hardware components on server-class hardware. 
-		It creates a virtualized hardware environment for each instance of a guest operating 
-		system (virtual machines or VMs) permitting these environments to execute concurrently 
-		while maintaining isolation and the appearance of exclusive control over assigned computing 
-		resources. Each VM instance supports applications such as file servers, web servers, 
-		and mail servers. Server virtualization may also support client operating systems in a 
-		virtual desktop or thin-client environment. Typically, virtualized servers provide services 
-		to remote clients and are generally not directly accessible by non-administrative users.<br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
-
-		This EP does not address client virtualization, application virtualization, or containers.
+		Client Virtualization, for the purposes of this PP, refers to a virtualization system (VS) that implements 
+		virtualized hardware components locally on an endpoint machine.  Endpoints are typically client hardware 
+		such as desktop or laptop computers that a user interacts with directly, but may also include headless embedded
+		systems without direct human interaction. It creates a virtualized hardware 
+		environment for each instance of a guest operating system (virtual machines or VMs) permitting these 
+		environments to execute concurrently while maintaining the appearance of isolation and exclusive control 
+		over assigned computing resources. Client virtualization is generally used on endpoint systems, making use 
+		of the local machine's resources (memory, CPU, etc.) to provide isolated user environments. This PP does not 
+		address virtualization on mobile devices (typically devices that use a baseband processor and/or connect to a 
+		cellular network). Nor does it address application virtualization or containers.<br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+		
+		This document describes the high-level set of security requirements that client 
+		virtualization software must satisfy when evaluated against the PP under development.
 	<div class="section" id="usecases">Use Cases</div>
 		<!-- 
 			This section is intended to provide the initial scope/bound of the 
@@ -83,17 +86,17 @@
 			(ESR) and for the TC to consider when writing the PP.
 		-->
 		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li>Virtualized Servers – Virtualized instances of network services traditionally 
-				executed on separate hardware platforms, such as web servers, file servers, and 
-				mail servers. 
+			<li>Locally Managed Client - A local administrator creates and runs one or more VMs locally.  
+				This client could be stand-alone or connected to a network.
 			</li>
-			<li>Virtualized Network Infrastructure – Virtualized instances of routers, switches, 
-				and other network infrastructure. 
+			<li>Enterprise Managed Client - An enterprise administrator for the VS centrally manages one or 
+				more client hypervisors, creating and configuring VMs which are then pushed to the clients.  These 
+				VMs are then available for users on that client to run using the computing resources of that client. 
+				(Note that this is not Virtual Desktop Infrastructure where the hypervisors and the VMs run on remote 
+				servers.  While both can be centrally managed and accessed from clients, for client virtualization, 
+				the VMs are local to the endpoint machine).
 			</li>
-			<li>Virtualized Enterprise User Environments – The server back-end of virtual 
-				desktop (VDI) or thin-client implementations where actual computation occurs 
-				in a server-based VM and the user interacts through a client. The client 
-				application is not covered by this EP.
+			<li>Headless Client – A VM is used by a program without direct human interaction.
 			</li>
 		</ul>
 	<div class="section" id="resourcesprotected">Resources to be protected</div>
@@ -120,12 +123,12 @@
 	<div class="section" id="attackeraccess">Attacker access</div> 
 		An attacker has access to either:
 		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li>One or more Guest VMs, and
+			<li>A VM or its network
 			</li>
-			<li>Its operational network
+			<li>The Client machine hosting the VS or its network
 			</li>
 		</ul>
-	<div class="section" id="boundary">TOE Boundary</div>
+	<div class="section" id="boundary">Boundary of Device</div>
 		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
 			<li>The Virtual Machine Manager (VMM)
 				<ul>
@@ -133,7 +136,7 @@
 					</li>
 					<li>Service VMs
 					</li>
-					<li>VM abstractions (but not Guest VM workloads)
+					<li>VM containers/abstractions
 					</li>
 				</ul>
 			</li>
@@ -157,9 +160,10 @@
         	of this document, to provide the TC enough information to ensure 
         	they have an understanding of what is minimally required in breath.
         -->
+		
 		The following are the essential security requirements that are expected to 
-		be implemented by any application that is compliant with the Server Virtualization 
-		EP. Note that these security requirements are conditional on that functionality 
+		be implemented by any application that is compliant with the Client Virtualization 
+		PP. Note that these security requirements are conditional on that functionality 
 		being present. For example, a product that does not require an external network 
 		connection for any purpose is considered to satisfy any security requirements that 
 		pertain to the secure use of external network connections. 
@@ -197,11 +201,6 @@
 			</li>
 			<li>Physical security appropriate to the value of the VS and the data it contains is provided.
 			</li>
-			<li>Administrators of the VS are trusted follow and apply all Administrator guidance.
-			</li>
-			<li>The VMs will have assurance sufficient to outweigh the risk that they will violate the 
-				security policy of the TOE by using covert channels.
-			</li>
 			<li>The user of the VS is not willfully negligent or hostile, and uses the VS in compliance 
 				with the applied enterprise security policy and guidance.
 			</li>
@@ -210,9 +209,7 @@
 		The following requirements may already be realized in some products in this technology class, 
 		but the ESR is not mandating these capabilities exist in “baseline” level products:
 		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li>Automatic response to certain security events
-			</li>
-			<li>Verifying VM Integrity
+			<li>Access Banners
 			</li>
 		</ul>
 	<div class="section" id="objective">Objective Requirements</div> 
@@ -220,13 +217,11 @@
 		realized currently in products of this type, but they are capabilities that may be mandated in future 
 		versions of the ESR and resulting PPs. 
 		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li>Device Driver Isolation
+			<li>Support for Introspection
 			</li>
-			<li>Support for Software Identification Tags
+			<li>Collection of Integrity Measurements
 			</li>
-			<li>Support for VM Introspection
-			</li>
-			<li>Support for Measured Launch of Platform and VMM
+			<li>Maintain the integrity of its communications channels according to system security policy
 			</li>
 		</ul>
 	<div class="section" id="outsidescope">Outside the TOE's Scope</div>
@@ -241,13 +236,16 @@
 		-->
 		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
 			<li>The platform onto which the Virtualization System is installed including the hardware, 
-				firmware, and non-VS-essential portions of the host operating system (if any)
+				firmware, and non-VS-essential portions of the host operating system
 			</li>
 			<li>Software installed inside VMs that is unrelated to the functioning of the Virtualization System
+			</li>
+			<li>Virtualization on mobile devices (typically devices that use a baseband processor and/or connect to a 
+				cellular network)
 			</li>
 			<li>Application virtualization
 			</li>
 			<li>Containers
 			</li>
-		</ul>	
+		</ul>		
 	</body></html>
