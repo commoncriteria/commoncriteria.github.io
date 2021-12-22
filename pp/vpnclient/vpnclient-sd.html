@@ -1287,7 +1287,35 @@ The following sections list Common Criteria and technology terms used in this do
               
               
               
-            <div class="eacategory">TSS</div>TSS TBD after public review of SRFs.<div class="eacategory">Guidance</div>Guidance TBD after public review of SRFs.<div class="eacategory">Tests</div>Tests TBD after public review of SRFs.</div><h2 class="indexable" data-level="2" id="s-fia">2.7.2 Identification and Authentication (FIA)</h2><div class="comp" id="FIA-HOTP-EXT-1"><h4>FIA_HOTP_EXT.1 HMAC-Based One-Time Password Pre-Shared Keys</h4><div class="component-activity-header">FIA_HOTP_EXT.1</div>
+            <div class="eacategory">TSS</div>The evaluator shall verify that the TS describes the use of EAP options for each of the selected peer authentication 
+                mechanisms, that TLS with mutual authentication is used, that the random values are from an appropriate source, 
+                and that the EAP MSK is derived from the TLS master key and is used as the IKEv2 shared key..<div class="eacategory">Guidance</div>The evaluator shall verify that the guidance documents describe any configurable features of the EAP or TLS 
+                functionality, including instructions for configuration of the authenticator(s) and registration processes for clients.<div class="eacategory">Tests</div>Testing for TLS functionality is in accordance with the TLS package.
+                <b></b>For each supported EAP method claimed in FCS_EAP_TLS_EXT.1.1 and for each authentication method  claimed in 
+                FCS_EAP_TLS_EXT.1.3, the evaluator shall perform the following tests:
+                <ul>
+                  <li><b>Test 1: </b>The evaluator shall follow AGD guidance to configure the TSF to use the EAP method claimed. 
+                    The evaluator shall follow AGD guidance to configure the TSF to use the authentication method claimed and, 
+                    for EAP-TTLS, register a client with appropriate key material required for the authentication method. 
+                    The evaluator shall establish an VPN session using a test client with a valid certificate and, for EAP-TTLS, 
+                    configured to provide a correct value for the configured authenticator. The evaluator shall  observe the the 
+                    VPN session is successful.</li>
+                  <li><b>Test 2: </b>(conditional for EAP-TTLS support): The evaluator shall cause the test client with a valid certificate to send 
+                    an invalid authenticator for the claimed authentication method:
+                    <b></b>For HOTP, replay the HOTP value sent previously, 
+                    <b></b>For TOTP or PSK, modify a byte of the properly constructed value,and observe that the TSF aborts the session</li>
+                  <li><b>Test 3: </b>The evaluator shall establish a new, valid certificate for a test client using an identifier not 
+                    corresponding to a registered user. For EAP-TTLS, the evaluator shall cause the test client using this 
+                    certificate to send a correct authenticator value for the registered user. The evaluator shall initiate a 
+                    VPN session from the test client to the TSF and observe that the TSF aborts the session.</li>
+                  <li><b>Test 4: </b>The evaluator shall follow AGD guidance to configure the TSF to use a supported EAP method and register the 
+                    user with key material for required for a supported authentication method. The evaluator shall configure a test 
+                    client to respond to an IKE v2 exchange with EAP-request, providing valid phase 1 handshake and valid TLS 
+                    handshake, but computing the phase 2 shared key using standard (non-EAP) methods. The evaluator shall initiate 
+                    a VPN session between the test client and the TSF, and observe that the TSF aborts the session.
+                  </li>
+                </ul>
+              </div><h2 class="indexable" data-level="2" id="s-fia">2.7.2 Identification and Authentication (FIA)</h2><div class="comp" id="FIA-HOTP-EXT-1"><h4>FIA_HOTP_EXT.1 HMAC-Based One-Time Password Pre-Shared Keys</h4><div class="component-activity-header">FIA_HOTP_EXT.1</div>
               
               
               
