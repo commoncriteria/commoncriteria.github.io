@@ -48,179 +48,181 @@
 					    margin-top:0.25em;
 					}</style></head><body><table class="intro"><tr><td style="width: 50%;"><img style="max-width:100%;" src="images/cclogo.png"></img></td><td style="vertical-align: middle;"><b>Common Criteria Evaluation and Validation Scheme</b><p></p>National Information
 					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">Enterprise Management Security Requirements</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">NIAP</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">00x</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">00x</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">draft</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr"></issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="purpose">Background and Purpose</div>
-		This document describes a core set of security requirements for Enterprise Security Management systems. 
-		These requirements cover basic security characteristics and behaviors for an ESM management server or service 
-		hosted in a cloud or on-premises (the ESM system).
-		<h:br xmlns:h="http://www.w3.org/1999/xhtml"></h:br>
-		The intent is that the remaining sections provide succinct statements that highlight the relevant aspects to 
-		be addressed by the Technical Community (TC) constructing the PP. Here, the authors provide a narrative that 
-		introduces the reader to the problem being solved, and presents key aspects that support or guide the TC, and 
-		may elaborate on subtleties not apparent in the “bulleted” high level statements.
-	<div class="section" id="usecases">Use Cases</div>
-	  	This section is intended to provide the initial scope/bound of the security problem by providing the reader with 
-		concise statements regarding the scenarios in which the technology is being used. The intended usage presented here 
-		should lay the groundwork for the identifying the resources to be protected, and what threats must be considered in 
-		the drafting of the Essential Security Requirements (ESR) and for the TC to consider when writing the PP.
-		<h:br xmlns:h="http://www.w3.org/1999/xhtml"></h:br>
-		<!--Need to figure out how to format this properly -->
-		[USE CASE 1] Detection of Potential Unauthorized Activity
-		The detection of potentially unauthorized activity, software, or users is enabled by the collection of host-based 
-		endpoint data to a central ESM where the data is analyzed.
-		[USE CASE 2] Remediation of Malicious Activity
-		The ability to initiate remediation commands to attempt a clean up of detected malicious activity is a key use case of ESM.
-		[USE CASE 3] Discovery
-		The capability to effectively browse, query, and export aggregated host-based endpoint data enables a SOC analyst to 
-		discover adversaries in post-compromise scenarios.
-	<div class="section" id="resourcesprotected">Resources to be protected</div>
-    	  <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-	    <li> Sensitive data stored by the ESM system. </li>
-	    <li> Credentials for authentication to or from the ESM system. </li>
-	    <li> Cryptographic key material to perform secure communications with host agents. </li>
-	    <li> Sensitive data in transit to or from the ESM system. </li>
-	  </ul>
-	<div class="section" id="attackeraccess">Attacker access</div> 
-		<ol xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li> An attacker is assumed to attempt attacks from the following vantage points: 
-				<ol>
-					<li> The network across which the application engages in communication, both actively and passively. 
-					     Including potentially IOT devices and BYOD. </li>
-					<li> The platform on which the application is installed, though as an unprivileged subject. </li>
-					<li> The cloud environment on which the application is installed, though as an unprivileged subject. </li>
-					<li> The endpoint (host agent) by planting crafted malicious artifacts on the Endpoint platform to be consumed by the ESM System. </li></ol></li>
-			<li> An attacker has an arbitrary amount of time to analyze the behavior of the application, its interaction with its host device or platform, 
-			     and/or the data it transmits over the network. </li></ol>
-	<div class="section" id="requirements">Essential Security Requirements</div>
-	  	This is where the authors present an initial set of English requirements that specify security functionality, rather 
-		than design and/or implementation characteristics. These requirements will provide the foundation for which the 
-		detailed set of requirements is derived. It is important that the requirements captured here make an attempt to 
-		fully address the categories (e.g., access control, identification, authentication, management capabilities, roles 
-		of administration, secure communications, and audit). That’s not to say the requirements are fully specified or 
-		detailed enough to simply translate to Common Criteria security functional requirements. The goal is that there 
-		is enough information contained here, as well as the other sections of this document, to provide the TC enough 
-		information to ensure they have an understanding of what is minimally required in breath.
-	  <!--Need to figure out how to format this properly -->
-	  <ol xmlns="http://common-criteria.rhcloud.com/ns/esr">
-		  <li> Patch Management
-		  	<ol>
-				<li> Scanning and updating patches is important enterprise security and requires management at all 
-				     phases: QA, development, staging, production, etc. and maintaining strict policies to avoid any 
-				     unexpected events. </li></ol></li>
-		  <li> Policy Management
-			<ol>
-				<li> Exception creation and policy configuration. </li>
-				<li> View protected processes. </li>
-				<li> Agent and ESM settings
-					<ol> <li> Heartbeat Interval </li>
-						<li> Reporting Interval </li></ol></li></ol></li>
-		  <li> Vulnerability Assessment
-			<ol>
-				<li> Import unknown hashes and set policy for them based on rules.
-					<ol><li>Ability to administratively override previous policies. </li></ol></li>
-				<li> Scanning hosts for missing patches, configurations, security policies
-					<ol><li> Scanning file executions and running files. </li></ol></li></ol></li>
-		  <li> Architecture
-			  <ol>
-				  <li> Endpoint and Tenant Management
-					  <ol><li> Role-based access control </li>
-				   	      <li> Agent revocation </li></ol></li>
-				  <li> Permission Segregation
-					  <ol><li> Role based Tier model, protecting privileged accounts and resources from non-privleged. </li></ol></li>
-				  <li> Compliance
-					  <ol><li> Auditing capabilities </li></ol></li>
-				  <li> Confidentiality
-					  <ol><li> Encrypted communication between ESM host and clients </li></ol></li></ol></li>
-		  <li> Risk Management
-			  <ol>
-				  <li> Behavior Detection/Threat Modeling </li>
-				  <li> Network Virtualization </li>
-				  <li> Ties into architecture with custom defense strategies based on the capabilities of the architecture </li>
-				  <li> Zero Trust </li></ol></li>
-		  <li> Reporting Capabilities
-			  <ol>
-				  <li> Log forwarding (SIEM, Syslog, Email, etc.) </li>
-				  <li> Security events search criteria </li></ol></li>
-	  </ol>
-	<div class="section" id="assumptions">Assumptions</div>
-	  Simply put, this section presents the aspects of the product and 
-	  its	intended environment that can be assumed to hold true. This 
-	  will provide additional scope on the resulting PP.
-
-	  The following assumptions are made for the ESM product and its operational environment: 
-		<ol xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li> Depending on configuration and capability, the product may or may not be: 
-				<ol><li> Bound to directory server or cloud environment to support multi-user login </li></ol></li>
-			<li> The ESM system is connected to a network. For purposes of sending/receiving endpoint agent data. 
-			     Other entities on the network are not inherently trustable.</li>
-			<li> Administrators are not malicious in nature. </li>
-			<li> Users are not malicious in nature, though they may inadvertently or intentionally engage in risky behavior. </li>
-		</ol>
-	<div class="section" id="extensions">Optional Extensions</div> 
-		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li> Policy Management 
-				<ul>
-					<li> Exceptions for Active Directory (AD) objects
-						<ul>
-							<li> Assign rules to AD objects </li>
-						</ul>
-					</li>
-				     	<li> Change mode per process
-					     	<ul>
-						     	<li> Report or block an event based on process or category of process </li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li> 	Architecture
-				<ul>
-					<li> 	Resiliency
-						<ul>
-							<li> Failover </li>
-							<li> Loadbalanced </li>
-							<li> Private/Public Cloud Compatible </li>
-							<li> Local only configurations </li>
-						</ul>
-					</li>
-					<li>\	Compliance
-						<ul>
-							<li> Ability to assign separately privileged auditors </li>
-						</ul>
-					</li>
-					<li>	Collaboration
-						<ul>
-							<li> Invite third party or vendor to automatically create rules and import </li>
-							<li> All communication is encrypted and certificate based authentication </li>
-						</ul>
-					</li>
-					<li>	Customization
-						<ul>
-							<li> Allow for custom modules to hook into the architecture based upon client needs </li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li>	Vulnerability Assessments
-				<ul>
-					<li> Virtual agents or bots can perform tasks using natural language processing (NLP) </li>
-					<li> Automated ticketing, escalation, resolution </li>
-				</ul>
-			</li>
-			<li>	Reporting Capabilities
-				<ul>
-					<li> Custom notification message </li>
-					<li> Self-Service Portal </li>
-					<li> Dashboard
-						<ul>
-							<li> Display quarantined files that are eligible to be restored to their original location on the endpoint </li>
-							<li> Smart search capabilities to find answers easily and quickly </li>
-							<li> Intelligent analytics enable workflow optimization and automation </li>
-							<li> Metrics can be created from unstructured data and additionally be gathered analyzed efficiently </li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	<div class="section" id="outsidescope">Outside the TOE's Scope</div>
-		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li> Cloud ESM devices – this is not to include a VM running in the cloud running ESM, but ESM cloud specific tool like AWS Security Hub or Azure Sentinel </li>
-		</ul>
-	</body></html>
+    This document describes a core set of security requirements for Enterprise Security Management systems. 
+    These requirements cover basic security characteristics and behaviors for an ESM management server or service 
+    hosted in a cloud or on-premises (the ESM system).
+    <br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+    The intent is that the remaining sections provide succinct statements that highlight the relevant aspects to 
+    be addressed by the Technical Community (TC) constructing the PP. Here, the authors provide a narrative that 
+    introduces the reader to the problem being solved, and presents key aspects that support or guide the TC, and 
+    may elaborate on subtleties not apparent in the “bulleted” high level statements.
+  <div class="section" id="usecases">Use Cases</div>
+    This section is intended to provide the initial scope/bound of the security problem by providing the reader with 
+    concise statements regarding the scenarios in which the technology is being used. The intended usage presented here 
+    should lay the groundwork for the identifying the resources to be protected, and what threats must be considered in 
+    the drafting of the Essential Security Requirements (ESR) and for the TC to consider when writing the PP.
+    <br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+    <!--Need to figure out how to format this properly -->
+    [USE CASE 1] Detection of Potential Unauthorized Activity
+    The detection of potentially unauthorized activity, software, or users is enabled by the collection of host-based
+    endpoint data to a central ESM where the data is analyzed.
+    <br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+    [USE CASE 2] Remediation of Malicious Activity
+    The ability to initiate remediation commands to attempt a clean up of detected malicious activity is a key use case of ESM.
+    <br xmlns="http://common-criteria.rhcloud.com/ns/esr"></br>
+    [USE CASE 3] Discovery
+    The capability to effectively browse, query, and export aggregated host-based endpoint data enables a SOC analyst to 
+    discover adversaries in post-compromise scenarios.
+  <div class="section" id="resourcesprotected">Resources to be protected</div>
+    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+      <li> Sensitive data stored by the ESM system. </li>
+      <li> Credentials for authentication to or from the ESM system. </li>
+      <li> Cryptographic key material to perform secure communications with host agents. </li>
+      <li> Sensitive data in transit to or from the ESM system. </li>
+    </ul>
+  <div class="section" id="attackeraccess">Attacker access</div> 
+    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+      <li> An attacker is assumed to attempt attacks from the following vantage points: 
+        <ul>
+          <li> The network across which the application engages in communication, both actively and passively. 
+            Including potentially IOT devices and BYOD. </li>
+          <li> The platform on which the application is installed, though as an unprivileged subject. </li>
+          <li> The cloud environment on which the application is installed, though as an unprivileged subject. </li>
+          <li> The endpoint (host agent) by planting crafted malicious artifacts on the Endpoint platform to be consumed by the ESM System. </li></ul></li>
+      <li> An attacker has an arbitrary amount of time to analyze the behavior of the application, its interaction with its host device or platform, 
+        and/or the data it transmits over the network. </li></ul>
+  <div class="section" id="requirements">Essential Security Requirements</div>
+    This is where the authors present an initial set of English requirements that specify security functionality, rather 
+    than design and/or implementation characteristics. These requirements will provide the foundation for which the 
+    detailed set of requirements is derived. It is important that the requirements captured here make an attempt to 
+    fully address the categories (e.g., access control, identification, authentication, management capabilities, roles 
+    of administration, secure communications, and audit). That’s not to say the requirements are fully specified or 
+    detailed enough to simply translate to Common Criteria security functional requirements. The goal is that there 
+    is enough information contained here, as well as the other sections of this document, to provide the TC enough 
+    information to ensure they have an understanding of what is minimally required in breath.
+    <!--Need to figure out how to format this properly -->
+    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+      <li> Patch Management
+        <ul>
+          <li> Scanning and updating patches is important enterprise security and requires management at all 
+            phases: QA, development, staging, production, etc. and maintaining strict policies to avoid any 
+            unexpected events. </li></ul></li>
+      <li> Policy Management
+        <ul>
+          <li> Exception creation and policy configuration. </li>
+          <li> View protected processes. </li>
+          <li> Agent and ESM settings
+            <ul> <li> Heartbeat Interval </li>
+              <li> Reporting Interval </li></ul></li></ul></li>
+      <li> Vulnerability Assessment
+        <ul>
+          <li> Import unknown hashes and set policy for them based on rules.
+            <ul><li>Ability to administratively override previous policies. </li></ul></li>
+          <li> Scanning hosts for missing patches, configurations, security policies
+            <ul><li> Scanning file executions and running files. </li></ul></li></ul></li>
+      <li> Architecture
+        <ul>
+          <li> Endpoint and Tenant Management
+            <ul><li> Role-based access control </li>
+              <li> Agent revocation </li></ul></li>
+          <li> Permission Segregation
+            <ul><li> Role based Tier model, protecting privileged accounts and resources from non-privleged. </li></ul></li>
+          <li> Compliance
+            <ul><li> Auditing capabilities </li></ul></li>
+          <li> Confidentiality
+            <ul><li> Encrypted communication between ESM host and clients </li></ul></li></ul></li>
+      <li> Risk Management
+        <ul>
+          <li> Behavior Detection/Threat Modeling </li>
+          <li> Network Virtualization </li>
+          <li> Ties into architecture with custom defense strategies based on the capabilities of the architecture </li>
+          <li> Zero Trust </li></ul></li>
+      <li> Reporting Capabilities
+        <ul>
+          <li> Log forwarding (SIEM, Syslog, Email, etc.) </li>
+          <li> Security events search criteria </li></ul></li>
+    </ul>
+  <div class="section" id="assumptions">Assumptions</div>
+    Simply put, this section presents the aspects of the product and 
+    its	intended environment that can be assumed to hold true. This 
+    will provide additional scope on the resulting PP.
+    
+    The following assumptions are made for the ESM product and its operational environment: 
+    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+      <li> Depending on configuration and capability, the product may or may not be: 
+        <ul><li> Bound to directory server or cloud environment to support multi-user login </li></ul></li>
+      <li> The ESM system is connected to a network. For purposes of sending/receiving endpoint agent data. 
+        Other entities on the network are not inherently trustable.</li>
+      <li> Administrators are not malicious in nature. </li>
+      <li> Users are not malicious in nature, though they may inadvertently or intentionally engage in risky behavior. </li>
+    </ul>
+  <div class="section" id="extensions">Optional Extensions</div> 
+    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+      <li> Policy Management 
+        <ul>
+          <li> Exceptions for Active Directory (AD) objects
+            <ul>
+              <li> Assign rules to AD objects </li>
+            </ul>
+          </li>
+          <li> Change mode per process
+            <ul>
+              <li> Report or block an event based on process or category of process </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li> 	Architecture
+        <ul>
+          <li> 	Resiliency
+            <ul>
+              <li> Failover </li>
+              <li> Loadbalanced </li>
+              <li> Private/Public Cloud Compatible </li>
+              <li> Local only configurations </li>
+            </ul>
+          </li>
+          <li>	Compliance
+            <ul>
+              <li> Ability to assign separately privileged auditors </li>
+            </ul>
+          </li>
+          <li>	Collaboration
+            <ul>
+              <li> Invite third party or vendor to automatically create rules and import </li>
+              <li> All communication is encrypted and certificate based authentication </li>
+            </ul>
+          </li>
+          <li>	Customization
+            <ul>
+              <li> Allow for custom modules to hook into the architecture based upon client needs </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>	Vulnerability Assessments
+        <ul>
+          <li> Virtual agents or bots can perform tasks using natural language processing (NLP) </li>
+          <li> Automated ticketing, escalation, resolution </li>
+        </ul>
+      </li>
+      <li>	Reporting Capabilities
+        <ul>
+          <li> Custom notification message </li>
+          <li> Self-Service Portal </li>
+          <li> Dashboard
+            <ul>
+              <li> Display quarantined files that are eligible to be restored to their original location on the endpoint </li>
+              <li> Smart search capabilities to find answers easily and quickly </li>
+              <li> Intelligent analytics enable workflow optimization and automation </li>
+              <li> Metrics can be created from unstructured data and additionally be gathered analyzed efficiently </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  <div class="section" id="outsidescope">Outside the TOE's Scope</div>
+    <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+      <li> Cloud ESM devices – this is not to include a VM running in the cloud running ESM, but ESM cloud specific tool like AWS Security Hub or Azure Sentinel </li>
+    </ul>
+  </body></html>
