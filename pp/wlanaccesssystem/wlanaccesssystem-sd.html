@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html><head><title>Supporting Document - PP-Module for Wireless Local Area Network (WLAN) Access System Products</title><style type="text/css">
+<html><head><title>Supporting Document - 
+    PP-Module for Wireless Local Area Network (WLAN) Access System</title><style type="text/css">
     #toc a{
         display: block;
     }
@@ -22,6 +23,9 @@
        margin-left: 20px;
     }
     .assignable-content{
+      font-style: italic;
+    }
+    .selection-content{
       font-style: italic;
     }
     .refinement{
@@ -173,6 +177,10 @@
    .uc_not, .uc_mf, .uc_sel, .uc_guide{
        text-indent: 10px;
    }
+   .uc_sel &gt; a{ 
+       font-style: italic;
+   }
+
    .uc_not_sel, .uc_sel.uc_mf, uc_assign.uc_mf{
        text-indent: 20px;
    }
@@ -193,10 +201,45 @@
        display: table;
        background-color: gray;
    }  
-
+   div.uc_inc_fcomp{
+       display: list-item;
+       list-style-type: disc;
+       list-style-position: inside;
+   }
    .evidence, .test-obj { font-style: normal; font-size: 90%;}
+   
+   
+	table.classic {
+    	width: 100%;
+    	background-color: white;
+    	border-collapse: collapse;
+    	border-width: 2px;
+  		border-color: gray;
+  		border-style: solid;
+  		color: black;
+		font-size: small;
+	}
+    table.classic th {
+  		background-color: lightgray;   
+	}
+    table.classic th:empty{
+	    background-color: white;
+		border-top: none;
+		border-left: none;
+	}
+	table.classic td, table.classic th {
+  		border-width: 2px;
+  		border-color: gray;
+  		border-style: solid;
+  		padding: 5px;
+	}
+
+   
+   
    </style></head><body><div style="text-align: center; margin-left: auto; margin-right: auto;"><h1 class="title" style="page-break-before:auto;">Supporting Document<br/>
-        Mandatory Technical Document</h1><img src="images/niaplogo.png" alt="NIAP"></img><hr width="50%"></hr><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><br/>PP-Module for Wireless Local Area Network (WLAN) Access System<p></p>Version: 1.0<p></p>2021-03-10<p></p><b>National Information Assurance Partnership</b></div><div class="foreword"><h1 style="text-align: center">Foreword</h1><p>This is a Supporting Document (SD), intended to complement the Common Criteria version 3
+        Mandatory Technical Document</h1><img src="images/niaplogo.png" alt="NIAP"></img><hr width="50%"></hr><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><br/>
+    PP-Module for Wireless Local Area Network (WLAN) Access System<br/>
+      Version: 1.0<br/>2021-03-10<br/><b>National Information Assurance Partnership</b></div><div class="foreword"><h1 style="text-align: center">Foreword</h1><p>This is a Supporting Document (SD), intended to complement the Common Criteria version 3
       and the associated Common Evaluation Methodology for
       Information Technology Security Evaluation.</p><p>SDs may be “Guidance Documents”, that highlight specific approaches 
       and application of the standard to areas where no mutual recognition of
@@ -209,21 +252,26 @@
       </p><p><b style="page-break-before:always;">Document history:</b><table><tr class="header"><th>Version</th><th>Date</th><th style="align:left;">Comment</th></tr><tr><td>1.0</td><td>2020-10-28</td><td>Initial Release</td></tr></table></p><p><b>General Purpose:</b><br/>
       The purpose of this SD is to define evaluation methods for the functional behavior of 
       Wireless Local Area Network (WLAN) Access System  products.
-      </p><p><b>Acknowledgements:</b><br/>
-      This SD was developed with support from NIAP Wireless Local Area Network (WLAN) Access System Technical Community members, with representatives from industry, government 
+      </p><p><b>Acknowledgments:</b><br/>
+      This SD was developed with support from NIAP 
+      Wireless Local Area Network (WLAN) Access System Technical Community members, with representatives from industry, government 
       agencies, Common Criteria Test Laboratories, and members of academia.
-      </p></div><h1>Table of Contents</h1><div id="toc"><a href="#introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#scope" style="text-indent:10px">1.1<span>Technology Area and Scope of Supporting Document</span></a><a href="#structure" style="text-indent:10px">1.2<span>Structure of the Document</span></a><a href="#glossary" style="text-indent:10px">1.3<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.3.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.3.2<span>Technical Terms</span></a><a href="#sfr" style="text-indent:0px">2<span>Evaluation Activities for SFRs</span></a><a href="#aa-$NDc" style="text-indent:10px">2.1<span>
-    Protection Profile for NDs</span></a><a href="#qq-sfrs-NDc-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
-        </span></a><a href="#from_nd_fcs" style="text-indent:30px">2.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#from_nd_fpt" style="text-indent:30px">2.1.1.2<span>Protection of the TSF (FPT)</span></a><a href="#from_nd_ftp" style="text-indent:30px">2.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">2.2<span>TOE SFR Evaluation Activities</span></a><a href="#man_fau" style="text-indent:20px">2.2.1<span>Security Audit (FAU)</span></a><a href="#man_fcs" style="text-indent:20px">2.2.2<span>Cryptographic Support (FCS)</span></a><a href="#man_fia" style="text-indent:20px">2.2.3<span>Identification and Authentication (FIA)</span></a><a href="#man_fmt" style="text-indent:20px">2.2.4<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.2.5<span>Protection of the TSF (FPT)</span></a><a href="#man_fta" style="text-indent:20px">2.2.6<span>TOE Access (FTA)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.3<span>Evaluation Activities for Optional SFRs</span></a><a href="#opt_fcs" style="text-indent:20px">2.3.1<span>Cryptographic Support (FCS)</span></a><a href="#sel-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#sel_fcs" style="text-indent:20px">2.4.1<span>Cryptographic Support (FCS)</span></a><a href="#sel_fia" style="text-indent:20px">2.4.2<span>Identification and Authentication (FIA)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Objective SFRs</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the Wireless Local Area Network (WLAN) Access System PP-Module is
+      </p></div><h1>Table of Contents</h1><div id="toc"><a href="#introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#scope" style="text-indent:10px">1.1<span>Technology Area and Scope of Supporting Document</span></a><a href="#structure" style="text-indent:10px">1.2<span>Structure of the Document</span></a><a href="#glossary" style="text-indent:10px">1.3<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.3.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.3.2<span>Technical Terms</span></a><a href="#sfr" style="text-indent:0px">2<span>Evaluation Activities for SFRs</span></a><a href="#aa-ND" style="text-indent:10px">2.1<span>
+    Protection Profile for NDs</span></a><a href="#qq-sfrs-ND-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
+        </span></a><a href="#from_nd_fcs" style="text-indent:30px">2.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#from_nd_fpt" style="text-indent:30px">2.1.1.2<span>Protection of the TSF (FPT)</span></a><a href="#from_nd_ftp" style="text-indent:30px">2.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">2.2<span>TOE SFR Evaluation Activities</span></a><a href="#man_fau" style="text-indent:20px">2.2.1<span>Security Audit (FAU)</span></a><a href="#man_fcs" style="text-indent:20px">2.2.2<span>Cryptographic Support (FCS)</span></a><a href="#man_fia" style="text-indent:20px">2.2.3<span>Identification and Authentication (FIA)</span></a><a href="#man_fmt" style="text-indent:20px">2.2.4<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.2.5<span>Protection of the TSF (FPT)</span></a><a href="#man_fta" style="text-indent:20px">2.2.6<span>TOE Access (FTA)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.3<span>Evaluation Activities for Optional SFRs</span></a><a href="#opt_fcs" style="text-indent:20px">2.3.1<span>Cryptographic Support (FCS)</span></a><a href="#sel-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#sel_fcs" style="text-indent:20px">2.4.1<span>Cryptographic Support (FCS)</span></a><a href="#sel_fia" style="text-indent:20px">2.4.2<span>Identification and Authentication (FIA)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Objective SFRs</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the 
+    PP-Module for Wireless Local Area Network (WLAN) Access System is
     to describe the security functionality of 
       Wireless Local Area Network (WLAN) Access System products in terms of 
     [CC] and to define functional and assurance requirements for them.
+
+    
     The PP-Module is intended for use with the following Base-PP:
         <ul><li><a href="">
-    Protection Profile for NDs, Version 2.2e</a></li></ul></p><p>This SD is mandatory for evaluations of TOEs that claim conformance to a PP-Configuration that includes the PP-Module for :
+    Protection Profile for NDs, Version 2.2e</a></li></ul><br/>
+    This SD is mandatory for evaluations of TOEs that claim conformance to a PP-Configuration that includes the PP-Module for :
     <ul><li>Wireless Local Area Network (WLAN) Access System, Version 1.0</li></ul>
-    As such it defines Evaluation Activities for the functionality described in the PP-Module as well as any impacts to the Evaluation Activites to the Base-PP(s) it modifies.
-   </p><p> 
+    As such it defines Evaluation Activities for the functionality described in the PP-Module as well as any impacts to the Evaluation Activities to the Base-PP(s) it modifies.
+    </p><p> 
 Although Evaluation Activities are defined mainly for the evaluators to follow, in general they also help developers to prepare for evaluation by identifying specific requirements for their TOE.
     The specific requirements in Evaluation Activities may in some cases clarify the meaning of Security
     Functional Requirements (SFR), and may identify particular requirements for the content of Security
@@ -248,28 +296,53 @@ Although Evaluation Activities are defined mainly for the evaluators to follow, 
     from the evaluator as to why the Evaluation Activities were not sufficient for that TOE. 
     </p><h2 id="glossary" class="indexable" data-level="1">1.3 Terms</h2>
 The following sections list Common Criteria and technology terms used in this document.
-    <h3 id="cc-terms" class="indexable" data-level="2">1.3.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a TOE meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr><tr><td><div id="Base_Protection_Profile">Base Protection Profile (Base-PP)</div></td><td>Protection Profile used as a basis to build a PP-Configuration.</td></tr><tr><td><div id="Common_Criteria">Common Criteria (CC)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td></tr><tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
+    <h3 id="cc-terms" class="indexable" data-level="2">1.3.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a TOE meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr>
+<tr><td><div id="Base_Protection_Profile">Base Protection Profile (Base-PP)</div></td><td>Protection Profile used as a basis to build a PP-Configuration.</td></tr>
+<tr><td><div id="Collaborative_Protection_Profile">Collaborative Protection Profile (cPP)</div></td><td>A Protection Profile developed by
+    international technical communities and approved by multiple schemes</td></tr>
+<tr><td><div id="Common_Criteria">Common Criteria (CC)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td></tr>
+<tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
       Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an IT security evaluation facility, accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations.
-    </td></tr><tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (CEM)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr><tr><td><div id="Distributed_TOE">Distributed TOE</div></td><td>A TOE composed of multiple components operating as a logical whole.</td></tr><tr><td><div id="Operational_Environment">Operational Environment (OE)</div></td><td>Hardware and software that are outside the TOE boundary that support the TOE functionality and security policy.</td></tr><tr><td><div id="Protection_Profile">Protection Profile (PP)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr><tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (PP-Configuration)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one Base-PP and at least one PP-Module.</td></tr><tr><td><div id="Protection_Profile_Module">Protection Profile Module (PP-Module)</div></td><td>An implementation-independent statement of security needs for a TOE type complementary to one or more Base Protection Profiles.</td></tr><tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (SAR)</div></td><td>A requirement to assure the security of the TOE.</td></tr><tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (SFR)</div></td><td>A requirement for security enforcement by the TOE.</td></tr><tr><td><div id="Security_Target">Security Target (ST)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr><tr><td><div id="TOE_Security_Functionality">TOE Security Functionality (TSF)</div></td><td>The security functionality of the product under evaluation.</td></tr><tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST.</td></tr><tr><td><div id="Target_of_Evaluation">Target of Evaluation (TOE)</div></td><td>The product under evaluation. </td></tr></table><h3 id="tech-terms" class="indexable" data-level="2">1.3.2 Technical Terms</h3><table><tr><td><div id="Access_Point">Access Point (AP)</div></td><td> 
+    </td></tr>
+<tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (CEM)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr>
+<tr><td><div id="Distributed_TOE">Distributed TOE</div></td><td>A TOE composed of multiple components operating as a logical whole.</td></tr>
+<tr><td><div id="Extended_Package">Extended Package (EP)</div></td><td>A deprecated document form for collecting SFRs that implement a particular protocol, technology,
+	    or functionality. See Functional Packages.</td></tr>
+<tr><td><div id="Functional_Package">Functional Package (FP)</div></td><td>A document that collects SFRs for a particular protocol, technology,
+	    or functionality.</td></tr>
+<tr><td><div id="Operational_Environment">Operational Environment (OE)</div></td><td>Hardware and software that are outside the TOE boundary that support the TOE functionality and security policy.</td></tr>
+<tr><td><div id="Protection_Profile">Protection Profile (PP)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr>
+<tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (PP-Configuration)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one Base-PP and at least one PP-Module.</td></tr>
+<tr><td><div id="Protection_Profile_Module">Protection Profile Module (PP-Module)</div></td><td>An implementation-independent statement of security needs for a TOE type complementary to one or more Base Protection Profiles.</td></tr>
+<tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (SAR)</div></td><td>A requirement to assure the security of the TOE.</td></tr>
+<tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (SFR)</div></td><td>A requirement for security enforcement by the TOE.</td></tr>
+<tr><td><div id="Security_Target">Security Target (ST)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr>
+<tr><td><div id="Target_of_Evaluation">Target of Evaluation (TOE)</div></td><td>The product under evaluation. </td></tr>
+<tr><td><div id="TOE_Security_Functionality">TOE Security Functionality (TSF)</div></td><td>The security functionality of the product under evaluation.</td></tr>
+<tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST.</td></tr>
+</table><h3 id="tech-terms" class="indexable" data-level="2">1.3.2 Technical Terms</h3><table style="width: 100%"><tr><td><div id="Access_Point">Access Point (AP)</div></td><td> 
         A device that provides the network interface that enables
-        wireless client hosts to access a wired network. </td></tr><tr><td><div id="Service_Set_Identifier">Service Set Identifier (SSID)</div></td><td> 
+        wireless client hosts to access a wired network. </td></tr>
+<tr><td><div id="Service_Set_Identifier">Service Set Identifier (SSID)</div></td><td> 
         The primary name associated with an 802.11
-        wireless local area network (WLAN). </td></tr><tr><td><div id="Wireless_Local_Area_Network">Wireless Local Area Network (WLAN)</div></td><td> 
+        wireless local area network (WLAN). </td></tr>
+<tr><td><div id="Wireless_Local_Area_Network">Wireless Local Area Network (WLAN)</div></td><td> 
         A wireless computer network that links
         two or more devices using wireless communication to form a local area network (LAN) within a
-        limited area such as a home, school, computer laboratory, campus, office building etc. </td></tr></table><h1 id="sfr" class="indexable" data-level="0">2 Evaluation Activities for SFRs</h1><p>The EAs presented in this section capture the actions the evaluator performs 
+        limited area such as a home, school, computer laboratory, campus, office building etc. </td></tr>
+</table><h1 id="sfr" class="indexable" data-level="0">2 Evaluation Activities for SFRs</h1><p>The EAs presented in this section capture the actions the evaluator performs 
     to address technology specific aspects covering specific SARs (e.g. ASE_TSS.1, 
-    ADV_FSP.1, AGD_OPE.1, and ATE_IND.1) – this is in addition to the CEM work units 
-    that are performed in Section <a href="#sar_aas" class="dynref"> 3 Evaluation Activities for SARs</a>.</p><p>Regarding design descriptions (designated by the subsections labelled TSS, as 
+    ADV_FSP.1, AGD_OPE.1, and ATE_IND.1) – this is in addition to the CEM workunits 
+    that are performed in Section <a href="#sar_aas" class="dynref">3 Evaluation Activities for SARs</a>.</p><p>Regarding design descriptions (designated by the subsections labeled TSS, as 
     well as any required supplementary material that may be treated as proprietary), 
     the evaluator must ensure there is specific information that satisfies the EA. 
     For findings regarding the TSS section, the evaluator’s verdicts will be 
-    associated with the CEM work unit ASE_TSS.1-1.
+    associated with the CEM workunit ASE_TSS.1-1.
     Evaluator verdicts associated with the supplementary evidence will also be 
     associated with ASE_TSS.1-1, 
     since the requirement to provide such evidence is specified in ASE in the PP.</p><p>For ensuring the guidance documentation provides sufficient information for 
     the administrators/users as it pertains to SFRs, the evaluator’s verdicts will 
-    be associated with CEM work units ADV_FSP.1-7, AGD_OPE.1-4, and AGD_OPE.1-5.</p><p>Finally, the subsection labelled Tests is where the authors have determined 
+    be associated with CEM workunits ADV_FSP.1-7, AGD_OPE.1-4, and AGD_OPE.1-5.</p><p>Finally, the subsection labeled Tests is where the authors have determined 
     that testing of the product in the context of the associated SFR is necessary.
     While the evaluator is expected to develop tests, there may be instances where 
     it is more practical for the developer to construct tests, or where the 
@@ -278,16 +351,16 @@ The following sections list Common Criteria and technology terms used in this do
     tests in lieu of executing the tests. 
     In this case, the evaluator must ensure the developer’s tests are executing both 
     in the manner declared by the developer and as mandated by the EA. 
-    The CEM work units that are associated with the EAs specified in this section 
-    are: ATE_IND.1-3, ATE_IND.1-4, ATE_IND.1-5, ATE_IND.1-6, and ATE_IND.1-7.</p><h2 class="indexable" data-level="1" id="aa-$NDc">2.1 
+    The CEM workunits that are associated with the EAs specified in this section 
+    are: ATE_IND.1-3, ATE_IND.1-4, ATE_IND.1-5, ATE_IND.1-6, and ATE_IND.1-7.</p><h2 class="indexable" data-level="1" id="aa-ND">2.1 
     Protection Profile for NDs</h2>
       The EAs defined in this section are only applicable in cases where the TOE claims conformance
       to a PP-Configuration that includes the NDc PP.
-     <h3 class="indexable" data-level="2" id="qq-sfrs-NDc-Modified">2.1.1 Modified SFRs
+     <h3 class="indexable" data-level="2" id="qq-sfrs-ND-Modified">2.1.1 Modified SFRs
         </h3>
  
 
-        <h3 id="from_nd_fcs" class="indexable,h3" data-level="3">2.1.1.1 Cryptographic Support (FCS)</h3><div class="comp" id=""><h4>FCS_COP.1/DataEncryption Cryptographic Operation (AES Data Encryption/Decryption)</h4>
+        <h3 class="indexable" data-level="3" id="from_nd_fcs">2.1.1.1 Cryptographic Support (FCS)</h3><div class="comp" id=""><h4>FCS_COP.1/DataEncryption Cryptographic Operation (AES Data Encryption/Decryption)</h4><div class="component-activity-header">FCS_COP.1/DataEncryption</div>
                 
                 
                 
@@ -349,7 +422,7 @@ The following sections list Common Criteria and technology terms used in this do
                   implementation of AES-CCMP.
                 </div>
         
-        <h3 id="from_nd_fpt" class="indexable,h3" data-level="3">2.1.1.2 Protection of the TSF (FPT)</h3><div class="comp" id=""><h4>FPT_TST_EXT.1 TSF Testing</h4>
+        <h3 class="indexable" data-level="3" id="from_nd_fpt">2.1.1.2 Protection of the TSF (FPT)</h3><div class="comp" id=""><h4>FPT_TST_EXT.1 TSF Testing</h4><div class="component-activity-header">FPT_TST_EXT.1</div>
                 The evaluator shall perform the following activities in addition to those required by the NDcPP:<p></p>
                 
                 
@@ -374,7 +447,7 @@ The following sections list Common Criteria and technology terms used in this do
                   </li>
                 </ul></div>
         
-        <h3 id="from_nd_ftp" class="indexable,h3" data-level="3">2.1.1.3 Trusted Path/Channels (FTP)</h3><div class="comp" id=""><h4>FTP_ITC.1 Inter-TSF Trusted Channel</h4>
+        <h3 class="indexable" data-level="3" id="from_nd_ftp">2.1.1.3 Trusted Path/Channels (FTP)</h3><div class="comp" id=""><h4>FTP_ITC.1 Inter-TSF Trusted Channel</h4><div class="component-activity-header">FTP_ITC.1</div>
                 The evaluator shall perform the following activities in addition to those required by the NDcPP:<p></p>
                 
                 
@@ -406,7 +479,7 @@ The following sections list Common Criteria and technology terms used in this do
                   </ul>
                 </div>
  
-      <h2 class="indexable" data-level="1" id="man-sfrs">2.2 TOE SFR Evaluation Activities</h2><h2 id="man_fau" class="indexable,h2" data-level="2">2.2.1 Security Audit (FAU)</h2><div class="comp" id=""><h4>FAU_GEN.1/WLAN Audit Data Generation</h4>
+      <h2 class="indexable" data-level="1" id="man-sfrs">2.2 TOE SFR Evaluation Activities</h2><h2 class="indexable" data-level="2" id="man_fau">2.2.1 Security Audit (FAU)</h2><div class="comp" id=""><h4>FAU_GEN.1/WLAN Audit Data Generation</h4><div class="component-activity-header">FAU_GEN.1/WLAN</div>
     
     
     
@@ -419,7 +492,7 @@ The following sections list Common Criteria and technology terms used in this do
       match the format specified in the administrative guide, and that the fields in each
       audit record have the proper entries. <p></p> Note that the testing here can
       be accomplished in conjunction with the testing of the security mechanisms directly.
-    </div><h2 id="man_fcs" class="indexable,h2" data-level="2">2.2.2 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_CKM.1/WPA Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)</h4>
+    </div><h2 class="indexable" data-level="2" id="man_fcs">2.2.2 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_CKM.1/WPA Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)</h4><div class="component-activity-header">FCS_CKM.1/WPA</div>
               
               
               
@@ -466,7 +539,7 @@ The following sections list Common Criteria and technology terms used in this do
                   <li>Section 2.4 “The PRF Function – PRF(key, prefix, data, length)” of the IEEE 802.11-02/362r6 document "Proposed Test vectors for IEEE 802.11 TGi" dated September 10, 2002, and</li>
                   <li>Annex M.3 “PRF reference implementation and test vectors” of IEEE 802.11-2012.</li>
                 </ul>
-              </div><div class="comp" id=""><h4>FCS_CKM.2/GTK Cryptographic Key Distribution (GTK)</h4>
+              </div><div class="comp" id=""><h4>FCS_CKM.2/GTK Cryptographic Key Distribution (GTK)</h4><div class="component-activity-header">FCS_CKM.2/GTK</div>
               
               
               
@@ -539,7 +612,7 @@ The following sections list Common Criteria and technology terms used in this do
                     replacing plaintext values with ciphertext values and AES-KWP authenticated-encryption with AES-KWP authenticated-decryption. 
                     Additionally, the evaluator shall modify one byte of the ciphertext, attempt to decrypt the modified ciphertext, and ensure that a failure is returned rather than plaintext.</li>
                 </ul>
-              </div><div class="comp" id=""><h4>FCS_CKM.2/PMK Cryptographic Key Distribution (PMK)</h4>
+              </div><div class="comp" id=""><h4>FCS_CKM.2/PMK Cryptographic Key Distribution (PMK)</h4><div class="component-activity-header">FCS_CKM.2/PMK</div>
               
               
               
@@ -547,7 +620,7 @@ The following sections list Common Criteria and technology terms used in this do
                 through what EAP attribute) to the TOE.<p></p><div class="eacategory">Guidance</div>There are no guidance evaluation activities for this component.<p></p><div class="eacategory">Tests</div>The evaluator shall establish a session between the TOE and a RADIUS server according to the
                 configuration guidance provided. The evaluator shall then examine the traffic that passes between the
                 RADIUS server and the TOE during a successful attempt to connect a wireless client to the TOE to
-                determine that the PMK is not exposed.</div><h2 id="man_fia" class="indexable,h2" data-level="2">2.2.3 Identification and Authentication (FIA)</h2><div class="comp" id=""><h4>FIA_8021X_EXT.1 802.1X Port Access Entity (Authenticator) Authentication</h4>
+                determine that the PMK is not exposed.</div><h2 class="indexable" data-level="2" id="man_fia">2.2.3 Identification and Authentication (FIA)</h2><div class="comp" id=""><h4>FIA_8021X_EXT.1 802.1X Port Access Entity (Authenticator) Authentication</h4><div class="component-activity-header">FIA_8021X_EXT.1</div>
               
               
               
@@ -585,7 +658,7 @@ The following sections list Common Criteria and technology terms used in this do
                 <b>Note: </b>Tests 2 and 3 above are not tests that "EAP-TLS works", although that's a by-product of the test.
                 The test is actually that a failed authentication (under two failure modes) results in denial of access to
                 the network, which demonstrates the enforcement of FIA_8021X_EXT.1.3.
-              </div><div class="comp" id=""><h4>FIA_UAU.6 Re-Authenticating</h4>
+              </div><div class="comp" id=""><h4>FIA_UAU.6 Re-Authenticating</h4><div class="component-activity-header">FIA_UAU.6</div>
             
             
             
@@ -593,7 +666,7 @@ The following sections list Common Criteria and technology terms used in this do
               While making this attempt, the evaluator shall verify that re-authentication is required.<p></p>
               
               If other re-authentication conditions are specified, the evaluator shall cause those conditions to occur and verify that the TSF re-authenticates the authenticated user.
-            </div><h2 id="man_fmt" class="indexable,h2" data-level="2">2.2.4 Security Management (FMT)</h2><div class="comp" id=""><h4>FMT_SMR_EXT.1 No Administration from Client</h4>
+            </div><h2 class="indexable" data-level="2" id="man_fmt">2.2.4 Security Management (FMT)</h2><div class="comp" id=""><h4>FMT_SMR_EXT.1 No Administration from Client</h4><div class="component-activity-header">FMT_SMR_EXT.1</div>
               
               
               
@@ -605,7 +678,7 @@ The following sections list Common Criteria and technology terms used in this do
                 does not permit remote administration from a wireless client by default.<p></p><div class="eacategory">Tests</div>The evaluator shall demonstrate that after configuring the TOE for first use from the operational
                 guidance, it is possible to establish an administrative session with the TOE on the “wired” portion of the
                 device. They shall then demonstrate that an identically configured wireless client that can successfully
-                connect to the TOE cannot be used to perform administration.</div><h2 id="man_fpt" class="indexable,h2" data-level="2">2.2.5 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_FLS.1 Failure with Preservation of Secure State</h4>
+                connect to the TOE cannot be used to perform administration.</div><h2 class="indexable" data-level="2" id="man_fpt">2.2.5 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_FLS.1 Failure with Preservation of Secure State</h4><div class="component-activity-header">FPT_FLS.1</div>
               
               
               
@@ -615,7 +688,7 @@ The following sections list Common Criteria and technology terms used in this do
                 the definition of a secure state is suitable to ensure the continued protection of any key material and user data.<p></p> 
               <div class="eacategory">Guidance</div>The evaluator shall examine the operational guidance to verify that it describes applicable recovery instructions for each TSF failure state.<p></p><div class="eacategory">Tests</div>For each failure mode specified in the ST, the evaluator shall ensure that the TOE attains a secure state
                 (e.g., shutdown) after initiating each failure mode type.
-              </div><h2 id="man_fta" class="indexable,h2" data-level="2">2.2.6 TOE Access (FTA)</h2><div class="comp" id=""><h4>FTA_TSE.1 TOE Session Establishment</h4>
+              </div><h2 class="indexable" data-level="2" id="man_fta">2.2.6 TOE Access (FTA)</h2><div class="comp" id=""><h4>FTA_TSE.1 TOE Session Establishment</h4><div class="component-activity-header">FTA_TSE.1</div>
               
               
               
@@ -632,7 +705,7 @@ The following sections list Common Criteria and technology terms used in this do
                     day-of-week it is attempting connection on). The evaluator shall observe that the access attempt fails.
                   </li>
                 </ul>
-              </div><h1 class="indexable" data-level="1" id="opt-sfrs">2.3 Evaluation Activities for Optional SFRs</h1><h2 id="opt_fcs" class="indexable,h2" data-level="2">2.3.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_CKM.2/DISTRIB Cryptographic Key Distribution (802.11 Keys)</h4>
+              </div><h2 class="indexable" data-level="1" id="opt-sfrs">2.3 Evaluation Activities for Optional SFRs</h2><h2 class="indexable" data-level="2" id="opt_fcs">2.3.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_CKM.2/DISTRIB Cryptographic Key Distribution (802.11 Keys)</h4><div class="component-activity-header">FCS_CKM.2/DISTRIB</div>
               
               
               
@@ -640,14 +713,14 @@ The following sections list Common Criteria and technology terms used in this do
                 the TOE, where they are sent, and the purpose for this transfer.<p></p><div class="eacategory">Guidance</div>If this function is dependent on TOE configuration, the evaluator shall confirm that the operational
                 guidance contains instructions for how to configure that the keys are adequately protected.<p></p>
               <div class="eacategory">Tests</div>This requirement will be tested in conjunction with the tests for the cryptographic primitives, the secure
-                protocols, and FPT_ITT.1.</div><h1 class="indexable" data-level="1" id="sel-sfrs">2.4 Evaluation Activities for Selection-Based SFRs</h1><h2 id="sel_fcs" class="indexable,h2" data-level="2">2.4.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_RADSEC_EXT.1 RadSec</h4>
+                protocols, and FPT_ITT.1.</div><h2 class="indexable" data-level="1" id="sel-sfrs">2.4 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="sel_fcs">2.4.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_RADSEC_EXT.1 RadSec</h4><div class="component-activity-header">FCS_RADSEC_EXT.1</div>
               
               
               
             <div class="eacategory">TSS</div>The evaluator shall verify that the TSS description includes the use of RADIUS over TLS, as described in RFC 6614.<p></p>
                 
                 If X.509v3 certificates is selected, the evaluator shall ensure that the TSS description includes the use of client-side certificates for TLS mutual authentication.<p></p><div class="eacategory">Guidance</div>The evaluator shall verify that any configuration necessary to meet the requirement must be contained in the guidance.<p></p><div class="eacategory">Tests</div>The evaluator shall demonstrate the ability to successfully establish a RADIUS over TLS connection with a RADIUS server. 
-                This test shall be performed with X.509v3 certificates if selected and performed with pre-shared keys if selected.</div><div class="comp" id=""><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4>
+                This test shall be performed with X.509v3 certificates if selected and performed with pre-shared keys if selected.</div><div class="comp" id=""><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4><div class="component-activity-header">FCS_RADSEC_EXT.2</div>
               
               
               
@@ -683,7 +756,7 @@ The following sections list Common Criteria and technology terms used in this do
                 <li><b>Test 6: </b>[conditional] If the TOE does generate bit-based pre-shared keys, the evaluator shall generate a bit-based pre-shared key of the appropriate length and use it according to the instructions in the operational guidance. 
                   The evaluator shall then demonstrate that a successful protocol negotiation can be performed with the key.</li>
               </ul>
-              </div><div class="comp" id=""><h4>FCS_RADSEC_EXT.3 RadSec using Pre-Shared Keys and RSA</h4>
+              </div><div class="comp" id=""><h4>FCS_RADSEC_EXT.3 RadSec using Pre-Shared Keys and RSA</h4><div class="component-activity-header">FCS_RADSEC_EXT.3</div>
               
               
               
@@ -721,7 +794,7 @@ The following sections list Common Criteria and technology terms used in this do
                       The evaluator shall present a server certificate containing the correct DNS name and service identifier in the URIName or SRVName fields of the SAN and verify that the connection succeeds. 
                       The evaluator shall repeat this test with the wrong service identifier (but correct DNS name) and verify that the connection fails.</li>
                 </ul>
-              </div><h2 id="sel_fia" class="indexable,h2" data-level="2">2.4.2 Identification and Authentication (FIA)</h2><div class="comp" id=""><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4>
+              </div><h2 class="indexable" data-level="2" id="sel_fia">2.4.2 Identification and Authentication (FIA)</h2><div class="comp" id=""><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4><div class="component-activity-header">FIA_PSK_EXT.1</div>
               
               
               
@@ -764,11 +837,13 @@ The following sections list Common Criteria and technology terms used in this do
                     be performed with the key.
                   </li>
                 </ul>
-              </div><h1 class="indexable" data-level="1" id="obj-sfrs">2.5 Evaluation Activities for Objective SFRs</h1>The PP-Module does not define any objective requirements.<h1 id="sar_aas" class="indexable" data-level="0">3 Evaluation Activities for SARs</h1><p>The PP-Module does not define any SARs beyond those defined within the
-    NDc PP base to which it must claim conformance.
+              </div><h2 class="indexable" data-level="1" id="obj-sfrs">2.5 Evaluation Activities for Objective SFRs</h2>The PP-Module does not define any objective requirements.<h1 id="sar_aas" class="indexable" data-level="0">3 Evaluation Activities for SARs</h1><p>The PP-Module does not define any SARs beyond those defined within the
+    
+	base NDc PP to which it must claim conformance.
 	It is important to note that a TOE that is evaluated against the PP-Module is
 	inherently evaluated against this Base-PP as well. 
-	The NDc PP includes a number of Evaluation Activities associated with both SFRs and SARs.
+	The NDc PP 
+        includes a number of Evaluation Activities associated with both SFRs and SARs.
 	Additionally, the PP-Module includes a number of SFR-based Evaluation Activities 
 	that similarly refine the SARs of the Base-PPs.
 	The evaluation laboratory will evaluate the TOE against the Base-PP
@@ -788,9 +863,11 @@ guidance, and testing.</p><h1 id="biblio" class="indexable" data-level="A">Appen
     <tr><td><span id="bibNDcPP"></span>[NDcPP]</td><td>
         <a href="https://www.niap-ccevs.org/MMO/PP/CPP_ND_V2.2E.pdf">collaborative Protection Profile for Network Devices</a>, Version 2.2e, March 23, 2020
       </td></tr>
+
     
     <tr><td><span id="bibNDSD"></span>[NDcPP SD]</td><td>
         <a href="https://www.niap-ccevs.org/MMO/PP/CPP_ND_V2.2-SD.pdf">Supporting Document - Evaluation Activities for Network Device cPP</a>, Version 2.2, December 2019
       </td></tr>
+
 
   </table></body></html>
