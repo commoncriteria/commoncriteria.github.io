@@ -428,7 +428,7 @@ The following sections list Common Criteria and technology terms used in this do
                 guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the
                 invocation of the administrative actions that are needed to verify the audit records are
                 generated as expected.                              
-              </div><h2 class="indexable" data-level="2" id="man_fcs">2.3.2 Cryptographic Support (FCS)</h2><div class="comp" id="FCS-CKM-1-WLAN"><h4>FCS_CKM.1/WLAN Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)</h4><div class="component-activity-header">FCS_CKM.1/WLAN</div>
+              </div><h2 class="indexable" data-level="2" id="man_fcs">2.3.2 Cryptographic Support (FCS)</h2><div class="comp" id="FCS-CKM-1-WPA3"><h4>FCS_CKM.1/WPA3 Cryptographic Key Generation (Symmetric Keys for WPA3 Connections)</h4><div class="component-activity-header">FCS_CKM.1/WPA3</div>
               
               
               
@@ -865,7 +865,67 @@ The following sections list Common Criteria and technology terms used in this do
                 </li>
               </ul>                 
               Further evaluation activities are associated with the specific protocols.
-            </div><h2 class="indexable" data-level="1" id="opt-sfrs">2.4 Evaluation Activities for Optional SFRs</h2>The PP-Module does not define any optional requirements.<h2 class="indexable" data-level="1" id="sel-sfrs">2.5 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="fel_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id="FCS-TLSC-EXT-2-WLAN"><h4>FCS_TLSC_EXT.2/WLAN TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)</h4><div class="component-activity-header">FCS_TLSC_EXT.2/WLAN</div>
+            </div><h2 class="indexable" data-level="1" id="opt-sfrs">2.4 Evaluation Activities for Optional SFRs</h2>The PP-Module does not define any optional requirements.<h2 class="indexable" data-level="1" id="sel-sfrs">2.5 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="fel_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id="FCS-CKM-1-WPA2"><h4>FCS_CKM.1/WPA2 Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)</h4><div class="component-activity-header">FCS_CKM.1/WPA2</div>
+              
+              
+              
+            <div class="eacategory">TSS</div>
+                The evaluator shall verify that the TSS describes how the primitives defined and implemented
+                by this PP-Module are used by the TOE in establishing and maintaining secure connectivity to the
+                wireless clients. The TSS shall also provide a description of the developer’s method(s) of
+                assuring that their implementation conforms to the cryptographic standards; this includes not
+                only testing done by the developing organization, but also any third-party testing that is
+                performed.
+                <p></p>  
+              <div class="eacategory">Guidance</div>
+                There are no guidance evaluation activities for this component.   
+                <p></p> 
+              <div class="eacategory">Tests</div>
+                The evaluator shall perform the following tests:
+                <ul>
+                  <li><b>Test 1: </b>
+                    The evaluator shall configure the access point so the cryptoperiod of the
+                    session key is 1 hour. The evaluator shall successfully connect the TOE to the access
+                    point and maintain the connection for a length of time that is greater than the
+                    configured cryptoperiod. The evaluator shall use a packet capture tool to determine
+                    that after the configured cryptoperiod, a re-negotiation is initiated to establish a new
+                    session key. Finally, the evaluator shall determine that the renegotiation has been 
+                    successful and the client continues communication with the access point.
+                  </li>
+                  <li><b>Test 2: </b>The evaluator shall perform the following test using a packet sniffing tool to
+                    collect frames between the TOE and a wireless LAN access point:
+                    <p></p>
+                    Step 1: The evaluator shall configure the access point to an unused channel and
+                    configure the WLAN sniffer to sniff only on that channel (i.e., lock the sniffer on the
+                    selected channel). The sniffer should also be configured to filter on the MAC address
+                    of the TOE and/or access point.
+                    <p></p>
+                    Step 2: The evaluator shall configure the TOE to communicate with a WLAN access
+                    point using IEEE 802.11-2020 and a 256-bit (64 hex values 0-f) pre-shared key. The
+                    pre-shared key is only used for testing.
+                    <p></p>
+                    Step 3: The evaluator shall start the sniffing tool, initiate a connection between the
+                    TOE and the access point, and allow the TOE to authenticate, associate, and
+                    successfully complete the 4-way handshake with the client.
+                    <p></p>
+                    Step 4: The evaluator shall set a timer for 1 minute, at the end of which the evaluator
+                    shall disconnect the TOE from the wireless network and stop the sniffer.
+                    <p></p>
+                    Step 5: The evaluator shall identify the 4-way handshake frames (denoted EAPOL-key
+                    in Wireshark captures) and derive the PTK from the 4-way handshake frames and preshared key as specified in IEEE 802.11-2020.
+                    <p></p>
+                    Step 6: The evaluator shall select the first data frame from the captured packets that
+                    was sent between the TOE and access point after the 4-way handshake successfully
+                    completed, and without the frame control value 0x4208 (the first 2 bytes are 08 42).
+                    The evaluator shall use the PTK to decrypt the data portion of the packet as specified
+                    in IEEE 802.11-2020, and shall verify that the decrypted data contains ASCII-readable
+                    text.
+                    <p></p>
+                    Step 7: The evaluator shall repeat Step 6 for the next 2 data frames between the TOE
+                    and access point and without frame control value 0x4208.
+                  </li>
+                </ul>                           
+              </div><div class="comp" id="FCS-TLSC-EXT-2-WLAN"><h4>FCS_TLSC_EXT.2/WLAN TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)</h4><div class="component-activity-header">FCS_TLSC_EXT.2/WLAN</div>
             
             
             
