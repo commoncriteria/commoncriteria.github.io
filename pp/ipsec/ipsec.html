@@ -611,7 +611,15 @@ function showTarget(id){
 	<p></p>
 	This <i>Functional Package for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></i> provides a collection of requirements and evaluation activities for
 	IPSec implementations. The intent of this package is to provide <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>, and <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> authors with a readily
-	consumable collection of SFRs and EAs to be integrated into their documents.
+	consumable collection of SFRs and EAs to be integrated into their documents. This Package can be used to 
+	to evaluate the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality of TOEs that are not themselves <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> clients. For example,
+	it could be used to evaluate the trusted channel functionality of an operating system that chooses to 
+	use <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> rather than SSH or TLS to implement secure remote management. And of course, this Package 
+	could be used to encapsulate the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>-specific requirements in a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> technology evaluation as well.<p></p>
+	As such, this Package attempts to specify only requirements for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementations
+	as distinct from those for <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> implementations, such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateways and clients. 
+	
+	
    
 
 
@@ -649,16 +657,18 @@ The following sections list Common Criteria and technology terms used in this do
         The protocol used by <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> to transport encrypted and integrity-protected 
 		communications across the network.
       </td></tr>
+<tr><td><div id="Extensible_Authentication_Protocol">Extensible Authentication Protocol (<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>)</div></td><td>
+        A framework for adding arbitrary authentication methods in a standardized way to any
+		protocol. The most common <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method used with IKEv2 is <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS.
+      </td></tr>
 <tr><td><div id="Internet_Key_Exchange">Internet Key Exchange (<abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>)</div></td><td>
         The protocol used by <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> to set up and manage <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections. This includes negotiating
 		<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection settings, authenticating endpoints to each other, defining 
-		the security parameters of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>-protected connections, and negotiating session keys.
+		the security parameters of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>-protected connections, and negotiating session keys.  
+		IKEv2 is the current version.
       </td></tr>
 <tr><td><div id="Internet_Protocol_Security">Internet Protocol Security (<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>)</div></td><td>
         A suite of open standards for ensuring private communications over public networks.
-      </td></tr>
-<tr><td><div id="To_Do">To Do (<abbr class="dyn-abbr"><a href="#abbr_TODO">TODO</a></abbr>)</div></td><td>
-        This section needs to be filled out when the rest is done. 
       </td></tr>
 <tr><td><div id="User_Datagram_Protocol">User Datagram Protocol (<abbr class="dyn-abbr"><a href="#abbr_UDP">UDP</a></abbr>)</div></td><td>
         A communications protocol that is primarily used to establish low-latency and loss-tolerating
@@ -675,8 +685,11 @@ The following sections list Common Criteria and technology terms used in this do
 
 
     <h2 class="indexable" data-level="2" id="toes">1.3 Compliant Targets of Evaluation</h2>
-		<abbr class="dyn-abbr"><a href="#abbr_TODO">TODO</a></abbr>: The Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>) in this Functional Package (<abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>) is an implementation of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> in 
-		an IT product.  This <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> describes the security functionality of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> in terms of <a href="#bibCC">[CC]</a>. 
+		The Target of Evaluation (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>) in this Functional Package (<abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>) is an IT product that includes 
+		an implementaiton of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>.  Typically this is a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client or <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway - for which <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> 
+		functionality is fundamental. But the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> could also be an operating system or other
+		IT product for which <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality is merely ancilliary. This <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> describes the security 
+		functionality of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> in terms of <a href="#bibCC">[CC]</a>. 
 		<p></p>
 		The contents of this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> must be appropriately incoporated into a <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>, or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>. When this Package 
 		is so incorporated, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include selection-based requirements in accordance with the selections or 
@@ -747,7 +760,7 @@ The following sections list Common Criteria and technology terms used in this do
 		<p>
 			The auditable events specified in this Package are included in a Security Target 
 			if the incorporating <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>, or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> supports audit event reporting through FAU_GEN.1
-			and all other criteria in the incorporating <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are met.
+			and all other criteria in the incorporating document are met.
 		</p>
 		<table class="" border="1"><caption><span class="ctr" data-myid="t-audit-mandatory" data-counter-type="ct-Table" id="t-audit-mandatory">Table <span class="counter">1</span></span>: Auditable Events for Mandatory Requirements</caption><tr><th>Requirement</th><th>Auditable Events</th><th>Additional Audit Record Contents</th></tr><tr><td><a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a></td><td>Decisions to DISCARD or BYPASS network packets processed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td><td>Presumed identity of source subject.<br/>The entry in the SPD that applied to the decision.<br/></td></tr><tr><td><a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a></td><td>Failure to establish an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> SA.</td><td>Identity of destination subject.<br/>Reason for failure.<br/></td></tr><tr><td><a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a></td><td>Establishment/Termination of an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> SA.</td><td>Identity of destination subject.<br/>Transport layer protocol, if applicable.<br/>Source subject service identifier, if applicable.<br/>Non-TOE endpoint of connection (IP address) for both successes and failures.<br/></td></tr></table>
 	
@@ -762,19 +775,10 @@ The following sections list Common Criteria and technology terms used in this do
 
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.1"><a href="#FCS_IPSEC_EXT.1.1" class="abbr">FCS_IPSEC_EXT.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> architecture as specified in RFC 4301.<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					When the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is a standalone software application, the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality must be implemented by the
-					<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, though it is permissible for the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to invoke cryptographic algorithm services from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-					platform to support the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may also rely on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> platform for
-					X.509 certificate validation services, though it is the responsibility of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to take the proper action
-					based on the validation response that is returned.<p></p>
-					It is also permissible for the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to rely on low-level capabilities of the platform to perform enforcement
-					and routing functions as a result of the policies the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> maintains. For example, while the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must
-					provide the capability to implement the Security Policy Database abstraction, it is allowed for the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to
-					depend on the platform-provided network stack/driver to perform the low-level packet filtering and
-					routing actions once the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has set up those rules as defined by the SPD.<p></p>
-					While enforcement of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> requirements must be implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, it is permissible for the
-					<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to receive configuration of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> behavior from an environmental source, most notably a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
-					gateway. <p></p>
+
+
+
+
 					RFC 4301 calls for an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation to protect IP traffic through the use
 					of a Security Policy Database (SPD). The SPD is used to define how IP packets are
 					to be handled: PROTECT the packet (e.g., encrypt the packet), BYPASS the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>
@@ -785,22 +789,16 @@ The following sections list Common Criteria and technology terms used in this do
 					resulting action that takes place.<p></p>
 					While there must be a means to order the rules, a general approach to ordering
 					is not mandated, as long as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can distinguish the IP packets and apply the
-					rules accordingly. There may be multiple SPDs (one for each network interface),
+					rules accordingly. There may be multiple SPDs (one for each network interface)
 					but this is not required.<p></p>
-					A <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway fully implements the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> capability and provides an
-					administrative interface to establish and populate an SPD. A <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client is not
-					required to provide an administrative interface to create or maintain an SPD.<p></p>
-					As an alternative, a client may provide an interface that can be used by another
-					application or network entity, such as a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway, as a means to establish
-					and populate the SPD. In either of these cases (the client provides an
-					administrative interface, or an API), while the client is expected to maintain the
-					SPD abstraction, it is permitted for the low-level enforcement and routing
-					activities to be implemented by platform capabilities (e.g., a network driver) as
-					configured by the client.
+		The SPD is established and populated by an administrative interface or application
+					implemented by the entity that establishes the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection, such as a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway 
+					or client application. This interface or application is outside the scope of this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>.<p></p>
+
 				</span></div></div></div>
 			
 			
-			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.2"><a href="#FCS_IPSEC_EXT.1.2" class="abbr">FCS_IPSEC_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement 
+			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.2"><a href="#FCS_IPSEC_EXT.1.2" class="abbr">FCS_IPSEC_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> in
 					[<b>selection</b>: <i id="_s_1">tunnel mode</i>, <i id="_s_2">transport mode</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is used to connect to a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway for the purposes of establishing a
@@ -819,7 +817,8 @@ The following sections list Common Criteria and technology terms used in this do
 			
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.4"><a href="#FCS_IPSEC_EXT.1.4" class="abbr">FCS_IPSEC_EXT.1.4</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> protocol <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> as defined by RFC 4303 using the cryptographic 
-					algorithms [<i>AES-GCM-128, AES-GCM-256 as specified in RFC 4106,</i>
+					algorithms [<i>AES-GCM-128 as specified in RFC 4106,
+									AES-GCM-256 as specified in RFC 4106,</i>
 					[<b>selection</b>: <ul><li style=""><i id="_s_3">AES-CBC-128 with 
 							[<b>selection</b>: <i id="_s_4">HMAC-SHA-1</i>, <i id="_s_5">HMAC-SHA-256</i>, <i id="_s_6">HMAC-SHA-384</i>, <i id="_s_7">HMAC-SHA-512</i>] as specified in RFC 3602</i>, </li><li style=""><i id="_s_8">AES-CBC-256 with
 							[<b>selection</b>: <i id="_s_9">HMAC-SHA-1</i>, <i id="_s_10">HMAC-SHA-256</i>, <i id="_s_11">HMAC-SHA-384</i>, <i id="_s_12">HMAC-SHA-512</i>] as specified in RFC 3602</i>, </li><li style=""><i id="_s_13">no other algorithms</i></li></ul>]].
@@ -933,7 +932,7 @@ The following sections list Common Criteria and technology terms used in this do
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.11"><a href="#FCS_IPSEC_EXT.1.11" class="abbr">FCS_IPSEC_EXT.1.11</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that all <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocols perform peer authentication using  
 					[<b>selection</b>: <i id="_s_46">RSA</i>, <i id="_s_47">ECDSA</i>] 
 					that use X.509v3 certificates that conform to RFC 4945 and 
-					[<b>selection</b>: <i id="sel-ipsec-e11-psk">Pre-shared keys</i>, <i id="sel-ipsec-e11-pskeap">Pre-shared Keys transmitted via EAP-TLS</i>, <i id="sel-ipsec-e11-pskeapma">Pre-shared Keys transmitted via EAP-TTLS with mutual authentication</i>, <i id="_s_51">no other method</i>].
+					[<b>selection</b>: <i id="sel-ipsec-e11-psk">Pre-shared keys</i>, <i id="sel-ipsec-e11-pskeap">Pre-shared Keys transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS</i>, <i id="sel-ipsec-e11-pskeapma">Pre-shared Keys transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS with mutual authentication</i>, <i id="_s_51">no other method</i>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					At least one public-key-based Peer Authentication method is required in order to
 					conform to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>; one or more of the public key schemes is chosen by
@@ -941,13 +940,13 @@ The following sections list Common Criteria and technology terms used in this do
 					appropriate FCS requirements reflecting the algorithms used (and key
 					generation capabilities, if provided) are listed to support those methods. Note
 					that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> will elaborate on the way in which these algorithms are to be used 
-					(for example, 2409 specifies three authentication methods using public keys;
+					(for example, RFC 2409 specifies three authentication methods using public keys;
 					each one supported will be described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>).<p></p>
 					If any selection with “pre-shared keys” is selected, the selection-based requirement FIA_PSK_EXT.1
 					must be claimed. FIA_PSK_EXT.1 includes the options for MFA solutions, it may be brought in via this selection or via the 
 					optional FPF_MFA_EXT.1 requirement.<p></p> 
-					When pre-shared keys are supported for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> v2, ‘Pre-shared Keys transmitted via EAP-TLS’ and/or 
-					‘Pre-shared Keys transmitted via EAP-TTLS’ is selected to indicate client verification using certificates 
+					When pre-shared keys are supported for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> v2, ‘Pre-shared Keys transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS’ and/or 
+					‘Pre-shared Keys transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS’ is selected to indicate client verification using certificates 
 					in a mutually authenticated TLS handshake, and verification of provided PSK protected under the TLS channel. 
 					When Pre-shared Keys are supported for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> v1, the first selection is claimed to indicate one of the mechanisms 
 					for using PSK described in the RFC. <p></p>
@@ -1024,14 +1023,14 @@ The following sections list Common Criteria and technology terms used in this do
 					
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						[<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>] In addition to the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for the individual <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> elements below, the evaluator shall
+						[<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is always an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation. This is a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> requirement.] In addition to the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for the individual <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> elements below, the evaluator shall
 						perform the following:<p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary includes a general-purpose operating system or mobile device, the evaluator
 						shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes whether the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client capability is 
 						architecturally integrated with the platform itself or whether it is a separate executable that 
 						is bundled with the platform.<p></p>
 					<div class="eacategory">Guidance</div>
-						[<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>] In addition to the Operational Guidance EAs for the individual <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> elements below, the
+						[<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. The thing that configures the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is outside the scope. This is a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> thing] In addition to the Operational Guidance EAs for the individual <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> elements below, the
 						evaluator shall perform the following:<p></p>
 						If the configuration of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> behavior is from an environmental source, most notably a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway
 						(e.g through receipt of required connection parameters from a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway), the evaluator shall ensure
@@ -1053,26 +1052,18 @@ The following sections list Common Criteria and technology terms used in this do
 						evaluator shall provide justification for any differences in the test environment.<p></p>
 						<div class="figure" id="figure-fig-testenv"><img id="fig-testenv" src="images/network.png" width="" height=""></img><br/><span class="ctr" data-myid="fig-testenv" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
       Test Environment</div>
-						Note that the evaluator shall perform all tests using the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client and a representative sample of
+						Note that the evaluator shall perform all tests using the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a representative sample of
 						platforms listed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> (for TOEs that claim to support multiple platforms).
 					<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.1">FCS_IPSEC_EXT.1.1</a></div> 
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and determine that it describes how the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> capabilities are
 						implemented.<p></p>
-						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is a standalone software application, the evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> asserts that all
-						<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies what
+						 The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies any
 						platform functionality the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> relies upon to support its <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation, if any (e.g. does it invoke
 						cryptographic primitive functions from the platform’s cryptographic library, enforcement of packet
 						routing decisions by low-level network drivers).<p></p>
-						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is part of a general-purpose desktop or mobile operating system, the evaluator shall ensure
-						that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes at a high level the architectural relationship between the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client portion of the
-						<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the rest of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (e.g. is the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client an integrated part of the OS or is it a standalone
-						executable that is bundled into the OS package). If the SPD is implemented by the underlying platform in
-						this case, then the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the client interacts with the platform to establish and populate the
-						SPD, including the identification of the platform's interfaces that are used by the client.<p></p>		    
-						In all cases, the evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the client interacts with the network
-						stack of the platform(s) on which it can run (e.g., does the client insert itself within the stack via kernel
-						mods, does the client simply invoke APIs to gain access to network services).<p></p>		      
+		    
+  
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the SPD is implemented and the rules for processing
 						both inbound and outbound packets in terms of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> policy. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the rules that are
 						available and the resulting actions available after matching a rule. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the available
@@ -1479,6 +1470,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
   <h1 id="acronyms" class="indexable" data-level="A">Appendix B -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
 <tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr>
 <tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr>
+<tr><td><span class="term" id="abbr_EAP"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></span></td><td><span id="long_abbr_EAP">Extensible Authentication Protocol</span></td></tr>
 <tr><td><span class="term" id="abbr_EP"><abbr class="dyn-abbr"><a href="#abbr_EP">EP</a></abbr></span></td><td><span id="long_abbr_EP">Extended Package</span></td></tr>
 <tr><td><span class="term" id="abbr_ESP"><abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr></span></td><td><span id="long_abbr_ESP">Encapsulating Security Payload</span></td></tr>
 <tr><td><span class="term" id="abbr_FP"><abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr></span></td><td><span id="long_abbr_FP">Functional Package</span></td></tr>
@@ -1491,7 +1483,6 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 <tr><td><span class="term" id="abbr_SAR"><abbr class="dyn-abbr"><a href="#abbr_SAR">SAR</a></abbr></span></td><td><span id="long_abbr_SAR">Security Assurance Requirement</span></td></tr>
 <tr><td><span class="term" id="abbr_SFR"><abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr></span></td><td><span id="long_abbr_SFR">Security Functional Requirement</span></td></tr>
 <tr><td><span class="term" id="abbr_ST"><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr></span></td><td><span id="long_abbr_ST">Security Target</span></td></tr>
-<tr><td><span class="term" id="abbr_TODO"><abbr class="dyn-abbr"><a href="#abbr_TODO">TODO</a></abbr></span></td><td><span id="long_abbr_TODO">To Do</span></td></tr>
 <tr><td><span class="term" id="abbr_TOE"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr></span></td><td><span id="long_abbr_TOE">Target of Evaluation</span></td></tr>
 <tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr>
 <tr><td><span class="term" id="abbr_TSFI" data-plural="TSFIs"><abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr></span></td><td><span id="long_abbr_TSFI"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> Interface</span></td></tr>
