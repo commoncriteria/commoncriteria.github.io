@@ -880,7 +880,7 @@ This section defines the security objectives that are to be addressed by the IT 
         <h4 id="from_nd_ftp" class="indexable" data-level="4">5.1.1.3 Trusted Path/Channels (FTP)</h4>
           <div class="comp" id="FTP_ITC.1"><h4>FTP_ITC.1 Inter-TSF Trusted Channel</h4>
             
-            <div class="element"><div class="reqid" id="FTP_ITC.1.1"><a href="#FTP_ITC.1.1" class="abbr">FTP_ITC.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of using <b>IEEE 802.1X, [<b>selection</b>: <i id="_s_18"><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></i>, <i id="_s_19">RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>], and</b> [<b>selection</b>: <i id="_s_20">SSH</i>, <i id="_s_21"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>, <i id="_s_22">DTLS</i>, <i id="_s_23">HTTPS</i>, <i id="_s_24"><b>no other protocols</b></i>] to provide a trusted communication channel
+            <div class="element"><div class="reqid" id="FTP_ITC.1.1"><a href="#FTP_ITC.1.1" class="abbr">FTP_ITC.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of using <b>IEEE 802.1X, [<b>selection</b>: <i id="s-ipsec"><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></i>, <i id="s-radius">RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>], and</b> [<b>selection</b>: <i id="_s_20">SSH</i>, <i id="_s_21"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>, <i id="_s_22">DTLS</i>, <i id="_s_23">HTTPS</i>, <i id="_s_24"><b>no other protocols</b></i>] to provide a trusted communication channel
                 between itself and authorized IT entities supporting the following capabilities: <b>802.1x authentication server,</b> audit
                 server, [<b>selection</b>: <i id="_s_25">authentication server</i>, <i id="_s_26">[<b>assignment</b>: 
      <span class="assignable-content">other capabilities</span>]</i>, <i id="_s_27">no other capabilities</i>] that is logically distinct
@@ -902,8 +902,8 @@ This section defines the security objectives that are to be addressed by the IT 
                    because the latter may be used for administrator authentication rather 
                    than authorization of <abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr> clients.
                 </p><p>
-                   If "<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>" is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>, then FCS_IPSEC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> must be claimed.
-                   If "RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>" is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>,
+                   If <a href="#s-ipsec">IPsec</a> is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>, then FCS_IPSEC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> must be claimed.
+                   If <a href="#s-radius">RADIUS over TLS</a> is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>,
                    then <a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a> in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must be claimed, as well as FCS_TLSC_EXT.1 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>.
                 </p>
               </span></div></div></div>
@@ -1408,7 +1408,10 @@ This section defines the security objectives that are to be addressed by the IT 
         
         
         
-        <div class="comp" id="FCS_RADSEC_EXT.1"><h4>FCS_RADSEC_EXT.1 RadSec</h4><div class="statustag"></div>
+        <div class="comp" id="FCS_RADSEC_EXT.1"><h4>FCS_RADSEC_EXT.1 RadSec</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+           <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>.
+           </i></b></div>
+		  
           
           
           
@@ -1420,16 +1423,19 @@ This section defines the security objectives that are to be addressed by the IT 
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as specified in RFC 6614 to communicate securely with a RADIUS server.
             </div></div>
           <div class="element"><div class="reqid" id="FCS_RADSEC_EXT.1.2"><a href="#FCS_RADSEC_EXT.1.2" class="abbr">FCS_RADSEC_EXT.1.2</a></div><div class="reqdesc">
-            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform peer authentication using [<b>selection</b>: <i id="_s_47">X.509v3 certificates</i>, <i id="_s_48">pre-shared keys</i>].
+            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform peer authentication using [<b>selection</b>: <i id="s-x509-certs">X.509v3 certificates</i>, <i id="s-radsec-psk">pre-shared keys</i>].
             <div class="appnote"><span class="note-header">Application Note: </span><span class="note">
               This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is applicable if "RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>" is selected in <a href="#FTP_ITC.1.1">FTP_ITC.1.1</a>.<p></p>
-              If "X.509v3 certificates" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, then FCS_TLSC_EXT.2 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> must be claimed. 
-              If "pre-shared keys" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, then <a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> and <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must be claimed. 
+              If <a href="#s-x509-certs">X.509v3 certificates</a> is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, then FCS_TLSC_EXT.2 from the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> must be claimed. 
+              If <a href="#s-radsec-psk">pre-shared keys</a> is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, then <a href="#FCS_RADSEC_EXT.2">FCS_RADSEC_EXT.2</a> and <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> must be claimed. 
             </span></div></div></div>
         </div>
         
         
-        <div class="comp" id="FCS_RADSEC_EXT.2"><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4><div class="statustag"></div>
+        <div class="comp" id="FCS_RADSEC_EXT.2"><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+           <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>.
+           </i></b></div>
+		  
           
           
           
@@ -1438,7 +1444,7 @@ This section defines the security objectives that are to be addressed by the IT 
           
           
           <div class="element"><div class="reqid" id="FCS_RADSEC_EXT.2.1"><a href="#FCS_RADSEC_EXT.2.1" class="abbr">FCS_RADSEC_EXT.2.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement [<b>selection</b>: <i id="_s_49"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 (RFC 5246)</i>, <i id="_s_50"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1 (RFC 4346)</i>] and no earlier <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions when acting as a RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client that supports the following cipher suites: 
-              [<b>selection</b>: <ul><li style=""><i id="_s_51">TLS_PSK_WITH_AES_128_CBC_SHA</i>, </li><li style=""><i id="_s_52">TLS_PSK_WITH_AES_256_CBC_SHA</i>, </li><li style=""><i id="_s_53">TLS_DHE_PSK_WITH_AES_128_CBC_SHA</i>, </li><li style=""><i id="_s_54">TLS_DHE_PSK_WITH_AES_256_CBC_SHA</i>, </li><li style=""><i id="_s_55">TLS_RSA_PSK_WITH_AES_128_CBC_SHA</i>, </li><li style=""><i id="_s_56">TLS_RSA_PSK_WITH_AES_256_CBC_SHA</i>, </li><li style=""><i id="_s_57">TLS_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li style=""><i id="_s_58">TLS_PSK_WITH_AES_256_GCM_SHA384</i>, </li><li style=""><i id="_s_59">TLS_DHE_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li style=""><i id="_s_60">TLS_DHE_PSK_WITH_AES_256_GCM_SHA384</i>, </li><li style=""><i id="_s_61">TLS_RSA_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li style=""><i id="_s_62">TLS_RSA_PSK_WITH_AES_256_GCM_SHA384</i></li></ul>].
+              [<b>selection</b>: <ul><li style=""><i id="_s_51">TLS_PSK_WITH_AES_128_CBC_SHA</i>, </li><li style=""><i id="_s_52">TLS_PSK_WITH_AES_256_CBC_SHA</i>, </li><li style=""><i id="_s_53">TLS_DHE_PSK_WITH_AES_128_CBC_SHA</i>, </li><li style=""><i id="_s_54">TLS_DHE_PSK_WITH_AES_256_CBC_SHA</i>, </li><li style=""><i id="s-rsa_psk_aes_128_cbc">TLS_RSA_PSK_WITH_AES_128_CBC_SHA</i>, </li><li style=""><i id="s-rsa_psk_aes_256_cbc">TLS_RSA_PSK_WITH_AES_256_CBC_SHA</i>, </li><li style=""><i id="_s_57">TLS_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li style=""><i id="_s_58">TLS_PSK_WITH_AES_256_GCM_SHA384</i>, </li><li style=""><i id="_s_59">TLS_DHE_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li style=""><i id="_s_60">TLS_DHE_PSK_WITH_AES_256_GCM_SHA384</i>, </li><li style=""><i id="s-rsa_psk_aes_128_gcm">TLS_RSA_PSK_WITH_AES_128_GCM_SHA256</i>, </li><li style=""><i id="s-rsa_psk_aes_256_gcm">TLS_RSA_PSK_WITH_AES_256_GCM_SHA384</i></li></ul>].
             <div class="appnote"><span class="note-header">Application Note: </span><span class="note">If any of the TLS_RSA_PSK cipher suites are selected by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author, it is necessary to claim the selection-based requirement <a href="#FCS_RADSEC_EXT.3">FCS_RADSEC_EXT.3</a>.<p></p>
               The above cipher suites are only for use when the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is acting as a RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client, not for other uses of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> protocol. 
               The cipher suites to be tested in the evaluated configuration are limited by this requirement. 
@@ -1449,7 +1455,10 @@ This section defines the security objectives that are to be addressed by the IT 
         </div>
         
         
-        <div class="comp" id="FCS_RADSEC_EXT.3"><h4>FCS_RADSEC_EXT.3 RadSec using Pre-Shared Keys and RSA</h4><div class="statustag"></div>
+        <div class="comp" id="FCS_RADSEC_EXT.3"><h4>FCS_RADSEC_EXT.3 RadSec using Pre-Shared Keys and RSA</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+           <a href="#FCS_RADSEC_EXT.2.1">FCS_RADSEC_EXT.2.1</a>.
+           </i></b></div>
+		  
           
           
           
@@ -1486,7 +1495,10 @@ This section defines the security objectives that are to be addressed by the IT 
          
         
         
-        <div class="comp" id="FIA_PSK_EXT.1"><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4><div class="statustag"></div>
+        <div class="comp" id="FIA_PSK_EXT.1"><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+           <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>.
+           </i></b></div>
+		  
           
           
           
@@ -1572,8 +1584,9 @@ This section defines the security objectives that are to be addressed by the IT 
           FIA_X509_EXT.1 X.509 Certificate Validation</p><h4 id="ext-comp-FCS_RADSEC_EXT.1.1">FCS_RADSEC_EXT.1.1</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement RADIUS over <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as specified in RFC 6614 to communicate securely with a RADIUS server.
             <h4 id="ext-comp-FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</h4>
-            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform peer authentication using [<b>selection</b>: <i id="_s_47">X.509v3 certificates</i>, <i id="_s_48">pre-shared keys</i>].
-            </div><h4>Management: FCS_RADSEC_EXT.2</h4><p>No specific management functions are identified.</p><h4>Audit: FCS_RADSEC_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_CKM.1 Cryptographic Key Generation<p></p>
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform peer authentication using [<b>assignment</b>: 
+     <span class="assignable-content">some authentication method</span>].
+              </div><h4>Management: FCS_RADSEC_EXT.2</h4><p>No specific management functions are identified.</p><h4>Audit: FCS_RADSEC_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FCS_RADSEC_EXT.2 RadSec using Pre-Shared Keys</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_CKM.1 Cryptographic Key Generation<p></p>
             FCS_COP.1 Cryptographic Operation<p></p>
             <span class="no-link">FCS_RADSEC_EXT.1</span> RadSec<p></p>
             FCS_RBG_EXT.1 Random Bit Generation<p></p></p><h4 id="ext-comp-FCS_RADSEC_EXT.2.1">FCS_RADSEC_EXT.2.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement [<b>assignment</b>: 
