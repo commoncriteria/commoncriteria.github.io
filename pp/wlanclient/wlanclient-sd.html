@@ -260,7 +260,7 @@
     Protection Profile for General Purpose Operating Systemss</span></a><a href="#qq-sfrs-bpp-gpos-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
         </span></a><a href="#aa-bpp-mdf" style="text-indent:10px">2.2<span>
     Protection Profile for Mobile Device Fundamentalss</span></a><a href="#qq-sfrs-bpp-mdf-Modified" style="text-indent:20px">2.2.1<span>Modified SFRs
-        </span></a><a href="#man-sfrs" style="text-indent:10px">2.3<span>TOE SFR Evaluation Activities</span></a><a href="#man_fau" style="text-indent:20px">2.3.1<span>Security Audit (FAU)</span></a><a href="#man_fcs" style="text-indent:20px">2.3.2<span>Cryptographic Support (FCS)</span></a><a href="#man_fia" style="text-indent:20px">2.3.3<span>Identification and Authentication (FIA)</span></a><a href="#man_fmt" style="text-indent:20px">2.3.4<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.3.5<span>Protection of the TSF (FPT)</span></a><a href="#man_fta" style="text-indent:20px">2.3.6<span>TOE Access (FTA)</span></a><a href="#man_ftp" style="text-indent:20px">2.3.7<span>Trusted Path/Channels (FTP)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Optional SFRs</span></a><a href="#opt_fia" style="text-indent:20px">2.4.1<span>Identification and Authentication (FIA)</span></a><a href="#sel-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#fel_fcs" style="text-indent:20px">2.5.1<span>Cryptographic Support (FCS)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.6<span>Evaluation Activities for Objective SFRs</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the 
+        </span></a><a href="#man-sfrs" style="text-indent:10px">2.3<span>TOE SFR Evaluation Activities</span></a><a href="#man_fau" style="text-indent:20px">2.3.1<span>Security Audit (FAU)</span></a><a href="#man_fcs" style="text-indent:20px">2.3.2<span>Cryptographic Support (FCS)</span></a><a href="#man_fia" style="text-indent:20px">2.3.3<span>Identification and Authentication (FIA)</span></a><a href="#man_fmt" style="text-indent:20px">2.3.4<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.3.5<span>Protection of the TSF (FPT)</span></a><a href="#man_fta" style="text-indent:20px">2.3.6<span>TOE Access (FTA)</span></a><a href="#man_ftp" style="text-indent:20px">2.3.7<span>Trusted Path/Channels (FTP)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Optional SFRs</span></a><a href="#sel-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#fel_fcs" style="text-indent:20px">2.5.1<span>Cryptographic Support (FCS)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.6<span>Evaluation Activities for Objective SFRs</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the 
     PP-Module for WLAN Clients is
     to describe the security functionality of 
       WLAN Clients products in terms of 
@@ -724,7 +724,33 @@ The following sections list Common Criteria and technology terms used in this do
                   documented manner.
                 </li>
               </ul>                           
-            </div><h2 class="indexable" data-level="2" id="man_fmt">2.3.4 Security Management (FMT)</h2><div class="comp" id="FMT-SMF-1-WLAN"><h4>FMT_SMF.1/WLAN Specification of Management Functions (WLAN Client)</h4><div class="component-activity-header">FMT_SMF.1/WLAN</div>
+            </div><div class="comp" id="FIA-X509-EXT-4"><h4>FIA_X509_EXT.4 X.509 Certificate Storage and Management</h4><div class="component-activity-header">FIA_X509_EXT.4</div>
+              
+              
+              
+            <div class="eacategory">TSS</div>
+                The evaluator shall examine the TSS to determine that it describes all certificate stores implemented that contain certificates used to meet the requirements of this PP-Module. 
+                This description shall contain information pertaining to how certificates are loaded into the store, and how the store is protected from unauthorized access.
+                <p></p>
+                If the TOE relies on a platform mechanism for certificate loading and storage, the evaluator shall verify that the TSS identifies this mechanism and describes how use of this mechanism is protected against unauthorized access.
+                <p></p>
+              <div class="eacategory">Guidance</div>
+                The evaluator shall check the administrative guidance to ensure that it describes how to load X.509 certificates into the TOE's certificate store, 
+                regardless of whether the TSF provides this mechanism itself or the TOE relies on a platform-provided mechanism for this.
+                <p></p> 
+              <div class="eacategory">Tests</div>
+                The evaluator shall perform the following test for each TOE function that requires the use of certificates:
+                <ul>
+                  <li><b>Test 1: </b>
+                    The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. 
+                    The evaluator shall then load any certificates needed to validate the certificate to be used in the function and demonstrate that the function succeeds. 
+                    The evaluator shall then delete one of these dependent certificates and show that the function fails.
+                  </li>
+                  <li><b>Test 2: </b>
+                    The evaluator shall demonstrate that the mechanism used to load or configure X.509 certificates cannot be accessed without appropriate authorization.
+                  </li>
+                </ul>                           
+              </div><h2 class="indexable" data-level="2" id="man_fmt">2.3.4 Security Management (FMT)</h2><div class="comp" id="FMT-SMF-1-WLAN"><h4>FMT_SMF.1/WLAN Specification of Management Functions (WLAN Client)</h4><div class="component-activity-header">FMT_SMF.1/WLAN</div>
             
             
             
@@ -839,30 +865,7 @@ The following sections list Common Criteria and technology terms used in this do
                 </li>
               </ul>                 
               Further evaluation activities are associated with the specific protocols.
-            </div><h2 class="indexable" data-level="1" id="opt-sfrs">2.4 Evaluation Activities for Optional SFRs</h2><h2 class="indexable" data-level="2" id="opt_fia">2.4.1 Identification and Authentication (FIA)</h2><div class="comp" id="FIA-X509-EXT-4"><h4>FIA_X509_EXT.4 X.509 Certificate Storage and Management</h4><div class="component-activity-header">FIA_X509_EXT.4</div>
-            
-            
-            
-          <div class="eacategory">TSS</div>
-              The evaluator shall examine the TSS to determine that it describes all certificate stores
-              implemented that contain certificates used to meet the requirements of this PP-Module. This description
-              shall contain information pertaining to how certificates are loaded into the store, and how the
-              store is protected from unauthorized access.
-              <p></p>  
-            <div class="eacategory">Guidance</div>
-              The evaluator shall check the administrative guidance to ensure that it describes how to load X.509 certificates into the TOE's certificate store.
-              <p></p> 
-            <div class="eacategory">Tests</div>
-              The evaluator shall perform the following test for each TOE function that requires the use of certificates:
-              <ul>
-                <li><b>Test 1: </b>
-                  The evaluator shall demonstrate that using a certificate without a valid certification path
-                  results in the function failing. The evaluator shall then load any certificates needed to
-                  validate the certificate to be used in the function and demonstrate that the function succeeds.
-                  The evaluator then shall delete one of these dependent certificates and show that the function fails.
-                </li>
-              </ul>                           
-            </div><h2 class="indexable" data-level="1" id="sel-sfrs">2.5 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="fel_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id="FCS-TLSC-EXT-2-WLAN"><h4>FCS_TLSC_EXT.2/WLAN TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)</h4><div class="component-activity-header">FCS_TLSC_EXT.2/WLAN</div>
+            </div><h2 class="indexable" data-level="1" id="opt-sfrs">2.4 Evaluation Activities for Optional SFRs</h2>The PP-Module does not define any optional requirements.<h2 class="indexable" data-level="1" id="sel-sfrs">2.5 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="fel_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id="FCS-TLSC-EXT-2-WLAN"><h4>FCS_TLSC_EXT.2/WLAN TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)</h4><div class="component-activity-header">FCS_TLSC_EXT.2/WLAN</div>
             
             
             
