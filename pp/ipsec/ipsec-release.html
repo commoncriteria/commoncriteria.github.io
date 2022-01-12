@@ -707,18 +707,20 @@ The following sections list Common Criteria and technology terms used in this do
 		Functional Package in its conformance claims.</p>
 		
 		<table><tr class="header"><th>Component</th><th>Explanation</th></tr><tr><td class="componentneeded" id="FCS_CKM.1"><a href="#FCS_CKM.1">FCS_CKM.1</a></td><td>To support key generation for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>, the incorporating document must
-					include <a href="#FCS_CKM.1">FCS_CKM.1</a> and specify the corresponding algorithm(s).</td></tr><tr><td class="componentneeded" id="FCS_CKM.2"><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>To support key establishment for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>, the incorporating document must
+					include <a href="#FCS_CKM.1">FCS_CKM.1</a> and specify the corresponding algorithm(s). Package requires RSA or ECDSA for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>.</td></tr><tr><td class="componentneeded" id="FCS_CKM.2"><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>To support key establishment for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>, the incorporating document must
 						include <a href="#FCS_CKM.2">FCS_CKM.2</a> and specify the corresponding algorithm(s).</td></tr><tr><td class="componentneeded" id="FCS_COP.1"><a href="#FCS_COP.1">FCS_COP.1</a></td><td>
 					To support the cryptography needed for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications, the incorporating document must include 
 					<a href="#FCS_COP.1">FCS_COP.1</a> (iterating as needed) to specify AES with corresponding key sizes and modes, digital
 					signature generation and verification function (at least one of RSA or ECDSA), a cryptographic hash
-					function, and a keyed-hash message authentication function. In particular, <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> requires that the
-					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> support AES-GCM-128 and AES-GCM-256.
+					function, and a keyed-hash message authentication function. In particular, this Package requires that the
+					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> support AES-GCM-128 and AES-GCM-256 for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr>, and AES-CBC-128 and AES-CBC-256 for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> also
+					requires that <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> be implemented using either RSA or ECDSA.
+					
 				</td></tr><tr><td class="componentneeded" id="FCS_RBG_EXT.1"><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>To support random bit generation needed for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> key generation, the incorporating document must
 					include a requirement that specifies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s ability to invoke or provide 
 					random bit generation services, commonly identified as <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.</td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.1"><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>To support establishment of IPSec communications using a public key algorithm that includes X.509, 
 					the incorporating document must include <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>. Note however that support for X.509 is selectable 
-					and not mandatory.  </td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.2"><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>To support establishment of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications using a public key algorithm that includes X.509, 
+					and not mandatory. ???? I think this is not true. I think it is mandatory. See element 11.  </td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.2"><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>To support establishment of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications using a public key algorithm that includes X.509, 
 					the incorporating document must include <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>. Note however that support for X.509 is selectable 
 					and not mandatory. </td></tr><tr><td class="componentneeded" id="FPT_STM.1"><a href="#FPT_STM.1">FPT_STM.1</a></td><td>To support establishment of IPSec communications using a public key algorithm that includes X.509, 
 					the incorporating document must include <a href="#FPT_STM.1">FPT_STM.1</a> or some other requirement that ensures reliable system time.  
@@ -832,7 +834,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			
 			
-			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.5"><a href="#FCS_IPSEC_EXT.1.5" class="abbr">FCS_IPSEC_EXT.1.5</a></div><div class="reqdesc">The The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement the protocol:
+			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.5"><a href="#FCS_IPSEC_EXT.1.5" class="abbr">FCS_IPSEC_EXT.1.5</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement the protocol:
 					[<b>selection</b>: <ul><li style=""><i id="_s_14">IKEv1, using Main Mode for Phase I exchanges, as defined in RFCs 2407, 2408, 2409, RFC 4109, 
 						[<b>selection</b>: <i id="_s_15">no other RFCs for extended sequence numbers</i>, <i id="_s_16">RFC 4304 for extended sequence numbers</i>], 
 						[<b>selection</b>: <i id="_s_17">no other RFCs for hash functions</i>, <i id="_s_18">RFC 4868 for hash functions</i>], and 
@@ -864,14 +866,14 @@ The following sections list Common Criteria and technology terms used in this do
 							[<b>selection</b>: <i id="_s_37">number of packets/number of bytes</i>, <i id="_s_38">length of time</i>]
 						</i>, </li><li style=""><i id="_s_39">IKEv1 SA lifetimes are fixed based on 
 							[<b>selection</b>: <i id="_s_40">number of packets/number of bytes</i>, <i id="_s_41">length of time</i>]
-						</i></li></ul>], and that if length of time is used, it must include at least one option that
+						</i></li></ul>], and that if length of time is used, it shall include at least one option that
 					is 24 hours or less for Phase 1 SAs and 8 hours or less for Phase 2 SAs.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author is afforded a selection based on the version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> in their
 					implementation. There is a further selection within this selection that allows the
 					<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to specify which entity is responsible for “configuring” the life of the
-					SA. An implementation that allows an administrator to configure the client or a
-					<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway that pushes the SA lifetime down to the client are both acceptable.<p></p>
+					SA. An implementation that allows an administrator to configure the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> endpoint or a
+					<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway that pushes the SA lifetime down to the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> endpoint are both acceptable.<p></p>
 					As far as SA lifetimes are concerned, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can limit the lifetime based on the
 					number of bytes transmitted, or the number of packets transmitted. Either
 					packet-based or volume-based SA lifetimes are acceptable; the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author makes
@@ -946,6 +948,7 @@ The following sections list Common Criteria and technology terms used in this do
 					that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> will elaborate on the way in which these algorithms are to be used 
 					(for example, RFC 2409 specifies three authentication methods using public keys;
 					each one supported will be described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>).<p></p>
+
 					If any selection with “pre-shared keys” is selected, the selection-based requirement FIA_PSK_EXT.1
 					must be claimed. FIA_PSK_EXT.1 includes the options for MFA solutions, it may be brought in via this selection or via the 
 					optional FPF_MFA_EXT.1 requirement.<p></p> 
@@ -995,6 +998,7 @@ The following sections list Common Criteria and technology terms used in this do
 					the Common Name. In the future, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will be required to compare the
 					reference identifier to the presented identifier in the SAN only, ignoring the
 					Common Name.<p></p>
+
 					The configuration of the peer reference identifier is addressed by
 					FMT_SMF.1.1/<abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>.
 				</span></div></div></div>
@@ -1011,7 +1015,7 @@ The following sections list Common Criteria and technology terms used in this do
 					If this functionality is configurable, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may be configured by a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway
 					or by an Administrator of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself<p></p>
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author chooses either or both of the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> selections based on what is
-					implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. Obviously, the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> version(s) chosen should be
+					implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. Obviously, the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> versions chosen should be
 					consistent not only in this element, but with other choices for other elements in
 					this component. While it is acceptable for this capability to be configurable, the
 					default configuration in the evaluated configuration (either "out of the box" or
@@ -1067,7 +1071,9 @@ The following sections list Common Criteria and technology terms used in this do
 						cryptographic primitive functions from the platform’s cryptographic library, enforcement of packet
 						routing decisions by low-level network drivers).<p></p>
 		    
-  
+						In all cases, the evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation  interacts with the network
+						stack of the platform(s) on which it can run (e.g., does the client insert itself within the stack via kernel
+						mods, does the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation simply invoke APIs to gain access to network services).<p></p>		   
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the SPD is implemented and the rules for processing
 						both inbound and outbound packets in terms of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> policy. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the rules that are
 						available and the resulting actions available after matching a rule. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the available
@@ -1083,16 +1089,16 @@ The following sections list Common Criteria and technology terms used in this do
 						established SA. <p></p>
 					<br/>    
 					<div class="eacategory">Guidance</div>
-						The evaluator shall examine the operational guidance to verify it describes how the SPD is created and
-						configured. If there is an administrative interface to the client, then the guidance describes how the
+						The evaluator shall examine the operational guidance to verify that it describes how the SPD is created and
+						configured. If there is an administrative interface to the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation , then the guidance describes how the
 						administrator specifies rules for processing a packet. The description includes all three cases - a rule that
 						ensures packets are encrypted/decrypted, dropped, and allowing a packet to flow in plaintext. The
 						evaluator shall determine that the description in the operational guidance is consistent with the
 						description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, and that the level of detail in the operational guidance is sufficient to allow the
 						administrator to set up the SPD in an unambiguous fashion. This includes a discussion of how ordering of
 						rules impacts the processing of an IP packet.<p></p>
-						If the client is configured by an external application, such as the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway, then the operational
-						guidance should indicate this and provide a description of how the client is configured by the external
+						If the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation is configured by an external application, such as the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway, then the operational
+						guidance should indicate this and provide a description of how <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>  is configured by the external
 						application. The description should contain information as to how the SPD is established and set up in an
 						unambiguous fashion. The description should also include what is configurable via the external
 						application, how ordering of entries may be expressed, as well as the impacts that ordering of entries may
@@ -1103,19 +1109,18 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory">Tests</div>
 						Depending on the implementation, the evaluator may be required to use a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway or some form of
 						application to configure the client. For Test 2, the evaluator is required to choose an application that
-						allows for the configuration of the full set of capabilities of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client (in conjunction with the
-						platform). For example, if the client provides a robust interface that allows for specification of wildcards,
-						subnets, etc., it is unacceptable for the evaluator to choose a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway that only allows for specifying
+						allows for the configuration of the full set of capabilities of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> imiplementation . For example, if the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation  supports specification of wildcards,
+						subnets, etc., it is unacceptable for the evaluator to  specify only
 						a single fully qualified IP addresses in the rule.<p></p>
 						The evaluator shall perform the following tests:
 						<ul>
-							<li><b>Test 1: </b>The evaluator shall configure an SPD on the client that is capable of the following: dropping a
+							<li><b>Test 1: </b>The evaluator shall configure an SPD that is capable of the following: dropping a
 								packet, encrypting a packet, and allowing a packet to flow in plaintext. The selectors used in the
 								construction of the rule shall be different such that the evaluator can generate a packet and send packets
-								to the client with the appropriate fields (fields that are used by the rule - e.g., the IP addresses, TCP/<abbr class="dyn-abbr"><a href="#abbr_UDP">UDP</a></abbr>
+								to the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> endpoint with the appropriate fields (fields that are used by the rule - e.g., the IP addresses, TCP/<abbr class="dyn-abbr"><a href="#abbr_UDP">UDP</a></abbr>
 								ports) in the packet header. The evaluator performs both positive and negative test cases for each type
 								of rule. The evaluator observes via the audit trail, and packet captures that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> exhibited the expected
-								behavior: appropriate packets were dropped, allowed through without modification, was encrypted by
+								behavior: appropriate packets were dropped, allowed through without modification, were encrypted by
 								the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation.</li>
 							<li><b>Test 2: </b>The evaluator shall devise several tests that cover a variety of scenarios for packet processing.
 								These scenarios must exercise the range of possibilities for SPD entries and processing modes as outlined
@@ -1129,8 +1134,8 @@ The following sections list Common Criteria and technology terms used in this do
 					<br/>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.2">FCS_IPSEC_EXT.1.2</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it states that the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> can be established to operate 
-						in tunnel mode and/or transport mode (as selected). <p></p>
+						The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it states that <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> can be established to operate 
+						in tunnel mode or transport mode or both (as selected). <p></p>
 					<br/>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall confirm that the operational guidance contains instructions on how to
@@ -1139,13 +1144,13 @@ The following sections list Common Criteria and technology terms used in this do
 						guidance to determine how the use of a given mode is specified.<p></p>
 					<br/>
 					<div class="eacategory">Tests</div>
-						The evaluator shall perform the following test(s) based on the selections chosen:
+						The evaluator shall perform the following tests based on the selections chosen:
 						<ul>
-							<li><b>Test 1: </b> [conditional] If tunnel mode is selected, the evaluator uses the operational guidance to
+							<li><b>Test 1: </b>[conditional] If tunnel mode is selected, the evaluator uses the operational guidance to
 								configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to operate in tunnel mode and also configures a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway to operate in tunnel 
 								mode. The evaluator configures the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway to use any of the allowable cryptographic algorithms, 
 								authentication methods, etc. to ensure an allowable SA can be negotiated. The evaluator shall then
-								initiate a connection from the client to connect to the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> GW peer. The evaluator observes (for example,
+								initiate a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> GW peer. The evaluator observes (for example,
 								in the audit trail and the captured packets) that a successful connection was established using the tunnel
 								mode.
 							</li>
@@ -1157,12 +1162,12 @@ The following sections list Common Criteria and technology terms used in this do
 								The evaluator observes (for example, in the audit trail and the captured packets) that a successful
 								connection was established using the transport mode.
 							</li>
-							<li><b>Test 3: </b> [conditional] If both tunnel mode and transport mode are selected, the evaluator shall perform
+							<li><b>Test 3: </b>[conditional] If both tunnel mode and transport mode are selected, the evaluator shall perform
 								both Test 1 and Test 2 above, demonstrating that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be configured to support both modes.
 							</li>
-							<li><b>Test 4: </b> [conditional]: If both tunnel mode and transport mode are selected, the evaluator shall modify the
+							<li><b>Test 4: </b>[conditional] If both tunnel mode and transport mode are selected, the evaluator shall modify the
 								testing for <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> to include the supported mode for SPD PROTECT entries to show that they
-								only apply to traffic that is transmitted or received using the indicated mode.
+								apply only to traffic that is transmitted or received using the indicated mode.
 							</li>
 						</ul>
 					<br/>
@@ -1209,7 +1214,7 @@ The following sections list Common Criteria and technology terms used in this do
 						<ul>
 							<li><b>Test 1: </b>
 								The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as indicated in the operational guidance configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-								to using each of the AES-GCM-128, and AES-GCM-256 algorithms, and attempt to establish a connection
+								to using each of the AES-GCM-128 and AES-GCM-256 algorithms, and attempt to establish a connection
 								using <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author has selected either AES-CBC-128 or AES-CBC-256, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is configured to use
 								those algorithms and the evaluator attempts to establish a connection using <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> for those algorithms
 								selected.
@@ -1218,14 +1223,14 @@ The following sections list Common Criteria and technology terms used in this do
 					<br/>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that IKEv1 and/or IKEv2 are implemented. If IKEv1 is
+						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that IKEv1 or IKEv2 (or both) are implemented. If IKEv1 is
 						implemented, the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> indicates whether or not XAUTH is supported, and
 						that aggressive mode is not used for IKEv1 Phase 1 exchanges (i.e. only main mode is used). It may be that
 						these are configurable options.<p></p>
 					<br/>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall check the operational guidance to ensure it instructs the administrator how to
-						configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use IKEv1 and/or IKEv2 (as selected), and uses the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
+						configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use IKEv1 or IKEv2 (as selected), and uses the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
 						perform NAT traversal for the test below. If XAUTH is implemented, the evaluator shall verify that the
 						operational guidance provides instructions on how it is enabled or disabled. <p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1, the evaluator shall verify that the operational guidance either asserts that only	
@@ -1238,13 +1243,13 @@ The following sections list Common Criteria and technology terms used in this do
 								in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and RFC 7296, section 2.23. The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection and determine that
 								the NAT is successfully traversed. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1 with or without XAUTH, the evaluator shall
 								verify that this test can be successfully repeated with XAUTH enabled and disabled in the manner specified
-								by the operational guidance. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> only supports IKEv1 with XAUTH, the evaluator shall verify that
-								connections not using XAUTH are unsuccessful. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> only supports IKEv1 without XAUTH, the
+								by the operational guidance. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports only IKEv1 with XAUTH, the evaluator shall verify that
+								connections not using XAUTH are unsuccessful. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports only IKEv1 without XAUTH, the
 								evaluator shall verify that connections using XAUTH are unsuccessful.</li>
-							<li><b>Test 2: </b> [conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1, the evaluator shall perform any applicable operational
+							<li><b>Test 2: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1, the evaluator shall perform any applicable operational
 								guidance steps to disable the use of aggressive mode and then attempt to establish a connection using an
 								IKEv1 Phase 1 connection in aggressive mode. This attempt should fail. The evaluator shall show that the
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will reject a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway from initiating an IKEv1 Phase 1 connection in aggressive mode. The
+								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway from initiating an IKEv1 Phase 1 connection in aggressive mode. The
 								evaluator should then show that main mode exchanges are supported.</li>
 						</ul>
 					<br/>
@@ -1258,22 +1263,18 @@ The following sections list Common Criteria and technology terms used in this do
 						The evaluator checks the operational guidance to ensure it provides instructions on how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is
 						configured to use the algorithms selected in this component and whether this is performed through direct
 						configuration, defined during initial installation, or defined by acquiring configuration settings from an
-						environmental component.  <p></p>
+						environmental component.<p></p>
 					<br/>
 					<div class="eacategory">Tests</div>
 						The evaluator shall use the operational guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (or to configure the Operational
 						Environment to have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> receive configuration) to perform the following test for each ciphersuite
-						selected:<p></p>
-						<ul>
-							<li><b>Test 1: </b>
-								The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the ciphersuite under test to encrypt the IKEv1 and/or
-								IKEv2 payload and establish a connection with a peer device, which is configured to only accept the
-								payload encrypted using the indicated ciphersuite. The evaluator will confirm the algorithm was that used
-								in the negotiation. The evaluator will confirm that the connection is successful by confirming that data
-								can be passed through the connection once it is established. For example, the evaluator may connect to
-								a webpage on the remote network and verify that it can be reached.
-							</li>
-						</ul>
+						selected for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> selected:<p></p>
+						The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the ciphersuite under test to encrypt the IKEv1 or
+						IKEv2 payload and establish a connection with a peer device, which is configured to accept the
+						payload encrypted only using the indicated ciphersuite. The evaluator will confirm the algorithm was that used
+						in the negotiation. The evaluator will confirm that the connection is successful by confirming that data
+						can be passed through the connection once it is established. For example, the evaluator may connect to
+						a webpage on the remote network and verify that it can be reached.
 					<br/>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.7">FCS_IPSEC_EXT.1.7</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this requirement.<p></p><br/>
@@ -1297,18 +1298,18 @@ The following sections list Common Criteria and technology terms used in this do
 						Each of the following tests shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> selected in the
 						<a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> protocol selection:
 						<ul>
-							<li><b>Test 1: </b>[conditional] The evaluator shall configure a maximum lifetime in terms of the # of packets (or
+							<li><b>Test 1: </b>The evaluator shall configure a maximum lifetime in terms of the number of packets (or
 								bytes) allowed following the operational guidance. The evaluator shall establish an SA and determine that
-								once the allowed # of packets (or bytes) through this SA is exceeded, the connection is closed.</li>
-							<li><b>Test 2: </b>[conditional] The evaluator shall construct a test where a Phase 1 SA is established and attempted
+								once the allowed number of packets (or bytes) through this SA is exceeded, the connection is closed.</li>
+							<li><b>Test 2: </b>The evaluator shall construct a test where a Phase 1 SA is established and attempted
 								to be maintained for more than 24 hours before it is renegotiated. The evaluator shall observe that this
 								SA is closed or renegotiated in 24 hours or less. If such an action requires that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> be configured in a
 								specific way, the evaluator shall implement tests demonstrating that the configuration capability of the
 								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> works as documented in the operational guidance.</li>
-							<li><b>Test 3: </b>[conditional] The evaluator shall perform a test similar to Test 2 for Phase 2 SAs, except that the
+							<li><b>Test 3: </b>The evaluator shall perform a test similar to Test 2 for Phase 2 SAs, except that the
 								lifetime will be 8 hours or less instead of 24 hours or less.</li>
-							<li><b>Test 4: </b>[conditional] If a fixed limit for IKEv1 SAs is supported, the evaluator shall establish an SA and
-								observe that the connection is closed after the fixed traffic and/or time value is reached.</li>
+							<li><b>Test 4: </b>If a fixed limit for IKEv1 SAs is supported, the evaluator shall establish an SA and
+								observe that the connection is closed after the fixed traffic or time value is reached.</li>
 						</ul>
 					<br/>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.8">FCS_IPSEC_EXT.1.8</a></div>
@@ -1329,7 +1330,7 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall check to ensure that, for each DH group supported, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the process for
 						generating "x" (as defined in <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>) and each nonce. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
-						indicates that the random number generated that meets the requirements in this <abbr class="dyn-abbr"><a href="#abbr_EP">EP</a></abbr> is used, and that the
+						indicates that the random number generated that meets the requirements in this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> is used, and that the
 						length of "x" and the nonces meet the stipulations in the requirement.<p></p>
 					<br/>
 					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement.<p></p><br/>
@@ -1339,7 +1340,7 @@ The following sections list Common Criteria and technology terms used in this do
 					
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator ensures that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies RSA and/or ECDSA as being used to perform peer
+						The evaluator ensures that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies RSA or ECDSA or both as being used to perform peer
 						authentication.<p></p>
 						If any selection with pre-shared keys is chosen in the selection, the evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
 						how those selections work in conjunction with authentication of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections.<p></p>
@@ -1351,17 +1352,20 @@ The following sections list Common Criteria and technology terms used in this do
 						of that type and the method by which that type is compared to the peer’s presented certificate.<p></p>
 					<br/>
 					<div class="eacategory">Guidance</div>
-						If any selection with “Pre-shared Keys” is selected, the evaluator shall check that the operational guidance describes any configuration necessary to enable any selected authentication mechanisms.   <p></p>
-						If any method other than no other method is selected, the evaluator shall check that the operational guidance describes any configuration necessary to enable any selected authentication mechanisms.<p></p>
+						If any selection with “Pre-shared Keys” is selected, the evaluator shall check that the operational guidance 
+						describes any configuration necessary to enable any selected authentication mechanisms. <p></p>
+						If any method other than no other method is selected, the evaluator shall check that the operational guidance 
+						describes any configuration necessary to enable any selected authentication mechanisms.<p></p>
 						The evaluator ensures the operational guidance describes how to set up the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the cryptographic
-						algorithms RSA and/or ECDSA.<p></p>
+						algorithms RSA or ECDSA, as selected.<p></p>
 						In order to construct the environment and configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for the following tests, the evaluator will
 						ensure that the operational guidance also describes how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to a trusted CA,
 						and ensure a valid certificate for that CA is loaded into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted CA.<p></p>
 						The evaluator shall also ensure that the operational guidance includes the configuration of the reference
-						identifier(s) for the peer.<p></p>
+						identifiers for the peer.<p></p>
 					<br/>
 					<div class="eacategory">Tests</div>
+
 						For efficiency’s sake, the testing that is performed here has been combined with the testing for
 						<b><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></b> and <b>FIA_X509_EXT.3</b> (for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections and depending on the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>),
 						<b><a href="#FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</a></b>, and <b><a href="#FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</a></b>. The following tests shall be repeated for each peer
@@ -1435,30 +1439,28 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the potential strengths (in terms of the number of bits in
 						the symmetric key) of the algorithms that are allowed for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> exchanges. The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall also
-						describe the checks that are done when negotiating IKEv1 Phase 2 and/or IKEv2 CHILD_SA suites to ensure
+						describe the checks that are done when negotiating IKEv1 Phase 2 and IKEv2 CHILD_SA suites to ensure
 						that the strength (in terms of the number of bits of key in the symmetric algorithm) of the negotiated
-						algorithm is less than or equal to that of the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA this is protecting the negotiation.
+						algorithm is less than or equal to that of the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA negotiation that is being protected.
 						<p></p>
 					<br/>
 					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement.<p></p><br/>
-					<div class="eacategory">Tests</div>The evaluator follows the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform the following tests:
+					<div class="eacategory">Tests</div>The evaluator follows the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform the following tests for each version
+						of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> supported:
 						<ul>
-							<li><b>Test 1: </b>This test shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> supported. The evaluator shall successfully
-								negotiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection using each of the supported algorithms and hash functions identified in the
-								requirements.
+							<li><b>Test 1: </b>The evaluator shall successfully negotiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection using each of the supported algorithms 
+							and hash functions identified in the requirements.
 							</li>
-							<li><b>Test 2: </b>[conditional] This test shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> supported. The evaluator shall
-								attempt to establish an SA for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> that selects an encryption algorithm with more strength than that being
-								used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA (i.e., symmetric algorithm with a key size larger than that being used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA).
-								Such attempts should fail.
+							<li><b>Test 2: </b>The evaluator shall attempt to establish an SA for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> that selects an encryption algorithm with
+								greater strength than that being used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA (i.e., symmetric algorithm with a key size larger 
+								than that being used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA). Such attempts should fail.
 							</li>
-							<li><b>Test 3: </b>This test shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> supported. The evaluator shall attempt to
-								establish an <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA using an algorithm that is not one of the supported algorithms and hash functions
-								identified in the requirements. Such an attempt should fail.
+							<li><b>Test 3: </b>The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA using an algorithm that is not one of the supported 
+								algorithms and hash functions identified in the requirements. Such an attempt should fail.
 							</li>
-							<li><b>Test 4: </b>This test shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> supported. The evaluator shall attempt to
-								establish an SA for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> (assumes the proper parameters where used to establish the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA) that selects
-								an encryption algorithm that is not identified in <a href="#FCS_IPSEC_EXT.1.4">FCS_IPSEC_EXT.1.4</a>. Such an attempt should fail.
+							<li><b>Test 4: </b>The evaluator shall attempt to establish an SA for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> (assumes the proper parameters where used to 
+								establish the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> SA) that selects an encryption algorithm that is not identified in <a href="#FCS_IPSEC_EXT.1.4">FCS_IPSEC_EXT.1.4</a>.
+								Such an attempt should fail.
 							</li>
 						</ul>
 					<br/>
