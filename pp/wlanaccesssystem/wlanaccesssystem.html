@@ -1380,7 +1380,7 @@ This section defines the security objectives that are to be addressed by the IT 
             endpoint and transfers them to the other endpoint. Because the specific authentication method (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> in
             this case) is opaque to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, there are no requirements with respect to RFC 5126 in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
             However, the base RADIUS protocol (2865) has an update (3579) that will need to be addressed in the
-            implementation and assurance activities. Additionally, RFC 5080 contains implementation issues that
+            implementation and evaluation activities. Additionally, RFC 5080 contains implementation issues that
             will need to be addressed by developers, but which levy no new requirements.<p></p>
             
             The point of performing 802.1X authentication is to provide access to the network (assuming the
@@ -1565,7 +1565,23 @@ This section defines the security objectives that are to be addressed by the IT 
 			The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall permit the authorized IT entities to initiate communication via the trusted channel.
 		</div></div>
 			  <div class="element"><div class="reqid" id="FTP_ITC.1.3/Client"><a href="#FTP_ITC.1.3/Client" class="abbr">FTP_ITC.1.3/Client</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall initiate communication via the trusted channel for [<i>no services</i>].</div></div>
-		  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FTP_ITC.1/Client">FTP_ITC.1/Client</a></div><div class="eacategory">Tests</div>QQQQQQ</div></div></div>
+		  <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FTP_ITC.1/Client">FTP_ITC.1/Client</a></div>
+
+The evaluator shall perform the following activities in addition to the evaluation activity specified in the base <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> for this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>:
+
+
+<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> 
+   The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that all communication mechanisms are identified in terms of the allowed protocols.
+   The evaluator shall also confirm that all protocols listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> are specified and included in the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+<div class="eacategory">Guidance</div>
+  The evaluator shall confirm that the guidance documentation contains instructions for establishing the allowed protocols and 
+  that it contains recovery instructions should a connection be unintentionally broken.
+<div class="eacategory">Tests</div>
+The evaluator shall perform the following tests:
+<ul>
+  <li><b>Test 1: </b>The evaluator shall first configure the access system to use only WPA2 (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>, with no fallback to TKIP), then ensure that a WPA2 (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>) connection can be made between the access system and a client device.  Finally, the evaluator shall attempt to connect a client device that does not support <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> to the access system and ensure that the access system rejects the connection (does not fall back to TKIP).</li>
+  <li><b>Test 2: </b>The evaluator shall first configure the access system to use only WPA3, then ensure that a WPA3 connection can be made between the access system device.  Finally, the evaluator shall attempt to connect a client device that does not support WPA3 to the access system and ensure that the access system rejects the connection (does not fall back to WPA2). </li></ul>
+   </div></div></div>
       
         
     <h2 id="obj-req-map" class="indexable" data-level="2">5.3 TOE Security Functional Requirements Rationale</h2><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
