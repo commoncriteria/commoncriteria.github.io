@@ -857,14 +857,8 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>
 			<div class="element"><div class="reqid" id="FCS_EAP_EXT.1.4"><a href="#FCS_EAP_EXT.1.4" class="abbr">FCS_EAP_EXT.1.4</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not forward a <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-success response if the client certificate is not valid according 
-					to <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.
-				</div></div>
-
-			
-			<div class="element"><div class="reqid" id="FCS_EAP_EXT.1.5"><a href="#FCS_EAP_EXT.1.5" class="abbr">FCS_EAP_EXT.1.5</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the MSK from the 
-					[<b>selection</b>: <i id="_s_10"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS</i>, <i id="_s_11"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS</i>] response as the IKEv2 shared secret in the authentication payload.
-					
-				</div></div>    
+					to FIA_X509_EXT.1.
+				</div></div>   
 			
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_EAP_EXT.1">FCS_EAP_EXT.1</a></div>
 					
@@ -872,9 +866,8 @@ The following sections list Common Criteria and technology terms used in this do
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the use of <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> options for each of the 
-						selected peer authentication mechanisms, that TLS with mutual authentication is used, that the
-						random values are from an appropriate source, and that the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> MSK is derived from the TLS
-						master key and is used as the IKEv2 shared key.
+						selected peer authentication mechanisms, that TLS with mutual authentication is used, and that the
+						random values are from an appropriate source. 
 					<div class="eacategory">Guidance</div>
 						The evaluator shall verify that the guidance documents describe any configurable features of 
 						the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> or TLS functionality, including instructions for configuration of the authenticators
@@ -887,10 +880,10 @@ The following sections list Common Criteria and technology terms used in this do
 							<li><b>Test 1: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
 								claimed. The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the 
 								authentication method claimed and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, register an endpoint with appropriate
-								key material required for the authentication method. The evaluator shall establish an 
-								<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection using a test endpoint with a valid certificate and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, 
+								key material required for the authentication method. The evaluator shall establish a 
+								connection using a test endpoint with a valid certificate and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, 
 								configured to provide a correct value for the configured authenticator. The evaluator
-								shall observe that the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection is successful.</li>
+								shall observe that the connection is successful.</li>
 							<li><b>Test 2: </b>[conditional] If <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS is supported, the evaluator shall cause the test endpoint with a
 								valid certificate to send an invalid authenticator for the claimed authentication method:<ul>
 								<li>For HOTP, replay the HOTP value sent previously.</li>
@@ -900,16 +893,8 @@ The following sections list Common Criteria and technology terms used in this do
 							<li><b>Test 3: </b>The evaluator shall establish a new, valid certificate for a test endpoint using an 
 								identifier not corresponding to a registered user. For <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, the evaluator shall cause
 								the test endpoint using this certificate to send a correct authenticator value for the
-								registered user. The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection from the test endpoint
+								registered user. The evaluator shall initiate a connection from the test endpoint
 								to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts the connection.</li>
-							<li><b>Test 4: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use a supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
-								and register the user with key material for required for a supported authentication method.
-								The evaluator shall configure a test endpoint to respond to an IKEv2 exchange with 
-								<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-request, providing valid phase 1 handshake and valid TLS handshake, but computing 
-								the phase 2 shared key using standard (non-EAP) methods. The evaluator shall initiate 
-								an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection between the test endpoint and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts
-								the connection.
-							</li>
 						</ul>
 					</div></div></div>	
 		
@@ -919,12 +904,12 @@ The following sections list Common Criteria and technology terms used in this do
     <h2 id="s-fia" class="indexable" data-level="2">3.3 Identification and Authentication (FIA)</h2>
         The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may support pre-shared keys for use in establishing an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection. <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> in the context of this document refer
 		to generated values, memorized values subject to conditioning, one time passwords, and combinations of the
-		above as described in <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.  
+		above as described in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>.2.  
 
         
 		
         <div class="comp" id="FIA_HOTP_EXT.1"><h4>FIA_HOTP_EXT.1 HMAC-Based One-Time Password Pre-Shared Keys</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FCS_EAP_EXT.1.3">FCS_EAP_EXT.1.3</a>.
+          <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FCS_EAP_EXT.1.3">FCS_EAP_EXT.1.3</a>.
           </i></b></div>
 			
 			
@@ -936,12 +921,12 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.2"><a href="#FIA_HOTP_EXT.1.2" class="abbr">FIA_HOTP_EXT.1.2</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a HOTP seed of 
-					[<b>selection</b>: <i id="_s_12">128</i>, <i id="_s_13">256</i>] bits in accordance with <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.
+					[<b>selection</b>: <i id="_s_10">128</i>, <i id="_s_11">256</i>] bits in accordance with <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.3"><a href="#FIA_HOTP_EXT.1.3" class="abbr">FIA_HOTP_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new HOTP seed value for each <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection.</div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.4"><a href="#FIA_HOTP_EXT.1.4" class="abbr">FIA_HOTP_EXT.1.4</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall utilize 
-					[<b>selection</b>: <i id="_s_14">HMAC-SHA-1</i>, <i id="_s_15">HMAC-SHA-256</i>, <i id="_s_16">HMAC-SHA-384</i>, <i id="_s_17">HMAC-SHA-512</i>] 
+					[<b>selection</b>: <i id="_s_12">HMAC-SHA-1</i>, <i id="_s_13">HMAC-SHA-256</i>, <i id="_s_14">HMAC-SHA-384</i>, <i id="_s_15">HMAC-SHA-512</i>] 
 					with key sizes [<b>assignment</b>: 
      <span class="assignable-content">key size (in bits) used in HMAC</span>] 
 					to derive a HOTP hash from the HOTP seed and counter.
@@ -950,8 +935,8 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.5"><a href="#FIA_HOTP_EXT.1.5" class="abbr">FIA_HOTP_EXT.1.5</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall truncate the HOTP hash per <a href="#FIA_HOTP_EXT.1.4">FIA_HOTP_EXT.1.4</a> to create a HOTP of  
-					[<b>selection</b><b>, choose one of</b>: <ul><li style=""><i id="_s_18">administrator configurable character length of at least 6</i>, </li><li style=""><i id="_s_19">preset character length of
-							[<b>selection</b><b>, choose one of</b>: <i id="_s_20">6</i>, <i id="_s_21">7</i>, <i id="_s_22">8</i>, <i id="_s_23">9</i>, <i id="_s_24">10</i>]
+					[<b>selection</b><b>, choose one of</b>: <ul><li style=""><i id="_s_16">administrator configurable character length of at least 6</i>, </li><li style=""><i id="_s_17">preset character length of
+							[<b>selection</b><b>, choose one of</b>: <i id="_s_18">6</i>, <i id="_s_19">7</i>, <i id="_s_20">8</i>, <i id="_s_21">9</i>, <i id="_s_22">10</i>]
 						</i></li></ul>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may either provide a configurable character length of at
@@ -959,20 +944,20 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.6"><a href="#FIA_HOTP_EXT.1.6" class="abbr">FIA_HOTP_EXT.1.6</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-					[<b>selection</b>: <ul><li style=""><i id="_s_25">throttle invalid requests to 
-							[<b>selection</b>: <i id="_s_26">administrator configurable value</i>, <i id="_s_27">[<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><i id="_s_23">throttle invalid requests to 
+							[<b>selection</b>: <i id="_s_24">administrator configurable value</i>, <i id="_s_25">[<b>assignment</b>: 
      <span class="assignable-content">value less than 10</span>]</i>] per minute
-						</i>, </li><li style=""><i id="_s_28">lock the associated account after 
-							[<b>selection</b>: <i id="_s_29">administrator configurable value</i>, <i id="_s_30">[<b>assignment</b>: 
+						</i>, </li><li style=""><i id="_s_26">lock the associated account after 
+							[<b>selection</b>: <i id="_s_27">administrator configurable value</i>, <i id="_s_28">[<b>assignment</b>: 
      <span class="assignable-content">value less than 10</span>]</i>] failed attempts until 
-							[<b>selection</b>: <i id="_s_31">an administrator unlocks the account</i>, <i id="_s_32">a configurable time period</i>]
+							[<b>selection</b>: <i id="_s_29">an administrator unlocks the account</i>, <i id="_s_30">a configurable time period</i>]
 						</i></li></ul>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may select throttle requests, account lockout, or both.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.7"><a href="#FIA_HOTP_EXT.1.7" class="abbr">FIA_HOTP_EXT.1.7</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not verify HOTP attempts outside of the counter look ahead window of 
-					[<b>selection</b>: <i id="_s_33">a configurable value</i>, <i id="_s_34">[<b>assignment</b>: 
+					[<b>selection</b>: <i id="_s_31">a configurable value</i>, <i id="_s_32">[<b>assignment</b>: 
      <span class="assignable-content">a value less than or equal to 3</span>]</i>] for resynchronization.
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.8"><a href="#FIA_HOTP_EXT.1.8" class="abbr">FIA_HOTP_EXT.1.8</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall increment the counter after each successful authentication.<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
@@ -1028,11 +1013,8 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FIA_PSK_EXT.1"><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4>
 
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.1.1"><a href="#FIA_PSK_EXT.1.1" class="abbr">FIA_PSK_EXT.1.1</a></div><div class="reqdesc">
-					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of using pre-shared keys for establishing <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections. 
-				</div></div>
-			<div class="element"><div class="reqid" id="FIA_PSK_EXT.1.2"><a href="#FIA_PSK_EXT.1.2" class="abbr">FIA_PSK_EXT.1.2</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept the following as pre-shared keys: 
-					[<b>selection</b>: <i id="sel-psk-gen">Generated bit-based</i>, <i id="sel-psk-pw">Password-based</i>, <i id="sel-psk-hotp">HMAC based one time password</i>, <i id="sel-psk-totp">Time based one time password</i>, <i id="sel-psk-genhotp">Combination of a generated bit-based and HMAC-based one-time password</i>, <i id="sel-psk-gentotp">Combination of a generated bit-based and time-based one-time password</i>, <i id="sel-psk-pwhotp">Combination of a password-based and HMAC-based one-time password</i>, <i id="sel-psk-pwtotp">Combination of a password-based and time-based one-time password</i>] keys.
+					[<b>selection</b>: <i id="sel-psk-gen">Generated bit-based</i>, <i id="sel-psk-pw">Password-based</i>, <i id="sel-psk-hotp">HMAC-based one-time password</i>, <i id="sel-psk-totp">Time-based one-time password</i>, <i id="sel-psk-genhotp">Combination of a generated bit-based and HMAC-based one-time password</i>, <i id="sel-psk-gentotp">Combination of a generated bit-based and time-based one-time password</i>, <i id="sel-psk-pwhotp">Combination of a password-based and HMAC-based one-time password</i>, <i id="sel-psk-pwtotp">Combination of a password-based and time-based one-time password</i>] keys.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					If any selection including "<i>generated bit-based</i>" keys is selected, then <a href="#FIA_PSK_EXT.2">FIA_PSK_EXT.2</a> must be claimed.<p></p>
 					If any selection including "<i>password-based</i>" keys is selected then <a href="#FIA_PSK_EXT.3">FIA_PSK_EXT.3</a> must be claimed. <p></p>
@@ -1046,8 +1028,7 @@ The following sections list Common Criteria and technology terms used in this do
 					         
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it identifies that <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections may use
-						pre-shared keys.  The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which pre-shared key selections 
+						The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which pre-shared key selections 
 						are supported. 
 					<div class="eacategory">Guidance</div>
 						The evaluator shall examine the operational guidance to determine that it provides guidance to 
@@ -1058,7 +1039,7 @@ The following sections list Common Criteria and technology terms used in this do
 						protocol, if performed by a different implementation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>). 
 						<ul>
 							<li><b>Test 1: </b>
-								For each mechanism selected in <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a> the evaluator shall attempt to establish a 
+								For each mechanism selected in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>.2 the evaluator shall attempt to establish a 
 								connection and confirm that the connection requires the selected factors in the <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> to 
 								establish the connection. 
 							</li>
@@ -1068,19 +1049,19 @@ The following sections list Common Criteria and technology terms used in this do
 		
 				
         <div class="comp" id="FIA_PSK_EXT.2"><h4>FIA_PSK_EXT.2 Generated Pre-Shared Keys</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+          <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>.
           </i></b></div>
 			
 			
 			
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.2.1"><a href="#FIA_PSK_EXT.2.1" class="abbr">FIA_PSK_EXT.2.1</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to 
-					[<b>selection</b>: <ul><li style=""><i id="_s_43">accept externally generated</i>, </li><li style=""><i id="_s_44">generate 
-							[<b>selection</b>: <i id="_s_45">128</i>, <i id="_s_46">256</i>] bit-based pre-shared keys via <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>. 
+					[<b>selection</b>: <ul><li style=""><i id="_s_41">accept externally generated</i>, </li><li style=""><i id="_s_42">generate 
+							[<b>selection</b>: <i id="_s_43">128</i>, <i id="_s_44">256</i>] bit-based pre-shared keys via <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>. 
 						</i></li></ul>]
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					Generated PSKs are expected to be shared between components via an out of band mechanism. <p></p>            
-					This requirement must be claimed if any selection in <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a> includes "<i>generated bit-based</i>" keys.
+					This requirement must be claimed if any selection in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>.2 includes "<i>generated bit-based</i>" keys.
 				</span></div></div></div>
 			
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_PSK_EXT.2">FIA_PSK_EXT.2</a></div>
@@ -1104,7 +1085,7 @@ The following sections list Common Criteria and technology terms used in this do
         
 		
         <div class="comp" id="FIA_PSK_EXT.3"><h4>FIA_PSK_EXT.3 Password-Based Pre-Shared Keys</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          , <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+          , <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>.
           </i></b></div>
 			
 			
@@ -1120,8 +1101,8 @@ The following sections list Common Criteria and technology terms used in this do
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.3.2"><a href="#FIA_PSK_EXT.3.2" class="abbr">FIA_PSK_EXT.3.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall allow PSKs to be composed of any combination of upper case characters, 
 					lower case characters, numbers, and the following special characters: 
 					"!", "@", "#", "$", "%", "^", "&amp;", "*", "(", and ")", and 
-					[<b>selection</b>: <i id="_s_47">[<b>assignment</b>: 
-     <span class="assignable-content">other supported special characters</span>]</i>, <i id="_s_48">no other characters</i>]
+					[<b>selection</b>: <i id="_s_45">[<b>assignment</b>: 
+     <span class="assignable-content">other supported special characters</span>]</i>, <i id="_s_46">no other characters</i>]
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author assigns any other supported characters; if there are no other supported characters, 
 					then "<i>no other characters</i>" should be selected. 
@@ -1129,16 +1110,16 @@ The following sections list Common Criteria and technology terms used in this do
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.3.3"><a href="#FIA_PSK_EXT.3.3" class="abbr">FIA_PSK_EXT.3.3</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform Password-based Key Derivation Functions in accordance with a specified 
 					cryptographic algorithm 
-					[<b>selection</b>: <i id="_s_49">HMAC-SHA-256</i>, <i id="_s_50">HMAC-SHA-384</i>, <i id="_s_51">HMAC-SHA-512</i>], with 
+					[<b>selection</b>: <i id="_s_47">HMAC-SHA-256</i>, <i id="_s_48">HMAC-SHA-384</i>, <i id="_s_49">HMAC-SHA-512</i>], with 
 					[<b>assignment</b>: 
      <span class="assignable-content">positive integer of 4096 or more</span>] iterations], and
 					output cryptographic key sizes 
-					[<b>selection</b>: <i id="_s_52">128</i>, <i id="_s_53">256</i>] that meet the following: <a href="#bibNIST800132">[NIST SP 800-132 Part 1]</a>.
+					[<b>selection</b>: <i id="_s_50">128</i>, <i id="_s_51">256</i>] that meet the following: <a href="#bibNIST800132">[NIST SP 800-132 Part 1]</a>.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the parameters based on the PBKDF used by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.3.4"><a href="#FIA_PSK_EXT.3.4" class="abbr">FIA_PSK_EXT.3.4</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not accept PSKs less than 
-					[<b>selection</b>: <i id="_s_54">a value settable by the administrator</i>, <i id="_s_55">[<b>assignment</b>: 
+					[<b>selection</b>: <i id="_s_52">a value settable by the administrator</i>, <i id="_s_53">[<b>assignment</b>: 
      <span class="assignable-content">minimum <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> length accepted by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, must be &gt;= 6</span>]</i>] and greater than the maximum <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> length defined in <a href="#FIA_PSK_EXT.3.1">FIA_PSK_EXT.3.1</a>.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					If the minimum length is settable, then <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author chooses "<i>a value settable by the administrator</i>".
@@ -1154,7 +1135,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>   
             <div class="element"><div class="reqid" id="FIA_PSK_EXT.3.7"><a href="#FIA_PSK_EXT.3.7" class="abbr">FIA_PSK_EXT.3.7</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-					[<b>selection</b>: <i id="_s_56">provide a password strength meter</i>, <i id="_s_57">check the password against a blacklist</i>, <i id="_s_58">perform no action to assist the user in choosing a strong password</i>]. 
+					[<b>selection</b>: <i id="_s_54">provide a password strength meter</i>, <i id="_s_55">check the password against a blacklist</i>, <i id="_s_56">perform no action to assist the user in choosing a strong password</i>]. 
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
                     For <a href="#FIA_PSK_EXT.3.7">FIA_PSK_EXT.3.7</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may select one, both, or neither of the functions in alignment
 					with <a href="#bibNIST80063b">[NIST SP 800-63B]</a>.<p></p>
@@ -1225,7 +1206,7 @@ The following sections list Common Criteria and technology terms used in this do
         
 		
         <div class="comp" id="FIA_PSK_EXT.4"><h4>FIA_PSK_EXT.4 HMAC-Based One-Time Password Pre-shared Keys Support</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+          <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>.
           </i></b></div>
 			
 			
@@ -1234,10 +1215,10 @@ The following sections list Common Criteria and technology terms used in this do
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall accept and send a HOTP while initiating an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection.
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.4.2"><a href="#FIA_PSK_EXT.4.2" class="abbr">FIA_PSK_EXT.4.2</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-					[<b>selection</b><b>, choose one of</b>: <i id="_s_59">verify the HOTP</i>, <i id="_s_60">verify the HOTP via an external authentication server</i>] before establishing an incoming connection.
+					[<b>selection</b><b>, choose one of</b>: <i id="_s_57">verify the HOTP</i>, <i id="_s_58">verify the HOTP via an external authentication server</i>] before establishing an incoming connection.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					This requirement must be claimed if "<i>HMAC-based one-time password</i>" is included in a selection
-					in <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+					in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>.2.
 				</span></div></div></div>
 			
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_PSK_EXT.4">FIA_PSK_EXT.4</a></div>
@@ -1266,18 +1247,18 @@ The following sections list Common Criteria and technology terms used in this do
 		
 		
         <div class="comp" id="FIA_PSK_EXT.5"><h4>FIA_PSK_EXT.5 Time Based One Time Password Pre-shared Keys Support</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+          <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>.
           </i></b></div>
 			
 			
 			
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.5.1"><a href="#FIA_PSK_EXT.5.1" class="abbr">FIA_PSK_EXT.5.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall accept and send a TOTP while initiating an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection.</div></div>
 			<div class="element"><div class="reqid" id="FIA_PSK_EXT.5.2"><a href="#FIA_PSK_EXT.5.2" class="abbr">FIA_PSK_EXT.5.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-					[<b>selection</b><b>, choose one of</b>: <i id="sel-psk5-ext-e2-verify">verify the TOTP</i>, <i id="_s_62">verify the TOTP via an external authentication server</i>] before establishing an incoming connection.
+					[<b>selection</b><b>, choose one of</b>: <i id="sel-psk5-ext-e2-verify">verify the TOTP</i>, <i id="_s_60">verify the TOTP via an external authentication server</i>] before establishing an incoming connection.
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					If "<i>verify the TOTP</i>" is selected then <a href="#FIA_TOTP_EXT.1">FIA_TOTP_EXT.1</a> must be claimed.<p></p>
 					This requirement must be claimed if "<i>Time-based one-time password</i>" is included in a selection
-					in <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+					in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>.2.
 				</span></div></div></div>
 			
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_PSK_EXT.5">FIA_PSK_EXT.5</a></div>
@@ -1306,7 +1287,7 @@ The following sections list Common Criteria and technology terms used in this do
      
         
         <div class="comp" id="FIA_TOTP_EXT.1"><h4>FIA_TOTP_EXT.1 Time-Based One-Time Password Pre-Shared Keys</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-          <a href="#FCS_EAP_EXT.1.3">FCS_EAP_EXT.1.3</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>, <a href="#FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</a>.
+          <a href="#FCS_EAP_EXT.1.3">FCS_EAP_EXT.1.3</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>, <a href="#FIA_PSK_EXT.1.1">FIA_PSK_EXT.1.1</a>.
           </i></b></div>
 			
 			
@@ -1318,12 +1299,12 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.2"><a href="#FIA_TOTP_EXT.1.2" class="abbr">FIA_TOTP_EXT.1.2</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a TOTP seed according to <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> of 
-					[<b>selection</b>: <i id="_s_63">128</i>, <i id="_s_64">256</i>] bits.
+					[<b>selection</b>: <i id="_s_61">128</i>, <i id="_s_62">256</i>] bits.
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.3"><a href="#FIA_TOTP_EXT.1.3" class="abbr">FIA_TOTP_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new TOTP seed for each <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection.</div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.4"><a href="#FIA_TOTP_EXT.1.4" class="abbr">FIA_TOTP_EXT.1.4</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall utilize 
-					[<b>selection</b>: <i id="_s_65">HMAC-SHA-1</i>, <i id="_s_66">HMAC-SHA-256</i>, <i id="_s_67">HMAC-SHA-384</i>, <i id="_s_68">HMAC-SHA-512</i>] with key sizes 
+					[<b>selection</b>: <i id="_s_63">HMAC-SHA-1</i>, <i id="_s_64">HMAC-SHA-256</i>, <i id="_s_65">HMAC-SHA-384</i>, <i id="_s_66">HMAC-SHA-512</i>] with key sizes 
 					[<b>assignment</b>: 
      <span class="assignable-content">key size (in bits) used in HMAC</span>] 
 					to derive a TOTP hash from the TOTP seed and current time provided by NTP.
@@ -1332,34 +1313,34 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.5"><a href="#FIA_TOTP_EXT.1.5" class="abbr">FIA_TOTP_EXT.1.5</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall truncate the TOTP hash per <a href="#FIA_TOTP_EXT.1.4">FIA_TOTP_EXT.1.4</a> to create a TOTP of  
-					[<b>selection</b>: <ul><li style=""><i id="_s_69">administrator configurable character length of at least 6</i>, </li><li style=""><i id="_s_70">preset character length of
-							[<b>selection</b><b>, choose one of</b>: <i id="_s_71">6</i>, <i id="_s_72">7</i>, <i id="_s_73">8</i>, <i id="_s_74">9</i>, <i id="_s_75">10</i>]
+					[<b>selection</b>: <ul><li style=""><i id="_s_67">administrator configurable character length of at least 6</i>, </li><li style=""><i id="_s_68">preset character length of
+							[<b>selection</b><b>, choose one of</b>: <i id="_s_69">6</i>, <i id="_s_70">7</i>, <i id="_s_71">8</i>, <i id="_s_72">9</i>, <i id="_s_73">10</i>]
 						</i></li></ul>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				    The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may either provide a configurable character length of at least 6 or a preset 
 					size between 6 and 10.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.6"><a href="#FIA_TOTP_EXT.1.6" class="abbr">FIA_TOTP_EXT.1.6</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall
-					[<b>selection</b>: <ul><li style=""><i id="_s_76">throttle invalid requests to 
-							[<b>selection</b>: <i id="_s_77">administrator configurable value</i>, <i id="_s_78">[<b>assignment</b>: 
-     <span class="assignable-content">value less than 10</span>]</i>] per minute</i>, </li><li style=""><i id="_s_79">lock the associated account after 
-							[<b>selection</b>: <i id="_s_80">administrator configurable value</i>, <i id="_s_81">[<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><i id="_s_74">throttle invalid requests to 
+							[<b>selection</b>: <i id="_s_75">administrator configurable value</i>, <i id="_s_76">[<b>assignment</b>: 
+     <span class="assignable-content">value less than 10</span>]</i>] per minute</i>, </li><li style=""><i id="_s_77">lock the associated account after 
+							[<b>selection</b>: <i id="_s_78">administrator configurable value</i>, <i id="_s_79">[<b>assignment</b>: 
      <span class="assignable-content">value less than 10</span>]</i>] failed attempts until 
-							[<b>selection</b>: <i id="_s_82">an administrator unlocks the account</i>, <i id="_s_83">a configurable time period</i>]
+							[<b>selection</b>: <i id="_s_80">an administrator unlocks the account</i>, <i id="_s_81">a configurable time period</i>]
 						</i></li></ul>].
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 				    The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may select throttle requests, account lockout, or both.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.7"><a href="#FIA_TOTP_EXT.1.7" class="abbr">FIA_TOTP_EXT.1.7</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall set a time-step size of 
-					[<b>selection</b>: <i id="_s_84">a configurable value</i>, <i id="_s_85">[<b>assignment</b>: 
+					[<b>selection</b>: <i id="_s_82">a configurable value</i>, <i id="_s_83">[<b>assignment</b>: 
      <span class="assignable-content">a value less than or equal to 30</span>]</i>] seconds.
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.8"><a href="#FIA_TOTP_EXT.1.8" class="abbr">FIA_TOTP_EXT.1.8</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not validate a drift of more than 
-					[<b>selection</b>: <i id="_s_86">a configurable value</i>, <i id="_s_87">[<b>assignment</b>: 
+					[<b>selection</b>: <i id="_s_84">a configurable value</i>, <i id="_s_85">[<b>assignment</b>: 
      <span class="assignable-content">a value less than or equal to 3</span>]</i>] time-steps.            
 				</div></div>
 			<div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.9"><a href="#FIA_TOTP_EXT.1.9" class="abbr">FIA_TOTP_EXT.1.9</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
-					[<b>selection</b><b>, choose one of</b>: <i id="_s_88">allow resynchronization by recording time drift within the limit of FIA_TOTP_EXT.2.8</i>, <i id="_s_89">not permit resynchronization</i>].           
+					[<b>selection</b><b>, choose one of</b>: <i id="_s_86">allow resynchronization by recording time drift within the limit of FIA_TOTP_EXT.2.8</i>, <i id="_s_87">not permit resynchronization</i>].           
 				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
 					The TOTP seed and all derived values are considered secret keys for purposes of protection.<p></p>
 					This requirement must be claimed if "verify the TOTP" is selected in FCS_PSK_EXT.5.2.
@@ -1408,182 +1389,6 @@ The following sections list Common Criteria and technology terms used in this do
 						</ul>
 					</div></div></div>
         
-		
-        <div class="comp" id="FIA_X509_EXT.1"><h4>FIA_X509_EXT.1 X.509 Certificate Validation</h4>
-			<div class="element"><div class="reqid" id="FIA_X509_EXT.1.1"><a href="#FIA_X509_EXT.1.1" class="abbr">FIA_X509_EXT.1.1</a></div><div class="reqdesc">
-					The application shall 
-					[<b>selection</b><b>, choose one of</b>: <i id="_s_90">invoke platform-provided functionality</i>, <i id="_s_91">implement functionality</i>]
-					to validate certificates in accordance with the following rules:<ul>
-						<li>RFC 5280 certificate validation and certificate path validation.</li>
-						<li>The certificate path must terminate with a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate.</li>
-						<li>The application shall validate a certificate path by ensuring the presence of the 
-							basicConstraints extension and that the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> flag is set to TRUE for all <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> 
-							certificates, and that any path constraints are met.
-						</li>
-						<li>The application shall validate that any <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate includes caSigning purpose in the key
-							usage field</li>
-						<li>The application shall validate the revocation status of the certificate using 
-							[<b>selection</b>: <i id="_s_92"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> as specified in RFC 6960</i>, <i id="_s_93">CRL as specified in RFC 5280 Section 6.3</i>, <i id="_s_94">CRL as specified in RFC 8603</i>, <i id="_s_95">an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> TLS Status Request Extension (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling) as specified in RFC 6066</i>, <i id="_s_96"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> TLS Multi-Certificate Status Request Extension (i.e., <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Multi-Stapling) as specified in RFC 6961</i>].
-						</li>
-						<li>The application shall validate the extendedKeyUsage (EKU) field according to the 
-							following rules:<ul>
-							<li>Certificates used for trusted updates and executable code integrity verification 
-								shall have the Code Signing Purpose (id-kp 3 with OID 1.3.6.1.5.5.7.3.3) in the 
-								extendedKeyUsage field.
-							</li>
-							<li>Server certificates presented for TLS shall have the Server Authentication
-								purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the EKU field.
-							</li>
-							<li>
-								Client certificates presented for TLS shall have the Client Authentication purpose 
-								(id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the EKU field.
-							</li>
-							<li>
-								S/MIME certificates presented for email encryption and signature shall have the 
-								Email Protection purpose (id-kp 4 with OID 1.3.6.1.5.5.7.3.4) in the EKU field.
-							</li>
-							<li>
-								<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> certificates presented for <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> responses shall have the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Signing purpose 
-								(id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the EKU field.
-							</li>
-							<li>
-								Server certificates presented for EST shall have the CMC Registration Authority 
-								(RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28) in the EKU field.
-							</li></ul>
-						</li>
-					</ul>
-				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					<a href="#FIA_X509_EXT.1.1">FIA_X509_EXT.1.1</a> lists the rules for validating certificates. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall select whether
-					revocation status is verified using <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> or CRLs. <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> requires that certificates are
-					used for HTTPS, TLS, and DTLS; this use requires that the extendedKeyUsage rules are verified.
-					If <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> is not supported the EKU provision for checking the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Signing purpose is met by 
-					default.<p></p>
-					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of
-					certificates. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements TLS as a HTTPS/TLS server with no mutual authentication,
-					this requirement is not applicable.<p></p>
-					<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling and <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> multi-stapling only support TLS server certificate validation. If other 
-					certificate types are validated, either <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> or CRL should be claimed.<p></p>
-					Regardless of the selection of "<i>implement functionality or invoke platform-provided 
-					functionality</i>," the validation is expected to end in a trusted root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate in a root
-					store managed by the platform.
-				</span></div></div></div>
-			<div class="element"><div class="reqid" id="FIA_X509_EXT.1.2"><a href="#FIA_X509_EXT.1.2" class="abbr">FIA_X509_EXT.1.2</a></div><div class="reqdesc">
-					The application shall treat a certificate as a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate only if the 
-					basicConstraints extension is present and the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> flag is set to TRUE.
-				<div class="appnote"><span class="note-header">Application Note: </span><span class="note">
-					This requirement applies to certificates that are used and processed by the 
-					<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and restricts the certificates that may be added as trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates.
-				</span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FIA_X509_EXT.1.1">FIA_X509_EXT.1.1</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes where the check of validity of the certificates
-						takes place. The evaluator ensures the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> also provides a description of the certificate 
-						path validation algorithm.<p></p>
-					<br/>
-					<div class="eacategory">Guidance</div>None.<p></p><br/>
-					<div class="eacategory">Tests</div>
-						The tests described must be performed in conjunction with the other certificate services evaluation 
-						activities, including the functions in <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1. The tests for the extendedKeyUsage rules are 
-						performed in conjunction with the uses that require those rules. If the application supports chains of
-						length four or greater, the evaluator shall create a chain of at least four certificates: 
-						the node certificate to be tested, two Intermediate CAs, and the self-signed Root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>. If 
-						the application supports a maximum trust depth of two, then a chain with no Intermediate
-						<abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> should instead be created.
-						<ul>
-							<li><b>Test 1: </b>
-								The evaluator shall demonstrate that validating a certificate without a valid certification path results in the function 
-								failing, for each of the following reasons, in turn:<ul>
-								<li>by establishing a certificate path in which one of the issuing certificates is not a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate,</li>
-								<li>by omitting the basicConstraints field in one of the issuing certificates,</li>
-								<li>by setting the basicConstraints field in an issuing certificate to have <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>=False,</li>
-								<li>by omitting the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> signing bit of the key usage field in an issuing certificate, and</li>
-								<li>by setting the path length field of a valid <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> field to a value strictly less than the certificate path.</li>
-								</ul>
-								The evaluator shall then establish a valid certificate path consisting of valid <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates, and demonstrate that the 
-								function succeeds. The evaluator shall then remove trust in one of the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates, and show that the function fails.
-							</li>
-							<li><b>Test 2: </b>
-								The evaluator shall demonstrate that validating an expired certificate results in the function failing.
-							</li>
-							<li><b>Test 3: </b>
-								The evaluator shall test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can properly handle revoked certificates-“conditional on whether
-								CRL, <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Stapling or <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Multi-stapling is selected; if multiple methods are selected, then
-								the following tests shall be performed for each method:
-								<ul>
-								<li>The evaluator shall test revocation of the node certificate.</li>
-								<li>The evaluator shall also test revocation of an intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate (i.e. the intermediate
-									<abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate should be revoked by the root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>), if intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates are supported.
-									If <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling per RFC 6066 is the only supported revocation method, this test is omitted.</li>
-								<li>The evaluator shall ensure that a valid certificate is used, and that the validation function 
-									succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each 
-									method chosen in the selection) to ensure when the certificate is no longer valid that the 
-									validation function fails.</li>
-								</ul>
-							</li>
-							<li><b>Test 4: </b>
-								If any <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> option is selected, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> server or use a
-								man-in-the-middle tool to present a certificate that does not have the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> signing purpose and verify
-								that validation of the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> response fails. If CRL is selected, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> 
-								to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that
-								validation of the CRL fails.
-							</li>
-							<li><b>Test 5: </b>
-								The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that 
-								the certificate fails to validate. (The certificate will fail to parse correctly.)
-							</li>
-							<li><b>Test 6: </b>
-								 The evaluator shall modify any byte in the last byte of the certificate and demonstrate that the 
-								 certificate fails to validate. (The signature on the certificate will not validate.)
-							</li>
-							<li><b>Test 7: </b>
-								The evaluator shall modify any byte in the public key of the certificate and demonstrate that the
-								certificate fails to validate. (The signature on the certificate will not validate.)
-							</li>
-							<li><b>Test 8: </b>
-								 (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1">FCS_COP.1</a>/Sig). The evaluator shall establish a valid,
-								 trusted certificate chain consisting of an EC leaf certificate, an EC Intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate not 
-								 designated as a trust anchor, and an EC certificate designated as a trusted anchor, where the elliptic 
-								 curve parameters are specified as a named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates 
-								 the certificate chain.
-							</li>
-							<li><b>Test 9: </b>
-								(Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1">FCS_COP.1</a>/Sig). The evaluator shall replace
-								the intermediate certificate in the certificate chain for Test 9 with a modified certificate, where 
-								the modified intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> has a public key information field where the EC parameters uses an 
-								explicit format version of the Elliptic Curve parameters in the public key information field of the
-								intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate from Test 9, and the modified Intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate is signed by 
-								the trusted EC root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, but having no other changes. The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> treats the
-								certificate as invalid.
-							</li>
-						</ul>
-					<br/>
-				<div class="element-activity-header"><a href="#FIA_X509_EXT.1.2">FIA_X509_EXT.1.2</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>None.<p></p><br/>
-					<div class="eacategory">Guidance</div>None.<p></p><br/>
-					<div class="eacategory">Tests</div>
-						The tests described must be performed in conjunction with the other certificate 
-						services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1.
-						If the application supports chains of length four or greater, 
-						the evaluator shall create a chain of at least four certificates: the 
-						node certificate to be tested, two Intermediate CAs, and the self-signed Root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>.
-						If the application supports a maximum trust depth of two, then a chain with
-						no Intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> should instead be created.
-						<ul>
-							<li><b>Test 1: </b>
-								The evaluator shall ensure that the certificate of at least one of the CAs in the chain does not contain the 
-								basicConstraints extension. The evaluator shall confirm that validation of the certificate path 
-								fails (i) as part of the validation of the peer certificate belonging to this chain; and/or 
-								(ii) when attempting to add the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate without the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store.
-							</li>
-							<li><b>Test 2: </b>
-								The evaluator shall ensure that the certificate of at least one of the CAs in the chain has the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> flag in the 
-								basicConstraints extension not set (or set to FALSE). The evaluator shall confirm that validation of the certificate 
-								path fails (i) as part of the validation of the peer certificate belonging to this chain; and/or (ii) when attempting 
-								to add the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate with the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> flag not set (or set to FALSE) in the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store.
-							</li>
-						</ul>
-					<br/>
-				</div></div></div>	   
 	    
       
       
