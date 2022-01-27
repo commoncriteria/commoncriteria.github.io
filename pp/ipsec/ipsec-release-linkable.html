@@ -1018,6 +1018,7 @@ The following sections list Common Criteria and technology terms used in this do
 			
 			
 			
+			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.15"><a href="#FCS_IPSEC_EXT.1.15" class="abbr">FCS_IPSEC_EXT.1.15</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the MSK from the 
 					[<b>selection</b>: <i id="_s_64"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS</i>, <i id="_s_65"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS</i>] response as the IKEv2 shared secret in the authentication payload<a id="period_169" href="#period_169">. </a>					
 				</div></div>    
@@ -1040,9 +1041,7 @@ The following sections list Common Criteria and technology terms used in this do
 						architecturally integrated with the platform itself or whether it is a separate executable that 
 						is bundled with the platform<a id="period_170" href="#period_170">. </a><p></p>
 					
-						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the use of <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> options for each of the 
-						selected peer authentication mechanisms, that TLS with mutual authentication is used, that the
-						random values are from an appropriate source, and that the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> MSK is derived from the TLS
+						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes that the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> MSK is derived from the TLS
 						master key and is used as the IKEv2 shared key<a id="period_171" href="#period_171">. </a>					<div class="eacategory">Guidance</div>
 
 						The evaluator shall ensure that the operational guidance contains any appropriate information for ensuring
@@ -1070,222 +1069,203 @@ The following sections list Common Criteria and technology terms used in this do
 						Note that the evaluator shall perform all tests using the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a representative sample of
 						platforms listed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> (for TOEs that claim to support multiple platforms)<a id="period_181" href="#period_181">. </a><p></p>
 					
-						Testing for TLS functionality is in accordance with the TLS package<a id="period_182" href="#period_182">. </a><p></p>
-						For each supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method claimed in FCS_EAP_EXT.1.1 and for each authentication method 
-						claimed in FCS_EAP_EXT.1.3, the evaluator shall perform the following tests:
+						For each supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method claimed in <a href="#FCS_IPSEC_EXT.1.15">FCS_IPSEC_EXT.1.15</a> <b>and for each authentication method 
+						claimed in FCS_EAP_EXT.1.3, the evaluator shall perform the following tests:</b>
 						<ul>
-							<li><b>Test 1: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
-								claimed<a id="period_183" href="#period_183">. </a>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the 
-								authentication method claimed and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, register an endpoint with appropriate
-								key material required for the authentication method<a id="period_184" href="#period_184">. </a>The evaluator shall establish an 
-								<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection using a test endpoint with a valid certificate and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, 
-								configured to provide a correct value for the configured authenticator<a id="period_185" href="#period_185">. </a>The evaluator
-								shall observe that the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection is successful<a id="period_186" href="#period_186">. </a></li>
-							<li><b>Test 2: </b>[conditional] If <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS is supported, the evaluator shall cause the test endpoint with a
-								valid certificate to send an invalid authenticator for the claimed authentication method:<ul>
-								<li>For HOTP, replay the HOTP value sent previously<a id="period_187" href="#period_187">. </a></li>
-								<li>For TOTP or <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr>, modify a byte of the properly constructed value,and observe that
-									the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts the connection<a id="period_188" href="#period_188">. </a></li></ul>
-							</li>
-							<li><b>Test 3: </b>The evaluator shall establish a new, valid certificate for a test endpoint using an 
-								identifier not corresponding to a registered user<a id="period_189" href="#period_189">. </a>For <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, the evaluator shall cause
-								the test endpoint using this certificate to send a correct authenticator value for the
-								registered user<a id="period_190" href="#period_190">. </a>The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection from the test endpoint
-								to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts the connection<a id="period_191" href="#period_191">. </a></li>
-							<li><b>Test 4: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use a supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
-								and register the user with key material for required for a supported authentication method<a id="period_192" href="#period_192">. </a>								The evaluator shall configure a test endpoint to respond to an IKEv2 exchange with 
+							<li><b>Test 1: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use a supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
+								and register the user with key material for required for a supported authentication method<a id="period_182" href="#period_182">. </a>								The evaluator shall configure a test endpoint to respond to an IKEv2 exchange with 
 								<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-request, providing valid phase 1 handshake and valid TLS handshake, but computing 
-								the phase 2 shared key using standard (non-EAP) methods<a id="period_193" href="#period_193">. </a>The evaluator shall initiate 
+								the phase 2 shared key using standard (non-EAP) methods<a id="period_183" href="#period_183">. </a>The evaluator shall initiate 
 								an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection between the test endpoint and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts
-								the connection<a id="period_194" href="#period_194">. </a>							</li>
+								the connection<a id="period_184" href="#period_184">. </a>							</li>
 						</ul>
 					<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.1">FCS_IPSEC_EXT.1.1</a></div> 
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and determine that it describes how the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality is
-						implemented<a id="period_195" href="#period_195">. </a><p></p>
+						implemented<a id="period_185" href="#period_185">. </a><p></p>
 						 The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies any
-						platform functionality the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> relies upon to support its <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation, if any (e.g<a id="period_196" href="#period_196">. </a>does it invoke
+						platform functionality the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> relies upon to support its <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation, if any (e.g<a id="period_186" href="#period_186">. </a>does it invoke
 						cryptographic primitive functions from the platform&#8217;s cryptographic library, enforcement of packet
-						routing decisions by low-level network drivers)<a id="period_197" href="#period_197">. </a><p></p>
+						routing decisions by low-level network drivers)<a id="period_187" href="#period_187">. </a><p></p>
 		    
 						In all cases, the evaluator shall also ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation  interacts with the network
 						stack of the platform(s) on which it can run (e.g., does the client insert itself within the stack via kernel
-						mods, does the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation simply invoke APIs to gain access to network services)<a id="period_198" href="#period_198">. </a><p></p>		   
+						mods, does the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation simply invoke APIs to gain access to network services)<a id="period_188" href="#period_188">. </a><p></p>		   
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> is implemented and the rules for processing
-						both inbound and outbound packets in terms of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> policy<a id="period_199" href="#period_199">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the rules that are
-						available and the resulting actions available after matching a rule<a id="period_200" href="#period_200">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the available
+						both inbound and outbound packets in terms of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> policy<a id="period_189" href="#period_189">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the rules that are
+						available and the resulting actions available after matching a rule<a id="period_190" href="#period_190">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the available
 						rules and actions form the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> using terms defined in RFC 4301 such as BYPASS (e.g., no encryption),
-						DISCARD (e.g., drop the packet), and PROTECT (e.g., encrypt the packet) actions defined in RFC 4301<a id="period_201" href="#period_201">. </a>		  
+						DISCARD (e.g., drop the packet), and PROTECT (e.g., encrypt the packet) actions defined in RFC 4301<a id="period_191" href="#period_191">. </a>		  
 						As noted in section 4.4.1 of RFC 4301, the processing of entries in the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> is non-trivial and the evaluator
 						shall determine that the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> is sufficient to determine which rules will be applied given
-						the rule structure implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a id="period_202" href="#period_202">. </a>For example, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> allows specification of ranges,
+						the rule structure implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a id="period_192" href="#period_192">. </a>For example, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> allows specification of ranges,
 						conditional rules, etc., the evaluator shall determine that the description of rule processing (for both
 						inbound and outbound packets) is sufficient to determine the action that will be applied, especially in the
-						case where two different rules may apply<a id="period_203" href="#period_203">. </a>This description shall cover both the initial packets (that is, no
+						case where two different rules may apply<a id="period_193" href="#period_193">. </a>This description shall cover both the initial packets (that is, no
 						<abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is established on the interface or for that particular packet) as well as packets that are part of an
-						established <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr><a id="period_204" href="#period_204">. </a><br>
+						established <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr><a id="period_194" href="#period_194">. </a><br>
 					<br>    
 					<div class="eacategory">Guidance</div>
 						The evaluator shall examine the operational guidance to verify that it describes how the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> is created and
-						configured<a id="period_205" href="#period_205">. </a>If there is an administrative interface to the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation , then the guidance describes how the
-						administrator specifies rules for processing a packet<a id="period_206" href="#period_206">. </a>The description includes all three cases - a rule that
-						ensures packets are encrypted/decrypted, dropped, and allowing a packet to flow in plaintext<a id="period_207" href="#period_207">. </a>The
+						configured<a id="period_195" href="#period_195">. </a>If there is an administrative interface to the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation , then the guidance describes how the
+						administrator specifies rules for processing a packet<a id="period_196" href="#period_196">. </a>The description includes all three cases - a rule that
+						ensures packets are encrypted/decrypted, dropped, and allowing a packet to flow in plaintext<a id="period_197" href="#period_197">. </a>The
 						evaluator shall determine that the description in the operational guidance is consistent with the
 						description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, and that the level of detail in the operational guidance is sufficient to allow the
-						administrator to set up the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> in an unambiguous fashion<a id="period_208" href="#period_208">. </a>This includes a discussion of how ordering of
-						rules impacts the processing of an IP packet<a id="period_209" href="#period_209">. </a><p></p>
+						administrator to set up the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> in an unambiguous fashion<a id="period_198" href="#period_198">. </a>This includes a discussion of how ordering of
+						rules impacts the processing of an IP packet<a id="period_199" href="#period_199">. </a><p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation is configured by an external application, such as the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway, then the operational
 						guidance should indicate this and provide a description of how <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>  is configured by the external
-						application<a id="period_210" href="#period_210">. </a>The description should contain information as to how the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> is established and set up in an
-						unambiguous fashion<a id="period_211" href="#period_211">. </a>The description should also include what is configurable via the external
+						application<a id="period_200" href="#period_200">. </a>The description should contain information as to how the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> is established and set up in an
+						unambiguous fashion<a id="period_201" href="#period_201">. </a>The description should also include what is configurable via the external
 						application, how ordering of entries may be expressed, as well as the impacts that ordering of entries may
-						have on the packet processing<a id="period_212" href="#period_212">. </a><p></p>
+						have on the packet processing<a id="period_202" href="#period_202">. </a><p></p>
 						In either case, the evaluator ensures the description provided In the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> is consistent with the capabilities
-						and description provided in the operational guidance<a id="period_213" href="#period_213">. </a><br>
+						and description provided in the operational guidance<a id="period_203" href="#period_203">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						Depending on the implementation, the evaluator may be required to use a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway or some form of
-						application to configure the client<a id="period_214" href="#period_214">. </a>For Test 2, the evaluator is required to choose an application that
-						allows for the configuration of the full set of capabilities of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation <a id="period_215" href="#period_215">. </a>For example, if the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation  supports specification of wildcards,
+						application to configure the client<a id="period_204" href="#period_204">. </a>For Test 2, the evaluator is required to choose an application that
+						allows for the configuration of the full set of capabilities of the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation <a id="period_205" href="#period_205">. </a>For example, if the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation  supports specification of wildcards,
 						subnets, etc., it is unacceptable for the evaluator to  specify only
-						a single fully qualified IP addresses in the rule<a id="period_216" href="#period_216">. </a><p></p>
+						a single fully qualified IP addresses in the rule<a id="period_206" href="#period_206">. </a><p></p>
 						The evaluator shall perform the following tests:
 						<ul>
 							<li><b>Test 1: </b>The evaluator shall configure an <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> that is capable of the following: dropping a
-								packet, encrypting a packet, and allowing a packet to flow in plaintext<a id="period_217" href="#period_217">. </a>The selectors used in the
+								packet, encrypting a packet, and allowing a packet to flow in plaintext<a id="period_207" href="#period_207">. </a>The selectors used in the
 								construction of the rule shall be different such that the evaluator can generate a packet and send packets
 								to the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> endpoint with the appropriate fields (fields that are used by the rule - e.g., the IP addresses, TCP/<abbr class="dyn-abbr"><a href="#abbr_UDP">UDP</a></abbr>
-								ports) in the packet header<a id="period_218" href="#period_218">. </a>The evaluator performs both positive and negative test cases for each type
-								of rule<a id="period_219" href="#period_219">. </a>The evaluator observes via the audit trail, and packet captures that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> exhibited the expected
+								ports) in the packet header<a id="period_208" href="#period_208">. </a>The evaluator performs both positive and negative test cases for each type
+								of rule<a id="period_209" href="#period_209">. </a>The evaluator observes via the audit trail, and packet captures that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> exhibited the expected
 								behavior: appropriate packets were dropped, allowed through without modification, were encrypted by
-								the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation<a id="period_220" href="#period_220">. </a></li>
-							<li><b>Test 2: </b>The evaluator shall devise several tests that cover a variety of scenarios for packet processing<a id="period_221" href="#period_221">. </a>								These scenarios must exercise the range of possibilities for <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> entries and processing modes as outlined
-								in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and operational guidance<a id="period_222" href="#period_222">. </a>Potential areas to cover include rules with overlapping ranges and
+								the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> implementation<a id="period_210" href="#period_210">. </a></li>
+							<li><b>Test 2: </b>The evaluator shall devise several tests that cover a variety of scenarios for packet processing<a id="period_211" href="#period_211">. </a>								These scenarios must exercise the range of possibilities for <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> entries and processing modes as outlined
+								in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and operational guidance<a id="period_212" href="#period_212">. </a>Potential areas to cover include rules with overlapping ranges and
 								conflicting entries, inbound and outbound packets, and packets that establish SAs as well as packets that
-								belong to established SAs<a id="period_223" href="#period_223">. </a>The evaluator shall verify, via the audit trail and packet captures, for each
+								belong to established SAs<a id="period_213" href="#period_213">. </a>The evaluator shall verify, via the audit trail and packet captures, for each
 								scenario that the expected behavior is exhibited, and is consistent with both the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and the operational
-								guidance<a id="period_224" href="#period_224">. </a>							</li>
+								guidance<a id="period_214" href="#period_214">. </a>							</li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.2">FCS_IPSEC_EXT.1.2</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it states that <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> can be established to operate 
-						in tunnel mode or transport mode or both (as selected)<a id="period_225" href="#period_225">. </a><br>
+						in tunnel mode or transport mode or both (as selected)<a id="period_215" href="#period_215">. </a><br>
 					<br>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall confirm that the operational guidance contains instructions on how to
-						configure the connection for each mode selected<a id="period_226" href="#period_226">. </a><p></p>
+						configure the connection for each mode selected<a id="period_216" href="#period_216">. </a><p></p>
 						If both transport mode and tunnel mode are implemented, the evaluator shall review the operational
-						guidance to determine how the use of a given mode is specified<a id="period_227" href="#period_227">. </a><br>
+						guidance to determine how the use of a given mode is specified<a id="period_217" href="#period_217">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						The evaluator shall perform the following tests based on the selections chosen:
 						<ul>
 							<li><b>Test 1: </b>[conditional] If tunnel mode is selected, the evaluator uses the operational guidance to
 								configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to operate in tunnel mode and also configures a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway to operate in tunnel 
-								mode<a id="period_228" href="#period_228">. </a>The evaluator configures the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway to use any of the allowable cryptographic algorithms, 
-								authentication methods, etc<a id="period_229" href="#period_229">. </a>to ensure an allowable <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> can be negotiated<a id="period_230" href="#period_230">. </a>The evaluator shall then
-								initiate a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway peer<a id="period_231" href="#period_231">. </a>The evaluator observes (for example,
+								mode<a id="period_218" href="#period_218">. </a>The evaluator configures the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway to use any of the allowable cryptographic algorithms, 
+								authentication methods, etc<a id="period_219" href="#period_219">. </a>to ensure an allowable <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> can be negotiated<a id="period_220" href="#period_220">. </a>The evaluator shall then
+								initiate a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway peer<a id="period_221" href="#period_221">. </a>The evaluator observes (for example,
 								in the audit trail and the captured packets) that a successful connection was established using tunnel
-								mode<a id="period_232" href="#period_232">. </a>							</li>
+								mode<a id="period_222" href="#period_222">. </a>							</li>
 							<li><b>Test 2: </b>[conditional] If transport mode is selected, the evaluator uses the operational guidance to
 								configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to operate in transport mode and also configures an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> peer to accept <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>
-								connections using transport mode<a id="period_233" href="#period_233">. </a>The evaluator configures the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the endpoint device to use any
-								of the allowed cryptographic algorithms, authentication methods, etc<a id="period_234" href="#period_234">. </a>to ensure an allowable <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> can be
-								negotiated<a id="period_235" href="#period_235">. </a>The evaluator then initiates a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to the remote endpoint<a id="period_236" href="#period_236">. </a>								The evaluator observes (for example, in the audit trail and the captured packets) that a successful
-								connection was established using the transport mode<a id="period_237" href="#period_237">. </a>							</li>
+								connections using transport mode<a id="period_223" href="#period_223">. </a>The evaluator configures the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the endpoint device to use any
+								of the allowed cryptographic algorithms, authentication methods, etc<a id="period_224" href="#period_224">. </a>to ensure an allowable <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> can be
+								negotiated<a id="period_225" href="#period_225">. </a>The evaluator then initiates a connection from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to the remote endpoint<a id="period_226" href="#period_226">. </a>								The evaluator observes (for example, in the audit trail and the captured packets) that a successful
+								connection was established using the transport mode<a id="period_227" href="#period_227">. </a>							</li>
 							<li><b>Test 3: </b>[conditional] If both tunnel mode and transport mode are selected, the evaluator shall modify the
 								testing for <a href="#FCS_IPSEC_EXT.1">FCS_IPSEC_EXT.1</a> to include the supported mode for <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> PROTECT entries to show that they
-								apply only to traffic that is transmitted or received using the indicated mode<a id="period_238" href="#period_238">. </a>							</li>
+								apply only to traffic that is transmitted or received using the indicated mode<a id="period_228" href="#period_228">. </a>							</li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.3">FCS_IPSEC_EXT.1.3</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> provides a description of how a packet is
 						processed against the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> and that if no &#8220;rules&#8221; are found to match, that a final rule exists, either implicitly
-						or explicitly, that causes the network packet to be discarded<a id="period_239" href="#period_239">. </a><br>
+						or explicitly, that causes the network packet to be discarded<a id="period_229" href="#period_229">. </a><br>
 					<br>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall check that the operational guidance provides instructions on how to construct or
-						acquire the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> and uses the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for the following test<a id="period_240" href="#period_240">. </a><br>
+						acquire the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> and uses the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for the following test<a id="period_230" href="#period_230">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						The evaluator shall perform the following test:<p></p>
 						The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> such that it has entries that contain operations that DISCARD,
-						PROTECT, and (if applicable) BYPASS network packets<a id="period_241" href="#period_241">. </a>The evaluator may use the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> that was created
-						for verification of <a href="#FCS_IPSEC_EXT.1.1">FCS_IPSEC_EXT.1.1</a><a id="period_242" href="#period_242">. </a>The evaluator shall construct a network packet that matches a
-						BYPASS entry and send that packet<a id="period_243" href="#period_243">. </a>The evaluator should observe that the network packet is passed to
-						the proper destination interface with no modification<a id="period_244" href="#period_244">. </a>The evaluator shall then modify a field in the packet
+						PROTECT, and (if applicable) BYPASS network packets<a id="period_231" href="#period_231">. </a>The evaluator may use the <abbr class="dyn-abbr"><a href="#abbr_SPD">SPD</a></abbr> that was created
+						for verification of <a href="#FCS_IPSEC_EXT.1.1">FCS_IPSEC_EXT.1.1</a><a id="period_232" href="#period_232">. </a>The evaluator shall construct a network packet that matches a
+						BYPASS entry and send that packet<a id="period_233" href="#period_233">. </a>The evaluator should observe that the network packet is passed to
+						the proper destination interface with no modification<a id="period_234" href="#period_234">. </a>The evaluator shall then modify a field in the packet
 						header; such that it no longer matches the evaluator-created entries (there may be a &#8220;<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>-created&#8221; final
-						entry that discards packets that do not match any previous entries)<a id="period_245" href="#period_245">. </a>The evaluator sends the packet, and
-						observes that the packet was not permitted to flow to any of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&#8217;s interfaces<a id="period_246" href="#period_246">. </a>					<br>
+						entry that discards packets that do not match any previous entries)<a id="period_235" href="#period_235">. </a>The evaluator sends the packet, and
+						observes that the packet was not permitted to flow to any of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&#8217;s interfaces<a id="period_236" href="#period_236">. </a>					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.4">FCS_IPSEC_EXT.1.4</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that the algorithms AES-GCM-128 and AES-GCM-256 are
-						implemented<a id="period_247" href="#period_247">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author has selected either AES-CBC-128 or AES-CBC-256 in the requirement, 
-						then the evaluator verifies the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes these as well<a id="period_248" href="#period_248">. </a>In addition, the evaluator ensures 
+						implemented<a id="period_237" href="#period_237">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author has selected either AES-CBC-128 or AES-CBC-256 in the requirement, 
+						then the evaluator verifies the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes these as well<a id="period_238" href="#period_238">. </a>In addition, the evaluator ensures 
 						that the SHA-based HMAC algorithm conforms to the algorithms specified in the relevant iteration of
-						<a href="#FCS_COP.1">FCS_COP.1</a> from the incorporating <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that applies to keyed-hash message authentication<a id="period_249" href="#period_249">. </a><br>
+						<a href="#FCS_COP.1">FCS_COP.1</a> from the incorporating <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that applies to keyed-hash message authentication<a id="period_239" href="#period_239">. </a><br>
 					<br>
 					<div class="eacategory">Guidance</div>
 						The evaluator checks the operational guidance to ensure it provides instructions on how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is
 						configured to use the algorithms selected in this component and whether this is performed through direct
 						configuration, defined during initial installation, or defined by acquiring configuration settings from an
-						environmental component<a id="period_250" href="#period_250">. </a><br>
+						environmental component<a id="period_240" href="#period_240">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						<ul>
 							<li><b>Test 1: </b>
 								The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as indicated in the operational guidance configuring the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 								to using each of the AES-GCM-128 and AES-GCM-256 algorithms, and attempt to establish a connection
-								using <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr><a id="period_251" href="#period_251">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author has selected either AES-CBC-128 or AES-CBC-256, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is configured to use
+								using <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr><a id="period_241" href="#period_241">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Author has selected either AES-CBC-128 or AES-CBC-256, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is configured to use
 								those algorithms and the evaluator attempts to establish a connection using <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> for those algorithms
-								selected<a id="period_252" href="#period_252">. </a>							</li>
+								selected<a id="period_242" href="#period_242">. </a>							</li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that IKEv1 or IKEv2 (or both) are implemented<a id="period_253" href="#period_253">. </a>If IKEv1 is
+						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that IKEv1 or IKEv2 (or both) are implemented<a id="period_243" href="#period_243">. </a>If IKEv1 is
 						implemented, the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> indicates whether or not <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> is supported, and
-						that aggressive mode is not used for IKEv1 Phase 1 exchanges (i.e<a id="period_254" href="#period_254">. </a>only main mode is used)<a id="period_255" href="#period_255">. </a>It may be that
-						these are configurable options<a id="period_256" href="#period_256">. </a><br>
+						that aggressive mode is not used for IKEv1 Phase 1 exchanges (i.e<a id="period_244" href="#period_244">. </a>only main mode is used)<a id="period_245" href="#period_245">. </a>It may be that
+						these are configurable options<a id="period_246" href="#period_246">. </a><br>
 					<br>
 					<div class="eacategory">Guidance</div>
 						The evaluator shall check the operational guidance to ensure it instructs the administrator how to
 						configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use IKEv1 or IKEv2 (as selected), and uses the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
-						perform NAT traversal for the test below<a id="period_257" href="#period_257">. </a>If <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> is implemented, the evaluator shall verify that the
-						operational guidance provides instructions on how it is enabled or disabled<a id="period_258" href="#period_258">. </a><p></p>
+						perform NAT traversal for the test below<a id="period_247" href="#period_247">. </a>If <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> is implemented, the evaluator shall verify that the
+						operational guidance provides instructions on how it is enabled or disabled<a id="period_248" href="#period_248">. </a><p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1, the evaluator shall verify that the operational guidance either asserts that only	
-						main mode is used for Phase 1 exchanges, or provides instructions for disabling aggressive mode<a id="period_259" href="#period_259">. </a><br>
+						main mode is used for Phase 1 exchanges, or provides instructions for disabling aggressive mode<a id="period_249" href="#period_249">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						<ul>
 							<li><b>Test 1: </b>
 								The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that it will perform NAT traversal processing as described
-								in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and <a href="#bibRFC7296">[RFC 7296]</a>, section 2.23<a id="period_260" href="#period_260">. </a>The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection and determine that
-								the NAT is successfully traversed<a id="period_261" href="#period_261">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1 with or without <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr>, the evaluator shall
+								in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and <a href="#bibRFC7296">[RFC 7296]</a>, section 2.23<a id="period_250" href="#period_250">. </a>The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection and determine that
+								the NAT is successfully traversed<a id="period_251" href="#period_251">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1 with or without <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr>, the evaluator shall
 								verify that this test can be successfully repeated with <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> enabled and disabled in the manner specified
-								by the operational guidance<a id="period_262" href="#period_262">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports only IKEv1 with <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr>, the evaluator shall verify that
-								connections not using <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> are unsuccessful<a id="period_263" href="#period_263">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports only IKEv1 without <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr>, the
-								evaluator shall verify that connections using <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> are unsuccessful<a id="period_264" href="#period_264">. </a></li>
+								by the operational guidance<a id="period_252" href="#period_252">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports only IKEv1 with <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr>, the evaluator shall verify that
+								connections not using <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> are unsuccessful<a id="period_253" href="#period_253">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports only IKEv1 without <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr>, the
+								evaluator shall verify that connections using <abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr> are unsuccessful<a id="period_254" href="#period_254">. </a></li>
 							<li><b>Test 2: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports IKEv1, the evaluator shall perform any applicable operational
 								guidance steps to disable the use of aggressive mode and then attempt to establish a connection using an
-								IKEv1 Phase 1 connection in aggressive mode<a id="period_265" href="#period_265">. </a>This attempt should fail<a id="period_266" href="#period_266">. </a>The evaluator shall show that the
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway from initiating an IKEv1 Phase 1 connection in aggressive mode<a id="period_267" href="#period_267">. </a>The
-								evaluator should then show that main mode exchanges are supported<a id="period_268" href="#period_268">. </a></li>
+								IKEv1 Phase 1 connection in aggressive mode<a id="period_255" href="#period_255">. </a>This attempt should fail<a id="period_256" href="#period_256">. </a>The evaluator shall show that the
+								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway from initiating an IKEv1 Phase 1 connection in aggressive mode<a id="period_257" href="#period_257">. </a>The
+								evaluator should then show that main mode exchanges are supported<a id="period_258" href="#period_258">. </a></li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.6">FCS_IPSEC_EXT.1.6</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the algorithms used for encrypting the IKEv1 or IKEv2
 						payload, and that the algorithms AES-CBC-128, AES-CBC-256 are specified, and if others are chosen in the
-						selection of the requirement, those are included in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> discussion<a id="period_269" href="#period_269">. </a><br>
+						selection of the requirement, those are included in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> discussion<a id="period_259" href="#period_259">. </a><br>
 					<br>
 					<div class="eacategory">Guidance</div>
 						The evaluator checks the operational guidance to ensure it provides instructions on how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is
 						configured to use the algorithms selected in this component and whether this is performed through direct
 						configuration, defined during initial installation, or defined by acquiring configuration settings from an
-						environmental component<a id="period_270" href="#period_270">. </a><br>
+						environmental component<a id="period_260" href="#period_260">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						The evaluator shall use the operational guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (or to configure the Operational
@@ -1293,179 +1273,179 @@ The following sections list Common Criteria and technology terms used in this do
 						selected for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> selected:<p></p>
 						The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the ciphersuite under test to encrypt the IKEv1 or
 						IKEv2 payload and establish a connection with a peer device, which is configured to accept the
-						payload encrypted only using the indicated ciphersuite<a id="period_271" href="#period_271">. </a>The evaluator will confirm the algorithm was that used
-						in the negotiation<a id="period_272" href="#period_272">. </a>The evaluator will confirm that the connection is successful by confirming that data
-						can be passed through the connection once it is established<a id="period_273" href="#period_273">. </a>For example, the evaluator may connect to
-						a webpage on the remote network and verify that it can be reached<a id="period_274" href="#period_274">. </a>					<br>
+						payload encrypted only using the indicated ciphersuite<a id="period_261" href="#period_261">. </a>The evaluator will confirm the algorithm was that used
+						in the negotiation<a id="period_262" href="#period_262">. </a>The evaluator will confirm that the connection is successful by confirming that data
+						can be passed through the connection once it is established<a id="period_263" href="#period_263">. </a>For example, the evaluator may connect to
+						a webpage on the remote network and verify that it can be reached<a id="period_264" href="#period_264">. </a>					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.7">FCS_IPSEC_EXT.1.7</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this requirement<a id="period_275" href="#period_275">. </a><br><br>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this requirement<a id="period_265" href="#period_265">. </a><br><br>
 					<div class="eacategory">Guidance</div>The evaluator shall check the operational guidance to ensure it provides instructions on how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-						configures the values for <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> lifetimes<a id="period_276" href="#period_276">. </a>In addition, the evaluator shall check that the guidance has the
+						configures the values for <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> lifetimes<a id="period_266" href="#period_266">. </a>In addition, the evaluator shall check that the guidance has the
 						option for either the Administrator or <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway to configure Phase 1 SAs if time-based limits are
-						supported<a id="period_277" href="#period_277">. </a>Currently there are no values mandated for the number of packets or number of bytes, the
+						supported<a id="period_267" href="#period_267">. </a>Currently there are no values mandated for the number of packets or number of bytes, the
 						evaluator shall simply check the operational guidance to ensure that this can be configured if selected in
-						the requirement<a id="period_278" href="#period_278">. </a><br>
+						the requirement<a id="period_268" href="#period_268">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 						When testing this functionality, the evaluator needs to ensure that both <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> endpoints are configured
-						appropriately<a id="period_279" href="#period_279">. </a>From the RFC: &#8220;A difference between IKEv1 and IKEv2 is that in IKEv1 <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> lifetimes were
-						negotiated<a id="period_280" href="#period_280">. </a>In IKEv2, each end of the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is responsible for enforcing its own lifetime policy on the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> and
-						rekeying the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> when necessary<a id="period_281" href="#period_281">. </a>If the two ends have different lifetime policies, the end with the shorter
-						lifetime will end up always being the one to request the rekeying<a id="period_282" href="#period_282">. </a>If the two ends have the same lifetime
+						appropriately<a id="period_269" href="#period_269">. </a>From the RFC: &#8220;A difference between IKEv1 and IKEv2 is that in IKEv1 <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> lifetimes were
+						negotiated<a id="period_270" href="#period_270">. </a>In IKEv2, each end of the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is responsible for enforcing its own lifetime policy on the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> and
+						rekeying the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> when necessary<a id="period_271" href="#period_271">. </a>If the two ends have different lifetime policies, the end with the shorter
+						lifetime will end up always being the one to request the rekeying<a id="period_272" href="#period_272">. </a>If the two ends have the same lifetime
 						policies, it is possible that both will initiate a rekeying at the same time (which will result in redundant
-						SAs)<a id="period_283" href="#period_283">. </a>To reduce the probability of this happening, the timing of rekeying requests SHOULD be jittered.&#8221;<p></p>
+						SAs)<a id="period_273" href="#period_273">. </a>To reduce the probability of this happening, the timing of rekeying requests SHOULD be jittered.&#8221;<p></p>
 						Each of the following tests shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> selected in the <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a>
 						protocol selection:<p></p>
 						Each of the following tests shall be performed for each version of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> selected in the
 						<a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> protocol selection:
 						<ul>
 							<li><b>Test 1: </b>The evaluator shall configure a maximum lifetime in terms of the number of packets (or
-								bytes) allowed following the operational guidance<a id="period_284" href="#period_284">. </a>The evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> and determine that
-								once the allowed number of packets (or bytes) through this <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is exceeded, the connection is closed<a id="period_285" href="#period_285">. </a></li>
+								bytes) allowed following the operational guidance<a id="period_274" href="#period_274">. </a>The evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> and determine that
+								once the allowed number of packets (or bytes) through this <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is exceeded, the connection is closed<a id="period_275" href="#period_275">. </a></li>
 							<li><b>Test 2: </b>The evaluator shall construct a test where a Phase 1 <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is established and attempted
-								to be maintained for more than 24 hours before it is renegotiated<a id="period_286" href="#period_286">. </a>The evaluator shall observe that this
-								<abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is closed or renegotiated in 24 hours or less<a id="period_287" href="#period_287">. </a>If such an action requires that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> be configured in a
+								to be maintained for more than 24 hours before it is renegotiated<a id="period_276" href="#period_276">. </a>The evaluator shall observe that this
+								<abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is closed or renegotiated in 24 hours or less<a id="period_277" href="#period_277">. </a>If such an action requires that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> be configured in a
 								specific way, the evaluator shall implement tests demonstrating that the configuration capability of the
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> works as documented in the operational guidance<a id="period_288" href="#period_288">. </a></li>
+								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> works as documented in the operational guidance<a id="period_278" href="#period_278">. </a></li>
 							<li><b>Test 3: </b>The evaluator shall perform a test similar to Test 2 for Phase 2 SAs, except that the
-								lifetime will be 8 hours or less instead of 24 hours or less<a id="period_289" href="#period_289">. </a></li>
+								lifetime will be 8 hours or less instead of 24 hours or less<a id="period_279" href="#period_279">. </a></li>
 							<li><b>Test 4: </b>If a fixed limit for IKEv1 SAs is supported, the evaluator shall establish an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> and
-								observe that the connection is closed after the fixed traffic or time value is reached<a id="period_290" href="#period_290">. </a></li>
+								observe that the connection is closed after the fixed traffic or time value is reached<a id="period_280" href="#period_280">. </a></li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.8">FCS_IPSEC_EXT.1.8</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall check to ensure that the DH groups specified in the requirement are listed as being
-						supported in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a id="period_291" href="#period_291">. </a>If there is more than one DH group supported, the evaluator checks to ensure the
-						<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how a particular DH group is specified/negotiated with a peer<a id="period_292" href="#period_292">. </a><br>
+						supported in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a id="period_281" href="#period_281">. </a>If there is more than one DH group supported, the evaluator checks to ensure the
+						<abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how a particular DH group is specified/negotiated with a peer<a id="period_282" href="#period_282">. </a><br>
 					<br>
-					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement<a id="period_293" href="#period_293">. </a><br><br>
+					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement<a id="period_283" href="#period_283">. </a><br><br>
 					<div class="eacategory">Tests</div>The evaluator shall perform the following test: 
 						<ul>
 							<li><b>Test 1: </b>For each supported DH group, the evaluator shall test to ensure that all supported <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> 
-								protocols can be successfully completed using that particular DH group<a id="period_294" href="#period_294">. </a>							</li>
+								protocols can be successfully completed using that particular DH group<a id="period_284" href="#period_284">. </a>							</li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall check to ensure that, for each DH group supported, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the process for
-						generating "x" (as defined in <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>) and each nonce<a id="period_295" href="#period_295">. </a>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+						generating "x" (as defined in <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>) and each nonce<a id="period_285" href="#period_285">. </a>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
 						indicates that the random number generated that meets the requirements in this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> is used, and that the
-						length of "x" and the nonces meet the stipulations in the requirement<a id="period_296" href="#period_296">. </a><br>
+						length of "x" and the nonces meet the stipulations in the requirement<a id="period_286" href="#period_286">. </a><br>
 					<br>
-					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement<a id="period_297" href="#period_297">. </a><br><br>
-					<div class="eacategory">Tests</div>There are no test EAs for this requirement<a id="period_298" href="#period_298">. </a><br>
+					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement<a id="period_287" href="#period_287">. </a><br><br>
+					<div class="eacategory">Tests</div>There are no test EAs for this requirement<a id="period_288" href="#period_288">. </a><br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.10">FCS_IPSEC_EXT.1.10</a></div>
-					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a><a id="period_299" href="#period_299">. </a>					
+					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a><a id="period_289" href="#period_289">. </a>					
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator ensures that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies RSA or ECDSA or both as being used to perform peer
-						authentication<a id="period_300" href="#period_300">. </a><p></p>
+						authentication<a id="period_290" href="#period_290">. </a><p></p>
 						If any selection with pre-shared keys is chosen in the selection, the evaluator shall check to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
-						how those selections work in conjunction with authentication of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections<a id="period_301" href="#period_301">. </a><p></p>
+						how those selections work in conjunction with authentication of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections<a id="period_291" href="#period_291">. </a><p></p>
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> compares the peer&#8217;s presented identifier
-						to the reference identifier<a id="period_302" href="#period_302">. </a>This description shall include whether the certificate presented identifier is
+						to the reference identifier<a id="period_292" href="#period_292">. </a>This description shall include whether the certificate presented identifier is
 						compared to the ID payload presented identifier, which field(s) of the certificate are used as the presented
-						identifier (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>, Common Name, or SAN) and, if multiple fields are supported, the logical order comparison<a id="period_303" href="#period_303">. </a>						If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author assigned an additional identifier type, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description shall also include a description
-						of that type and the method by which that type is compared to the peer&#8217;s presented certificate<a id="period_304" href="#period_304">. </a><br>
+						identifier (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>, Common Name, or SAN) and, if multiple fields are supported, the logical order comparison<a id="period_293" href="#period_293">. </a>						If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author assigned an additional identifier type, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description shall also include a description
+						of that type and the method by which that type is compared to the peer&#8217;s presented certificate<a id="period_294" href="#period_294">. </a><br>
 					<br>
 					<div class="eacategory">Guidance</div>
 						If any selection with &#8220;Pre-shared Keys&#8221; is selected, the evaluator shall check that the operational guidance 
-						describes any configuration necessary to enable any selected authentication mechanisms<a id="period_305" href="#period_305">. </a><p></p>
+						describes any configuration necessary to enable any selected authentication mechanisms<a id="period_295" href="#period_295">. </a><p></p>
 						If any method other than no other method is selected, the evaluator shall check that the operational guidance 
-						describes any configuration necessary to enable any selected authentication mechanisms<a id="period_306" href="#period_306">. </a><p></p>
+						describes any configuration necessary to enable any selected authentication mechanisms<a id="period_296" href="#period_296">. </a><p></p>
 						The evaluator ensures the operational guidance describes how to set up the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the cryptographic
-						algorithms RSA or ECDSA, as selected<a id="period_307" href="#period_307">. </a><p></p>
+						algorithms RSA or ECDSA, as selected<a id="period_297" href="#period_297">. </a><p></p>
 						In order to construct the environment and configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for the following tests, the evaluator will
 						ensure that the operational guidance also describes how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to connect to a trusted CA,
-						and ensure a valid certificate for that CA is loaded into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted CA<a id="period_308" href="#period_308">. </a><p></p>
+						and ensure a valid certificate for that CA is loaded into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted CA<a id="period_298" href="#period_298">. </a><p></p>
 						The evaluator shall also ensure that the operational guidance includes the configuration of the reference
-						identifiers for the peer<a id="period_309" href="#period_309">. </a><br>
+						identifiers for the peer<a id="period_299" href="#period_299">. </a><br>
 					<br>
 					<div class="eacategory">Tests</div>
 
 						For efficiency&#8217;s sake, the testing that is performed here has been combined with the testing for
 						<b><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></b> and <b>FIA_X509_EXT.3</b> (for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections and depending on the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>),
-						<b><a href="#FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</a></b>, and <b><a href="#FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</a></b><a id="period_310" href="#period_310">. </a>The following tests shall be repeated for each peer
+						<b><a href="#FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</a></b>, and <b><a href="#FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</a></b><a id="period_300" href="#period_300">. </a>The following tests shall be repeated for each peer
 						authentication protocol selected in the <b><a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></b> selection above:
 						<ul>
 							<li><b>Test 1: </b>The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> generate a public-private key pair, and submit a CSR (Certificate
 								Signing Request) to a CA (trusted by both the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the peer <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> used to establish a connection) for
-								its signature<a id="period_311" href="#period_311">. </a>The values for the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> (Common Name, Organization, Organizational Unit, and Country) will
-								also be passed in the request<a id="period_312" href="#period_312">. </a>Alternatively, the evaluator may import to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> a previously generated
-								private key and corresponding certificate<a id="period_313" href="#period_313">. </a>							</li>
+								its signature<a id="period_301" href="#period_301">. </a>The values for the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> (Common Name, Organization, Organizational Unit, and Country) will
+								also be passed in the request<a id="period_302" href="#period_302">. </a>Alternatively, the evaluator may import to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> a previously generated
+								private key and corresponding certificate<a id="period_303" href="#period_303">. </a>							</li>
 							<li><b>Test 2: </b>The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use a private key and associated certificate signed by a
-								trusted CA and shall establish an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection with the peer<a id="period_314" href="#period_314">. </a>               
+								trusted CA and shall establish an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection with the peer<a id="period_304" href="#period_304">. </a>               
 							</li>
 							<li><b>Test 3: </b>The evaluator shall test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can properly handle revoked certificates &#8211; conditional on
-								whether CRL or OCSP is selected; if both are selected, and then a test is performed for each method<a id="period_315" href="#period_315">. </a>For
+								whether CRL or OCSP is selected; if both are selected, and then a test is performed for each method<a id="period_305" href="#period_305">. </a>For
 								this current version of the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, the evaluator has to only test one up in the trust chain (future
-								drafts may require to ensure the validation is done up the entire chain)<a id="period_316" href="#period_316">. </a>The evaluator shall ensure that a
-								valid certificate is used, and that the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is established<a id="period_317" href="#period_317">. </a>The evaluator then attempts the test with a
+								drafts may require to ensure the validation is done up the entire chain)<a id="period_306" href="#period_306">. </a>The evaluator shall ensure that a
+								valid certificate is used, and that the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> is established<a id="period_307" href="#period_307">. </a>The evaluator then attempts the test with a
 								certificate that will be revoked (for each method chosen in the selection) to ensure when the certificate
 								is no longer valid that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will not establish an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>
 							</li>
 							<li><b>Test 4: </b>[conditional] For each selection made, the evaluator shall verify factors are required, as indicated in the
-								operational guidance, to establish an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection with the server<a id="period_318" href="#period_318">. </a>
+								operational guidance, to establish an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection with the server<a id="period_308" href="#period_308">. </a>
 							</li>
 							For each supported identifier type (excluding DNs), the evaluator shall repeat the following tests:
 							<li><b>Test 5: </b>For each field of the certificate supported for comparison, the evaluator shall configure the peer&#8217;s
 								reference identifier on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (per the administrative guidance) to match the field in the peer&#8217;s
-								presented certificate and shall verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication succeeds<a id="period_319" href="#period_319">. </a>							</li>
+								presented certificate and shall verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication succeeds<a id="period_309" href="#period_309">. </a>							</li>
 							<li><b>Test 6: </b>For each field of the certificate support for comparison, the evaluator shall configure the peer&#8217;s
 								reference identifier on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (per the administrative guidance) to not match the field in the peer&#8217;s
-								presented certificate and shall verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_320" href="#period_320">. </a>							</li>
+								presented certificate and shall verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_310" href="#period_310">. </a>							</li>
 							The following tests are conditional:
 							<li><b>Test 7: </b>[conditional] If, according to the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports both Common Name and SAN certificate
 								fields and uses the preferred logic outlined in the Application Note, the tests above with the Common
-								Name field shall be performed using peer certificates with no SAN extension<a id="period_321" href="#period_321">. </a>Additionally, the evaluator
+								Name field shall be performed using peer certificates with no SAN extension<a id="period_311" href="#period_311">. </a>Additionally, the evaluator
 								shall configure the peer&#8217;s reference identifier on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to not match the SAN in the peer&#8217;s presented
 								certificate but to match the Common Name in the peer&#8217;s presented certificate, and verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>
-								authentication fails<a id="period_322" href="#period_322">. </a>							</li>
+								authentication fails<a id="period_312" href="#period_312">. </a>							</li>
 							<li><b>Test 8: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> identifier types, the evaluator shall configure the peer's
 								reference identifier on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (per the administrative guidance) to match the subject <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> in the peer's
-								presented certificate and shall verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication succeeds<a id="period_323" href="#period_323">. </a>To demonstrate a bit-wise
+								presented certificate and shall verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication succeeds<a id="period_313" href="#period_313">. </a>To demonstrate a bit-wise
 								comparison of the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>, the evaluator shall change a single bit in the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> (preferably, in an Object Identifier
-								(OID) in the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>) and verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_324" href="#period_324">. </a><b>To demonstrate a comparison of <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> values,
-								the evaluator shall change any one of the four <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> values and verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_325" href="#period_325">. </a></b>
+								(OID) in the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>) and verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_314" href="#period_314">. </a><b>To demonstrate a comparison of <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> values,
+								the evaluator shall change any one of the four <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> values and verify that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_315" href="#period_315">. </a></b>
 							</li>
 							<li><b>Test 9: </b>[conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports both IPv4 and IPv6 and supports IP address identifier types, the
-								evaluator must repeat test 1 and 2 with both IPv4 address identifiers and IPv6 identifiers<a id="period_326" href="#period_326">. </a>Additionally,
+								evaluator must repeat test 1 and 2 with both IPv4 address identifiers and IPv6 identifiers<a id="period_316" href="#period_316">. </a>Additionally,
 								the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> verifies that the IP header matches the identifiers by setting the
 								presented identifiers and the reference identifier with the same IP address that differs from the actual IP
-								address of the peer in the IP headers and verifying that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_327" href="#period_327">. </a>							</li>
+								address of the peer in the IP headers and verifying that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication fails<a id="period_317" href="#period_317">. </a>							</li>
 							<li><b>Test 10: </b>[conditional] If, according to the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> performs comparisons between the peer&#8217;s ID
 								payload and the peer&#8217;s certificate, the evaluator shall repeat the following test for each combination of
-								supported identifier types and supported certificate fields (as above)<a id="period_328" href="#period_328">. </a>The evaluator shall configure the
+								supported identifier types and supported certificate fields (as above)<a id="period_318" href="#period_318">. </a>The evaluator shall configure the
 								peer to present a different ID payload than the field in the peer&#8217;s presented certificate and verify that the
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fails to authenticate the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> peer<a id="period_329" href="#period_329">. </a>							</li>
+								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fails to authenticate the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> peer<a id="period_319" href="#period_319">. </a>							</li>
 						</ul>
 					<br>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</a></div>
-					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a><a id="period_330" href="#period_330">. </a>					
+					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a><a id="period_320" href="#period_320">. </a>					
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</a></div>
-					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a><a id="period_331" href="#period_331">. </a>					
+					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a><a id="period_321" href="#period_321">. </a>					
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.14">FCS_IPSEC_EXT.1.14</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 						The evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the potential strengths (in terms of the number of bits in
-						the symmetric key) of the algorithms that are allowed for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> exchanges<a id="period_332" href="#period_332">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall also
+						the symmetric key) of the algorithms that are allowed for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> exchanges<a id="period_322" href="#period_322">. </a>The <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall also
 						describe the checks that are done when negotiating IKEv1 Phase 2 and IKEv2 CHILD_SA suites to ensure
 						that the strength (in terms of the number of bits of key in the symmetric algorithm) of the negotiated
-						algorithm is less than or equal to that of the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> negotiation that is being protected<a id="period_333" href="#period_333">. </a><br>
+						algorithm is less than or equal to that of the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> negotiation that is being protected<a id="period_323" href="#period_323">. </a><br>
 					<br>
-					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement<a id="period_334" href="#period_334">. </a><br><br>
+					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement<a id="period_324" href="#period_324">. </a><br><br>
 					<div class="eacategory">Tests</div>The evaluator follows the guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to perform the following tests for each version
 						of <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> supported:
 						<ul>
 							<li><b>Test 1: </b>The evaluator shall successfully negotiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection using each of the supported algorithms 
-							and hash functions identified in the requirements<a id="period_335" href="#period_335">. </a>							</li>
+							and hash functions identified in the requirements<a id="period_325" href="#period_325">. </a>							</li>
 							<li><b>Test 2: </b>The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> that selects an encryption algorithm with
 								greater strength than that being used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> (i.e., symmetric algorithm with a key size larger 
-								than that being used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>)<a id="period_336" href="#period_336">. </a>Such attempts should fail<a id="period_337" href="#period_337">. </a>							</li>
+								than that being used for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>)<a id="period_326" href="#period_326">. </a>Such attempts should fail<a id="period_327" href="#period_327">. </a>							</li>
 							<li><b>Test 3: </b>The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> using an algorithm that is not one of the supported 
-								algorithms and hash functions identified in the requirements<a id="period_338" href="#period_338">. </a>Such an attempt should fail<a id="period_339" href="#period_339">. </a>							</li>
+								algorithms and hash functions identified in the requirements<a id="period_328" href="#period_328">. </a>Such an attempt should fail<a id="period_329" href="#period_329">. </a>							</li>
 							<li><b>Test 4: </b>The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr> (assumes the proper parameters where used to 
-								establish the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>) that selects an encryption algorithm that is not identified in <a href="#FCS_IPSEC_EXT.1.4">FCS_IPSEC_EXT.1.4</a><a id="period_340" href="#period_340">. </a>								Such an attempt should fail<a id="period_341" href="#period_341">. </a>							</li>
+								establish the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>) that selects an encryption algorithm that is not identified in <a href="#FCS_IPSEC_EXT.1.4">FCS_IPSEC_EXT.1.4</a><a id="period_330" href="#period_330">. </a>								Such an attempt should fail<a id="period_331" href="#period_331">. </a>							</li>
 						</ul>
 					<br>
 				</div></div></div>
@@ -1474,37 +1454,37 @@ The following sections list Common Criteria and technology terms used in this do
 
 <h1 id="opt-app" class="indexable" data-level="A">Appendix A -  Optional Requirements</h1>
     As indicated in the introduction to this Package, the baseline requirements (those that must be
-	  performed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>) are contained in the body of this Package<a id="period_342" href="#period_342">. </a>    This appendix contains three other types of optional requirements that may be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but are not required in order
-	  to conform to this Package<a id="period_343" href="#period_343">. </a>    However, applied modules, packages and/or use cases may refine specific requirements as mandatory<a id="period_344" href="#period_344">. </a><br><br>
+	  performed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>) are contained in the body of this Package<a id="period_332" href="#period_332">. </a>    This appendix contains three other types of optional requirements that may be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but are not required in order
+	  to conform to this Package<a id="period_333" href="#period_333">. </a>    However, applied modules, packages and/or use cases may refine specific requirements as mandatory<a id="period_334" href="#period_334">. </a><br><br>
 
    The first type (<a href="#optional-reqs" class="dynref">A.1 Strictly Optional  Requirements</a>) are strictly optional requirements that are independent of the
-	  <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing any function<a id="period_345" href="#period_345">. </a>   If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to include the SFRs
-	  in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but are not required in order to conform to this Package<a id="period_346" href="#period_346">. </a><br><br>
+	  <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing any function<a id="period_335" href="#period_335">. </a>   If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to include the SFRs
+	  in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but are not required in order to conform to this Package<a id="period_336" href="#period_336">. </a><br><br>
 
   The second type (<a href="#objective-reqs" class="dynref">A.2 Objective  Requirements</a>) are objective requirements that describe security functionality not yet 
-	  widely available in commercial technology<a id="period_347" href="#period_347">. </a>   The requirements are not currently mandated in the body of this Package, but will be included in
-	  the baseline requirements in future versions of this Package<a id="period_348" href="#period_348">. </a>Adoption by vendors is
-	  encouraged and expected as soon as possible<a id="period_349" href="#period_349">. </a><br><br>
+	  widely available in commercial technology<a id="period_337" href="#period_337">. </a>   The requirements are not currently mandated in the body of this Package, but will be included in
+	  the baseline requirements in future versions of this Package<a id="period_338" href="#period_338">. </a>Adoption by vendors is
+	  encouraged and expected as soon as possible<a id="period_339" href="#period_339">. </a><br><br>
 
   The third type (<a href="#feat-based-reqs" class="dynref">A.3 Implementation-Based  Requirements</a>) 
-are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing a particular function<a id="period_350" href="#period_350">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements, the vendor must either add the related <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> or disable the functionality for the
-	  evaluated configuration<a id="period_351" href="#period_351">. </a>
+are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing a particular function<a id="period_340" href="#period_340">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements, the vendor must either add the related <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> or disable the functionality for the
+	  evaluated configuration<a id="period_341" href="#period_341">. </a>
   <h2 id="optional-reqs" class="indexable" data-level="2">A.1 Strictly Optional  Requirements
     </h2><p>This Package does not define any 
-            Strictly Optional requirements<a id="period_352" href="#period_352">. </a></p><h2 id="objective-reqs" class="indexable" data-level="2">A.2 Objective  Requirements
+            Strictly Optional requirements<a id="period_342" href="#period_342">. </a></p><h2 id="objective-reqs" class="indexable" data-level="2">A.2 Objective  Requirements
     </h2><p>This Package does not define any 
-            Objective requirements<a id="period_353" href="#period_353">. </a></p><h2 id="feat-based-reqs" class="indexable" data-level="2">A.3 Implementation-Based  Requirements
+            Objective requirements<a id="period_343" href="#period_343">. </a></p><h2 id="feat-based-reqs" class="indexable" data-level="2">A.3 Implementation-Based  Requirements
     </h2><p>This Package does not define any 
-            Implementation-Based requirements<a id="period_354" href="#period_354">. </a></p><h1 id="sel-based-reqs" class="indexable" data-level="A">Appendix B -  Selection-Based  Requirements
+            Implementation-Based requirements<a id="period_344" href="#period_344">. </a></p><h1 id="sel-based-reqs" class="indexable" data-level="A">Appendix B -  Selection-Based  Requirements
     </h1>
 	<p>As indicated in the introduction to this Package,
         the baseline requirements
         (those that must be performed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or its underlying platform)
-        are contained in the body of this Package<a id="period_355" href="#period_355">. </a>        There are additional requirements based on selections in the body of 
+        are contained in the body of this Package<a id="period_345" href="#period_345">. </a>        There are additional requirements based on selections in the body of 
         the Package:
-        if certain selections are made, then additional requirements below must be included<a id="period_356" href="#period_356">. </a> 	</p>
+        if certain selections are made, then additional requirements below must be included<a id="period_346" href="#period_346">. </a> 	</p>
 		 <p>This Package does not define any 
-            Selection-Based requirements<a id="period_357" href="#period_357">. </a></p><h1 id="acronyms" class="indexable" data-level="A">Appendix C -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
+            Selection-Based requirements<a id="period_347" href="#period_347">. </a></p><h1 id="acronyms" class="indexable" data-level="A">Appendix C -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
 <tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr>
 <tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr>
 <tr><td><span class="term" id="abbr_DN"><abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr></span></td><td><span id="long_abbr_DN">Distinguished Name</span></td></tr>
@@ -1536,7 +1516,7 @@ are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> i
 <tr><td><span class="term" id="abbr_VPN"><abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr></span></td><td><span id="long_abbr_VPN">Virtual Private Network</span></td></tr>
 <tr><td><span class="term" id="abbr_XAUTH"><abbr class="dyn-abbr"><a href="#abbr_XAUTH">XAUTH</a></abbr></span></td><td><span id="long_abbr_XAUTH">Extended Authentication</span></td></tr>
 <tr><td><span class="term" id="abbr_cPP" data-plural="cPPs"><abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr></span></td><td><span id="long_abbr_cPP">Collaborative Protection Profile</span></td></tr>
-</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix D -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibNIST80057">[NIST SP 800-57 Part 1 Rev<a id="period_358" href="#period_358">. </a>5]</span></td><td>
+</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix D -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibNIST80057">[NIST SP 800-57 Part 1 Rev<a id="period_348" href="#period_348">. </a>5]</span></td><td>
 				<a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf">
 					Recommendation for Key Management: Part 1 - General</a>
 			</td></tr><tr><td><span id="bibRFC2407">[RFC 2407]</span></td><td>
@@ -1580,11 +1560,11 @@ are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> i
 			</td></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td>Common Criteria for Information Technology Security Evaluation - <ul>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
                 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5,
-              April 2017<a id="period_359" href="#period_359">. </a></li>
+              April 2017<a id="period_349" href="#period_349">. </a></li>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
                 2: Security Functional Components</a>, CCMB-2017-04-002, Version 3.1 Revision 5,
-              April 2017<a id="period_360" href="#period_360">. </a></li>
+              April 2017<a id="period_350" href="#period_350">. </a></li>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
                 3: Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1 Revision 5,
-              April 2017<a id="period_361" href="#period_361">. </a></li>
+              April 2017<a id="period_351" href="#period_351">. </a></li>
           </ul></td></tr></table></body></html>

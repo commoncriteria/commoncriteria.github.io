@@ -1063,6 +1063,7 @@ The following sections list Common Criteria and technology terms used in this do
 			
 			
 			
+			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.15"><a href="#FCS_IPSEC_EXT.1.15" class="abbr">FCS_IPSEC_EXT.1.15</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the MSK from the 
 					[<b>selection</b>: <i id="_s_64"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS</i>, <i id="_s_65"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS</i>] response as the IKEv2 shared secret in the authentication payload.
 					
@@ -1086,9 +1087,7 @@ The following sections list Common Criteria and technology terms used in this do
 						architecturally integrated with the platform itself or whether it is a separate executable that 
 						is bundled with the platform.<p></p>
 					
-						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the use of <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> options for each of the 
-						selected peer authentication mechanisms, that TLS with mutual authentication is used, that the
-						random values are from an appropriate source, and that the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> MSK is derived from the TLS
+						The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes that the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> MSK is derived from the TLS
 						master key and is used as the IKEv2 shared key.
 					<div class="eacategory">Guidance</div>
 
@@ -1118,29 +1117,10 @@ The following sections list Common Criteria and technology terms used in this do
 						Note that the evaluator shall perform all tests using the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a representative sample of
 						platforms listed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> (for TOEs that claim to support multiple platforms).<p></p>
 					
-						Testing for TLS functionality is in accordance with the TLS package.<p></p>
-						For each supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method claimed in FCS_EAP_EXT.1.1 and for each authentication method 
-						claimed in FCS_EAP_EXT.1.3, the evaluator shall perform the following tests:
+						For each supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method claimed in <a href="#FCS_IPSEC_EXT.1.15">FCS_IPSEC_EXT.1.15</a> <b>and for each authentication method 
+						claimed in FCS_EAP_EXT.1.3, the evaluator shall perform the following tests:</b>
 						<ul>
-							<li><b>Test 1: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
-								claimed. The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the 
-								authentication method claimed and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, register an endpoint with appropriate
-								key material required for the authentication method. The evaluator shall establish an 
-								<abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection using a test endpoint with a valid certificate and, for <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, 
-								configured to provide a correct value for the configured authenticator. The evaluator
-								shall observe that the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection is successful.</li>
-							<li><b>Test 2: </b>[conditional] If <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS is supported, the evaluator shall cause the test endpoint with a
-								valid certificate to send an invalid authenticator for the claimed authentication method:<ul>
-								<li>For HOTP, replay the HOTP value sent previously.</li>
-								<li>For TOTP or <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr>, modify a byte of the properly constructed value,and observe that
-									the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts the connection.</li></ul>
-							</li>
-							<li><b>Test 3: </b>The evaluator shall establish a new, valid certificate for a test endpoint using an 
-								identifier not corresponding to a registered user. For <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS, the evaluator shall cause
-								the test endpoint using this certificate to send a correct authenticator value for the
-								registered user. The evaluator shall initiate an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection from the test endpoint
-								to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> aborts the connection.</li>
-							<li><b>Test 4: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use a supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
+							<li><b>Test 1: </b>The evaluator shall follow AGD guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use a supported <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> method
 								and register the user with key material for required for a supported authentication method.
 								The evaluator shall configure a test endpoint to respond to an IKEv2 exchange with 
 								<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-request, providing valid phase 1 handshake and valid TLS handshake, but computing 
