@@ -427,7 +427,7 @@ The following sections list Common Criteria and technology terms used in this do
                   
                   Additionally, the evaluator shall use tests from the IEEE 802.11-02/362r6 document “Proposed Test
                   vectors for IEEE 802.11 TGi”, dated September 10, 2002, Section 2.1 AES-CCMP Encapsulation Example
-                  and Section 2.2 Additional AES-CCMP Test Vectors to further verify the IEEE 802.11-2016
+                  and Section 2.2 Additional AES-CCMP Test Vectors to further verify the IEEE 802.11-2020
                   implementation of AES-CCMP.
                 </div>
         
@@ -517,7 +517,7 @@ The following sections list Common Criteria and technology terms used in this do
                 be configured to filter on the MAC address of the TOE and/or client.<p></p>
                 
                 Step 2: The evaluator shall configure the TOE to communicate with a WLAN client using IEEE 
-                802.11-2016 and a 256-bit (64 hex values 0-f) pre-shared key, setting up the connections as described in the
+                802.11-2020 and a 256-bit (64 hex values 0-f) pre-shared key, setting up the connections as described in the
                 operational guidance. The pre-shared key is only used for testing.<p></p>
                 
                 Step 3: The evaluator shall start the sniffing tool, initiate a connection between the TOE and WLAN
@@ -529,19 +529,19 @@ The following sections list Common Criteria and technology terms used in this do
                 
                 Step 5: The evaluator shall identify the 4-way handshake frames (denoted EAPOL-key in Wireshark
                 captures) and derive the PTK from the 4-way handshake frames and pre-shared key as specified in IEEE
-                802.11-2016.<p></p>
+                802.11-2020.<p></p>
                 
                 Step 6: The evaluator shall select the first data frame from the captured packets that was sent between
                 the client and TOE after the 4-way handshake successfully completed, and without the frame control
                 value 0x4208 (the first 2 bytes are 08 42). The evaluator shall use the PTK to decrypt the data portion of
-                the packet as specified in IEEE 802.11-2016, and shall verify that the decrypted data contains ASCII-readable text.<p></p>
+                the packet as specified in IEEE 802.11-2020, and shall verify that the decrypted data contains ASCII-readable text.<p></p>
                 
                 Step 7: The evaluator shall repeat Step 6 for the next 2 data frames between the TOE and client, and
                 without frame control value 0x4208.<p></p>
                 
                 Additionally, the evaluator shall test the PRF function using the test vectors from: <ul>
                   <li>Section 2.4 “The PRF Function – PRF(key, prefix, data, length)” of the IEEE 802.11-02/362r6 document "Proposed Test vectors for IEEE 802.11 TGi" dated September 10, 2002, and</li>
-                  <li>Annex J.3 “PRF reference implementation and test vectors” of IEEE 802.11-2016.</li>
+                  <li>Annex J.3 “PRF reference implementation and test vectors” of IEEE 802.11-2020.</li>
                 </ul>
               </div><div class="comp" id=""><h4>FCS_CKM.2/GTK Cryptographic Key Distribution (GTK)</h4><div class="component-activity-header">FCS_CKM.2/GTK</div>
               
@@ -560,7 +560,7 @@ The following sections list Common Criteria and technology terms used in this do
                 sniffer to sniff only on that channel (i.e., lock the sniffer on the selected channel). The sniffer should also
                 be configured to filter on the MAC address of the TOE and/or client.<p></p>
                 
-                Step 2: The evaluator shall configure the TOE to communicate with the client using IEEE 802.11-2016
+                Step 2: The evaluator shall configure the TOE to communicate with the client using IEEE 802.11-2020
                 and a 256-bit (64 hex values 0-f) pre-shared key, setting up the connections as described in the
                 operational guidance. The pre-shared key is only used for testing.<p></p>
                 
@@ -572,12 +572,12 @@ The following sections list Common Criteria and technology terms used in this do
                 
                 Step 5: The evaluator shall identify the 4-way handshake frames (denoted EAPOL-key in Wireshark
                 captures) and derive the PTK and GTK from the 4-way handshake frames and pre-shared key as
-                specified in IEEE 802.11-2016.<p></p>
+                specified in IEEE 802.11-2020.<p></p>
                 
                 Step 6: The evaluator shall select the first data frame from the captured packets that was sent between
                 the TOE and client after the 4-way handshake successfully completed, and with the frame control value
                 0x4208 (the first 2 bytes are 08 42). The evaluator shall use the GTK to decrypt the data portion of the
-                selected packet as specified in IEEE 802.11-2016, and shall verify that the decrypted data contains ASCII-readable text.<p></p>
+                selected packet as specified in IEEE 802.11-2020, and shall verify that the decrypted data contains ASCII-readable text.<p></p>
                 
                 Step 7: The evaluator shall repeat Step 6 for the next 2 data frames with frame control value 0x4208.<p></p>
                 
@@ -818,18 +818,7 @@ The following sections list Common Criteria and technology terms used in this do
               </div><h2 class="indexable" data-level="2" id="sel_fia">2.4.2 Identification and Authentication (FIA)</h2><div class="comp" id=""><h4>FIA_PSK_EXT.1 Pre-Shared Key Composition</h4><div class="component-activity-header">FIA_PSK_EXT.1</div>
               
               
-              
-            <div class="eacategory">TSS</div>The evaluator shall examine the TSS to ensure that it identifies all protocols that allow both text-based
-                and bit-based pre-shared keys, and states that text-based pre-shared keys of 22 characters are
-                supported. For each protocol identified by the requirement, the evaluator shall confirm that the TSS
-                states the conditioning that takes place to transform the text-based pre-shared key from the key
-                sequence entered by the user (e.g., ASCII representation) to the bit string used by the protocol, and that
-                this conditioning is consistent with the last selection in the FIA_PSK_EXT.1.3 requirement.<p></p>
-                
-                The evaluator shall also examine the TSS to ensure it describes the process by which the bit-based
-				pre-shared keys are generated (if the TOE supports this functionality), and confirm that this process uses the
-                RBG specified in FCS_RBG_EXT.1.<p></p>
-              <div class="eacategory">Guidance</div>The evaluator shall examine the operational guidance to determine that it provides guidance to
+            <div class="eacategory">Guidance</div>The evaluator shall examine the operational guidance to determine that it provides guidance to
                 administrators on the composition of strong text-based pre-shared keys, and (if the selection indicates
                 keys of various lengths can be entered) that it provides information on the range of lengths supported.
                 The guidance must specify the allowable characters for pre-shared keys, and that list must be a superset of the list contained in FIA_PSK_EXT.1.2.<p></p>
