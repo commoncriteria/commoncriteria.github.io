@@ -745,7 +745,8 @@ The following sections list Common Criteria and technology terms used in this do
 					<a href="#FCS_COP.1">FCS_COP.1</a> (iterating as needed) to specify AES with corresponding key sizes and modes, digital
 					signature generation and verification function (at least one of RSA or ECDSA), a cryptographic hash
 					function, and a keyed-hash message authentication function. In particular, this Package requires that the
-					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> support AES-GCM-128 and AES-GCM-256 for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr>, and AES-CBC-128 and AES-CBC-256 for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>.					
+					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> support AES-GCM-128 and AES-GCM-256 for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr>, and AES-CBC-128 and AES-CBC-256 for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>. HMAC and 
+					SHA are required for the mandatory pseudo-random function and for integrity protections.
 				<br/></td></tr><tr><td class="componentneeded" id="FCS_RBG_EXT.1"><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>To support random bit generation needed for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> key generation, the incorporating document must
 					include a requirement that specifies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s ability to invoke or provide 
 					random bit generation services, commonly identified as <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.<br/></td></tr><tr><td class="componentneeded" id="FCS_TLS_EXT.1"><a href="#FCS_TLS_EXT.1">FCS_TLS_EXT.1</a></td><td>To support peer authentication over <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>, this Package requires support for the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS
@@ -907,8 +908,9 @@ The following sections list Common Criteria and technology terms used in this do
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
-					If this functionality is configurable, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may be configured by a <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> gateway
-					or by an Administrator of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself.
+					<a href="#bibRFC8247">[RFC 8247]</a> requires that IKEv2 support AES-CBC-128/256 and recommends support for AES-GCM-128/256 for
+					protecting <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> traffic.<p></p>
+					<b>Why is no integrity algorithm required here for the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>? There probably should be.</b>
 				</span></div></div></div>
 			
 			
@@ -983,7 +985,12 @@ The following sections list Common Criteria and technology terms used in this do
 					the bits of security value for group 14 is 112, and for group 20 it is 192. For
 					<a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>, then, the assignment would read “[224, 384]” and for
 					<a href="#FCS_IPSEC_EXT.1.10">FCS_IPSEC_EXT.1.10</a> it would read “[112, 192]” (although in this case the
-					requirement should probably be refined so that it makes sense mathematically).
+					requirement should probably be refined so that it makes sense mathematically).<p></p>
+					<a href="#bibRFC8247">[RFC 8247]</a> requires support for DH Group 14 and recommends support for Group 19
+					in IKEv2. It discourages support for Groups 5, 2, 23, and 24. And forbids support for
+					Groups 1 and 22.<p></p>
+					<a href="#bibRFC6379">[RFC 6379]</a> recommends using a "256-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 19) or a 
+					"384-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 20).
 				</span></div></div></div>
 			
 			
@@ -1005,22 +1012,44 @@ The following sections list Common Criteria and technology terms used in this do
 					associated with the negotiated Diffie-Hellman group as listed in Table 2 of 
 					NIST SP 800-57, Recommendation for Key Management: Part 1 - General</span>].
 
-				</div></div>
+				<div class="appnote"><span class="note-header">Application
+      Note:
+    </span><span class="note">
+					<a href="#bibRFC7296">[RFC 7296]</a> requires that all IKEv2 nonces be randomly generated and have a length of 
+					at least half the key size of the potentially negotiated pseudo-random function with the longest
+					key size. 
+				</span></div></div></div>
           
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.11"><a href="#FCS_IPSEC_EXT.1.11" class="abbr">FCS_IPSEC_EXT.1.11</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that all <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocols perform peer authentication using  
 					[<b>selection</b>: <i id="_s_43">RSA</i>, <i id="_s_44">ECDSA</i>] 
-					with X.509v3 certificates that conform to <a href="#bibRFC4945">[RFC 4945]</a> as specified in <span class="no-link">FIA_X509_EXT.1</span> and 
+					with X.509v3 certificates that conform to <a href="#bibRFC4945">[RFC 4945]</a> as specified in
+					<span class="no-link">FIA_X509_EXT.1</span> and 
 					[<b>selection</b><b>, choose one of</b>: <i id="sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span></i>, <i id="_s_46">no other method</i>] transmitted via
 					[<b>selection</b><b>, choose one of</b>: <i id="sel-ipsec-peer-eap"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a></i>, <i id="_s_48">means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></i>].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
 					At least one public-key-based method for Peer Authentication using certificates is required in order to
-					conform to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>. One or more of the public key schemes is chosen by
+					conform to this Package. One or more of the public key schemes is chosen by
 					the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to reflect what is implemented (RSA or EDCSA). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author also ensures that
 					appropriate FCS requirements reflecting the algorithms used (and key
 					generation capabilities, if provided) are claimed to support those methods.<p></p>
+					IKEv2 requires that RSA authentication be done using an RSA private key with RSASSA-PKCS1-v1_5 
+					signature scheme, see <a href="#bibRFC7296">[RFC 7296]</a> sec. 3.8.
+					<a href="#bibRFC8247">[RFC 8247]</a> limits IKEv2 ECDSA authentication to "ECDSA with SHA-256 on the P-256 curve,"
+					"ECDSA with SHA-384 on the P-384 curve," and "ECDSA with SHA-512 on the P-521 curve."
+					A more agile digital signature scheme for IKEv2 authentication is defined in <a href="#bibRFC7427">[RFC 7427]</a>.
+					This Package requires only that RSA- or ECDSA-based digital signatures be used.<p></p> 
+					This Package does not permit use of Shared Key Message Integrity Code for peer authentication, 
+					though support is mandatory in the standard.<p></p>
+					This Package requires that digital signature-based peer authentication use X.509v3 certificates.<p></p>
+					
+					<b>
+						The standard allows <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> either with or without <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client Module is silent about whether
+						<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> can be used for certificate-based authentication.  
+					</b><p></p>
+					
 					Peer authentication using certificates can be accomplished using either mechanisms inherent in 
 					the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol, or the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> framework. Authentication using pre-shared keys can be accomplished
 					using transmission through <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> or through an out-of-band sharing mechanism.<p></p> 
@@ -1048,7 +1077,7 @@ The following sections list Common Criteria and technology terms used in this do
       Note:
     </span><span class="note">
 					The reference identifier is the identifier the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> expects to receive from the peer
-					during <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> authentication. The presented identifier is the identifier that is contained
+					during <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> peer authentication. The presented identifier is the identifier that is contained
 					within the peer certificate body. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must support at least one of the following
 					identifier types: IP address,
 					Fully Qualified Domain Name (<abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr>), user <abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr>, or Distinguished Name (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>).
@@ -1374,15 +1403,18 @@ The following sections list Common Criteria and technology terms used in this do
 					<br/>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-						The evaluator shall check to ensure that, for each DH group supported, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the process for
-						generating "x" and each nonce. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
-						indicates that the random number generated that meets the requirements of this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> is used, and that the
-						length of "x" and the nonces meet the stipulations in the requirement.<br/>
+						The evaluator shall check to ensure that, for each DH group supported, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the
+						process for generating "x." The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+						indicates that the random number generated meets the requirements of this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>,
+						and that the length of "x" meets the stipulations in the requirement.<br/>
 					<br/>
 					<div class="eacategory">Guidance</div>There are no AGD EAs for this requirement.<br/><br/>
 					<div class="eacategory">Tests</div>There are no test EAs for this requirement.<br/>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.10">FCS_IPSEC_EXT.1.10</a></div>
-					EAs for this element are tested through EAs for <a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>.
+						The evaluator shall check to ensure that, for all nonces generated for use in <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>,  
+						the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the process for generating nonces. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+						indicates that the random number generated meets the requirements of this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>,
+						and that the length of the nonce meets the stipulations in the requirement.
 					
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
@@ -1713,6 +1745,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 				<a href="https://tools.ietf.org/html/rfc6379">Suite B Cryptographic Suites for IPsec</a>
 			</td></tr><tr><td><span id="bibRFC7296">[RFC 7296]</span></td><td>
 				<a href="https://tools.ietf.org/html/rfc7296">Internet Key Exchange Protocol Version 2 (IKEv2)</a>
+			</td></tr><tr><td><span id="bibRFC7427">[RFC 7427]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc7427">Algorithm Implementation Requirements and Usage 
+					Guidance for the Internet Key Exchange Protocol Version 2 (IKEv2)</a>
 			</td></tr><tr><td><span id="bibRFC8247">[RFC 8247]</span></td><td>
 				<a href="https://tools.ietf.org/html/rfc8247">Algorithm Implementation Requirements and Usage Guidance
 					for the Internet Key Exchange Protocol Version 2 (IKEv2)</a>
