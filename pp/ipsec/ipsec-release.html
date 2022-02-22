@@ -756,11 +756,13 @@ The following sections list Common Criteria and technology terms used in this do
 				<br/></td></tr><tr><td class="componentneeded" id="FCS_RBG_EXT.1"><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>To support random bit generation needed for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> key generation, the incorporating document must
 					include a requirement that specifies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s ability to invoke or provide 
 					random bit generation services, commonly identified as <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.<br/></td></tr><tr><td class="componentneeded" id="FCS_TLS_EXT.1"><a href="#FCS_TLS_EXT.1">FCS_TLS_EXT.1</a></td><td>To support peer authentication over <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>, this Package requires support for the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS
-					protocols. For this reason, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may need to incorporate the <a href="#bibNIAPFPTLS">[Functional Package for TLS]</a>.<br/>Required if:<ul><li><a href="#sel-ipsec-peer-eap">EAP as specified in FCS_IPSEC_EXT.2</a>,
+					protocols. For this reason, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may need to incorporate the <a href="#bibNIAPFPTLS">[Functional Package for TLS]</a>.<br/>Required if:<ul><li>
+           the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements 
            
-           is selected from 
-           <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></li></ul></td></tr><tr><td class="componentneeded" id="FIA_PSK_EXT.1"><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></td><td>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses pre-shared keys to establish <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections, then this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be claimed
-					to specify requirements for the composition of pre-shared keys.<br/>Required if:<ul><li><a href="#sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span></a>,
+             ""
+           </li></ul></td></tr><tr><td class="componentneeded" id="FIA_PSK_EXT.1"><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></td><td>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses pre-shared keys to establish <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections, then this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be claimed
+					to specify requirements for the composition of pre-shared keys.<br/>Required if:<ul><li><a href="#sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
+							transmitted via means other than EAP.</a>,
            
            is selected from 
            <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></li></ul></td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.1"><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>To support establishment of IPSec communications using a public key algorithm that includes X.509, 
@@ -976,6 +978,7 @@ The following sections list Common Criteria and technology terms used in this do
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
+					<b>These options align with RFC 6379 (2011), but not with RFC 8247 (2017). Should they? </b><p></p>
 					The selection is used to specify additional DH groups supported. This applies to
 					IKEv1 and IKEv2 exchanges. It should be noted that if any additional DH groups
 					are specified, they must comply with the requirements (in terms of the
@@ -992,11 +995,11 @@ The following sections list Common Criteria and technology terms used in this do
 					<a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>, then, the assignment would read “[224, 384]” and for
 					<a href="#FCS_IPSEC_EXT.1.10">FCS_IPSEC_EXT.1.10</a> it would read “[112, 192]” (although in this case the
 					requirement should probably be refined so that it makes sense mathematically).<p></p>
-					<a href="#bibRFC8247">[RFC 8247]</a> requires support for DH Group 14 and recommends support for Group 19
+					<a href="#bibRFC6379">[RFC 6379]</a> (2011) recommends using a "256-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 19) or a 
+					"384-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 20).
+					<a href="#bibRFC8247">[RFC 8247]</a> (2017) requires support for DH Group 14 and recommends support for Group 19
 					in IKEv2. It discourages support for Groups 5, 2, 23, and 24. And forbids support for
 					Groups 1 and 22.<p></p>
-					<a href="#bibRFC6379">[RFC 6379]</a> recommends using a "256-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 19) or a 
-					"384-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 20).
 				</span></div></div></div>
 			
 			
@@ -1031,8 +1034,9 @@ The following sections list Common Criteria and technology terms used in this do
 					[<b>selection</b>: <i id="_s_43">RSA</i>, <i id="_s_44">ECDSA</i>] 
 					with X.509v3 certificates that conform to <a href="#bibRFC4945">[RFC 4945]</a> as specified in
 					<span class="no-link">FIA_X509_EXT.1</span> and 
-					[<b>selection</b><b>, choose one of</b>: <i id="sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span></i>, <i id="_s_46">no other method</i>] transmitted via
-					[<b>selection</b><b>, choose one of</b>: <i id="sel-ipsec-peer-eap"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a></i>, <i id="_s_48">means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></i>].
+					[<b>selection</b><b>, choose one of</b>: <i id="sel-ipsec-peer-psk-eap">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
+							transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a>.</i>, <i id="sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
+							transmitted via means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>.</i>, <i id="_s_47">no other method</i>]
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1075,10 +1079,10 @@ The following sections list Common Criteria and technology terms used in this do
 					certificate matches the configured resource identifier, where the 
 					presented and reference identifiers are of the following fields and types: <p></p>
 					[
-					[<b>selection</b>: <i id="_s_49">IP address</i>, <i id="_s_50">Fully Qualified Domain Name (<abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr>)</i>, <i id="_s_51">user <abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr></i>, <i id="_s_52">Distinguished Name (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>)</i>] 
+					[<b>selection</b>: <i id="_s_48">IP address</i>, <i id="_s_49">Fully Qualified Domain Name (<abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr>)</i>, <i id="_s_50">user <abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr></i>, <i id="_s_51">Distinguished Name (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>)</i>] 
 					and 
-					[<b>selection</b>: <i id="_s_53">[<b>assignment</b>: 
-     <span class="assignable-content">other supported reference identifier types</span>]</i>, <i id="_s_54">no other reference identifier type</i>]] 
+					[<b>selection</b>: <i id="_s_52">[<b>assignment</b>: 
+     <span class="assignable-content">other supported reference identifier types</span>]</i>, <i id="_s_53">no other reference identifier type</i>]] 
 					contained in a certificate does not match the expected values for the
 					entity attempting to establish a connection.
 				<div class="appnote"><span class="note-header">Application
@@ -1116,10 +1120,10 @@ The following sections list Common Criteria and technology terms used in this do
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.13"><a href="#FCS_IPSEC_EXT.1.13" class="abbr">FCS_IPSEC_EXT.1.13</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to ensure by default that the strength of the symmetric algorithm 
 					(in terms of the number of bits in the key) negotiated to protect the 
-					[<b>selection</b>: <i id="_s_55">IKEv1 Phase 1</i>, <i id="_s_56">IKEv2 IKE_SA</i>] 
+					[<b>selection</b>: <i id="_s_54">IKEv1 Phase 1</i>, <i id="_s_55">IKEv2 IKE_SA</i>] 
 					connection is greater than or equal to the strength of the symmetric algorithm
 					(in terms of the number of bits in the key) negotiated to protect the 
-					[<b>selection</b>: <i id="_s_57">IKEv1 Phase 2</i>, <i id="_s_58">IKEv2 CHILD_SA</i>] connection.
+					[<b>selection</b>: <i id="_s_56">IKEv1 Phase 2</i>, <i id="_s_57">IKEv2 CHILD_SA</i>] connection.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1600,13 +1604,15 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.2.1"><a href="#FCS_IPSEC_EXT.2.1" class="abbr">FCS_IPSEC_EXT.2.1</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> peer authentication over <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> using
-					[<b>selection</b>: <ul><li style=""><i id="_s_59"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS as specified in <a href="#bibRFC5216">[RFC 5216]</a></i>, </li><li style=""><i id="_s_60"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS as specified in <a href="#bibRFC5281">[RFC 5281]</a></i></li></ul>] as updated by <a href="#bibRFC8996">[RFC 8996]</a> with TLS implemented using 
+					[<b>selection</b>: <ul><li style=""><i id="_s_58"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS as specified in <a href="#bibRFC5216">[RFC 5216]</a></i>, </li><li style=""><i id="_s_59"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS as specified in <a href="#bibRFC5281">[RFC 5281]</a></i></li></ul>] as updated by <a href="#bibRFC8996">[RFC 8996]</a> with TLS implemented using 
 					mutual authentication in accordance with the <a href="#bibNIAPFPTLS">[Functional Package for TLS]</a>.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
 					<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS and <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS with mutual authentication are the only two <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> methods allowed 
-					by this Package for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> peer authentication.
+					by this Package for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> peer authentication.<p></p>
+					This Package allows <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> to be used for peer authentication using pre-shared keys only. Authentication using
+					public-key cryptography and certificates must use IKEv2 mechanisms.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.2.2"><a href="#FCS_IPSEC_EXT.2.2" class="abbr">FCS_IPSEC_EXT.2.2</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate random values used in the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> exchange using the RBG specified in 
