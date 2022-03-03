@@ -739,9 +739,9 @@ The following sections list Common Criteria and technology terms used in this do
 		to satisfy dependencies of this Package. It is the responsibility of the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>, or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> author who 
 		incorporates this <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> to ensure that dependence on these components is satisfied, either by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or by 
 		assumptions about its Operational Environment.<p></p>
-	    	Note that the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> standard defines its own key derivation function in <a href="#bibRFC7296">[RFC 7296]</a>. This function
-	    	is approved fpor use in <a href="#bibNIST800135r1">[NIST SP 800-135 Rev. 1]</a>, so use of this Package should not require claiming 
-	    	of FCS_CKM_EXT.2.<p></p>
+	    	Note that the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> defines its own key derivation function in <a href="#bibRFC7296">[RFC 7296]</a>. This function was 
+	    	approved by NIST in <a href="#bibNIST800135r1">[NIST SP 800-135 Rev. 1]</a>. As a result, this Package does not require that  
+	    	FCS_CKM_EXT.5 or FCS_CKM.5 be claimed by the base-PP.<p></p>
 		An <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must identify the applicable version of the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>, or <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> and this
 		Functional Package in its conformance claims.<p></p>
 		
@@ -982,7 +982,6 @@ The following sections list Common Criteria and technology terms used in this do
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
-					<b>These options align with RFC 6379 (2011), but not with RFC 8247 (2017). Should they? </b><p></p>
 					The selection is used to specify additional DH groups supported. This applies to
 					IKEv1 and IKEv2 exchanges. It should be noted that if any additional DH groups
 					are specified, they must comply with the requirements (in terms of the
@@ -999,7 +998,7 @@ The following sections list Common Criteria and technology terms used in this do
 					<a href="#FCS_IPSEC_EXT.1.9">FCS_IPSEC_EXT.1.9</a>, then, the assignment would read “[224, 384]” and for
 					<a href="#FCS_IPSEC_EXT.1.10">FCS_IPSEC_EXT.1.10</a> it would read “[112, 192]” (although in this case the
 					requirement should probably be refined so that it makes sense mathematically).<p></p>
-					<a href="#bibRFC6379">[RFC 6379]</a> (2011) recommends using a "256-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 19) or a 
+					Note that <a href="#bibRFC6379">[RFC 6379]</a> (2011) recommends using a "256-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 19) or a 
 					"384-bit random <abbr class="dyn-abbr"><a href="#abbr_ECP">ECP</a></abbr> group" (Group 20).
 					<a href="#bibRFC8247">[RFC 8247]</a> (2017) requires support for DH Group 14 and recommends support for Group 19
 					in IKEv2. It discourages support for Groups 5, 2, 23, and 24. And forbids support for
@@ -1034,13 +1033,13 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
           
 			
-			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.11"><a href="#FCS_IPSEC_EXT.1.11" class="abbr">FCS_IPSEC_EXT.1.11</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that all <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocols perform peer authentication using  
+			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.11"><a href="#FCS_IPSEC_EXT.1.11" class="abbr">FCS_IPSEC_EXT.1.11</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that all <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocols perform peer authentication using <p></p> 
 					[<b>selection</b>: <i id="_s_43">RSA</i>, <i id="_s_44">ECDSA</i>] 
 					with X.509v3 certificates that conform to <a href="#bibRFC4945">[RFC 4945]</a> as specified in
-					<span class="no-link">FIA_X509_EXT.1</span> and 
-					[<b>selection</b><b>, choose one of</b>: <i id="sel-ipsec-peer-psk-eap">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
-							transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a>.</i>, <i id="sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
-							transmitted via means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>.</i>, <i id="_s_47">no other method</i>]
+					<span class="no-link">FIA_X509_EXT.1</span><p></p> and 
+					[<b>selection</b><b>, choose one of</b>: <ul><li style=""><i id="sel-ipsec-peer-psk-eap">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
+							transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a>.</i>, </li><li style=""><i id="sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
+							transmitted via means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>.</i>, </li><li style=""><i id="_s_47">no other method</i></li></ul>]
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1049,7 +1048,7 @@ The following sections list Common Criteria and technology terms used in this do
 					the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to reflect what is implemented (RSA or EDCSA). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author also ensures that
 					appropriate FCS requirements reflecting the algorithms used (and key
 					generation capabilities, if provided) are claimed to support those methods.<p></p>
-					IKEv2 requires that RSA authentication be done using an RSA private key with RSASSA-PKCS1-v1_5 
+					IKEv2 requires that RSA authentication be done using an RSA private key with the RSASSA-PKCS1-v1_5 
 					signature scheme, see <a href="#bibRFC7296">[RFC 7296]</a> sec. 3.8.
 					<a href="#bibRFC8247">[RFC 8247]</a> limits IKEv2 ECDSA authentication to "ECDSA with SHA-256 on the P-256 curve,"
 					"ECDSA with SHA-384 on the P-384 curve," and "ECDSA with SHA-512 on the P-521 curve."
@@ -1059,23 +1058,14 @@ The following sections list Common Criteria and technology terms used in this do
 					although support is mandatory in the standard.<p></p>
 					This Package requires that digital signature-based peer authentication use X.509v3 certificates
 					to verify the identity of the keys used in the signatures.<p></p>
-					
-					<b>
-						The standard allows <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> either with or without <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client Module is silent about whether
-						<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> can be used for certificate-based authentication. Thus it appears to not allow it.
-					</b>
-					<p></p>
-					
-					Peer authentication using certificates can be accomplished using either mechanisms inherent in 
-					the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol, or the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> framework. Authentication using pre-shared keys can be accomplished
-					using transmission through <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> or through an out-of-band sharing mechanism.<p></p> 
+					Peer authentication using certificates must be accomplished using mechanisms inherent in 
+					the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol. Authentication using pre-shared keys can be accomplished
+					using methods specified in the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol, transmission through <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>, or through an out-of-band sharing mechanism.<p></p> 
 					If "<i>Pre-shared keys as specified in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></i>" is selected, then the 
 					external requirement <span class="no-link">FIA_PSK_EXT.1</span> must be claimed. <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> includes options
 					for MFA solutions.<p></p>
 					If "<i><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a></i>" is selected, then <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a> must be claimed. 
-					This selection should be made if <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> is used for transmission of
-					authentication factors whether certificate-based or <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr>-based. "<i>Means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></i>" refers 
-					either to native <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol mechanisms or to out-of-band mechanisms.<p></p>
+					"<i>Means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></i>" refers either to native <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol mechanisms or to out-of-band mechanisms.<p></p>
 				</span></div></div></div>
 	
 			
@@ -1083,10 +1073,10 @@ The following sections list Common Criteria and technology terms used in this do
 					certificate matches the configured resource identifier, where the 
 					presented and reference identifiers are of the following fields and types: <p></p>
 					[
-					[<b>selection</b>: <i id="_s_48">IP address</i>, <i id="_s_49">Fully Qualified Domain Name (<abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr>)</i>, <i id="_s_50">user <abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr></i>, <i id="_s_51">Distinguished Name (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>)</i>] 
+					[<b>selection</b>: <ul><li style=""><i id="_s_48">IP address</i>, </li><li style=""><i id="_s_49">Fully Qualified Domain Name (<abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr>)</i>, </li><li style=""><i id="_s_50">user <abbr class="dyn-abbr"><a href="#abbr_FQDN">FQDN</a></abbr></i>, </li><li style=""><i id="_s_51">Distinguished Name (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>)</i></li></ul>] 
 					and 
-					[<b>selection</b>: <i id="_s_52">[<b>assignment</b>: 
-     <span class="assignable-content">other supported reference identifier types</span>]</i>, <i id="_s_53">no other reference identifier type</i>]] 
+					[<b>selection</b>: <ul><li style=""><i id="_s_52">[<b>assignment</b>: 
+     <span class="assignable-content">other supported reference identifier types</span>]</i>, </li><li style=""><i id="_s_53">no other reference identifier type</i></li></ul>]] 
 					contained in a certificate does not match the expected values for the
 					entity attempting to establish a connection.
 				<div class="appnote"><span class="note-header">Application
