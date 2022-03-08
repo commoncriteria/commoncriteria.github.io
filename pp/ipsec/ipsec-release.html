@@ -601,7 +601,7 @@ function showTarget(id){
 
           }
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Draft Functional Package for IPsec</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
-      Version: 1.0<br/>2022-03-04<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2022-02-04</td><td>Latest draft.</td></tr>
+      Version: 1.0<br/>2022-03-08<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2022-03-08</td><td>Latest draft.</td></tr>
 </table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#toes" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Functional_Requirements" style="text-indent:0px">3<span>Security Functional Requirements</span></a><a href="#ss-audit-table" style="text-indent:10px">3.1<span>Auditable Events for Mandatory SFRs</span></a><a href="#cryptsup" style="text-indent:10px">3.2<span>Cryptographic Support (FCS)</span></a><a href="#opt-app" style="text-indent:0px">Appendix A - <span>Optional Requirements</span></a><a href="#optional-reqs" style="text-indent:10px">A.1<span>Strictly Optional  Requirements
     </span></a><a href="#objective-reqs" style="text-indent:10px">A.2<span>Objective  Requirements
     </span></a><a href="#feat-based-reqs" style="text-indent:10px">A.3<span>Implementation-based  Requirements
@@ -762,11 +762,11 @@ The following sections list Common Criteria and technology terms used in this do
 				<br/></td></tr><tr><td class="componentneeded" id="FCS_RBG_EXT.1"><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>To support random bit generation needed for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> key generation, the incorporating document must
 					include a requirement that specifies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s ability to invoke or provide 
 					random bit generation services, commonly identified as <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.<br/></td></tr><tr><td class="componentneeded" id="FCS_TLS_EXT.1"><a href="#FCS_TLS_EXT.1">FCS_TLS_EXT.1</a></td><td>To support peer authentication over <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>, this Package requires support for the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS
-					protocols. For this reason, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may need to incorporate the <a href="#bibNIAPFPTLS">[Functional Package for TLS]</a>.<br/>Required if:<ul><li>
-           the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements 
+					protocols. For this reason, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may need to incorporate the <a href="#bibNIAPFPTLS">[Functional Package for TLS]</a>.<br/>Required if:<ul><li><a href="#sel-ipsec-peer-psk-eap">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
+							transmitted via EAP as specified in FCS_IPSEC_EXT.2.</a>,
            
-             ""
-           </li></ul></td></tr><tr><td class="componentneeded" id="FIA_PSK_EXT.1"><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></td><td>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses pre-shared keys to establish <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections, then this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be claimed
+           is selected from 
+           <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></li></ul></td></tr><tr><td class="componentneeded" id="FIA_PSK_EXT.1"><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></td><td>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses pre-shared keys to establish <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connections, then this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be claimed
 					to specify requirements for the composition of pre-shared keys.<br/>Required if:<ul><li><a href="#sel-ipsec-peer-psk">Pre-shared keys as specified in <span class="no-link">FIA_PSK_EXT.1</span>
 							transmitted via means other than EAP.</a>,
            
@@ -920,7 +920,11 @@ The following sections list Common Criteria and technology terms used in this do
       If either "<i>IKEv1 <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>...</i>" selection is made in <a href="#FCS_IPSEC_EXT.1.7">FCS_IPSEC_EXT.1.7</a> 
 						  then "<i>IKEv1...</i>" must be selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a>.<br/><p></p><b><a href="#rule-ipsec7-ikev2-version-matches">Rule #4</a></b>:
       If "<i>IKEv2 <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.7">FCS_IPSEC_EXT.1.7</a> 
-						  then "<i>IKEv2...</i>" must be selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a>.<br/></div></div>
+						  then "<i>IKEv2...</i>" must be selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a>.<br/><p></p><b><a href="#rule-ipsec13-ike1-version-matches">Rule #5</a></b>:
+      If "<i>IKEv1...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> 
+						  then both "<i>IKEv1 Phase 1</i>" and "<i>IKEv1 Phase 2</i>" must be selected in FCS_IPSEC_EXT.13.<br/><p></p><b><a href="#rule-ipsec13-ike2-version-matches">Rule #6</a></b>:
+      If "<i>IKEv2...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> 
+						  then "<i>IKEv2 IKE_SA</i>" and "<i>IKEv2 CHILD_SA</i>" must be selected in FCS_IPSEC_EXT.13.<br/></div></div>
 			
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.6"><a href="#FCS_IPSEC_EXT.1.6" class="abbr">FCS_IPSEC_EXT.1.6</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure the encrypted payload in the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol uses the 
@@ -1128,10 +1132,10 @@ The following sections list Common Criteria and technology terms used in this do
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.13"><a href="#FCS_IPSEC_EXT.1.13" class="abbr">FCS_IPSEC_EXT.1.13</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to ensure by default that the strength of the symmetric algorithm 
 					(in terms of the number of bits in the key) negotiated to protect the 
-					[<b>selection</b>: <i id="fcs-ipsec-ext-13-ikev1p1">IKEv1 Phase 1</i>, <i id="fcs-ipsec-ext-13-ikev2ikesa">IKEv2 IKE_SA</i>] 
+					[<b>selection</b>: <i id="sel-ipsec-ext-13-ikev1p1">IKEv1 Phase 1</i>, <i id="sel-ipsec-ext-13-ikev2ikesa">IKEv2 IKE_SA</i>] 
 					connection is greater than or equal to the strength of the symmetric algorithm
 					(in terms of the number of bits in the key) negotiated to protect the 
-					[<b>selection</b>: <i id="fcs-ipsec-ext-13-ikev1p2">IKEv1 Phase 2</i>, <i id="fcs-ipsec-ext-13-ikev2childsa">IKEv2 CHILD_SA</i>] connection.
+					[<b>selection</b>: <i id="sel-ipsec-ext-13-ikev1p2">IKEv1 Phase 2</i>, <i id="sel-ipsec-ext-13-ikev2childsa">IKEv2 CHILD_SA</i>] connection.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1144,11 +1148,7 @@ The following sections list Common Criteria and technology terms used in this do
 					default configuration in the evaluated configuration (either "out of the box" or
 					by configuration guidance in the AGD documentation) must enable this
 					functionality.<p></p>
-				</span></div><div class="validationguidelines_label">Validation Guidelines:</div><p></p><b><a href="#rule-ipsec13-ike1-version-matches">Rule #5</a></b>:
-      If "<i>IKEv1...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> 
-						  then both "<i>IKEv1 Phase 1</i>" and "<i>IKEv1 Phase 2</i>" must be selected in FCS_IPSEC_EXT.13.<br/><p></p><b><a href="#rule-ipsec13-ike2-version-matches">Rule #6</a></b>:
-      If "<i>IKEv2...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> 
-						  then "<i>IKEv2 IKE_SA</i>" and "<i>IKEv2 CHILD_SA</i>" must be selected in FCS_IPSEC_EXT.13.<br/></div></div>
+				</span></div></div></div>
 			
 			
 			
@@ -1735,11 +1735,18 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							[<b>selection</b>: <i id="_s_21"><a href="#bibRFC4868">[RFC 4868]</a> for hash functions</i>, <i id="_s_22">no other RFCs for hash functions</i>]
 						</a></div></td></tr></table><h2 id="rule-ipsec13-ike1-version-matches">
          Rule #5</h2><div>If "<i>IKEv1...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> 
-						  then both "<i>IKEv1 Phase 1</i>" and "<i>IKEv1 Phase 2</i>" must be selected in FCS_IPSEC_EXT.13.</div><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">IF</td><td style="display:none"></td></tr><tr><td style="width: 99%"></td></tr></table><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">THEN</td><td style="display:none"></td></tr><tr><td style="width: 99%"><div class="uc_from_fel">
-      From <a href="#FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</a>:</div><div class="uc_sel">* select <a href="#fcs-ipsec-ext-13-ikev1p1">IKEv1 Phase 1</a></div><div class="uc_sel">* select <a href="#fcs-ipsec-ext-13-ikev1p2">IKEv1 Phase 2</a></div></td></tr></table><h2 id="rule-ipsec13-ike2-version-matches">
+						  then both "<i>IKEv1 Phase 1</i>" and "<i>IKEv1 Phase 2</i>" must be selected in FCS_IPSEC_EXT.13.</div><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">IF</td><td style="display:none"></td></tr><tr><td style="width: 99%"><div class="uc_from_fel">
+      From <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a>:</div><div class="uc_sel">* select <a href="#sel-ipsec-ikev1">IKEv1, using Main Mode for Phase I exchanges, as defined in <a href="#bibRFC2407">[RFC 2407]</a>, 
+							<a href="#bibRFC2408">[RFC 2408]</a>, <a href="#bibRFC2409">[RFC 2409]</a>, <a href="#bibRFC4109">[RFC 4109]</a>, 
+							[<b>selection</b>: <i id="_s_12"><a href="#bibRFC4304">[RFC 4304]</a> for extended sequence numbers</i>, <i id="_s_13">no other RFCs for extended sequence numbers</i>], 
+							[<b>selection</b>: <i id="_s_14"><a href="#bibRFC4868">[RFC 4868]</a> for hash functions</i>, <i id="_s_15">no other RFCs for hash functions</i>], and 
+							[<b>selection</b>: <i id="_s_16">support for XAUTH</i>, <i id="_s_17">no support for XAUTH</i>]</a></div></td></tr></table><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">THEN</td><td style="display:none"></td></tr><tr><td style="width: 99%"></td></tr></table><h2 id="rule-ipsec13-ike2-version-matches">
          Rule #6</h2><div>If "<i>IKEv2...</i>" is selected in <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a> 
-						  then "<i>IKEv2 IKE_SA</i>" and "<i>IKEv2 CHILD_SA</i>" must be selected in FCS_IPSEC_EXT.13.</div><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">IF</td><td style="display:none"></td></tr><tr><td style="width: 99%"></td></tr></table><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">THEN</td><td style="display:none"></td></tr><tr><td style="width: 99%"><div class="uc_from_fel">
-      From <a href="#FCS_IPSEC_EXT.1.13">FCS_IPSEC_EXT.1.13</a>:</div><div class="uc_sel">* select <a href="#fcs-ipsec-ext-13-ikev2ikesa">IKEv2 IKE_SA</a></div><div class="uc_sel">* select <a href="#fcs-ipsec-ext-13-ikev2childsa">IKEv2 CHILD_SA</a></div></td></tr></table><h1 id="acronyms" class="indexable" data-level="A">Appendix D -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP" data-plural="Base-PPs"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
+						  then "<i>IKEv2 IKE_SA</i>" and "<i>IKEv2 CHILD_SA</i>" must be selected in FCS_IPSEC_EXT.13.</div><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">IF</td><td style="display:none"></td></tr><tr><td style="width: 99%"><div class="uc_from_fel">
+      From <a href="#FCS_IPSEC_EXT.1.5">FCS_IPSEC_EXT.1.5</a>:</div><div class="uc_sel">* select <a href="#sel-ipsec-ikev2">IKEv2 as defined in <a href="#bibRFC7296">[RFC 7296]</a> 
+							[<b>selection</b>: <i id="_s_19">with mandatory support for NAT traversal as specified in section 2.23</i>, <i id="_s_20">with no support for NAT traversal</i>], and <a href="#bibRFC8784">[RFC 8784]</a>, <a href="#bibRFC8247">[RFC 8247]</a>, and
+							[<b>selection</b>: <i id="_s_21"><a href="#bibRFC4868">[RFC 4868]</a> for hash functions</i>, <i id="_s_22">no other RFCs for hash functions</i>]
+						</a></div></td></tr></table><table class="uc_table_or" style="border: 1px solid black"><tr><td class="or_cell" rowspan="2">THEN</td><td style="display:none"></td></tr><tr><td style="width: 99%"></td></tr></table><h1 id="acronyms" class="indexable" data-level="A">Appendix D -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP" data-plural="Base-PPs"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
 <tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr>
 <tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr>
 <tr><td><span class="term" id="abbr_DN"><abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr></span></td><td><span id="long_abbr_DN">Distinguished Name</span></td></tr>
