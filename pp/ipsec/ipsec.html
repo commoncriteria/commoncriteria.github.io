@@ -1545,9 +1545,21 @@ The following sections list Common Criteria and technology terms used in this do
 								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fails to authenticate the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> peer.
 							</li>
 						</ul>
-						The evaluator shall perform the following tests if Pre-Shared key-based peer authentication is implemented:
+						If <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> is used for peer authentication, then this is tested in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a>.<br/><br/>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements peer authentication using pre-shared secrets, then generation of pre-shared secrets is tested
+						in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>, and peer authentication using pre-shared secrets is tested as follows:
 						<ul>
-							<li><b>Test 1: </b><b>Not sure what to do here.QQQQQQQQQQQQQQQQQQQQQQQQQQQ</b></li>
+							<li><b>Test 1: </b>The evaluator shall have the peer generate an AUTH value using the pre-shared secret and send it to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+								The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall generate an AUTH value using the pre-shared secret and send it to the peer. The evaluator shall
+								ensure that an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection is established. 
+							</li>
+							<li><b>Test 2: </b>The evaluator shall repeat the preceding test, but with the peer signing the AUTH value with a value
+								other than the pre-shared secret.  The evaluator shall ensure that an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> connection is not established. 
+							</li>
+							<li><b>Test 3: </b>The evaluator shall repeat the preceding test again, but with the peer signing an incorrectly
+								calculated AUTH value with the pre-shared secret.  The evaluator shall ensure that an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>
+								connection is not established. 
+							</li>
 						</ul>
 					</div>
 				<div class="element-activity-header"><a href="#FCS_IPSEC_EXT.1.12">FCS_IPSEC_EXT.1.12</a></div>
