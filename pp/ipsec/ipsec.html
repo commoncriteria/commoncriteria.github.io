@@ -757,7 +757,9 @@ The following sections list Common Criteria and technology terms used in this do
 					signature generation and verification function (at least one of RSA or ECDSA), a cryptographic hash
 					function, and a keyed-hash message authentication function. In particular, this Package requires that the
 					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> support AES-GCM-128 and AES-GCM-256 for <abbr class="dyn-abbr"><a href="#abbr_ESP">ESP</a></abbr>, and AES-CBC-128 and AES-CBC-256 for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr>. HMAC and 
-					SHA are required for the mandatory pseudo-random function and for integrity protections.
+					SHA are required for the mandatory pseudo-random function and for integrity protections. Depending on  
+					selections in this Package, the incorporating document may need to support SHA-1, SHA-256, SHA-384, or
+					SHA-512, along with the corresponding HMAC functions.
 				<br/></td></tr><tr><td class="componentneeded" id="FCS_RBG_EXT.1"><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>To support random bit generation needed for <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> key generation, the incorporating document must
 					include a requirement that specifies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s ability to invoke or provide 
 					random bit generation services, commonly identified as <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.<br/></td></tr><tr><td class="componentneeded" id="FCS_TLS_EXT.1"><a href="#FCS_TLS_EXT.1">FCS_TLS_EXT.1</a></td><td>To support peer authentication over <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>, this Package requires support for the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS
@@ -775,8 +777,8 @@ The following sections list Common Criteria and technology terms used in this do
            
            is selected from 
            <a href="#FCS_IPSEC_EXT.1.11">FCS_IPSEC_EXT.1.11</a></li></ul></td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.1"><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a></td><td>To support establishment of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications using a public key algorithm that includes X.509, 
-					the incorporating document must include <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>. This documents requires that X.509v3 certificates
-					be used in <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> peer authentication.<br/></td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.2"><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>To support establishment of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications using a public key algorithm that includes X.509, 
+					the incorporating document must include <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>. This Package requires that X.509v3 certificates
+					be supported for <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> peer authentication.<br/></td></tr><tr><td class="componentneeded" id="FIA_X509_EXT.2"><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>To support establishment of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications using a public key algorithm that includes X.509, 
 					the incorporating document must include <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> to specify the trusted channel protocols that 
 					use X.509 certificates.<br/></td></tr><tr><td class="componentneeded" id="FPT_STM.1"><a href="#FPT_STM.1">FPT_STM.1</a></td><td>To support establishment of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> communications using a public key algorithm that includes X.509, 
 					the incorporating document must include <a href="#FPT_STM.1">FPT_STM.1</a> or some other requirement that ensures reliable system time.  
@@ -1033,7 +1035,7 @@ The following sections list Common Criteria and technology terms used in this do
 			
 			
 			<div class="element"><div class="reqid" id="FCS_IPSEC_EXT.1.9"><a href="#FCS_IPSEC_EXT.1.9" class="abbr">FCS_IPSEC_EXT.1.9</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate the secret value x used in the
-					<abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> Diffie-Hellman key exchange (“x” in g^x mod p) using the random bit
+					<abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> Diffie-Hellman key exchange (“x” in g^x mod p or "x" in xG for ECDH) using the random bit
 					generator specified in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>, and having a length of at least
 					[<b>assignment</b>: 
      <span class="assignable-content">(one or more) number of bits that is at least twice the “bits of
@@ -1087,9 +1089,14 @@ The following sections list Common Criteria and technology terms used in this do
 					Peer authentication using certificates must be accomplished using mechanisms inherent in 
 					the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol. Authentication using pre-shared keys can be accomplished
 					using methods specified in the <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol, transmission through <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>, or through an out-of-band sharing mechanism.<br/><br/> 
+		
+					See <a href="#bibRFC8603">[RFC 8603]</a> for additional guidance on certificates and certificate revocaton for
+					National Security Systems.<br/><br/>
+					
 					If either "<i>Pre-shared keys as specified in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a>...</i>" selection is made, then 
 					the external requirement <span class="no-link">FIA_PSK_EXT.1</span> must be claimed. <span class="no-link">FIA_PSK_EXT.1</span>
 					includes options for MFA solutions.<br/><br/>
+					
 					If "<i>Pre-shared keys as specified in <a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a> transmitted via <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> as specified in <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a>,</i>" is selected, 
 					then <a href="#FCS_IPSEC_EXT.2">FCS_IPSEC_EXT.2</a> must be claimed in addition to <span class="no-link">FIA_PSK_EXT.1</span>. In the other selection, 
 					"<i>means other than <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></i>" refers either to native <abbr class="dyn-abbr"><a href="#abbr_IKE">IKE</a></abbr> protocol mechanisms or to out-of-band mechanisms.
@@ -1831,6 +1838,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 			</td></tr><tr><td><span id="bibRFC8247">[RFC 8247]</span></td><td>
 				<a href="https://tools.ietf.org/html/rfc8247">Algorithm Implementation Requirements and Usage Guidance
 					for the Internet Key Exchange Protocol Version 2 (IKEv2)</a>
+			</td></tr><tr><td><span id="bibRFC8603">[RFC 8603]</span></td><td>
+				<a href="https://tools.ietf.org/html/rfc8603">Commercial National Security Algorithm (CNSA) Suite Certificate and
+               				Certificate Revocation List (CRL) Profile</a>
 			</td></tr><tr><td><span id="bibRFC8784">[RFC 8784]</span></td><td>
 				<a href="https://tools.ietf.org/html/rfc8784">Mixing Preshared Keys in the Internet Key Exchange Protocol Version 2
 					(IKEv2) for Post-quantum Security</a>
