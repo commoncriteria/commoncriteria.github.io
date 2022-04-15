@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
 <html><head><title>PP-Module for Redaction Tools</title><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script><script type="text/x-mathjax-config">
             MathJax.Hub.Config({
             extensions: ["tex2jax.js"],
@@ -265,7 +263,7 @@ function showTarget(id){
    .uc_not, .uc_mf, .uc_sel, .uc_guide{
        text-indent: 10px;
    }
-   .uc_sel &gt; a{ 
+   .uc_sel > a{ 
        font-style: italic;
    }
 
@@ -600,8 +598,8 @@ function showTarget(id){
 	            img[src="images/collapsed.png"] { display:none;}
 
           }
-    </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">PP-Module for Redaction Tools</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
-      Version: 1.0-Draft<br/>2022-04-29<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0-Draft</td><td>2022-04-29</td><td>Initial publication</td></tr>
+    </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">PP-Module for Redaction Tools</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"><br>
+      Version: 1.0-Draft<br>2022-04-29<br><b>National Information Assurance Partnership</b><br></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0-Draft</td><td>2022-04-29</td><td>Initial publication</td></tr>
 </table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#Compliant_Targets_of_Evaluation" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#Use_Cases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#ConformanceClaims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Description" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#SecurityObjectivesTOEorEnvironment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#SOR" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#Security_Requirements" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#m-fau" style="text-indent:20px">5.0.1<span>Security Audit (FAU)</span></a><a href="#m-fdp" style="text-indent:20px">5.0.2<span>User Data Protection (FDP)</span></a><a href="#m-fpt" style="text-indent:20px">5.0.3<span>Protection of the TSF (FPT)</span></a></div>
   
   
@@ -626,49 +624,44 @@ function showTarget(id){
     <h2 class="indexable" data-level="2" id="Overview">1.1 Overview</h2>
       The scope of this Protection Profile Module (PP-Module) is to describe the security functionality of redaction tools
       in terms of <a href="#bibCC">[CC]</a> and to define functional and assurance requirements for such
-      products. This PP-Module is intended for use with the following Base-PPs:
+      products<a id="period_0" href="#period_0">. </a>This PP-Module is intended for use with the following Base-PPs:
       
       <ul>
         <li>Protection Profile for Application Software, Version 1.4 (App PP or PP_APP_V1.4)</li>
       </ul>
       
       This Base-PP is valid a redaction tool is a specific type of software application and can therefore be reasonably expected to implement
-      security functionality that is typical of application software. Redaction is the process of selectively removing and replacing
+      security functionality that is typical of application software<a id="period_1" href="#period_1">. </a>Redaction is the process of selectively removing and replacing
       information from a document or other logical container of data for release to an audience not
-      intended to view that information. Redacted information is not limited to classified material;
-      other examples include privacy data, proprietary information, trade secrets, and legal strategy.
-      Instances of redaction include replacing classified text with a black box to release a document to
+      intended to view that information<a id="period_2" href="#period_2">. </a>Redacted information is not limited to classified material;
+      other examples include privacy data, proprietary information, trade secrets, and legal strategy<a id="period_3" href="#period_3">. </a>      Instances of redaction include replacing classified text with a black box to release a document to
       an unclassified environment, replacing privacy-related data such as telephone numbers with all
       Xs to release a database to a contractor, converting a proprietary format document to Portable
-      Document Format (PDF) to release a what-you-see-is-what-you-get (WYSIWYG) document.
-      The risk from improper or incomplete redaction is the inadvertent disclosure of classified or
-      sensitive data.
-      <br/>
-      Redaction is not sanitization. In the sanitization process, information is removed with no
-      indication that the sanitization process took place. In the redaction process, selected visible
-      information is removed and replaced with something innocuous (e.g. black box or text) so that
-      the reader knows redaction took place. This replacement is a critical part of the process not
-      shared with sanitization.
+      Document Format (PDF) to release a what-you-see-is-what-you-get (WYSIWYG) document<a id="period_4" href="#period_4">. </a>      The risk from improper or incomplete redaction is the inadvertent disclosure of classified or
+      sensitive data<a id="period_5" href="#period_5">. </a>      <br>
+      Redaction is not sanitization<a id="period_6" href="#period_6">. </a>In the sanitization process, information is removed with no
+      indication that the sanitization process took place<a id="period_7" href="#period_7">. </a>In the redaction process, selected visible
+      information is removed and replaced with something innocuous (e.g<a id="period_8" href="#period_8">. </a>black box or text) so that
+      the reader knows redaction took place<a id="period_9" href="#period_9">. </a>This replacement is a critical part of the process not
+      shared with sanitization<a id="period_10" href="#period_10">. </a>      
       
+      Redaction is not sanitization<a id="period_11" href="#period_11">. </a>In the sanitization process, information is
+      removed with no indication that the sanitization process took place<a id="period_12" href="#period_12">. </a>In the redaction process,
+      selected visible information is removed and replaced with something innocuous (e.g<a id="period_13" href="#period_13">. </a>black box
+      or text) so that the reader knows redaction took place<a id="period_14" href="#period_14">. </a>This replacement is a critical part of
+      the process not shared with sanitization<a id="period_15" href="#period_15">. </a><p></p>
       
-      Redaction is not sanitization. In the sanitization process, information is
-      removed with no indication that the sanitization process took place. In the redaction process,
-      selected visible information is removed and replaced with something innocuous (e.g. black box
-      or text) so that the reader knows redaction took place. This replacement is a critical part of
-      the process not shared with sanitization.<p></p>
-      
-      <div class="figure" id="figure-workflow"><img id="workflow" src="images/workflow.jpg" width="" height=""></img><br/><span class="ctr" data-myid="workflow" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
-      Figure 1: One possible workflow of an electronic document through the redaction process.</div> 
+      <div class="figure" id="figure-workflow"><img id="workflow" src="images/workflow.jpg" width="" height=""><br><span class="ctr" data-myid="workflow" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
+      Figure 1: One possible workflow of an electronic document through the redaction process<a id="period_16" href="#period_16">. </a></div> 
       
       Figure 1 shows the typical workflow of a document from source to destination
-      and through the redaction process. Other workflows are possible. Software vendors have the flexibility to devise their own
-      workflow solutions for their target consumer. However, in any workflow, this PP-Module 
+      and through the redaction process<a id="period_17" href="#period_17">. </a>Other workflows are possible<a id="period_18" href="#period_18">. </a>Software vendors have the flexibility to devise their own
+      workflow solutions for their target consumer<a id="period_19" href="#period_19">. </a>However, in any workflow, this PP-Module 
       applies only to the part of the workflow that is performed by the redaction tool and
-      only to the redaction functionality in that tool. Other functionality in the redaction tool,
+      only to the redaction functionality in that tool<a id="period_20" href="#period_20">. </a>Other functionality in the redaction tool,
       other tools used in the workflow, the organization's redaction policy as well as security
       requirements and security policies that apply to other parts of the workflow are beyond the
-      scope of this PP-Module.
-      
+      scope of this PP-Module<a id="period_21" href="#period_21">. </a>      
       
        
       
@@ -683,67 +676,65 @@ function showTarget(id){
         
     
     <div class="no-link"><h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
-The following sections list Common Criteria and technology terms used in this document.
-    <h3 id="cc-terms" class="indexable" data-level="3">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a TOE meets the SFRs <a href="#bibCC">[CC]</a>.</td></tr>
-<tr><td><div id="Base_Protection_Profile">Base Protection Profile (Base-PP)</div></td><td>Protection Profile used as a basis to build a PP-Configuration.</td></tr>
+The following sections list Common Criteria and technology terms used in this document<a id="period_22" href="#period_22">. </a>    <h3 id="cc-terms" class="indexable" data-level="3">1.2.1 Common Criteria Terms</h3><table><tr><td><div id="Assurance">Assurance</div></td><td>Grounds for confidence that a TOE meets the SFRs <a href="#bibCC">[CC]</a><a id="period_23" href="#period_23">. </a></td></tr>
+<tr><td><div id="Base_Protection_Profile">Base Protection Profile (Base-PP)</div></td><td>Protection Profile used as a basis to build a PP-Configuration<a id="period_24" href="#period_24">. </a></td></tr>
 <tr><td><div id="Collaborative_Protection_Profile">Collaborative Protection Profile (cPP)</div></td><td>A Protection Profile developed by
-    international technical communities and approved by multiple schemes.</td></tr>
-<tr><td><div id="Common_Criteria">Common Criteria (CC)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408).</td></tr>
+    international technical communities and approved by multiple schemes<a id="period_25" href="#period_25">. </a></td></tr>
+<tr><td><div id="Common_Criteria">Common Criteria (CC)</div></td><td>Common Criteria for Information Technology Security Evaluation (International Standard ISO/IEC 15408)<a id="period_26" href="#period_26">. </a></td></tr>
 <tr><td><div id="Common_Criteria_Testing_Laboratory">Common Criteria Testing Laboratory</div></td><td>
       Within the context of the Common Criteria Evaluation and Validation Scheme (CCEVS), an IT security evaluation facility
-      accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations.
-    </td></tr>
-<tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (CEM)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation.</td></tr>
-<tr><td><div id="Distributed_TOE">Distributed TOE</div></td><td>A TOE composed of multiple components operating as a logical whole.</td></tr>
+      accredited by the National Voluntary Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to conduct Common Criteria-based evaluations<a id="period_27" href="#period_27">. </a>    </td></tr>
+<tr><td><div id="Common_Evaluation_Methodology">Common Evaluation Methodology (CEM)</div></td><td>Common Evaluation Methodology for Information Technology Security Evaluation<a id="period_28" href="#period_28">. </a></td></tr>
+<tr><td><div id="Distributed_TOE">Distributed TOE</div></td><td>A TOE composed of multiple components operating as a logical whole<a id="period_29" href="#period_29">. </a></td></tr>
 <tr><td><div id="Extended_Package">Extended Package (EP)</div></td><td>A deprecated document form for collecting SFRs that implement a particular protocol, technology,
-	    or functionality. See Functional Packages.</td></tr>
+	    or functionality<a id="period_30" href="#period_30">. </a>See Functional Packages<a id="period_31" href="#period_31">. </a></td></tr>
 <tr><td><div id="Functional_Package">Functional Package (FP)</div></td><td>A document that collects SFRs for a particular protocol, technology,
-	    or functionality.</td></tr>
-<tr><td><div id="Operational_Environment">Operational Environment (OE)</div></td><td>Hardware and software that are outside the TOE boundary that support the TOE functionality and security policy.</td></tr>
-<tr><td><div id="Protection_Profile">Protection Profile (PP)</div></td><td>An implementation-independent set of security requirements for a category of products.</td></tr>
-<tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (PP-Configuration)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one Base-PP and at least one PP-Module.</td></tr>
-<tr><td><div id="Protection_Profile_Module">Protection Profile Module (PP-Module)</div></td><td>An implementation-independent statement of security needs for a TOE type complementary to one or more Base-PPs.</td></tr>
-<tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (SAR)</div></td><td>A requirement to assure the security of the TOE.</td></tr>
-<tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (SFR)</div></td><td>A requirement for security enforcement by the TOE.</td></tr>
-<tr><td><div id="Security_Target">Security Target (ST)</div></td><td>A set of implementation-dependent security requirements for a specific product.</td></tr>
-<tr><td><div id="Target_of_Evaluation">Target of Evaluation (TOE)</div></td><td>The product under evaluation. </td></tr>
-<tr><td><div id="TOE_Security_Functionality">TOE Security Functionality (TSF)</div></td><td>The security functionality of the product under evaluation.</td></tr>
-<tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST.</td></tr>
+	    or functionality<a id="period_32" href="#period_32">. </a></td></tr>
+<tr><td><div id="Operational_Environment">Operational Environment (OE)</div></td><td>Hardware and software that are outside the TOE boundary that support the TOE functionality and security policy<a id="period_33" href="#period_33">. </a></td></tr>
+<tr><td><div id="Protection_Profile">Protection Profile (PP)</div></td><td>An implementation-independent set of security requirements for a category of products<a id="period_34" href="#period_34">. </a></td></tr>
+<tr><td><div id="Protection_Profile_Configuration">Protection Profile Configuration (PP-Configuration)</div></td><td>A comprehensive set of security requirements for a product type that consists of at least one Base-PP and at least one PP-Module<a id="period_35" href="#period_35">. </a></td></tr>
+<tr><td><div id="Protection_Profile_Module">Protection Profile Module (PP-Module)</div></td><td>An implementation-independent statement of security needs for a TOE type complementary to one or more Base-PPs<a id="period_36" href="#period_36">. </a></td></tr>
+<tr><td><div id="Security_Assurance_Requirement">Security Assurance Requirement (SAR)</div></td><td>A requirement to assure the security of the TOE<a id="period_37" href="#period_37">. </a></td></tr>
+<tr><td><div id="Security_Functional_Requirement">Security Functional Requirement (SFR)</div></td><td>A requirement for security enforcement by the TOE<a id="period_38" href="#period_38">. </a></td></tr>
+<tr><td><div id="Security_Target">Security Target (ST)</div></td><td>A set of implementation-dependent security requirements for a specific product<a id="period_39" href="#period_39">. </a></td></tr>
+<tr><td><div id="Target_of_Evaluation">Target of Evaluation (TOE)</div></td><td>The product under evaluation<a id="period_40" href="#period_40">. </a></td></tr>
+<tr><td><div id="TOE_Security_Functionality">TOE Security Functionality (TSF)</div></td><td>The security functionality of the product under evaluation<a id="period_41" href="#period_41">. </a></td></tr>
+<tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST<a id="period_42" href="#period_42">. </a></td></tr>
 </table><h3 id="tech-terms" class="indexable" data-level="3">1.2.2 Technical Terms</h3><table style="width: 100%"><tr><td><div id="Attachments">Attachments</div></td><td>An electronic document or data file that is part of the main file but is
-        logically distinct and separable from the main electronic document.</td></tr>
+        logically distinct and separable from the main electronic document<a id="period_43" href="#period_43">. </a></td></tr>
 <tr><td><div id="Complex_Objects">Complex Objects</div></td><td>Objects that may have their own static or functional metadata and may
         differ between the stored and visible form, such as images, attachments, Microsoft OLE
-        objects, Microsoft ActiveX controls, and temporal objects.</td></tr>
+        objects, Microsoft ActiveX controls, and temporal objects<a id="period_44" href="#period_44">. </a></td></tr>
 <tr><td><div id="Functional_data">Functional data</div></td><td>Forms, scripts, link Uniform Resource Locators (URLs), workflow data,
         action buttons, formulas in a spreadsheet, macros or any type of executable
-        content.</td></tr>
+        content<a id="period_45" href="#period_45">. </a></td></tr>
 <tr><td><div id="Images">Images</div></td><td>The actual image data stored in the file as opposed to what is visible; the
         visible image can be cropped or resized but the full image could still be retained in
         the file format and may or may not match the visible image; some image formats can
         have their own metadata, such as Joint Photographic Experts Group (JPG) and Tagged
-        Image File Format (TIFF).</td></tr>
+        Image File Format (TIFF)<a id="period_46" href="#period_46">. </a></td></tr>
 <tr><td><div id="Metadata_of_objects_or_embedded_objects">Metadata of objects or embedded objects</div></td><td>Data associated with an object to describe or identify the contents of the object such as exchangeable image file format (EXIF) data of images; images themselves can contain other images and
-        their own metadata.</td></tr>
+        their own metadata<a id="period_47" href="#period_47">. </a></td></tr>
 <tr><td><div id="Obscured_visible_data">Obscured visible data</div></td><td>Content that could be visible but is obscured in some way such as content
         that runs off an edge of the container, text in a black font on black background (or
         any color of font on a similar color background), very small fonts, cropped or clipped
-        graphics or images, hidden layers, portions of an embedded object (e.g. Microsoft Object Linking and Embedding (OLE))
-        that are outside the view container.</td></tr>
+        graphics or images, hidden layers, portions of an embedded object (e.g<a id="period_48" href="#period_48">. </a>Microsoft Object Linking and Embedding (OLE))
+        that are outside the view container<a id="period_49" href="#period_49">. </a></td></tr>
 <tr><td><div id="Remnant_data">Remnant data</div></td><td>Artifacts of the original application or source file format such as remnant
         or unreferenced data from fast saves, unreferenced or unused elements, malformed
-        elements that cannot be fixed, garbage data in the file structure.</td></tr>
+        elements that cannot be fixed, garbage data in the file structure<a id="period_50" href="#period_50">. </a></td></tr>
 <tr><td><div id="Static_data_or_metadata">Static data or metadata</div></td><td>File properties such as author or creation date, stored form field data,
         undo cache or any data kept to revert to a prior version of an element or the document
         itself, incremental updates, collaboration data such as comments, tracked changes,
         workflow data, embedded search indexes, bookmarks, document info added by 3rd-party
-        apps, accessibility data such as alternate text, etc.</td></tr>
-<tr><td><div id="Structual_data">Structual data</div></td><td>Data that is part of the file format structure, such as a file header or fonts, and is necessary to interpret the file properly for display or print.</td></tr>
+        apps, accessibility data such as alternate text, etc<a id="period_51" href="#period_51">. </a></td></tr>
+<tr><td><div id="Structual_data">Structual data</div></td><td>Data that is part of the file format structure, such as a file header or fonts, and is necessary to interpret the file properly for display or print<a id="period_52" href="#period_52">. </a></td></tr>
 <tr><td><div id="Temporal_Objects">Temporal Objects</div></td><td>A particular type of complex object whose representation extends through a
-        time interval, such as video, audio, flash animation, slide shows, etc. References to
-        “complex objects” in the requirements section of this paper include temporal
-        objects.</td></tr>
+        time interval, such as video, audio, flash animation, slide shows, etc<a id="period_53" href="#period_53">. </a>References to
+        &#8220;complex objects&#8221; in the requirements section of this paper include temporal
+        objects<a id="period_54" href="#period_54">. </a></td></tr>
 <tr><td><div id="Visible_contents">Visible contents</div></td><td>The visible contents of the file; the visual representation of text, images
-              and complex objects.</td></tr>
+              and complex objects<a id="period_55" href="#period_55">. </a></td></tr>
 </table></div>
     
     
@@ -752,47 +743,45 @@ The following sections list Common Criteria and technology terms used in this do
     <h2 class="indexable" data-level="2" id="Compliant_Targets_of_Evaluation">1.3 Compliant Targets of Evaluation</h2>
       The Target of Evaluation (TOE) described by this PP-Module is limited to the redaction of electronic documents defined in standards such as the
       series International Organization for Standards (ISO)/International Electrotechnical Commission
-      (IEC)-29500 (Office OpeneXtensible Markup Language (XML), e.g. Microsoft Word,
+      (IEC)-29500 (Office OpeneXtensible Markup Language (XML), e.g<a id="period_56" href="#period_56">. </a>Microsoft Word,
       PowerPoint, and Excel documents) and ISO/IEC-32000 (PDF), or the definitive standard for a
-      format. Mail guards, filters, and batch redaction tools are beyond the scope of this PP_module.
-      Requirements that apply to features such as administrative control over particular redaction
-      settings, multi-person review prior to release, etc., are outside the scope of this PP-Module. The TOE
+      format<a id="period_57" href="#period_57">. </a>Mail guards, filters, and batch redaction tools are beyond the scope of this PP_module<a id="period_58" href="#period_58">. </a>      Requirements that apply to features such as administrative control over particular redaction
+      settings, multi-person review prior to release, etc., are outside the scope of this PP-Module<a id="period_59" href="#period_59">. </a>The TOE
       may have those features but is not required to have them and their use and enforcement is
-      governed by the organization’s redaction policy. <p></p>
+      governed by the organization&#8217;s redaction policy<a id="period_60" href="#period_60">. </a><p></p>
       
       This PP-Moudle covers the software functionality of the redaction process; it does not include
-      requirements for how users should decide what to redact or other policy issues. Analysis of
+      requirements for how users should decide what to redact or other policy issues<a id="period_61" href="#period_61">. </a>Analysis of
       documents for covert data transfer is part of the decision-making process for what to redact and 
-      so occurs prior to the redaction itself. The requirements in this document are independent of
-      requirements levied on document release by statute or the judiciary. <p></p>
+      so occurs prior to the redaction itself<a id="period_62" href="#period_62">. </a>The requirements in this document are independent of
+      requirements levied on document release by statute or the judiciary<a id="period_63" href="#period_63">. </a><p></p>
       
-      Data execution risks inherent in some file formats are beyond the scope of this PP-Module. This PP-Module
+      Data execution risks inherent in some file formats are beyond the scope of this PP-Module<a id="period_64" href="#period_64">. </a>This PP-Module
       assumes that scanning for such risks occurs prior to the document entering the redaction
-      functionality of the TOE.<p></p>
+      functionality of the TOE<a id="period_65" href="#period_65">. </a><p></p>
       
       Documents to be redacted may contain objects that are vulnerable to steganography, such as
-      images or video. Functional data such as scripts can contain strings or images that may not be
-      accessible to the redaction tool. Analysis of such objects for attacks or covert data transfer will
-      occur outside of the redaction process. An organization’s security policy will determine whether
-      such objects are released or redacted in their entirety. 
+      images or video<a id="period_66" href="#period_66">. </a>Functional data such as scripts can contain strings or images that may not be
+      accessible to the redaction tool<a id="period_67" href="#period_67">. </a>Analysis of such objects for attacks or covert data transfer will
+      occur outside of the redaction process<a id="period_68" href="#period_68">. </a>An organization&#8217;s security policy will determine whether
+      such objects are released or redacted in their entirety<a id="period_69" href="#period_69">. </a>
       
       <h3 class="indexable" data-level="3" id="TOE_Boundary">1.3.1 TOE Boundary</h3>
-        The physical boundary for a TOE that conforms to this PP-Module is a software application that installed on top of a general-purpose or mobile operating system. 
+        The physical boundary for a TOE that conforms to this PP-Module is a software application that installed on top of a general-purpose or mobile operating system<a id="period_70" href="#period_70">. </a>
         
-        The TOE’s logical boundary includes all functionality required by the claimed
-        Base-PP as well as the redaction functionality and related capabilities that are defined in this PP-Module. Any
+        The TOE&#8217;s logical boundary includes all functionality required by the claimed
+        Base-PP as well as the redaction functionality and related capabilities that are defined in this PP-Module<a id="period_71" href="#period_71">. </a>Any
         functionality that is provided by the application that is not relevant to the security requirements
-        defined by this PP-Module or the Base-PP is considered to be outside the scope of the TOE.
-      
+        defined by this PP-Module or the Base-PP is considered to be outside the scope of the TOE<a id="period_72" href="#period_72">. </a>      
       
     
 
     <h2 class="indexable" data-level="2" id="Use_Cases">1.4 Use Cases</h2>
 
     Redaction Tools perform tasks associated primarily with
-      the following use case. 
+      the following use case<a id="period_73" href="#period_73">. </a>
       <dl><dt id="usecase1"> [USE CASE 1] Content Redaction</dt><dd>Redaction tools are used for the redaction of user selected content from a
-            document. </dd></dl>
+            document<a id="period_74" href="#period_74">. </a></dd></dl>
     
   
   
@@ -803,44 +792,38 @@ The following sections list Common Criteria and technology terms used in this do
   
   <dl><dt class="cclaim,defined" id="Conformance Statement">Conformance Statement</dt><dd> This PP-Module inherits exact conformance as required from the specified Base-PPs and as defined
         in the CC and CEM addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated
-        May 2017).<br/>
+        May 2017)<a id="period_75" href="#period_75">. </a><br>
         
       </dd><dt class="cclaim,defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd>
         This PP-Module is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version
-        3.1, Revision 5 [CC].
-      </dd><dt class="cclaim,defined" id="PP Claim">PP Claim</dt><dd>This PP-Module does not claim conformance to any PP.</dd><dt class="cclaim,defined" id="Package Claim">Package Claim</dt><dd>This PP-Module does not claim conformance to any packages.</dd></dl>
+        3.1, Revision 5 [CC]<a id="period_76" href="#period_76">. </a>      </dd><dt class="cclaim,defined" id="PP Claim">PP Claim</dt><dd>This PP-Module does not claim conformance to any PP<a id="period_77" href="#period_77">. </a></dd><dt class="cclaim,defined" id="Package Claim">Package Claim</dt><dd>This PP-Module does not claim conformance to any packages<a id="period_78" href="#period_78">. </a></dd></dl>
   
 
   
   <h1 class="indexable" data-level="1" id="Security_Problem_Description">3 Security Problem Description</h1>
     The security problem is described in terms of the threats that the TOE is expected to address,
     assumptions about its operational environment (OE), and any organizational security policies that the TOE is
-    expected to enforce.<br/>
+    expected to enforce<a id="period_79" href="#period_79">. </a><br>
 
     
     <h2 class="indexable" data-level="2" id="threats">3.1 Threats</h2>
-      The following threats defined in this PP-Module extend the threats defined by the Base-PP.
-      <dl><dt class="threat,defined" id="T.CLUES_TO_ORIGINAL_DATA">T.CLUES_TO_ORIGINAL_DATA</dt><dd>Text or graphics placed in the redacted area by the TOE may contain clues to the nature of the original 
-            redacted information.</dd><dt class="threat,defined" id="T.UNREDACTED_DATA">T.UNREDACTED_DATA</dt><dd>A failure of the redaction tool to remove user selected visable or 
-            hidden data could reuslt in the inadvertant dissemination of information.
-          </dd></dl>
+      The following threats defined in this PP-Module extend the threats defined by the Base-PP<a id="period_80" href="#period_80">. </a>      <dl><dt class="threat,defined" id="T.CLUES_TO_ORIGINAL_DATA">T.CLUES_TO_ORIGINAL_DATA</dt><dd>Text or graphics placed in the redacted area by the TOE may contain clues to the nature of the original 
+            redacted information<a id="period_81" href="#period_81">. </a></dd><dt class="threat,defined" id="T.UNREDACTED_DATA">T.UNREDACTED_DATA</dt><dd>A failure of the redaction tool to remove user selected visable or 
+            hidden data could reuslt in the inadvertant dissemination of information<a id="period_82" href="#period_82">. </a>          </dd></dl>
     
     
     
     <h2 class="indexable" data-level="2" id="Assumptions">3.2 Assumptions</h2>
 These assumptions are made on the Operational Environment (OE) in order to be able to ensure that the
-security functionality specified in the PP-Module can be provided by the TOE.
-If the TOE is placed in an OE that does not meet these assumptions, the TOE may no longer be able to
-provide all of its security functionality.
-      
-      This PP-Module defines assumptions that extend those defined in the supported Base-PP.
-      <dl><dt class="assumption,defined" id="A.KNOWLEDGEABLE_USER">A.KNOWLEDGEABLE_USER</dt><dd>The user is knowledgeable concerning document management and has appropriate
-            training with the redaction tool. Part of this knowledge and training includes how to
-            prepare a document for the redaction tool, e.g. resolve and turn off tracked changes
+security functionality specified in the PP-Module can be provided by the TOE<a id="period_83" href="#period_83">. </a>If the TOE is placed in an OE that does not meet these assumptions, the TOE may no longer be able to
+provide all of its security functionality<a id="period_84" href="#period_84">. </a>      
+      This PP-Module defines assumptions that extend those defined in the supported Base-PP<a id="period_85" href="#period_85">. </a>      <dl><dt class="assumption,defined" id="A.KNOWLEDGEABLE_USER">A.KNOWLEDGEABLE_USER</dt><dd>The user is knowledgeable concerning document management and has appropriate
+            training with the redaction tool<a id="period_86" href="#period_86">. </a>Part of this knowledge and training includes how to
+            prepare a document for the redaction tool, e.g<a id="period_87" href="#period_87">. </a>resolve and turn off tracked changes
             prior to redaction, work with a copy of the document and preserve the original file,
-            remove passwords and decrypt files, etc.</dd><dt class="assumption,defined" id="A.INFORMATION_RELEASE_POLICY">A.INFORMATION_RELEASE_POLICY</dt><dd>There is a redaction or information release policy in place for the
-            organization which the user follows.</dd><dt class="assumption,defined" id="A.PRESERVE_DOCUMENT_LAYOUT">A.PRESERVE_DOCUMENT_LAYOUT</dt><dd>The TOE will preserve the layout of
-            the document.</dd></dl>
+            remove passwords and decrypt files, etc<a id="period_88" href="#period_88">. </a></dd><dt class="assumption,defined" id="A.INFORMATION_RELEASE_POLICY">A.INFORMATION_RELEASE_POLICY</dt><dd>There is a redaction or information release policy in place for the
+            organization which the user follows<a id="period_89" href="#period_89">. </a></dd><dt class="assumption,defined" id="A.PRESERVE_DOCUMENT_LAYOUT">A.PRESERVE_DOCUMENT_LAYOUT</dt><dd>The TOE will preserve the layout of
+            the document<a id="period_90" href="#period_90">. </a></dd></dl>
        
     
 
@@ -852,25 +835,20 @@ provide all of its security functionality.
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
       <dl><dt class="SO,defined" id="O.INSPECTION">O.INSPECTION</dt><dd>The TOE will analyze the file content
           for metadata and elements, to include any that are purposely hidden or not immediately
-          visible to the naked eye. This metadata and elements includes, but is not limited to those
+          visible to the naked eye<a id="period_91" href="#period_91">. </a>This metadata and elements includes, but is not limited to those
           that are obstructed from view such as shapes on top of text, hidden objects (manual direct
           formatting or programmatically hidden), and text that is positioned off the margins,
-          and/or is located in header and footer sections of the file.</dd><dt class="SO,defined" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd>placeholder</dd><dt class="SO,defined" id="O.QUALITY">O.QUALITY</dt><dd>placeholder</dd><dt class="SO,defined" id="O.REDACTION">O.REDACTION</dt><dd>The TOE will provide the capability
-          to completely remove any data selected for redaction.</dd><dt class="SO,defined" id="O.REPORT">O.REPORT</dt><dd>The TOE will provide the capability
-          to produce a report of all data redacted and any errors during redaction.</dd></dl>
+          and/or is located in header and footer sections of the file<a id="period_92" href="#period_92">. </a></dd><dt class="SO,defined" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd>placeholder</dd><dt class="SO,defined" id="O.QUALITY">O.QUALITY</dt><dd>placeholder</dd><dt class="SO,defined" id="O.REDACTION">O.REDACTION</dt><dd>The TOE will provide the capability
+          to completely remove any data selected for redaction<a id="period_93" href="#period_93">. </a></dd><dt class="SO,defined" id="O.REPORT">O.REPORT</dt><dd>The TOE will provide the capability
+          to produce a report of all data redacted and any errors during redaction<a id="period_94" href="#period_94">. </a></dd></dl>
     
     
     
     
     <h2 class="indexable" data-level="2" id="SecurityObjectivesTOEorEnvironment">4.2 Security Objectives for the Operational Environment</h2>
-The OE of the TOE implements technical and procedural measures to assist the TOE in correctly providing its security functionality (which is defined by the security objectives for the TOE).
-The security objectives for the OE consist of a set of statements describing the goals that the OE should achieve.
-This section defines the security objectives that are to be addressed by the IT domain or by non-technical or procedural means.
-The assumptions identified in Section 3 are incorporated as security objectives for the environment.
-      
+The OE of the TOE implements technical and procedural measures to assist the TOE in correctly providing its security functionality (which is defined by the security objectives for the TOE)<a id="period_95" href="#period_95">. </a>The security objectives for the OE consist of a set of statements describing the goals that the OE should achieve<a id="period_96" href="#period_96">. </a>This section defines the security objectives that are to be addressed by the IT domain or by non-technical or procedural means<a id="period_97" href="#period_97">. </a>The assumptions identified in Section 3 are incorporated as security objectives for the environment<a id="period_98" href="#period_98">. </a>      
       This PP-Module defines environmental security objectives that extend those defined in
-      the supported Base-PP.
-      
+      the supported Base-PP<a id="period_99" href="#period_99">. </a>      
       <dl><dt class="SOE,defined" id="OE.PLACEHOLDER">OE.PLACEHOLDER</dt><dd>placeholder
           </dd></dl>
     
@@ -878,8 +856,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
     
     <h2 id="SOR" class="indexable,h2" data-level="2">4.3 Security Objectives Rationale</h2>   
     This section describes how the assumptions, threats, and organizational 
-    security policies map to the security objectives.
-    <table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.CLUES_TO_ORIGINAL_DATA">T.CLUES_​TO_​ORIGINAL_​DATA</a></td><td>O.PLACEHOLDER</td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNREDACTED_DATA">T.UNREDACTED_​DATA</a></td><td>O.PLACEHOLDER</td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.KNOWLEDGEABLE_USER">A.KNOWLEDGEABLE_​USER</a></td><td><a href="#OE.PLACEHOLDER">OE.PLACEHOLDER</a></td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.INFORMATION_RELEASE_POLICY">A.INFORMATION_​RELEASE_​POLICY</a></td><td><a href="#OE.PLACEHOLDER">OE.PLACEHOLDER</a></td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PRESERVE_DOCUMENT_LAYOUT">A.PRESERVE_​DOCUMENT_​LAYOUT</a></td><td><a href="#OE.PLACEHOLDER">OE.PLACEHOLDER</a></td><td>placeholder</td></tr></table>
+    security policies map to the security objectives<a id="period_100" href="#period_100">. </a>    <table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.CLUES_TO_ORIGINAL_DATA">T.CLUES_&#8203;TO_&#8203;ORIGINAL_&#8203;DATA</a></td><td>O.PLACEHOLDER</td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.UNREDACTED_DATA">T.UNREDACTED_&#8203;DATA</a></td><td>O.PLACEHOLDER</td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.KNOWLEDGEABLE_USER">A.KNOWLEDGEABLE_&#8203;USER</a></td><td><a href="#OE.PLACEHOLDER">OE.PLACEHOLDER</a></td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.INFORMATION_RELEASE_POLICY">A.INFORMATION_&#8203;RELEASE_&#8203;POLICY</a></td><td><a href="#OE.PLACEHOLDER">OE.PLACEHOLDER</a></td><td>placeholder</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PRESERVE_DOCUMENT_LAYOUT">A.PRESERVE_&#8203;DOCUMENT_&#8203;LAYOUT</a></td><td><a href="#OE.PLACEHOLDER">OE.PLACEHOLDER</a></td><td>placeholder</td></tr></table>
     
   
 
@@ -889,32 +866,32 @@ The assumptions identified in Section 3 are incorporated as security objectives 
         
         The Security Functional Requirements (SFRs) included in this section are derived from Part 2 of the
         Common Criteria for Information Technology Security Evaluation, Version 3.1, Revision 5, with
-        additional extended functional components.<br/>
+        additional extended functional components<a id="period_101" href="#period_101">. </a><br>
         The CC defines operations on Security Functional Requirements: assignments, selections, assignments
-        within selections and refinements. This document uses the following font conventions to identify the
-        operations defined by the CC:<br/>
+        within selections and refinements<a id="period_102" href="#period_102">. </a>This document uses the following font conventions to identify the
+        operations defined by the CC:<br>
         <ul>
-          <li>Assignments are indicated with <i>italicized</i> text.</li>
+          <li>Assignments are indicated with <i>italicized</i> text<a id="period_103" href="#period_103">. </a></li>
           <li>Refinements made by the PP-Module author are indicated with <b>bold text</b> for added or substituted
-            text and <s>strikethrough</s> text for removed text. Refinements are only applied to significant technical
+            text and <s>strikethrough</s> text for removed text<a id="period_104" href="#period_104">. </a>Refinements are only applied to significant technical
             changes to existing SFRs; minor presentation changes with no technical impact (such as British vs
-            American spelling differences) are not marked as refinements. Refinements are also indicated when
-            an operation is added or substituted for an existing operation (e.g. the PP-Module completes an
-            assignment in such a way that it introduces a selection into the assignment).<br/>
-            Note that for SFRs that are defined either in CC Part 2 or in this PP-Module’s Extended Components
-            Definition, the refinement operation is used to indicate deviations from the defined component. For
+            American spelling differences) are not marked as refinements<a id="period_105" href="#period_105">. </a>Refinements are also indicated when
+            an operation is added or substituted for an existing operation (e.g<a id="period_106" href="#period_106">. </a>the PP-Module completes an
+            assignment in such a way that it introduces a selection into the assignment)<a id="period_107" href="#period_107">. </a><br>
+            Note that for SFRs that are defined either in CC Part 2 or in this PP-Module&#8217;s Extended Components
+            Definition, the refinement operation is used to indicate deviations from the defined component<a id="period_108" href="#period_108">. </a>For
             Base-PP SFRs that are modified by this PP-Module, the refinement operation is used to indicate
-            deviations from the Base-PP’s definition of the SFR (i.e. if the Base-PP refined an SFR and that
-            change is not affected by this PP-Module, it is not shown here as a refinement).</li>
-          <li>Selections are indicated with <i>italicized</i> text.</li>
+            deviations from the Base-PP&#8217;s definition of the SFR (i.e<a id="period_109" href="#period_109">. </a>if the Base-PP refined an SFR and that
+            change is not affected by this PP-Module, it is not shown here as a refinement)<a id="period_110" href="#period_110">. </a></li>
+          <li>Selections are indicated with <i>italicized</i> text<a id="period_111" href="#period_111">. </a></li>
           <li>Iteration is indicated by appending the SFR name with a slash and unique identifier suggesting the
-            purpose of the iteration, e.g. ‘/VPN’ for an SFR relating to VPN gateway functionality.</li>
-          <li>Extended SFRs are identified by having a label “EXT” after the SFR name.</li>
+            purpose of the iteration, e.g<a id="period_112" href="#period_112">. </a>&#8216;/VPN&#8217; for an SFR relating to VPN gateway functionality<a id="period_113" href="#period_113">. </a></li>
+          <li>Extended SFRs are identified by having a label &#8220;EXT&#8221; after the SFR name<a id="period_114" href="#period_114">. </a></li>
         </ul>
-        Note that selections and assignments to be completed by the ST author are preceded with “selection:”
-        and “assignment:”. If text is italicized and does not include either of these, it means that the selection or
+        Note that selections and assignments to be completed by the ST author are preceded with &#8220;selection:&#8221;
+        and &#8220;assignment:&#8221;<a id="period_115" href="#period_115">. </a>If text is italicized and does not include either of these, it means that the selection or
         assignment has already been completed in this PP-Module and the ST author must use the text as
-        written. 
+        written<a id="period_116" href="#period_116">. </a>
         
             
     
@@ -937,9 +914,8 @@ The assumptions identified in Section 3 are incorporated as security objectives 
       
 	  
       When this PP-Module is used to extend the App PP, the TOE type for the overall TOE is still a software
-        application. The TOE boundary is simply extended to include redaction functionality that is provided by the
-        application.
-      
+        application<a id="period_117" href="#period_117">. </a>The TOE boundary is simply extended to include redaction functionality that is provided by the
+        application<a id="period_118" href="#period_118">. </a>      
 		
 	  
       The threats, assumptions, and organizational security policies (OSPs) defined by this PP-Module (see sections 3.1 through 3.3) supplement those
@@ -988,7 +964,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               
               <div class="element"><div class="reqid" id="FAU_ALR_EXT.1.1"><a href="#FAU_ALR_EXT.1.1" class="abbr">FAU_ALR_EXT.1.1</a></div><div class="reqdesc">
-                  The TOE must make the user aware when redaction fails for any reason. 
+                  The TOE must make the user aware when redaction fails for any reason<a id="period_119" href="#period_119">. </a>
                 </div></div>
             </div>
             
@@ -1009,12 +985,12 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   The TOE must be able to generate a report entry that contains metadata about each element that
                   was redacted, including at least the following: the type of the element that was removed, the
                   location if it was a visible element, and whether the element was selected by the user or removed
-                  automatically. 
+                  automatically<a id="period_120" href="#period_120">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">The report can be a configurable feature that is only generated on user
-                  request. Location can be a page number, a cell number for a spreadsheet, or some other
-                  indication that allows the user to easily locate the visible element. </span></div></div></div>
+                  request<a id="period_121" href="#period_121">. </a>Location can be a page number, a cell number for a spreadsheet, or some other
+                  indication that allows the user to easily locate the visible element<a id="period_122" href="#period_122">. </a></span></div></div></div>
             </div>
         
         
@@ -1031,12 +1007,11 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               
               <div class="element"><div class="reqid" id="FAU_SAR_EXT.1.1"><a href="#FAU_SAR_EXT.1.1" class="abbr">FAU_SAR_EXT.1.1</a></div><div class="reqdesc">
-                  The TOE must allow the user to access a report of the data that was redacted. 
+                  The TOE must allow the user to access a report of the data that was redacted<a id="period_123" href="#period_123">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">This can be satisfied with a dialog box or other simple list of items that were
-                  redacted. The report can be a configurable feature that is only generated on user request.
-                </span></div></div></div>
+                  redacted<a id="period_124" href="#period_124">. </a>The report can be a configurable feature that is only generated on user request<a id="period_125" href="#period_125">. </a>                </span></div></div></div>
             </div>
           
           
@@ -1058,28 +1033,26 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <div class="element"><div class="reqid" id="FDP_DID_EXT.1.1"><a href="#FDP_DID_EXT.1.1" class="abbr">FDP_DID_EXT.1.1</a></div><div class="reqdesc">
                   The TOE must identify all hidden data in the document, except remnant data and undo or
                   tracked change buffers, and allow the user to review and select each hidden data element
-                  individually for redaction.  
+                  individually for redaction<a id="period_126" href="#period_126">. </a> 
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   Remnant data and undo or tracked change buffers are removed automatically
-                  according to <a href="#FDP_RIP_EXT.1">FDP_RIP_EXT.1</a>. If the file or part of the file is encrypted, the TOE will have to
-                  reject the file or decrypt it so that the tool and the user can review the hidden data.
-                </span></div></div></div>
+                  according to <a href="#FDP_RIP_EXT.1">FDP_RIP_EXT.1</a><a id="period_127" href="#period_127">. </a>If the file or part of the file is encrypted, the TOE will have to
+                  reject the file or decrypt it so that the tool and the user can review the hidden data<a id="period_128" href="#period_128">. </a>                </span></div></div></div>
               <div class="element"><div class="reqid" id="FDP_DID_EXT.1.2"><a href="#FDP_DID_EXT.1.2" class="abbr">FDP_DID_EXT.1.2</a></div><div class="reqdesc">
-                  The TOE must identify all obscured data and must [<b>selection</b>: <i id="_s_1">remove the obscured data automatically</i>, <i id="_s_2">allow the user to redact the obscured data</i>]. 
+                  The TOE must identify all obscured data and must [<b>selection</b>: <i id="_s_1">remove the obscured data automatically</i>, <i id="_s_2">allow the user to redact the obscured data</i>]<a id="period_129" href="#period_129">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   Obscured data is anything that could be visible but is obscured in some way,
-                  such as the cropped portion of an image or graphic. While the user sees only the portion of the
-                  graphic in the view container, the document contains the data in the cropped area. The tool must
+                  such as the cropped portion of an image or graphic<a id="period_130" href="#period_130">. </a>While the user sees only the portion of the
+                  graphic in the view container, the document contains the data in the cropped area<a id="period_131" href="#period_131">. </a>The tool must
                   either remove the obscured data automatically or give the user the choice to remove or retain the
-                  obscured area.
-                </span></div></div></div>
+                  obscured area<a id="period_132" href="#period_132">. </a>                </span></div></div></div>
               <div class="element"><div class="reqid" id="FDP_DID_EXT.1.3"><a href="#FDP_DID_EXT.1.3" class="abbr">FDP_DID_EXT.1.3</a></div><div class="reqdesc">
                   The TOE must identify images where the visible representation is reduced in size or resolution
-                  from the representation stored in the file format and must [<b>selection</b>: <i id="_s_3">automatically replace the stored data with the visible representation</i>, <i id="_s_4">allow the user to replace the stored data with the visible representation</i>, <i id="_s_5">allow the user to leave the image unaltered</i>]. 
+                  from the representation stored in the file format and must [<b>selection</b>: <i id="_s_3">automatically replace the stored data with the visible representation</i>, <i id="_s_4">allow the user to replace the stored data with the visible representation</i>, <i id="_s_5">allow the user to leave the image unaltered</i>]<a id="period_133" href="#period_133">. </a>
                 </div></div>
             </div>
         
@@ -1097,17 +1070,16 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_DIN_EXT.1.1"><a href="#FDP_DIN_EXT.1.1" class="abbr">FDP_DIN_EXT.1.1</a></div><div class="reqdesc">
                   For each element of the file format that can contain its own metadata, other elements, or hidden
-                  data, the TOE must [<b>selection</b>: <i id="_s_6">recurse through the element chain and apply the PP to each layer</i>, <i id="_s_7">simplify the element</i>, <i id="_s_8">redact the element</i>].   
+                  data, the TOE must [<b>selection</b>: <i id="_s_6">recurse through the element chain and apply the PP to each layer</i>, <i id="_s_7">simplify the element</i>, <i id="_s_8">redact the element</i>]<a id="period_134" href="#period_134">. </a>  
                 <div class="appnote"><span class="note-header">Application
       Note:
-    </span><span class="note">For example, JPG images can contain metadata called EXIF data. Some image
+    </span><span class="note">For example, JPG images can contain metadata called EXIF data<a id="period_135" href="#period_135">. </a>Some image
                   formats can contain the same image in another format, such as raw which can contain a complete
-                  jpg version of the image. A complex object can contain other complex objects (e.g. Microsoft
-                  OLE). The tool must apply the requirements to each layer of every element and identify
+                  jpg version of the image<a id="period_136" href="#period_136">. </a>A complex object can contain other complex objects (e.g<a id="period_137" href="#period_137">. </a>Microsoft
+                  OLE)<a id="period_138" href="#period_138">. </a>The tool must apply the requirements to each layer of every element and identify
                   hidden/metadata not just at the top layer of the document but in each element and in all layers
-                  within that element. If the TOE cannot recurse through the layers, it must simplify the element at
-                  the top level.
-                </span></div></div></div>
+                  within that element<a id="period_139" href="#period_139">. </a>If the TOE cannot recurse through the layers, it must simplify the element at
+                  the top level<a id="period_140" href="#period_140">. </a>                </span></div></div></div>
             </div>
         
         
@@ -1124,7 +1096,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               
               <div class="element"><div class="reqid" id="FDP_LOC_EXT.1.1"><a href="#FDP_LOC_EXT.1.1" class="abbr">FDP_LOC_EXT.1.1</a></div><div class="reqdesc">
-                  The TOE must remove redacted content from every location in the file format where it is stored. 
+                  The TOE must remove redacted content from every location in the file format where it is stored<a id="period_141" href="#period_141">. </a>
                 </div></div>
             </div>
         
@@ -1144,16 +1116,14 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_NND_EXT.1.1"><a href="#FDP_NND_EXT.1.1" class="abbr">FDP_NND_EXT.1.1</a></div><div class="reqdesc">
                   The TOE itself must not introduce new hidden data that was not requested by the user without
-                  warning the user of the addition. 
+                  warning the user of the addition<a id="period_142" href="#period_142">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   If the redaction process changes the format of an object, such as converting a
-                  complex object to an image, the conversion must not introduce new metadata.
-                  <p></p>
+                  complex object to an image, the conversion must not introduce new metadata<a id="period_143" href="#period_143">. </a>                  <p></p>
                   The TOE can modify or add structural data, including fonts, without alerting the user if the
-                  modification is necessary for the proper display or print of the file.
-                </span></div></div></div>
+                  modification is necessary for the proper display or print of the file<a id="period_144" href="#period_144">. </a>                </span></div></div></div>
             </div>
             
             
@@ -1170,17 +1140,16 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_OBJ_EXT.1.1"><a href="#FDP_OBJ_EXT.1.1" class="abbr">FDP_OBJ_EXT.1.1</a></div><div class="reqdesc">
                   The TOE must remove all references and indicators in the structural data to objects that are
-                  completely redacted by the TOE. 
+                  completely redacted by the TOE<a id="period_145" href="#period_145">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   In some formats, there are references in the structural data to objects, such as
-                  a name dictionary in PDF. If an object in a PDF document, such as an image, is completely
-                  redacted (i.e. the user has selected the entire image to be redacted), then not only must the image
+                  a name dictionary in PDF<a id="period_146" href="#period_146">. </a>If an object in a PDF document, such as an image, is completely
+                  redacted (i.e<a id="period_147" href="#period_147">. </a>the user has selected the entire image to be redacted), then not only must the image
                   data be removed, but references to it in a name dictionary as well as all structural references to
-                  the image must be removed. If only part of the object is selected for redaction, then the
-                  references necessarily remain in the file since the object remains in the file.
-                </span></div></div></div>
+                  the image must be removed<a id="period_148" href="#period_148">. </a>If only part of the object is selected for redaction, then the
+                  references necessarily remain in the file since the object remains in the file<a id="period_149" href="#period_149">. </a>                </span></div></div></div>
             </div>
             
             
@@ -1198,12 +1167,10 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_REM_EXT.1.1"><a href="#FDP_REM_EXT.1.1" class="abbr">FDP_REM_EXT.1.1</a></div><div class="reqdesc">
                   All data that is either selected by the user for redaction or identified by the TOE for redaction
-                  must be removed from the document.
-                <div class="appnote"><span class="note-header">Application
+                  must be removed from the document<a id="period_150" href="#period_150">. </a>                <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">Selected content must be removed, not obscured by encryption, encoding,
-                  conversion to a proprietary format, or any other method.
-                </span></div></div></div>
+                  conversion to a proprietary format, or any other method<a id="period_151" href="#period_151">. </a>                </span></div></div></div>
             </div>
             
             
@@ -1221,12 +1188,11 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_RIP_EXT.1.1"><a href="#FDP_RIP_EXT.1.1" class="abbr">FDP_RIP_EXT.1.1</a></div><div class="reqdesc">
                   The TOE must automatically remove all remnant data, undo buffers, tracked changes buffers,
-                  multiple versions of the same object, and any buffer or cache type container of data.  
+                  multiple versions of the same object, and any buffer or cache type container of data<a id="period_152" href="#period_152">. </a> 
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
-                  The user does not have to select this data for removal.
-                </span></div></div></div>
+                  The user does not have to select this data for removal<a id="period_153" href="#period_153">. </a>                </span></div></div></div>
             </div>
             
             
@@ -1243,16 +1209,15 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_RPL_EXT.1.1"><a href="#FDP_RPL_EXT.1.1" class="abbr">FDP_RPL_EXT.1.1</a></div><div class="reqdesc">
                   The TOE must replace the visible space of redacted content in such a way that the visible space
-                  conveys no information about the previous contents. 
+                  conveys no information about the previous contents<a id="period_154" href="#period_154">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">A vendor may use several different methods to replace content, such as
-                  opaque blocks, text, whitespace or some other vendor-defined method. These methods must not
-                  convey information about the content being replaced. For example, if text is replaced with text,
-                  the replacement text must not indicate length of component words. Blocks of color used to
+                  opaque blocks, text, whitespace or some other vendor-defined method<a id="period_155" href="#period_155">. </a>These methods must not
+                  convey information about the content being replaced<a id="period_156" href="#period_156">. </a>For example, if text is replaced with text,
+                  the replacement text must not indicate length of component words<a id="period_157" href="#period_157">. </a>Blocks of color used to
                   replace parts of images must not show variations in intensity that could convey information
-                  about the image content.
-                  
+                  about the image content<a id="period_158" href="#period_158">. </a>                  
                 </span></div></div></div>
             </div>
         
@@ -1272,13 +1237,12 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               <div class="element"><div class="reqid" id="FDP_RVW_EXT.1.1"><a href="#FDP_RVW_EXT.1.1" class="abbr">FDP_RVW_EXT.1.1</a></div><div class="reqdesc">
                   The TOE must allow the user to review and select each element of visible data in whole or in
-                  part for redaction. 
+                  part for redaction<a id="period_159" href="#period_159">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   If the file or part of the file is encrypted, the TOE will have to reject the file
-                  or decrypt it so that the user can review the data.
-                </span></div></div></div>
+                  or decrypt it so that the user can review the data<a id="period_160" href="#period_160">. </a>                </span></div></div></div>
             </div>
    
             
@@ -1295,12 +1259,10 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <div class="element"><div class="reqid" id="FDP_SEL_EXT.1.1"><a href="#FDP_SEL_EXT.1.1" class="abbr">FDP_SEL_EXT.1.1</a></div><div class="reqdesc">
                   The TOE must [<b>selection</b>: <i id="_s_9">simplify</i>, <i id="_s_10">remove</i>]
                   any complex object, embedded object or graphic
-                  image which is selected for redaction.   
+                  image which is selected for redaction<a id="period_161" href="#period_161">. </a>  
                 <div class="appnote"><span class="note-header">Application
       Note:
-    </span><span class="note">The selection may be of either the whole element or only part of the element.
-                  If part of an element is selected, only that part must be simplified or removed.
-                </span></div></div></div>
+    </span><span class="note">The selection may be of either the whole element or only part of the element<a id="period_162" href="#period_162">. </a>                  If part of an element is selected, only that part must be simplified or removed<a id="period_163" href="#period_163">. </a>                </span></div></div></div>
             </div>
         
         
@@ -1324,34 +1286,30 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               
               
               <div class="element"><div class="reqid" id="FDP_VAL_EXT.1.1"><a href="#FDP_VAL_EXT.1.1" class="abbr">FDP_VAL_EXT.1.1</a></div><div class="reqdesc">
-                  The TOE must remove unrecognized data, unexpected data, and extraneous structural data.  
+                  The TOE must remove unrecognized data, unexpected data, and extraneous structural data<a id="period_164" href="#period_164">. </a> 
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">Structural data is extraneous if it is unnecessary for the printing or display of
-                  the document contents, or unnecessary for the functionality of the document.
-                  <p></p>
-                  Example - many formats include comments, e.g. PDF allows file format comments which are
-                  preceded by %. When these comments are unnecessary, unrelated to the printing or display of
-                  the content of the document, or provide no functionality whatsoever they must be removed.
-                  <p></p>
-                  Example – some formats expect a header structure starting at the first byte of a file, but a tool
+                  the document contents, or unnecessary for the functionality of the document<a id="period_165" href="#period_165">. </a>                  <p></p>
+                  Example - many formats include comments, e.g<a id="period_166" href="#period_166">. </a>PDF allows file format comments which are
+                  preceded by %<a id="period_167" href="#period_167">. </a>When these comments are unnecessary, unrelated to the printing or display of
+                  the content of the document, or provide no functionality whatsoever they must be removed<a id="period_168" href="#period_168">. </a>                  <p></p>
+                  Example &#8211; some formats expect a header structure starting at the first byte of a file, but a tool
                   may be able to interpret a file where the header starts at a later byte by ignoring the data that
-                  precedes the header structure. In this case, the preceding data must be removed since it is
-                  unexpected.
-                </span></div></div></div>
+                  precedes the header structure<a id="period_169" href="#period_169">. </a>In this case, the preceding data must be removed since it is
+                  unexpected<a id="period_170" href="#period_170">. </a>                </span></div></div></div>
               
               <div class="element"><div class="reqid" id="FDP_VAL_EXT.1.2"><a href="#FDP_VAL_EXT.1.2" class="abbr">FDP_VAL_EXT.1.2</a></div><div class="reqdesc">
-                  The TOE must [<b>selection</b>: <i id="_s_11">simplify</i>, <i id="_s_12">remove</i>] any element which it cannot completely interpret. 
+                  The TOE must [<b>selection</b>: <i id="_s_11">simplify</i>, <i id="_s_12">remove</i>] any element which it cannot completely interpret<a id="period_171" href="#period_171">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   For example, if the tool cannot recurse through a stream with embedded OLE
-                  objects, it must convert the stream to a single layer image with no metadata or remove it. If the 
+                  objects, it must convert the stream to a single layer image with no metadata or remove it<a id="period_172" href="#period_172">. </a>If the 
                   redaction tool cannot interpret or process temporal objects, it must remove the temporal object
-                  and replace it with a simplified object or other placeholder. If a stream of data is compressed,
+                  and replace it with a simplified object or other placeholder<a id="period_173" href="#period_173">. </a>If a stream of data is compressed,
                   encoded or encrypted and the redaction tool cannot uncompress, decode or decrypt the data, the
-                  tool must delete the stream.
-                </span></div></div></div>
+                  tool must delete the stream<a id="period_174" href="#period_174">. </a>                </span></div></div></div>
             </div>
             
           
@@ -1368,13 +1326,12 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <div class="element"><div class="reqid" id="FPT_FLS.1.1"><a href="#FPT_FLS.1.1" class="abbr">FPT_FLS.1.1</a></div><div class="reqdesc">
                   The TSF shall preserve a secure state when the following types of
                   failures occur: [<b>assignment</b>: 
-     <span class="assignable-content">list of types of failures in the TSF</span>]. 
+     <span class="assignable-content">list of types of failures in the TSF</span>]<a id="period_175" href="#period_175">. </a>
                 <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
                   If the redaction functionality fails for any reason, the TOE must not produce
-                  a partially redacted file.
-                </span></div></div></div>
+                  a partially redacted file<a id="period_176" href="#period_176">. </a>                </span></div></div></div>
             </div>
           
         
@@ -1390,11 +1347,11 @@ The assumptions identified in Section 3 are incorporated as security objectives 
     
       <tr><td><span id="bibCC"> [CC] </span></td><td>Common Criteria for Information Technology Security Evaluation - <ul><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
                 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5,
-              April 2017.</li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
+              April 2017<a id="period_177" href="#period_177">. </a></li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
                 2: Security Functional Components</a>, CCMB-2017-04-002, Version 3.1 Revision 5,
-              April 2017.</li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
+              April 2017<a id="period_178" href="#period_178">. </a></li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
                 3: Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1 Revision 5,
-              April 2017.</li></ul></td></tr>
+              April 2017<a id="period_179" href="#period_179">. </a></li></ul></td></tr>
       <tr><td><span id="bibAppPP"></span>[App PP]</td><td>
           <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=462&amp;id=462/">
             Protection Profile for Application Software</a>, Version 1.4, October 2021
