@@ -605,7 +605,7 @@ function showTarget(id){
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Functional Package for Transport Layer Security (TLS)</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"><br>
       Version: 1.2-draft<br>2022-08-01<br><b>National Information Assurance Partnership</b><br></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2018-12-17</td><td>First publication</td></tr>
 <tr><td>1.1</td><td>2019-03-01</td><td>Clarifications regarding override for invalid certificates,
-      renegotation_info extension, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions, and named Diffie-Hellman groups in <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
+      renegotiation_info extension, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions, and named Diffie-Hellman groups in <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
       contexts</td></tr>
 <tr><td>1.2</td><td>2022-08-01</td><td>Added audit events</td></tr>
 </table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#Compliant_Targets_of_Evaluation" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Functional_Requirements" style="text-indent:0px">3<span>Security Functional Requirements</span></a><a href="#Auditable_Events_for_Mandatory_SFRs" style="text-indent:10px">3.1<span>Auditable Events for Mandatory SFRs</span></a><a href="#fcs" style="text-indent:10px">3.2<span>Cryptographic Support (FCS)</span></a><a href="#opt-app" style="text-indent:0px">Appendix A - <span>Optional Requirements</span></a><a href="#optional-reqs" style="text-indent:10px">A.1<span>Strictly Optional  Requirements
@@ -621,11 +621,9 @@ function showTarget(id){
       <p>      
 	  Transport Layer Security (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) and the closely-related Datagram <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (<abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>) are
     cryptographic protocols designed to provide communications security over <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> networks<a id="period_0" href="#period_0">. </a>    Several versions of the protocol are in widespread use in software that provides functionality
-    such as web browsing, email, instant messaging, and voice-over-IP
-	  (VoIP)<a id="period_1" href="#period_1">. </a>Major web sites use <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> to protect communications to
-	  and from their servers<a id="period_2" href="#period_2">. </a><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> is also used to protect communications between
-	  hosts and network infrastructure devices for administration<a id="period_3" href="#period_3">. </a>    The underlying platform, such as an operating system, often provides the
-    actual <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation<a id="period_4" href="#period_4">. </a> The primary goal of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> protocol is to
+    such as web browsing, email, instant messaging, and voice-over-IP (VoIP)<a id="period_1" href="#period_1">. </a>    Major web sites use <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> to protect communications to and from their servers<a id="period_2" href="#period_2">. </a>    <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> is also used to protect communications between
+    hosts and network infrastructure devices for administration<a id="period_3" href="#period_3">. </a>    The underlying platform, such as an operating system, often provides the
+    actual <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation<a id="period_4" href="#period_4">. </a>    The primary goal of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> protocol is to
     provide confidentiality and integrity of data transmitted
     between two communicating endpoints, as well as authentication of at least
     the server endpoint<a id="period_5" href="#period_5">. </a>    </p><p>
@@ -922,7 +920,7 @@ are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> i
               [<b>selection</b>: <span class="selectable-content" id="_s_5"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1 (<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346)</span>,  <span class="selectable-content" id="_s_6">no earlier <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions</span> ] as a client that supports the cipher suites
           [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_7">TLS_RSA_WITH_AES_128_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_8">TLS_RSA_WITH_AES_256_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_9">TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_10">TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_11">TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="_s_12">TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="trsadhe1">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="trsadhe2">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="trsadhe2_5">TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="trsadhe3">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="tecdhe1">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe2">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe3">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe4">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe5">TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe6">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe7">TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe8">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li></ul>]
           and also supports functionality for 
-          [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="tlsc_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="tlsc_reneg">session renegotiation</span></li><li style=""><span class="selectable-content" id="tlsc_resump_ids">session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (TLS1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (TLS1.2)</span></li><li style=""><span class="selectable-content" id="tlsc_resump_tickets">session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077</span></li><li style=""><span class="selectable-content" id="tlsc_noresump">no session resumption or session tickets</span></li><li style=""><span class="selectable-content" id="_s_30">none</span></li></ul>]<a id="period_105" href="#period_105">. </a>          <div class="appnote"><span class="note-header">Application
+          [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="tlsc_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="tlsc_reneg">session renegotiation</span></li><li style=""><span class="selectable-content" id="tlsc_resump_ids">session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2)</span></li><li style=""><span class="selectable-content" id="tlsc_resump_tickets">session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077</span></li><li style=""><span class="selectable-content" id="tlsc_noresump">no session resumption or session tickets</span></li><li style=""><span class="selectable-content" id="_s_30">none</span></li></ul>]<a id="period_105" href="#period_105">. </a>          <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
         The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should select the cipher suites that are supported,
@@ -949,7 +947,7 @@ are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> i
         If <i>session renegotiation</i> is selected, then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must additionally include 
         the requirements from <a href="#FCS_TLSC_EXT.4">FCS_TLSC_EXT.4</a><a id="period_117" href="#period_117">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements
         session renegotiation, this selection must be made<a id="period_118" href="#period_118">. </a>
-	<p>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption or session tickets, select <a href="#tlsc_noresump">no session resumption or session tickets</a><a id="period_119" href="#period_119">. </a> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (TLS1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (TLS1.2), select <a href="#tlsc_resump_ids">session resumption based on session IDs according to RFC 4346 (TLS1.1) or RFC 5246 (TLS1.2)</a><a id="period_120" href="#period_120">. </a> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, select <a href="#tlsc_resump_tickets">session resumption based on session tickets according to RFC 5077</a><a id="period_121" href="#period_121">. </a>	</p>
+	<p>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption or session tickets, select <a href="#tlsc_noresump">no session resumption or session tickets</a><a id="period_119" href="#period_119">. </a> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2), select <a href="#tlsc_resump_ids">session resumption based on session IDs according to RFC 4346 (TLS 1.1) or RFC 5246 (TLS 1.2)</a><a id="period_120" href="#period_120">. </a> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, select <a href="#tlsc_resump_tickets">session resumption based on session tickets according to RFC 5077</a><a id="period_121" href="#period_121">. </a>	</p>
 
 	    </span></div></div></div>
           <div class="element"><div class="reqid" id="FCS_TLSC_EXT.1.2"><a href="#FCS_TLSC_EXT.1.2" class="abbr">FCS_TLSC_EXT.1.2</a></div><div class="reqdesc"> The product shall verify that the presented identifier matches the reference
@@ -1021,7 +1019,7 @@ are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> i
               <ul>
                 <li><b>Test 1: </b>
 		  <ul>
-		    <li><b>Test 1.1: </b>The evaluator shall demonstrate that a server using a certifcate with a valid certification path successfully connects<a id="period_143" href="#period_143">. </a></li>
+		    <li><b>Test 1.1: </b>The evaluator shall demonstrate that a server using a certificate with a valid certification path successfully connects<a id="period_143" href="#period_143">. </a></li>
 
 		    <li><b>Test 1.2: </b>The evaluator shall modify the certificate chain used by the server in test 1a to be invalid and demonstrate that a server using a certificate without a valid certification path to a trust store element of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> results in an authentication failure<a id="period_144" href="#period_144">. </a></li>
 
@@ -1443,7 +1441,7 @@ during handshake<a id="period_230" href="#period_230">. </a>
 
 		    <li><b>Test 4.3[conditional]: </b>
 		      
-		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption based on session IDs according to RFC4346 (TLS1.1) or RFC5246 (TLS1.2) or session tickets according to RFC5077, the evaluator shall perform the following test:
+		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2) or session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, the evaluator shall perform the following test:
 		    <ol type="a">
 		      <li>The evaluator shall send a Client Hello with a zero-length session identifier and with a SessionTicket extension containing a zero-length ticket<a id="period_290" href="#period_290">. </a></li>
 		      <li>The evaluator shall verify the server does not send a NewSessionTicket handshake message (at any point in the handshake)<a id="period_291" href="#period_291">. </a></li>
@@ -1457,7 +1455,7 @@ during handshake<a id="period_230" href="#period_230">. </a>
 
 		    <li><b>Test 4.4[conditional]: </b>
 		      
-		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption using session IDs according to RFC4346 (TLS1.1) or RFC5246 (TLS1.2), the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
+		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption using session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2), the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
 		      <ol type="a">
 			<li>The evaluator shall conduct a successful handshake and capture the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>-generated session ID in the Server Hello message<a id="period_297" href="#period_297">. </a>The evaluator shall then initiate a new <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> connection and send the previously captured session ID to show that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> resumed the previous session by responding with ServerHello containing the same SessionID immediately followed by ChangeCipherSpec and Finished messages (as shown in Figure 2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246)<a id="period_298" href="#period_298">. </a></li>
 
@@ -1467,7 +1465,7 @@ during handshake<a id="period_230" href="#period_230">. </a>
 
 		    <li><b>Test 4.5[conditional]: </b>
 		      
-		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session tickets according to RFC5077, the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
+		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
 		      <ol type="a">
 			
 			<li>The evaluator shall permit a successful <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> handshake to occur in which a session ticket is exchanged with the non-TOE client<a id="period_302" href="#period_302">. </a>The evaluator shall then attempt to correctly reuse the previous session by sending the session ticket in the ClientHello<a id="period_303" href="#period_303">. </a>The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> responds with a ServerHello with an empty SessionTicket extension, NewSessionTicket, ChangeCipherSpec and Finished messages (as seen in figure 2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077)<a id="period_304" href="#period_304">. </a></li>
@@ -1563,232 +1561,234 @@ during handshake<a id="period_230" href="#period_230">. </a>
               domain name, <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address, username, or email address used by
               the client, or may be passed to a directory server for comparison<a id="period_337" href="#period_337">. </a>              In the latter case, the matching itself may be performed outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a id="period_338" href="#period_338">. </a>            </span></div></div></div>
 	  
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.1">FCS_TLSS_EXT.2.1</a></div>
+	      Testing of this element is done in conjunction with <a id="period_339" href="#period_339">. </a>	      
+	    <div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a></div>
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
               The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description required per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1
-              includes the use of client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual authentication<a id="period_339" href="#period_339">. </a>	      </div>
+              includes the use of client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual authentication<a id="period_340" href="#period_340">. </a>	      </div>
               <div class="eacategory">Guidance</div><div class="ea">
               The evaluator shall verify that the AGD guidance required per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1
               includes instructions for configuring the client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual
-              authentication<a id="period_340" href="#period_340">. </a> The evaluator shall ensure that the AGD guidance
+              authentication<a id="period_341" href="#period_341">. </a> The evaluator shall ensure that the AGD guidance
               includes instructions for configuring the server to require
-              mutual authentication of clients using these certificates<a id="period_341" href="#period_341">. </a>	      </div>
+              mutual authentication of clients using these certificates<a id="period_342" href="#period_342">. </a>	      </div>
               <div class="eacategory">Tests</div><div class="ea">
 	      The evaluator shall use <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a function to verify that the validation rules in
-	      <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.1 are adhered to and shall perform the following tests<a id="period_342" href="#period_342">. </a>        The evaluator shall apply the AGD guidance to configure the server
+	      <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.1 are adhered to and shall perform the following tests<a id="period_343" href="#period_343">. </a>        The evaluator shall apply the AGD guidance to configure the server
         to require <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual authentication of clients for the following tests,
         unless overridden by instructions in the test activity:
               <ul>
                 <li><b>Test 1: </b>
                   The evaluator shall configure the server to send a certificate request
-                  to the client<a id="period_343" href="#period_343">. </a> 
-                  The client shall send a certificate_list structure which has a length of zero<a id="period_344" href="#period_344">. </a>The evaluator
-                  shall verify that the handshake is not finished successfully and no application data flows<a id="period_345" href="#period_345">. </a>                </li>
+                  to the client<a id="period_344" href="#period_344">. </a> 
+                  The client shall send a certificate_list structure which has a length of zero<a id="period_345" href="#period_345">. </a>The evaluator
+                  shall verify that the handshake is not finished successfully and no application data flows<a id="period_346" href="#period_346">. </a>                </li>
                 <li><b>Test 2: </b>
                   The evaluator shall configure the server to send a certificate request
-                  to the client<a id="period_346" href="#period_346">. </a> 
+                  to the client<a id="period_347" href="#period_347">. </a> 
                   The client shall send no client certificate message, and instead send a client key exchange
-                  message in an attempt to continue the handshake<a id="period_347" href="#period_347">. </a>The evaluator shall verify that the handshake is
-                  not finished successfully and no application data flows<a id="period_348" href="#period_348">. </a>                </li>
+                  message in an attempt to continue the handshake<a id="period_348" href="#period_348">. </a>The evaluator shall verify that the handshake is
+                  not finished successfully and no application data flows<a id="period_349" href="#period_349">. </a>                </li>
                 <li><b>Test 3: </b>
                   The evaluator shall configure the server to send a certificate request
                   to the client without the supported_signature_algorithm used by the client&#8217;s
-                  certificate<a id="period_349" href="#period_349">. </a>The evaluator shall attempt a connection using the client
+                  certificate<a id="period_350" href="#period_350">. </a>The evaluator shall attempt a connection using the client
                   certificate and verify that the handshake is not finished successfully
-                  and no application data flows<a id="period_350" href="#period_350">. </a>                </li>
+                  and no application data flows<a id="period_351" href="#period_351">. </a>                </li>
                 <li><b>Test 4: </b>
                   The evaluator shall demonstrate that using a certificate without a
-                  valid certification path results in the function failing<a id="period_351" href="#period_351">. </a>Using the
+                  valid certification path results in the function failing<a id="period_352" href="#period_352">. </a>Using the
                   administrative guidance, the evaluator shall then load a certificate or
                   certificates needed to validate the certificate to be used in the function, and
-                  demonstrate that the function succeeds<a id="period_352" href="#period_352">. </a>The evaluator then shall delete one
-                  of the certificates, and show that the function fails<a id="period_353" href="#period_353">. </a>                </li>
+                  demonstrate that the function succeeds<a id="period_353" href="#period_353">. </a>The evaluator then shall delete one
+                  of the certificates, and show that the function fails<a id="period_354" href="#period_354">. </a>                </li>
                 <li><b>Test 5: </b>
                   The aim of this test is to check the response of the server
                   when it receives a client identity  certificate that is signed
-                  by an impostor <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> (either Root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> or intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>)<a id="period_354" href="#period_354">. </a>To
+                  by an impostor <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> (either Root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> or intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>)<a id="period_355" href="#period_355">. </a>To
                   carry out this test the  evaluator shall configure the client
                   to send a client identity certificate with an issuer field
-                  that identifies a  <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> recognised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>,
+                  that identifies a  <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> recognized by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>,
                   but where the key used for the signature on the client
                   certificate  does not in fact correspond to the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate
                   trusted by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (meaning that the client certificate is
                   invalid  because  its  certification  path  does  not  in
-                  fact  terminate  in  the  claimed  <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>  certificate)<a id="period_355" href="#period_355">. </a> The
+                  fact  terminate  in  the  claimed  <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>  certificate)<a id="period_356" href="#period_356">. </a> The
                   evaluator shall verify that the attempted connection is
-                  denied<a id="period_356" href="#period_356">. </a>                </li>
+                  denied<a id="period_357" href="#period_357">. </a>                </li>
                 <li><b>Test 6: </b>
                   The evaluator shall configure the client to send a certificate with the
                   Client Authentication purpose in the extendedKeyUsage field and verify that
-                  the server accepts the attempted connection<a id="period_357" href="#period_357">. </a>The evaluator shall repeat this
+                  the server accepts the attempted connection<a id="period_358" href="#period_358">. </a>The evaluator shall repeat this
                   test without the Client Authentication purpose and shall verify that the server
-                  denies the connection<a id="period_358" href="#period_358">. </a>Ideally, the two certificates should be identical except
-                  for the Client Authentication purpose<a id="period_359" href="#period_359">. </a>                </li>
+                  denies the connection<a id="period_359" href="#period_359">. </a>Ideally, the two certificates should be identical except
+                  for the Client Authentication purpose<a id="period_360" href="#period_360">. </a>                </li>
                 <li><b>Test 7: </b>
                   The evaluator shall perform the following modifications to the traffic:
                   a) Configure the server to require mutual authentication and then
-                  modify a byte in the client&#8217;s certificate<a id="period_360" href="#period_360">. </a>The evaluator shall verify
-                  that the server rejects the connection<a id="period_361" href="#period_361">. </a>                  b) Configure the server to require mutual authentication and then
-                  modify a byte in the signature block of the client&#8217;s Certificate Verify handshake message<a id="period_362" href="#period_362">. </a>                  The evaluator shall verify that the server rejects the connection<a id="period_363" href="#period_363">. </a>                </li>
+                  modify a byte in the client&#8217;s certificate<a id="period_361" href="#period_361">. </a>The evaluator shall verify
+                  that the server rejects the connection<a id="period_362" href="#period_362">. </a>                  b) Configure the server to require mutual authentication and then
+                  modify a byte in the signature block of the client&#8217;s Certificate Verify handshake message<a id="period_363" href="#period_363">. </a>                  The evaluator shall verify that the server rejects the connection<a id="period_364" href="#period_364">. </a>                </li>
               </ul>
 	      </div>
             <div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.3">FCS_TLSS_EXT.2.3</a></div>
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
               If the product implements mutual authentication, the evaluator shall
               verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_SAN">SAN</a></abbr> in the certificate
-              is compared to the expected identifier<a id="period_364" href="#period_364">. </a>	      </div>
+              is compared to the expected identifier<a id="period_365" href="#period_365">. </a>	      </div>
               <div class="eacategory">Guidance</div><div class="ea">
               If the <abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr> is not compared automatically to the domain name,
               <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address, username, or email address, the evaluator shall
               ensure that the AGD guidance includes configuration of the
-              expected identifier or the directory server for the connection<a id="period_365" href="#period_365">. </a>	      </div>
+              expected identifier or the directory server for the connection<a id="period_366" href="#period_366">. </a>	      </div>
               <div class="eacategory">Tests</div><div class="ea">
               <ul>
                 <li><b>Test 1: </b>
                   The evaluator shall send a client certificate with an identifier that does not match any of the
-                  expected identifiers and verify that the server denies the connection<a id="period_366" href="#period_366">. </a>The matching itself
-                  might be performed outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (e.g<a id="period_367" href="#period_367">. </a>when passing the certificate on to a directory server
-                  for comparison)<a id="period_368" href="#period_368">. </a>                </li>
+                  expected identifiers and verify that the server denies the connection<a id="period_367" href="#period_367">. </a>The matching itself
+                  might be performed outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (e.g<a id="period_368" href="#period_368">. </a>when passing the certificate on to a directory server
+                  for comparison)<a id="period_369" href="#period_369">. </a>                </li>
               </ul>
 	      </div>
             </div></div></div><div class="comp" id="FCS_TLSS_EXT.4"><h4>FCS_TLSS_EXT.4 TLS Server Support for Renegotiation</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
-           <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a><a id="period_369" href="#period_369">. </a>           </i></b></div>
+           <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a><a id="period_370" href="#period_370">. </a>           </i></b></div>
     
           <div class="element"><div class="reqid" id="FCS_TLSS_EXT.4.1"><a href="#FCS_TLSS_EXT.4.1" class="abbr">FCS_TLSS_EXT.4.1</a></div><div class="reqdesc">The product shall support the "renegotiation_info" <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> extension
-              in accordance with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5746<a id="period_370" href="#period_370">. </a>            </div></div>
+              in accordance with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5746<a id="period_371" href="#period_371">. </a>            </div></div>
           <div class="element"><div class="reqid" id="FCS_TLSS_EXT.4.2"><a href="#FCS_TLSS_EXT.4.2" class="abbr">FCS_TLSS_EXT.4.2</a></div><div class="reqdesc">The product shall include the renegotiation_info extension in
-              ServerHello messages<a id="period_371" href="#period_371">. </a>            <div class="appnote"><span class="note-header">Application
+              ServerHello messages<a id="period_372" href="#period_372">. </a>            <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
               <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5746 defines an extension to <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> that binds renegotiation
-              handshakes to the cryptography in the original handshake<a id="period_372" href="#period_372">. </a>	    </span></div></div></div>
+              handshakes to the cryptography in the original handshake<a id="period_373" href="#period_373">. </a>	    </span></div></div></div>
 	
 	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_TLSS_EXT.4">FCS_TLSS_EXT.4</a></div>
         
 	    <div class="eacategory">Tests</div><div class="ea">
 	      The following tests require connection with a client that supports secure
-        renegotiation and the "renegotiation_info" extension<a id="period_373" href="#period_373">. </a>	      <ul>
+        renegotiation and the "renegotiation_info" extension<a id="period_374" href="#period_374">. </a>	      <ul>
 		<li><b>Test 1: </b>The evaluator shall use a network packet analyzer/sniffer to capture
-      the traffic between the two <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> endpoints<a id="period_374" href="#period_374">. </a> The evaluator shall verify that
-      the &#8220;renegotiation_info&#8221; field is included in the ServerHello message<a id="period_375" href="#period_375">. </a>
+      the traffic between the two <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> endpoints<a id="period_375" href="#period_375">. </a> The evaluator shall verify that
+      the &#8220;renegotiation_info&#8221; field is included in the ServerHello message<a id="period_376" href="#period_376">. </a>
 		</li>
 		<li><b>Test 2: </b>The evaluator shall modify the length portion of the field in the
       ClientHello message in the initial handshake to be non-zero and verify that
-      the server sends a failure and terminates the connection<a id="period_376" href="#period_376">. </a> The evaluator
-      shall verify that a properly formatted field results in a successful <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> connection<a id="period_377" href="#period_377">. </a>		</li>
+      the server sends a failure and terminates the connection<a id="period_377" href="#period_377">. </a> The evaluator
+      shall verify that a properly formatted field results in a successful <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> connection<a id="period_378" href="#period_378">. </a>		</li>
 		<li><b>Test 3: </b>The evaluator shall modify the "client_verify_data" or "server_verify_data"
       value in the ClientHello message received during secure renegotiation and
-      verify that the server terminates the connection<a id="period_378" href="#period_378">. </a>		</li>
+      verify that the server terminates the connection<a id="period_379" href="#period_379">. </a>		</li>
 	      </ul>
 	</div></div></div></div><div class="comp" id="FCS_DTLSC_EXT.1"><h4>FCS_DTLSC_EXT.1 DTLS Client Protocol</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
-           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a><a id="period_379" href="#period_379">. </a>           </i></b></div>
+           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a><a id="period_380" href="#period_380">. </a>           </i></b></div>
     
     <div class="element"><div class="reqid" id="FCS_DTLSC_EXT.1.1"><a href="#FCS_DTLSC_EXT.1.1" class="abbr">FCS_DTLSC_EXT.1.1</a></div><div class="reqdesc">The product shall implement <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.2 (<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347) and
       [<b>selection</b>: <span class="selectable-content" id="_s_96"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 (<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347)</span>,  <span class="selectable-content" id="_s_97">no earlier <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions</span> ] as a client that supports the cipher suites
     [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_98">TLS_RSA_WITH_AES_128_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_99">TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_100">TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_101">TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="drsadhe1">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="drsadhe2">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="drsadhe3">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="decdhe1">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe2">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe3">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe4">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe5">TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe6">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe7">TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="decdhe8">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li></ul>]
       and also supports functionality for 
-      [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="dtlsc_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="_s_114">none</span></li></ul>]<a id="period_380" href="#period_380">. </a>      <div class="appnote"><span class="note-header">Application
+      [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="dtlsc_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="_s_114">none</span></li></ul>]<a id="period_381" href="#period_381">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
       If any <abbr class="dyn-abbr"><a href="#abbr_ECDHE">ECDHE</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_DHE">DHE</a></abbr> cipher suites are selected, then
-      <a href="#FCS_TLSC_EXT.5">FCS_TLSC_EXT.5</a> is required<a id="period_381" href="#period_381">. </a>      <br><br>
+      <a href="#FCS_TLSC_EXT.5">FCS_TLSC_EXT.5</a> is required<a id="period_382" href="#period_382">. </a>      <br><br>
       If <i>mutual authentication</i> is selected, then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must additionally include 
-      the requirements from <a href="#FCS_DTLSC_EXT.2">FCS_DTLSC_EXT.2</a><a id="period_382" href="#period_382">. </a>      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements
-      mutual authentication, this selection must be made<a id="period_383" href="#period_383">. </a>      <br><br>
+      the requirements from <a href="#FCS_DTLSC_EXT.2">FCS_DTLSC_EXT.2</a><a id="period_383" href="#period_383">. </a>      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements
+      mutual authentication, this selection must be made<a id="period_384" href="#period_384">. </a>      <br><br>
       Differences between <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.2 and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 are outlined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347; otherwise the
-      protocols are the same<a id="period_384" href="#period_384">. </a>      All application notes listed for <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a> that are relevant
-      to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_385" href="#period_385">. </a>    </span></div></div></div>
+      protocols are the same<a id="period_385" href="#period_385">. </a>      All application notes listed for <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a> that are relevant
+      to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_386" href="#period_386">. </a>    </span></div></div></div>
 
     <div class="element"><div class="reqid" id="FCS_DTLSC_EXT.1.2"><a href="#FCS_DTLSC_EXT.1.2" class="abbr">FCS_DTLSC_EXT.1.2</a></div><div class="reqdesc"> The product shall verify that the presented identifier matches the reference
-        identifier according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6125<a id="period_386" href="#period_386">. </a><div class="appnote"><span class="note-header">Application
+        identifier according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6125<a id="period_387" href="#period_387">. </a><div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
           All application notes listed for <a href="#FCS_TLSC_EXT.1.2">FCS_TLSC_EXT.1.2</a> that are relevant
-          to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_387" href="#period_387">. </a>        </span></div></div></div>
+          to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_388" href="#period_388">. </a>        </span></div></div></div>
 
     <div class="element"><div class="reqid" id="FCS_DTLSC_EXT.1.3"><a href="#FCS_DTLSC_EXT.1.3" class="abbr">FCS_DTLSC_EXT.1.3</a></div><div class="reqdesc">The product shall not establish a trusted channel if the
         server certificate is invalid
-        [<b>selection</b>: <span class="selectable-content" id="_s_115">with no exceptions</span>,  <span class="selectable-content" id="_s_116">except when override is authorized</span> ]<a id="period_388" href="#period_388">. </a>      <div class="appnote"><span class="note-header">Application
+        [<b>selection</b>: <span class="selectable-content" id="_s_115">with no exceptions</span>,  <span class="selectable-content" id="_s_116">except when override is authorized</span> ]<a id="period_389" href="#period_389">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
         All application notes listed for <a href="#FCS_TLSC_EXT.1.3">FCS_TLSC_EXT.1.3</a> that are relevant
-        to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_389" href="#period_389">. </a>      </span></div></div></div>
+        to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_390" href="#period_390">. </a>      </span></div></div></div>
     <div class="element"><div class="reqid" id="FCS_DTLSC_EXT.1.4"><a href="#FCS_DTLSC_EXT.1.4" class="abbr">FCS_DTLSC_EXT.1.4</a></div><div class="reqdesc">The product shall
     [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_117">terminate the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session</span>,  <span class="selectable-content" id="_s_118">silently discard the record</span> ]
     if a message received contains an invalid MAC or if decryption fails in the case of <abbr class="dyn-abbr"><a href="#abbr_GCM">GCM</a></abbr> and other
-    AEAD ciphersuites<a id="period_390" href="#period_390">. </a>    </div></div>
+    AEAD ciphersuites<a id="period_391" href="#period_391">. </a>    </div></div>
  	 
   <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_DTLSC_EXT.1">FCS_DTLSC_EXT.1</a></div>
         
       <div class="eacategory">Tests</div><div class="ea">
-          The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.1.3">FCS_TLSC_EXT.1.3</a><a id="period_391" href="#period_391">. </a>	</div><div class="element-activity-header"><a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a></div>
+          The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.1.3">FCS_TLSC_EXT.1.3</a><a id="period_392" href="#period_392">. </a>	</div><div class="element-activity-header"><a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a></div>
 	<div class="eacategory">Tests</div><div class="ea">
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.1.1">FCS_TLSC_EXT.1.1</a>,
-        but ensuring that <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> (and not <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) is used in each evaluation activity<a id="period_392" href="#period_392">. </a>        <br><br>
+        but ensuring that <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> (and not <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) is used in each evaluation activity<a id="period_393" href="#period_393">. </a>        <br><br>
         For tests which involve version numbers, note that in <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> the on-the-wire representation
-        is the 1's complement of the corresponding textual <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version numbers<a id="period_393" href="#period_393">. </a>This is described in
-        Section 4.1 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347 and <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347<a id="period_394" href="#period_394">. </a> For example, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 is represented by the bytes 0xfe 0xff,
-        while the undefined <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.4 would be represented by the bytes 0xfe 0xfb<a id="period_395" href="#period_395">. </a>	</div>
+        is the 1's complement of the corresponding textual <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version numbers<a id="period_394" href="#period_394">. </a>This is described in
+        Section 4.1 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347 and <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347<a id="period_395" href="#period_395">. </a> For example, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 is represented by the bytes 0xfe 0xff,
+        while the undefined <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.4 would be represented by the bytes 0xfe 0xfb<a id="period_396" href="#period_396">. </a>	</div>
       <div class="element-activity-header"><a href="#FCS_DTLSC_EXT.1.2">FCS_DTLSC_EXT.1.2</a></div>
       <div class="eacategory">Tests</div><div class="ea">
 	The evaluator shall perform the evaluation activities listed for
-	<a href="#FCS_TLSC_EXT.1.2">FCS_TLSC_EXT.1.2</a><a id="period_396" href="#period_396">. </a>      </div>
+	<a href="#FCS_TLSC_EXT.1.2">FCS_TLSC_EXT.1.2</a><a id="period_397" href="#period_397">. </a>      </div>
       <div class="element-activity-header"><a href="#FCS_DTLSC_EXT.1.4">FCS_DTLSC_EXT.1.4</a></div>
       <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
       The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions that take place if a message
-      received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server fails the MAC integrity check<a id="period_397" href="#period_397">. </a>      </div>
+      received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server fails the MAC integrity check<a id="period_398" href="#period_398">. </a>      </div>
       <div class="eacategory">Tests</div><div class="ea">
-      The evaluator shall establish a connection using a server<a id="period_398" href="#period_398">. </a>The evaluator will then modify
+      The evaluator shall establish a connection using a server<a id="period_399" href="#period_399">. </a>The evaluator will then modify
       at least one byte in a record message, and verify that the client discards the record or
-      terminates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session<a id="period_399" href="#period_399">. </a>      </div>
+      terminates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session<a id="period_400" href="#period_400">. </a>      </div>
     </div></div></div><div class="comp" id="FCS_DTLSC_EXT.2"><h4>FCS_DTLSC_EXT.2 DTLS Client Support for Mutual Authentication</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
-           <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a><a id="period_400" href="#period_400">. </a>           </i></b></div>
+           <a href="#FCS_DTLSC_EXT.1.1">FCS_DTLSC_EXT.1.1</a><a id="period_401" href="#period_401">. </a>           </i></b></div>
     
           <div class="element"><div class="reqid" id="FCS_DTLSC_EXT.2.1"><a href="#FCS_DTLSC_EXT.2.1" class="abbr">FCS_DTLSC_EXT.2.1</a></div><div class="reqdesc">
-              The product shall support mutual authentication using X.509v3 certificates<a id="period_401" href="#period_401">. </a>            <div class="appnote"><span class="note-header">Application
+              The product shall support mutual authentication using X.509v3 certificates<a id="period_402" href="#period_402">. </a>            <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
               All application notes listed for <a href="#FCS_TLSC_EXT.2.1">FCS_TLSC_EXT.2.1</a> that are relevant
-              to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_402" href="#period_402">. </a>      </span></div></div></div>
+              to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_403" href="#period_403">. </a>      </span></div></div></div>
 	  
   <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_DTLSC_EXT.2">FCS_DTLSC_EXT.2</a></div>
 	
       <div class="eacategory">Tests</div><div class="ea">
-          The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.2.1">FCS_TLSC_EXT.2.1</a><a id="period_403" href="#period_403">. </a>	</div></div></div></div><div class="comp" id="FCS_DTLSS_EXT.1"><h4>FCS_DTLSS_EXT.1 DTLS Server Protocol</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
-           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a><a id="period_404" href="#period_404">. </a>           </i></b></div>
+          The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSC_EXT.2.1">FCS_TLSC_EXT.2.1</a><a id="period_404" href="#period_404">. </a>	</div></div></div></div><div class="comp" id="FCS_DTLSS_EXT.1"><h4>FCS_DTLSS_EXT.1 DTLS Server Protocol</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+           <a href="#FCS_TLS_EXT.1.1">FCS_TLS_EXT.1.1</a><a id="period_405" href="#period_405">. </a>           </i></b></div>
     
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.1.1"><a href="#FCS_DTLSS_EXT.1.1" class="abbr">FCS_DTLSS_EXT.1.1</a></div><div class="reqdesc">The product shall implement <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.2 (<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347) and
       [<b>selection</b>: <span class="selectable-content" id="_s_119"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 (<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347)</span>,  <span class="selectable-content" id="_s_120">no earlier <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions</span> ]
         as a server that supports the ciphersuites
         [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_121">TLS_RSA_WITH_AES_128_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_122">TLS_RSA_WITH_AES_256_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_123">TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_124">TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_125">TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="_s_126">TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="_s_127">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_128">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_129">TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="_s_130">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="_s_131">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_132">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_133">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_134">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_135">TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_136">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_137">TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="_s_138">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li></ul>] and no other cipher suites,
         and also supports functionality for
-        [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="dtlss_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="_s_140">none</span></li></ul>]<a id="period_405" href="#period_405">. </a>      <div class="appnote"><span class="note-header">Application
+        [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="dtlss_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="_s_140">none</span></li></ul>]<a id="period_406" href="#period_406">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
       If <i>mutual authentication</i> is selected, then the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must additionally include
-      the requirements from <a href="#FCS_DTLSS_EXT.2">FCS_DTLSS_EXT.2</a><a id="period_406" href="#period_406">. </a> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements
-      mutual authentication, this selection must be made<a id="period_407" href="#period_407">. </a>      <br><br>
+      the requirements from <a href="#FCS_DTLSS_EXT.2">FCS_DTLSS_EXT.2</a><a id="period_407" href="#period_407">. </a> If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements
+      mutual authentication, this selection must be made<a id="period_408" href="#period_408">. </a>      <br><br>
       All application notes listed for <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a> that are relevant
-      to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_408" href="#period_408">. </a>      </span></div></div></div>
+      to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_409" href="#period_409">. </a>      </span></div></div></div>
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.1.2"><a href="#FCS_DTLSS_EXT.1.2" class="abbr">FCS_DTLSS_EXT.1.2</a></div><div class="reqdesc">The product shall deny connections from clients requesting
         [<b>assignment</b>: 
-     <span class="assignable-content">list of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> protocol versions</span>]<a id="period_409" href="#period_409">. </a>      <div class="appnote"><span class="note-header">Application
+     <span class="assignable-content">list of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> protocol versions</span>]<a id="period_410" href="#period_410">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">Any specific <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version
-        not selected in <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a> should be assigned here<a id="period_410" href="#period_410">. </a>        This version of the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not require the server to deny <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0, and if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-        supports <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 then "none" can be assigned<a id="period_411" href="#period_411">. </a>In a future version of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>,
-        <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 will be required to be denied<a id="period_412" href="#period_412">. </a>      </span></div></div></div>
+        not selected in <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a> should be assigned here<a id="period_411" href="#period_411">. </a>        This version of the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not require the server to deny <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0, and if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+        supports <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 then "none" can be assigned<a id="period_412" href="#period_412">. </a>In a future version of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>,
+        <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 will be required to be denied<a id="period_413" href="#period_413">. </a>      </span></div></div></div>
 
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.1.3"><a href="#FCS_DTLSS_EXT.1.3" class="abbr">FCS_DTLSS_EXT.1.3</a></div><div class="reqdesc">
-        The product shall not proceed with a connection handshake attempt if the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client fails validation<a id="period_413" href="#period_413">. </a>      <div class="appnote"><span class="note-header">Application
+        The product shall not proceed with a connection handshake attempt if the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client fails validation<a id="period_414" href="#period_414">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
         The process to validate the <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address of a <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client is specified in section 4.2.1 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347 (<abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.2) and
-        <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347 (<abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0)<a id="period_414" href="#period_414">. </a>The server validates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client during Connection Establishment (Handshaking) and prior
-        to sending a Server Hello message<a id="period_415" href="#period_415">. </a>After receiving a ClientHello, the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server sends a
-        HelloVerifyRequest along with a cookie<a id="period_416" href="#period_416">. </a>The cookie is a signed message using a keyed hash function<a id="period_417" href="#period_417">. </a>The <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
-        Client then sends another ClientHello with the cookie attached<a id="period_418" href="#period_418">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
-        server successfully verifies the signed cookie, the Client is not using a spoofed <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address<a id="period_419" href="#period_419">. </a>      </span></div></div></div>
+        <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347 (<abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0)<a id="period_415" href="#period_415">. </a>The server validates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client during Connection Establishment (Handshaking) and prior
+        to sending a Server Hello message<a id="period_416" href="#period_416">. </a>After receiving a ClientHello, the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server sends a
+        HelloVerifyRequest along with a cookie<a id="period_417" href="#period_417">. </a>The cookie is a signed message using a keyed hash function<a id="period_418" href="#period_418">. </a>The <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
+        Client then sends another ClientHello with the cookie attached<a id="period_419" href="#period_419">. </a>If the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
+        server successfully verifies the signed cookie, the Client is not using a spoofed <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address<a id="period_420" href="#period_420">. </a>      </span></div></div></div>
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.1.4"><a href="#FCS_DTLSS_EXT.1.4" class="abbr">FCS_DTLSS_EXT.1.4</a></div><div class="reqdesc">The product shall perform key establishment for <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> using
         [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_141"><abbr class="dyn-abbr"><a href="#abbr_RSA">RSA</a></abbr> with size
             [<b>selection</b>: <span class="selectable-content" id="_s_142">2048 bits</span>,  <span class="selectable-content" id="_s_143">3072 bits</span>,  <span class="selectable-content" id="_s_144">4096 bits</span>,  <span class="selectable-content" id="_s_145">no other sizes</span> ]
@@ -1797,98 +1797,98 @@ during handshake<a id="period_230" href="#period_230">. </a>
           </span></li><li style=""><span class="selectable-content" id="_s_153">Diffie-Hellman groups
             [<b>selection</b>: <span class="selectable-content" id="_s_154">ffdhe2048</span>,  <span class="selectable-content" id="_s_155">ffdhe3072</span>,  <span class="selectable-content" id="_s_156">ffdhe4096</span>,  <span class="selectable-content" id="_s_157">ffdhe6144</span>,  <span class="selectable-content" id="_s_158">ffdhe8192</span>,  <span class="selectable-content" id="_s_159">no other groups</span> ]
           </span></li><li style=""><span class="selectable-content" id="_s_160"><abbr class="dyn-abbr"><a href="#abbr_ECDHE">ECDHE</a></abbr> parameters using elliptic curves
-            [<b>selection</b>: <span class="selectable-content" id="_s_161">secp256r1</span>,  <span class="selectable-content" id="_s_162">secp384r1</span>,  <span class="selectable-content" id="_s_163">secp521r1</span> ] and no other curves</span></li><li style=""><span class="selectable-content" id="_s_164">no other key establishment methods</span></li></ul>]<a id="period_420" href="#period_420">. </a>      <div class="appnote"><span class="note-header">Application
+            [<b>selection</b>: <span class="selectable-content" id="_s_161">secp256r1</span>,  <span class="selectable-content" id="_s_162">secp384r1</span>,  <span class="selectable-content" id="_s_163">secp521r1</span> ] and no other curves</span></li><li style=""><span class="selectable-content" id="_s_164">no other key establishment methods</span></li></ul>]<a id="period_421" href="#period_421">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
         If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> lists an <abbr class="dyn-abbr"><a href="#abbr_RSA">RSA</a></abbr> cipher suite in <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include the
-        <abbr class="dyn-abbr"><a href="#abbr_RSA">RSA</a></abbr> selection in the requirement<a id="period_421" href="#period_421">. </a>        <br>
+        <abbr class="dyn-abbr"><a href="#abbr_RSA">RSA</a></abbr> selection in the requirement<a id="period_422" href="#period_422">. </a>        <br>
         If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> lists a <abbr class="dyn-abbr"><a href="#abbr_DHE">DHE</a></abbr> cipher suite in <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include either
         the Diffie-Hellman selection for parameters of a certain size,
-        or for particular Diffie-Hellman groups<a id="period_422" href="#period_422">. </a>        <br>
+        or for particular Diffie-Hellman groups<a id="period_423" href="#period_423">. </a>        <br>
         If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> lists an <abbr class="dyn-abbr"><a href="#abbr_ECDHE">ECDHE</a></abbr> cipher suite in <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must include the
-        <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves selection in the requirement<a id="period_423" href="#period_423">. </a>      </span></div></div></div>
+        <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves selection in the requirement<a id="period_424" href="#period_424">. </a>      </span></div></div></div>
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.1.5"><a href="#FCS_DTLSS_EXT.1.5" class="abbr">FCS_DTLSS_EXT.1.5</a></div><div class="reqdesc">The product shall
       [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_165">terminate the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session</span>,  <span class="selectable-content" id="_s_166">silently discard the record</span> ]
       if a message received contains an invalid MAC or if decryption fails in the case of <abbr class="dyn-abbr"><a href="#abbr_GCM">GCM</a></abbr> and other
-      AEAD ciphersuites<a id="period_424" href="#period_424">. </a>      </div></div>
+      AEAD ciphersuites<a id="period_425" href="#period_425">. </a>      </div></div>
   	
   <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a></div>
 	<div class="eacategory">Tests</div><div class="ea">
         The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.1.1">FCS_TLSS_EXT.1.1</a>,
-        but ensuring that <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> (and not <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) is used in each stage of the evaluation activities<a id="period_425" href="#period_425">. </a>        <br><br>
+        but ensuring that <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> (and not <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) is used in each stage of the evaluation activities<a id="period_426" href="#period_426">. </a>        <br><br>
         For tests which involve version numbers, note that in <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> the on-the-wire representation
-        is the 1's complement of the corresponding textual <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version numbers<a id="period_426" href="#period_426">. </a>This is described in
-        Section 4.1 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347 and <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347<a id="period_427" href="#period_427">. </a> For example, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 is represented by the bytes 0xfe 0xff,
-        while the undefined <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.4 would be represented by the bytes 0xfe 0xfb<a id="period_428" href="#period_428">. </a>	</div>
+        is the 1's complement of the corresponding textual <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> version numbers<a id="period_427" href="#period_427">. </a>This is described in
+        Section 4.1 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6347 and <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4347<a id="period_428" href="#period_428">. </a> For example, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.0 is represented by the bytes 0xfe 0xff,
+        while the undefined <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> 1.4 would be represented by the bytes 0xfe 0xfb<a id="period_429" href="#period_429">. </a>	</div>
       <div class="element-activity-header"><a href="#FCS_DTLSS_EXT.1.2">FCS_DTLSS_EXT.1.2</a></div>
-        The following evaluation activities shall be conducted unless "none" is assigned<a id="period_429" href="#period_429">. </a>        
+        The following evaluation activities shall be conducted unless "none" is assigned<a id="period_430" href="#period_430">. </a>        
         <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
         The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a
         description of the denial of old <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions
-        consistent relative to selections in <a href="#FCS_DTLSS_EXT.1.2">FCS_DTLSS_EXT.1.2</a><a id="period_430" href="#period_430">. </a>	</div>
+        consistent relative to selections in <a href="#FCS_DTLSS_EXT.1.2">FCS_DTLSS_EXT.1.2</a><a id="period_431" href="#period_431">. </a>	</div>
         <div class="eacategory">Guidance</div><div class="ea">
         The evaluator shall verify that the AGD guidance includes any configuration
-        necessary to meet this requirement<a id="period_431" href="#period_431">. </a>	</div>
+        necessary to meet this requirement<a id="period_432" href="#period_432">. </a>	</div>
         <div class="eacategory">Tests</div><div class="ea">
         <ul>
           <li><b>Test 1: </b>
             The evaluator shall send a Client Hello requesting a
             connection with each version of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> specified in the selection
-            and verify that the server denies the connection<a id="period_432" href="#period_432">. </a>          </li>
+            and verify that the server denies the connection<a id="period_433" href="#period_433">. </a>          </li>
         </ul>
 	</div>
       <div class="element-activity-header"><a href="#FCS_DTLSS_EXT.1.3">FCS_DTLSS_EXT.1.3</a></div>
         <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
         The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> address is validated prior to
-        issuing a ServerHello message<a id="period_433" href="#period_433">. </a>	</div>
+        issuing a ServerHello message<a id="period_434" href="#period_434">. </a>	</div>
         <div class="eacategory">Tests</div><div class="ea">
         Modify at least one byte in the cookie from the Server's HelloVerifyRequest message, and verify that the
-        Server rejects the Client's handshake message<a id="period_434" href="#period_434">. </a>	</div>
+        Server rejects the Client's handshake message<a id="period_435" href="#period_435">. </a>	</div>
       <div class="element-activity-header"><a href="#FCS_DTLSS_EXT.1.4">FCS_DTLSS_EXT.1.4</a></div>
       <div class="eacategory">Tests</div><div class="ea">
-        The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.1.3">FCS_TLSS_EXT.1.3</a><a id="period_435" href="#period_435">. </a>      </div>
+        The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.1.3">FCS_TLSS_EXT.1.3</a><a id="period_436" href="#period_436">. </a>      </div>
       <div class="element-activity-header"><a href="#FCS_DTLSS_EXT.1.5">FCS_DTLSS_EXT.1.5</a></div>
         <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
         The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the actions that take place if a message
-        received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client fails the MAC integrity check<a id="period_436" href="#period_436">. </a>	</div>
+        received from the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> client fails the MAC integrity check<a id="period_437" href="#period_437">. </a>	</div>
         <div class="eacategory">Tests</div><div class="ea">
-        The evaluator shall establish a connection using a client<a id="period_437" href="#period_437">. </a>The evaluator will then modify
+        The evaluator shall establish a connection using a client<a id="period_438" href="#period_438">. </a>The evaluator will then modify
         at least one byte in a record message, and verify that the server discards the record or
-        terminates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session<a id="period_438" href="#period_438">. </a>	</div>
+        terminates the <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> session<a id="period_439" href="#period_439">. </a>	</div>
       </div></div></div><div class="comp" id="FCS_DTLSS_EXT.2"><h4>FCS_DTLSS_EXT.2 DTLS Server Support for Mutual Authentication</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
-           <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a><a id="period_439" href="#period_439">. </a>           </i></b></div>
+           <a href="#FCS_DTLSS_EXT.1.1">FCS_DTLSS_EXT.1.1</a><a id="period_440" href="#period_440">. </a>           </i></b></div>
     
           <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.2.1"><a href="#FCS_DTLSS_EXT.2.1" class="abbr">FCS_DTLSS_EXT.2.1</a></div><div class="reqdesc">
-              The product shall support mutual authentication of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> clients using X.509v3 certificates<a id="period_440" href="#period_440">. </a>            <div class="appnote"><span class="note-header">Application
+              The product shall support mutual authentication of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> clients using X.509v3 certificates<a id="period_441" href="#period_441">. </a>            <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
               All application notes listed for <a href="#FCS_TLSS_EXT.2.1">FCS_TLSS_EXT.2.1</a> that are relevant
-              to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_441" href="#period_441">. </a>      </span></div></div></div>
+              to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_442" href="#period_442">. </a>      </span></div></div></div>
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.2.2"><a href="#FCS_DTLSS_EXT.2.2" class="abbr">FCS_DTLSS_EXT.2.2</a></div><div class="reqdesc">The product shall not establish a trusted channel
-        if the client certificate is invalid<a id="period_442" href="#period_442">. </a>      <div class="appnote"><span class="note-header">Application
+        if the client certificate is invalid<a id="period_443" href="#period_443">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
         All application notes listed for <a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a> that are relevant
-        to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_443" href="#period_443">. </a>      </span></div></div></div>
+        to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_444" href="#period_444">. </a>      </span></div></div></div>
     <div class="element"><div class="reqid" id="FCS_DTLSS_EXT.2.3"><a href="#FCS_DTLSS_EXT.2.3" class="abbr">FCS_DTLSS_EXT.2.3</a></div><div class="reqdesc">The product shall not establish a trusted channel if
         the Distinguished Name (<abbr class="dyn-abbr"><a href="#abbr_DN">DN</a></abbr>) or Subject Alternative Name (<abbr class="dyn-abbr"><a href="#abbr_SAN">SAN</a></abbr>)
         contained in a certificate does not match one of the expected identifiers
-        for the client<a id="period_444" href="#period_444">. </a>      <div class="appnote"><span class="note-header">Application
+        for the client<a id="period_445" href="#period_445">. </a>      <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
         All application notes listed for <a href="#FCS_TLSS_EXT.2.3">FCS_TLSS_EXT.2.3</a> that are relevant
-        to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_445" href="#period_445">. </a>      </span></div></div></div>
+        to <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> apply to this requirement<a id="period_446" href="#period_446">. </a>      </span></div></div></div>
 	  
       <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_DTLSS_EXT.2.1">FCS_DTLSS_EXT.2.1</a></div>
 	<div class="eacategory">Tests</div><div class="ea">
-          The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.1">FCS_TLSS_EXT.2.1</a><a id="period_446" href="#period_446">. </a>	</div>
+          The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.1">FCS_TLSS_EXT.2.1</a><a id="period_447" href="#period_447">. </a>	</div>
       <div class="element-activity-header"><a href="#FCS_DTLSS_EXT.2.2">FCS_DTLSS_EXT.2.2</a></div>
 	<div class="eacategory">Tests</div><div class="ea">
-        The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a><a id="period_447" href="#period_447">. </a>
+        The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a><a id="period_448" href="#period_448">. </a>
 	</div>
       <div class="element-activity-header"><a href="#FCS_DTLSS_EXT.2.3">FCS_DTLSS_EXT.2.3</a></div>
         <div class="eacategory">Tests</div><div class="ea">
-        The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.3">FCS_TLSS_EXT.2.3</a><a id="period_448" href="#period_448">. </a>	</div>
+        The evaluator shall perform the evaluation activities listed for <a href="#FCS_TLSS_EXT.2.3">FCS_TLSS_EXT.2.3</a><a id="period_449" href="#period_449">. </a>	</div>
       </div></div></div><h1 id="acronyms" class="indexable" data-level="A">Appendix C -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_AES"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr></span></td><td><span id="long_abbr_AES">Advanced Encryption Standard</span></td></tr>
 <tr><td><span class="term" id="abbr_Base-PP" data-plural="Base-PPs"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
 <tr><td><span class="term" id="abbr_CA"><abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr></span></td><td><span id="long_abbr_CA">Certificate Authority</span></td></tr>
@@ -1938,11 +1938,11 @@ during handshake<a id="period_230" href="#period_230">. </a>
 </table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix D -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td>Common Criteria for Information Technology Security Evaluation - <ul>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
                 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5,
-              April 2017<a id="period_449" href="#period_449">. </a></li>
+              April 2017<a id="period_450" href="#period_450">. </a></li>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R5.pdf">Part
                 2: Security Functional Components</a>, CCMB-2017-04-002, Version 3.1 Revision 5,
-              April 2017<a id="period_450" href="#period_450">. </a></li>
+              April 2017<a id="period_451" href="#period_451">. </a></li>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
                 3: Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1 Revision 5,
-              April 2017<a id="period_451" href="#period_451">. </a></li>
+              April 2017<a id="period_452" href="#period_452">. </a></li>
           </ul></td></tr></table></body></html>

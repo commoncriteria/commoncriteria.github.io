@@ -607,7 +607,7 @@ function showTarget(id){
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Functional Package for Transport Layer Security (TLS)</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
       Version: 1.2-draft<br/>2022-08-01<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2018-12-17</td><td>First publication</td></tr>
 <tr><td>1.1</td><td>2019-03-01</td><td>Clarifications regarding override for invalid certificates,
-      renegotation_info extension, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions, and named Diffie-Hellman groups in <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
+      renegotiation_info extension, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> versions, and named Diffie-Hellman groups in <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>
       contexts</td></tr>
 <tr><td>1.2</td><td>2022-08-01</td><td>Added audit events</td></tr>
 </table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#Compliant_Targets_of_Evaluation" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Functional_Requirements" style="text-indent:0px">3<span>Security Functional Requirements</span></a><a href="#Auditable_Events_for_Mandatory_SFRs" style="text-indent:10px">3.1<span>Auditable Events for Mandatory SFRs</span></a><a href="#fcs" style="text-indent:10px">3.2<span>Cryptographic Support (FCS)</span></a><a href="#impl-reqs" style="text-indent:0px">Appendix A - <span>Implementation-based Requirements</span></a><a href="#acronyms" style="text-indent:0px">Appendix B - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix C - <span>Bibliography</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
@@ -616,12 +616,13 @@ function showTarget(id){
 	  Transport Layer Security (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>) and the closely-related Datagram <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> (<abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>) are
     cryptographic protocols designed to provide communications security over <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> networks.
     Several versions of the protocol are in widespread use in software that provides functionality
-    such as web browsing, email, instant messaging, and voice-over-IP
-	  (VoIP). Major web sites use <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> to protect communications to
-	  and from their servers. <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> is also used to protect communications between
-	  hosts and network infrastructure devices for administration.
+    such as web browsing, email, instant messaging, and voice-over-IP (VoIP).
+    Major web sites use <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> to protect communications to and from their servers.
+    <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> is also used to protect communications between
+    hosts and network infrastructure devices for administration.
     The underlying platform, such as an operating system, often provides the
-    actual <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation.  The primary goal of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> protocol is to
+    actual <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation.
+    The primary goal of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> protocol is to
     provide confidentiality and integrity of data transmitted
     between two communicating endpoints, as well as authentication of at least
     the server endpoint.
@@ -804,7 +805,7 @@ The following sections list Common Criteria and technology terms used in this do
               [<b>selection</b>: <span class="selectable-content" id="_s_5"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1 (<abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346)</span>,  <span class="selectable-content" id="_s_6">no earlier <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> versions</span> ] as a client that supports the cipher suites
           [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_7">TLS_RSA_WITH_AES_128_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_8">TLS_RSA_WITH_AES_256_CBC_SHA as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_9">TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_10">TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="_s_11">TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="_s_12">TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="trsadhe1">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="trsadhe2">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246</span></li><li style=""><span class="selectable-content" id="trsadhe2_5">TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="trsadhe3">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5288</span></li><li style=""><span class="selectable-content" id="tecdhe1">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe2">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe3">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe4">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe5">TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe6">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe7">TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li><li style=""><span class="selectable-content" id="tecdhe8">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5289</span></li></ul>]
           and also supports functionality for 
-          [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="tlsc_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="tlsc_reneg">session renegotiation</span></li><li style=""><span class="selectable-content" id="tlsc_resump_ids">session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (TLS1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (TLS1.2)</span></li><li style=""><span class="selectable-content" id="tlsc_resump_tickets">session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077</span></li><li style=""><span class="selectable-content" id="tlsc_noresump">no session resumption or session tickets</span></li><li style=""><span class="selectable-content" id="_s_30">none</span></li></ul>].
+          [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="tlsc_mutual_auth">mutual authentication</span></li><li style=""><span class="selectable-content" id="tlsc_reneg">session renegotiation</span></li><li style=""><span class="selectable-content" id="tlsc_resump_ids">session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2)</span></li><li style=""><span class="selectable-content" id="tlsc_resump_tickets">session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077</span></li><li style=""><span class="selectable-content" id="tlsc_noresump">no session resumption or session tickets</span></li><li style=""><span class="selectable-content" id="_s_30">none</span></li></ul>].
           <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -842,7 +843,7 @@ The following sections list Common Criteria and technology terms used in this do
         session renegotiation, this selection must be made.
 
 	<p>If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption or session tickets, select <a href="#tlsc_noresump">no session resumption or session tickets</a>.
- If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (TLS1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (TLS1.2), select <a href="#tlsc_resump_ids">session resumption based on session IDs according to RFC 4346 (TLS1.1) or RFC 5246 (TLS1.2)</a>.
+ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2), select <a href="#tlsc_resump_ids">session resumption based on session IDs according to RFC 4346 (TLS 1.1) or RFC 5246 (TLS 1.2)</a>.
  If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption based on session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, select <a href="#tlsc_resump_tickets">session resumption based on session tickets according to RFC 5077</a>.
 	</p>
 
@@ -923,7 +924,7 @@ The following sections list Common Criteria and technology terms used in this do
               <ul>
                 <li><b>Test 1: </b>
 		  <ul>
-		    <li><b>Test 1.1: </b>The evaluator shall demonstrate that a server using a certifcate with a valid certification path successfully connects.</li>
+		    <li><b>Test 1.1: </b>The evaluator shall demonstrate that a server using a certificate with a valid certification path successfully connects.</li>
 
 		    <li><b>Test 1.2: </b>The evaluator shall modify the certificate chain used by the server in test 1a to be invalid and demonstrate that a server using a certificate without a valid certification path to a trust store element of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> results in an authentication failure.</li>
 
@@ -1483,7 +1484,7 @@ during handshake.
 
 		    <li><b>Test 4.3[conditional]: </b>
 		      
-		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption based on session IDs according to RFC4346 (TLS1.1) or RFC5246 (TLS1.2) or session tickets according to RFC5077, the evaluator shall perform the following test:
+		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not support session resumption based on session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2) or session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, the evaluator shall perform the following test:
 		    <ol type="a">
 		      <li>The evaluator shall send a Client Hello with a zero-length session identifier and with a SessionTicket extension containing a zero-length ticket.</li>
 		      <li>The evaluator shall verify the server does not send a NewSessionTicket handshake message (at any point in the handshake).</li>
@@ -1497,7 +1498,7 @@ during handshake.
 
 		    <li><b>Test 4.4[conditional]: </b>
 		      
-		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption using session IDs according to RFC4346 (TLS1.1) or RFC5246 (TLS1.2), the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
+		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session resumption using session IDs according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.1) or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2), the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
 		      <ol type="a">
 			<li>The evaluator shall conduct a successful handshake and capture the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>-generated session ID in the Server Hello message. The evaluator shall then initiate a new <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> connection and send the previously captured session ID to show that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> resumed the previous session by responding with ServerHello containing the same SessionID immediately followed by ChangeCipherSpec and Finished messages (as shown in Figure 2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 4346 or <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5246).</li>
 
@@ -1508,7 +1509,7 @@ during handshake.
 
 		    <li><b>Test 4.5[conditional]: </b>
 		      
-		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session tickets according to RFC5077, the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
+		      If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports session tickets according to <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077, the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>):
 		      <ol type="a">
 			
 			<li>The evaluator shall permit a successful <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> handshake to occur in which a session ticket is exchanged with the non-TOE client. The evaluator shall then attempt to correctly reuse the previous session by sending the session ticket in the ClientHello. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> responds with a ServerHello with an empty SessionTicket extension, NewSessionTicket, ChangeCipherSpec and Finished messages (as seen in figure 2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5077).</li>
@@ -1626,7 +1627,10 @@ during handshake.
               In the latter case, the matching itself may be performed outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
             </span></div></div></div>
 	  
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.1">FCS_TLSS_EXT.2.1</a></div>
+	      Testing of this element is done in conjunction with .
+	      
+	    <div class="element-activity-header"><a href="#FCS_TLSS_EXT.2.2">FCS_TLSS_EXT.2.2</a></div>
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
               The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description required per <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a>.1
               includes the use of client-side certificates for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> mutual authentication.
@@ -1679,7 +1683,7 @@ during handshake.
                   by an impostor <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> (either Root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> or intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>). To
                   carry out this test the  evaluator shall configure the client
                   to send a client identity certificate with an issuer field
-                  that identifies a  <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> recognised by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>,
+                  that identifies a  <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> recognized by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>,
                   but where the key used for the signature on the client
                   certificate  does not in fact correspond to the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate
                   trusted by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (meaning that the client certificate is
