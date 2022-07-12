@@ -6,7 +6,9 @@
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section"
     target-products="Application Software" 
-    boilerplate="yes">
+    boilerplate="yes"
+    short="App"
+>
 	
   <PPReference>
     <ReferenceTable>
@@ -702,17 +704,17 @@
 			<depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
 			<f-element id="fel-asym-key-gen-impl">
 				<title>            
-					The <h:b>application</h:b> shall <selectables linebreak="yes">
+					The <h:b>application</h:b> shall <selectables linebreak="yes" onlyone="yes">
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable>
 					</selectables>
-					<h:b>to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm</h:b>
+					to generate <h:b>asymmetric</h:b> cryptographic keys in accordance with a specified cryptographic key generation algorithm
 					<selectables linebreak="yes">
 						<selectable><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
 							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable>
 						<selectable><h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and <selectables>
-							<selectable> P-521 </selectable>
-							<selectable> no other curves </selectable></selectables> 
+							<selectable exclusive="yes"> P-521 </selectable>
+							<selectable exclusive="yes"> no other curves </selectable></selectables> 
 							]</h:b>that meet the following: 
 							<h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b>
 						</selectable> 
@@ -720,10 +722,10 @@
 							<h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
 							that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b>
 						</selectable>
-						<selectable>[FFC Schemes]<h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
+						<selectable><h:b>[FFC Schemes]</h:b><h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
 							<h:b>RFC 3526, Section 3</h:b>
 						</selectable>
-						<selectable>[FFC Schemes]<h:b> using “safe-prime” groups</h:b> that meet the following: 
+						<selectable><h:b>[FFC Schemes]</h:b><h:b> using “safe-prime” groups</h:b> that meet the following: 
 							<h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
 								Using Discrete Logarithm Cryptography”</h:b> and 
 							<selectables>
@@ -979,7 +981,7 @@
 			<f-element id="fel-key-est">
 				<title>
 					The application shall 
-						<selectables>
+						<selectables onlyone="yes">
 							<selectable>invoke platform-provided functionality</selectable>
 							<selectable>implement functionality</selectable>
 						</selectables> 
@@ -1562,14 +1564,14 @@ functionality (such as these)
 						<selectable>SHA-256</selectable>
 						<selectable>SHA-384</selectable>
 						<selectable>SHA-512</selectable>
-						<selectable>no other</selectable>
+						<selectable exclusive="yes">no other</selectable>
 					</selectables>
 					and message digest sizes <selectables linebreak="yes">
 						<selectable>160</selectable>
 						<selectable>256</selectable>
 						<selectable>384</selectable>
 						<selectable>512</selectable>
-						<selectable>no other</selectable>
+						<selectable exclusive="yes">no other</selectable>
 					</selectables> bits that meet the following: FIPS Pub 180-4.
 				</title>
 				<note role="application">
@@ -1601,7 +1603,7 @@ functionality (such as these)
 						(in bits) of the message to be hashed is divisible by 8. The second mode is the 
 						bit-oriented mode. In this mode the TSF hashes messages of arbitrary 
 						length. As there are different tests for each mode, an indication is given in the 
-						following sections for the bit-oriented vs. the byte-oriented testmacs. The evaluator 
+						following sections for the bit-oriented vs. the byte-oriented test MACs. The evaluator 
 						shall perform all of the following tests for each hash algorithm implemented by the 
 						TSF and used to satisfy the requirements of this PP.<h:p/>     
 						The following tests require the developer to provide access to a test application
@@ -1657,13 +1659,13 @@ functionality (such as these)
 						<selectable>HMAC-SHA-1</selectable>
 						<selectable>HMAC-SHA-384</selectable>
 						<selectable>HMAC-SHA-512</selectable>
-						<selectable>no other algorithms</selectable>
+						<selectable exclusive="yes">no other algorithms</selectable>
 					</selectables> with key sizes <assignable>key size (in bits) used in HMAC</assignable> 
 					and message digest sizes 256 and <selectables>
 						<selectable>160</selectable>
 						<selectable>384</selectable>
 						<selectable>512</selectable>
-						<selectable>no other size</selectable>
+						<selectable exclusive="yes">no other size</selectable>
 					</selectables>
 					bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>
 					and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>.
@@ -1702,7 +1704,7 @@ functionality (such as these)
 							following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</selectable>
 						<selectable><h:b>ECDSA schemes</h:b> using “NIST curves” P-256, P-384 and <selectables>
 							<selectable>P-521</selectable>
-							<selectable>no other curves</selectable></selectables>
+							<selectable exclusive="yes">no other curves</selectable></selectables>
 						that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
 					</selectables>.
 				</title>
@@ -1799,7 +1801,7 @@ functionality (such as these)
 			</f-element>
 			<f-element id="fel-https-who-cl">
 				<title> The application shall 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>not establish the application-initiated connection</selectable>
 						<selectable>notify the user and not establish the user-initiated connection</selectable>
 						<selectable>notify the user and request authorization to establish the user-initiated connection</selectable>
@@ -1820,7 +1822,7 @@ functionality (such as these)
 							<test>
 							The evaluator shall demonstrate that using a certificate without a valid 
 							certification path results in the selected action in the SFR. If "notify the user" 
-							isselected in the SFR, then the evaluator shall also determine that the user
+							is selected in the SFR, then the evaluator shall also determine that the user
 							is notified of the certificate validation failure. Using the administrative
 							guidance, the evaluator shall then load a certificate or certificates to the 
 							Trust Anchor Database needed to validate the certificate to be used in the
@@ -1840,6 +1842,7 @@ functionality (such as these)
 		<!-- Added by TD0601 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Server" status="sel-based">
 			<depends on1="sel_all_https_sv"/>
+			<depends on1="sel_all_https_ma"/>
 			<f-element id="fel-https-wath-sv">
 				<title>
 					The application shall implement the HTTPS protocol that complies with RFC 2818.
@@ -1876,7 +1879,7 @@ functionality (such as these)
 			<f-element id="fel-https-wath-m">
 				<title>
 					The application shall 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>not establish the connection</selectable>
 						<selectable>establish or not establish the connection based on an administrative or user setting</selectable>
 					</selectables>if the peer certificate is deemed invalid.
@@ -2107,7 +2110,7 @@ functionality (such as these)
 						<selectable>a software-based noise source</selectable>
 						<selectable>a hardware-based noise source</selectable>
 						<selectable exclusive='yes'>no other noise source</selectable>
-					</selectables> with a minimum of <selectables linebreak="yes">
+					</selectables> with a minimum of <selectables linebreak="yes" onlyone="yes">
 						<selectable>128 bits</selectable>
 						<selectable>256 bits</selectable>
 					</selectables> of entropy at least equal to the greatest security strength (according
@@ -2511,7 +2514,7 @@ functionality (such as these)
 			<f-element id="fel-certauth-how">
 				<title>
 					The application shall 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable>
 					</selectables>
@@ -2732,7 +2735,7 @@ functionality (such as these)
 				<title>
 					When the application cannot establish a connection to determine the validity of a 
 					certificate, the application shall  
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>allow the administrator to choose whether to accept the certificate in these cases</selectable>
 						<selectable>accept the certificate</selectable>
 						<selectable>not accept the certificate</selectable>
@@ -3091,7 +3094,7 @@ functionality (such as these)
         <f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
 			<f-element id="fel-api-parsers">
 				<title> The application 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>shall use platform-provided libraries</selectable>
 						<selectable>does not implement functionality</selectable>
 					</selectables>
@@ -3101,7 +3104,7 @@ functionality (such as these)
 				<note role="application">
 					The IANA MIME types are listed at
 					<h:a href='http://www.iana.org/assignments/media-types'>http://www.iana.org/assignments/media-types</h:a> 
-					and include many image, audio, video, and content file formats. 
+					and include many image, audio, video, and content file formats. <h:p/>
 					This requirement does not apply if providing parsing services is the purpose of the 
 					application.
 				</note>
@@ -3711,8 +3714,8 @@ functionality (such as these)
 					<selectables linebreak="yes">
 						<selectable exclusive="yes">not transmit any 
 							<selectables>
-								<selectable>data</selectable>
-								<selectable>sensitive data</selectable>
+								<selectable exclusive="yes">data</selectable>
+								<selectable exclusive="yes">sensitive data</selectable>
 							</selectables>
 						</selectable>
 						<selectable exclusive="yes">encrypt all transmitted 
@@ -3730,7 +3733,7 @@ functionality (such as these)
 								<selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
 							</selectables>
 						</selectable>
-						<selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with
+						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted sensitive data with
 							<selectables>
 								<selectable>HTTPS</selectable>
 								<selectable>TLS</selectable>
@@ -3738,7 +3741,7 @@ functionality (such as these)
 								<selectable>SSH</selectable>
 							</selectables>
 						</selectable>	    	      
-						<selectable>invoke platform-provided functionality to encrypt all transmitted data with
+						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted data with
 							<selectables>
 								<selectable>HTTPS</selectable>
 								<selectable>TLS</selectable>
@@ -3891,7 +3894,7 @@ functionality (such as these)
 			specification describes the TSFIs. It is not necessary
 			to have a formal or complete specification of these interfaces. Additionally, because
             TOEs conforming to this PP will necessarily have interfaces to the
-			Operational Environment that are not directly invokable by TOE users, 
+			Operational Environment that are not directly invocable by TOE users, 
 			there is little point specifying that such interfaces be described in and of themselves 
 			since only indirect testing of such interfaces may be possible. For this PP, the 
 			activities for this family should focus on understanding the interfaces presented in the 
