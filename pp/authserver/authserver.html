@@ -816,9 +816,10 @@ provide all of its security functionality.
   <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
 
-      <dl><dt class="SO,defined" id="O.TRUSTED_RP">O.TRUSTED_RP</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide mechanisms to authenticate itself to a federated <abbr class="dyn-abbr"><a href="#abbr_RP">RP</a></abbr> and authenticate a federated <abbr class="dyn-abbr"><a href="#abbr_RP">RP</a></abbr> before providing an identity assertion.
-          </dd><dt class="SO,defined" id="O.USER_AUTH">O.USER_AUTH</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide a mechanism to assess authentication requests and respond with an authentication assertion based on data that is supplied in the request.
+      <dl><dt class="SO,defined" id="O.AUTHORIZED_USE">O.AUTHORIZED_USE</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide mechanisms that prevent and detect its unauthorized use.
           </dd><dt class="SO,defined" id="O.SECURITY_ASSOCIATION">O.SECURITY_ASSOCIATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide the information to the relying party to enable the relying party to verify that the claimant has possession of an authentication key.
+          </dd><dt class="SO,defined" id="O.TRUSTED_RP">O.TRUSTED_RP</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide mechanisms to authenticate itself to a federated <abbr class="dyn-abbr"><a href="#abbr_RP">RP</a></abbr> and authenticate a federated <abbr class="dyn-abbr"><a href="#abbr_RP">RP</a></abbr> before providing an identity assertion.
+          </dd><dt class="SO,defined" id="O.USER_AUTH">O.USER_AUTH</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide a mechanism to assess authentication requests and respond with an authentication assertion based on data that is supplied in the request.
           </dd></dl>
       
       
@@ -1768,26 +1769,71 @@ provide all of its security functionality.
       
         
     <h2 id="obj-req-map" class="indexable" data-level="2">5.3 TOE Security Functional Requirements Rationale</h2><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">3</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="3"><a href="#O.TRUSTED_RP">O.TRUSTED_​RP</a><br/></td><td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td><td>
-	    TBD
-	  </td></tr>
-<tr><td><a href="#FIA_PSK_EXT.1/AuthSvr">FIA_PSK_EXT.1/AuthSvr</a></td><td>
-         TBD   
+    showing that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">3</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="5"><a href="#O.AUTHORIZED_USE">O.AUTHORIZED_​USE</a><br/></td><td><a href="#FAU_GEN.1/AuthSvr">FAU_GEN.1/AuthSvr</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements an audit mechanism to detect potential misuse of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
           </td></tr>
-<tr><td><a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a></td><td>
-            TBD
+<tr><td><a href="#FCS_CKM.3">FCS_CKM.3</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a cryptographic key access control mechanism to prevent compromise
+            of data in transit confidentiality mechanisms.
           </td></tr>
-<tr class="major-row"><td rowspan="3"><a href="#O.USER_AUTH">O.USER_​AUTH</a><br/></td><td><a href="#FIA_AFL.1/AuthSvr">FIA_AFL.1/AuthSvr</a></td><td>
-            TBD
+<tr><td><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a cryptographic key storage mechanism to prevent compromise
+            of data in transit confidentiality mechanisms.
           </td></tr>
 <tr><td><a href="#FIA_UAU.6">FIA_UAU.6</a></td><td>
-            TBD   
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a re-authentication mechanism to prevent compromise of an administrator
+            account to an unattended session.
+          </td></tr>
+<tr><td><a href="#FMT_SMF.1/AuthSvr">FMT_SMF.1/AuthSvr</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements management functions as a legitimate mechanism to control the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+          </td></tr>
+<tr class="major-row"><td rowspan="3"><a href="#O.SECURITY_ASSOCIATION">O.SECURITY_​ASSOCIATION</a><br/></td><td><a href="#FCO_NRO.1">FCO_NRO.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides a non-repudiation function to assert the source of origin of its communications with the relying party.
+          </td></tr>
+<tr><td><a href="#FCO_NRR.1">FCO_NRR.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides a proof of receipt function to assert to a relying part that communications with it are successful.
+          </td></tr>
+<tr><td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements either <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS as a mechanism to assert the success or failure of claimant authentication requests to the relying party.
+          </td></tr>
+<tr class="major-row"><td rowspan="4"><a href="#O.TRUSTED_RP">O.TRUSTED_​RP</a><br/></td><td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements either <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS with mutual authentication to authenticate itself to a relying party. 
+          </td></tr>
+<tr><td><a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a cryptographically secure trusted channel with a relying party that allows to authorize itself to the relying party.
+          </td></tr>
+<tr><td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a></td><td>
+            RadSec is one potential mechanism by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can establish a trusted channel with the relying party.   
+          </td></tr>
+<tr><td><a href="#FIA_PSK_EXT.1/AuthSvr">FIA_PSK_EXT.1/AuthSvr</a></td><td>
+            Depending on the configuration of the trusted channel used to communicate with the relying party, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may use a pre-shared key as the mechanism by which it authenticates itself to the relying party.  
+          </td></tr>
+<tr class="major-row"><td rowspan="9"><a href="#O.USER_AUTH">O.USER_​AUTH</a><br/></td><td><a href="#FCS_RADIUS_EXT.1">FCS_RADIUS_EXT.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr>, DIAMETER, or some other direct identity federation protocol to communicate the success or failure of claimant authentication requests.
+          </td></tr>
+<tr><td><a href="#FIA_AFL.1/AuthSvr">FIA_AFL.1/AuthSvr</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a mechanism to prevent claimant authentication attempts if an excessive number of failed attempts have been made. 
+          </td></tr>
+<tr><td>FTA_X509_EXT.1/AuthSvr</td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a mechanism to determine the validity of X.509 certificates that are used as claimant authenticators.
           </td></tr>
 <tr><td><a href="#FTA_TSE.1">FTA_TSE.1</a></td><td>
-            TBD
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a mechanism to assert the failure of a claimant authentication attempt based on attributes of the claimant or of the attempt.
           </td></tr>
-<tr class="major-row"><td rowspan="1"><a href="#O.SECURITY_ASSOCIATION">O.SECURITY_​ASSOCIATION</a><br/></td><td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td><td>
-            TBD
+<tr><td><a href="#FIA_HOTP_EXT.1">FIA_HOTP_EXT.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> optionally supports <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> as a form of claimant authenticator and implements mechanisms to determine the validity of a <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> credential if supported. 
+          </td></tr>
+<tr><td><a href="#FIA_PSK_EXT.1/AuthSvr">FIA_PSK_EXT.1/AuthSvr</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> optionally supports PSKs as a form of claimant authenticator and may specifically support one or more of <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr>, or password-based <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr>.
+          </td></tr>
+<tr><td><a href="#FIA_PSK_EXT.2">FIA_PSK_EXT.2</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> optionally supports randomly generated PSKs as a form of claimant authenticator.
+          </td></tr>
+<tr><td><a href="#FIA_PSK_EXT.3">FIA_PSK_EXT.3</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> optionally supports password-based PSKs as a form of claimant authenticator and implements mechanisms to determine the validity of a password-based <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> credential if supported.
+          </td></tr>
+<tr><td><a href="#FIA_TOTP_EXT.1">FIA_TOTP_EXT.1</a></td><td>
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> optionally supports <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> as a form of claimant authenticator and implements mechanisms to determine the validity of a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> credential if supported.
           </td></tr>
 </table></p><h2 class="indexable" data-level="2" id="mod-sars">5.4 TOE Security Assurance Requirements</h2>
       
@@ -1817,13 +1863,17 @@ provide all of its security functionality.
 	Consistency of Objectives
       </h3><p>
 	  The objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> are consistent with the NDcPP based on the following rationale:
-      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.TRUSTED_RP">O.TRUSTED_RP</a></td><td>
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.AUTHORIZED_USE">O.AUTHORIZED_USE</a></td><td>
+            The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
+            This <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objective is intended to mitigate the T.UNAUTHORIZED_ADMINISTRATOR_ACCESS and T.UNDETECTED_ACTIVITY threats
+            for the functions defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+          </td></tr><tr><td><a href="#O.SECURITY_ASSOCIATION">O.SECURITY_ASSOCIATION</a></td><td>
+            The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
+          </td></tr><tr><td><a href="#O.TRUSTED_RP">O.TRUSTED_RP</a></td><td>
             The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
             The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
 	  </td></tr><tr><td><a href="#O.USER_AUTH">O.USER_AUTH</a></td><td>
-            The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
-            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
-          </td></tr><tr><td><a href="#O.SECURITY_ASSOCIATION">O.SECURITY_ASSOCIATION</a></td><td>
             The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
             The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
           </td></tr></table></p><p>
