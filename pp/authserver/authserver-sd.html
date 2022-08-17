@@ -550,7 +550,7 @@ The following sections list Common Criteria and technology terms used in this do
                         <p></p>
                         The evaluator shall ensure the test client successfully completes the TLS handshake, and the test relying party properly encapsulates the TLS messages, to include the client finished message, 
                         and observes that the TOE responds in a manner indicating the TLS channel was successfully established. 
-                        Note – if the user access policy is to only require certificate verification, then the expected response is an EAP-success message. 
+                        Note – if the user access policy is to only require certificate verification, then the expected response is an EAP-Success message. 
                         If the user access policy requires additional factors to be supported under EAP-TTLS, additional EAP-TTLS messages must be sent to the test relying party to request those additional factors 
                         from the test client. These are encrypted under the TLS tunnel established between the claimant and the TOE. In this case, the evaluator observes these requests at the test client to confirm the certificate verification 
                         was successful.
@@ -559,7 +559,7 @@ The following sections list Common Criteria and technology terms used in this do
                         Test 2b: The evaluator shall initiate an authentication request from the test relying party for a valid claimant registered with the TOE, different than the claimant used for Test 2a if performed. 
                         The evaluator shall send appropriate encapsulated TLS handshake messages to the TOE, to include a valid certificate response, 
                         but send an EAP-encapsulation of a modified client finished message to the TOE. 
-                        The evaluator shall observe that the TOE does not send an EAP-success message; the TOE is allowed either to send an EAP-request message to initiate a new TLS handshake or an EAP-Failure message.
+                        The evaluator shall observe that the TOE does not send an EAP-Success message; the TOE is allowed either to send an EAP-request message to initiate a new TLS handshake or an EAP-Failure message.
                       </li>
                       <li>
                         Test 2c [conditional on support for additional authentication factors under EAP-TTLS]: For each combination of authentication factors supported by the TOE’s user authentication policy, 
@@ -626,6 +626,17 @@ The following sections list Common Criteria and technology terms used in this do
                     The evaluator shall then repeat this behavior but wait for just after the configured time period has elapsed to show that an authentication attempt using valid credentials results in successful access.
                   </li>
                 </ul>
+              </div></div><div class="comp" id=""><h4>FIA_UAU.6 Re-Authenticating</h4><div class="component-activity-header">FIA_UAU.6</div>
+              
+              
+              
+            <div class="eacategory">TSS</div><div class="ea">There are no TSS evaluation activities for this component.<p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall ensure that the operational guidance includes instructions on how an administrator of the TOE can change their own password.<p></p></div><div class="eacategory">Tests</div><div class="ea">
+                The evaluator will access the TOE using a particular administrative account and then attempt to change the password of that account as directed by the operational guidance.
+                While making this attempt, the evaluator will verify that re-authentication is required.
+                <p>
+                  If other re-authentication conditions are specified, the evaluator shall cause those conditions to
+                  occur and verify that the TSF re-authenticates the authenticated user.
+                </p>
               </div></div><div class="comp" id=""><h4>FIA_X509_EXT.1/AuthSvr X.509 Certificate Validation (Claimant)</h4><div class="component-activity-header">FIA_X509_EXT.1/AuthSvr</div>
               
               
@@ -734,18 +745,7 @@ The following sections list Common Criteria and technology terms used in this do
                     </ul>
                   </li>
                 </ul>
-              </div></div><div class="comp" id=""><h4>FIA_UAU.6 Re-Authenticating</h4><div class="component-activity-header">FIA_UAU.6</div>
-            
-            
-            
-          <div class="eacategory">TSS</div><div class="ea">There are no TSS evaluation activities for this component.<p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall ensure that the operational guidance includes instructions on how an administrator of the TOE can change their own password.<p></p></div><div class="eacategory">Tests</div><div class="ea">
-	      The evaluator will access the TOE using a particular administrative account and then attempt to change the password of that account as directed by the operational guidance.
-              While making this attempt, the evaluator will verify that re-authentication is required.
-	      <p>
-		If other re-authentication conditions are specified, the evaluator shall cause those conditions to
-		occur and verify that the TSF re-authenticates the authenticated user.
-	      </p>
-            </div></div><h2 class="indexable" data-level="2" id="man_fmt">2.2.5 Security Management (FMT)</h2><div class="comp" id="FEL-MANAGEMENTFUN-AS"><h4>FMT_SMF.1/AuthSvr Specification of Management Functions (Authentication Server)</h4><div class="component-activity-header">FMT_SMF.1/AuthSvr</div>
+              </div></div><h2 class="indexable" data-level="2" id="man_fmt">2.2.5 Security Management (FMT)</h2><div class="comp" id="FEL-MANAGEMENTFUN-AS"><h4>FMT_SMF.1/AuthSvr Specification of Management Functions (Authentication Server)</h4><div class="component-activity-header">FMT_SMF.1/AuthSvr</div>
 			  
 			  
 			  
@@ -797,7 +797,7 @@ The following sections list Common Criteria and technology terms used in this do
                 The evaluator shall confirm that the TSS describes HOTP seed keys and HOTP security parameters and indicates controlled access in accordance with FCS_CKM.3, 
                 and that it includes a description of encrypted export for seed keys that require transfer to claimant devices.
                 <p></p>
-                The evaluator shall confirm the TSS describes how a new HOTP seed is assigned for each claimant and how each client is uniquely identified.
+                The evaluator shall confirm the TSS describes how a new HOTP seed is assigned for each claimant and how each claimant is uniquely identified.
                 <p></p>
                 The evaluator shall confirm the TSS describes how the HOTP seed is conditioned into a HOTP hash and verify it matches the selection in FIA_HOTP_EXT.1.4.
                 <p></p>
@@ -818,7 +818,7 @@ The following sections list Common Criteria and technology terms used in this do
                 Any of these responses is acceptable; a response that the authentication request is successful in Test 2 or Test 3 represents a failed test.
                 <ul>
                   <li id="_t_19"><b><a href="#_t_19" class="definition">Test 1</a>: </b>The evaluator shall attempt to authenticate the claimant using a valid HOTP token and confirm that the TSF determines the value to be valid.</li>
-                  <li id="_t_20"><b><a href="#_t_20" class="definition">Test 2</a>: </b>The evaluator shall advance a registered claimant’s HOTP token counter beyond the look ahead window and attempt to validate the claimant using the next HOTP token value. 
+                  <li id="_t_20"><b><a href="#_t_20" class="definition">Test 2</a>: </b>The evaluator shall advance a registered claimant’s HOTP token counter beyond the look-ahead window and attempt to validate the claimant using the next HOTP token value. 
                     The evaluator shall observe that the TSF does not indicate the claimant is authenticated. </li>
                   <li id="_t_21"><b><a href="#_t_21" class="definition">Test 3</a>: </b>The evaluator shall replay a previous HOTP value from a registered claimant (e.g., the value used in Test 1) and confirm that the TSF does not indicate the claimant is authenticated.</li>
                   <li id="_t_22"><b><a href="#_t_22" class="definition">Test 4</a>: </b>[conditional on support for resynchronization] The evaluator shall repeat Test 2 and then follow the operational guidance to resynchronize the counter. 
