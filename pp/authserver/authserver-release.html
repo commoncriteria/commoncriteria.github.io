@@ -441,7 +441,7 @@ function showTarget(id){
               margin-left:0%;
               margin-top:1em;
           }
-          .comment-aa{
+          .comment{
               background-color:beige;
               color:green;
           }
@@ -613,7 +613,7 @@ function showTarget(id){
 </table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#Compliant_Targets_of_Evaluation" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:10px">1.4<span>TOE Boundary</span></a><a href="#Use_Cases" style="text-indent:10px">1.5<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Description" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#Security_Requirements" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#secreq-ND" style="text-indent:10px">5.1<span>NDcPP
        Security Functional Requirements Direction
     </span></a><a href="#modsfr-ND" style="text-indent:20px">5.1.1<span> Modified SFRs </span></a><a href="#from_nd_fia" style="text-indent:30px">5.1.1.1<span>Identification and Authentication (FIA)</span></a><a href="#man-sfrs" style="text-indent:10px">5.2<span>TOE Security Functional Requirements</span></a><a href="#man_fau" style="text-indent:20px">5.2.1<span>Security Audit (FAU)</span></a><a href="#man_fco" style="text-indent:20px">5.2.2<span>Communications (FCO)</span></a><a href="#man_fcs" style="text-indent:20px">5.2.3<span>Cryptographic Support (FCS)</span></a><a href="#man_fia" style="text-indent:20px">5.2.4<span>Identification and Authentication (FIA)</span></a><a href="#man_fmt" style="text-indent:20px">5.2.5<span>Security Management (FMT)</span></a><a href="#man_fta" style="text-indent:20px">5.2.6<span>TOE Access (FTA)</span></a><a href="#man_ftp" style="text-indent:20px">5.2.7<span>Trusted Path/Channels (FTP)</span></a><a href="#obj-req-map" style="text-indent:10px">5.3<span>TOE Security Functional Requirements Rationale</span></a><a href="#mod-sars" style="text-indent:10px">5.4<span>TOE Security Assurance Requirements</span></a><a href="#mod-conrat" style="text-indent:0px">6<span>Consistency Rationale</span></a><a href="#conrat-ND" style="text-indent:10px">6.1<span>Collaborative 
-    Protection Profile for NDs</span></a><a href="#contoe-ND" style="text-indent:20px">6.1.1<span>
+    Protection Profile for Network Devices</span></a><a href="#contoe-ND" style="text-indent:20px">6.1.1<span>
 	Consistency of TOE Type
       </span></a><a href="#consecprob-ND" style="text-indent:20px">6.1.2<span>
 	Consistency of Security Problem Definition
@@ -629,18 +629,19 @@ function showTarget(id){
     <h2 class="indexable" data-level="2" id="Overview">1.1 Overview</h2>
       An authentication server provides assertions to a relying party that a particular request for access is from an authentic digital identity associated with various identity attributes, such as a registered account within an information system, 
       or a certified identity as validated by a trusted certification authority or both. 
-      The digital identities can represent people, devices or processes. Authentication servers validate various authenticators controlled by the entities represented by the presented digital identity. 
+      The digital identities can represent people, devices, or processes. Authentication servers validate various authenticators controlled by the entities represented by the presented digital identity. 
       When the entity is a person, authenticators can provide indications of what the entity knows (e.g., a password, pin or passphrase), what the entity has (e.g., a registered device in the control of the user), 
       or what the entity is (a biometric). NIST SP 800-63-3 Part B provides recommendations about how these authenticators can be leveraged individually or in combinations to 
       provide assurance that the entity is authentic and describes requirements for validation of the authenticators to various assurance levels. 
-      A relying party may delegate verification of authenticator(s) to an authentication server; 
+      <p></p>
+      A relying party may delegate verification of authenticators to an authentication server; 
       such delegation creates a relationship between the relying party and the authentication server that is referred to as an identity federation. 
       Assertions to a federated relying party can be via bearer assertions or via direct communication with the relying party. 
       The latter mechanism is modeled after that used by Authentication, Access and Accounting (<abbr class="dyn-abbr"><a href="#abbr_AAA">AAA</a></abbr>) servers, which used the <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> protocol. 
       <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> has been largely replaced by DIAMETER, a protocol that addresses many of the security issues with <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr>. 
-      These provide direct, back-end assertions protected by an authenticated and encrypted channel to a Network Access Server that further governs accesses to resources on a network. 
+      These provide direct, back-end assertions protected by an authenticated and encrypted channel to a Network Access Server (NAS) that further governs accesses to resources on a network. 
       <p></p>
-      This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-module describes the security functionality of authentication servers supporting <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr>/DIAMETER and other messaging protocols intended for direct communications with relying parties via authenticated, real-time protected channels.
+      This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-module describes the security functionality of authentication servers supporting <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> or DIAMETER and other messaging protocols intended for direct communications with relying parties via authenticated, real-time protected channels.
       <p></p>
       The scope of this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is to describe the security functionality of an authentication server in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such products. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is intended for use with the following <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>:
 
@@ -683,7 +684,7 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><div id="TOE_Summary_Specification">TOE Summary Specification (TSS)</div></td><td>A description of how a TOE satisfies the SFRs in an ST.</td></tr>
 </table><h3 id="tech-terms" class="indexable" data-level="3">1.2.2 Technical Terms</h3><table style="width: 100%"><tr><td><div id="Assertion">Assertion</div></td><td>
         A statement from the TOE to an RP that contains information about a subscriber. Assertions may also contain verified attributes. 
-        For the purposes of this PP-Module, Assertions containing authentication status and identity attributes are made by EAP response messages in accordance with EAP-TLS or EAP-TTLS.
+        For the purposes of this PP-Module, assertions containing authentication status and identity attributes are made by EAP response messages in accordance with EAP-TLS or EAP-TTLS.
       </td></tr>
 <tr><td><div id="Authentication_Policy">Authentication Policy</div></td><td>
         A policy that specifies which authenticator types are required for a particular entity. The policy may be implicit for all entities, or configurable. 
@@ -699,7 +700,7 @@ The following sections list Common Criteria and technology terms used in this do
         A subject whose identity is to be verified using one or more authentication protocols. 
       </td></tr>
 <tr><td><div id="Credential">Credential</div></td><td>
-        An object or data structure that authoritatively binds an identity - via an identifier or identifiers - and (optionally) additional attributes, to at least one authenticator possessed and controlled by a subscriber.
+        An object or data structure that authoritatively binds an identity via an identifier or identifiers and (optionally) additional attributes, to at least one authenticator possessed and controlled by a subscriber.
       </td></tr>
 <tr><td><div id="Federation_Protocol">Federation Protocol</div></td><td>
         A protocol to establish a trusted relationship with a relying party, and for the purposes of this PP module, to communicate authentication status for entities requesting access to resources managed by the relying party. 
@@ -707,18 +708,18 @@ The following sections list Common Criteria and technology terms used in this do
         Federation protocols that only support bearer assertions are out of scope for this PP-Module.
       </td></tr>
 <tr><td><div id="Relying_Party">Relying Party (RP)</div></td><td>
-        An entity that relies upon the subscriber’s authenticator(s) and credentials or a verifier’s assertion of a claimant’s identity, typically to process a transaction or grant access to information or a system.
+        An entity that relies upon the subscriber’s authenticators and credentials or a verifier’s assertion of a claimant’s identity, typically to process a transaction or grant access to information or a system.
       </td></tr>
 </table></div>
     <h2 class="indexable" data-level="2" id="Compliant_Targets_of_Evaluation">1.3 Compliant Targets of Evaluation</h2>
       This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> specifically addresses a dedicated network device that performs entity (device or user) authentication via direct, back-end connections with a relying party. 
-      The entity to be authenticated is referred to as the claimant, though different terms have been used for specific protocols (e.g., peer for <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr>/DIAMETER). 
+      The entity to be authenticated is referred to as the claimant, though different terms have been used for specific protocols (e.g., peer for <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> or DIAMETER). 
       The relying party can manage a single resource or provide access control for resources within a network. 
       For example, a Wireless Local Area Network (<abbr class="dyn-abbr"><a href="#abbr_WLAN">WLAN</a></abbr>) Access System may use the services of a dedicated authentication server during tunnel establishment. 
       In this use case, an authentication server must support IEEE 802.1X Port-Based Network Access Control and must fulfill the IEEE 802.11 authentication server role using Extensible Authentication Protocol (<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>) messaging. 
       <p></p>
       Similarly, the authentication server may be used during Virtual Private Network (VPN) tunnel establishment. 
-      The relying party in this case is a VPN Gateway acting as a Network Access Server using passthrough between the VPN client and authentication server (the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>), also using <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> messaging.
+      The relying party in this case is a VPN Gateway acting as a Network Access Server using pass-through between the VPN client and authentication server (the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>), also using <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> messaging.
       <p></p>
       In general, any relying party using a direct authentication federation protocol that supports <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS messaging is addressed by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
       <p></p>
@@ -752,7 +753,7 @@ The following sections list Common Criteria and technology terms used in this do
     
     
     <h2 class="indexable" data-level="2" id="Use_Cases">1.5 Use Cases</h2>
-      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines potential use cases for the authentication server <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, defined below. The first use case defines the physical embodiment of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, while the latter three define its role in a network infrastructure.
+      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines potential the use cases for the authentication server <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, defined below. Use Case 1 defines the physical embodiment of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, while Use Cases 2-4 define its role in a network infrastructure.
       <dl><dt id="usecase-dedicated"> [USE CASE 1] Dedicated Appliance</dt><dd>The authentication server is integrated on a standalone network appliance. In this use case, conformance to the NDcPP and this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is sufficient to ensure security. 
             This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not cover the use case where the authentication server is an application that is installed on a general-purpose computer.</dd><dt id="usecase-standalone"> [USE CASE 2] Standalone Server</dt><dd>The system on which the authentication server is deployed is solely responsible for acting as an authenticator. 
             In this deployment, the authentication server’s only network infrastructure role is to communicate with the relying party for receiving challenges and issuing responses.</dd><dt id="usecase-colocated"> [USE CASE 3] Relying Party Co-Location</dt><dd>
@@ -760,16 +761,16 @@ The following sections list Common Criteria and technology terms used in this do
             In this deployment, the authentication server’s interactions with the relying party are internal-only. 
             Regardless of whether the relying party is a standalone component or the authentication server executable code also provides relying party functionality, 
             the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s logical boundary still only includes the authentication server component. 
-            Additionally, if the authentication server is a software application that can be deployed independently of the relying party, 
+            Additionally, if the authentication server is a software application that can be deployed independent of the relying party, 
             the required external trusted communications must still be supported; 
             an authentication server cannot use the fact that it can be deployed on the same physical server as the relying party as a 
-            way to exempt itself from implementation of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>, RadSec or mutually authenticated (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> with an external relying party.
+            way to exempt itself from implementation of <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>, RadSec, or mutually authenticated (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> with an external relying party.
           </dd><dt id="usecase-integrated"> [USE CASE 4] Integrated as an Authorization Server Component</dt><dd>
             The system on which the authentication server is deployed also acts as an authorization server 
             (e.g., as part of an <abbr class="dyn-abbr"><a href="#abbr_AAA">AAA</a></abbr> server) that provides authorization services in addition to the authentication server. 
             Assertions made via the direct connection can also include authorization information, and an unauthorized, but 
             authenticated user may result in a negative response to the relying party. 
-            Regardless of whether these are all standalone components or whether the authentication server executable code also provides authorization functionality, 
+            Regardless of whether these are all standalone components or the authentication server executable code also provides authorization functionality, 
             the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s logical boundary still only includes the authentication server component. 
             As in the case where the authentication server is co-located with the relying party, 
             this deployment does not exempt the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from being able to implement all the functionality that this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> requires.
@@ -817,7 +818,7 @@ provide all of its security functionality.
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
 
       <dl><dt class="SO,defined" id="O.AUTHORIZED_USE">O.AUTHORIZED_USE</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide mechanisms that prevent and detect its unauthorized use.
-          </dd><dt class="SO,defined" id="O.SECURITY_ASSOCIATION">O.SECURITY_ASSOCIATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide the information to the relying party to enable the relying party to verify that the claimant has possession of an authentication key.
+          </dd><dt class="SO,defined" id="O.SECURITY_ASSOCIATION">O.SECURITY_ASSOCIATION</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide the information to the relying party to enable it to verify that the claimant has possession of an authentication key.
           </dd><dt class="SO,defined" id="O.TRUSTED_RP">O.TRUSTED_RP</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide mechanisms to authenticate itself to a federated <abbr class="dyn-abbr"><a href="#abbr_RP">RP</a></abbr> and authenticate a federated <abbr class="dyn-abbr"><a href="#abbr_RP">RP</a></abbr> before providing an identity assertion.
           </dd><dt class="SO,defined" id="O.USER_AUTH">O.USER_AUTH</dt><dd>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall provide a mechanism to assess authentication requests and respond with an authentication assertion based on data that is supplied in the request.
           </dd></dl>
@@ -972,7 +973,7 @@ provide all of its security functionality.
               </tr>
               <tr>
                 <td rowspan="2"><a href="#FIA_HOTP_EXT.1">FIA_HOTP_EXT.1</a> (selection-based)</td>
-                <td>Generation of a <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed value</td>
+                <td>Generation of a <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed key</td>
                 <td>Entity identifier</td>
               </tr>
               <tr>
@@ -993,7 +994,7 @@ provide all of its security functionality.
               </tr>
               <tr>
                 <td rowspan="2"><a href="#FIA_TOTP_EXT.1">FIA_TOTP_EXT.1</a> (selection-based)</td>
-                <td>Generation of a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed value</td>
+                <td>Generation of a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed key</td>
                 <td>Entity identifier</td>
               </tr>
               <tr>
@@ -1072,7 +1073,7 @@ provide all of its security functionality.
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
-                The intent of this requirement is for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to provide source of origin (non-repudiation) 
+                The intent of this requirement is for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to provide the source of origin (non-repudiation) 
                 for assertions and sensitive data associated to claimants it provides to relying parties. 
                 The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will claim ‘authentication requests’ and ‘external authentication servers…’ 
                 if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports pass-through communication with external authentication servers. 
@@ -1104,8 +1105,8 @@ provide all of its security functionality.
               in the selection for authentication in communications with external authentication servers.  
             </span></div></div></div>
           <div class="element"><div class="reqid" id="FCO_NRR.1.2"><a href="#FCO_NRR.1.2" class="abbr">FCO_NRR.1.2</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to relate the [<i>claimant identifier, claimant authenticators</i>] of the recipient of the information, and the 
-              [<i>identity assertion, information requests and error responses</i>] of the information to which the evidence applies.
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to relate the [<i>claimant identifier and claimant authenticators</i>] of the recipient of the information, and the 
+              [<i>identity assertion, information requests, and error responses</i>] of the information to which the evidence applies.
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1131,7 +1132,7 @@ provide all of its security functionality.
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform [<i>access control for persistent private and secret keys and security critical parameters required by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></i>] 
               in accordance with a specified cryptographic key access method 
               [<i>ensuring only authorized security functionality can access plaintext keys or security critical information</i>] 
-              that meets the following: [<i>keys and security critical information are not exportable in plaintext, keys and security critical information are not viewable in plaintext</i>].
+              that meets the following: [<i>keys and security critical information are not exportable in plaintext and keys and security critical information are not viewable in plaintext</i>].
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1215,12 +1216,12 @@ provide all of its security functionality.
       Note:
     </span><span class="note">
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author describes how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> communicates with a relying party at the application layer to receive authentication requests and provide identity assertions. 
-              <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> and DIAMETER protocols are used with <abbr class="dyn-abbr"><a href="#abbr_AAA">AAA</a></abbr> servers when the relying party is a NAS, 
-              but other direct access identity federation protocols that support <a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a> and identify a key held by the authenticated claimant that can be confirmed by the relying party are acceptable. 
+              <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> and DIAMETER protocols are used with <abbr class="dyn-abbr"><a href="#abbr_AAA">AAA</a></abbr> servers when the relying party is a NAS. However, 
+              other direct access identity federation protocols that support <a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a> and identify a key held by the authenticated claimant that can be confirmed by the relying party are acceptable. 
               If other protocols are claimed, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author includes the RFCs and indicates the messages used for authentication requests and assertions. 
               <p></p>
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author indicates which keys held by the authenticated claimant are available to the relying party for key-holder verification. 
-              For <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr>/DIAMETER, the encrypted key is the derived from the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS/<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS master key established during the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> handshake, 
+              For <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> and DIAMETER, the encrypted key is derived from the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS/<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS master key established during the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> handshake, 
               and used by the relying party as the AUTH MSK/security association for the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> session established between the network access server and the authenticated claimant. 
               More generally, a key indicator can be a reference identifier for a shared secret key, or a public key, certificate, or other identifier associated with a private asymmetric key controlled by the authenticated claimant.
             </span></div></div></div>
@@ -1275,12 +1276,12 @@ provide all of its security functionality.
           <div class="element"><div class="reqid" id="FIA_X509_EXT.1.1/AuthSvr"><a href="#FIA_X509_EXT.1.1/AuthSvr" class="abbr">FIA_X509_EXT.1.1/AuthSvr</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate certificates in accordance with the following rules: 
               <ul>
-                <li>RFC 5280 <b>version 3</b> certificate validation and certification path validation supporting <b>[<b>selection</b>: <span class="selectable-content" id="_s_46">a minimum path length of [<b>assignment</b>: 
-     <span class="assignable-content">value greater than or equal to 3</span>]</span>,  <span class="selectable-content" id="_s_47">no prior constraints on path length</span> ]</b></li>
+                <li>RFC 5280 <b>version 3</b> certificate validation and certification path validation <b>supporting [<b>selection</b>: <span class="selectable-content" id="_s_46">a minimum path length of [<b>assignment</b>: 
+     <span class="assignable-content">value greater than or equal to three</span>]</span>,  <span class="selectable-content" id="_s_47">no prior constraints on path length</span> ]</b></li>
                 <li>The certification path must terminate with a CA certificate <b>trusted by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> specifically for claimant authentication.</b></li>
                 <li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate a certification path by ensuring that all CA certificates in the certification path contain the basicConstraints extension with the CA flag set to TRUE.</li>
-                <li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the revocation status of <b>each certificate in the certificate path [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_48">containing an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> provider in the AIA extension using the Online Certificate Status Protocol (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr>) as specified in RFC 6960</span></li><li style=""><span class="selectable-content" id="_s_49">containing a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> distribution point in the 
-                    CRLDP extension or AIA extension using [<b>selection</b>: <span class="selectable-content" id="_s_50">a Certificate Revocation List (<abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr>) as specified in RFC 5280 Section 6.3</span>,  <span class="selectable-content" id="_s_51">a Certificate Revocation List (<abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr>) as specified in RFC 5759 Section 5</span> ]</span></li></ul>]</b>.
+                <li>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the revocation status of <b>each certificate in the certificate path [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_48">containing an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> provider in the AIA extension using the Online Certificate Status Protocol (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr>) as specified in RFC 6960</span></li><li style=""><span class="selectable-content" id="_s_49">containing a certificate revocation list (<abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr>) distribution point in the 
+                    CRLDP extension or AIA extension using [<b>selection</b>: <span class="selectable-content" id="_s_50">a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in RFC 5280 Section 6.3</span>,  <span class="selectable-content" id="_s_51">a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in RFC 5759 Section 5</span> ]</span></li></ul>]</b>.
                 </li>
                 <li>
                   The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the extendedKeyUsage field <b>is present and contains key usage values</b> according to the following rules: <b>
@@ -1294,7 +1295,7 @@ provide all of its security functionality.
                   to the CA certificate indicating the constraint, not counting the CA certificate itself or any self-issued certificates in the certification path.
                 </li>
                 <li>
-                  The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall process name constraints of type Directory Name and [<b>selection</b>: <span class="selectable-content" id="_s_62">rfc822Name</span>,  <span class="selectable-content" id="_s_63">dnsName</span>,  <span class="selectable-content" id="_s_64">UPN Name (Ohter Name = id-ms-san-sc-logon-upn)</span>,  <span class="selectable-content" id="_s_65">[<b>assignment</b>: 
+                  The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall process name constraints of type Directory Name and [<b>selection</b>: <span class="selectable-content" id="_s_62">rfc822Name</span>,  <span class="selectable-content" id="_s_63">dnsName</span>,  <span class="selectable-content" id="_s_64">UPN Name (Other Name = id-ms-san-sc-logon-upn)</span>,  <span class="selectable-content" id="_s_65">[<b>assignment</b>: 
      <span class="assignable-content">other name type</span>]</span>,  <span class="selectable-content" id="_s_66">no other name type</span> ] 
                   by verifying that each name of a supported name type present in the end-entity certificate subject field or subjectAlternateName extension, 
                   is allowed in each CA certificate in the certification path, is not disallowed by any of the CA certificates in the certification path, 
@@ -1304,7 +1305,7 @@ provide all of its security functionality.
                   The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall process the following certificate extensions: [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_67">Certificate Policy extension in accordance with RFC 5280 and [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_68">Policy mapping extension in accordance with RFC 5280</span></li><li style=""><span class="selectable-content" id="_s_69">Policy constraints extension in accordance with RFC 5280</span></li><li style=""><span class="selectable-content" id="_s_70">Inhibit anyPolicy extension in accordance with RFC 5280</span></li><li style=""><span class="selectable-content" id="_s_71">No other policy related extension</span></li></ul>] in support of claimant authentication and [<b>assignment</b>: 
      <span class="assignable-content">
                         other intended purposes and limitations of policy related extension processing</span>]</span></li><li style=""><span class="selectable-content" id="_s_72">[<b>assignment</b>: 
-     <span class="assignable-content">other standard extensions</span>]</span></li><li style=""><span class="selectable-content" id="_s_73">no other extensiosn</span></li></ul>].
+     <span class="assignable-content">other standard extensions</span>]</span></li><li style=""><span class="selectable-content" id="_s_73">no other extensions</span></li></ul>].
                 </li></b>
               </ul>
             <div class="appnote"><span class="note-header">Application
@@ -1315,9 +1316,9 @@ provide all of its security functionality.
               <p></p>
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author claims supported certificate policies. ‘Policy Constraints…’ is claimed if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s authentication policy depends on the certificate policies for claimant certificates. 
               Other policy related extensions within the selection are claimed if supported. 
-              The extension inhibitPolicyMapping is not claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support certificate chains of length 4 or more. 
-              The Policy related extensions, if supported, are primarily used in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for claimant authentication, but are allowed for other certificate authentications. 
-              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies the intended use and any limits of support for these extensions or specifies ‘no other purposes or constraints’ in the assignment of this selection.
+              The extension inhibitPolicyMapping is not claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support certificate chains of length four or more. 
+              The policy related extensions, if supported, are primarily used in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for claimant authentication, but are allowed for other certificate authentications. 
+              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies the intended use and any limits of support for these extensions or specifies ‘no other policy related extension’ in the assignment of this selection.
               <p></p>
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies any additional supported X509 extensions, and the associated extension processing rules used to determine claimant identity attributes or conditions that can be used in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s authentication policy. 
             </span></div></div></div>
@@ -1337,14 +1338,14 @@ provide all of its security functionality.
       <h3 id="man_fmt" class="indexable" data-level="3">5.2.5 Security Management (FMT)</h3>
         <div class="comp" id="FMT_SMF.1/AuthSvr"><h4>FMT_SMF.1/AuthSvr Specification of Management Functions (Authentication Server)</h4>
 			
-			<div class="element"><div class="reqid" id="FMT_SMF.1.1/AuthSvr"><a href="#FMT_SMF.1.1/AuthSvr" class="abbr">FMT_SMF.1.1/AuthSvr</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions: 
+			<div class="element"><div class="reqid" id="FMT_SMF.1.1/AuthSvr"><a href="#FMT_SMF.1.1/AuthSvr" class="abbr">FMT_SMF.1.1/AuthSvr</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions: [<i>
 			  <ul>
 			    <li>Ability to configure claimant verification data</li>
 			    <li>Ability to manage trust store data</li>
 			    <li>Ability to configure administrator authentication credential</li>
 			    <li>Ability to configure trusted channel to relying party</li>
-			    <li>[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_77">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_78">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_79">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_80">Ability to manage claimant authentication policy</span></li><li style=""><span class="selectable-content" id="_s_81">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> shared secret</span></li><li style=""><span class="selectable-content" id="_s_82">Ability to define authorized NAS</span></li><li style=""><span class="selectable-content" id="_s_83">Ability to configure cryptographic key storage</span></li><li style=""><span class="selectable-content" id="_s_84">Ability to configure lockout policy for failed claimant authentication</span></li><li style=""><span class="selectable-content" id="_s_85">Ability to unlock a claimant account</span></li><li style=""><span class="selectable-content" id="_s_86">Ability to configure certificate validation checking mechanisms</span></li><li style=""><span class="selectable-content" id="_s_87">Ability to define conditions in which claimant authentication attempts are rejected</span></li><li style=""><span class="selectable-content" id="_s_88">Ability to associate pre-shared keys with claimants or external entities</span></li><li style=""><span class="selectable-content" id="_s_89">Ability to configure restrictions on the composition of pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_90">Ability to configure restrictions on the validation of pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_91">Ability to generate pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_92">Ability to accept pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_93">No other functions</span></li></ul>].</li>
-			  </ul>
+			    <li>[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_77">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_78">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_79">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_80">Ability to manage claimant authentication policy</span></li><li style=""><span class="selectable-content" id="_s_81">Ability to configure <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> shared secret</span></li><li style=""><span class="selectable-content" id="_s_82">Ability to define authorized NAS</span></li><li style=""><span class="selectable-content" id="_s_83">Ability to configure cryptographic key storage</span></li><li style=""><span class="selectable-content" id="_s_84">Ability to configure lockout policy for failed claimant authentication</span></li><li style=""><span class="selectable-content" id="_s_85">Ability to unlock a claimant account</span></li><li style=""><span class="selectable-content" id="_s_86">Ability to configure certificate validation checking mechanisms</span></li><li style=""><span class="selectable-content" id="_s_87">Ability to define conditions in which claimant authentication attempts are rejected</span></li><li style=""><span class="selectable-content" id="_s_88">Ability to associate pre-shared keys with claimants or external entities</span></li><li style=""><span class="selectable-content" id="_s_89">Ability to configure restrictions on the composition of pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_90">Ability to configure restrictions on the validation of pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_91">Ability to generate pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_92">Ability to accept pre-shared keys</span></li><li style=""><span class="selectable-content" id="_s_93">No other functions</span></li></ul>]</li>
+			  </ul></i>].
 			<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1419,7 +1420,7 @@ provide all of its security functionality.
             The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements either <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS or <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS with mutual authentication to authenticate itself to a relying party. 
           </td></tr>
 <tr><td><a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a></td><td>
-            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a cryptographically secure trusted channel with a relying party that allows to authorize itself to the relying party.
+            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a cryptographically secure trusted channel with a relying party that allows it to authorize itself to the relying party.
           </td></tr>
 <tr><td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a></td><td>
             RadSec is one potential mechanism by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can establish a trusted channel with the relying party.   
@@ -1433,7 +1434,7 @@ provide all of its security functionality.
 <tr><td><a href="#FIA_AFL.1/AuthSvr">FIA_AFL.1/AuthSvr</a></td><td>
             The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a mechanism to prevent claimant authentication attempts if an excessive number of failed attempts have been made. 
           </td></tr>
-<tr><td>FTA_X509_EXT.1/AuthSvr</td><td>
+<tr><td><a href="#FIA_X509_EXT.1/AuthSvr">FIA_X509_EXT.1/AuthSvr</a></td><td>
             The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements a mechanism to determine the validity of X.509 certificates that are used as claimant authenticators.
           </td></tr>
 <tr><td><a href="#FTA_TSE.1">FTA_TSE.1</a></td><td>
@@ -1468,7 +1469,7 @@ provide all of its security functionality.
 		evaluation laboratory will evaluate the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> against the chosen <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and supplement that evaluation
 		with the necessary <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> that are taken from this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
 	  <h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-ND" class="indexable" data-level="2">6.1 Collaborative 
-    Protection Profile for NDs</h2><h3 id="contoe-ND" class="indexable" data-level="3">6.1.1 
+    Protection Profile for Network Devices</h2><h3 id="contoe-ND" class="indexable" data-level="3">6.1.1 
 	Consistency of TOE Type
       </h3> 
         When this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is used to extend the NDcPP, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type for the overall <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is still a network device.
@@ -1488,13 +1489,13 @@ provide all of its security functionality.
             for the functions defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
           </td></tr><tr><td><a href="#O.SECURITY_ASSOCIATION">O.SECURITY_ASSOCIATION</a></td><td>
             The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
-            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
+            This objective is therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy this objective do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
           </td></tr><tr><td><a href="#O.TRUSTED_RP">O.TRUSTED_RP</a></td><td>
             The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
-            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
+            This objective is therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy this objective do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
 	  </td></tr><tr><td><a href="#O.USER_AUTH">O.USER_AUTH</a></td><td>
             The NDcPP does not define any <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives; instead, it maps <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> directly to threats. 
-            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objectives defined by this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy these objectives do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
+            This objective is therefore assumed not to conflict with the NDcPP by virtue of the fact that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> used to satisfy this objective do not conflict with the NDcPP <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
           </td></tr></table></p><p>
 	  The objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr> are consistent with the NDcPP based on the following rationale:
       <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#OE.RP_FEDERATION">OE.RP_FEDERATION</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> does not define where in a particular network architecture a network device must be deployed since it is designed to be generic to various types of network devices. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
@@ -1517,7 +1518,7 @@ provide all of its security functionality.
       <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Requirement</th><th>Consistency Rationale</th></tr><tr><th colspan="2"> Modified <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr></th></tr><tr><td><a href="#FIA_X509_EXT.1/Rev">FIA_X509_EXT.1/Rev</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s definition of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> by making it mandatory rather than selection-based.</td></tr><tr><td><a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s definition of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> by making it mandatory rather than selection-based.</td></tr><tr><td><a href="#FIA_X509_EXT.3">FIA_X509_EXT.3</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> modifies the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>'s definition of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> by making it mandatory rather than selection-based.</td></tr><tr><th colspan="2"> Additional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr></th></tr><tr><td colspan="2" style="text-align:center">
 	      This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not add any requirements when the
 	      NDcPP is the base.
-	    </td></tr><tr><th colspan="2"> Mandatory <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr></th><tr><td><a href="#FAU_GEN.1/AuthSvr">FAU_GEN.1/AuthSvr</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> iterates the FAU_GEN.1 <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to define auditable events for the functionality that is specific to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#FCO_NRO.1">FCO_NRO.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of the supported authentication protocol, which is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCO_NRR.1">FCO_NRR.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of the supported authentication protocol, which is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_CKM.3">FCS_CKM.3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> requires confidentiality of cryptographic key data in FPT_SKP_EXT.1. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines more specific detail on how that function should be enforced.</td></tr><tr><td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS; the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> defines implementation requirements for (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, but <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. </td></tr><tr><td><a href="#FCS_RADIUS_EXT.1">FCS_RADIUS_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of authentication protocols, which is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is consistent with the FPT_SKP_EXT.1 requirement of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> but requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement a specific method of protecting key data rather than a general statement
+	    </td></tr><tr><th colspan="2"> Mandatory <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr></th><tr><td><a href="#FAU_GEN.1/AuthSvr">FAU_GEN.1/AuthSvr</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> iterates the FAU_GEN.1 <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to define auditable events for the functionality that is specific to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#FCO_NRO.1">FCO_NRO.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to the implementation of the supported authentication protocol, which is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCO_NRR.1">FCO_NRR.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of the supported authentication protocol, which is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_CKM.3">FCS_CKM.3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> requires confidentiality of cryptographic key data in FPT_SKP_EXT.1. This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines more specific detail on how that function should be enforced.</td></tr><tr><td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS; the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> defines implementation requirements for (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, but <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. </td></tr><tr><td><a href="#FCS_RADIUS_EXT.1">FCS_RADIUS_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies to implementation of authentication protocols, which is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is consistent with the FPT_SKP_EXT.1 requirement of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> but requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement a specific method of protecting key data rather than a general statement
           that such data is not stored in plaintext.</td></tr><tr><td><a href="#FIA_AFL.1/AuthSvr">FIA_AFL.1/AuthSvr</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines functional behavior enforced on external users being authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, which is functionality that is not covered by the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FIA_X509_EXT.1/AuthSvr">FIA_X509_EXT.1/AuthSvr</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> defines X.509 validation requirements for external entities presenting certificates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>
           defines a separate iteration of this function to define the certificate validation behavior that is enforced against claimants requesting to be authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. It is substantially refined
           from its original definition to address issues specific to the handling of claimant certificates.</td></tr><tr><td><a href="#FIA_UAU.6">FIA_UAU.6</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines support for re-authentication of administrators, which expands on the authentication functionality defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FMT_SMF.1/AuthSvr">FMT_SMF.1/AuthSvr</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> defines additional management functionality that is specific to the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>’s product type and would therefore not be expected to be present in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FTA_TSE.1">FTA_TSE.1</a></td><td>This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> relates to the handling of claimants being authenticated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, which is functionality that is beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a></td><td>
@@ -1569,7 +1570,9 @@ provide all of its security functionality.
               [<b>selection</b>: <span class="selectable-content" id="_s_102"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_103"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span> ] with mutual authentication.
             <div class="appnote"><span class="note-header">Application
       Note:
-    </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed if "a RadSec" is selected in <a href="#FTP_ITC.1.1/NAS">FTP_ITC.1.1/NAS</a>.</span></div></div></div>
+    </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed if "a RadSec" is selected in <a href="#FTP_ITC.1.1/NAS">FTP_ITC.1.1/NAS</a>.
+            <p></p>
+            If "pre-shared keys" is selected in <a href="#FCS_RADSEC_EXT.1.2">FCS_RADSEC_EXT.1.2</a>, the selection-based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> <a href="#FIA_PSK_EXT.1/AuthSvr">FIA_PSK_EXT.1/AuthSvr</a> must be claimed.</span></div></div></div>
         </div>
       
         
@@ -1596,7 +1599,7 @@ provide all of its security functionality.
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed key according to FCS_RBG_EXT.1 of 
               [<b>selection</b>: <span class="selectable-content" id="_s_104">128</span>,  <span class="selectable-content" id="_s_105">256</span> ] bits.
             </div></div>
-          <div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.3"><a href="#FIA_HOTP_EXT.1.3" class="abbr">FIA_HOTP_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed value for each claimant to be authenticated.
+          <div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.3"><a href="#FIA_HOTP_EXT.1.3" class="abbr">FIA_HOTP_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed key for each claimant to be authenticated.
             </div></div>
           <div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.4"><a href="#FIA_HOTP_EXT.1.4" class="abbr">FIA_HOTP_EXT.1.4</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use
@@ -1622,7 +1625,7 @@ provide all of its security functionality.
           <div class="element"><div class="reqid" id="FIA_HOTP_EXT.1.7"><a href="#FIA_HOTP_EXT.1.7" class="abbr">FIA_HOTP_EXT.1.7</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not verify <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> attempts outside of the counter look ahead window of 
               [<b>assignment</b>: 
-     <span class="assignable-content">a value less than or equal to 3</span>] 
+     <span class="assignable-content">a value less than or equal to three</span>] 
               [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_129">except for rescynchronization</span></li><li style=""><span class="selectable-content" id="_s_130">where a look ahead window of [<b>selection</b>: <span class="selectable-content" id="_s_131">a configurable value</span>,  <span class="selectable-content" id="_s_132">[<b>assignment</b>: 
      <span class="assignable-content">fixed value</span>]</span> ] is used to reset the counter but which is not considered a valid <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> value</span></li><li style=""><span class="selectable-content" id="_s_133">with no exception</span></li></ul>].
             </div></div>
@@ -1631,15 +1634,15 @@ provide all of its security functionality.
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
-              This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed if "<abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr>" is selected in <a href="#FCS_EAPTLS_EXT.1.3">FCS_EAPTLS_EXT.1.3</a> or if "HMAC based one-time password" is selected in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>.
+              This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed if "<abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr>" is selected in <a href="#FCS_EAPTLS_EXT.1.3">FCS_EAPTLS_EXT.1.3</a> or if "HMAC-based one-time password" is selected in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>.
               <p></p>
               The selection in <a href="#FIA_HOTP_EXT.1.4">FIA_HOTP_EXT.1.4</a> must be consistent with the key size specified for the size of the keys used in conjunction with the keyed-hash message authentication.
-              <p></p>In <a href="#FIA_HOTP_EXT.1.5">FIA_HOTP_EXT.1.5</a> the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may either provide a configurable character length of at least 6 or a preset size between 6 and 10.
-              <p></p>In <a href="#FIA_HOTP_EXT.1.6">FIA_HOTP_EXT.1.6</a> the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may select throttle requests, account lockout, or both.
+              <p></p>In <a href="#FIA_HOTP_EXT.1.5">FIA_HOTP_EXT.1.5</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may either provide a configurable character length of at least 6 or a preset size between 6 and 10.
+              <p></p>In <a href="#FIA_HOTP_EXT.1.6">FIA_HOTP_EXT.1.6</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> may select throttle requests, account lockout, or both.
               <p></p>The selections in <a href="#FIA_HOTP_EXT.1.7">FIA_HOTP_EXT.1.7</a> indicate an optional resynchronization process that allows an arbitrary look-ahead to determine a new counter value by the verifier. 
               This can be used for out-of-sync claimants or for initial use of a <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> mechanism.  
               The <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> value presented for resynchronization does not serve to authenticate a user. 
-              A second verification using a small look ahead window (at most 3) is required after resynchronization to ensure the claimant and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> counter values are indeed synchronized 
+              A second verification using a small look ahead window (at most three) is required after resynchronization to ensure the claimant and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> counter values are indeed synchronized 
               so that arbitrary values are not considered valid. If such a resynchronization function is not supported, ‘with no exception’ is claimed. 
               <p></p>The <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed and all derived values are considered secret keys for purposes of protection.
             </span></div></div></div>
@@ -1675,10 +1678,10 @@ provide all of its security functionality.
                 <li>"pre-shared keys" is selected in FCS_IPSEC_EXT.1.13 (from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>).</li>
               </ul>
               <p></p>
-              <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a> if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is claimed in <a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a> and the selection for FCS_IPSEC_EXT.1.13 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> includes ‘pre-shared keys’.  
+              <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a>, if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is claimed in <a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a> and the selection for FCS_IPSEC_EXT.1.13 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> includes ‘pre-shared keys.’  
               <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> may use any supported type of <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> – those supported are claimed in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>. Use of certificates in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is preferred.
               <p></p>
-              RadSec is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a> if RadSec is selected in <a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a> and the (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation in RadSec allows server-only authentication or supports a <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> ciphersuite. 
+              RadSec is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a>, if RadSec is selected in <a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a> and the (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> implementation in RadSec allows server-only authentication or supports a <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> ciphersuite. 
               RadSec can use any type of <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> – those supported should be claimed in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>. Use of a mutually authenticated (D)<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> channel using certificate-based authentication is preferred.
               <p></p>
               If a pre-shared key used for <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> is validated directly using legacy methods, <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> is claimed. 
@@ -1686,7 +1689,7 @@ provide all of its security functionality.
               Use of a mutually authenticated channel using certificates to authenticate the relying party is preferred.
               <p></p>
               <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a> if it is claimed in <a href="#FCS_EAPTLS_EXT.1.1">FCS_EAPTLS_EXT.1.1</a> and support for static <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> (alone or in combination) is indicated in <a href="#FCS_EAPTLS_EXT.1.3">FCS_EAPTLS_EXT.1.3</a>. 
-              When <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a>, at least one of ‘password-based,’ ‘HMAC based one-time-password,’ or ‘Time based one-time password’ is claimed in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>. 
+              When <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS is claimed in <a href="#FIA_PSK_EXT.1.1/AuthSvr">FIA_PSK_EXT.1.1/AuthSvr</a>, at least one of ‘password-based,’ ‘HMAC-based one-time password,’ or ‘Time-based one-time password’ is claimed in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>. 
               Multiple password types are claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports validation of combinations of password types, even if presented in a single payload.
               <p></p>
               Note that even if presented by a claimant, <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> are ignored in <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS implementations.
@@ -1730,7 +1733,7 @@ provide all of its security functionality.
     </span><span class="note">
               This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed if "generated bit-based" is selected in <a href="#FIA_PSK_EXT.1.2/AuthSvr">FIA_PSK_EXT.1.2/AuthSvr</a>.
               <p></p>
-              Generated PSKs are expected to be shared between components via an out of band mechanism. 
+              Generated PSKs are expected to be shared between components via an out-of-band mechanism. 
                             <p></p>
               
             </span></div></div></div>
@@ -1793,8 +1796,6 @@ provide all of its security functionality.
               the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author fills in the assignment with the minimum length the <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> must be. This requirement is to ensure bounds work properly.
               <p></p>
               For <a href="#FIA_PSK_EXT.3.7">FIA_PSK_EXT.3.7</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may select one, both, or neither of the functions in alignment with NIST SP800-63b.
-              <p></p>
-              This requirement is selection-dependent on <a href="#FIA_PSK_EXT.1/AuthSvr">FIA_PSK_EXT.1/AuthSvr</a>. 
               </span></div></div></div>
           
         </div>
@@ -1817,7 +1818,7 @@ provide all of its security functionality.
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed according to FCS_RBG_EXT.1 of 
               [<b>selection</b>: <span class="selectable-content" id="_s_166">128</span>,  <span class="selectable-content" id="_s_167">256</span> ] bits.
             </div></div>
-          <div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.3"><a href="#FIA_TOTP_EXT.1.3" class="abbr">FIA_TOTP_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed for each client.
+          <div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.3"><a href="#FIA_TOTP_EXT.1.3" class="abbr">FIA_TOTP_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed for each claimant.
             </div></div>
           <div class="element"><div class="reqid" id="FIA_TOTP_EXT.1.4"><a href="#FIA_TOTP_EXT.1.4" class="abbr">FIA_TOTP_EXT.1.4</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use 
@@ -1865,7 +1866,6 @@ provide all of its security functionality.
               In <a href="#FIA_TOTP_EXT.1.6">FIA_TOTP_EXT.1.6</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may select throttle requests, account lockout, or both.
               <p></p>
               The <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed and all derived values are considered secret keys for purposes of protection.
-              <p></p>This requirement is selection-dependent on <a href="#FCS_EAPTLS_EXT.1.3">FCS_EAPTLS_EXT.1.3</a>.
               </span></div></div></div>
           
         </div>
@@ -1891,13 +1891,13 @@ provide all of its security functionality.
             </ul></p><h4>Audit: FCS_EAPTLS_EXT.1</h4><p>The following actions should be auditable if FAU_GEN Security audit data generation is included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
             <ul>
               <li>Protocol failures</li>
-              <li>Successful and failed authentication attempts</li>
+              <li>Successful and failed authentication of claimant</li>
             </ul>
           </p><h4>FCS_EAPTLS_EXT.1 EAP-TLS Protocol</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_RBG_EXT.1 Random Bit Generation<p></p>
-            [FCS_TLSC_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Client Protocol Without Mutual Authentication, or<p></p>
-            FCS_DTLSC_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client Protocol Without Mutual Authentication]<p></p>
-            [FCS_TLSC_EXT.2 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Client Support for Mutual Authentication, or<p></p>
-            FCS_DTLSC_EXT.2 <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Client Support for Mutual Authentication]<p></p>
+            [FCS_TLSS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Server Protocol Without Mutual Authentication, or<p></p>
+            FCS_DTLSS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server Protocol Without Mutual Authentication]<p></p>
+            [FCS_TLSS_EXT.2 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Server Support for Mutual Authentication, or<p></p>
+            FCS_DTLSS_EXT.2 <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> Server Support for Mutual Authentication]<p></p>
             FIA_X509_EXT.1 X.509 Certificate Validation
           </p><h4 id="ext-comp-FCS_EAPTLS_EXT.1.1">FCS_EAPTLS_EXT.1.1</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement [<b>selection</b>: <span class="selectable-content" id="_s_9"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS as specified in RFC 5216</span>,  <span class="selectable-content" id="_s_10"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS as specified in RFC 5881</span> ] as updated by RFC 8996 with [<b>selection</b>: <span class="selectable-content" id="_s_11"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_12"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span> ] implemented using mutual authentication in accordance with [<b>selection</b>: <span class="selectable-content" id="_s_13">FCS_TLSS_EXT.1 and FCS_TLSS_EXT.2</span>,  <span class="selectable-content" id="_s_14">FCS_DTLSS_EXT.1 and FCS_DTLSS_EXT.2</span> ].
@@ -1942,11 +1942,7 @@ provide all of its security functionality.
              defines implementation requirements for RadSec.</p><h4>Management: FCS_RADSEC_EXT.1</h4><p>The following actions could be considered for the management functions in FMT:
             <ul>
               <li>Configuration of trusted channel to relying party</li>
-            </ul></p><h4>Audit: FCS_RADSEC_EXT.1</h4><p>The following actions should be auditable if FAU_GEN Security audit data generation is included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
-          <ul>
-            <li>Failure to establish RadSec session.</li>
-          </ul></p><h4>FCS_RADSEC_EXT.1 RadSec</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
-	    FCS_TLSC_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Client Protocol<p></p>
+            </ul></p><h4>Audit: FCS_RADSEC_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FCS_RADSEC_EXT.1 RadSec</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
             <span class="no-link">FCS_RADIUS_EXT.1</span> Authentication Protocol<p></p>
             FCS_RBG_EXT.1 Random Bit Generation<p></p>
             [<span class="no-link">FIA_PSK_EXT.1</span> Pre-Shared Key Composition, or<p></p>
@@ -1961,20 +1957,24 @@ provide all of its security functionality.
               [<b>selection</b>: <span class="selectable-content" id="_s_102"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_103"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span> ] with mutual authentication.
             </div></div></span><span data-sortkey="Identification and Authentication (FIA)"><h3 id="ext-comp-FIA" class="indexable" data-level="3">C.2.2 Identification and Authentication (FIA)</h3>This Module defines the following extended components as part of the
 	 FIA class originally defined by <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2:
-	<h3 id="ext-comp-FIA_HOTP_EXT" class="indexable" data-level="4">C.2.2.1 FIA_HOTP_EXT HMAC-Based One-Time Password Pre-Shared Keys</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for use of HMAC-based One-Time Password authentication, including generation methods and usage restrictions.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FIA_HOTP_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FIA_HOTP_EXT.1">FIA_HOTP_EXT.1</a>,
+	<h3 id="ext-comp-FIA_HOTP_EXT" class="indexable" data-level="4">C.2.2.1 FIA_HOTP_EXT HMAC-Based One-Time Password Pre-Shared Keys</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for the use of HMAC-based One-Time Password authentication, including generation methods and usage restrictions.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FIA_HOTP_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FIA_HOTP_EXT.1">FIA_HOTP_EXT.1</a>,
              HMAC-Based One-Time Password Pre-Shared Keys,
               defines the implementation of <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr>.</p><h4>Management: FIA_HOTP_EXT.1</h4><p>The following actions could be considered for the management functions in FMT:
             <ul>
               <li>Ability to configure restrictions on the composition of pre-shared keys</li>
               <li>Ability to configure restrictions on the validation of pre-shared keys</li>
-            </ul></p><h4>Audit: FIA_HOTP_EXT.1</h4><p>There are no auditable events foreseen.
+            </ul></p><h4>Audit: FIA_HOTP_EXT.1</h4><p>The following actions should be auditable if FAU_GEN Security audit data generation is included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
+            <ul>
+              <li>Generation of a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed key</li>
+              <li>Entity <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> value comparison</li>
+            </ul>
           </p><h4>FIA_HOTP_EXT.1 HMAC-Based One-Time Password Pre-Shared Keys</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_COP.1 Cryptographic Operation<p></p>
             FCS_RBG_EXT.1 Random Bit Generation</p><h4 id="ext-comp-FIA_HOTP_EXT.1.1">FIA_HOTP_EXT.1.1</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support HMAC-Based One-Time Password authentication (<abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr>) in accordance with RFC 4226. 
             <h4 id="ext-comp-FIA_HOTP_EXT.1.2">FIA_HOTP_EXT.1.2</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed key according to FCS_RBG_EXT.1 of 
               [<b>selection</b>: <span class="selectable-content" id="_s_104">128</span>,  <span class="selectable-content" id="_s_105">256</span> ] bits.
-            <h4 id="ext-comp-FIA_HOTP_EXT.1.3">FIA_HOTP_EXT.1.3</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed value for each claimant to be authenticated.
+            <h4 id="ext-comp-FIA_HOTP_EXT.1.3">FIA_HOTP_EXT.1.3</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> seed key for each claimant to be authenticated.
             <h4 id="ext-comp-FIA_HOTP_EXT.1.4">FIA_HOTP_EXT.1.4</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use
               [<b>selection</b>: <span class="selectable-content" id="_s_106">SHA-1</span>,  <span class="selectable-content" id="_s_107">SHA-256</span>,  <span class="selectable-content" id="_s_108">SHA-384</span>,  <span class="selectable-content" id="_s_109">SHA-512</span> ] with key sizes 
@@ -1996,7 +1996,7 @@ provide all of its security functionality.
             <h4 id="ext-comp-FIA_HOTP_EXT.1.7">FIA_HOTP_EXT.1.7</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not verify <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> attempts outside of the counter look ahead window of 
               [<b>assignment</b>: 
-     <span class="assignable-content">a value less than or equal to 3</span>] 
+     <span class="assignable-content">a value less than or equal to three</span>] 
               [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_129">except for rescynchronization</span></li><li style=""><span class="selectable-content" id="_s_130">where a look ahead window of [<b>selection</b>: <span class="selectable-content" id="_s_131">a configurable value</span>,  <span class="selectable-content" id="_s_132">[<b>assignment</b>: 
      <span class="assignable-content">fixed value</span>]</span> ] is used to reset the counter but which is not considered a valid <abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr> value</span></li><li style=""><span class="selectable-content" id="_s_133">with no exception</span></li></ul>].
             <h4 id="ext-comp-FIA_HOTP_EXT.1.8">FIA_HOTP_EXT.1.8</h4>
@@ -2017,7 +2017,7 @@ provide all of its security functionality.
      <span class="assignable-content">protocols or authentication schemes that use pre-shared keys</span>]. 
             <h4 id="ext-comp-FIA_PSK_EXT.1.2">FIA_PSK_EXT.1.2</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept the following as pre-shared keys: [<b>assignment</b>: 
-     <span class="assignable-content">types of supported pre-shared keys (e.g. randomly generated, password-based, OTP)</span>].
+     <span class="assignable-content">types of supported pre-shared keys (e.g., randomly generated, password-based, OTP)</span>].
             </div><h4>Management: FIA_PSK_EXT.2</h4><p>The following actions could be considered for the management functions in FMT:
             <ul>
               <li>Ability to generate pre-shared keys</li>
@@ -2060,20 +2060,24 @@ provide all of its security functionality.
             <h4 id="ext-comp-FIA_PSK_EXT.3.7">FIA_PSK_EXT.3.7</h4>
                 The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall 
                 [<b>selection</b>: <span class="selectable-content" id="_s_163">provide a password strength meter</span>,  <span class="selectable-content" id="_s_164">check the password against a denylist</span>,  <span class="selectable-content" id="_s_165">perform no action to assist the user in choosing a strong password</span> ]. 
-              </div></div><h3 id="ext-comp-FIA_TOTP_EXT" class="indexable" data-level="4">C.2.2.3 FIA_TOTP_EXT Time-Based One-Time Password Pre-Shared Keys</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for use of Time-Based One-Time password authentication, including generation methods and usage restrictions.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FIA_TOTP_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FIA_TOTP_EXT.1">FIA_TOTP_EXT.1</a>,
+              </div></div><h3 id="ext-comp-FIA_TOTP_EXT" class="indexable" data-level="4">C.2.2.3 FIA_TOTP_EXT Time-Based One-Time Password Pre-Shared Keys</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for the use of Time-Based One-Time password authentication, including generation methods and usage restrictions.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FIA_TOTP_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FIA_TOTP_EXT.1">FIA_TOTP_EXT.1</a>,
              Time-Based One-Time Password Pre-Shared Keys,
               defines the implementation of <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr>.</p><h4>Management: FIA_TOTP_EXT.1</h4><p>The following actions could be considered for the management functions in FMT:
             <ul>
               <li>Ability to configure restrictions on the composition of pre-shared keys</li>
               <li>Ability to configure restrictions on the validation of pre-shared keys</li>
-            </ul></p><h4>Audit: FIA_TOTP_EXT.1</h4><p>There are no auditable events foreseen.
+            </ul></p><h4>Audit: FIA_TOTP_EXT.1</h4><p>The following actions should be auditable if FAU_GEN Security audit data generation is included in the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
+            <ul>
+              <li>Generation of a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed key</li>
+              <li>Entity <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> value comparison</li>
+            </ul>
           </p><h4>FIA_TOTP_EXT.1 Time-Based One-Time Password Pre-Shared Keys</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: FCS_COP.1 Cryptographic Operation<p></p>
             FCS_RBG_EXT.1 Random Bit Generation</p><h4 id="ext-comp-FIA_TOTP_EXT.1.1">FIA_TOTP_EXT.1.1</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support Time-Based One-Time Password (<abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr>) authentication in accordance with RFC 6238. 
             <h4 id="ext-comp-FIA_TOTP_EXT.1.2">FIA_TOTP_EXT.1.2</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed according to FCS_RBG_EXT.1 of 
               [<b>selection</b>: <span class="selectable-content" id="_s_166">128</span>,  <span class="selectable-content" id="_s_167">256</span> ] bits.
-            <h4 id="ext-comp-FIA_TOTP_EXT.1.3">FIA_TOTP_EXT.1.3</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed for each client.
+            <h4 id="ext-comp-FIA_TOTP_EXT.1.3">FIA_TOTP_EXT.1.3</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a new <abbr class="dyn-abbr"><a href="#abbr_TOTP">TOTP</a></abbr> seed for each claimant.
             <h4 id="ext-comp-FIA_TOTP_EXT.1.4">FIA_TOTP_EXT.1.4</h4>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use 
               [<b>selection</b>: <span class="selectable-content" id="_s_168">SHA-1</span>,  <span class="selectable-content" id="_s_169">SHA-256</span>,  <span class="selectable-content" id="_s_170">SHA-384</span>,  <span class="selectable-content" id="_s_171">SHA-512</span> ] with key sizes 
@@ -2113,15 +2117,15 @@ provide all of its security functionality.
     This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> has no implicitly satisfied requirements. All <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> dependencies are explicitly met either through <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> defined by the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> or inherited from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
   <h1 id="allocation" class="indexable" data-level="A">Appendix E -  Allocation of Requirements in Distributed TOEs</h1>
     
-    For a distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the security functional requirements in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> need to be met by the
+    For a distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> need to be met by the
     <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a whole, but not all <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> will necessarily be implemented by all components. The
     following categories are defined in order to specify when each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> must be implemented by a
     component: <ul>
-      <li><b>All Components ("All")</b> —All components that comprise the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must
+      <li><b>All Components ("All"):</b> All components that comprise the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must
         independently satisfy the requirement.</li>
-      <li><b>At least one Component ("One")</b> —This requirement must be fulfilled by at least one
+      <li><b>At least one Component ("One"):</b> This requirement must be fulfilled by at least one
         component within the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</li>
-      <li><b>Feature Dependent ("Feature Dependent")</b> — These requirements will only be
+      <li><b>Feature Dependent ("Feature Dependent"):</b> These requirements will only be
         fulfilled where the feature is implemented by the distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> component (note
         that the requirement to meet the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> as a whole requires that at least one component
         implements these requirements if they are claimed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>).</li></ul>
@@ -2141,12 +2145,12 @@ provide all of its security functionality.
       <tr>
         <td><a href="#FCO_NRO.1">FCO_NRO.1</a></td>
         <td>Selective Proof of Origin</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FCO_NRR.1">FCO_NRR.1</a></td>
         <td>Selective Proof of Receipt</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FCS_CKM.3">FCS_CKM.3</a></td>
@@ -2156,12 +2160,12 @@ provide all of its security functionality.
       <tr>
         <td><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></td>
         <td><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS Protocol</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FCS_RADIUS_EXT.1">FCS_RADIUS_EXT.1</a></td>
         <td>Authentication Protocol</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a></td>
@@ -2171,17 +2175,17 @@ provide all of its security functionality.
       <tr>
         <td><a href="#FIA_AFL.1/AuthSvr">FIA_AFL.1/AuthSvr</a></td>
         <td>Authentication Failure Handling (Claimant)</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_X509_EXT.1/AuthSvr">FIA_X509_EXT.1/AuthSvr</a></td>
         <td>X.509 Certificate Validation (Claimant)</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_UAU.6">FIA_UAU.6</a></td>
         <td>Re-Authenticating</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FMT_SMF.1/AuthSvr">FMT_SMF.1/AuthSvr</a></td>
@@ -2191,42 +2195,42 @@ provide all of its security functionality.
       <tr>
         <td><a href="#FTA_TSE.1">FTA_TSE.1</a></td>
         <td><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Session Establishment</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FTP_ITC.1/NAS">FTP_ITC.1/NAS</a></td>
         <td>Inter-TSF Trusted Channel (Relying Party Communications)</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FCS_RADSEC_EXT.1">FCS_RADSEC_EXT.1</a> (selection-based)</td>
         <td>RadSec</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_HOTP_EXT.1">FIA_HOTP_EXT.1</a> (selection-based)</td>
         <td>HMAC-Based One-Time Password Pre-Shared Keys</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_PSK_EXT.1/AuthSvr">FIA_PSK_EXT.1/AuthSvr</a> (selection-based)</td>
         <td>Pre-Shared Key Usage</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_PSK_EXT.2">FIA_PSK_EXT.2</a> (selection-based)</td>
         <td>Generated Pre-Shared Keys</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_PSK_EXT.3">FIA_PSK_EXT.3</a> (selection-based)</td>
         <td>Password-Based Pre-Shared Keys</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       <tr>
         <td><a href="#FIA_TOTP_EXT.1">FIA_TOTP_EXT.1</a> (selection-based)</td>
         <td>Time-Based One-Time Password Pre-Shared Keys</td>
-        <td>Implementation-dependent</td>
+        <td>Feature-dependent</td>
       </tr>
       
     </table>
