@@ -811,6 +811,50 @@ The following sections list Common Criteria and technology terms used in this do
 		consistent with selections in the dependent components.<p></p>
 	      </div><div class="eacategory">Tests</div><div class="ea">
                 
+                There are no test activities for this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>; the following information is provided as an overview of the expected functionality and test environment for all subsequent <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.
+                <p></p>
+                <div class="figure" id="figure-Hello"><img id="Hello" src="images/figure1.png" width="" height=""></img><br/><span class="ctr" data-myid="Hello" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
+      <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Hello</div>
+                <p></p>
+                The chart above provides an overview of the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> hello messages, 
+                the content and protections, and the establishment of cryptographic keys in support of the protections.
+                <ul>
+                  <li>Blue text indicates a message or content unique to <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2.</li> 
+                  <li>Green text indicates uniqueness to <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3.</li> 
+                  <li>Black text indicates features common to both <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3.</li> 
+                  <li>Bold text indicates mandatory features.</li>
+                  <li>Italics emphasizes optional features. </li>
+                  <li>A shaded text box indicates that the message is encrypted for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 (blue), <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 (green) or both <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 (grey).</li> 
+                  <li>An outlined text box indicates that the content in the message is signed, and/or provides authentication of the handshake to that point.</li>
+                </ul>
+                <p></p>
+                <b>Test Environment:</b>
+                <p></p>
+                Tests for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 include examination of the handshake messages and behavior of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> when presented with unexpected or invalid messages. 
+                For <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 and below, previous versions of this Functional Package only required visibility of network traffic and the ability to modify a valid handshake message sent to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+                <p></p>
+                <div class="figure" id="figure-Figure2"><img id="Figure2" src="images/figure2.png" width="" height=""></img><br/><span class="ctr" data-myid="Figure2" data-counter-type="ct-figure">Figure <span class="counter">2</span></span>:
+      Test environment for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 using network traffic visibility and control tools</div>
+                <p></p>
+                <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 introduces the encryption of handshake messages subsequent to the server hello exchange which prevents visibility and control using midpoint capabilities. 
+                To achieve equivalent validation of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 requires the ability to modify the traffic underlying the encryption applied after the server hello message. 
+                This can be achieved by introducing additional control of the messages sent, and visibility of messages received by the test <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client, 
+                when validating <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server functionality or test server, when validating <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client functionality.
+                <p></p>
+                <div class="figure" id="figure-Figure3"><img id="Figure3" src="images/figure3.png" width="" height=""></img><br/><span class="ctr" data-myid="Figure3" data-counter-type="ct-figure">Figure <span class="counter">3</span></span>:
+      Test environment for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 using custom endpoint capabilities for visibility and control</div>
+                <p></p>
+                Typically, a compliant <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 library modified to provide visibility and control of the handshake messages prior to encryption suffices for all tests. 
+                Such modification will require the test client and/or server to be validated. 
+                <p></p>
+                Since validations of products supporting only <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 are still expected under this Package, 
+                the test environment for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2-only validations may include network sniffers and man-in-the-middle products that do not require such modifications to a compliant <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 library. 
+                For consistency, a compliant <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client (or <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server) together with the network sniffers and man-in-the-middle capabilities 
+                will also be referred to as a test <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> client (or test <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server, respectively) in the following evaluation activities.
+                <p></p>
+                <div class="figure" id="figure-Figure4"><img id="Figure4" src="images/figure4.png" width="" height=""></img><br/><span class="ctr" data-myid="Figure4" data-counter-type="ct-figure">Figure <span class="counter">4</span></span>:
+      Combined test environment for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.2 and <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 using both network tools and custom endpoint capabilities</div>
+                 
               </div></div></div></div>
 
         
@@ -1049,6 +1093,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                 it includes any instructions on configuring the version, ciphersuites, or optional extensions that are supported.
                 <p></p>
                 The evaluator shall verify that all configurable features for matching identifiers in certificates presented in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> handshake to application specific reference identifiers are described.
+                <p></p>
 	      </div><div class="eacategory">Tests</div><div class="ea">
 		The evaluator shall perform the following tests:
               <span class="testlist-"><ul>
@@ -1251,7 +1296,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                 </ul></span>
                 <p></p></li>
                 
-                
+                  
                 <li id="_t_22"><b><a href="#_t_22" class="definition">Test 6.5</a>: </b>(<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3 extensions) [conditional] If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3, the evaluator shall perform the following tests. 
                   For each test, the evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s client hello includes the supported versions extension with the value '03 04' indicating <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> 1.3:
                 <span class="testlist-"><ul>
@@ -1325,6 +1370,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                   <p></p></li>
                 </ul></span>
                 <p></p></li>
+                
                 
                 
                 <li id="_t_33"><b><a href="#_t_33" class="definition">Test 10.6</a>: </b>(corrupt finished message) For each supported version, the evaluator shall initiate a <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> session from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to a test <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server that sends a compliant set of server handshake messages, 
