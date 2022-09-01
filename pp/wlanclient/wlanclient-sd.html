@@ -59,7 +59,11 @@
        max-width: 15px;
     }
 
-
+    a.definition{
+      color: inherit;
+      text-decoration: inherit;
+    }
+      
     a {
       text-decoration: none;
       word-wrap: break-word;
@@ -272,9 +276,164 @@
       Technical Community members, with representatives from industry, government 
       agencies, Common Criteria Test Laboratories, and members of academia.
       </p></div><h1>Table of Contents</h1><div id="toc"><a href="#introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#scope" style="text-indent:10px">1.1<span>Technology Area and Scope of Supporting Document</span></a><a href="#structure" style="text-indent:10px">1.2<span>Structure of the Document</span></a><a href="#glossary" style="text-indent:10px">1.3<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.3.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.3.2<span>Technical Terms</span></a><a href="#sfr" style="text-indent:0px">2<span>Evaluation Activities for SFRs</span></a><a href="#aa-bpp-gpos" style="text-indent:10px">2.1<span>
-    Protection Profile for WLAN Clients</span></a><a href="#qq-sfrs-bpp-gpos-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
+      
+	      https://github.com/commoncriteria/operatingsystem
+	      release-4.2.1
+      
+      https://www.niap-ccevs.org/Profile/Info.cfm?PPID=442&amp;id=442
+      
+ 
+      
+      
+      
+          
+       
+       When this PP-Module is used to extend the GPOS PP, the TOE type for
+        the overall TOE is still a general-purpose operating system. The TOE boundary is simply extended to include the
+          WLAN Client functionality that runs on the operating system.
+      
+      
+      
+      The Base-PP defines threats for local attacks and remote attacks, both of which could cause a failure of the TSF. This PP-Module adds a generic TSF failure threat
+      in the event that the WLAN Client fails through unintended system behavior rather than a direct malicious attack.
+      The Base-PP defines threats for local attacks and remote attacks. The threat of unauthorized access to the WLAN Client is a specific threat that results from successful exploitation 
+      of one of these Base-PP threats.
+      The Base-PP defines threats for local attacks and remote attacks. It does not define a threat specifically for undetected actions but it does map the local attack and remote attack threats to a
+      TOE objective for accountability. Therefore, the threat of undetected actions is consistent with the Base-PP because this is a subset of the threats defined in the Base-PP, or a mechanism to increase the likelihood that these
+      threats will successfully be exploited.        
+          
+      This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      The Base-PP defines A.PROPER_USER and A.PROPER_ADMIN assumptions that serve the same purpose as A.TRUSTED_ADMIN in this PP-Module.
+
+      This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.PROTECTED_COMMS objective specified in the Base-PP.
+      The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.PROTECTED_COMMS objective. The PP-Module
+      uses these cryptographic functions for the same purpose as the Base-PP.
+      The Base-PP defines a general O.INTEGRITY objective; this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      The Base-PP defines an O.ACCOUNTABILITY objective for system auditing. The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      The Base-PP defines an O.MANAGEMENT objective for TOE administration. The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+          
+      This objective relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+      what the Base-PP requires.
+      The Base-PP defines OE.PROPER_USER and OE.PROPER_ADMIN objectives that serve the same purpose as OE.TRUSTED_ADMIN in this PP-Module.          
+
+
+          
+      The Base-PP defines its own auditing mechanism; this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+      requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+        of the TOE already implements its own storage mechanism.
+      This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+          
+          
+      
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+    </span></a><a href="#qq-sfrs-bpp-gpos-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
         </span></a><a href="#aa-bpp-mdf" style="text-indent:10px">2.2<span>
-    Protection Profile for WLAN Clients</span></a><a href="#qq-sfrs-bpp-mdf-Modified" style="text-indent:20px">2.2.1<span>Modified SFRs
+	
+		https://github.com/commoncriteria/mobile-device
+		release-3.2
+        
+        https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417
+        
+      
+      
+  
+      
+      
+      
+      
+      
+       When this PP-Module is used to extend the MDF PP, the TOE type for
+        the overall TOE is still a mobile device. The TOE boundary is simply extended to include the
+        WLAN Client functionality that runs on the mobile device's Rich OS.
+      
+      
+      
+      
+	The Base-PP defines the T.FLAWAPP threat for the threat that application failures may pose to the device as a whole.
+	The T.TSF_FAILURE threat from this PP-Module is a specific example of the T.FLAWAPP threat,
+        though it relates to the WLAN Client as an intrinsic part of the mobile device rather than a third-party application installed on top of it.
+	The Base-PP also defines the T.PERSISTENT threat, which is another specific case of TSF failure.
+      
+      
+	The Base-PP defines threats for network eavesdropping and network attacks.
+	Exploiting either threat could allow an attacker to exploit the T.UNAUTHORIZED_ACCESS threat defined  by this PP-Module.
+      
+      
+	The Base-PP defines threats for persistent access to the TOE and flawed applications on the TOE.
+	It does not define a threat specifically for undetected actions but the threat of undetected actions
+        defined by this PP-Module could increase the likelihood that the Base-PP threats can be successfully exploited.
+                
+      
+	This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      
+      
+	The Base-PP defines the A.TRUSTED_ADMIN assumptions that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.COMMS objective specified in the Base-PP.
+      
+      
+	The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.COMMS objective.
+	The PP-Module uses these cryptographic functions for the same purpose as the Base-PP.
+      
+      
+	The Base-PP defines a general O.INTEGRITY objective;
+        this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      
+      
+	The Base-PP defines an O.INTEGRITY objective that includes system auditing as a method of asserting the TOE's integrity.
+        The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      
+      
+        The Base-PP defines an O.CONFIG objective for TOE administration.
+        The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      
+      
+        This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+      
+      
+	This objective relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to what the Base-PP requires.
+      
+      
+        The Base-PP defines the OE.CONFIG objective that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        The Base-PP defines its own auditing mechanism;
+        this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+        requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+          of the TOE already implements its own storage mechanism.
+        This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+    </span></a><a href="#qq-sfrs-bpp-mdf-Modified" style="text-indent:20px">2.2.1<span>Modified SFRs
         </span></a><a href="#man-sfrs" style="text-indent:10px">2.3<span>TOE SFR Evaluation Activities</span></a><a href="#man_fau" style="text-indent:20px">2.3.1<span>Security Audit (FAU)</span></a><a href="#man_fcs" style="text-indent:20px">2.3.2<span>Cryptographic Support (FCS)</span></a><a href="#man_fia" style="text-indent:20px">2.3.3<span>Identification and Authentication (FIA)</span></a><a href="#man_fmt" style="text-indent:20px">2.3.4<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.3.5<span>Protection of the TSF (FPT)</span></a><a href="#man_fta" style="text-indent:20px">2.3.6<span>TOE Access (FTA)</span></a><a href="#man_ftp" style="text-indent:20px">2.3.7<span>Trusted Path/Channels (FTP)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Optional SFRs</span></a><a href="#sel-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#fel_fcs" style="text-indent:20px">2.5.1<span>Cryptographic Support (FCS)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.6<span>Evaluation Activities for Objective SFRs</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the 
     PP-Module for WLAN Clients is
     to describe the security functionality of 
@@ -284,11 +443,7 @@
 
     
     The PP-Module is intended for use with the following Base-PPs:
-        <ul><li><a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=442&amp;id=442">Protection Profile for General Purpose Operating Systems,
-        version 
-        4.2.1</a></li><li><a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417">Mobile Device Fundamentals,
-        version 
-        3.2</a></li></ul><br/>
+        <ul><li></li><li></li></ul><br/>
     This SD is mandatory for evaluations of TOEs that claim conformance to a PP-Configuration that includes the PP-Module for :
     <ul><li>WLAN Clients, Version 1.0</li></ul>
     As such it defines Evaluation Activities for the functionality described in the PP-Module as well as any impacts to the Evaluation Activities to the Base-PP(s) it modifies.
@@ -383,21 +538,490 @@ The following sections list Common Criteria and technology terms used in this do
     in the manner declared by the developer and as mandated by the EA. 
     The CEM workunits that are associated with the EAs specified in this section 
     are: ATE_IND.1-3, ATE_IND.1-4, ATE_IND.1-5, ATE_IND.1-6, and ATE_IND.1-7.</p><h2 class="indexable" data-level="1" id="aa-bpp-gpos">2.1 
-    Protection Profile for WLAN Clients</h2>
+      
+	      https://github.com/commoncriteria/operatingsystem
+	      release-4.2.1
+      
+      https://www.niap-ccevs.org/Profile/Info.cfm?PPID=442&amp;id=442
+      
+ 
+      
+      
+      
+          
+       
+       When this PP-Module is used to extend the GPOS PP, the TOE type for
+        the overall TOE is still a general-purpose operating system. The TOE boundary is simply extended to include the
+          WLAN Client functionality that runs on the operating system.
+      
+      
+      
+      The Base-PP defines threats for local attacks and remote attacks, both of which could cause a failure of the TSF. This PP-Module adds a generic TSF failure threat
+      in the event that the WLAN Client fails through unintended system behavior rather than a direct malicious attack.
+      The Base-PP defines threats for local attacks and remote attacks. The threat of unauthorized access to the WLAN Client is a specific threat that results from successful exploitation 
+      of one of these Base-PP threats.
+      The Base-PP defines threats for local attacks and remote attacks. It does not define a threat specifically for undetected actions but it does map the local attack and remote attack threats to a
+      TOE objective for accountability. Therefore, the threat of undetected actions is consistent with the Base-PP because this is a subset of the threats defined in the Base-PP, or a mechanism to increase the likelihood that these
+      threats will successfully be exploited.        
+          
+      This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      The Base-PP defines A.PROPER_USER and A.PROPER_ADMIN assumptions that serve the same purpose as A.TRUSTED_ADMIN in this PP-Module.
+
+      This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.PROTECTED_COMMS objective specified in the Base-PP.
+      The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.PROTECTED_COMMS objective. The PP-Module
+      uses these cryptographic functions for the same purpose as the Base-PP.
+      The Base-PP defines a general O.INTEGRITY objective; this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      The Base-PP defines an O.ACCOUNTABILITY objective for system auditing. The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      The Base-PP defines an O.MANAGEMENT objective for TOE administration. The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+          
+      This objective relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+      what the Base-PP requires.
+      The Base-PP defines OE.PROPER_USER and OE.PROPER_ADMIN objectives that serve the same purpose as OE.TRUSTED_ADMIN in this PP-Module.          
+
+
+          
+      The Base-PP defines its own auditing mechanism; this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+      requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+        of the TOE already implements its own storage mechanism.
+      This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+          
+          
+      
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+    </h2>
       The EAs defined in this section are only applicable in cases where the TOE claims conformance
-      to a PP-Configuration that includes the WLAN Clients PP.
+      to a PP-Configuration that includes the 
+      
+	      https://github.com/commoncriteria/operatingsystem
+	      release-4.2.1
+      
+      https://www.niap-ccevs.org/Profile/Info.cfm?PPID=442&amp;id=442
+      
+ 
+      
+      
+      
+          
+       
+       When this PP-Module is used to extend the GPOS PP, the TOE type for
+        the overall TOE is still a general-purpose operating system. The TOE boundary is simply extended to include the
+          WLAN Client functionality that runs on the operating system.
+      
+      
+      
+      The Base-PP defines threats for local attacks and remote attacks, both of which could cause a failure of the TSF. This PP-Module adds a generic TSF failure threat
+      in the event that the WLAN Client fails through unintended system behavior rather than a direct malicious attack.
+      The Base-PP defines threats for local attacks and remote attacks. The threat of unauthorized access to the WLAN Client is a specific threat that results from successful exploitation 
+      of one of these Base-PP threats.
+      The Base-PP defines threats for local attacks and remote attacks. It does not define a threat specifically for undetected actions but it does map the local attack and remote attack threats to a
+      TOE objective for accountability. Therefore, the threat of undetected actions is consistent with the Base-PP because this is a subset of the threats defined in the Base-PP, or a mechanism to increase the likelihood that these
+      threats will successfully be exploited.        
+          
+      This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      The Base-PP defines A.PROPER_USER and A.PROPER_ADMIN assumptions that serve the same purpose as A.TRUSTED_ADMIN in this PP-Module.
+
+      This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.PROTECTED_COMMS objective specified in the Base-PP.
+      The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.PROTECTED_COMMS objective. The PP-Module
+      uses these cryptographic functions for the same purpose as the Base-PP.
+      The Base-PP defines a general O.INTEGRITY objective; this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      The Base-PP defines an O.ACCOUNTABILITY objective for system auditing. The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      The Base-PP defines an O.MANAGEMENT objective for TOE administration. The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+          
+      This objective relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+      what the Base-PP requires.
+      The Base-PP defines OE.PROPER_USER and OE.PROPER_ADMIN objectives that serve the same purpose as OE.TRUSTED_ADMIN in this PP-Module.          
+
+
+          
+      The Base-PP defines its own auditing mechanism; this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+      requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+        of the TOE already implements its own storage mechanism.
+      This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+          
+          
+      
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+    .
      <h3 class="indexable" data-level="2" id="qq-sfrs-bpp-gpos-Modified">2.1.1 Modified SFRs
         </h3>
 	  The PP-Module does not modify any requirements when the 
-	  WLAN Clients PP is the base.
+	  
+      
+	      https://github.com/commoncriteria/operatingsystem
+	      release-4.2.1
+      
+      https://www.niap-ccevs.org/Profile/Info.cfm?PPID=442&amp;id=442
+      
+ 
+      
+      
+      
+          
+       
+       When this PP-Module is used to extend the GPOS PP, the TOE type for
+        the overall TOE is still a general-purpose operating system. The TOE boundary is simply extended to include the
+          WLAN Client functionality that runs on the operating system.
+      
+      
+      
+      The Base-PP defines threats for local attacks and remote attacks, both of which could cause a failure of the TSF. This PP-Module adds a generic TSF failure threat
+      in the event that the WLAN Client fails through unintended system behavior rather than a direct malicious attack.
+      The Base-PP defines threats for local attacks and remote attacks. The threat of unauthorized access to the WLAN Client is a specific threat that results from successful exploitation 
+      of one of these Base-PP threats.
+      The Base-PP defines threats for local attacks and remote attacks. It does not define a threat specifically for undetected actions but it does map the local attack and remote attack threats to a
+      TOE objective for accountability. Therefore, the threat of undetected actions is consistent with the Base-PP because this is a subset of the threats defined in the Base-PP, or a mechanism to increase the likelihood that these
+      threats will successfully be exploited.        
+          
+      This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      The Base-PP defines A.PROPER_USER and A.PROPER_ADMIN assumptions that serve the same purpose as A.TRUSTED_ADMIN in this PP-Module.
+
+      This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.PROTECTED_COMMS objective specified in the Base-PP.
+      The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.PROTECTED_COMMS objective. The PP-Module
+      uses these cryptographic functions for the same purpose as the Base-PP.
+      The Base-PP defines a general O.INTEGRITY objective; this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      The Base-PP defines an O.ACCOUNTABILITY objective for system auditing. The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      The Base-PP defines an O.MANAGEMENT objective for TOE administration. The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+          
+      This objective relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+      what the Base-PP requires.
+      The Base-PP defines OE.PROPER_USER and OE.PROPER_ADMIN objectives that serve the same purpose as OE.TRUSTED_ADMIN in this PP-Module.          
+
+
+          
+      The Base-PP defines its own auditing mechanism; this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+      requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+        of the TOE already implements its own storage mechanism.
+      This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+          
+          
+      
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+     is the base.
 	<h2 class="indexable" data-level="1" id="aa-bpp-mdf">2.2 
-    Protection Profile for WLAN Clients</h2>
+	
+		https://github.com/commoncriteria/mobile-device
+		release-3.2
+        
+        https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417
+        
+      
+      
+  
+      
+      
+      
+      
+      
+       When this PP-Module is used to extend the MDF PP, the TOE type for
+        the overall TOE is still a mobile device. The TOE boundary is simply extended to include the
+        WLAN Client functionality that runs on the mobile device's Rich OS.
+      
+      
+      
+      
+	The Base-PP defines the T.FLAWAPP threat for the threat that application failures may pose to the device as a whole.
+	The T.TSF_FAILURE threat from this PP-Module is a specific example of the T.FLAWAPP threat,
+        though it relates to the WLAN Client as an intrinsic part of the mobile device rather than a third-party application installed on top of it.
+	The Base-PP also defines the T.PERSISTENT threat, which is another specific case of TSF failure.
+      
+      
+	The Base-PP defines threats for network eavesdropping and network attacks.
+	Exploiting either threat could allow an attacker to exploit the T.UNAUTHORIZED_ACCESS threat defined  by this PP-Module.
+      
+      
+	The Base-PP defines threats for persistent access to the TOE and flawed applications on the TOE.
+	It does not define a threat specifically for undetected actions but the threat of undetected actions
+        defined by this PP-Module could increase the likelihood that the Base-PP threats can be successfully exploited.
+                
+      
+	This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      
+      
+	The Base-PP defines the A.TRUSTED_ADMIN assumptions that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.COMMS objective specified in the Base-PP.
+      
+      
+	The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.COMMS objective.
+	The PP-Module uses these cryptographic functions for the same purpose as the Base-PP.
+      
+      
+	The Base-PP defines a general O.INTEGRITY objective;
+        this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      
+      
+	The Base-PP defines an O.INTEGRITY objective that includes system auditing as a method of asserting the TOE's integrity.
+        The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      
+      
+        The Base-PP defines an O.CONFIG objective for TOE administration.
+        The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      
+      
+        This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+      
+      
+	This objective relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to what the Base-PP requires.
+      
+      
+        The Base-PP defines the OE.CONFIG objective that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        The Base-PP defines its own auditing mechanism;
+        this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+        requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+          of the TOE already implements its own storage mechanism.
+        This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+    </h2>
       The EAs defined in this section are only applicable in cases where the TOE claims conformance
-      to a PP-Configuration that includes the WLAN Clients PP.
+      to a PP-Configuration that includes the 
+	
+		https://github.com/commoncriteria/mobile-device
+		release-3.2
+        
+        https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417
+        
+      
+      
+  
+      
+      
+      
+      
+      
+       When this PP-Module is used to extend the MDF PP, the TOE type for
+        the overall TOE is still a mobile device. The TOE boundary is simply extended to include the
+        WLAN Client functionality that runs on the mobile device's Rich OS.
+      
+      
+      
+      
+	The Base-PP defines the T.FLAWAPP threat for the threat that application failures may pose to the device as a whole.
+	The T.TSF_FAILURE threat from this PP-Module is a specific example of the T.FLAWAPP threat,
+        though it relates to the WLAN Client as an intrinsic part of the mobile device rather than a third-party application installed on top of it.
+	The Base-PP also defines the T.PERSISTENT threat, which is another specific case of TSF failure.
+      
+      
+	The Base-PP defines threats for network eavesdropping and network attacks.
+	Exploiting either threat could allow an attacker to exploit the T.UNAUTHORIZED_ACCESS threat defined  by this PP-Module.
+      
+      
+	The Base-PP defines threats for persistent access to the TOE and flawed applications on the TOE.
+	It does not define a threat specifically for undetected actions but the threat of undetected actions
+        defined by this PP-Module could increase the likelihood that the Base-PP threats can be successfully exploited.
+                
+      
+	This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      
+      
+	The Base-PP defines the A.TRUSTED_ADMIN assumptions that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.COMMS objective specified in the Base-PP.
+      
+      
+	The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.COMMS objective.
+	The PP-Module uses these cryptographic functions for the same purpose as the Base-PP.
+      
+      
+	The Base-PP defines a general O.INTEGRITY objective;
+        this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      
+      
+	The Base-PP defines an O.INTEGRITY objective that includes system auditing as a method of asserting the TOE's integrity.
+        The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      
+      
+        The Base-PP defines an O.CONFIG objective for TOE administration.
+        The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      
+      
+        This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+      
+      
+	This objective relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to what the Base-PP requires.
+      
+      
+        The Base-PP defines the OE.CONFIG objective that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        The Base-PP defines its own auditing mechanism;
+        this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+        requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+          of the TOE already implements its own storage mechanism.
+        This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+    .
      <h3 class="indexable" data-level="2" id="qq-sfrs-bpp-mdf-Modified">2.2.1 Modified SFRs
         </h3>
 	  The PP-Module does not modify any requirements when the 
-	  WLAN Clients PP is the base.
+	  
+	
+		https://github.com/commoncriteria/mobile-device
+		release-3.2
+        
+        https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417
+        
+      
+      
+  
+      
+      
+      
+      
+      
+       When this PP-Module is used to extend the MDF PP, the TOE type for
+        the overall TOE is still a mobile device. The TOE boundary is simply extended to include the
+        WLAN Client functionality that runs on the mobile device's Rich OS.
+      
+      
+      
+      
+	The Base-PP defines the T.FLAWAPP threat for the threat that application failures may pose to the device as a whole.
+	The T.TSF_FAILURE threat from this PP-Module is a specific example of the T.FLAWAPP threat,
+        though it relates to the WLAN Client as an intrinsic part of the mobile device rather than a third-party application installed on top of it.
+	The Base-PP also defines the T.PERSISTENT threat, which is another specific case of TSF failure.
+      
+      
+	The Base-PP defines threats for network eavesdropping and network attacks.
+	Exploiting either threat could allow an attacker to exploit the T.UNAUTHORIZED_ACCESS threat defined  by this PP-Module.
+      
+      
+	The Base-PP defines threats for persistent access to the TOE and flawed applications on the TOE.
+	It does not define a threat specifically for undetected actions but the threat of undetected actions
+        defined by this PP-Module could increase the likelihood that the Base-PP threats can be successfully exploited.
+                
+      
+	This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      
+      
+	The Base-PP defines the A.TRUSTED_ADMIN assumptions that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        This objective is specifically for a communications interface that is defined by the PP-Module, but it is consistent with the general O.COMMS objective specified in the Base-PP.
+      
+      
+	The TOE implements this objective in part by relying on the cryptographic functionality specified in the Base-PP to address the Base-PP's O.COMMS objective.
+	The PP-Module uses these cryptographic functions for the same purpose as the Base-PP.
+      
+      
+	The Base-PP defines a general O.INTEGRITY objective;
+        this PP-Module defines O.SELF_TEST as a specific method of guaranteeing the integrity of the TOE.
+      
+      
+	The Base-PP defines an O.INTEGRITY objective that includes system auditing as a method of asserting the TOE's integrity.
+        The O.SYSTEM_MONITORING objective in this PP-Module serves the same purpose.
+      
+      
+        The Base-PP defines an O.CONFIG objective for TOE administration.
+        The O.TOE_ADMINISTRATION objective in this PP-Module serves the same purpose.
+      
+      
+        This objective relates to behavior that applies to a communications interface defined in this PP-Module and therefore does not relate to the Base-PP's functionality.
+      
+      
+	This objective relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to what the Base-PP requires.
+      
+      
+        The Base-PP defines the OE.CONFIG objective that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      
+      
+        The Base-PP defines its own auditing mechanism;
+        this PP-Module can use that mechanism or implement its own to generate audit records for security-relevant events that are specific to this PP-Module.
+      
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.
+      This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.
+      This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.
+      This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+        requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.
+      This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.
+      This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+          of the TOE already implements its own storage mechanism.
+        This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.  
+      This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+      This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.
+      This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.
+     is the base.
 	<h2 class="indexable" data-level="1" id="man-sfrs">2.3 TOE SFR Evaluation Activities</h2><h2 class="indexable" data-level="2" id="man_fau">2.3.1 Security Audit (FAU)</h2><div class="comp" id="FCO-AUDIT-GEN-WLAN"><h4>FAU_GEN.1/WLAN Audit Data Generation (Wireless LAN)</h4><div class="component-activity-header">FAU_GEN.1/WLAN</div>
               
               
@@ -465,8 +1089,8 @@ The following sections list Common Criteria and technology terms used in this do
                 There are no guidance evaluation activities for this component.  <br/><br/> 
               </div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests:
-                <ul>
-                  <li><b>Test 1: </b>
+                <span class="testlist-"><ul>
+                  <li id="_t_1"><b><a href="#_t_1" class="definition">Test 1.1</a>: </b>
                     The evaluator shall configure the access point so the cryptoperiod of the
                     session key is 1 hour. The evaluator shall successfully connect the TOE to the access
                     point and maintain the connection for a length of time that is greater than the
@@ -475,7 +1099,7 @@ The following sections list Common Criteria and technology terms used in this do
                     session key. Finally, the evaluator shall determine that the renegotiation has been 
                     successful and the client continues communication with the access point.
                   </li>
-                  <li><b>Test 2: </b>
+                  <li id="_t_2"><b><a href="#_t_2" class="definition">Test 1.2</a>: </b>
 		    The evaluator shall perform the following test using a packet sniffing tool to
                     collect frames between the TOE and a wireless LAN access point:
                     <br/> 
@@ -508,7 +1132,7 @@ The following sections list Common Criteria and technology terms used in this do
                     Step 7: The evaluator shall repeat Step 6 for the next 2 data frames between the TOE
                     and access point and without frame control value 0x4208.
                   </li>
-                </ul>                           
+                </ul></span>                           
               </div></div><div class="comp" id="FCO-KEYDIST-WLAN"><h4>FCS_CKM.2/WLAN Cryptographic Key Distribution (Group Temporal Key for WLAN)</h4><div class="component-activity-header">FCS_CKM.2/WLAN</div>
             
             
@@ -572,8 +1196,8 @@ The following sections list Common Criteria and technology terms used in this do
               The evaluator shall write, or the TOE developer shall provide, an application for the purposes of
               testing TLS.<br/><br/> 
               The evaluator shall perform the following tests:
-              <ul>
-                <li><b>Test 1: </b>The evaluator shall establish a TLS connection using each of the cipher suites
+              <span class="testlist-"><ul>
+                <li id="_t_3"><b><a href="#_t_3" class="definition">Test 2.1</a>: </b>The evaluator shall establish a TLS connection using each of the cipher suites
                   specified by the requirement. This connection may be established as part of the
                   establishment of a higher-level protocol, e.g., as part of an EAP session. It is sufficient to
                   observe the successful negotiation of a cipher suite to satisfy the intent of the test; it is
@@ -581,7 +1205,7 @@ The following sections list Common Criteria and technology terms used in this do
                   discern the cipher suite being used (for example, that the cryptographic algorithm is 128-bit
                   AES and not 256-bit AES).
                 </li>
-                <li><b>Test 2: </b>
+                <li id="_t_4"><b><a href="#_t_4" class="definition">Test 2.2</a>: </b>
                   The evaluator shall attempt to establish the connection using a server with a
                   server certificate that contains the Server Authentication purpose in the
                   extendedKeyUsage field and verify that a connection is established. The evaluator will
@@ -590,7 +1214,7 @@ The following sections list Common Criteria and technology terms used in this do
                   established. Ideally, the two certificates should be identical except for the
                   extendedKeyUsage field.
                 </li>
-                <li><b>Test 3: </b>
+                <li id="_t_5"><b><a href="#_t_5" class="definition">Test 2.3</a>: </b>
                   The evaluator shall send a server certificate in the TLS connection that does not
                   match the server-selected cipher suite.
 		  For example, send a ECDSA certificate while using
@@ -599,12 +1223,12 @@ The following sections list Common Criteria and technology terms used in this do
 		  The evaluator shall verify that the TOE disconnects after
                   receiving the server’s Certificate handshake message.
                 </li>
-                <li><b>Test 4: </b>
+                <li id="_t_6"><b><a href="#_t_6" class="definition">Test 2.4</a>: </b>
                   The evaluator shall configure the server to select the
                   TLS_NULL_WITH_NULL_NULL cipher suite and verify that the client denies the
                   connection.
                 </li>
-                <li><b>Test 5: </b>
+                <li id="_t_7"><b><a href="#_t_7" class="definition">Test 2.5</a>: </b>
                   The evaluator shall perform the following modifications to the traffic:
                   <ul>
                     <li>Change the TLS version selected by the server in the Server Hello to a unsupported TLS version (for example 1.5 represented by the two bytes 03 06) and
@@ -630,7 +1254,7 @@ The following sections list Common Criteria and technology terms used in this do
                       ChangeCipherSpec message and verify that the client denies the connection.</li>
                   </ul>
                 </li>
-              </ul>
+              </ul></span>
             </div></div><div class="comp" id="FCO-WPA-VERSION"><h4>FCS_WPA_EXT.1 Supported WPA Versions</h4><div class="component-activity-header">FCS_WPA_EXT.1</div>
 	      
               
@@ -651,26 +1275,26 @@ The following sections list Common Criteria and technology terms used in this do
                 There are no guidance evaluation activities for this component.  <br/><br/>  
               </div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests:
-                <ul>
-                  <li><b>Test 1: </b>
+                <span class="testlist-"><ul>
+                  <li id="_t_8"><b><a href="#_t_8" class="definition">Test 3.1</a>: </b>
                   The evaluator shall demonstrate that the TOE has no access to the test network.
                   After successfully authenticating with an authentication server through a wireless access
                   system, the evaluator shall demonstrate that the TOE does have access to the test
                   network.
                   </li>
-                  <li><b>Test 2: </b>
+                  <li id="_t_9"><b><a href="#_t_9" class="definition">Test 3.2</a>: </b>
                     The evaluator shall demonstrate that the TOE has no access to the test network. 
                     The evaluator shall attempt to authenticate using an invalid client certificate, such that
                     the EAP-TLS negotiation fails. This should result in the TOE still being unable to access
                     the test network.
                   </li>
-                  <li><b>Test 3: </b>
+                  <li id="_t_10"><b><a href="#_t_10" class="definition">Test 3.3</a>: </b>
                     The evaluator shall demonstrate that the TOE has no access to the test network.
                     The evaluator shall attempt to authenticate using an invalid authentication server
                     certificate, such that the EAP-TLS negotiation fails. This should result in the TOE still
                     being unable to access the test network.
                   </li>
-                </ul>                           
+                </ul></span>                           
               </div></div><div class="comp" id="FCO-CERTVAL-WLAN"><h4>FIA_X509_EXT.1/WLAN X.509 Certificate Validation</h4><div class="component-activity-header">FIA_X509_EXT.1/WLAN</div>
               
               
@@ -684,34 +1308,34 @@ The following sections list Common Criteria and technology terms used in this do
                 The tests described must be performed in conjunction with the other Certificate Services assurance activities. 
                 The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. 
                 The evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
-                <ul>
-                  <li><b>Test 1: </b>
+                <span class="testlist-"><ul>
+                  <li id="_t_11"><b><a href="#_t_11" class="definition">Test 4.1</a>: </b>
                     The evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function (e.g. application validation), 
                     and demonstrate that the function succeeds. 
                     The evaluator then shall delete one of the certificates, and show that the function fails.
                   </li>
-                  <li><b>Test 2: </b>
+                  <li id="_t_12"><b><a href="#_t_12" class="definition">Test 4.2</a>: </b>
                     The evaluator shall demonstrate that validating an expired certificate results in the function failing.
                   </li>
-                  <li><b>Test 3: </b>
+                  <li id="_t_13"><b><a href="#_t_13" class="definition">Test 4.3</a>: </b>
                     The evaluator shall construct a certificate path, such that the certificate of the CA issuing the TOE’s certificate does not contain the basicConstraints extension. 
                     The validation of the certificate path fails.
                   </li>
-                  <li><b>Test 4: </b>
+                  <li id="_t_14"><b><a href="#_t_14" class="definition">Test 4.4</a>: </b>
                     The evaluator shall construct a certificate path, such that the certificate of the CA issuing the TOE’s certificate has the cA flag in the basicConstraints extension not set. 
                     The validation of the certificate path fails.
                   </li>
-                  <li><b>Test 5: </b>
+                  <li id="_t_15"><b><a href="#_t_15" class="definition">Test 4.5</a>: </b>
                     The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate (the certificate will fail to parse correctly).
                   </li>
-                  <li><b>Test 6: </b>
+                  <li id="_t_16"><b><a href="#_t_16" class="definition">Test 4.6</a>: </b>
                     The evaluator shall modify any bit in the last byte of the signature algorithm of the certificate and demonstrate that the certificate fails to validate 
                     (the signature on the certificate will not validate).
                   </li>
-                  <li><b>Test 7: </b>
+                  <li id="_t_17"><b><a href="#_t_17" class="definition">Test 4.7</a>: </b>
                     The evaluator shall modify any byte in the public key of the certificate and demonstrate that the certificate fails to validate (the signature on the certificate will not validate).
                   </li>
-                </ul>                           
+                </ul></span>                           
               </div></div><div class="comp" id="FCO-CERTAUTH"><h4>FIA_X509_EXT.2/WLAN X.509 Certificate Authentication (EAP-TLS for WLAN)</h4><div class="component-activity-header">FIA_X509_EXT.2/WLAN</div>
             
             
@@ -737,8 +1361,8 @@ The following sections list Common Criteria and technology terms used in this do
               <br/><br/> 
             </div><div class="eacategory">Tests</div><div class="ea">
               The evaluator shall perform the following test:
-              <ul>
-                <li><b>Test 1: </b>
+              <span class="testlist-"><ul>
+                <li id="_t_18"><b><a href="#_t_18" class="definition">Test 5.1</a>: </b>
                   The evaluator shall demonstrate using a valid certificate that requires certificate validation
                   checking to be performed in at least some part by communicating with a non-TOE IT entity. The
                   evaluator shall then manipulate the environment so that the TOE is unable to verify the validity
@@ -747,7 +1371,7 @@ The following sections list Common Criteria and technology terms used in this do
                   guidance to determine that all supported administrator-configurable options behave in their
                   documented manner.
                 </li>
-              </ul>                           
+              </ul></span>                           
             </div></div><div class="comp" id="FCO-MANAGE-CERTS"><h4>FIA_X509_EXT.6 X.509 Certificate Storage and Management</h4><div class="component-activity-header">FIA_X509_EXT.6</div>
               
               
@@ -764,16 +1388,16 @@ The following sections list Common Criteria and technology terms used in this do
 				for this.<br/><br/> 
               </div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following test for each TOE function that requires the use of certificates:
-                <ul>
-                  <li><b>Test 1: </b>
+                <span class="testlist-"><ul>
+                  <li id="_t_19"><b><a href="#_t_19" class="definition">Test 6.1</a>: </b>
                     The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. 
                     The evaluator shall then load any certificates needed to validate the certificate to be used in the function and demonstrate that the function succeeds. 
                     The evaluator shall then delete one of these dependent certificates and show that the function fails.
                   </li>
-                  <li><b>Test 2: </b>
+                  <li id="_t_20"><b><a href="#_t_20" class="definition">Test 6.2</a>: </b>
                     The evaluator shall demonstrate that the mechanism used to load or configure X.509 certificates cannot be accessed without appropriate authorization.
                   </li>
-                </ul>                           
+                </ul></span>                           
               </div></div><h2 class="indexable" data-level="2" id="man_fmt">2.3.4 Security Management (FMT)</h2><div class="comp" id="F-MANAGE-FUNCTIONS"><h4>FMT_SMF.1/WLAN Specification of Management Functions (WLAN Client)</h4><div class="component-activity-header">FMT_SMF.1/WLAN</div>
             
             
@@ -814,16 +1438,16 @@ The following sections list Common Criteria and technology terms used in this do
               take place for successful (e.g. hash verified) and unsuccessful (e.g., hash not verified) cases.<br/><br/> 
             </div><div class="eacategory">Tests</div><div class="ea">
               The evaluator shall perform the following tests:
-              <ul>
-                <li><b>Test 1: </b>
+              <span class="testlist-"><ul>
+                <li id="_t_21"><b><a href="#_t_21" class="definition">Test 7.1</a>: </b>
                   The evaluator shall perform the integrity check on a known good TSF executable and
                   verify that the check is successful.
                 </li>
-                <li><b>Test 2: </b>
+                <li id="_t_22"><b><a href="#_t_22" class="definition">Test 7.2</a>: </b>
                   The evaluator shall modify the TSF executable, perform the integrity check on the
                   modified TSF executable, and verify that the check fails. 
                 </li>
-              </ul>                 
+              </ul></span>                 
             </div></div><h2 class="indexable" data-level="2" id="man_fta">2.3.6 TOE Access (FTA)</h2><div class="comp" id="FCO-WIFI-ACCESS"><h4>FTA_WSE_EXT.1 Wireless Network Access</h4><div class="component-activity-header">FTA_WSE_EXT.1</div>
             
             
@@ -836,15 +1460,15 @@ The following sections list Common Criteria and technology terms used in this do
               configuring the list of SSIDs that the WLAN Client is able to connect to.<br/><br/> 
             </div><div class="eacategory">Tests</div><div class="ea">
               The evaluator shall perform the following tests for each attribute:
-              <ul>
-                <li><b>Test 1: </b>
+              <span class="testlist-"><ul>
+                <li id="_t_23"><b><a href="#_t_23" class="definition">Test 8.1</a>: </b>
                   The evaluator configures the TOE to allow a connection to a wireless network with a specific SSID. 
                   The evaluator configures the test environment such that the allowed SSID and an SSID that is not allowed are both
                   "visible" to the TOE.
 		  The evaluator shall demonstrate that they can successfully establish a connection with the allowed SSID.
                   The evaluator shall then attempt to establish a session with the disallowed SSID and observe that the attempt fails.
                 </li>
-              </ul>                 
+              </ul></span>                 
             </div></div><h2 class="indexable" data-level="2" id="man_ftp">2.3.7 Trusted Path/Channels (FTP)</h2><div class="comp" id="FCO-TRUSTED-COMMS-WLAN"><h4>FTP_ITC.1/WLAN Trusted Channel Communication (Wireless LAN)</h4><div class="component-activity-header">FTP_ITC.1/WLAN</div>
             
             
@@ -861,29 +1485,29 @@ The following sections list Common Criteria and technology terms used in this do
               connection be unintentionally broken.<br/><br/> 
             </div><div class="eacategory">Tests</div><div class="ea">
               The evaluator shall perform the following tests:
-              <ul>
-                <li><b>Test 1: </b>
+              <span class="testlist-"><ul>
+                <li id="_t_24"><b><a href="#_t_24" class="definition">Test 9.1</a>: </b>
                   The evaluator shall ensure that the TOE is able to initiate communications with
                   an access point using the protocols specified in the requirement by setting up the
                   connections as described in the operational guidance and ensuring that communications
                   are successful.
                 </li>
-                <li><b>Test 2: </b>
+                <li id="_t_25"><b><a href="#_t_25" class="definition">Test 9.2</a>: </b>
                   The evaluator shall ensure, for each communication channel with an authorized
                   IT entity, the channel data is not sent in plaintext.
                 </li>
-                <li><b>Test 3: </b>
+                <li id="_t_26"><b><a href="#_t_26" class="definition">Test 9.3</a>: </b>
                   The evaluator shall ensure, for each communication channel with an authorized
                   IT entity, modification of the channel data is detected by the TOE.
                 </li>
-                <li><b>Test 4: </b>
+                <li id="_t_27"><b><a href="#_t_27" class="definition">Test 9.4</a>: </b>
                   The evaluators shall physically interrupt the connection from the TOE to the
                   access point (e.g., moving the TOE host out of range of the access point, turning the
                   access point off). The evaluators shall ensure that subsequent communications are
                   appropriately protected, at a minimum in the case of any attempts to automatically
                   resume the connection or connect to a new access point.
                 </li>
-              </ul>                 
+              </ul></span>                 
               Further evaluation activities are associated with the specific protocols.
             </div></div><h2 class="indexable" data-level="1" id="opt-sfrs">2.4 Evaluation Activities for Optional SFRs</h2>The PP-Module does not define any optional requirements.<h2 class="indexable" data-level="1" id="sel-sfrs">2.5 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="fel_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id="FCO-TLS-CLIENT-SUPPORT-WLAN"><h4>FCS_TLSC_EXT.2/WLAN TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)</h4><div class="component-activity-header">FCS_TLSC_EXT.2/WLAN</div>
             
@@ -898,11 +1522,11 @@ The following sections list Common Criteria and technology terms used in this do
               for configuration of this extension.<br/><br/> 
             </div><div class="eacategory">Tests</div><div class="ea">
               The evaluator shall perform the following test:
-              <ul>
-                <li><b>Test 1: </b>The evaluator shall configure a server to perform ECDHE key exchange using each of the TOE’s supported 
+              <span class="testlist-"><ul>
+                <li id="_t_28"><b><a href="#_t_28" class="definition">Test 10.1</a>: </b>The evaluator shall configure a server to perform ECDHE key exchange using each of the TOE’s supported 
 			curves and shall verify that the TOE successfully connects to the server.
                 </li>
-              </ul>
+              </ul></span>
             </div></div><h2 class="indexable" data-level="1" id="obj-sfrs">2.6 Evaluation Activities for Objective SFRs</h2>The PP-Module does not define any objective requirements.<h1 id="sar_aas" class="indexable" data-level="0">3 Evaluation Activities for SARs</h1><p>The PP-Module does not define any SARs beyond those defined within the
     
 	base-PP to which it must claim conformance.
