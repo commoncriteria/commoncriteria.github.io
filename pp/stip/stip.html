@@ -2034,9 +2034,9 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 authority’s certificate in appropriate trust anchors within the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the issued certificates.
                 Additional configuration instructions for the monitored client, the requested server or the server’s
                 certificate are indicated in each of the tests: 
-                
+
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_5">Test 5<a href="#_t_5" class="definition"></a></span>:
+                  <li class="test-"><span id="tttc-ciphers">Test 5<a href="#tttc-ciphers" class="definition"></a></span>:
       For each version and cipher suite combination supported, as indicated in <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a>, the
                     evaluator shall configure a server requested by a monitored client to negotiate the version and cipher
                     suite, and issue the server a valid certificate from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> containing a subjectAltName (SAN) extension
@@ -2046,21 +2046,21 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     evaluator shall verify that the Client Hello sent from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to the requested server contains the full,
                     ordered list of cipher suites supported for the selected version in accordance with <a href="#FCS_TTTC_EXT.1.4">FCS_TTTC_EXT.1.4</a>.
                   </li>
-                  <li class="test-"><span id="_t_6">Test 6<a href="#_t_6" class="definition"></a></span>:
+                  <li class="test-"><span id="tttc-eku">Test 6<a href="#tttc-eku" class="definition"></a></span>:
       
                     The evaluator shall choose a supported version and cipher suite combination. For each
                     extendedKeyUsage condition for server certificates that allows the TLS session to be completed, as
                     indicated in <a href="#FIA_X509_EXT.1.1/STIP">FIA_X509_EXT.1.1/STIP</a>, the evaluator shall configure a requested server to negotiate the
                     version and cipher suite combination and issue the requested server a new certificate from the trusted
                     <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> that has the indicated extendedKeyUsage condition, and is otherwise identical to the certificate used
-                    for the similarly configured server from Test 1. The evaluator shall configure the server to present the new
+                    for the similarly configured server from <a href="#tttc-ciphers" class="dynref">Test 5</a>. The evaluator shall configure the server to present the new
                     certificate in its TLS handshake. The evaluator shall then make a TLS request in turn from a monitored
                     client to each of the reconfigured servers through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, and observe that the TLS session from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
                     to the requested server is established.
                   </li>
                   <li class="test-"><span id="_t_7">Test 7<a href="#_t_7" class="definition"></a></span>:
       
-                    The evaluator shall establish a new certificate for a server as configured for Test 2a where the
+                    The evaluator shall establish a new certificate for a server as configured for <a href="#tttc-eku" class="dynref">Test 6</a> where the
                     extendedKeyUsage field is present, does not include either the ‘Any’ purpose or
                     ServerAuthentication purpose and which does contain the CodeSigning purpose, and configure the server
                     to present the new certificate in its TLS handshake. The evaluator shall make a request to that server from
@@ -2112,28 +2112,37 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     version and cipher suite, as indicated, and use a valid certificate from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, but send TLS
                     messages as indicated and otherwise respond as a valid TLS server. For each in turn, the evaluator shall
                     initiate a TLS connection between a monitored client and the requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and
-                    observe the indicated behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> on receiving the server message: <ul>
-                      <li>Test 6.1: Configure the requested server to send an undefined TLS version (for example, 1.5
+                    observe the indicated behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> on receiving the server message: 
+                    
+                    <span class="testlist-"><ul>
+                      <li class="test-"><span id="_t_11">Test 10.1<a href="#_t_11" class="definition"></a></span>:
+       Configure the requested server to send an undefined TLS version (for example, 1.5
                         represented by the two bytes 03 06) and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
-                      <li>Test 6.2: Configure the requested server to send a Server Hello with the TLS version set to
-                      SSL 3.0 (represented by the two bytes 03 00) and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
-                      <li>Test 6.3: Configure the requested server to use a DHE cipher suite and configure the
+                      <li class="test-"><span id="_t_12">Test 10.2<a href="#_t_12" class="definition"></a></span>:
+        Configure the requested server to send a Server Hello with the TLS version set to
+                        SSL 3.0 (represented by the two bytes 03 00) and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
+                      <li class="test-"><span id="_t_13">Test 10.3<a href="#_t_13" class="definition"></a></span>:
+        Configure the requested server to use a DHE cipher suite and configure the
                       requested server to send a Server Hello message with at least one byte in the server’s nonce 
                       in the Server Hello handshake message modified from the expected response, and verify
                       that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection. Repeat this test using a requested server configured to
                       use an ECDHE cipher suite and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
-                      <li>Test 6.4: Configure the requested server to respond to a Client Hello with a cipher suite that
+                      <li class="test-"><span id="_t_14">Test 10.4<a href="#_t_14" class="definition"></a></span>:
+        Configure the requested server to respond to a Client Hello with a cipher suite that
                       is not supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and therefore not present in the Client Hello received by the
                       server. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
-                      <li>Test 6.5: Using requested servers configured to use a cipher suite using DHE, and send a
+                      <li class="test-"><span id="_t_15">Test 10.5<a href="#_t_15" class="definition"></a></span>:
+        Using requested servers configured to use a cipher suite using DHE, and send a
                       KeyExchange handshake message with an invalid signature (e.g., by modifying the signature
                       block in the expected KeyExchange handshake message), and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the
                       connection. Repeat this test with a requested server configured to use a cipher suite using
                       ECDHE and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
-                      <li>Test 6.6: Configure the requested server to respond with an invalid Server Finished message
+                      <li class="test-"><span id="_t_16">Test 10.6<a href="#_t_16" class="definition"></a></span>:
+      Configure the requested server to respond with an invalid Server Finished message
                       (e.g., by modifying a byte in the expected Server Finished handshake message) and verify
                       that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the connection.</li>
-                    </ul>
+                    </ul></span>
+                    
                   </li>
                 </ul></span>
               </div>
@@ -2149,12 +2158,12 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <div class="eacategory">Guidance</div><div class="ea">The evaluator shall ensure that the guidance contains instructions on establishing reference identifiers if
                 supported through an administrative interface.<p></p></div>
               <div class="eacategory">Tests</div><div class="ea">
-                Using the setup for <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a>, the evaluator shall perform the following tests. Note that Test 1 of
+                Using the setup for <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a>, the evaluator shall perform the following tests. Note that <a href="#tttc-ciphers" class="dynref">Test 5</a> of
                 <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a> confirms the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> properly validates the reference ID of a certificate containing a DNS
                 name in the subjectAltName matching the SNI contained in the Client Hello of a monitored client, and is
                 not repeated. The remaining tests cover support for other name forms and negative testing.
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_11">Test 11<a href="#_t_11" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_17">Test 11<a href="#_t_17" class="definition"></a></span>:
       The evaluator shall issue a certificate from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> that represents a requested server that
                     contains a SAN extension with a valid DNS name type. The evaluator shall configure the requested server
                     to use a valid, supported version and cipher suite combination consistent with the certificate, and provide
@@ -2162,8 +2171,8 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     client to the requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using an SNI extension in the Client Hello that does not
                     match the name in the certificate. The evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not succeed in establishing a
                     TLS connection to the requested server.</li>
-                  <li class="test-"><span id="_t_12">Test 12<a href="#_t_12" class="definition"></a></span>:
-      (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports additional reference identifiers not used in <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a> test 1): 
+                  <li class="test-"><span id="_t_18">Test 12<a href="#_t_18" class="definition"></a></span>:
+      (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports additional reference identifiers not used in <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a> <a href="#tttc-ciphers" class="dynref">Test 5</a>): 
                     For each additional reference identifier described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, the evaluator shall establish a
                     monitored client and requested server that causes the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to establish a reference identifier of the
                     indicated type. The evaluator shall issue a new certificate for the requested server from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>
@@ -2173,7 +2182,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     certificate, and provide the new certificate in a valid server certificate message. The evaluator shall initiate
                     a TLS session from the monitored client to the requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the
                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> establishes the TLS session to the requested server. </li>
-                  <li class="test-"><span id="_t_13">Test 13<a href="#_t_13" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_19">Test 13<a href="#_t_19" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports additional reference identifiers): For each additional reference
                     identifier described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, the evaluator shall establish a monitored client and requested server to
                     cause the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the indicated reference identifier and issue a certificate for a server from the trusted
@@ -2184,7 +2193,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     a TLS session between the monitored client and the server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does
                     not establish a valid TLS session to the requested server.
                   </li>
-                  <li class="test-"><span id="_t_14">Test 14<a href="#_t_14" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_20">Test 14<a href="#_t_20" class="definition"></a></span>:
       The evaluator shall perform the following wildcard tests with each type of reference identifier
                     based on DNS name types. This test is not intended for reference identifiers using IP addresses. The
                     support for wildcards is intended to be optional. If wildcards are supported, the first, second, and third
@@ -2196,11 +2205,14 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     reference identifiers. For each certificate identifier presented and for each reference identifier specified,
                     the evaluator shall initiate a TLS session between the monitored client and requested server through the
                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, causing the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to attempt to match the presented identifier to the established reference identifier
-                    and observe the indicated result: <ul>
-                      <li>Test 4.1: (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports wildcards): The evaluator shall use a server certificate
+                    and observe the indicated result: 
+                    <span class="testlist-"><ul>
+                      <li class="test-"><span id="_t_21">Test 14.1<a href="#_t_21" class="definition"></a></span>:
+       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports wildcards): The evaluator shall use a server certificate
                       containing a wildcard that is not in the left-most label of the presented identifier (e.g.,
                       foo.*.example.com) and verify that the connection fails.</li>
-                      <li>Test 4.2: (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports wildcards): The evaluator shall use a server certificate
+                      <li class="test-"><span id="_t_22">Test 14.2<a href="#_t_22" class="definition"></a></span>:
+       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports wildcards): The evaluator shall use a server certificate
                       containing a wildcard in the left-most label but not preceding the public suffix (e.g.,
                       *.example.com). The evaluator shall cause the reference identifier to have a single left-most
                       label (e.g., foo.example.com) and verify that the connection succeeds. The evaluator shall
@@ -2208,17 +2220,19 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                       example.com) and verify that the connection fails. The evaluator shall cause the reference
                       identifier to have two left-most labels (e.g., bar.foo.example.com) and verify that the
                       connection fails.</li>
-                      <li>Test 4.3: (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports wildcards): The evaluator shall use a server certificate
+                      <li class="test-"><span id="_t_23">Test 14.3<a href="#_t_23" class="definition"></a></span>:
+       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports wildcards): The evaluator shall use a server certificate
                       containing a wildcard in the left-most label immediately preceding the public suffix (e.g.,
                       *.com). The evaluator shall cause the reference identifier to have a single left-most label
                       (e.g., foo.com) and verify that the connection fails. The evaluator shall cause the reference
                       identifier to have two left-most labels (e.g., bar.foo.com) and verify that the connection
                       fails.</li>
-                      <li>Test 4.4: (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support wildcards): The evaluator shall use a server
+                      <li class="test-"><span id="_t_24">Test 14.4<a href="#_t_24" class="definition"></a></span>:
+       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support wildcards): The evaluator shall use a server
                       certificate containing a wildcard in the left-most label (e.g., *.example.com). The evaluator
                       shall cause the reference identifier to have a single left-most label (e.g., foo.example.com)
                       and verify that the connection fails.</li>
-                    </ul>
+                    </ul></span>
                   </li>
                 </ul></span>
               </div>
@@ -2234,7 +2248,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 available, the evaluator shall validate that the operational guidance includes instructions to configure the
                 allowances to allow or not allow such connections.
               <p></p></div>
-              <div class="eacategory">Tests</div><div class="ea">Using the setup for test 1 of <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a>, the evaluator shall establish one or more trusted
+              <div class="eacategory">Tests</div><div class="ea">Using the setup for <a href="#tttc-ciphers" class="dynref">Test 5</a> of <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a>, the evaluator shall establish one or more trusted
                 subordinate CAs by issuing them valid <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>. The evaluator shall establish a
                 certificate status capability for both the trusted subordinate CAsand the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> that uses a method
                 supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall also establish an untrusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> to use a self-signed <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate
@@ -2246,23 +2260,23 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 with the indicated failures, and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> terminates the TLS handshake with the requested
                 server:
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_15">Test 15<a href="#_t_15" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_25">Test 15<a href="#_t_25" class="definition"></a></span>:
       The evaluator shall issue a valid certificate for the requested server from the untrusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>. The
                     evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the TLS session with the requested server when it presents a
                     valid certificate message and certificate verify message using the certificate issued by the untrusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>.</li>
-                  <li class="test-"><span id="_t_16">Test 16<a href="#_t_16" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_26">Test 16<a href="#_t_26" class="definition"></a></span>:
       The evaluator shall issue a valid certificate for the requested server by the subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, but not
                     load it into the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> trust store, and shall ensure the requested server does not provide the subordinate
                     <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> in the certificate chain. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rejects the TLS session with the
                     requested server when the server presents a valid certificate message and certificate verify message using
                     the certificate that does not properly chain to a trusted root.</li>
-                  <li class="test-"><span id="_t_17">Test 17<a href="#_t_17" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_27">Test 17<a href="#_t_27" class="definition"></a></span>:
       The evaluator shall establish a valid certificate for the requested server issued by the subordinate
                     <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, and establish valid revocation information from the trusted subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> using a supported
                     mechanism for end-entity certificates, indicating the requested server’s certificate is revoked. The
                     evaluator shall ensure the subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> is included in the certificate chain provided by the requested
                     server and the revocation information is available. The evaluator shall confirm that authentication fails.</li>
-                  <li class="test-"><span id="_t_18">Test 18<a href="#_t_18" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_28">Test 18<a href="#_t_28" class="definition"></a></span>:
       The evaluator shall issue a valid certificate for the requested server from the subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, and
                     establish valid revocation information from the subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> using a supported mechanism for endentity certificates, indicating the requested server’s certificate is revoked. The evaluator shall ensure the
                     subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> is included in the certificate chain provided by the requested server and ensure the
@@ -2272,7 +2286,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     documentation to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for each response, and initiate the TLS session from the monitored
                     client to demonstrate the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> performs the configured behavior.
                   </li>
-                  <li class="test-"><span id="_t_19">Test 19<a href="#_t_19" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_29">Test 19<a href="#_t_29" class="definition"></a></span>:
       The evaluator shall issue a valid certificate for the requested server from the subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, and
                     generate valid revocation information from the trusted subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> using a supported mechanism for
                     end-entity certificates, indicating the requested server’s certificate is valid, and generate valid revocation
@@ -2281,7 +2295,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     certificate chain provided by the requested server and all revocation information is available. The
                     evaluator shall confirm that authentication fails.
                   </li>
-                  <li class="test-"><span id="_t_20">Test 20<a href="#_t_20" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_30">Test 20<a href="#_t_30" class="definition"></a></span>:
       The evaluator shall issue a valid certificate for the requested server from trusted subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>,
                     and generate valid revocation information from the trusted subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> using a supported mechanism
                     for end-entity certificates indicating the requested server’s certificate is valid, and generate valid
@@ -2294,7 +2308,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     <a href="#FIA_X509_EXT.2.2/STIP">FIA_X509_EXT.2.2/STIP</a>), the evaluator shall, in turn, follow guidance documentation to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for each
                     response, and initiate the TLS session from the monitored client to demonstrate the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> performs the
                     configured behavior. </li>
-                  <li class="test-"><span id="_t_21">Test 21<a href="#_t_21" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_31">Test 21<a href="#_t_31" class="definition"></a></span>:
       The evaluator shall issue a valid certificate from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> for the requested server that
                     expires prior to initiating the TLS session from the monitored client, and generate revocation information
                     indicating the requested server’s certificate is not revoked. The evaluator shall initiate a TLS session from
@@ -2302,7 +2316,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     the certificate status information from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> is available to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe
                     that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> fails to establish the TLS connection with the requested server, demonstrating that a server
                     using a certificate which has passed its expiration date results in an authentication failure.</li>
-                  <li class="test-"><span id="_t_22">Test 22<a href="#_t_22" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_32">Test 22<a href="#_t_32" class="definition"></a></span>:
       The evaluator shall establish a new subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> from the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, by issuing the subordinate
                     <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> a certificate that expires prior to initiating the TLS session from the monitored client. The evaluator
                     shall issue a valid certificate for the requested server from the subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> but which does not expire
@@ -2331,7 +2345,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 within the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the certificates (the trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>). Additional configuration instructions for the
                 monitored client, the requested server or the server’s certificate are indicated in each of the tests.
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_23">Test 23<a href="#_t_23" class="definition"></a></span>:
+                <li class="test-"><span id="_t_33">Test 23<a href="#_t_33" class="definition"></a></span>:
       For each supported version other than TLS 1.2, the evaluator shall configure a server requested by
                   a monitored client to negotiate the version and an allowed cipher suite for that version, regardless of the
                   Client Hello message received. The evaluator shall, in turn, establish a TLS connection from the monitored
@@ -2340,7 +2354,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   <a href="#FCS_TTTC_EXT.1.1">FCS_TTTC_EXT.1.1</a>. The evaluator shall confirm that the requested server sends the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> a Server Hello
                   indicating the configured version and cipher suite, and confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> responds by terminating the
                   TLS handshake with the requested server.</li>
-                <li class="test-"><span id="_t_24">Test 24<a href="#_t_24" class="definition"></a></span>:
+                <li class="test-"><span id="_t_34">Test 24<a href="#_t_34" class="definition"></a></span>:
       The evaluator shall follow operational guidance to reconfigure the TLS session establishment policy to
                   allow any supported version to the requested servers, but only allow the subset of cipher suites as
                   indicated in the setup. For each supported version, the evaluator shall configure the requested server to
@@ -2397,7 +2411,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 configuration of the Supported Elliptic Curves Extension.
               <p></p></div><div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                   <li class="test-"><span id="_t_25">Test 25<a href="#_t_25" class="definition"></a></span>:
+                   <li class="test-"><span id="_t_35">Test 25<a href="#_t_35" class="definition"></a></span>:
       The evaluator shall establish a requested server to negotiate a supported version and cipher suite
                    using ECDSA signature and ECDHE key exchange using a custom elliptic curve not included in
                    <a href="#FCS_TTTC_EXT.5.1">FCS_TTTC_EXT.5.1</a>, regardless of the Client Hello received. The evaluator shall follow operational guidance to
@@ -2406,7 +2420,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                    client through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a Client Hello to the requested server, and receives
                    the configured server Hello Message from the requested server. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
                    terminates the TLS handshake with the requested server.</li>
-                  <li class="test-"><span id="_t_26">Test 26<a href="#_t_26" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_36">Test 26<a href="#_t_36" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports additional elliptic curves that are managed via TLS session establishment policy allowances): 
                     For each elliptic curve claimed in the assignment of <a href="#FCS_TTTC_EXT.5.1">FCS_TTTC_EXT.5.1</a>, the evaluator shall establish a
                     requested server to use the curve in a TLS handshake with a supported version and cipher suite using
@@ -2416,7 +2430,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     from a monitored client to the server and observe that the Client Hello sent from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to the requested
                     includes the allowed curve. The evaluator shall confirm that the configured server sends a Server Hello
                     message to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> that selects the curve, and that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> accepts the connection. </li>
-                  <li class="test-"><span id="_t_27">Test 27<a href="#_t_27" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_37">Test 27<a href="#_t_37" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports additional elliptic curves that are managed via TLS session establishment policy allowances): 
                     For each elliptic curve claimed in the assignment of <a href="#FCS_TTTC_EXT.5.1">FCS_TTTC_EXT.5.1</a>, the evaluator shall establish a
                     requested server to use the curve in a TLS handshake with a supported version and cipher suite using
@@ -2558,7 +2572,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 appropriate trust anchors within the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the certificates. Additional configuration instructions
                 for the monitored client, the requested server or the server’s certificate are indicated in each of the tests: 
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_28">Test 28<a href="#_t_28" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_38">Test 28<a href="#_t_38" class="definition"></a></span>:
       For each version and each valid cipher suite for the version, as indicated in <a href="#FCS_TTTS_EXT.1.1">FCS_TTTS_EXT.1.1</a>, the
                     evaluator shall configure the monitored client to include the version and a list consisting of a single
                     element specifying the indicated cipher suite in the Client Hello. The evaluator shall follow operational guidance
@@ -2566,21 +2580,21 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     suite for that client. The evaluator shall then initiate a TLS session from the so configured monitored client
                     through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to a requested server and observe that a TLS session between the monitored client and
                     the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> using the specified version and cipher suite is successful. </li>
-                  <li class="test-"><span id="_t_29">Test 29<a href="#_t_29" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_39">Test 29<a href="#_t_39" class="definition"></a></span>:
       For each supported version indicated in <a href="#FCS_TTTS_EXT.1.1">FCS_TTTS_EXT.1.1</a>, the evaluator shall select a valid cipher
                     suite in <a href="#FCS_TTTS_EXT.1.1">FCS_TTTS_EXT.1.1</a> and configure a monitored client to present the version and a cipher suite list
                     containing the single cipher suite. The evaluator shall follow operational guidance to configure the TLS session
                     establishment policy so that use of the cipher suite is not allowed for the client. The evaluator shall initiate
                     a TLS session from the monitored client through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to a requested server and observe that a TLS
                     session between the monitored client and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is denied. </li>
-                  <li class="test-"><span id="_t_30">Test 30<a href="#_t_30" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_40">Test 30<a href="#_t_40" class="definition"></a></span>:
       For each supported version other than TLS 1.2 indicated in <a href="#FCS_TTTS_EXT.1.1">FCS_TTTS_EXT.1.1</a>, the evaluator shall
                     configure a monitored client to include the version and a cipher suite list consisting of a cipher suite valid
                     for TLS 1.2 and another valid for the version in its Client Hello. The evaluator shall follow operational guidance to
                     configure the TLS session establishment policy to only allow the client to use TLS 1.2. The evaluator shall
                     initiate a TLS session from the monitored client to a requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that
                     a TLS session between the monitored client and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not established.</li>
-                  <li class="test-"><span id="_t_31">Test 31<a href="#_t_31" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_41">Test 31<a href="#_t_41" class="definition"></a></span>:
       For each supported version indicated in <a href="#FCS_TTTS_EXT.1.1">FCS_TTTS_EXT.1.1</a>, the evaluator shall configure a
                     monitored client to include the version and a cipher suite list consisting of a single
                     TLS_NULL_WITH_NULL_NULL cipher suite. The evaluator shall follow operational guidance to configure the TLS
@@ -2617,14 +2631,14 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 trust anchors within the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the certificates. Additional configuration instructions for the
                 monitored client, the requested server, or the server’s certificate are indicated in each of the tests.
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_32">Test 32<a href="#_t_32" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_42">Test 32<a href="#_t_42" class="definition"></a></span>:
       For each of the key parameter selections in <a href="#FCS_TTTS_EXT.1.3">FCS_TTTS_EXT.1.3</a>, the evaluator shall configure a
                     monitored client to use a valid supported version and cipher suite combination that supports the key
                     parameter, and follow operational guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use a cipher suite supporting the parameters.
                     The evaluator shall initiate a TLS session from the monitored client to a requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>,
                     and observe that a TLS session between the monitored client and the TLS uses the key parameters and is
                     successful.</li>
-                  <li class="test-"><span id="_t_33">Test 33<a href="#_t_33" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_43">Test 33<a href="#_t_43" class="definition"></a></span>:
       The intent of this test is to show that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> properly handles unexpected KeyExchange messages
                     from a client that does not agree with the negotiated cipher suite.
                     <p></p>
@@ -2639,26 +2653,26 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   <ol type="a">
                     <li>For a cipher suite that uses RSA for key transport, the evaluator shall, in turn, perform each
                       of the following: <ol type="i">
-                        <li>In the first instance of test 2.a, the evaluator shall send a KeyExchange message of RSA
+                        <li>First, send a KeyExchange message of RSA
                           type with the EncryptedPreMasterSecret field consisting of a randomly generated value
                           of size equal to the size of the EncryptedPreMasterSecret expected in the key parameter.
                           The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and note the
                           specific alert type received agrees with the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description of error messages.</li>
-                        <li>In the second instance of test 2.a, the evaluator shall send a KeyExchange message of
+                        <li>Second, send a KeyExchange message of
                           RSA type with the EncryptedPreMasterSecret field consisting of a randomly generated
                           value of size 1024 bits. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert
                           message.</li>
-                        <li>In the third instance of test 2.a, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message
+                        <li>Third, send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message
                           of DHE type containing a randomly generated ClientDiffieHellmanPublic value of size
-                          2048 bits, and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes whether
-                          the error message is different than that received test 2.a.i.</li>
-                        <li>in the fourth instance of test 2.a, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange
+                          2048 bits. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and shall note whether
+                          the error message is different than that received when a randomly generated value was used in the EncryptedPreMasterSecret field.</li>
+                        <li>Fourth, send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange
                           message of ECDH type, containing a random point on a curve supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, in a
-                          EC point format supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a
-                          fatal TLS alert message and notes whether the error message is different than that
-                          received in test 2.a.i.</li>
+                          EC point format supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and shall note whether
+                          the error message is different than that received when a randomly generated value was used in the EncryptedPreMasterSecret field.</li>
                       </ol><p></p>
-                      If the alert messages in 2.a.iii and 2.a.iv are identical to that received in 2.a.i, the evaluator shall attempt
+                      If the alert messages in the third and fourth case above are identical to that received in the first case,
+                      the evaluator shall attempt
                       to verify that the errors are a result of the unexpected KeyExchange message, and not just due to an
                       invalid finished message. It might be necessary to configure additional (debug) logs to be generated by
                       the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or examine detailed behavior of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to distinguish unexpected KeyExchange messages from
@@ -2667,30 +2681,29 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     <li>
                       For a cipher suite that uses ephemeral DH key establishment:
                       <ol type="i">
-                        <li>In the first instance of test 2.b, the evaluator shall modify a byte in the
+                        <li>First, the evaluator shall modify a byte in the
                           ClientDiffieHellmanPublic value produced by the client, send the modified KeyExchange
                           message to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and note
                           that the specific error message agrees with the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> description of error messages.</li>
-                        <li>In the second instance of test 2.b, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not configured to
+                        <li>Second, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not configured to
                           request client authentication. The evaluator shall send a KeyExchange message
-                          consisting of a null value, specifying an implicit Client DiffieHellman Public key. The
-                          evaluator shall send the modified KeyExchange message to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and observe that
-                          the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes whether the error message is different
-                          than that received in test 2.b.i.
+                          consisting of a null value, specifying an implicit Client Diffie-Hellman Public key. 
+                          The evaluator shall send the modified KeyExchange message to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message, and note whether
+                          the error message is different than that received when the KeyExchange message included the modified ClientDiffieHellmanPublic value.
                         </li>
-                        <li> In the third instance of test 2.b, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message
+                        <li>Third, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message
                           of RSA type, containing a randomly generated EncryptedPreMasterSecret value of size
                           2048 bits. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and
-                          notes whether the error message is different than that received in test 2.b.i.</li>
-                        <li>(conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports client authentication): In the fourth instance of test 2.b, the
+                          notes whether the error message is different than that received when the KeyExchange message included the modified ClientDiffieHellmanPublic value.</li>
+                        <li>(conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports client authentication): Fourth, the
                           evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to request client authentication. After the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends
                           the client certificate request message, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> a valid client
                           certificate message followed by a KeyExchange message of ECDH type that contains a
                           random point on a curve supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> in an ECpoint format supported by the
-                          <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes
-                          whether the error message is different than that received in test 2.b.i.</li>
+                          <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and
+                          notes whether the error message is different than that received when the KeyExchange message included the modified ClientDiffieHellmanPublic value.</li>
                       </ol><p></p>
-                      If the error messages in 2.b.ii, 2.b.iii or 2.b.iv are identical to that provided in 2.b.i, the evaluator shall
+                      If the error messages in any of the latter three cases are identical to that provided in the first case, the evaluator shall
                       attempt to verify that the errors are a result of the unexpected KeyExchange message, and not just due
                       to an invalid finished message. It might be necessary to configure additional (debug) logs to be generated
                       by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or examine detailed behavior of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to distinguish unexpected KeyExchange messages from
@@ -2698,30 +2711,34 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     </li>
                     <li>
                       If the cipher suite uses ephemeral ECDH key establishment: <ol type="i">
-                        <li>. In the first instance of test 2.c, the evaluator shall replace the EC point in the
+                        <li>First, the evaluator shall replace the EC point in the
                           KeyExchange message produced by the client with a random point on the curve
                           specified by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s Server key exchange message, using the same EC point format
                           used in the client’s expected KeyExchangeMessage. The evaluator shall observe that the
                           <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and the specific alert message agrees with the error
                           message description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.</li>
-                        <li>In the second instance of test 2.c, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not configured to
+                        <li>Second, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not configured to
                           request client authentication, and send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message consisting of
                           the null value, indicating an implicit client Elliptic Curve Diffie Hellman Public key. The
                           evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes whether
-                          the error message is different than that received in test 2.c.i.</li>
-                        <li>In the third instance of test 2.c, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message
+                          the error message is different than that received when the EC point in the KeyExchange message is replaced
+                          with a random point on the curve.</li>
+                        <li>Third, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange message
                           of RSA type with a randomly generated 2048-bit value used for the
-                          EncryptedPreMasterSecret value. The evaluator shall observer that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal
-                          TLS alert message and notes whether the error message is different than that received
-                          in test 2.c.i.</li>
-                        <li>In the fourth instance of test 2.c, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange
+                          EncryptedPreMasterSecret value. The
+                          evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes whether
+                          the error message is different than that received when the EC point in the KeyExchange message is replaced
+                          with a random point on the curve. 
+                          </li>
+                        <li>Fourth, the evaluator shall send the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> a KeyExchange
                           message of type DH with a randomly generated 2048-bit value for the
-                          ClientDiffieHellman value in place of the ephemeral public key. The evaluator shall
-                          observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes whether the error
-                          message is different than that received in test 2.c.i.
+                          ClientDiffieHellman value in place of the ephemeral public key. The
+                          evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a fatal TLS alert message and notes whether
+                          the error message is different than that received when the EC point in the KeyExchange message is replaced
+                          with a random point on the curve.
                         </li>
                       </ol><p></p>
-                      If the error messages received in 2.c.ii, 2.c.iii, or 2.c.iv are identical to that received in 2.c.i, the evaluator
+                      If the error messages in any of the latter three cases are identical to that provided in the first case, the evaluator
                       shall attempt to verify that the errors are a result of the unexpected KeyExchange message, and not just
                       due to an invalid finished message. It might be necessary to configure additional (debug) logs to be
                       generated by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or examine detailed behavior of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to distinguish unexpected KeyExchange
@@ -2739,7 +2756,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     </li>
                   </ol>
                   </li>
-                  <li class="test-"><span id="_t_34">Test 34<a href="#_t_34" class="definition"></a></span>:
+                  <li class="test-"><span id="ttts-invalid-rsa-kex">Test 34<a href="#ttts-invalid-rsa-kex" class="definition"></a></span>:
       
                     The intent of this test is to ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, when negotiating cipher suites using RSA key transport,
                     responds to invalid RSA KeyExchange messages consistently in order to resist a well-known class of chosen
@@ -2752,14 +2769,17 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     the monitored client and requested server and to allow the version and cipher suite for the client and
                     server, and note this initial configuration for subsequent sub-tests:
                     <p></p>
-                    <b>Test 3, part a:</b> The evaluator shall send a Client Hello from the monitored client to the requested server
+                    <span class="testlist-"><ul> 
+                    <li class="test-"><span id="_t_45">Test 34.1<a href="#_t_45" class="definition"></a></span>:
+       The evaluator shall send a Client Hello from the monitored client to the requested server
                     and observe that the Server Hello from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> selects TLS 1.0 and the desired cipher suite in its Server
                     Hello message. The evaluator shall note the size and formatting of pre-master secret input to the client’s
                     KeyExchange message, continue the handshake from the client, and confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> successfully
-                    establishes a TLS connection with the client.
+                    establishes a TLS connection with the client.</li>
                     <p></p>
-                    <b>Test 3, part b:</b> The evaluator shall terminate the TLS sessions and restore the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, monitored client and
-                    requested server to the initial configuration for Test 3 above. The evaluator shall compute the following
+                    <li class="test-"><span id="_t_46">Test 34.2<a href="#_t_46" class="definition"></a></span>:
+       The evaluator shall terminate the TLS sessions and restore the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, monitored client and
+                      requested server to the initial configuration for <a href="#ttts-invalid-rsa-kex" class="dynref">Test 34</a> above. The evaluator shall compute the following
                     KeyExchange based on encrypting the following tailored messages with the server’s public key, using a
                     random value, ran, of size equal to that of the correctly computed pre-master secret, but having a
                     different value, and properly formatted padding, pad(), of length determined so that the message is of
@@ -2776,10 +2796,12 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                       message to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> as part of a complete TLS handshake with the server, and observe the TLS error alert
                       response provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. Between each iteration, the evaluator shall terminate any residual TLS
                       sessions, reset any cache, and restore the configuration of the monitored client, requested server, and
-                      <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to its initial configuration for Test 3.
+                      <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to its initial configuration for <a href="#ttts-invalid-rsa-kex" class="dynref">Test 34</a>.</li>
                       <p></p>
-                      <b>Test 3, part c:</b> The evaluator shall observe that each error alert response provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for the
-                      iterations in part b match the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and is identical for each message M1 through M5.
+                      <li class="test-"><span id="_t_47">Test 34.3<a href="#_t_47" class="definition"></a></span>:
+       The evaluator shall observe that each error alert response provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for the
+                      iterations in part b match the description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and is identical for each message M1 through M5.</li>
+                    </ul></span>
                   </li>
                 </ul></span>
               </div>
@@ -2933,7 +2955,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 configure certificate profiles used for certificate generation in accordance with this requirement.
               <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_35">Test 35<a href="#_t_35" class="definition"></a></span>:
+                  <li class="test-"><span id="valid-server-profile-cert">Test 35<a href="#valid-server-profile-cert" class="definition"></a></span>:
       The evaluator shall configure a certificate profile using the available guidance and establish a
                     server with a certificate that satisfies <a href="#FDP_CER_EXT.1.2">FDP_CER_EXT.1.2</a> items a, b, e, f, h, i, j, and k, has valid values in all
                     extensions in item g (a-e), and is a valid TLS server certificate (having
@@ -2941,14 +2963,14 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     monitored client and request a TLS session to the server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that the inspection operation
                     is implemented, and then examine the certificate received at the client from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure it matches
                     the configured certificate profile.</li>
-                  <li class="test-"><span id="_t_36">Test 36<a href="#_t_36" class="definition"></a></span>:
-      The evaluator shall specifically examine the certificate generated in Test 1 and compare it to both
+                  <li class="test-"><span id="_t_49">Test 36<a href="#_t_49" class="definition"></a></span>:
+      The evaluator shall specifically examine the certificate generated in <a href="#valid-server-profile-cert" class="dynref">Test 35</a> and compare it to both
                     the embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>’s certificate and the requested server’s certificate to ensure that it satisfies all field
                     constraints in <a href="#FDP_CER_EXT.1.2">FDP_CER_EXT.1.2</a>, <a href="#FDP_CER_EXT.1.3">FDP_CER_EXT.1.3</a>, and <a href="#FDP_CER_EXT.1.4">FDP_CER_EXT.1.4</a> as configured in the certificate
                     profile.</li>
-                  <li class="test-"><span id="_t_37">Test 37<a href="#_t_37" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_50">Test 37<a href="#_t_50" class="definition"></a></span>:
       The evaluator shall conduct the following tests by establishing a server with certificate identical to
-                    that used in Test 1, except for the differences described as follows (each in turn). The evaluator shall make
+                    that used in <a href="#valid-server-profile-cert" class="dynref">Test 35</a>, except for the differences described as follows (each in turn). The evaluator shall make
                     any configuration changes to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as indicated, establish a monitored client, and submit a TLS request
                     for the server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that the inspection operation is performed, and observe the certificate
                     received at the monitored client has the indicated features: 
@@ -3057,13 +3079,13 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <p></p></div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_38">Test 38<a href="#_t_38" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_51">Test 38<a href="#_t_51" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has one or more interfaces that could be used to receive external certificate requests): 
                     For each interface that can be used to receive external certificate requests, the evaluator shall configure the certificate issuance approval function in accordance with the
                     operational guidance. The evaluator shall create a certificate request and submit it to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The
                     evaluator shall access the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the defined interface and verify that the submitted request is
                     rejected.</li>
-                  <li class="test-"><span id="_t_39">Test 39<a href="#_t_39" class="definition"></a></span>:
+                  <li class="test-"><span id="issue-cert-inspected-traffic">Test 39<a href="#issue-cert-inspected-traffic" class="definition"></a></span>:
       
                     The intent of this test is to exercise a representative set of <abbr class="dyn-abbr"><a href="#abbr_SSL/TLS">SSL/TLS</a></abbr> inspection proxy rules for the
                     supported features of the TLS session establishment policy and demonstrate certificates are generated by
@@ -3126,10 +3148,10 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     certificate repository for any certificate matching any of the names included in the requested server’s
                     subject alternate name extension and observe that no certificate was issued in response to the request. 
                   </li>
-                  <li class="test-"><span id="_t_40">Test 40<a href="#_t_40" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_53">Test 40<a href="#_t_53" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports caching of issued certificates): The evaluator shall
                     configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to retain certificates in the cache, and initiate a TLS session from a monitored client to
-                    a requested server as in Test 2 where the monitored client requested server combination matches a rule
+                    a requested server as in <a href="#issue-cert-inspected-traffic" class="dynref">Test 39</a> where the monitored client requested server combination matches a rule
                     associated with the inspection operation without allowance violations. The evaluator shall confirm that
                     the certificate issued by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> is contained in the certificate repository. The evaluator
                     shall then establish a second monitored client for which the second monitored client and same requested
@@ -3312,11 +3334,11 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 the Plaintext Processing Policy are described.<p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall inspect the operational guidance documents and ensure that instructions for any
                 configurable features of the Plaintext Processing Policy function are provided.<p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_41">Test 41<a href="#_t_41" class="definition"></a></span>:
+                <li class="test-"><span id="_t_54">Test 41<a href="#_t_54" class="definition"></a></span>:
       For each routing option described in the routing policy, the evaluator shall attempt to construct a
                   data flow that exercises the routing option and observe the intended routing occurs.
                 </li>
-                <li class="test-"><span id="_t_42">Test 42<a href="#_t_42" class="definition"></a></span>:
+                <li class="test-"><span id="_t_55">Test 42<a href="#_t_55" class="definition"></a></span>:
       For each routing option described in the routing policy, the evaluator shall attempt to construct a
                   data flow that violates the routing option and observe that the violation is detected and the flow blocked.
                 </li>
@@ -3352,13 +3374,13 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <p></p></div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_43">Test 43<a href="#_t_43" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_56">Test 43<a href="#_t_56" class="definition"></a></span>:
       The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and establish monitored clients and requested servers to
                     establish multiple TLS session threads through the inspection processing functional components, in which
                     the plaintext in each thread is distinguishable, either by the expected response of an inspection processing
                     functional component, or by logs. The evaluator shall examine the observable responses and logs to
                     confirm that the threads are treated separately. </li>
-                  <li class="test-"><span id="_t_44">Test 44<a href="#_t_44" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_57">Test 44<a href="#_t_57" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can establish plaintext processing rules that exclude plaintext processing by a particular inspection processing component): The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>,
                     configure a plaintext processing policy, and establish monitored clients and requested servers to establish
                     a TLS session thread through the inspection processing functional components for which the configured
@@ -3517,32 +3539,32 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 of the client-server combinations will be inspected. The evaluator shall use appropriate tools to monitor
                 the traffic between the clients and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, and between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the server to observe the TLS
                 handshake messages. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports TLS session resumption, the evaluator shall clear any TLS session
-                state that might be retained by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use session resumption. Note that tests
-                1 and 2 have additional instructions if TLS resumption is supported, but apply regardless of TLS resumption
-                support. Test 3 should only be performed if TLS resumption is supported.
+                state that might be retained by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use session resumption. Note that the 
+                first two tests have additional instructions if TLS resumption is supported, but apply regardless of TLS resumption
+                support. The third test should only be performed if TLS resumption is supported.
                 The evaluator shall perform the following tests, in order: <p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_45">Test 45<a href="#_t_45" class="definition"></a></span>:
+                  <li class="test-"><span id="stip-unique-client-sessions">Test 45<a href="#stip-unique-client-sessions" class="definition"></a></span>:
       The evaluator shall initiate a TLS session from client ‘a’ to server 1, and initiate a TLS session from
                     client ‘b’ to server 2. The evaluator shall observe the traffic between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the servers the data
                     decrypted at the servers to verify that the TLS sessions are distinct. The evaluator shall also observe the
                     traffic between the clients and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the TLS sessions are distinct. The evaluator shall
                     note and retain the TLS session information for the remaining tests and ensure that the sessions are not
-                    terminated during Test 2.
+                    terminated during <a href="#stip-unique-server-sessions" class="dynref">Test 46</a>.
                   </li>
-                  <li class="test-"><span id="_t_46">Test 46<a href="#_t_46" class="definition"></a></span>:
-      The evaluator shall retain the state of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from Test 1. If TLS resumption is supported, the
+                  <li class="test-"><span id="stip-unique-server-sessions">Test 46<a href="#stip-unique-server-sessions" class="definition"></a></span>:
+      The evaluator shall retain the state of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from <a href="#stip-unique-client-sessions" class="dynref">Test 45</a>. If TLS resumption is supported, the
                     evaluator shall ensure the TLS state in server 1 is retained. The evaluator shall initiate a TLS session from
                     client ‘b’ to server 1 through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall observe the traffic between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and server
                     1, and data received at server 1 to confirm the TLS session thread between client ‘b’ and server 1 is
                     different than the TLS session between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and server 1 associated to the TLS session thread between
-                    client ‘a’ and server 1 established in Test 1. The evaluator shall observe that the TLS session between client
+                    client ‘a’ and server 1 established in <a href="#stip-unique-client-sessions" class="dynref">Test 45</a>. The evaluator shall observe that the TLS session between client
                     ‘b’ and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> associated to the TLS session thread between client ‘b’ and server 1 is different than the
                     TLS session between client ‘b’ and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> associated to the TLS session thread between client b and
-                    server 2 established in test 1. The evaluator shall terminate the TLS sessions from client ‘b’ to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and
+                    server 2 established in <a href="#stip-unique-client-sessions" class="dynref">Test 45</a>. The evaluator shall terminate the TLS sessions from client ‘b’ to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and
                     observe that both TLS sessions associated to the TLS session threads, one to server 1 and the other to
                     server 2, are terminated.</li>
-                  <li class="test-"><span id="_t_47">Test 47<a href="#_t_47" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_60">Test 47<a href="#_t_60" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports session resumption): The evaluator shall initiate a TLS session resumption
                     between client ‘b’ and server 2 through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> responds with a full TLS
                     handshake.</li>
@@ -3558,7 +3580,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests: <p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_48">Test 48<a href="#_t_48" class="definition"></a></span>:
+                  <li class="test-"><span id="stip-toe-issues-server-cert">Test 48<a href="#stip-toe-issues-server-cert" class="definition"></a></span>:
       The evaluator shall configure and establish a monitored client and a requested server, and ensure
                     the requested server has a certificate issued by a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> trusted by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, but different than the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s
                     embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>. The requested server certificate shall contain a valid identifier of DNS name type
@@ -3570,11 +3592,11 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     received in the server certificate message at the monitored client is issued by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded signing
                     certificate and contains the same DNS name for the server in the subject alternate name extension, as
                     requested by the client.</li>
-                  <li class="test-"><span id="_t_49">Test 49<a href="#_t_49" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_62">Test 49<a href="#_t_62" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports certificate caching): The evaluator shall follow the operational guidance to
                     configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to retain generated certificates in cache for a short time. The evaluator shall establish
                     three monitored clients and a single requested server, and follow operational guidance to ensure TLS sessions
-                    between the monitored clients and the requested server are inspected as in Test 1. The evaluator shall
+                    between the monitored clients and the requested server are inspected as in <a href="#stip-toe-issues-server-cert" class="dynref">Test 48</a>. The evaluator shall
                     establish a TLS session from two of the monitored clients to the same requested server within the
                     configured cache time, and confirm that the certificates received at each client are identical. The evaluator
                     shall wait until the cache time has expired, and then initiate a TLS connection from the third monitored
@@ -3951,7 +3973,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 non-trivial rules for all TLS session establishment policy states. The evaluator shall conduct the following
                 tests, establishing any additional configuration requirements as indicated in each.
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_50">Test 50<a href="#_t_50" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_63">Test 50<a href="#_t_63" class="definition"></a></span>:
       For each rule of the TLS establishment policy indicating inspection operation processing, the
                     evaluator shall ensure the monitored client  and requested server are configured to communicate 
                     through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and that the server
@@ -3963,14 +3985,14 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     a TLS session with the requested server, issued a certificate representing the requested server, established
                     a TLS session with the monitored client, decrypted the data, performed any inspection processing, and
                     presented the data to the requested server via the established TLS session.</li>
-                  <li class="test-"><span id="_t_51">Test 51<a href="#_t_51" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_64">Test 51<a href="#_t_64" class="definition"></a></span>:
       For each rule of the TLS establishment policy indicating bypass processing, the evaluator shall
                     establish a monitored client, requested server, and server certificate that meets the rule. The evaluator
                     shall send a TLS request from the monitored client to the requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, and then
                     inspect logs, certificate repository, certificate received by the monitored client in the Server Hello
                     message, plaintext encrypted by the monitored client, and plaintext decrypted by the requested server to
                     confirm that bypass processing occurred.</li>
-                  <li class="test-"><span id="_t_52">Test 52<a href="#_t_52" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_65">Test 52<a href="#_t_65" class="definition"></a></span>:
       The evaluator shall follow operational guidance to ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is configured to log blocked TLS sessions.
                     For each rule of the TLS establishment policy indicating blocking of the TLS session, as indicated in any
                     element of this component, the evaluator shall establish that a monitored client, a requested server, and
@@ -3978,7 +4000,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the monitored client receives an error response in
                     accordance with <a href="#FDP_STIP_EXT.1.5">FDP_STIP_EXT.1.5</a> indicating that the session was blocked. The evaluator shall inspect
                     the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> logs to verify that each session was recorded as blocked.</li>
-                  <li class="test-"><span id="_t_53">Test 53<a href="#_t_53" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_66">Test 53<a href="#_t_66" class="definition"></a></span>:
       For each event that initiates a transition from the inspection operation to the block operation, the
                     evaluator shall attempt to establish a monitored client and requested server, and configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and
                     its TLS session establishment policy to invoke the event. For each such event, the evaluator shall initiate
@@ -3989,10 +4011,10 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     The evaluator shall observe that the monitored client receives the specified error message indicating that
                     the TLS session is blocked.
                   </li>
-                  <li class="test-"><span id="_t_54">Test 54<a href="#_t_54" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_67">Test 54<a href="#_t_67" class="definition"></a></span>:
       
                      
-                    Test 5 (conditional, both 'mutual authentication inspection' and 'send an empty certificate list as part of the inspection operation' are selected in <a href="#FDP_TEP_EXT.1.7">FDP_TEP_EXT.1.7</a>):
+                    (conditional, both 'mutual authentication inspection' and 'send an empty certificate list as part of the inspection operation' are selected in <a href="#FDP_TEP_EXT.1.7">FDP_TEP_EXT.1.7</a>):
                     The evaluator shall establish a server to send certificate requests in its TLS handshake. 
                     The evaluator shall extablish a monitored client configured to provide a valid client certificate in response to a certificate request. 
                     The evaluator shall follow operational guidance to configure the TLS inspection proxy policy to send an empty certificate list in a certificate message to the server, 
@@ -4173,25 +4195,25 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 tested with each of <a href="#FCS_TTTC_EXT.1">FCS_TTTC_EXT.1</a> and <a href="#FCS_TTTS_EXT.3">FCS_TTTS_EXT.3</a>.
                 
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_55">Test 55<a href="#_t_55" class="definition"></a></span>:
+                  <li class="test-"><span id="valid-cert-chain">Test 55<a href="#valid-cert-chain" class="definition"></a></span>:
        The evaluator shall present the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with a valid chain of certificates (terminating in a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>
                     certificate) as needed to validate the leaf certificate to be used in the function, and shall use this chain to
-                    demonstrate the function succeeds. Test 1a shall be designed so that the chain can be broken in Test 2
+                    demonstrate the function succeeds. This test shall be designed so that the chain can be broken in <a href="#broken-cert-chain" class="dynref">Test 56</a>
                     by either being able to remove the trust anchor from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> trust store or by setting up the trust store
                     in a way that at least one intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate needs to be provided together with the leaf
                     certificate from outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, to complete the chain (e.g. by storing only the root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate in the
                     trust store).
                   </li>
-                  <li class="test-"><span id="_t_56">Test 56<a href="#_t_56" class="definition"></a></span>:
-      The evaluator shall then ‘break’ the chain used in Test 1a by either removing the trust anchor in
+                  <li class="test-"><span id="broken-cert-chain">Test 56<a href="#broken-cert-chain" class="definition"></a></span>:
+      The evaluator shall then ‘break’ the chain used in <a href="#valid-cert-chain" class="dynref">Test 55</a> by either removing the trust anchor in
                     the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store used to terminate the chain, or by removing one of the intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates
-                    (provided together with the leaf certificate in Test 1) to complete the chain. The evaluator shall show
+                    (provided together with the leaf certificate in <a href="#valid-cert-chain" class="dynref">Test 55</a>) to complete the chain. The evaluator shall show
                     that an attempt to validate this broken chain fails.
                   </li>
-                  <li class="test-"><span id="_t_57">Test 57<a href="#_t_57" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_70">Test 57<a href="#_t_70" class="definition"></a></span>:
       The evaluator shall demonstrate that validating an expired certificate results in the function failing.
                   </li>
-                  <li class="test-"><span id="_t_58">Test 58<a href="#_t_58" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_71">Test 58<a href="#_t_71" class="definition"></a></span>:
       The evaluator shall test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can properly handle revoked certificates–conditional on
                     whether CRL or OCSP is selected; if both are selected, then a test shall be performed for each method.
                     The evaluator shall test revocation of the peer certificate and revocation of the peer intermediate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>
@@ -4201,18 +4223,18 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     ensure when the certificate is no longer valid that the validation function fails. Revocation checking is only
                     applied to certificates not designated as trust anchors. Therefore, the revoked certificates used for testing
                     shall not be a trust anchor.</li>
-                  <li class="test-"><span id="_t_59">Test 59<a href="#_t_59" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_72">Test 59<a href="#_t_72" class="definition"></a></span>:
       If OCSP is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool
                     to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP
                     response fails. If CRL is selected, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> to sign a CRL with a certificate that
                     does not have the cRLSign key usage bit set, and verify that validation of the CRL fails.</li>
-                  <li class="test-"><span id="_t_60">Test 60<a href="#_t_60" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_73">Test 60<a href="#_t_73" class="definition"></a></span>:
       The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that
                     the certificate fails to validate (the certificate will fail to parse correctly).</li>
-                  <li class="test-"><span id="_t_61">Test 61<a href="#_t_61" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_74">Test 61<a href="#_t_74" class="definition"></a></span>:
       The evaluator shall modify any byte in the last byte of the certificate and demonstrate that the
                     certificate fails to validate (the signature on the certificate will not validate).</li>
-                  <li class="test-"><span id="_t_62">Test 62<a href="#_t_62" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_75">Test 62<a href="#_t_75" class="definition"></a></span>:
       The evaluator shall modify any byte in the public key of the certificate and demonstrate that the
                     certificate fails to validate (the hash of the certificate will not validate).</li>
                 </ul></span><p></p>
@@ -4232,7 +4254,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 certificates in the chain are adjusted as described in each individual test below (and this modification shall
                 be the only invalid aspect of the relevant certificate chain).<p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_63">Test 63<a href="#_t_63" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_76">Test 63<a href="#_t_76" class="definition"></a></span>:
       The evaluator shall ensure that at least one of the CAs in the chain does not contain the
                     BasicConstraints extension. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects such a certificate at one (or
                     both) of the following points: (i) as part of the validation of the leaf certificate belonging to this chain or
@@ -4240,7 +4262,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     (i.e. when attempting to install the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate as one which will be retrieved from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself when
                     validating future certificate chains).
                   </li>
-                  <li class="test-"><span id="_t_64">Test 64<a href="#_t_64" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_77">Test 64<a href="#_t_77" class="definition"></a></span>:
       The evaluator shall ensure that at least one of the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates in the chain has a BasicConstraints
                     extension in which the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> flag is set to FALSE. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects such a
                     certificate at one (or both) of the following points: (i) as part of the validation of the leaf certificate
@@ -4995,15 +5017,15 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 <a href="#FDP_CRL_EXT.1.1">FDP_CRL_EXT.1.1</a>.
               <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_65">Test 65<a href="#_t_65" class="definition"></a></span>:
+                <li class="test-"><span id="_t_78">Test 65<a href="#_t_78" class="definition"></a></span>:
       The evaluator shall configure the CRL function using available user guidance and request a CRL in
                   order to ensure that the resulting CRL satisfies all field constraints in <a href="#FDP_CRL_EXT.1.1">FDP_CRL_EXT.1.1</a>.
                 </li>
-                <li class="test-"><span id="_t_66">Test 66<a href="#_t_66" class="definition"></a></span>:
+                <li class="test-"><span id="_t_79">Test 66<a href="#_t_79" class="definition"></a></span>:
       For each field defined in <a href="#FDP_CRL_EXT.1.1">FDP_CRL_EXT.1.1</a>, the evaluator shall attempt to create a CRL that violates
                   the required conditions of the field. The evaluator shall determine that all such attempts are rejected by
                   the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.</li>
-                <li class="test-"><span id="_t_67">Test 67<a href="#_t_67" class="definition"></a></span>:
+                <li class="test-"><span id="_t_80">Test 67<a href="#_t_80" class="definition"></a></span>:
       The evaluator shall make a selection of fields from a configured CRL function and shall attempt to
                   create a CRL that violates the required conditions of the field. The evaluator shall determine that all such
                   attempts are rejected by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
@@ -5077,12 +5099,12 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 performed in conjunction with applicable tests associated with the requirements claimed in Appendix B.1
                 of the <abbr class="dyn-abbr"><a href="#abbr_STIP">STIP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>:<p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_68">Test 68<a href="#_t_68" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_81">Test 68<a href="#_t_81" class="definition"></a></span>:
       For each certificate status format identified in FCS_CSI_EXT.1.1, the evaluator shall issue a valid
                     certificate from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall then cause the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to issue certificate status information.
                     The evaluator shall check the certificate status information using all indicated methods identified in
                     FCS_CSI_EXT.1.3 to verify that each reflects that the certificate is valid.</li>
-                  <li class="test-"><span id="_t_69">Test 69<a href="#_t_69" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_82">Test 69<a href="#_t_82" class="definition"></a></span>:
       For each selected certificate status format (CRLv2 or OCSP) identified in FCS_CSI_EXT.1.1, and for
                     each mechanism indicated in <a href="#FDP_CSI_EXT.1.2">FDP_CSI_EXT.1.2</a>, the evaluator shall cause a valid certificate from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
                     to be revoked. The evaluator shall then cause the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to issue certificate status information. The evaluator
@@ -5136,7 +5158,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 guidance to ensure that instructions are available to configure the OCSP response function in accordance
                 with <a href="#FDP_OCSP_EXT.1.1">FDP_OCSP_EXT.1.1</a>.<p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:<p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_70">Test 70<a href="#_t_70" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_83">Test 70<a href="#_t_83" class="definition"></a></span>:
       The evaluator shall configure the OCSP response function, establish a monitored client and shall,
                     in turn, cause an OCSP response by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for the status of a certificate issued by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded
                     <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> which has not been revoked, a certificate issued by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> which has been revoked,
@@ -5144,7 +5166,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     satisfies all constraints in <a href="#FDP_OCSP_EXT.1.1">FDP_OCSP_EXT.1.1</a> and provides an accurate status indication in accordance
                     with RFC 6960.
                   </li>
-                  <li class="test-"><span id="_t_71">Test 71<a href="#_t_71" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_84">Test 71<a href="#_t_84" class="definition"></a></span>:
       For each of the constraints in <a href="#FDP_OCSP_EXT.1.1">FDP_OCSP_EXT.1.1</a>, the evaluator shall attempt to create an OCSP
                     response that violates the constraints. The evaluator shall determine that all such attempts are rejected
                     by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
@@ -5257,36 +5279,36 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 configuring the <abbr class="dyn-abbr"><a href="#abbr_TA">TA</a></abbr> database (implicit or explicit) and initial certificates.
               <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:<p></p>
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_72">Test 72<a href="#_t_72" class="definition"></a></span>:
+                <li class="test-"><span id="authorized-est">Test 72<a href="#authorized-est" class="definition"></a></span>:
       The evaluator shall establish an external <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> and EST server, and configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as indicated in
                   the operational guidance to authorize the EST server for EST services using the external <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>. The evaluator shall examine
                   the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> logs and <abbr class="dyn-abbr"><a href="#abbr_TA">TA</a></abbr> databases using available interfaces to ensure the EST server and external <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>’s
                   certificates are authorized for EST services.
                 </li>
-                <li class="test-"><span id="_t_73">Test 73<a href="#_t_73" class="definition"></a></span>:
+                <li class="test-"><span id="_t_86">Test 73<a href="#_t_86" class="definition"></a></span>:
       For each authentication method specified in <a href="#FIA_ESTC_EXT.1.4">FIA_ESTC_EXT.1.4</a>, the evaluator shall generate one
                   or more certificate enrollment requests using the authentication method to obtain <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> required
-                  certificates from the authorized <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> via the EST server established in Test 1. In accordance with guidance
+                  certificates from the authorized <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> via the EST server established in <a href="#authorized-est" class="dynref">Test 72</a>. In accordance with guidance
                   documentation, the evaluator shall obtain a sufficient number of certificates in aggregate to allow the
                   <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to issue certificates to requested servers. </li>
-                <li class="test-"><span id="_t_74">Test 74<a href="#_t_74" class="definition"></a></span>:
+                <li class="test-"><span id="give-est-to-client">Test 74<a href="#give-est-to-client" class="definition"></a></span>:
       The evaluator shall establish a server with a valid certificate and a monitored client. The evaluator
                   shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that a TLS session between the monitored client and established through the
                   <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> results in the inspection operation being implemented. The evaluators shall establish a TLS session
                   between the monitored client and the established server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and observe that the certificate
                   chain returned to the client contains a server certificate issued by the embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>’s certificate, and the
                   embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>’s certificate issued by the external <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>. </li>
-                <li class="test-"><span id="_t_75">Test 75<a href="#_t_75" class="definition"></a></span>:
+                <li class="test-"><span id="_t_88">Test 75<a href="#_t_88" class="definition"></a></span>:
       The evaluator shall generate a re-enrollment request and submit it to the authorized EST server in
                   accordance with <a href="#FIA_ESTC_EXT.1">FIA_ESTC_EXT.1</a> to update the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>’s signing certificate. The evaluator
-                  shall clear any cache, revoke the original <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate, and repeat Test 3, observing that the updated
+                  shall clear any cache, revoke the original <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificate, and repeat <a href="#give-est-to-client" class="dynref">Test 74</a>, observing that the updated
                   certificate for the embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> is included in the certificate chain returned to the monitored client.
                 </li>
-                <li class="test-"><span id="_t_76">Test 76<a href="#_t_76" class="definition"></a></span>:
+                <li class="test-"><span id="_t_89">Test 76<a href="#_t_89" class="definition"></a></span>:
       The evaluator shall establish a second EST server configured to authorize the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s EST client but
                   which is not authorized by the client to provide EST services. The evaluator shall generate an enrollment
                   request for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> signing certificate, and submit it to the second EST server. The
-                  evaluator shall clear any cache and repeat Test 3, observing that the certificate returned by the second
+                  evaluator shall clear any cache and repeat <a href="#give-est-to-client" class="dynref">Test 74</a>, observing that the certificate returned by the second
                   EST server is not contained in the certificate chain returned to the monitored client.</li>
               </ul></span>
               </div></div></div></div>
@@ -5405,7 +5427,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the client and server certificates. Additional configuration of the requested servers,
                 monitored clients, and <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> are specified in the tests below.<p></p>
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_77">Test 77<a href="#_t_77" class="definition"></a></span>:
+                <li class="test-"><span id="_t_90">Test 77<a href="#_t_90" class="definition"></a></span>:
       The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s TLS session establishment policy to allow client
                   authentication to the servers used in this test. For each certificate established for a monitored client, the
                   evaluator shall initiate a TLS session between the monitored client and a requested server configured to
@@ -5414,21 +5436,21 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   a certificate issued by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and that the certificate verifies messages that authenticate the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> as
                   controlling the private key associated to the certificate.
                 </li>
-                <li class="test-"><span id="_t_78">Test 78<a href="#_t_78" class="definition"></a></span>:
+                <li class="test-"><span id="_t_91">Test 78<a href="#_t_91" class="definition"></a></span>:
       The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s TLS session establishment policy to allow client
                   authentication to the servers used in this test. The evaluator shall configure a requested server to send a
                   certificate request message to clients with a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> field that does not contain the embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
                   The evaluator shall initiate a TLS session from a monitored client using one of the issued certificates for
                   client authentication to the so configured server through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not
                   establish a TLS session with the requested server.</li>
-                <li class="test-"><span id="_t_79">Test 79<a href="#_t_79" class="definition"></a></span>:
+                <li class="test-"><span id="_t_92">Test 79<a href="#_t_92" class="definition"></a></span>:
       The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s TLS session establishment policy to allow client
                   authentication to the servers used in this test. The evaluator shall configure a requested server not to
                   send a certificate request message to clients. The evaluator shall initiate a TLS session from a monitored
                   client using one of the issued certificates for client authentication to the so configured server through the
                   <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not send a client certificate message or certificate verify message to
                   within its handshake with requested server.</li>
-                <li class="test-"><span id="_t_80">Test 80<a href="#_t_80" class="definition"></a></span>:
+                <li class="test-"><span id="_t_93">Test 80<a href="#_t_93" class="definition"></a></span>:
       The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s TLS session establishment policy to not allow client
                   authentication to the servers used in this test, and if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports a block-bypass allowance, to block
                   mutual authentication requests to the server. The evaluator shall configure a requested server to send a
@@ -5436,7 +5458,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   using one of the issued certificates for client authentication to the so configured server through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
                   and observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not send a client certificate message or certificate verify message to within
                   its handshake with requested server.</li>
-                <li class="test-"><span id="_t_81">Test 81<a href="#_t_81" class="definition"></a></span>:
+                <li class="test-"><span id="_t_94">Test 81<a href="#_t_94" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports block-bypass specifications in the TLS session establishment policy):
                   The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s TLS session establishment policy to not allow client authentication
                   to the requested server used in this test, and to bypass mutual authentication requests to that server. The
@@ -5504,19 +5526,19 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 configure the TLS session establishment policy to allow mutual authentication to the requested servers to
                 induce a client certificate request from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.<p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_82">Test 82<a href="#_t_82" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_95">Test 82<a href="#_t_95" class="definition"></a></span>:
       For each certificate signature algorithm supported, the evaluator shall establish a monitored client
                     with a certificate signed by a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> using the certificate algorithm, where the client properly supports
                     client authentication. For each such client, the evaluator shall initiate a TLS session to a requested server
                     through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. In each case, the evaluator shall observe that valid TLS sessions between the monitored
                     client and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is established and that during the TLS handshake the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a certificate request
                     message to each monitored client.</li>
-                  <li class="test-"><span id="_t_83">Test 83<a href="#_t_83" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_96">Test 83<a href="#_t_96" class="definition"></a></span>:
       The evaluator shall initiate a TLS session between a monitored client and a requested server
                     through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, where the client does not provide a certificate message. The evaluator shall observe that
                     a TLS session between the client and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not established, and that any TLS session between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
                     and the requested server associated to that TLS session thread is terminated.</li>
-                  <li class="test-"><span id="_t_84">Test 84<a href="#_t_84" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_97">Test 84<a href="#_t_97" class="definition"></a></span>:
       The evaluator shall initiate a TLS session between a monitored client and requested server through
                     the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, where the monitored client’s certificate is issued by a subordinate <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> of a trusted root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> and
                     only the root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> is in the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> trust store. In response to the certificate request, the evaluator shall replace
@@ -5525,21 +5547,21 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> logs to verify that the certificate is deemed invalid, that the
                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not establish a TLS session with the client, and that any TLS session between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the
                     requested server associated to that TLS session thread is terminated.</li>
-                  <li class="test-"><span id="_t_85">Test 85<a href="#_t_85" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_98">Test 85<a href="#_t_98" class="definition"></a></span>:
       The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> trust store so the root certificate authority that issues the
                     certificate for a monitored client is not trusted. The evaluator shall then initiate a TLS session between a
                     monitored client and requested server using client authentication through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and observe that the
                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not establish a TLS session with the client and that any TLS session between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the
                     requested server associated to that TLS session thread is terminated.
                   </li>
-                  <li class="test-"><span id="_t_86">Test 86<a href="#_t_86" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_99">Test 86<a href="#_t_99" class="definition"></a></span>:
       The evaluator shall establish a monitored client whose otherwise valid certificate issued by a
                     trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> does not include the client authentication purpose in the extended key usage field. The
                     evaluator shall initiate a TLS session between the monitored client and a requested server through the
                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall observe that the TLS session between the monitored client and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not
                     established, and that any TLS session between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the requested server associated to that TLS
                     session thread is terminated.</li>
-                  <li class="test-"><span id="_t_87">Test 87<a href="#_t_87" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_100">Test 87<a href="#_t_100" class="definition"></a></span>:
       (conditional, the TLS session establishment supports authenticated attributes of a client in exception specifications):
                     The evaluator shall configure a TLS establishment policy in the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to
                     perform mutual authentication for a client. The evaluator shall establish a monitored client subject to the 
@@ -5696,7 +5718,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 configure certificate profiles used for certificate generation in accordance with this requirement.<p></p></div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests:<p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_88">Test 88<a href="#_t_88" class="definition"></a></span>:
+                  <li class="test-"><span id="valid-client-profile-cert">Test 88<a href="#valid-client-profile-cert" class="definition"></a></span>:
       The evaluator shall configure a certificate profile using the available guidance, and establish a
                     server with a certificate that satisfies <a href="#FDP_CER_EXT.4.2">FDP_CER_EXT.4.2</a> items a, b, e, f, h, j, and k, has valid values in all
                     extensions in item g (g.a-g.f), and passes all certificate validation criteria as a TLS server certificate (having
@@ -5705,14 +5727,14 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                     authentication inspection operation is implemented, and then examine the certificate received at the
                     server from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure it matches the configured certificate profile.
                   </li>
-                  <li class="test-"><span id="_t_89">Test 89<a href="#_t_89" class="definition"></a></span>:
-      The evaluator shall specifically examine the certificate generated in Test 1 and compare it to both
+                  <li class="test-"><span id="_t_102">Test 89<a href="#_t_102" class="definition"></a></span>:
+      The evaluator shall specifically examine the certificate generated in <a href="#valid-client-profile-cert" class="dynref">Test 88</a> and compare it to both
                     the embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>’s certificate and the monitored client’s certificate to ensure that it satisfies all field
                     constraints in <a href="#FDP_CER_EXT.4.2">FDP_CER_EXT.4.2</a>, <a href="#FDP_CER_EXT.4.3">FDP_CER_EXT.4.3</a>, and <a href="#FDP_CER_EXT.4.4">FDP_CER_EXT.4.4</a> as configured in the certificate
                     profile.</li>
-                  <li class="test-"><span id="_t_90">Test 90<a href="#_t_90" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_103">Test 90<a href="#_t_103" class="definition"></a></span>:
       The evaluator shall conduct the following tests by establishing a monitored client with certificate
-                    identical to that used in Test 1, except for the differences described as follows (each in turn). The evaluator
+                    identical to that used in <a href="#valid-client-profile-cert" class="dynref">Test 88</a>, except for the differences described as follows (each in turn). The evaluator
                     shall make any configuration changes to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as indicated, establish a monitored client and submit a
                     TLS request for a requested server requiring mutual authentication through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> so that the mutual
                     authentication inspection operation is performed, and observe the certificate received at the requested
@@ -5875,13 +5897,13 @@ The assumptions identified in Section 3 are incorporated as security objectives 
               <p></p></div><div class="eacategory">Tests</div><div class="ea">Based on the selections, the evaluator shall perform the following tests. It is recommended that these be
                 performed in conjunction with applicable tests associated with the requirements claimed in Appendix B.1: <p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_91">Test 91<a href="#_t_91" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_104">Test 91<a href="#_t_104" class="definition"></a></span>:
       For each certificate status format identified in FCS_CSI_EXT.2.1, the evaluator shall cause a valid
                     client certificate to be issued by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall then cause the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to issue certificate status
                     information. The evaluator shall check the certificate status information using all indicated methods
                     identified in FCS_CSI_EXT.2.3 to verify that each reflects that the certificate is valid.
                   </li>
-                  <li class="test-"><span id="_t_92">Test 92<a href="#_t_92" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_105">Test 92<a href="#_t_105" class="definition"></a></span>:
       For each selected certificate status format (CRLv2 or OCSP) identified in FCS_CSI_EXT.2.1, and for
                     each mechanism indicated in <a href="#FDP_CSI_EXT.2.2">FDP_CSI_EXT.2.2</a>, the evaluator shall cause a valid client certificate from the
                     <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to be revoked. The evaluator shall then cause the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to issue certificate status information. The
@@ -5956,7 +5978,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 certificate compliant with <a href="#FIA_X509_EXT.1/STIP">FIA_X509_EXT.1/STIP</a> for client authentication from a trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> that is
                 different than the embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
                 <p></p>
-                The evaluator shall ensure the validity of the client’s certificate is short enough to accommodate Test 3
+                The evaluator shall ensure the validity of the client’s certificate is short enough to accommodate <a href="#issue-new-client-cert" class="dynref">Test 95</a>
                 below. The evaluator shall establish a server able to establish TLS sessions in accordance with
                 FCS_TLSS_EXT.2 and configured to support mutual authentication of the client and which is configured to
                 trust the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>.
@@ -5973,7 +5995,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the server to observe the TLS handshake messages. The evaluator shall perform
                 the following tests in order:<p></p>
                   <span class="testlist-"><ul>
-                    <li class="test-"><span id="_t_93">Test 93<a href="#_t_93" class="definition"></a></span>:
+                    <li class="test-"><span id="_t_106">Test 93<a href="#_t_106" class="definition"></a></span>:
       The evaluator shall configure the server to not require mutual authentication of the client, initiate
                       a TLS session to the server through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, and observe a TLS session between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the server is
                       established and does not include a certificate message or certificate verify message from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The
@@ -5982,7 +6004,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                       inspect the certificate repository of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and confirm that no certificate representing the client is
                       present.
                     </li>
-                    <li class="test-"><span id="_t_94">Test 94<a href="#_t_94" class="definition"></a></span>:
+                    <li class="test-"><span id="_t_107">Test 94<a href="#_t_107" class="definition"></a></span>:
       The evaluator shall configure the server to require mutual authentication of the client, initiate a
                       TLS session from the client to the requested server, and observe the traffic between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the
                       server to verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a certificate message containing a certificate issued by the embedded
@@ -5990,7 +6012,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                       private key. The evaluator shall examine the certificate repository of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to confirm that the
                       certificate observed in the certificate message is present in the repository.
                     </li>
-                    <li class="test-"><span id="_t_95">Test 95<a href="#_t_95" class="definition"></a></span>:
+                    <li class="test-"><span id="issue-new-client-cert">Test 95<a href="#issue-new-client-cert" class="definition"></a></span>:
       Adjusting the time of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> if necessary so that the initial certificate issued to the client is expired,
                       the evaluator shall establish a new certificate for the client, using the same subject but using a validity
                       period that is valid in the current time setting. The evaluator shall initiate a TLS session between the client
@@ -5999,7 +6021,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                       verify message that validates the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s possession of the associated private key. The evaluator shall
                       examine the certificate repository of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and verify that both certificates representing the client are
                       present.</li>
-                    <li class="test-"><span id="_t_96">Test 96<a href="#_t_96" class="definition"></a></span>:
+                    <li class="test-"><span id="_t_109">Test 96<a href="#_t_109" class="definition"></a></span>:
       The evaluator shall initiate a new TLS session between the client and server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>,
                       where the certificate in the certificate message from the client is modified in the last byte, and a valid
                       certificate verify message is sent for the unmodified certificate. The evaluator shall observe that a TLS
@@ -6172,13 +6194,13 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 renegotiation.
               <p></p></div><div class="eacategory">Guidance</div><div class="ea">There are no guidance EAs for this component beyond what is specified for <a href="#FCS_TTTC_EXT.4.3">FCS_TTTC_EXT.4.3</a>.<p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:<p></p>
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_99">Test 97<a href="#_t_99" class="definition"></a></span>:
+                <li class="test-"><span id="_t_112">Test 97<a href="#_t_112" class="definition"></a></span>:
       The evaluator shall use a network packet analyzer and/or sniffer to capture the traffic between
                   the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and a requested server during inspection of a TLS session between a monitored client and the
                   requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall verify that either the renegotiation_info field or
                   the SCSV cipher suite is included in the Client Hello message during the initial handshake.
                 </li>
-                <li class="test-"><span id="_t_100">Test 98<a href="#_t_100" class="definition"></a></span>:
+                <li class="test-"><span id="_t_113">Test 98<a href="#_t_113" class="definition"></a></span>:
       The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s handling of Server Hello messages received from a requested
                   server during an authorized inspection of a TLS session between a monitored client and the requested
                   server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, during the initial handshake that include the renegotiation_info extension. The
@@ -6187,7 +6209,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   formatted field during an authorized inspection of traffic to the server results in a successful TLS
                   connection between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the requested server.
                 </li>
-                <li class="test-"><span id="_t_101">Test 99<a href="#_t_101" class="definition"></a></span>:
+                <li class="test-"><span id="_t_114">Test 99<a href="#_t_114" class="definition"></a></span>:
       The evaluator shall cause the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to initiate renegotiation with the requested server and verify
                   that the Client Hello message received by the requested server containsthe renegotiation_info extension.
                   The evaluator shall cause the requested server to send a Server Hello message with a renegotiation info
@@ -6202,7 +6224,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 configurable features of the TLS implementation required to meet this requirement are provided.<p></p></div>
               <div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:<p></p>
               <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_97">Test 100<a href="#_t_97" class="definition"></a></span>:
+                <li class="test-"><span id="_t_110">Test 100<a href="#_t_110" class="definition"></a></span>:
       For any mechanism specified, the evaluator will establish one or more monitored client and
                   requested servers configured to use each of the supported cipher suites through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. For each
                   supported cipher suite, the evaluator shall initiate a session between the monitored client to a requested
@@ -6212,7 +6234,7 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                   shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> terminates or renegotiates the TLS session as specified by the renegotiation
                   mechanism.
                 </li>
-                <li class="test-"><span id="_t_98">Test 101<a href="#_t_98" class="definition"></a></span>:
+                <li class="test-"><span id="_t_111">Test 101<a href="#_t_111" class="definition"></a></span>:
       (conditional, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selects "2^20 64-bit data blocks are encrypted using TDES cipher suites using the same key"
                   in <a href="#FCS_TTTC_EXT.4.3">FCS_TTTC_EXT.4.3</a>): the evaluator shall establish one or more monitored client and requested servers
                   configured to use each of the supported cipher suites using TDES through the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. For each supported
@@ -6254,18 +6276,18 @@ The assumptions identified in Section 3 are incorporated as security objectives 
                 renegotiation_info extension, and a requested server that is authorized for the inspection operation. 
                 The evaluator shall then perform the following tests: <p></p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><span id="_t_102">Test 102<a href="#_t_102" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_115">Test 102<a href="#_t_115" class="definition"></a></span>:
       The evaluator shall use a network packet analyzer or sniffer to capture the traffic between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
                     and a monitored client. The evaluator shall initiate a TLS session between the monitored client and the
                     requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, and verify the renegotiation_info field is included in the Server Hello
                     message sent from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to the monitored client.</li>
-                  <li class="test-"><span id="_t_103">Test 103<a href="#_t_103" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_116">Test 103<a href="#_t_116" class="definition"></a></span>:
       The evaluator shall initiate a new (initial) TLS session between the monitored client and the
                     requested server through the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, where the Client Hello message includes a renegotiation_info
                     extension with non-zero length, and verify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> sends a failure and terminates the connection. The
                     evaluator shall verify that a properly formatted field results in a successful TLS connection.
                   </li>
-                  <li class="test-"><span id="_t_104">Test 104<a href="#_t_104" class="definition"></a></span>:
+                  <li class="test-"><span id="_t_117">Test 104<a href="#_t_117" class="definition"></a></span>:
       The evaluator shall send a renegotiation request from the monitored client to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> containing
                     a modified client_verify_data value in the Client Hello message. The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
                     terminates the connection.</li>
