@@ -727,9 +727,8 @@ The following sections list Common Criteria and technology terms used in this do
                   <li class="test-"><span id="_t_5">Test 5<a href="#_t_5" class="definition"></a></span>:
       For each version and cipher suite combination supported, as indicated in FCS_TTTC_EXT.1.1, the
                     evaluator shall configure a server requested by a monitored client to negotiate the version and cipher
-                    suite, and issue the server a certificate from the trusted CA containing a subjectAltName (SAN) extension
-                    containing the expected DNS name of the server, and which is valid in accordance with
-                    FIA_X509_EXT.1/Rev. The evaluator shall then initiate a TLS session from a monitored client through the
+                    suite, and issue the server a valid certificate from the trusted CA containing a subjectAltName (SAN) extension
+                    containing the expected DNS name of the server. The evaluator shall then initiate a TLS session from a monitored client through the
                     TOE to the requested server, as indicated in the SNI extension of the Client Hello, and observe that the
                     TLS session between the TOE and the requested server cipher suites is successful. Additionally, the
                     evaluator shall verify that the Client Hello sent from the TSF to the requested server contains the full,
@@ -915,8 +914,7 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">TSS</div><div class="ea">
                 The evaluator shall ensure that the TSS describes the TSF’s behavior for certificate validation results,
                 including any dependencies on the configured TLS session establishment policy for establishing a TLS
-                session when revocation information is not available, as indicated in the selection for FIA_X509_EXT.2.2.
-                
+                session when revocation information is not available, as indicated in the selection for FIA_X509_EXT.2.2/STIP.
               <p></p></div>
               <div class="eacategory">Guidance</div><div class="ea">
                 If the TSS indicates that the TLS session establishment policy is used to determine the TSF’s behaviour for
@@ -958,7 +956,7 @@ The following sections list Common Criteria and technology terms used in this do
                     subordinate CA is included in the certificate chain provided by the requested server and ensure the
                     revocation information is not available to the TSF. The evaluator shall confirm that the default behavior
                     for revocation information not available is performed by the TSF. If this behavior is configurable (the first
-                    item is claimed in the first selection for FIA_X509_EXT.2.2), the evaluator shall in turn follow guidance 
+                    item is claimed in the first selection for FIA_X509_EXT.2.2/STIP), the evaluator shall in turn follow guidance 
                     documentation to configure the TSF for each response, and initiate the TLS session from the monitored
                     client to demonstrate the TSF performs the configured behavior.
                   </li>
@@ -981,7 +979,7 @@ The following sections list Common Criteria and technology terms used in this do
                     subordinate CA is available, but revocation information from the trusted CA is not available to the TSF.
                     The evaluator shall confirm that the default behavior for revocation information not available is
                     performed by the TSF. If this behavior is configurable (the first item is claimed in the selection for
-                    FIA_X509_EXT.2.2), the evaluator shall, in turn, follow guidance documentation to configure the TSF for each
+                    FIA_X509_EXT.2.2/STIP), the evaluator shall, in turn, follow guidance documentation to configure the TSF for each
                     response, and initiate the TLS session from the monitored client to demonstrate the TSF performs the
                     configured behavior. </li>
                   <li class="test-"><span id="_t_21">Test 21<a href="#_t_21" class="definition"></a></span>:
@@ -1342,10 +1340,10 @@ The following sections list Common Criteria and technology terms used in this do
               <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
                   <li class="test-"><span id="_t_35">Test 35<a href="#_t_35" class="definition"></a></span>:
-      The evaluator shall configure a certificate profile using the available guidance, and establish a
+      The evaluator shall configure a certificate profile using the available guidance and establish a
                     server with a certificate that satisfies FDP_CER_EXT.1.2 items a, b, e, f, h, i, j, and k, has valid values in all
-                    extensions in item g (a-e), and passes all certificate validation criteria as a TLS server certificate (having
-                    extended key usage field of server authentication) in FIA_X509_EXT.1/STIP. The evaluator shall establish a
+                    extensions in item g (a-e), and is a valid TLS server certificate (having
+                    extendedKeyUsage field of server authentication). The evaluator shall establish a
                     monitored client and request a TLS session to the server through the TOE so that the inspection operation
                     is implemented, and then examine the certificate received at the client from the TOE to ensure it matches
                     the configured certificate profile.</li>
@@ -1611,9 +1609,8 @@ The following sections list Common Criteria and technology terms used in this do
               <p></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall follow the operational guidance to configure the TSF. The evaluator shall establish two
-                monitored clients (client a, and b) able to initiate a TLS session that is compliant with FCS_TTTC_EXT.1,
-                and two servers (servers 1 and 2) able to establish TLS sessions in accordance with FCS_TTTS_EXT.1, each
-                of which which has certificate that is valid in accordance with FIA_X509_EXT.1/STIP, and which is issued
+                monitored clients (client a and b) each able to initiate a TLS session
+                and two servers (servers 1 and 2) each able to establish TLS sessions and having valid server certificates, issued
                 by a CA, different than the TOE’s embedded CA, that is trusted by the TOE. If the TSF supports TLS
                 resumption, the evaluator shall configure server 1 to support TLS resumption using a mechanism (tickets
                 or session number) supported by the TSF, and configure server 2 to refuse TLS resumption and instead
@@ -1816,9 +1813,9 @@ The following sections list Common Criteria and technology terms used in this do
                 <span class="testlist-"><ul>
                   <li class="test-"><span id="_t_50">Test 50<a href="#_t_50" class="definition"></a></span>:
       For each rule of the TLS establishment policy indicating inspection operation processing, the
-                    evaluator shall ensure the monitored client is configured to meet the requirements for FCS_TTTC_EXT.1,
-                    the requested server is configured to meet the requirements for FCS_TTTS_EXT.1, and the server
-                    certificate is valid according to FIA_X509_EXT.1/STIP. The evaluator shall configure the TSF so the rule
+                    evaluator shall ensure the monitored client  and requested server are configured to communicate 
+                    through the TOE and that the server
+                    certificate is valid. The evaluator shall configure the TSF so the rule
                     applies to the monitored client and requested server. The evaluator shall establish a TLS session from the
                     monitored client to the requested server through the TOE. The evaluator shall then observe the TSF audit
                     record, certificate repository, TLS Server Hello data received at the client, plaintext encrypted at the client,
@@ -1984,7 +1981,7 @@ The following sections list Common Criteria and technology terms used in this do
                 </ul></span>
               </div></div><div class="comp" id="FIA-X509-EXT-2-STIP"><h4>FIA_X509_EXT.2/STIP X.509 Certificate Authentication (STIP)</h4><div class="component-activity-header">FIA_X509_EXT.2/STIP</div>
               This SFR is evaluated per the EAs for FIA_X509_EXT.2 defined in the Base-PP.
-            </div><h2 class="indexable" data-level="2" id="m-fmt">2.2.5 Security Management (FMT)</h2><div class="comp" id="FMT-MOF-1"><h4>FMT_MOF.1/stip Management of Functions Behavior</h4><div class="component-activity-header">FMT_MOF.1/stip</div>
+            </div><h2 class="indexable" data-level="2" id="m-fmt">2.2.5 Security Management (FMT)</h2><div class="comp" id="FMT-MOF-1"><h4>FMT_MOF.1/STIP Management of Functions Behavior</h4><div class="component-activity-header">FMT_MOF.1/STIP</div>
             
             
             
