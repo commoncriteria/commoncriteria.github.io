@@ -249,6 +249,10 @@
 	}
 
    
+    .comp .description{
+        padding-bottom: 20px;
+        display: block;
+    }    
    
    </style></head><body><div style="text-align: center; margin-left: auto; margin-right: auto;"><h1 class="title" style="page-break-before:auto;">Supporting Document<br/>
         Mandatory Technical Document</h1><img src="images/niaplogo.png" alt="NIAP"></img><hr width="50%"></hr><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><br/>
@@ -652,8 +656,9 @@ The following sections list Common Criteria and technology terms used in this do
               </div>
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests: <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_14">Test 14<a href="#_t_14" class="definition"></a></span>:
-      The evaluator shall use the instructions in the guidance documentation to test that stateful packet filter firewall rules can be created that permit, drop, and log packets for each of the following attributes: 
+                <li class="test-"><span id="stateful-rules-definition">Test 14<a href="#stateful-rules-definition" class="definition"></a></span>:
+      The evaluator shall use the instructions in the guidance documentation to test 
+                  that stateful packet filter firewall rules can be created that permit, drop, and log packets for each of the following attributes: 
                   <ul>
                     <li>IPv4/IPv6 <ul>
                       <li>Source address (e.g., 10.0.0.1/16, 10.0.0.1, any)</li> 
@@ -673,7 +678,7 @@ The following sections list Common Criteria and technology terms used in this do
                   </ul>
                 <p></p></li>
                 <li class="test-"><span id="_t_15">Test 15<a href="#_t_15" class="definition"></a></span>:
-      Repeat Test 1 above as needed to ensure that traffic filtering rules can be defined for each distinct network interface type supported by the TOE.
+      Repeat <a href="#stateful-rules-definition" class="dynref">Test 14</a> above as needed to ensure that traffic filtering rules can be defined for each distinct network interface type supported by the TOE.
                 </li>
                 </ul></span>
               </div>
@@ -704,7 +709,7 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests: 
                 <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_16">Test 16<a href="#_t_16" class="definition"></a></span>:
+                <li class="test-"><span id="invalid-tcp-flags">Test 16<a href="#invalid-tcp-flags" class="definition"></a></span>:
       The evaluator shall configure the TOE to permit and log TCP traffic. 
                   The evaluator shall initiate a TCP session. 
                   While the TCP session is being established, the evaluator shall introduce session establishment packets with incorrect flags 
@@ -715,21 +720,21 @@ The following sections list Common Criteria and technology terms used in this do
                   one at a time in order to verify that the altered packets are not accepted as part of the established session.
                 <p></p></li>
                 <li class="test-"><span id="_t_17">Test 17<a href="#_t_17" class="definition"></a></span>:
-      The evaluator shall terminate the TCP session established per Test 1 as described in the TSS. 
+      The evaluator shall terminate the TCP session established per <a href="#invalid-tcp-flags" class="dynref">Test 16</a> as described in the TSS. 
                   The evaluator shall then immediately send a packet matching the former session definition in order to ensure it is not forwarded through the TOE without being subject to the ruleset.
                 <p></p></li>
-                <li class="test-"><span id="_t_18">Test 18<a href="#_t_18" class="definition"></a></span>:
-      The evaluator shall expire (i.e., reach timeout) the TCP session established per Test 1 as described in the TSS. 
+                  <li class="test-"><span id="_t_18">Test 18<a href="#_t_18" class="definition"></a></span>:
+      The evaluator shall expire (i.e., reach timeout) the TCP session established per <a href="#invalid-tcp-flags" class="dynref">Test 16</a> as described in the TSS. 
                   The evaluator shall then send a packet matching the former session in order to ensure it is not forwarded through the TOE without being subject to the ruleset.
                 <p></p></li>
-                <li class="test-"><span id="_t_19">Test 19<a href="#_t_19" class="definition"></a></span>:
+                <li class="test-"><span id="invalid-udp-flags">Test 19<a href="#invalid-udp-flags" class="definition"></a></span>:
       The evaluator shall configure the TOE to permit and log UDP traffic. 
                   The evaluator shall establish a UDP session. Once a UDP session is established, 
                   the evaluator shall alter each of the attributes for determining the validity of a session 
                   (source and destination addresses, source and destination ports) one at a time in order to verify that the altered packets are not accepted as part of the established session. 
                 <p></p></li>
                 <li class="test-"><span id="_t_20">Test 20<a href="#_t_20" class="definition"></a></span>:
-      The evaluator shall expire (i.e., reach timeout) the UDP session established per Test 4 as described in the TSS. 
+      The evaluator shall expire (i.e., reach timeout) the UDP session established per <a href="#invalid-udp-flags" class="dynref">Test 19</a> as described in the TSS. 
                   The evaluator shall then send a packet matching the former session in order to ensure it is not forwarded through the TOE without being subject to the ruleset.
                   </li>
                 </ul></span>
@@ -858,14 +863,17 @@ The following sections list Common Criteria and technology terms used in this do
                 <p></p></div><div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
-                <li class="test-"><span id="_t_29">Test 29<a href="#_t_29" class="definition"></a></span>:
-      Configure the TOE to support an encrypted SIP trunk. Configure a trunk peer to communicate with the TOE using the SIP trunk. Present a correct username and password combination or valid X.509 certificate on the trunk peer with a SIP trunk request that originates from an expected IP address. Verify via packet capture and audit log that the session was established.
+                <li class="test-"><span id="valid-trunk">Test 29<a href="#valid-trunk" class="definition"></a></span>:
+      Configure the TOE to support an encrypted SIP trunk. Configure a trunk peer to communicate with the TOE using the SIP trunk. 
+                  Present a correct username and password combination or valid X.509 certificate on the trunk peer with a SIP trunk request that 
+                  originates from an expected IP address. Verify via packet capture and audit log that the session was established.
                   <p></p></li>
                 <li class="test-"><span id="_t_30">Test 30<a href="#_t_30" class="definition"></a></span>:
-      Repeat Test 1 but provide incorrect username and password information or invalid X.509 certificate with the trunk peer and verify via packet capture and audit log that the session was not established.
+      Repeat <a href="#valid-trunk" class="dynref">Test 29</a> but provide incorrect username and password information or invalid 
+                  X.509 certificate with the trunk peer and verify via packet capture and audit log that the session was not established.
                   <p></p></li>
-                <li class="test-"><span id="_t_31">Test 31<a href="#_t_31" class="definition"></a></span>:
-      Repeat Test 1 but change the IP address of the trunk peer and verify via packet capture and audit log that the session was not established.
+                  <li class="test-"><span id="_t_31">Test 31<a href="#_t_31" class="definition"></a></span>:
+      Repeat <a href="#valid-trunk" class="dynref">Test 29</a> but change the IP address of the trunk peer and verify via packet capture and audit log that the session was not established.
                 </li>
                 </ul></span>
               </div></div><h2 class="indexable" data-level="2" id="man_fmt">2.2.6 Security Management (FMT)</h2><div class="comp" id="FEL-MANAGEMENTFUN-AS"><h4>FMT_SMF.1/SBC Specification of Management Functions (SBC)</h4><div class="component-activity-header">FMT_SMF.1/SBC</div>
@@ -891,7 +899,6 @@ The following sections list Common Criteria and technology terms used in this do
 			    the evaluator shall ensure that a Security Administrator can either manually configure the time or specify NTP server connectivity and ensure that the SBC functions will make use of the configured time data.
 			    <p></p>
 			    The evaluator shall also demonstrate that a user who lacks privileges to execute these functions (as described in the operational guidance) are unable to execute them.
-			    <p></p><span style="" class="comment " id="Comment-3-">[JF] It was commented elsewhere that there was a statement that implies NTP support is required. If it does end up being required, the example listed in this test should be changed.</span>
 			  </div></div><h2 class="indexable" data-level="2" id="man_fru">2.2.7 Resource Utilization (FRU)</h2><div class="comp" id=""><h4>FRU_PRS_EXT.1 Limited Priority of Service</h4><div class="component-activity-header">FRU_PRS_EXT.1</div>
               
               
