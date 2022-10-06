@@ -47,117 +47,234 @@
 					    margin-bottom:0.5em;
 					    margin-top:0.25em;
 					}</style></head><body><table class="intro"><tr><td style="width: 50%;"><img style="max-width:100%;" src="images/cclogo.png"></img></td><td style="vertical-align: middle;"><b>Common Criteria Evaluation and Validation Scheme</b><p></p>National Information
-					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">Some PP Name</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">NIAP and CESG</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">42</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">1.0</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">draft</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr">19 March 2015</issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="purpose">Background and Purpose</div>
-		This section sets the context for not only the ESR, but what is 
-		expected of the resulting Protection Profile (PP). The intent is 
-		that the remaining sections provide succinct statements that 
-		highlight the relevant aspects to be addressed by the Technical 
-		Community (TC) constructing the PP. Here, the authors provide a 
-		narrative that introduces the reader to the problem being solved, 
-		and presents key aspects that support or guide the TC, and may
-		elaborate on subtleties not apparent in the “bulleted” high level
-		statements.
+					Assurance Partnership (NIAP) </td></tr></table><p></p><b>Title: </b><esrtitle xmlns="http://common-criteria.rhcloud.com/ns/esr">Enterprise Security Management - Privileged Access Management</esrtitle><p></p><b>Maintained by: </b><maintainer xmlns="http://common-criteria.rhcloud.com/ns/esr">NIAP</maintainer><p></p><b>Unique Identifier: </b><identifier xmlns="http://common-criteria.rhcloud.com/ns/esr">tbd</identifier><p></p><b>Version: </b><version xmlns="http://common-criteria.rhcloud.com/ns/esr">0.4</version><p></p><b>Status: </b><status xmlns="http://common-criteria.rhcloud.com/ns/esr">draft</status><p></p><b>Date of issue: </b><issuedate xmlns="http://common-criteria.rhcloud.com/ns/esr">05 October 2022</issuedate><p></p><b>Approved by: </b><approver xmlns="http://common-criteria.rhcloud.com/ns/esr"></approver><p></p><b>Supersedes: </b><p></p><div class="section" id="purpose">Background and Purpose</div>
+		<div class="figure" id="figure-esm-framework"><img id="esm-framework" src="images/figure1.png" width="" height=""></img><p></p><span class="ctr" data-myid="figure-esm-framework" data-counter-type="ct-figure">Figure <span class="counter">esm-framework</span></span>:
+      ESM Framework</div>
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		Certain capabilities on an Enterprise network require an enhanced level of protection. For instance: <ul>
+			<li>Access to mission critical or sensitive data</li>
+			<li>The ability to manage or bypass network security controls</li>
+			<li>The ability to control machines or applications (e.g. Industrial Control Systems).</li> 
+		</ul>
+		</p>
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		These capabilities are usually restricted to privileged accounts and are protected by restricting access to those accounts.
+		</p>
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		A Privileged Access Management solution manages these privileged accounts and associated credentials in order to provide increased granularity of control, 
+		improved monitoring of privileged activity, and to reduce the attack surface of the privileged accounts.
+		</p>
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		PAM solutions (as defined by Gartner) typically offer one or more of these features:
+		<ul>
+			<li>Discover, manage and govern privileged accounts (i.e., accounts with superuser/administrator privileges) on multiple systems and applications.</li>
+			<li>Control access to privileged accounts, including shared and emergency access.</li>
+			<li>Randomize, manage and vault credentials (password, keys, etc.) for administrative, service and application accounts.</li>
+			<li>Provide single sign-on (SSO) for privileged access to prevent credentials from being revealed.</li>
+			<li>Control, filter and orchestrate privileged commands, actions and tasks.</li>
+			<li>Manage and broker credentials to applications, services and devices to avoid exposure.</li>
+			<li>Monitor, record, audit and analyze privileged access, sessions and actions.</li>
+		</ul>
+		</p>		
 	<div class="section" id="usecases">Use Cases</div>
-	  This section is intended to provide the initial scope/bound of the 
-	  security problem by providing the reader with concise statements 
-	  regarding the scenarios in which the technology is being used. The 
-	  intended usage presented here should lay the groundwork for the 
-	  identifying the resources to be protected, and what threats must be
-	  considered in the drafting of the Essential Security Requirements 
-	  (ESR) and for the TC to consider when writing the PP.
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		As a stand-alone physical appliance.
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		As the only guest on a virtual platform.
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		As one of several guests on a virtual host platform.
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<b>Notes on using a shared virtual host</b>
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		Not Recommended. This use case may be covered in a future iteration of this profile. 
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		Host Platform administrators have full access to guest systems – in this case the PAM. 
+		This is not an issue if the sole responsibility of the virtual platform administrators is to manage the PAM itself.
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		A virtual PAM is exposed to potential attacks from peer tenants on the host system. 
+		Peer tenants would have to be fully trusted. The following services, if provided by separate applications, 
+		may run on the same platform without being within the TOE. These services are trusted and should be certified if possible. 
+		<ul>
+			<li>Directory and Enrollment services</li>
+			<li>Audit services</li>
+			<li>Authentication services</li>
+		</ul>
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		VM isolation mechanisms are not assumed to be sufficient to protect against managed credential leakage to other tenants.
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<b>Categories (as defined by Gartner):</b>
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<i>Privileged account and session management (PASM).</i> 
+		The PAM protects accounts by vaulting the credentials. 
+		Users (human or automated) first connect to the PAM, which then establishes and monitors the session.  
+		[Diagram: User -&gt;PAM-&gt;managed account]
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<i>Privilege elevation and delegation management (PEDM).</i> 
+			Host-based agents enable the users to execute specific privileged commands. 
+			Again, sessions are typically monitored. (Host based agent requirements could be covered by the ESM Host Agent module.) 
+			[Diagram: User-&gt;host agent contained within host]
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<i>Credentials management.</i> 
+			A credential vault that manages machine-to-machine credentials. [Diagram: M1 to/from credential vault; M1 to M2]
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			While password management solutions for individual users may fit the definition of PAM, they are outside the scope of this profile.  
+		</p>
 	<div class="section" id="resourcesprotected">Resources to be protected</div>
-    	  This section is intended to provide the initial scope/bound of the 
-    	  security problem by providing the reader with concise statements
-    	  regarding the scenarios in which the technology is being used. The 
-    	  intended usage presented here should lay the groundwork for the 
-    	  identifying the resources to be protected, and what threats must be
-    	  considered in the drafting of the Essential Security Requirements 
-    	  (ESR) and for the TC to consider when writing the PP.
+		The primary purpose of a PAM solution is to protect the privileged accounts or 
+		privileged access mechanisms that are under management by the PAM. To that end, the following resources and functions need to be protected: 
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>Audit Information (Both PAM functional audit information and Session Monitoring data)</li>
+			<li>Credentials to be managed by the PAM (Credentials to access the controlled assets)</li>
+			<li>Credentials to access and administer the PAM</li>
+			<li>Access Policies to be managed by the PAM. </li>
+			<li>Communications to or from the PAM solution. </li>
+			<li>Backup and recovery data, and all other resources required to recover the network in the event of a PAM failure.</li> 
+		</ul>
 	<div class="section" id="attackeraccess">Attacker access</div> 
-	  The following assumptions are made about
-	  attackers' ability to develop attacks: 
-	  <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-	    <li> An attacker has an arbitrary amount of time to analyze the behavior of the product, its
-	    interaction with its platform, and the data it transmits over the network. </li>
-	    <li> An attacker is able to acquire their own copy of the target product and study its
-	    behavior on a platform that they control. </li>
-	  </ul>
-	  <p xmlns="http://common-criteria.rhcloud.com/ns/esr"></p> The attacker is expected to engage in the following general classes of attack: <!-- added in order to allow for rather direct flow to Threats section in PP -->
-	  <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-	    <li> Network eavesdropping, in which an attacker may monitor and gain access to data
-	    exchanged between the product and other endpoints. </li>
-	    <li> Network attack, in which an attacker may initiate malicious communications with the
-	    product or alter communications between the product and other endpoints. </li>
-	    <li> Local attack, in which an attacker has gained the ability to execute code on the
-	    system, which may be used to escalate privilege or access data without
-	    authorization. </li>
-	    <li> Limited physical access attack, in which an attacker may attempt to access data on
-	    the system by virtue of being physically present for a limited period of time. This
-	    limited physical access does not include attacks in which the attacker could
-	    disassemble the system to gain access to its storage media or manipulate the product's
-	    underlying hardware and firmware. Systems used for working remotely, such as laptops
-	    and tablets, for which an attacker could gain longer physical access to, should
-	    apply additional protections that are provided by products evaluated against other
-	    Protection Profiles (e.g. FDE cPP). </li>
-	    <li> Persistence, in which an attacker has already exploited the system and wishes to
-	    maintain presence on the system. </li>
-	  </ul>
+		<p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		(Non-Administrative) users <i>may</i> be malicious in nature. 
+		Users may attempt privilege escalation either on the assets for which they are permitted access, or other assets managed by the PAM to which they have no permissions.
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			The following assumptions are made about attackers' ability to develop attacks: <ul>
+				<li>An attacker has an arbitrary amount of time to analyze the behavior of the product, its interaction with its platform, and the data it transmits over the network.</li>
+				<li>An attacker is able to acquire their own copy of the target product and study its behavior on a platform that they control.</li>
+			</ul>
+		</p><p xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			The attacker is expected to engage in the following general classes of attack: <ul>
+				<li>Network eavesdropping, in which an attacker may monitor and gain access to data exchanged between the product and other endpoints.</li>
+				<li>Network attack, in which an attacker may initiate malicious communications with the product or alter communications between the product and other endpoints.</li>
+				<li>Local attack, in which an attacker has gained the ability to execute code or instructions on the PAM platform, 
+					which may be used to escalate privilege or access data without authorization.</li> 
+				<li>Limited physical access attack, in which an attacker may attempt to access data on the system by virtue of being physically present 
+					for a limited period of time. This limited physical access does not include attacks in which the attacker could disassemble the system to gain access to its storage media or manipulate the product's underlying hardware and firmware. Systems used for working remotely, such as laptops and tablets, for which an attacker could gain longer physical access to, should apply additional protections that are provided by products evaluated against other Protection Profiles (e.g. FDE cPP).</li>
+			</ul>
+		</p>
+	<div class="section" id="scenarios">Attack Scenarios</div> 
+		Privilege Escalation could entail: <ol xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>An unprivileged network user gains network privileged accesses.</li>
+			<li>A user with some privileged accesses gains additional unauthorized privileged accesses.</li>
+			<li>Any unauthorized user gaining the ability to administer or control the PAM itself.</li>
+		</ol>
+		Passive Eavesdropping Attacks <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>Recovering credentials through network traffic.</li>
+		</ul>
+		Active Network Attacks <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		<li>Privilege escalation via credential replay attack.</li>
+		<li>Privilege escalation via exploitation of the network interface.</li> 
+		<li>Gain access to protected devices or accounts by bypassing the PAM. </li>
+		<li>Denial of service via packet flooding. </li>
+		<li>Denial of service via exploitation of the network interface.</li>
+		</ul>
+		Local attacks <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		<li>A user on the PAM is able to perform a privilege escalation attack through command execution.</li>
+		<li>A user on the PAM is able to load / execute codes or scripts that enable privilege escalation.</li>
+		<li>A user on the PAM is able to access or manipulate protected data.</li>
+		</ul>
+		Limited Physical Access <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		<li>Power cycling, turning off, or rebooting the host system</li>
+		<li>USB-memory device enabled attacks: software load or replacement, data extraction.</li> 
+		<li>Other cabling attacks – attaching unauthorized devices, making unauthorized connections.</li> 
+		</ul>
 	<div class="section" id="requirements">Essential Security Requirements</div>
-        	This is where the authors present an initial set of English 
-        	requirements that specify security functionality, rather than 
-        	design and/or implementation characteristics. These requirements 
-        	will provide the foundation for which the detailed set of 
-        	requirements is derived. It is important that the requirements 
-        	captured here make an attempt to fully address the categories 
-        	(e.g., access control, identification and authentication, 
-        	management capabilities, roles of administration, secure 
-        	communications, and audit). That's not to say the requirements are 
-        	fully specified or detailed enough to simply translate to Common 
-        	Criteria security functional requirements. The goal is that there 
-        	is enough information contained here, as well as the other sections
-        	of this document, to provide the TC enough information to ensure 
-        	they have an understanding of what is minimally required in breath.
-
-			<!--
-			This is where the authors explicitly state english requirements
-			that this class of product must satisfy. 
-	        -->
+		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+		<li>Internal protection of credentials 
+			<ul>
+				<li>Key material for encrypting data-at-rest and data-in-transit must be secured in a way that can’t be accessed by unauthorized users or processes.</li>  
+				<li>There needs to be a method of updating keys and destroying old keys in a secure fashion. There may be system recovery considerations here.</li>
+			</ul>
+		</li>
+		<li>Managed credential generation requirements 
+			<ul>
+				<li>Be able to create and manage credentials of various privileges.</li>
+				<li>Hit minimum standards for managed credentials with ways to increase the security through additional controls if need be.</li> 
+				<li>Have a set policy in place for creating, modifying, or removing privileged accounts. </li>
+				<li>Apply appropriate RNG or other credential generation requirements. Reference NIST SP 800-63b.</li>
+				<li>Support use of multi-factor authentication.</li>
+			</ul>
+		</li>
+		<li>Managed credential storage requirements
+			<ul>
+				<li>Keep the credentials encrypted and limit those who would be able to access the plaintext data.</li> 
+				<li>Do not access the data in plaintext, but check against cryptographic hashes</li>
+			</ul>
+		</li>
+		<li>Managed access control policy requirements
+			<ul>
+				<li>Limit and protect the ability to manage PAM user permissions.</li>
+			</ul>
+		</li>
+		<li>Communication channel protection.
+			<ul>
+				<li>All communications going to or from the PAM needs to be encrypted with adequate cryptography, e.g. TLS, DTLS, or SSH. There can be no option for anything to be transmitted in plaintext.</li> 
+				<li>Certificate management requirements.</li>
+			</ul>
+		</li>
+		<li>Replay attack protection
+			<ul>
+				<li>Possible mechanisms: 
+				<ul>
+					<li>Timestamps can be included in the transmissions to make sure that any hashes used to login can’t be repeated.</li> 
+					<li>Unique cryptographic session IDs for each transmission.</li> 
+					<li>One time passwords for each session, like in RSA’s securID.</li>
+				</ul>
+				</li>
+				<li>Encrypting messages preventing tokens or hashes from being sniffed</li>
+			</ul>
+		</li>
+		<li>Session monitoring requirements
+			<ul>
+				<li>Optional Real time monitoring alert capability</li>
+				<li>General audit requirements – write only, sensible storage management requirements, etc.</li>
+			</ul>
+		</li>
+		<li>Recovery and Ransomware concerns and requirements
+			<ul>
+				<li>Must be able to recover PAM generated credentials in the event of loss of the PAM</li>
+				<li>Have the ability to create a cryptographically secure backup file that can be stored in a safe location</li> 
+				<li>Ability to backup and restore the data in a secure way.  Require strong credentials to access.</li>
+			</ul>
+		</li>
+		<li>Requirements for Directory or (authentication) server interactions. 
+			<ul>
+				<li>Establish secure communications between the service(s) and the PAM</li> 
+				<li>Define and protect the accounts that would be used by the PAM and the service.</li>
+			</ul>
+		</li>
+		<li>PAM administration security mechanisms.
+			<ul>
+				<li>Ability to customize based on customer need – This may be a capability that requires protection.</li> 
+				<li>Have a policy for how to access / manage the PAM securely.
+					<ul>
+						<li>Control interface should be separated from the user channels.</li> 
+						<li>User facing interface must be separated from the protected resource interface</li>
+					</ul>
+				</li>
+				<li>Use of network segmentation to control connection with the PAM</li> 
+				<li>Recommend MFA for accessing the PAM. (Reference NIST SP 800-63b)</li>
+			</ul>
+		</li>
+		<li>Physical protection
+			<ul>
+				<li>Provide means of detecting, alerting or preventing the unauthorized use of portable media to load software or remove data.</li>
+			</ul>
+		</li>
+		<li>Auditing requirements
+			<ul>
+				<li>Provide a means to record and track the use of sensitive functions.</li>
+			</ul>
+		</li>
+		</ul>
 	<div class="section" id="assumptions">Assumptions</div>
-	  Simply put, this section presents the aspects of the product and 
-	  its	intended environment that can be assumed to hold true. This 
-	  will provide additional scope on the resulting PP.
 
-	  The following assumptions are made for the operating system product and its operational
+	  The following assumptions are made for the TOE and its operational
 	  environment: <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li>The underlying platform is physically protected, to a large extent. The hardware
-				that the product manages is secured by defensive measures that make physical attacks
-				impractical for most attackers. At the same time, casual passersby might attempt to
-				trivially access the system. </li>
-			<li>The product implements some security-relevant functionality that does not require
-				evaluation (e.g., network time synchronization, process scheduling, and virtual
-				memory management including process separation). </li>
-			<li>Depending on configuration and capability, the product may or may not be: <ul>
-					<li>configuration-managed by the enterprise</li>
-					<li>bound to directory services to support multi-user login</li> </ul>
-			</li>
-			<li> The product runs application software developed by a third-party. The applications are
-				not intentionally developed to be malicious, but can contain inadvertent coding
-				errors. These errors introduce risk that control of an application may be seized by
-				a malicious entity. The product shall confine these applications within the originally
-				designated operating environment. </li>
-			<li>The platform is connected to a network. For purposes of sending/receiving data, to
-				include software updates, the platform is connected to other entities. Other
-				entities on the network are not inherently trustable. </li>
-			<li>Administrators are not malicious in nature.</li>
-			<li> Users are not malicious in nature, though they may inadvertently or intentionally engage in risky behavior. </li>
+	  	<li>PAM Administrators are not malicious, and operate the system in compliance with approved enterprise security policy. </li>
+	  	<li>The application relies upon a trustworthy computing platform for its execution. 
+	  		This includes the underlying platform and whatever runtime environment it provides to the application. </li>
+
 		</ul>
 	<div class="section" id="extensions">Optional Extensions</div> 
-		Additional security functionality that may
-		be appropriate for some use cases, and can be expressed in extensions to this document,
-		includes: 
-		<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li></li>
-		</ul>
+		N/A
 	<div class="section" id="outsidescope">Outside the TOE's Scope</div>
 	  <!--
 			This is where the authors explicitly state things they do not want 
@@ -168,19 +285,10 @@
 			evaluation facilities expected to assess products against the PP 
 	  -->
 		The following list contains items that are explicitly out-of-scope for any evaluation
-		against the product PP <ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
-			<li>Malicious, Highly-Privileged Administrators - Highly-privileged administrators
-				acting maliciously can disable most, if not all, security protections on the product.
-				Additionally procedural controls that are out of scope of this document should be
-				considered to help highlight administrator accounts acting suspiciously.</li>
-			<li>Zero Days - The disclosure of recently published vulnerabilities (Zero Days) should
-				not be used as a reason to fail an product undergoing evaluation.</li>
-			<li>Unofficial Versions - Non-vendor supplied install images often contain added
-				functionality and may weaken the normal operating functionality of the product</li>
-			<li>Platform - The product PP shall not address the hardware or firmware of its underlying
-				platform to include the boot sequence before control is handed off to the product. That
-				the platform itself is virtual or physical is irrelevant to any evaluations. </li>
-			<li>Applications - The product PP shall not address applications that are not delivered as
-				part of the product installation process. </li>
+		against the module:<ul xmlns="http://common-criteria.rhcloud.com/ns/esr">
+			<li>External authentication services.  (Similar to external directory services.)</li>
+			<li>Enterprise level audit management services. (I.E. once the information is passed from the PAM to external audit or 
+				orchestration solutions, it is outside the scope.)</li>
+			<li>Network routing, switching, and segmentation.</li>
 		</ul>
 	</body></html>
