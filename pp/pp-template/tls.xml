@@ -1,13 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
-
-<Package name="TLS"
-    xmlns="https://niap-ccevs.org/cc/v1"
-    xmlns:sec="https://niap-ccevs.org/cc/v1/section"
-    xmlns:h="http://www.w3.org/1999/xhtml"
-    >
-  <!-- <inline-comment color='green'> Hello World TLS </inline-comment> -->
-  <!-- <inline-comment color='blue' linebreak='yes'> Hello World TLS </inline-comment> -->
+<Package xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" name="TLS">
   <PPReference>
     <ReferenceTable>
       <PPTitle>Functional Package for Transport Layer Security (TLS)</PPTitle>
@@ -35,6 +26,7 @@
 
   <sec:Introduction>
     <section title="Overview" id="ppoverview">
+      <h:p>
 	  Transport Layer Security (TLS) and the closely-related Datagram TLS (DTLS) are
     cryptographic protocols designed to provide communications security over IP networks.
     Several versions of the protocol are in widespread use in software that provides functionality
@@ -47,17 +39,18 @@
     provide confidentiality and integrity of data transmitted
     between two communicating endpoints, as well as authentication of at least
     the server endpoint.
-    <h:p/>
+    </h:p><h:p>
 	  TLS supports many different methods for exchanging keys, encrypting data,
 	  and authenticating message integrity. These methods are dynamically negotiated
     between the client and server when the TLS connection is established.
     As a result, evaluating the implementation of both endpoints is typically
     necessary to provide assurance for the operating environment.
-    <h:p/>
+    </h:p><h:p>
 	  This "Functional Package for Transport Layer Security" (short name "TLS-PKG")
     defines functional requirements for the implementation of the Transport Layer Security (TLS)
     and Datagram TLS (DTLS) protocols. The requirements are
     intended to improve the security of products by enabling their evaluation.
+    </h:p>
     </section>
     <tech-terms>
       <term abbr="AES" full="Advanced Encryption Standard"/>
@@ -67,14 +60,13 @@
       <term abbr="CA" full="Certificate Authority"/>
       <term abbr="CBC" full="Cipher Block Chaining"/>
       <term abbr="CN" full="Common Name"/>
-      <term abbr="DTLS" full="Datagram Transport Layer Security">
-              Cryptographic network protocol, based on TLS, which provides
-              communications security for datagram protocols
-      </term>
       <term abbr="DHE" full="Diffie-Hellman Ephemeral"/>
       <term abbr="DN" full="Distinguished Name"/>
       <term abbr="DNS" full="Domain Name Server"/>
-      <term abbr="DTLS" full="Datagram Transport Layer Security"/>
+      <term abbr="DTLS" full="Datagram Transport Layer Security">
+	      Cryptographic network protocol, based on TLS, which provides
+              communications security for datagram protocols
+	    </term>
       <term abbr="EAP" full="Extensible Authentication Protocol"/>
       <term abbr="ECDHE" full="Elliptic Curve Diffie-Hellman Ephemeral"/>
       <term abbr="ECDSA" full="Elliptic Curve Digital Signature Algorithm"/>
@@ -100,47 +92,20 @@
       <term abbr="URL" full="Uniform Resource Locator"/>
     </tech-terms>
 
-    <sec:Format_of_this_Document>
-      <xref to="Security_Functional_Requirements"/> contains baseline requirements
-      which must be implemented in the product and included in any PP/PP-Module/ST
-      that claims conformance to this Package.
-      There are three other types of requirements that can be included in a PP/PP-Module/ST
-      claiming conformance to this Package:
-      <h:ul>
-      <h:li>
-      <xref g="optional-reqs"/> contains requirements that may optionally be included
-      in the PP/PP-Module/ST, but inclusion is at the discretion of the PP/PP-Module/ST
-      author.  For requirements that have selections, if the PP/PP-Module allows the selection (or the ST
-      selects particular selections), then there are additional requirements based on these
-      selections contained in this appendix that will need to be included in the PP/PP-Module/ST.
-      </h:li>
-      <h:li>
-      <xref g="sel-based-reqs"/> contains requirements based on selections
-      in the requirements in <xref to="Security_Functional_Requirements"/>
-       or the PP/PP-Module/ST: if certain selections are
-      made, then the corresponding requirements in that appendix must be included.
-      </h:li>
-      <h:li>
-      <xref g="objective-reqs"/> contains requirements that will
-      be included in the baseline requirements in future versions of this package. Earlier adoption by vendors is
-      encouraged. Otherwise, these are treated the same as Optional Requirements.
-      </h:li>
-      </h:ul>
-    </sec:Format_of_this_Document>
-
-    <sec:Compliant_Targets_of_Evaluation>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+      <h:p>
       The Target of Evaluation
       (TOE) in this Package is a product which acts as a TLS client or server, or both.
       This Package describes the security functionality of TLS in terms of
-      <xref g="CC" />. 
-      <h:p/>
+      <xref g="CC"/>.
+      </h:p><h:p>
       The contents of this Package must be appropriately
-      combined with a PP or PP-Module.
+      combined with a PP or PP-Module".
       When this Package is instantiated by a PP or PP-Module, the Package must
       include selection-based requirements in accordance with the
       selections or assignments indicated in the PP or PP-Module.  These may be expanded by the
       the ST author.
-      <h:p/>
+      </h:p><h:p>
       The PP or PP-Module which instantiates this Package must typically include
       the following components in order to satisfy dependencies of this Package. It is the responsibility
       of the PP or PP-Module author who instantiates this Package to ensure that dependence
@@ -180,52 +145,41 @@
           </notes>
       </componentneeded>
     </componentsneeded>
-    <h:p/>
+    </h:p><h:p>
       An ST must identify the applicable version of the PP or
-      PP-Module and this Package in its conformance claims.
-    </sec:Compliant_Targets_of_Evaluation>
+      PP-Module and this
+      Package in its conformance claims.
+      </h:p>
+    </section>
   </sec:Introduction>
-  <sec:Conformance_Claims>
-    <cclaims>
-      <cclaim name="Conformance Statement">
-        <description>This Package serves to provide Protection Profiles with additional 
-          SFRs and associated Evaluation Activities specific to TLS clients and servers.  
-          <h:p/>
-          This Package conforms to Common Criteria
-          <xref g="CC" /> for Information Technology Security Evaluation, Version 3.1,
-          Revision 5. It is CC Part 2 extended conformant.
-          <h:p/>
-          In accordance with CC Part 1, dependencies are not included when they are addressed
-          by other SFRs. The evaluation activities provide adequate proof that any dependencies are
-          also satisfied.</description>
-      </cclaim>
-    </cclaims>
-  </sec:Conformance_Claims>
+  <sec:Conformance_Claims/>
+  <!--   <cclaims> -->
+  <!--     <cclaim name="Conformance Statement"> -->
+  <!--       <description>This Package serves to provide Protection Profiles with additional  -->
+  <!--         SFRs and associated Evaluation Activities specific to TLS clients and servers.   -->
+  <!--         </h:p><h:p> -->
+  <!--         This Package conforms to Common Criteria -->
+  <!--         <cite linkend="bibCC" /> for Information Technology Security Evaluation, Version 3.1, -->
+  <!--         Revision 5. It is CC Part 2 extended conformant. -->
+  <!--         </h:p><h:p> -->
+  <!--         In accordance with CC Part 1, dependencies are not included when they are addressed -->
+  <!--         by other SFRs. The evaluation activities provide adequate proof that any dependencies are -->
+  <!--         also satisfied.</description> -->
+  <!--     </cclaim> -->
+  <!--   </cclaims> -->
+  <!-- </section> -->
   
   <sec:Security_Functional_Requirements>
- <!--   This chapter describes the security requirements
-    to be fulfilled by the product. Those requirements comprise functional components from Part 2 of
-    <xref to="bibCC" />. The following notations are used:
-    <h:ul>
-      <h:li>
-        <h:b>Selection</h:b> (denoted by
-        <h:i>italicized text</h:i>): is used to select one or more options provided by the [CC] in stating
-        a requirement.</h:li>
-      <h:li>
-        <h:b>Assignment</h:b> operation (denoted by
-        <h:span class="assignable-content">italicized text</h:span>): is used to assign a specific 
-        value to an unspecified parameter, such
-        as the length of a password. Showing the value in square brackets indicates assignment.</h:li>
-      <h:li>
-        <h:b>Iteration</h:b> operation: are identified with a number inside parentheses (e.g. "(1)").</h:li>
-    </h:ul> 
-    <section title="Security Functional Requirements" id="SFRs">The Security Functional Requirements
-      included in this section are derived from Part 2 of the Common Criteria for Information
-      Technology Security Evaluation, Version 3.1, Revision 5, with additional extended functional
-      components.-->
+
+    <!-- <sec:SFRs title="Security Functional Requirements">The Security Functional Requirements -->
+    <!--   included in this section are derived from Part 2 of the Common Criteria for Information -->
+    <!--   Technology Security Evaluation, Version 3.1, Revision 5, with additional extended functional -->
+    <!--   components. -->
       <section title="Cryptographic Support (FCS)" id="fcs">
+	<!-- Audit table for mandatory requirements  -->
         <f-component cc-id="fcs_tls_ext.1" name="TLS Protocol">
-          <f-element id="fel-tls-usage">
+          <!--~$# FCS_TLS_EXT.1.1-->
+	  <f-element id="f-type">
 			<title>The product shall implement
         <selectables linebreak="yes">
           <selectable id="tlsc_impl">TLS as a client</selectable>
@@ -257,16 +211,20 @@
         </f-component>
 
         <f-component cc-id="fcs_tlsc_ext.1" name="TLS Client Protocol" status="sel-based">
-          <selection-depends req="fel-tls-usage" ids="tlsc_impl"/>
-          <f-element id="fel-client">
+          <depends on="tlsc_impl"/>
+          <!--~$# FCS_TLSC_EXT.1.1-->
+	  <f-element id="f-tlsc-version">
             <title> The product shall implement TLS 1.2 (RFC 5246) and
               <selectables>
                 <selectable>TLS 1.1 (RFC 4346)</selectable>
-                <selectable exclusive='yes'>no earlier TLS versions</selectable>
+                <selectable exclusive="yes">no earlier TLS versions</selectable>
               </selectables> as a client that supports the cipher suites
           <selectables linebreak="yes">
             <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
-            <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	    <selectable>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
             <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
             <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
             <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
@@ -289,7 +247,7 @@
           </selectables>.
           </title>
             <note role="application">
-        The ST author should select the cipher suites that are supported,
+        The Security Target author should select the cipher suites that are supported,
       and must select at least one cipher suite.
 	      The cipher suites to be tested in the evaluated
 	      configuration are limited by this requirement. However,
@@ -328,7 +286,7 @@
               protocol in the TSS to
               ensure that the cipher suites supported are specified. The evaluator shall check the
                 TSS to ensure that the
-              cipher suites specified include those listed for this component. 
+		cipher suites specified include those listed for this component.
 	      </TSS>
               <Guidance>
               The evaluator shall
@@ -337,8 +295,7 @@
               TLS conforms to the description in the TSS.
 	      </Guidance>
               <Tests>
-		The evaluator shall also perform the following tests:
-		
+              The evaluator shall also perform the following tests:
               <testlist>
                 <test>
                   The evaluator shall establish a TLS connection
@@ -425,7 +382,8 @@
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element id="fel-present-identifier">
+          <!--~$# FCS_TLSC_EXT.1.2-->
+	  <f-element id="f-tlsc-presented-reference-ids">
             <title> The product shall verify that the presented identifier matches the reference
               identifier according to RFC 6125. </title>
             <note role="application"> The rules for verification of identity are described in
@@ -452,34 +410,38 @@
             </note>
             <aactivity>
               <TSS>
-              The evaluator shall ensure that the TSS describes the client’s method of establishing all reference
+		The evaluator shall ensure that the TSS
+		describes the client’s method of establishing all reference
               identifiers from the application-configured reference identifier, including which
               types of reference identifiers are supported (e.g. Common Name, DNS Name, URI Name,
               Service Name, or other application-specific Subject Alternative Names) and whether IP
               addresses and wildcards are supported. The evaluator shall ensure that this
               description identifies whether and the manner in which certificate pinning is
               supported or used by the product.
+              <h:br/>
 	      </TSS>
               <Guidance>
               The evaluator shall verify that the AGD guidance includes instructions for
               setting the reference identifier to be used for the purposes of certificate validation
-              in TLS.
-	      </Guidance>
+              in TLS.</Guidance>
               <Tests>
-              The evaluator shall
-              configure the reference identifier according to the AGD guidance and perform the
-              following tests during a TLS connection:
-              <testlist>
+		<h:p>
+The evaluator shall configure the reference identifier according to the AGD guidance and perform the following tests during a TLS connection.
+If the TOE supports certificate pinning, all pinned certificates must be removed before performing Tests 1 through 6. A pinned certificate must be added prior to performing Test 7.
+	    </h:p>
+	  <testlist>
                 <test> 
+		  <h:p>
                   The evaluator shall present a server certificate that contains
                   a CN that does not match the reference identifier and does not
                   contain the SAN extension. The evaluator shall verify that the
                   connection fails. 
-                  <h:p/>Note that some systems might require the presence of the SAN extension.
+                  </h:p><h:p>Note that some systems might require the presence of the SAN extension.
                   In this case the connection would still fail but for the
                   reason of the missing SAN extension instead of the mismatch of
                   CN and reference identifier. Both reasons are acceptable to
                   pass Test 1.
+		  </h:p>
                 </test>
                 <test>
                   The evaluator shall present a server certificate that contains a CN that
@@ -556,12 +518,13 @@
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element id="fel-server-cert">
+          <!--~$# FCS_TLSC_EXT.1.3-->
+	  <f-element id="f-tlsc-handle-bad-cert">
             <title>The product shall not establish a trusted channel if the
               server certificate is invalid
               <selectables linebreak="yes">
-              <selectable exclusive="yes">with no exceptions</selectable>
-              <selectable>except when override is authorized</selectable>
+              <selectable exclusive="yes" id="s-tlsc-no-excep">with no exceptions</selectable>
+              <selectable id="s-tlsc-override">except when override is authorized</selectable>
             </selectables>.
             </title>
             <note role="application">Validity is determined by the identifier verification,
@@ -581,7 +544,7 @@
                 later, to permit connections using these otherwise-invalid certificates to
                 establish trusted channels without user or administrator action</h:li>
               </h:ul>
-              As indicated in <xref to="Compliant_Targets_of_Evaluation"/>, note that a PP author may
+              As indicated in <xref to="TOEdescription"/>, note that a PP author may
               instantiate this SFR using only the first selection, preventing the ability to
               allow overrides.
             </note>
@@ -611,6 +574,7 @@
                 <test> The evaluator shall demonstrate that a server using a certificate which does
                   not have a valid identifier results in an authentication failure. </test>
               </testlist>
+	      </Tests>
               <!-- The text from ND cPP: The evaluator shall demonstrate that using an invalid certificate results in the function failing as
               follows:
               <testlist>
@@ -636,19 +600,17 @@
               valid and signed by a trusted CA. The evaluator shall confirm that the certificate validation fails (i.e.
               certificate is rejected), and there is no administrative override available to accept such certificate.
               </test>
-              </testlist> -->
-	      </Tests>
+            </testlist> -->
             </aactivity>
           </f-element>       
         </f-component>
         
         <f-component cc-id="fcs_tlsc_ext.2" name="TLS Client Support for Mutual Authentication" status="sel-based">
-          <selection-depends req="fel-client" ids="tlsc_mutual_auth"/>
-          <f-element id="fel-mut-auth-certs">
+          <depends on="tlsc_mutual_auth"/>
+          <!--~$# FCS_TLSC_EXT.2.1-->
+	  <f-element id="f-tlsc-mutual-auth">
             <title>The product shall support mutual authentication using X.509v3 certificates.</title>
-            <note role="application">
-              The use of X.509v3 certificates for TLS is addressed in FIA_X509_EXT.2.1.
-             This requirement adds that a client must be capable of
+            <note role="application"> The use of X.509v3 certificates for TLS is addressed in FIA_X509_EXT.2.1. This requirement adds that a client must be capable of
               presenting a certificate to a TLS server
               for TLS mutual authentication.
               Presenting a certificate is not mandatory in all circumstances: it may depend on the
@@ -662,8 +624,8 @@
               any factors beyond configuration that are necessary in order for the client to engage in mutual
               authentication using X.509v3 certificates.
               <h:br/>
-	      </TSS>
-              <Guidance>
+              </TSS>
+	      <Guidance>
               The evaluator shall ensure that the AGD guidance includes any instructions necessary
               to configure the TOE to perform mutual authentication.
               The evaluator also shall verify that the AGD guidance required
@@ -694,7 +656,8 @@ during handshake.
           </f-element>
         </f-component>
         <f-component cc-id="fcs_tlsc_ext.3" name="TLS Client Support for Signature Algorithms Extension" status="objective">
-          <f-element id="fel-hello-sig-algs">
+          <!--~$# FCS_TLSC_EXT.3.1-->
+	  <f-element id="f-tlsc-sig-algo">
             <title> The product shall present the signature_algorithms extension in the Client Hello with
               the supported_signature_algorithms value containing the following hash algorithms: <selectables>
                 <selectable>SHA256</selectable>
@@ -708,9 +671,9 @@ during handshake.
             <aactivity>
               <TSS>
               The evaluator shall verify that TSS describes the signature_algorithm extension and whether the
-              required behavior is performed by default or may be configured.
-	      </TSS>
-              <Guidance>
+              required behavior is performed by default or may be configured. 
+              </TSS>
+	      <Guidance>
               If the TSS indicates that the
               signature_algorithm extension must be configured to meet the requirement, the
               evaluator shall verify that AGD guidance includes configuration of the
@@ -747,12 +710,13 @@ during handshake.
           </f-element>  
         </f-component>
         <f-component cc-id="fcs_tlsc_ext.4" name="TLS Client Support for Renegotiation" status="sel-based">
-          <selection-depends req="fel-tls-usage" ids="tlsc_reneg"/>
-          <f-element id="fel-renego">
+          <depends on="tlsc_reneg"/>
+          <!--~$# FCS_TLSC_EXT.4.1-->
+	  <f-element id="f-tlsc-reneg">
             <title> The product shall support secure renegotiation through use
               of the “renegotiation_info” TLS extension in accordance with RFC 5746. </title>
 <!--          </f-element>
-          <f-element id="fcs_tlsc_ext.4.2">
+          <f-element>
             <title> The product shall include
             <selectables exclusive="true">
                 <selectable>renegotiation_info extension</selectable>
@@ -799,14 +763,15 @@ during handshake.
           </f-element>
         </f-component>
         <f-component cc-id="fcs_tlsc_ext.5" name="TLS Client Support for Supported Groups Extension" status="sel-based">
-          <selection-depends req="fel-client"  ids="tecdhe1,tecdhe2,tecdhe3,tecdhe4,tecdhe5,tecdhe6,tecdhe7,tecdhe8"/>
-          <selection-depends req="fel-dtlsc-impl" ids="decdhe1,decdhe2,decdhe3,decdhe4,decdhe5,decdhe6,decdhe7,decdhe8"/>
-          <f-element id="fel-hello-group-extension">
+          <depends on="tecdhe1" on1="tecdhe2" on2="tecdhe3" on3="tecdhe4" on4="tecdhe5" on5="tecdhe6" on6="tecdhe7" on7="tecdhe8"/>
+          <depends on="decdhe1" on2="decdhe2" on3="decdhe3" on4="decdhe4" on5="decdhe5" on6="decdhe6" on7="decdhe7" on8="decdhe8"/>
+          <!--~$# FCS_TLSC_EXT.5.1-->
+	  <f-element id="f-tlsc-groups-ext"><!-- Was 1.4 -->
             <!-- TODO: IDs for ECC DHE curves -->
             <title> The product shall present the Supported Groups Extension in the Client Hello
               with the supported groups <selectables linebreak="yes">
                 <selectable>secp256r1</selectable>
-                <selectable id="secp384r1">secp384r1</selectable>
+                <selectable>secp384r1</selectable>
                 <selectable>secp521r1</selectable>
                 <selectable>ffdhe2048(256)</selectable>
                 <selectable>ffdhe3072(257)</selectable>
@@ -816,8 +781,8 @@ during handshake.
               </selectables>.
             </title>
             <note role="application">
-              If an elliptic curve or Diffie-Hellman ciphersuite is selected in <xref to="fel-client"/>
-              or <xref to="fel-dtlsc-impl"/>,
+              If an elliptic curve or Diffie-Hellman ciphersuite is selected in FCS_TLSC_EXT.1.1
+              or FCS_DTLSC_EXT.1.1,
               then FCS_TLSC_EXT.5 shall be included in the ST. This requirement does not limit the
               elliptic curves the client may propose for authentication and key agreement.
               The Supported Groups Extension was previously referred to as the
@@ -841,8 +806,9 @@ during handshake.
         </f-component>
 
         <f-component cc-id="fcs_tlss_ext.1" name="TLS Server Protocol" status="sel-based">
-          <selection-depends req="fel-tls-usage" ids="tlss_impl"/>
-          <f-element id="fel-tlss-impl">
+          <depends on="tlss_impl"/>
+          <!--~$# FCS_TLSS_EXT.1.1-->
+	  <f-element id="f-tlss-version">
             <title> The product shall implement TLS 1.2 (RFC 5246) and
             <selectables>
               <selectable>TLS 1.1 (RFC 4346)</selectable>
@@ -851,7 +817,10 @@ during handshake.
               as a server that supports the cipher suites
               <selectables linebreak="yes">
                 <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
-                <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	    <selectable>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
@@ -870,11 +839,14 @@ during handshake.
               <selectables linebreak="yes">
                 <selectable id="tlss_mutual_auth">mutual authentication</selectable>
                 <selectable id="tlss_reneg">session renegotiation</selectable>
-                <selectable exclusive="yes">none</selectable>
+		<selectable id="tlss_resump_tls">session resumption based on session IDs according to RFC 4346 (TLS1.1) or RFC 5246 (TLS1.2)</selectable>
+		<selectable id="tlss_resump_5077">session resumption based on session tickets according to RFC 5077</selectable>
+		<selectable id="tlss_noresump">no session resumption or session tickets</selectable>
+      <selectable exclusive="yes">none</selectable>
               </selectables>.
             </title>
             <note role="application">
-
+	      <h:p>
         The ST
         author should select the cipher suites that are supported,
        and must select at least one cipher suite.
@@ -888,21 +860,34 @@ during handshake.
 	      GCM cipher suites are preferred over CBC cipher suites,
 	      ECDHE preferred over RSA and DHE, and SHA256 or SHA384
 	      over SHA.
-        <h:br/><h:br/>
+	      </h:p>
+	      <h:p>
         TLS_RSA_WITH_AES_128_CBC_SHA is not required 
 	      despite being mandated by RFC 5246. 
-        <h:br/><h:br/>
-        These requirements will be revisited as new
-	      TLS
-	      versions are standardized by the IETF.
-        <h:br/><h:br/>
-        If <h:i>mutual authentication</h:i> is selected, then the ST must additionally include
-        the requirements from FCS_TLSS_EXT.2.  If the TOE implements
-        mutual authentication, this selection must be made.
-        <h:br/><h:br/>
+	      </h:p>
+	      <h:p>
+		These requirements will be revisited as new TLS
+		versions are standardized by the IETF.
+	      </h:p>
+	      <h:p>
+	  If <h:i>session renegotiation</h:i> is selected, then the ST must additionally include
+          the requirements from FCS_TLSS_EXT.4. If the TOE implements
+          session renegotiation, this selection must be made.
+	</h:p>
+
+	<h:p>
+	  If the TOE does not support session resumption or session tickets,
+	  select 'no session resumption or session tickets’.
+	  If the TOE supports session resumption based on session IDs according to RFC 4346 (TLS1.1) or RFC 5246 (TLS1.2),
+	  select 'session resumption based on session IDs according to RFC 4346 (TLS1.1) or RFC 5246 (TLS1.2)'.
+	  If the TOE supports session resumption based on session tickets according to RFC 5077,
+	  select 'session resumption based on session tickets according to RFC 5077'.
+	</h:p>
+      <h:p>
         If <h:i>session renegotiation</h:i> is selected, then the ST must additionally include
         the requirements from FCS_TLSS_EXT.4. If the TOE implements
         session renegotiation, this selection must be made.
+	      </h:p>
             </note>
             <aactivity>
               <TSS>
@@ -925,7 +910,7 @@ during handshake.
               <testlist>
                 <test>
                   The evaluator shall establish a
-                  <h:abbr title="Transport Layer Security">TLS</h:abbr> connection using each of the
+                  TLS connection using each of the
                   cipher suites specified by the requirement. This connection may be established as
                   part of the establishment of a higher-level protocol, e.g., as part of an EAP
                   session. It is sufficient to observe the successful negotiation of a cipher suite
@@ -954,9 +939,9 @@ during handshake.
                   The evaluator shall perform the following modifications to the traffic:
                   <testlist>
                     <test>
-                      Change the <h:abbr title="Transport Layer Security">TLS</h:abbr> version proposed
+                      Change the TLS version proposed
                       by the client in the Client Hello to a non-supported
-                      <h:abbr title="Transport Layer Security">TLS</h:abbr> version (for example 1.3
+                      TLS version (for example 1.3
                       represented by the two bytes 03 04) and verify that the server rejects the
                       connection.
                     </test>
@@ -988,7 +973,8 @@ during handshake.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element id="fel-deny-outdated">
+          <!--~$# FCS_TLSS_EXT.1.2-->
+	  <f-element id="f-tlss-bad-version">
             <title>The product shall deny connections from clients requesting
             SSL 2.0, SSL 3.0, TLS 1.0 and
               <selectables>
@@ -997,13 +983,13 @@ during handshake.
               </selectables>.
             </title>
             <note role="application">All SSL versions are denied. Any TLS version
-              not selected in <xref to="fel-tlss-impl"/> should be selected here.
+              not selected in FCS_TLSS_EXT.1.1 should be selected here.
             </note>
             <aactivity>
               <TSS>
               The evaluator shall verify that the TSS contains a
               description of the denial of old SSL and TLS versions
-              consistent relative to selections in <xref to="fel-deny-outdated" />.
+              consistent relative to selections in FCS_TLSS_EXT.1.2.
 	      </TSS>
               <Guidance>
               The evaluator shall verify that the AGD guidance includes any configuration
@@ -1022,7 +1008,8 @@ during handshake.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element id="fel-rsa-size">
+          <!--~$# FCS_TLSS_EXT.1.3-->
+	  <f-element id="f-tlss-key-size">
             <title>The product shall perform key establishment for TLS using
               <selectables>
                 <selectable>RSA with size
@@ -1056,7 +1043,7 @@ during handshake.
               <selectable>ECDHE parameters using elliptic curves
                 <selectables>
                   <selectable>secp256r1</selectable>
-                  <selectable>secp384r1</selectable>
+                  <selectable id="s-tls-secp384">secp384r1</selectable>
                   <selectable>secp521r1</selectable>
                 </selectables> and no other curves
               </selectable>
@@ -1064,10 +1051,10 @@ during handshake.
             </selectables>.
             </title>
             <note role="application">
-              If the ST lists an RSA cipher suite in <xref to="fel-tlss-impl"/>, the ST must include the
+              If the ST lists an RSA cipher suite in FCS_TLSS_EXT.1.1, the ST must include the
               RSA selection in the requirement.
               <h:br/><h:br/>
-              If the ST lists a DHE cipher suite in <xref to="fel-tlss-impl"/>, the ST must include either
+              If the ST lists a DHE cipher suite in FCS_TLSS_EXT.1.1, the ST must include either
               the Diffie-Hellman selection for parameters of a certain size,
               or for particular Diffie-Hellman groups.
               The selection for "Diffie-Hellman parameters" refers to the method defined by RFC 5246 (and RFC 4346)
@@ -1079,7 +1066,7 @@ during handshake.
               "FFDHE" are both used to refer to the finite-field-based Diffie-Hellman ephemeral key exchange mechanism,
               distinct from elliptic-curve-based Diffie Hellman ephemeral key exchange (ECDHE).
               <h:br/><h:br/>
-              If the ST lists an ECDHE cipher suite in <xref to="fel-tlss-impl"/>, the ST must include the
+              If the ST lists an ECDHE cipher suite in FCS_TLSS_EXT.1.1, the ST must include the
               selection for ECDHE using elliptic curves in the requirement.
             </note>
             <aactivity>
@@ -1090,8 +1077,8 @@ during handshake.
               <Guidance>
               The evaluator shall verify that any configuration guidance necessary to meet
               the requirement must be contained in the AGD guidance.
-	      </Guidance>
-              <Tests>
+              </Guidance>
+	      <Tests>
               <testlist>
                 The evaluator shall conduct the following tests.  The testing can be carried out
                 manually with a packet analyzer or with an automated framework
@@ -1125,13 +1112,15 @@ during handshake.
         </f-component>
 
        <f-component cc-id="fcs_tlss_ext.2" name="TLS Server Support for Mutual Authentication" status="sel-based">
-         <selection-depends req="fel-tlss-impl" ids="tlss_mutual_auth"/>
-          <f-element id="fel-auth-client-certs">
+         <depends on="tlss_mutual_auth"/>
+          <!--~$# FCS_TLSS_EXT.2.1-->
+	  <f-element id="f-tlss-mutual-auth">
             <title>The product shall support authentication of
               TLS clients using X.509v3 certificates.
             </title>
           </f-element>
-          <f-element id="fel-bad-client-cert">
+          <!--~$# FCS_TLSS_EXT.2.2-->
+	  <f-element id="f-tlss-bad-cert">
             <title>The product shall not establish a trusted channel
               if the client certificate is invalid.
             </title>
@@ -1155,8 +1144,8 @@ during handshake.
               authentication.  The evaluator shall ensure that the AGD guidance
               includes instructions for configuring the server to require
               mutual authentication of clients using these certificates.
-	      </Guidance>
-              <Tests>
+              </Guidance>
+	      <Tests>
 	      The evaluator shall use TLS as a function to verify that the validation rules in
 	      FIA_X509_EXT.1.1 are adhered to and shall perform the following tests.
         The evaluator shall apply the AGD guidance to configure the server
@@ -1227,7 +1216,8 @@ during handshake.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element id="fel-tlss-match-name">
+          <!--~$# FCS_TLSS_EXT.2.3-->
+	  <f-element id="f-tlss-bad-dn-san">
             <title>The product shall not establish a trusted channel if
               the Distinguished Name (DN) or Subject Alternative Name (SAN)
               contained in a certificate does not match one of the expected identifiers
@@ -1267,9 +1257,9 @@ during handshake.
           </f-element>
         </f-component>
 
-	<f-component cc-id="fcs_tlss_ext.3"
-		     name="TLS Server Support for Signature Algorithms Extension" status="objective">
-          <f-element id="fel-tlss-hashalgo">
+	<f-component cc-id="fcs_tlss_ext.3" name="TLS Server Support for Signature Algorithms Extension" status="objective">
+          <!--~$# FCS_TLSS_EXT.3.1-->
+	  <f-element id="f-tlss-hashalgos">
             <title>The product shall present the HashAlgorithm
             enumeration in supported_signature_algorithms in the
             Certificate Request with the following hash algorithms:
@@ -1317,13 +1307,15 @@ during handshake.
 	</f-component>
 
 	<f-component cc-id="fcs_tlss_ext.4" name="TLS Server Support for Renegotiation" status="sel-based">
-    <selection-depends req="fel-tlss-impl" ids="tlss_reneg"/>
-          <f-element id="fel-tlss-renego">
+    <depends on="tlss_reneg"/>
+          <!--~$# FCS_TLSS_EXT.4.1-->
+	  <f-element id="f-tlss-support-reneg">
             <title>The product shall support the "renegotiation_info" TLS extension
               in accordance with RFC 5746.
             </title>
           </f-element>
-          <f-element id="fel-tlss-renego-serverhello">
+          <!--~$# FCS_TLSS_EXT.4.2-->
+	  <f-element id="f-tlss-include-reneg">
             <title>The product shall include the renegotiation_info extension in
               ServerHello messages.
             </title>
@@ -1356,8 +1348,9 @@ during handshake.
 	</f-component>
 
   <f-component cc-id="fcs_dtlsc_ext.1" name="DTLS Client Protocol" status="sel-based">
-    <selection-depends req="fel-client" ids="dtlsc_impl"/>
-    <f-element id="fel-dtlsc-impl">
+    <depends on="dtlsc_impl"/>
+    <!--~$# FCS_DTLSC_EXT.1.1-->
+    <f-element id="f-dtlsc-version">
       <title>The product shall implement DTLS 1.2 (RFC 6347) and
       <selectables>
         <selectable>DTLS 1.0 (RFC 4347)</selectable>
@@ -1365,7 +1358,10 @@ during handshake.
       </selectables> as a client that supports the cipher suites
     <selectables linebreak="yes">
       <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
-      <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	    <selectable>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
       <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
       <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
       <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
@@ -1391,18 +1387,17 @@ during handshake.
       FCS_TLSC_EXT.5 is required.
       <h:br/><h:br/>
       If <h:i>mutual authentication</h:i> is selected, then the ST must additionally include 
-      the requirements from FCS_DTLSC_EXT.2.
-      If the TOE implements
+      the requirements from FCS_DTLSC_EXT.2. If the TOE implements
       mutual authentication, this selection must be made.
       <h:br/><h:br/>
       Differences between DTLS 1.2 and TLS 1.2 are outlined in RFC 6347; otherwise the
       protocols are the same.
-      All application notes listed for <xref to="fel-client"/> that are relevant
+      All application notes listed for FCS_TLSC_EXT.1.1 that are relevant
       to DTLS apply to this requirement.
     </note>
       <aactivity>
 	<Tests>
-        The evaluator shall perform the evaluation activities listed for <xref to="fel-client"/>,
+        The evaluator shall perform the evaluation activities listed for FCS_TLSC_EXT.1.1,
         but ensuring that DTLS (and not TLS) is used in each evaluation activity.
         <h:br/><h:br/>
         For tests which involve version numbers, note that in DTLS the on-the-wire representation
@@ -1413,40 +1408,42 @@ during handshake.
       </aactivity>
     </f-element>
 
-    <f-element id="fel-dtlsc-match-id">
+    <!--~$# FCS_DTLSC_EXT.1.2-->
+    <f-element id="f-dtlsc-pres-ids">
       <title> The product shall verify that the presented identifier matches the reference
         identifier according to RFC 6125. </title>
         <note role="application">
-          All application notes listed for <xref to="fel-present-identifier" /> that are relevant
+          All application notes listed for FCS_TLSC_EXT.1.2 that are relevant
           to DTLS apply to this requirement.
         </note>
       <aactivity>
       <Tests>
-	The evaluator shall perform the evaluation activities listed for
-	<xref to="fel-present-identifier"/>.
+	The evaluator shall perform the evaluation activities listed for FCS_TLSC_EXT.1.2.
       </Tests>
       </aactivity>
     </f-element>
 
-    <f-element id="fel-dtlsc-bad-cert">
+    <!--~$# FCS_DTLSC_EXT.1.3-->
+    <f-element id="f-dtlsc-bad-cert">
       <title>The product shall not establish a trusted channel if the
         server certificate is invalid
         <selectables>
-        <selectable exclusive="yes">with no exceptions</selectable>
+        <selectable exclusive="yes" id="s-dtlsc-no-excep">with no exceptions</selectable>
         <selectable>except when override is authorized</selectable>
       </selectables>.
       </title>
       <note role="application">
-        All application notes listed for <xref to="fel-server-cert" /> that are relevant
+        All application notes listed for FCS_TLSC_EXT.1.3 that are relevant
         to DTLS apply to this requirement.
       </note>
       <aactivity>
         <Tests>
-          The evaluator shall perform the evaluation activities listed for <xref to="fel-server-cert"/>.
+          The evaluator shall perform the evaluation activities listed for FCS_TLSC_EXT.1.3.
 	</Tests>
       </aactivity>
     </f-element>
-    <f-element id="fel-dtlsc-fail">
+    <!--~$# FCS_DTLSC_EXT.1.4-->
+    <f-element id="f-dtlsc-bad-mac-decrypt">
     <title>The product shall
     <selectables>
       <selectable>terminate the DTLS session</selectable>
@@ -1470,26 +1467,28 @@ during handshake.
   </f-component>
 
   <f-component cc-id="fcs_dtlsc_ext.2" name="DTLS Client Support for Mutual Authentication" status="sel-based">
-    <selection-depends req="fel-dtlsc-impl" ids="dtlsc_mutual_auth"/>
-          <f-element id="fel-dtlsc-mut-auth">
+    <depends on="dtlsc_mutual_auth"/>
+    <!--~$# FCS_DTLSC_EXT.2.1-->
+    <f-element id="f-dtlsc-mut-auth">
             <title>
               The product shall support mutual authentication using X.509v3 certificates.
             </title>
             <note role="application">
-              All application notes listed for <xref to="fel-mut-auth-certs" /> that are relevant
+              All application notes listed for FCS_TLSC_EXT.2.1 that are relevant
               to DTLS apply to this requirement.
       </note>
       <aactivity>
 	<Tests>
-          The evaluator shall perform the evaluation activities listed for <xref to="fel-mut-auth-certs" />.
+          The evaluator shall perform the evaluation activities listed for FCS_TLSC_EXT.2.1.
 	</Tests>
       </aactivity>
     </f-element>
   </f-component>
 
   <f-component cc-id="fcs_dtlss_ext.1" name="DTLS Server Protocol" status="sel-based">
-    <selection-depends req="fel-tls-usage" ids="dtlss_impl"/>
-    <f-element id="fel-dtlss-impl">
+    <depends on="dtlss_impl"/>
+    <!--~$# FCS_DTLSS_EXT.1.1-->
+    <f-element id="f-dtlss-version">
       <title>The product shall implement DTLS 1.2 (RFC 6347) and
       <selectables>
         <selectable>DTLS 1.0 (RFC 4347)</selectable>
@@ -1498,7 +1497,10 @@ during handshake.
         as a server that supports the ciphersuites
         <selectables linebreak="yes">
           <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
-          <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+	    <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	    <selectable>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
+	  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
           <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
           <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
           <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
@@ -1524,12 +1526,12 @@ during handshake.
       the requirements from FCS_DTLSS_EXT.2.  If the TOE implements
       mutual authentication, this selection must be made.
       <h:br/><h:br/>
-      All application notes listed for <xref to="fel-tlss-impl" /> that are relevant
+      All application notes listed for FCS_TLSS_EXT.1.1 that are relevant
       to DTLS apply to this requirement.
       </note>
       <aactivity>
 	<Tests>
-        The evaluator shall perform the evaluation activities listed for <xref to="fel-tlss-impl"/>,
+        The evaluator shall perform the evaluation activities listed for FCS_TLSS_EXT.1.1,
         but ensuring that DTLS (and not TLS) is used in each stage of the evaluation activities.
         <h:br/><h:br/>
         For tests which involve version numbers, note that in DTLS the on-the-wire representation
@@ -1539,12 +1541,13 @@ during handshake.
 	</Tests>
       </aactivity>
     </f-element>
-    <f-element id="fel-dtlss-deny-version">
+    <!--~$# FCS_DTLSS_EXT.1.2-->
+    <f-element id="f-dtlss-bad-versions">
       <title>The product shall deny connections from clients requesting
         <assignable>list of DTLS protocol versions</assignable>.
       </title>
       <note role="application">Any specific DTLS version
-        not selected in <xref to="fel-dtlss-impl"/> should be assigned here.
+        not selected in FCS_DTLSS_EXT.1.1 should be assigned here.
         This version of the PP does not require the server to deny DTLS 1.0, and if the TOE
         supports DTLS 1.0 then "none" can be assigned. In a future version of this PP,
         DTLS 1.0 will be required to be denied.
@@ -1555,7 +1558,7 @@ during handshake.
         <TSS>
         The evaluator shall verify that the TSS contains a
         description of the denial of old DTLS versions
-        consistent relative to selections in <xref to="fel-dtlss-deny-version" />.
+        consistent relative to selections in FCS_DTLSS_EXT.1.2.
 	</TSS>
         <Guidance>
         The evaluator shall verify that the AGD guidance includes any configuration
@@ -1573,7 +1576,8 @@ during handshake.
       </aactivity>
     </f-element>
 
-    <f-element id="fel-dtlss-fail-validation">
+    <!--~$# FCS_DTLSS_EXT.1.3-->
+    <f-element id="f-dtlss-bad-validation">
       <title>
         The product shall not proceed with a connection handshake attempt if the DTLS Client fails validation.
       </title>
@@ -1596,7 +1600,8 @@ during handshake.
 	</Tests>
       </aactivity>
     </f-element>
-    <f-element id="fel-dtlss-rsa-keysize">
+    <!--~$# FCS_DTLSS_EXT.1.4-->
+    <f-element id="f-dtlss-key-size">
       <title>The product shall perform key establishment for DTLS using
         <selectables>
           <selectable>RSA with size
@@ -1637,23 +1642,24 @@ during handshake.
         </selectables>.
       </title>
       <note role="application">
-        If the ST lists an RSA cipher suite in <xref to="fel-dtlss-impl"/>, the ST must include the
+        If the ST lists an RSA cipher suite in FCS_DTLSS_EXT.1.1, the ST must include the
         RSA selection in the requirement.
         <h:br/>
-        If the ST lists a DHE cipher suite in <xref to="fel-dtlss-impl"/>, the ST must include either
+        If the ST lists a DHE cipher suite in FCS_DTLSS_EXT.1.1, the ST must include either
         the Diffie-Hellman selection for parameters of a certain size,
         or for particular Diffie-Hellman groups.
         <h:br/>
-        If the ST lists an ECDHE cipher suite in <xref to="fel-dtlss-impl"/>, the ST must include the
+        If the ST lists an ECDHE cipher suite in FCS_DTLSS_EXT.1.1, the ST must include the
         NIST curves selection in the requirement.
       </note>
       <aactivity>
       <Tests>
-        The evaluator shall perform the evaluation activities listed for <xref to="fel-rsa-size"/>.
-      </Tests>
+        The evaluator shall perform the evaluation activities listed for FCS_TLSS_EXT.1.3.
+	</Tests>
       </aactivity>
     </f-element>
-    <f-element id="fel-dtlss-kill-session">
+    <!--~$# FCS_DTLSS_EXT.1.5-->
+    <f-element id="f-dtlss-bad-mac-decrypt">
       <title>The product shall
       <selectables>
         <selectable>terminate the DTLS session</selectable>
@@ -1666,7 +1672,8 @@ during handshake.
         <TSS>
         The evaluator shall verify that the TSS describes the actions that take place if a message
         received from the DTLS client fails the MAC integrity check.
-	</TSS>
+      </TSS>
+
         <Tests>
         The evaluator shall establish a connection using a client. The evaluator will then modify
         at least one byte in a record message, and verify that the server discards the record or
@@ -1677,62 +1684,96 @@ during handshake.
   </f-component>
 
   <f-component cc-id="fcs_dtlss_ext.2" name="DTLS Server Support for Mutual Authentication" status="sel-based">
-    <selection-depends req="fel-dtlss-impl" ids="dtlss_mutual_auth"/>
-          <f-element id="fel-dtlss-mut-auth">
+    <depends on="dtlss_mutual_auth"/>
+    <!--~$# FCS_DTLSS_EXT.2.1-->
+	  <f-element id="f-dtlss-mut-auth">
             <title>
               The product shall support mutual authentication of DTLS clients using X.509v3 certificates.
             </title>
             <note role="application">
-              All application notes listed for <xref to="fel-auth-client-certs" /> that are relevant
+              All application notes listed for FCS_TLSS_EXT.2.1 that are relevant
               to DTLS apply to this requirement.
       </note>
       <aactivity>
 	<Tests>
-          The evaluator shall perform the evaluation activities listed for <xref to="fel-auth-client-certs" />.
+          The evaluator shall perform the evaluation activities listed for FCS_TLSS_EXT.2.1.
 	</Tests>
       </aactivity>
 
     </f-element>
-    <f-element id="fel-dtlss-bad-cert">
+    <!--~$# FCS_DTLSS_EXT.2.2-->
+    <f-element id="f-dtlss-handle-bad-cert">
       <title>The product shall not establish a trusted channel
         if the client certificate is invalid.
       </title>
       <note role="application">
-        All application notes listed for <xref to="fel-bad-client-cert" /> that are relevant
+        All application notes listed for FCS_TLSS_EXT.2.2 that are relevant
         to DTLS apply to this requirement.
       </note>
       <aactivity>
 	<Tests>
-        The evaluator shall perform the evaluation activities listed for <xref to="fel-bad-client-cert" />. 
+          The evaluator shall perform the evaluation activities listed for FCS_TLSS_EXT.2.2.
 	</Tests>
       </aactivity>
     </f-element>
-    <f-element id="fel-dtlss-bad-name">
+    <!--~$# FCS_DTLSS_EXT.2.3-->
+    <f-element id="f-dtlss-handle-bad-dn-san">
       <title>The product shall not establish a trusted channel if
         the Distinguished Name (DN) or Subject Alternative Name (SAN)
         contained in a certificate does not match one of the expected identifiers
         for the client.
       </title>
       <note role="application">
-        All application notes listed for <xref to="fel-tlss-match-name" /> that are relevant
+        All application notes listed for FCS_TLSS_EXT.2.3 that are relevant
         to DTLS apply to this requirement.
       </note>
       <aactivity>
         <Tests>
-        The evaluator shall perform the evaluation activities listed for <xref to="fel-tlss-match-name" />.
+          The evaluator shall perform the evaluation activities listed for FCS_TLSS_EXT.2.3.
 	</Tests>
       </aactivity>
       </f-element>
-      </f-component>
-      </section>
-    </sec:Security_Functional_Requirements>
+</f-component>
 
-  <appendix id="biblio" title="References">
+</section>
+  </sec:Security_Functional_Requirements>
+
+  <appendix title="Optional Requirements" id="optional">
+    There are currently no Optional Requirements in this Package.
+  </appendix>
+
+  <appendix title="Selection-Based Requirements" id="sel-based">
+    As indicated in the introduction to this Package, this appendix lists requirements
+    that are activated based on selections made in the PP/PP-Module/ST or in other portions of
+    this Package itself.
+  </appendix>
+
+  <appendix title="Objective Requirements" id="objective">This appendix includes requirements that
+    specify security functionality which also addresses threats. The requirements are not currently
+    mandated in the body of this Package as they describe security functionality not yet widely-available
+    in commercial technology. However, these requirements may be included in the ST such that the
+    product is still conformant to this Package, and it is expected that they be included as soon as
+    possible. </appendix>
+
+
     <bibliography>
-      <cc-entry/>
+      <entry id="bibCC">
+        <tag>CC</tag>
+        <description>Common Criteria for Information Technology Security Evaluation -
+          <h:ul>
+            <h:li>
+              <h:a href="http://www.commoncriteriaportal.org/cc">Part 1:
+                Introduction and General Model</h:a>, CCMB-2017-04-001, Version 3.1 Revision 5, April 2017.
+			</h:li>
+            <h:li>
+              <h:a href="http://www.commoncriteriaportal.org/cc">Part 2:
+                Security Functional Components</h:a>, CCMB-2017-04-002, Version 3.1 Revision 5, April 2017.
+			</h:li>
+            <h:li>
+              <h:a href="http://www.commoncriteriaportal.org/cc">Part 3:
+                Security Assurance Components</h:a>, CCMB-2017-04-003, Version 3.1 Revision 5, April 2017.
+              </h:li>
+          </h:ul></description>
+      </entry>
     </bibliography>
-  </appendix>
-  <appendix title="Acronyms" id="acronyms">
-    <acronyms/>
-  </appendix>
 </Package>
