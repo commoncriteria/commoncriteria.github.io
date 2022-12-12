@@ -540,7 +540,8 @@ The following sections list Common Criteria and technology terms used in this do
                   The evaluator shall examine the TSS to verify that it describes the ability of the TSF to implement MACsec in accordance with IEEE 802.1AE-2018. 
                   The evaluator shall also determine that the TSS describes the ability of the TSF to derive SCI values from peer MAC address and port data 
                   and to reject traffic that does not have a valid SCI. 
-                  Finally, the evaluator shall check the TSS for an assertion that only EAPOL and MACsec Ethernet frames are accepted by the MACsec interface.
+                  Finally, the evaluator shall check the TSS for an assertion that only EAPOL, 
+                  MACsec Ethernet frames, and MAC control frames are accepted by the MACsec interface.
                 </p>
               </div><div class="eacategory">Guidance</div><div class="ea">
                 <p>
@@ -563,7 +564,7 @@ The following sections list Common Criteria and technology terms used in this do
       
                     The evaluator shall send Ethernet traffic to the TOE’s MAC address that iterates through the full range of supported EtherType values 
                     (refer to <a href="http://standards.ieee.org/develop/regauth/ethertype/eth.txt"></a>) and observes that traffic for all EtherType values 
-                    is discarded by the TOE except for the traffic which has an EtherType value of 88-8E, 88-E5, 88-08 or other EtherType specified in the ST. 
+                    is discarded by the TOE except for the traffic which has an EtherType value of 88-8E, 88-E5 or 8808. 
                     Note that there are a large number of EtherType values so the evaluator is encouraged to execute a script that automatically iterates through each value.
                   </li>
                 </ul></span>
@@ -862,13 +863,16 @@ The following sections list Common Criteria and technology terms used in this do
 			        <span class="testlist-"><ul>
 			          <li class="test-"><span id="_t_23">Test 22.1<a href="#_t_23" class="definition"></a></span>:
       
-			            Switch to unexpired CKN: TOE and Peer B have CKN1 (10 minutes) and CKN2 (20 minutes). 
-			            The TOE and Peer B start using CKN1 and after 10 minutes, verify that the TOE distributes a new SAK to the peer using CKN2. 
+			            Switch to unexpired CKN: TOE and Peer B have CKN1(10 minutes) and CKN2. 
+			            CKN2 can either be configured with a longer overlapping lifetime (20 minutes) 
+			            or be configured with a lifetime starting period of more than 10 minutes after the CKN1 start. 
+			            The TOE and Peer B start using CKN1 and after 10 minutes, verify that the TOE expires SAK1. 
+			            This can be verified by either 1) seeing the TOE immediately distribute a new SAK to the peer if the lifetime of CKN2 overlaps CKN1, 
+			            or 2) by terminating the connection with CKN1 and distributing a new SAK once the lifetime period of CKN2 begins.
 			          </li>
 			          <li class="test-"><span id="_t_24">Test 22.2<a href="#_t_24" class="definition"></a></span>:
       
-			            Reject CA with expired CKN: TOE has CKN1 (10 minutes) and CKN2 (20 minutes). Peer B has CKN1 (20 minutes). 
-			            TOE and Peer B start using CKN1 and after 10 minutes, verify that the TOE rejects (or ignores) peer’s request to use (or distribute a) SAK using CKN1.
+			            Peer B has CKN1(20 minutes). TOE and Peer B start using CKN1 and after 10 minutes, verify that the TOE rejects (or ignores) peer’s request to use (or distribute a) SAK using CKN1.
 			          </li>
 			        </ul></span>
 			      </li>
