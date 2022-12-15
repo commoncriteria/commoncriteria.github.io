@@ -1245,7 +1245,7 @@ provide all of its security functionality.
               
               For <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> and DIAMETER, the <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS/<abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TTLS master key established during the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> handshake with the claimant is shared with the relying party, 
               encrypted under the protected channel between the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and the relying party. 
-              Both the relying party and claimant derive the AUTH MSK/security association for an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> session from this master key.
+              Both the relying party and claimant derive the AUTH <abbr class="dyn-abbr"><a href="#abbr_MSK">MSK</a></abbr>/security association for an <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> session from this master key.
                
               More generally, a key indicator can be a reference identifier for a shared secret key, or a public key, certificate, or other identifier associated with a private asymmetric key controlled by the authenticated claimant.
             </span></div></div></div>
@@ -1342,16 +1342,20 @@ provide all of its security functionality.
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
+              <p>
+                This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is iterated from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to define X.509 validation requirements that are specific to claimaint authentication.
+              </p><p>
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author claims supported certificate validity checking options for each rule. For name constraints, all supported name types used to match names presented in a certificate to registered users 
               and the associated standard matching method are described.
-              <p></p>
+              </p><p>
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author claims supported certificate policies. ‘Policy Constraints…’ is claimed if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s authentication policy depends on the certificate policies for claimant certificates. 
               Other policy related extensions within the selection are claimed if supported. 
               The extension inhibitPolicyMapping is not claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support certificate chains of length four or more. 
               The policy related extensions, if supported, are primarily used in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for claimant authentication, but are allowed for other certificate authentications. 
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies the intended use and any limits of support for these extensions or specifies ‘no other policy related extension’ in the assignment of this selection.
-              <p></p>
-              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies any additional supported X509 extensions, and the associated extension processing rules used to determine claimant identity attributes or conditions that can be used in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s authentication policy. 
+              </p><p>
+              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies any additional supported X.509 extensions, and the associated extension processing rules used to determine claimant identity attributes or conditions that can be used in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s authentication policy. 
+              </p>
             </span></div></div></div>
           <div class="element"><div class="reqid" id="FIA_X509_EXT.1.2/AuthSvr"><a href="#FIA_X509_EXT.1.2/AuthSvr" class="abbr">FIA_X509_EXT.1.2/AuthSvr</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall only treat a certificate as a CA certificate if the basicConstraints extension is present and the CA flag is set to TRUE.</div></div>
         </div>
@@ -1500,7 +1504,9 @@ provide all of its security functionality.
             which is an environmental component that is defined specifically in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#T.INVALID_USERS">T.INVALID_USERS</a></td><td>This threat is similar to the T.UNAUTHORIZED_ADMINISTRATOR_ACCESS threat in the NDcPP but it applies to user authentication brokered by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> rather than to 
             administrator authentication to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself. It is also similar to the T.UNTRUSTED_COMMUNICATION_CHANNELS threat in the NDcPP except that it applies specifically to the 
             <abbr class="dyn-abbr"><a href="#abbr_RADIUS">RADIUS</a></abbr> communications and the protocols used to secure those, which is an interface that is defined specifically in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.</td></tr><tr><td><a href="#A.RP_FEDERATION">A.RP_FEDERATION</a></td><td>The NDcPP does not define any assumptions for the intended network architecture that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is deployed into. 
-            Therefore, an assumption that the network can be set up in such a way that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will have direct connectivity with one or more relying parties does not violate any assumptions of the NDcPP.</td></tr><tr><td><a href="#P.AUTH_POLICY">P.AUTH_POLICY</a></td><td></td></tr></table><h3 id="conobj-ND" class="indexable" data-level="3">6.1.3 
+            Therefore, an assumption that the network can be set up in such a way that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will have direct connectivity with one or more relying parties does not violate any assumptions of the NDcPP.</td></tr><tr><td><a href="#P.AUTH_POLICY">P.AUTH_POLICY</a></td><td>
+            This OSP relates to behavior that is not part of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and so the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> is not contradicted by guidance on its implementation.
+          </td></tr></table><h3 id="conobj-ND" class="indexable" data-level="3">6.1.3 
 	Consistency of Objectives
       </h3><p>
 	  The objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> are consistent with the NDcPP based on the following rationale:
@@ -2270,6 +2276,7 @@ provide all of its security functionality.
 <tr><td><span class="term" id="abbr_EAP"><abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr></span></td><td><span id="long_abbr_EAP">Extensible Authentication Protocol</span></td></tr>
 <tr><td><span class="term" id="abbr_HOTP"><abbr class="dyn-abbr"><a href="#abbr_HOTP">HOTP</a></abbr></span></td><td><span id="long_abbr_HOTP">Hash-Based One-Time Password</span></td></tr>
 <tr><td><span class="term" id="abbr_IPsec"><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr></span></td><td><span id="long_abbr_IPsec">Internet Protocol Security</span></td></tr>
+<tr><td><span class="term" id="abbr_MSK"><abbr class="dyn-abbr"><a href="#abbr_MSK">MSK</a></abbr></span></td><td><span id="long_abbr_MSK">Master Session Key</span></td></tr>
 <tr><td><span class="term" id="abbr_OCSP"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr></span></td><td><span id="long_abbr_OCSP">Online Certificate Status Protocol</span></td></tr>
 <tr><td><span class="term" id="abbr_OE"><abbr class="dyn-abbr"><a href="#abbr_OE">OE</a></abbr></span></td><td><span id="long_abbr_OE">Operational Environment</span></td></tr>
 <tr><td><span class="term" id="abbr_PBKDF"><abbr class="dyn-abbr"><a href="#abbr_PBKDF">PBKDF</a></abbr></span></td><td><span id="long_abbr_PBKDF">Password-Based Key Derivation Function</span></td></tr>
