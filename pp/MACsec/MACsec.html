@@ -1018,7 +1018,13 @@ The following sections list Common Criteria and technology terms used in this do
           <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr><b>-Module</b>/<abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, [<i>information specified in column three of the Auditable Events table (<a onclick="showTarget('auditMACSEC')" href="#auditMACSEC" class="auditMACSEC-ref">Table <span class="counter">2</span></a>)</i>].</li>
       </ol>
     </div></div> 
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FAU_GEN.1/MACSEC">FAU_GEN.1/MACSEC</a></div>
+    
+    The evaluator shall complete the evaluation activity for FAU_GEN.1 as described in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> for the auditable events defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> 
+    in addition to the applicable auditable events that are defined in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr>. 
+    The evaluator shall also ensure that the administrative actions defined for this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are appropriately audited.
+    
+  </div></div></div>
 
       
      
@@ -1037,7 +1043,62 @@ The following sections list Common Criteria and technology terms used in this do
     </span><span class="note">
               AES-CMAC is a keyed hash function that is used as part of the key derivation function (<abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>) that is used for key generation.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/CMAC">FCS_COP.1/CMAC</a></div>
+            
+            
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+              <p>
+              The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it specifies the following values used by the AES-CMAC function: key length, hash function used, block size, and output <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> length.
+              </p>
+            </div><div class="eacategory">Guidance</div><div class="ea">
+              <p>
+              There are no guidance evaluation activities (EAs) for this component.
+              </p>
+            </div><div class="eacategory">Tests</div><div class="ea">
+                The evaluator shall perform the following tests:
+                <span class="testlist-"><ul>
+                <li class="test-"><span id="_t_1">Test 1<a href="#_t_1" class="definition"></a></span>:
+      <b><abbr class="dyn-abbr"><a href="#abbr_CMAC">CMAC</a></abbr> Generation Test</b><br/>
+                  To test the generation capability of AES-CMAC, the evaluator shall provide to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, for each key length-message length-CMAC length tuple (in bytes), 
+                  a set of eight arbitrary key-plaintext tuples that will result in the generation of a known <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> value when encrypted. 
+                  The evaluator shall then verify that the correct <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> was generated in each case. 
+                </li>
+                  <li class="test-"><span id="_t_2">Test 2<a href="#_t_2" class="definition"></a></span>:
+      <b><abbr class="dyn-abbr"><a href="#abbr_CMAC">CMAC</a></abbr> Verification Test</b><br/>
+                    <p>
+                    To test the verification capability of AES-CMAC, the evaluator shall provide to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, for each key length-message length-CMAC length tuple (in bytes), 
+                    a set of 20 arbitrary key-MAC tuples that will result in the generation of known messages when verified. 
+                    The evaluator shall then verify that the correct message was generated in each case.
+                    </p><p>
+                    The following information should be used by the evaluator to determine the key length-message length-CMAC length tuples that should be tested:
+                    </p>
+                    <ul>
+                      <li>Key length: Values will include the following:
+                      <ul>
+                        <li>16</li>
+                        <li>32</li>
+                      </ul>
+                      </li>
+                      <li>Message length: Values will include the following:
+                      <ul>
+                        <li>0 (optional)</li>
+                        <li>Largest value supported by the implementation (no greater than 65536)</li>
+                        <li>Two values divisible by 16</li>
+                        <li>Two values not divisible by 16</li>
+                      </ul>
+                      </li>
+                      <li><abbr class="dyn-abbr"><a href="#abbr_CMAC">CMAC</a></abbr> length:
+                      <ul>
+                        <li>Smallest value supported by the implementation (no less than 1)</li>
+                        <li>16</li>
+                        <li>Any supported <abbr class="dyn-abbr"><a href="#abbr_CMAC">CMAC</a></abbr> length between the minimum and maximum values</li>
+                      </ul>
+                      </li>
+                    </ul>
+                </li>
+                </ul></span>
+              </div></div></div></div>
         
         <div class="comp" id="FCS_COP.1/MACSEC"><h4>FCS_COP.1/MACSEC Cryptographic Operation (MACsec AES Data Encryption and Decryption)</h4> 
           
@@ -1048,7 +1109,51 @@ The following sections list Common Criteria and technology terms used in this do
                 [<b>selection</b>: <span class="selectable-content" id="_s_3">128</span>,  <span class="selectable-content" id="_s_4">256</span> ] bits</b> that meets the following: 
               [<i>AES as specified in ISO 18033-3, AES Key Wrap as specified in NIST SP 800-38F, GCM as specified in ISO 19772</i>].
             </div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/MACSEC">FCS_COP.1/MACSEC</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the supported AES modes that are required for this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> in addition to the ones already required 
+                  by the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> in FCS_COP.1/DataEncryption.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                The evaluator shall perform testing for AES-GCM as required by the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> in FCS_COP.1/DataEncryption. 
+                <p>
+                In addition to the tests specified in the <abbr class="dyn-abbr"><a href="#abbr_NDcPP">NDcPP</a></abbr> for other iterations of FCS_COP.1, the evaluator shall perform the following tests:
+                </p>
+                  <span class="testlist-"><ul>
+                    <li class="test-"><span id="_t_3">Test 3<a href="#_t_3" class="definition"></a></span>:
+      
+                      <b><abbr class="dyn-abbr"><a href="#abbr_KW">KW</a></abbr>-AE Test</b>: To test the authenticated encryption capability of AES key wrap (<abbr class="dyn-abbr"><a href="#abbr_KW">KW</a></abbr>), the evaluator shall provide 
+                      five sets of 100 messages and keys to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for each key length supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+                      Each set of messages and keys shall correspond to one of five plaintext message lengths (detailed below). 
+                      The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> encrypt the messages with the associated key. 
+                      The evaluator shall verify that the correct ciphertext was generated in each case.
+                    </li>
+                    <li class="test-"><span id="_t_4">Test 4<a href="#_t_4" class="definition"></a></span>:
+      
+                      <b><abbr class="dyn-abbr"><a href="#abbr_KW">KW</a></abbr>-AD Test</b>: To test the authenticated decryption capability of AES <abbr class="dyn-abbr"><a href="#abbr_KW">KW</a></abbr>, the evaluator shall provide 
+                      five sets of 100 messages and keys to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for each key length supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+                      Each set of ciphertexts and keys shall correspond to one of five plaintext message lengths (detailed below). 
+                      For each set of 100 ciphertext values, 20 shall not be authentic (i.e., fail authentication). 
+                      The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> decrypt the ciphertext messages with the associated key. 
+                      The evaluator shall then verify the correct plaintext was generated or the failure to authenticate was correctly detected.
+                      <p>
+                      The messages in each set for both tests shall be the following lengths: <ul>
+                        <li>two that are non-zero multiples of 128 bits (two semiblock lengths)</li>
+                        <li>two that are odd multiples of the semiblock length (64 bits)</li>
+                        <li>the largest supported plaintext length less than or equal to 4096 bits</li>
+                      </ul>
+                      </p>
+                    </li>
+                  </ul></span>
+              </div></div></div></div>
      
      
         
@@ -1076,7 +1181,44 @@ The following sections list Common Criteria and technology terms used in this do
     </span><span class="note">
               Depending on the Carrier Ethernet service provider a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> might need basic <abbr class="dyn-abbr"><a href="#abbr_VLAN">VLAN</a></abbr> tag handling abilities such as a simple add or discard to be suitable for Use Case 2.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_MACSEC_EXT.1">FCS_MACSEC_EXT.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> in accordance with <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1AE-2018. 
+                  The evaluator shall also determine that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to derive <abbr class="dyn-abbr"><a href="#abbr_SCI">SCI</a></abbr> values from peer <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address and port data 
+                  and to reject traffic that does not have a valid <abbr class="dyn-abbr"><a href="#abbr_SCI">SCI</a></abbr>. 
+                  Finally, the evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> for an assertion that only <abbr class="dyn-abbr"><a href="#abbr_EAPOL">EAPOL</a></abbr>, 
+                  <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> Ethernet frames, and <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> control frames are accepted by the <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> interface.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                
+                The evaluator shall perform the following tests:
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_5">Test 5<a href="#_t_5" class="definition"></a></span>:
+      
+                    The evaluator shall successfully establish a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> channel between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peer in the operational 
+                    environment and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> logs the communications. 
+                    The evaluator shall capture the traffic between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the operational environment to determine the <abbr class="dyn-abbr"><a href="#abbr_SCI">SCI</a></abbr> 
+                    that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to identify the peer. The evaluator shall then configure a test system to capture traffic between the peer 
+                    and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to modify the <abbr class="dyn-abbr"><a href="#abbr_SCI">SCI</a></abbr> that is used to identify the peer. 
+                    The evaluator then verifies that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not reply to this traffic and logs that the traffic was discarded.
+                  </li>
+                  <li class="test-"><span id="_t_6">Test 6<a href="#_t_6" class="definition"></a></span>:
+      
+                    The evaluator shall send Ethernet traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address that iterates through the full range of supported EtherType values 
+                    (refer to <a href="https://standards.ieee.org/develop/regauth/ethertype/eth.txt">List of Documented EtherTypes</a>) and observes that traffic for all EtherType values 
+                    is discarded by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> except for the traffic which has an EtherType value of 88-8E, 88-E5, or 8808. 
+                    Note that there are a large number of EtherType values so the evaluator is encouraged to execute a script that automatically iterates through each value.
+                  </li>
+                </ul></span>
+              </div></div></div></div>
         
         <div class="comp" id="FCS_MACSEC_EXT.2"><h4>FCS_MACSEC_EXT.2 MACsec Integrity and Confidentiality</h4> 
           
@@ -1101,7 +1243,39 @@ The following sections list Common Criteria and technology terms used in this do
           <div class="element"><div class="reqid" id="FCS_MACSEC_EXT.2.3"><a href="#FCS_MACSEC_EXT.2.3" class="abbr">FCS_MACSEC_EXT.2.3</a></div><div class="reqdesc">
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the ability to derive an Integrity Check Value Key (<abbr class="dyn-abbr"><a href="#abbr_ICK">ICK</a></abbr>) from a Connectivity Association Key (<abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>) using a <abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr>.
             </div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_MACSEC_EXT.2">FCS_MACSEC_EXT.2</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the methods that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements to provide assurance of <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> integrity.  
+                This should include any confidentiality offsets used, the use of an <abbr class="dyn-abbr"><a href="#abbr_ICV">ICV</a></abbr> (including the supported length), 
+                and <abbr class="dyn-abbr"><a href="#abbr_ICV">ICV</a></abbr> generation with the <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr>, using the <abbr class="dyn-abbr"><a href="#abbr_SCI">SCI</a></abbr> as the most significant bits of the initialization vector (<abbr class="dyn-abbr"><a href="#abbr_IV">IV</a></abbr>) and the 32 least significant bits of the <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> as the <abbr class="dyn-abbr"><a href="#abbr_IV">IV</a></abbr>.
+                </p>
+                </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                If any integrity verifications are configurable, such as any confidentiality offsets used or the mechanism used to derive an <abbr class="dyn-abbr"><a href="#abbr_ICK">ICK</a></abbr>, 
+                the evaluator shall verify that instructions for performing these functions are documented.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                The evaluator shall perform the following tests:
+                <span class="testlist-"><ul>
+                <li class="test-"><span id="_t_7">Test 7<a href="#_t_7" class="definition"></a></span>:
+      
+                  The evaluator shall transmit <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peer in the operational environment. 
+                  The evaluator shall verify via packet captures, audit logs, or both that the frame bytes after the <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> Tag values in the received traffic 
+                  is not obviously predictable.
+                </li>
+                <li class="test-"><span id="_t_8">Test 8<a href="#_t_8" class="definition"></a></span>:
+      
+                  The evaluator shall transmit valid <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peer in the operational environment that is routed 
+                  through a test system set up as a man-in-the-middle. 
+                  The evaluator shall use the test system to intercept this traffic to modify one bit in a packet payload before retransmitting to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                  The evaluator shall verify that the traffic is discarded due to an integrity failure.
+                </li>
+                </ul></span>
+              </div></div></div></div>
         
         <div class="comp" id="FCS_MACSEC_EXT.3"><h4>FCS_MACSEC_EXT.3 MACsec Randomness</h4> 
           
@@ -1123,7 +1297,22 @@ The following sections list Common Criteria and technology terms used in this do
     </span><span class="note">
               FCS_RBG_EXT.1 is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> so a conformant <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will include this dependency.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_MACSEC_EXT.3">FCS_MACSEC_EXT.3</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+              <p>
+                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes 
+                the method used to generate SAKs and nonces and that the strength of the <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr> and the size of the <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>’s key space are provided.
+              </p>  
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                Testing of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> capabilities and verification of the deterministic random bit generator is sufficient to demonstrate that this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> has been satisfied.
+              </div></div></div></div>
         
         
         <div class="comp" id="FCS_MACSEC_EXT.4"><h4>FCS_MACSEC_EXT.4 MACsec Key Usage</h4> 
@@ -1157,7 +1346,41 @@ The following sections list Common Criteria and technology terms used in this do
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall associate CKNs with CAKs. 
               The length of the <abbr class="dyn-abbr"><a href="#abbr_CKN">CKN</a></abbr> shall be an integer number of octets, between 1 and 32 (inclusive).
             </div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_MACSEC_EXT.4">FCS_MACSEC_EXT.4</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how the <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> is wrapped prior to being distributed using the 
+                  AES implementation specified in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  If the method of peer authentication is configurable, the evaluator shall verify that the guidance provides instructions on how to configure this. 
+                  The evaluator shall also verify that the method of specifying a lifetime for CAKs is described.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                The evaluator shall perform the following tests:
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_9">Test 9<a href="#_t_9" class="definition"></a></span>:
+      
+                    For each supported method of peer authentication in <a href="#FCS_MACSEC_EXT.4.1">FCS_MACSEC_EXT.4.1</a>, the evaluator shall follow the operational guidance 
+                    to configure the supported method (if applicable). 
+                    The evaluator shall set up a packet sniffer between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peer in the operational environment. 
+                    The evaluator shall then initiate a connection between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the peer such that authentication occurs and a secure connection is established. 
+                    The evaluator shall wait one minute and then disconnect the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from the peer and stop the sniffer. 
+                    The evaluator shall use the packet captures to verify that the <abbr class="dyn-abbr"><a href="#abbr_SC">SC</a></abbr> was established via 
+                    the selected mechanism and that the non-VLAN EtherType of the first data frame sent between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the peer is 88-E5.
+                  </li>
+                  <li class="test-"><span id="_t_10">Test 10<a href="#_t_10" class="definition"></a></span>:
+      
+                    The evaluator shall capture traffic between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peer in the operational environment. 
+                    The evaluator shall then cause the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to distribute a <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> to that peer, 
+                    capture the MKPDUs from that operation, and verify the key is wrapped in the captured MKPDUs.
+                  </li>
+                </ul></span>
+              </div></div></div></div>
      
      
         
@@ -1218,7 +1441,133 @@ The following sections list Common Criteria and technology terms used in this do
               Each received <abbr class="dyn-abbr"><a href="#abbr_MKPDU">MKPDU</a></abbr> that is validated as specified in this clause and verified as specified in 
               <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1X-2010 Section 9.4.1 shall be decoded as specified in <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1X-2010 Section 11.11.4.
             </div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_MKA_EXT.1.1">FCS_MKA_EXT.1.1</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_MKA_EXT.1.2">FCS_MKA_EXT.1.2</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_MKA_EXT.1.3">FCS_MKA_EXT.1.3</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the methods that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements to provide assurance of <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> integrity, 
+                  including the use of an <abbr class="dyn-abbr"><a href="#abbr_ICV">ICV</a></abbr> and the ability to use a <abbr class="dyn-abbr"><a href="#abbr_KDF">KDF</a></abbr> to derive an <abbr class="dyn-abbr"><a href="#abbr_ICK">ICK</a></abbr>. 
+                </p>
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this element.
+                </p>
+              </div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following tests:
+                  <span class="testlist-"><ul>
+                    <li class="test-"><span id="_t_11">Test 11<a href="#_t_11" class="definition"></a></span>:
+      
+                      The evaluator shall transmit <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> traffic (MKPDUs) to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from an <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr>-capable peer in the operational environment. 
+                      The evaluator shall verify via packet captures, audit logs, or both that the last 16 octets of the MKPDUs in the 
+                      received traffic do not appear to be predictable.
+                    </li>
+                    <li class="test-"><span id="_t_12">Test 12<a href="#_t_12" class="definition"></a></span>:
+      
+                      The evaluator shall transmit valid <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from an <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr>-capable peer in the operational environment that is routed 
+                      through a test system set up as a man-in-the-middle. 
+                      The evaluator shall use the test system to intercept this traffic to modify one bit in a packet payload before retransmitting to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                      The evaluator shall verify that the traffic is discarded due to an integrity failure.
+                    </li>
+                  </ul></span>
+                </p>
+              </div>
+            <div class="element-activity-header"><a href="#FCS_MKA_EXT.1.4">FCS_MKA_EXT.1.4</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this element.
+                </p>
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this element.
+                </p>
+              </div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The tests below require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to be deployed in an environment with two <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peers, identified as devices B and C, 
+                  that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can communicate with. 
+                  Prior to performing these tests, the evaluator shall follow the steps in the guidance documentation to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as the 
+                  key server and principal actor (peer). The evaluator shall then perform the following tests:
+                  <span class="testlist-"><ul>
+                    <li class="test-"><span id="_t_13">Test 13<a href="#_t_13" class="definition"></a></span>:
+      
+                      The evaluator shall send a fresh <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> that includes both peers as active participants. 
+                      The evaluator shall start an <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> session between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the two active participant peers and send MKPDUs. 
+                      The evaluator shall verify from packet captures that MKPDUs are sent at least once every half-second.
+                    </li>
+                    <li class="test-"><span id="_t_14">Test 14<a href="#_t_14" class="definition"></a></span>:
+      
+                      Disconnect one of the peers. Using a man-in-the-middle device, arbitrarily introduce an artificial delay in sending a fresh <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> following 
+                      the change in the Live Peer List. 
+                      Repeat Test 1 delaying a fresh <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> Lifetime traffic and observe that the timeout of 6.0 seconds is enforced by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+                    </li>
+                  </ul></span>
+                </p>
+              </div>
+            <div class="element-activity-header"><a href="#FCS_MKA_EXT.1.5">FCS_MKA_EXT.1.5</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_MKA_EXT.1.6">FCS_MKA_EXT.1.6</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_MKA_EXT.1.7">FCS_MKA_EXT.1.7</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s compliance with <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1X-2010 and 802.1Xbx-2014 for <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr>, 
+                  including the values for <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> and Hello timeout limits and support for data delay protection. 
+                  The evaluator shall also verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_PAE">PAE</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to establish unique CAs with individual peers 
+                  and group CAs using a group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr> such that a new group <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> is distributed every time the group’s membership changes. 
+                  The evaluator shall also verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the invalid MKPDUs that are discarded automatically by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
+                  in a manner that is consistent with the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, and that valid MKPDUs are decoded in a manner consistent with <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1X-2010 section 11.11.4.
+                </p>
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  The evaluator shall verify that the guidance documentation provides instructions on how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to act as the key server 
+                  in an environment with multiple <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable devices.
+                </p>
+              </div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The tests below require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to be deployed in an environment with two <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peers, identified as devices B and C, 
+                  that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can communicate with. 
+                  Prior to performing these tests, the evaluator shall follow the steps in the guidance documentation to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as the 
+                  key server and principal actor (peer). The evaluator shall then perform the following tests:
+                  <span class="testlist-"><ul>
+                    <li class="test-"><span id="_t_15">Test 15<a href="#_t_15" class="definition"></a></span>:
+      
+                      The evaluator shall perform the following steps: <ol type="1">
+                        <li>Load one <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> onto the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and device B and a second <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> onto the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and device C. This defines two pairwise CAs.</li>
+                        <li>Generate a group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr> for the group of three devices using ieee8021XKayCreateNewGroup.</li>
+                        <li>Observe via packet capture that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> distributes the group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr> to the two peers, protected by AES key wrap using their respective PSKs.</li>
+                        <li>Verify that B can form an <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr> with C and connect securely.</li>
+                        <li>Disable the <abbr class="dyn-abbr"><a href="#abbr_KaY">KaY</a></abbr> functionality of device C using ieee8021XPaePortKayMkaEnable.</li>
+                        <li>Generate a group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr> for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and B using ieee8021XKayCreateNewGroup and observe they can connect.</li>
+                        <li>The evaluator shall have B attempt to connect to C and observe this fails.</li>
+                        <li>Re-enable the <abbr class="dyn-abbr"><a href="#abbr_KaY">KaY</a></abbr> functionality of device C.</li>
+                        <li>Invoke ieee8021XKayCreateNewGroup again.</li>
+                        <li>Verify that both the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can connect to C and that B can connect to C.</li>
+                      </ol>
+                    </li>
+                    <li class="test-"><span id="_t_16">Test 16<a href="#_t_16" class="definition"></a></span>:
+      
+                      The evaluator shall start an <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> session between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the two environmental <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> peers and then perform the following steps:
+                      <ol type="1">
+                        <li>Send an <abbr class="dyn-abbr"><a href="#abbr_MKPDU">MKPDU</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s individual <abbr class="dyn-abbr"><a href="#abbr_MAC">MAC</a></abbr> address from a peer. Verify the frame is dropped and logged.</li>
+                        <li>Send an <abbr class="dyn-abbr"><a href="#abbr_MKPDU">MKPDU</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that is less than 32 octets long. Verify the frame is dropped and logged.</li>
+                        <li>Send an <abbr class="dyn-abbr"><a href="#abbr_MKPDU">MKPDU</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> whose length in octets is not a multiple of four. Verify the frame is dropped and logged.</li>
+                        <li>Send an <abbr class="dyn-abbr"><a href="#abbr_MKPDU">MKPDU</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that is one byte short. Verify the frame is dropped and logged.</li>
+                        <li>Send an <abbr class="dyn-abbr"><a href="#abbr_MKPDU">MKPDU</a></abbr> to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with unknown Agility Parameter. Verify the frame is dropped and logged.</li>
+                      </ol>
+                    </li>
+                  </ul></span>
+                </p>
+              </div>
+            </div></div></div>
      
       
 
@@ -1250,7 +1599,49 @@ The following sections list Common Criteria and technology terms used in this do
               The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author specifies whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> merely accepts bit-based PSKs or if it is also capable of generating them. 
               If it generates them, the requirement specifies that they must be generated using the RBG provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_PSK_EXT.1">FIA_PSK_EXT.1</a></div>
+            
+            
+            
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+              <p>
+                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure it describes the process by which the bit-based PSKs are generated 
+                (if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports this functionality), and confirm that this process uses the RBG specified in FCS_RBG_EXT.1.
+              </p>
+            </div><div class="eacategory">Guidance</div><div class="ea">
+              <p>
+                The evaluator shall examine the operational guidance to determine that it provides guidance to administrators on the composition of strong PSKs, 
+                and (if the selection indicates keys of various lengths can be entered) that it provides information on the range of lengths supported. 
+              </p><p>
+                The evaluator shall confirm the operational guidance contains instructions for either entering bit-based PSKs for each protocol 
+                identified in the requirement, generating a bit-based <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr>, or both. 
+              </p>
+            </div><div class="eacategory">Tests</div><div class="ea">
+              <p>
+                The evaluator shall also perform the following tests for each protocol (or instantiation of a protocol, 
+                if performed by a different implementation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>). Note that one or more of these tests can be performed with a single test case. 
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_17">Test 17<a href="#_t_17" class="definition"></a></span>:
+      
+                    (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports PSKs of multiple lengths) The evaluator shall use the minimum length, 
+                    the maximum length, a length inside the allowable range, and invalid lengths beyond the supported range (both higher and lower). 
+                    The minimum, maximum, and included length tests should be successful, and the invalid lengths must be rejected by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                  </li>
+                  <li class="test-"><span id="_t_18">Test 18<a href="#_t_18" class="definition"></a></span>:
+      
+                    (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not generate bit-based PSKs) The evaluator shall obtain a bit-based <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> of the appropriate length 
+                    and enter it according to the instructions in the operational guidance. 
+                    The evaluator shall then demonstrate that a successful protocol negotiation can be performed with the key. 
+                  </li>
+                  <li class="test-"><span id="_t_19">Test 19<a href="#_t_19" class="definition"></a></span>:
+      
+                    (conditional, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can generate bit-based PSKs) The evaluator shall generate a bit-based <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> of the appropriate length 
+                    and use it according to the instructions in the operational guidance. 
+                    The evaluator shall then demonstrate that a successful protocol negotiation can be performed with the key.
+                  </li>
+                </ul></span>
+              </p>
+            </div></div></div></div>
 
       
       
@@ -1280,7 +1671,73 @@ The following sections list Common Criteria and technology terms used in this do
 			    If a selection containing “group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>” is chosen in <a href="#FCS_MKA_EXT.1.5">FCS_MKA_EXT.1.5</a>, then “Cause key server to generate a new group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>…” must be selected.
 			    </p>
 			  </span></div></div></div>
-		</div>
+		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FMT_SMF.1/MACSEC">FMT_SMF.1/MACSEC</a></div>
+			  
+			  
+			  
+			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+			    <p>
+			      The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to provide the management functions defined in this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
+			    </p>
+			  </div><div class="eacategory">Guidance</div><div class="ea">
+			    <p>
+			      The evaluator shall examine the operational guidance to determine that it provides instructions on how to perform each of the management functions defined in this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
+			    </p>
+			  </div><div class="eacategory">Tests</div><div class="ea">
+			    <p>
+			      The evaluator shall set up an environment where the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can connect to two other <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> devices, identified as devices B and C, 
+			      with the ability of PSKs to be distributed between them. 
+			      The evaluator shall configure the devices so that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will be elected key server and principal actor, i.e., has highest key server priority.
+			    </p><p>
+			      The evaluator shall follow the relevant operational guidance to perform the tests listed below. 
+			      Note that if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> claims multiple management interfaces, the tests should be performed for each interface that supports the functions.
+			    </p>
+			    <span class="testlist-"><ul>
+			      <li class="test-"><span id="_t_20">Test 20<a href="#_t_20" class="definition"></a></span>:
+      
+			        The evaluator shall connect to the <abbr class="dyn-abbr"><a href="#abbr_PAE">PAE</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and install a <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr>. The evaluator shall then specify a <abbr class="dyn-abbr"><a href="#abbr_CKN">CKN</a></abbr> and that the <abbr class="dyn-abbr"><a href="#abbr_PSK">PSK</a></abbr> is to be used as a <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>.
+			        <ul>
+			        <li>Repeat this test for both 128-bit and 256-bit key sizes.</li>
+			        <li>Repeat this test for a <abbr class="dyn-abbr"><a href="#abbr_CKN">CKN</a></abbr> of valid length (1-32 octets), and observe success.</li>
+			        <li>Repeat this test again for <abbr class="dyn-abbr"><a href="#abbr_CKN">CKN</a></abbr> of invalid lengths zero and 33, and observe failure.</li>
+			        </ul>
+			      </li>
+			      <li class="test-"><span id="_t_21">Test 21<a href="#_t_21" class="definition"></a></span>:
+      
+			        The evaluator shall test the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to enable and disable <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> participants using the management function specified in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+			        The evaluator shall install PSKs in devices B and C, and take any necessary additional steps to create corresponding <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> participants. 
+			        The evaluator shall disable the <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> participant on device C, then observe that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can communicate with B but neither the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> nor B can communicate with device C. 
+			        The evaluator shall re-enable the <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> participant of device B and observe that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is now able to communicate with devices B and C.
+			      </li>
+			      <li class="test-"><span id="_t_22">Test 22<a href="#_t_22" class="definition"></a></span>:
+      
+			        For <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> using only PSKs, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> should be the key server in both tests and only one peer (B) needs to be tested. The tests are:
+			        <span class="testlist-"><ul>
+			          <li class="test-"><span id="_t_23">Test 22.1<a href="#_t_23" class="definition"></a></span>:
+      
+			            Switch to unexpired <abbr class="dyn-abbr"><a href="#abbr_CKN">CKN</a></abbr>: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and Peer B have CKN1(10 minutes) and CKN2. 
+			            CKN2 can either be configured with a longer overlapping lifetime (20 minutes) 
+			            or be configured with a lifetime starting period of more than 10 minutes after the CKN1 start. 
+			            The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and Peer B start using CKN1 and after 10 minutes, verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> expires SAK1. 
+			            This can be verified by either 1) seeing the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> immediately distribute a new <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> to the peer if the lifetime of CKN2 overlaps CKN1, 
+			            or 2) by terminating the connection with CKN1 and distributing a new <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> once the lifetime period of CKN2 begins.
+			          </li>
+			          <li class="test-"><span id="_t_24">Test 22.2<a href="#_t_24" class="definition"></a></span>:
+      
+			            Reject <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> with expired <abbr class="dyn-abbr"><a href="#abbr_CKN">CKN</a></abbr>: <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has CKN1 (10 minutes). 
+			            Peer B has CKN1 (20 minutes). 
+			            <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and Peer B start using CKN1 and after 10 minutes, 
+			            verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> rejects (or ignores) peer’s request to use (or distribute) a <abbr class="dyn-abbr"><a href="#abbr_SAK">SAK</a></abbr> using CKN1.
+			          </li>
+			        </ul></span>
+			      </li>
+			      <li class="test-"><span id="_t_25">Test 23<a href="#_t_25" class="definition"></a></span>:
+      
+			        (conditional, "Cause key server to generate a new group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>..." is selected) The evaluator shall connect to the <abbr class="dyn-abbr"><a href="#abbr_PAE">PAE</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
+			        set the management function specified in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> (e.g., set ieee8021XKayCreateNewGroup to true), and observe that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> distributes a new group <abbr class="dyn-abbr"><a href="#abbr_CAK">CAK</a></abbr>.
+			      </li>
+			    </ul></span>
+			  </div></div></div></div>
         
       
       <h3 id="man_fpt" class="indexable" data-level="3">5.2.5 Protection of the TSF (FPT)</h3>
@@ -1304,7 +1761,25 @@ The following sections list Common Criteria and technology terms used in this do
               at any other time. This requirement does not prevent the device from providing indication that these exist, 
               are in use, or are still valid. It does, however, restrict the reading of the values outright.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_CAK_EXT.1">FPT_CAK_EXT.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it details how CAKs are stored and that they are unable to be viewed 
+                  through an interface designed specifically for that purpose. 
+                  If these values are not stored in plaintext, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall describe how they are protected or obscured.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  There are no test EAs for this component.
+                </p>
+              </div></div></div></div>
         
         <div class="comp" id="FPT_FLS.1"><h4>FPT_FLS.1 Failure with Preservation of Secure State</h4> 
           
@@ -1321,7 +1796,38 @@ The following sections list Common Criteria and technology terms used in this do
               in the event of a <abbr class="dyn-abbr"><a href="#abbr_POST">POST</a></abbr> failure on a redundant component, the specific component that received the <abbr class="dyn-abbr"><a href="#abbr_POST">POST</a></abbr> failure will be shut down.  
               For conformance with other <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules it might be a requirement for the fail-secure state to be “shut down.”
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_FLS.1">FPT_FLS.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it indicates that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will shut down if a self-test failure is detected. 
+                  For <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> with redundant failover capability, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it indicates that the failed components 
+                  will shut down if a self-test failure is detected.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  The evaluator shall examine the operational guidance to verify that it describes the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> following a self-test failure
+                  and actions that an administrator should take if it occurs.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The following test may require the vendor to provide access to a test platform that provides the evaluator with the ability to modify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> internals 
+                  in a manner that is not provided to end customers:
+                  <span class="testlist-"><ul>
+                    <li class="test-"><span id="_t_26">Test 24<a href="#_t_26" class="definition"></a></span>:
+      
+                      The evaluator shall modify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> in a way that will cause a self-test failure to occur. 
+                      The evaluator shall determine that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shuts down and that the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is consistent with the operational guidance. 
+                      The evaluator shall repeat this test for each type of self-test that can be deliberately induced to fail. 
+                      For <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> with redundant failover capability, the evaluator shall determine that the failed components shut down 
+                      and the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is consistent with the operational guidance. 
+                      For each component, the evaluator shall repeat each type of self-test that can be deliberately induced to fail.
+                    </li>
+                  </ul></span>
+                </p>
+              </div></div></div></div>
         
         
         <div class="comp" id="FPT_RPL.1"><h4>FPT_RPL.1 Replay Detection</h4> 
@@ -1337,7 +1843,51 @@ The following sections list Common Criteria and technology terms used in this do
             As per <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1AE-2018, replay is detected by examining the <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> value that is embedded in the SecTag
             that is at the header of the <abbr class="dyn-abbr"><a href="#abbr_MPDU">MPDU</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> is encoded in octets 5 through 8 of the SecTag to support replay protection.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_RPL.1">FPT_RPL.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it describes how replay is detected for MPDUs and how replayed MPDUs are handled by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following tests:
+                </p><p>
+                  Before performing each test, the evaluator shall successfully establish a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> channel between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peer 
+                  in the operational environment sending enough traffic to see it working and verify the <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> values increase for each direction.
+                </p>
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_27">Test 25<a href="#_t_27" class="definition"></a></span>:
+      
+                    The evaluator shall set up a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> connection with an entity in the operational environment. 
+                    The evaluator shall then capture traffic sent from this remote entity to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                    The evaluator shall retransmit copies of this traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in order to impersonate the remote entity where the <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> values 
+                    in the SecTag of these packets are less than the lowest acceptable <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> for the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>. 
+                    The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not take action in response to receiving these packets 
+                    and that the audit log indicates that the replayed traffic was discarded.
+                    <p>
+                    The evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> connection between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a test system. 
+                    The evaluator shall then capture traffic sent from the test system to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. 
+                    The evaluator shall retransmit copies of this traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in order to impersonate the remote entity where the <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> values in the SecTag 
+                    of these packets are less than the lowest acceptable <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> for the <abbr class="dyn-abbr"><a href="#abbr_SA">SA</a></abbr>. 
+                    The evaluator shall observe that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not take action in response to receiving these packets 
+                    and that the audit log indicates that the replayed traffic was discarded.
+                    </p>
+                  </li>
+                  <li class="test-"><span id="_t_28">Test 26<a href="#_t_28" class="definition"></a></span>:
+      
+                    The evaluator shall capture frames during an <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> session and record the lowest <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> observed in a particular time range. 
+                    The evaluator shall then send a frame with a lower <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr>, and then verify that this frame is dropped. 
+                    The evaluator shall verify that the device logged this event.
+                  </li>
+                </ul></span>
+              </div></div></div></div>
         
       
  
@@ -1358,7 +1908,9 @@ The following sections list Common Criteria and technology terms used in this do
 	        <div class="element"><div class="reqid" id="FTP_ITC.1.3/MACSEC"><a href="#FTP_ITC.1.3/MACSEC" class="abbr">FTP_ITC.1.3/MACSEC</a></div><div class="reqdesc">
 	            The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall initiate communication via the trusted channel for [<i>communications with <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> peers that require the use of <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr></i>].
 	          </div></div>
-	      </div>
+	      <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FTP_ITC.1/MACSEC">FTP_ITC.1/MACSEC</a></div>
+	            This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is addressed through evaluation of <a href="#FCS_MACSEC_EXT.1">FCS_MACSEC_EXT.1</a> through <a href="#FCS_MACSEC_EXT.4">FCS_MACSEC_EXT.4</a>.
+	          </div></div></div>
 	    
       
         
@@ -1550,7 +2102,35 @@ The following sections list Common Criteria and technology terms used in this do
     </span><span class="note">
              This requirement applies to an administrator at a local console. This anti-hammering requirement is to slow down brute force password guessing.
            </span></div></div></div>
-       </div>
+       <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a></div>
+             
+             
+             
+           <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+               <p>
+                 The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to limit the rate at which authentication attempts 
+                 can be made at the local console following three successive failed attempts.
+               </p>
+             </div><div class="eacategory">Guidance</div><div class="ea">
+               <p>
+                 If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires configuration to be put into a state where authentication attempt limiting is enforced, 
+                 the evaluator shall review the operational guidance to verify that it describes the procedures to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into this state.
+               </p>
+             </div><div class="eacategory">Tests</div><div class="ea">
+               <p>
+                 <span class="testlist-"><ul>
+                   <li class="test-"><span id="_t_29">Test 27<a href="#_t_29" class="definition"></a></span>:
+      
+                     The evaluator shall follow the operational guidance to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into a state that enforces authentication attempt limiting (if applicable). 
+                     The evaluator shall successfully log in to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> at a local console, log back out, and immediately log back in 
+                     in order to demonstrate that successive authentication attempts can be made in under a minute. 
+                     The evaluator shall then enter an incorrect password three consecutive times for the same account to trigger authentication attempt limiting. 
+                     Once the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is in this state, the evaluator shall attempt to log in to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> periodically over several attempts of 
+                     varying time intervals and observe that authentication attempts cannot be made any more frequently than once per minute.
+                   </li>
+                 </ul></span>
+               </p>
+             </div></div></div></div>
        
       
      <h3 id="opt_fpt" class="indexable" data-level="3">A.1.2 Protection of the TSF (FPT)</h3>
@@ -1567,7 +2147,32 @@ The following sections list Common Criteria and technology terms used in this do
          <div class="element"><div class="reqid" id="FPT_DDP_EXT.1.1"><a href="#FPT_DDP_EXT.1.1" class="abbr">FPT_DDP_EXT.1.1</a></div><div class="reqdesc">
              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enable data delay protection for <abbr class="dyn-abbr"><a href="#abbr_MKA">MKA</a></abbr> that ensures data frames protected by <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> are not delayed by more than two seconds.
            </div></div>
-       </div>
+       <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_DDP_EXT.1">FPT_DDP_EXT.1</a></div>
+             
+             
+             
+           <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+               <p>
+                 There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> EAs for this component.
+               </p>
+             </div><div class="eacategory">Guidance</div><div class="ea">
+               <p>
+                 There are no guidance EAs for this component.
+               </p>
+             </div><div class="eacategory">Tests</div><div class="ea">
+               <p>
+                 The test below requires the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to be deployed in an environment with two <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>-capable peers, identified as devices B and C, that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can communicate with. 
+                 Prior to performing this test, the evaluator shall follow the steps in the guidance documentation to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as the key server and principal actor. 
+                 The evaluator shall then perform the following test:
+               </p>
+               <span class="testlist-"><ul>
+                 <li class="test-"><span id="_t_30">Test 28<a href="#_t_30" class="definition"></a></span>:
+      
+                   The evaluator shall use a peer device to send traffic to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, arbitrarily inducing artificial delays in their transmission using a man-in-the-middle setup. 
+                   The evaluator shall observe that traffic delayed longer than 2.0 seconds is rejected.
+                 </li>
+               </ul></span>
+             </div></div></div></div>
        
        
        
@@ -1592,7 +2197,43 @@ The following sections list Common Criteria and technology terms used in this do
              For <abbr class="dyn-abbr"><a href="#abbr_XPN">XPN</a></abbr> the full 64-bit <abbr class="dyn-abbr"><a href="#abbr_PN">PN</a></abbr> is recovered using the 32 least significant bits conveyed in the SecTag and 
              the 32 most significant bits are recovered on receipt of a frame.
            </span></div></div></div>
-       </div>
+       <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_RPL_EXT.1">FPT_RPL_EXT.1</a></div>
+           
+           
+           
+           <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+             <p>
+               The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it includes <abbr class="dyn-abbr"><a href="#abbr_XPN">XPN</a></abbr> in the description of how replay 
+               is detected for MPDUs and how replayed MPDUs are handled by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+             </p>
+           </div><div class="eacategory">Guidance</div><div class="ea">
+             <p>
+               If the use of <abbr class="dyn-abbr"><a href="#abbr_XPN">XPN</a></abbr> or the <abbr class="dyn-abbr"><a href="#abbr_XPN">XPN</a></abbr> ciphersuites used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are configurable, 
+               the evaluator shall examine the guidance documentation to determine that it describes how this is configured.
+             </p>
+           </div><div class="eacategory">Tests</div><div class="ea">
+             <p>
+               The evaluator shall perform the following tests:
+             </p>
+             <span class="testlist-"><ul>
+               <li class="test-"><span id="_t_31">Test 29<a href="#_t_31" class="definition"></a></span>:
+      
+                 The evaluator shall establish a <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> connection between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a test system using the GCM-AES-XPN-128 ciphersuite if selected, 
+                 otherwise use GCM-AES-XPN-256. The evaluator shall write or obtain a script to send a small frame with a known payload (such as five bytes of all zeroes) to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+                 The evaluator shall activate a packet capture tool on the connection between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and the test system 
+                 and then use the test system to send this frame to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 4,294,967,267 (2^32 + 1) times. 
+                 The evaluator shall use the packet capture tool to verify that for the first and last frames sent, the least significant 32 bits are the same. 
+                 This means the most significant bits should have been incremented during this test. Since the <abbr class="dyn-abbr"><a href="#abbr_IV">IV</a></abbr> is different the two encrypted frames should be different. 
+                 <p>
+                 Note that if traffic is sent to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> at a rate of 10 GB/s, this will take approximately five minutes as per <abbr class="dyn-abbr"><a href="#abbr_IEEE">IEEE</a></abbr> 802.1AE-2018.
+                 </p>
+               </li>
+               <li class="test-"><span id="_t_32">Test 30<a href="#_t_32" class="definition"></a></span>:
+      
+                 If both ciphersuites were selected, then the evaluator shall reconfigure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the second ciphersuite and rerun Test 1 to demonstrate support for both ciphersuites.
+               </li>
+             </ul></span>
+           </div></div></div></div>
    
      
    <h3 id="opt_ftp" class="indexable" data-level="3">A.1.3 Trusted Path/Channels (FTP)</h3>
@@ -1616,7 +2257,17 @@ The following sections list Common Criteria and technology terms used in this do
            solely through the trusted path defined in FTP_TRP.1/Admin in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
            If <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr> is selected, the <a href="#FCS_SNMP_EXT.1">FCS_SNMP_EXT.1</a> and <a href="#FMT_SNMP_EXT.1">FMT_SNMP_EXT.1</a> <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> must be claimed.
          </span></div></div></div>
-     </div>
+     <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FTP_TRP.1/MACSEC">FTP_TRP.1/MACSEC</a></div>
+           
+             <p>
+             If “<abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>” is selected in <a href="#FTP_TRP.1.1/MACSEC">FTP_TRP.1.1/MACSEC</a>, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is addressed through evaluation of <a href="#FCS_MACSEC_EXT.1">FCS_MACSEC_EXT.1</a> through <a href="#FCS_MACSEC_EXT.4">FCS_MACSEC_EXT.4</a>.
+             </p><p>
+             If “SNMPv3” is selected in <a href="#FTP_TRP.1.1/MACSEC">FTP_TRP.1.1/MACSEC</a>, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is addressed through evaluation of <a href="#FCS_SNMP_EXT.1">FCS_SNMP_EXT.1</a> and <a href="#FMT_SNMP_EXT.1">FMT_SNMP_EXT.1</a>.
+             </p><p>
+             For these EAs, the evaluator shall ensure that the testing is performed on the management interface (e.g., if “<abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr>” is selected in <a href="#FTP_TRP.1.1/MACSEC">FTP_TRP.1.1/MACSEC</a>, the evaluator shall repeat the testing as needed for the management interface and not rely on the testing of an outbound connection to an arbitrary <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> peer).
+             </p>
+           
+         </div></div></div>
    
      
    <h2 id="obj-sfrs" class="indexable" data-level="2">A.2 Objective Requirements
@@ -1668,7 +2319,120 @@ The following sections list Common Criteria and technology terms used in this do
                 <li>Enableor disable <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr> key</li>
               </ol>
             </div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.1">FCS_DEVID_EXT.1.1</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.2">FCS_DEVID_EXT.1.2</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.3">FCS_DEVID_EXT.1.3</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.4">FCS_DEVID_EXT.1.4</a></div>
+              
+            <div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.5">FCS_DEVID_EXT.1.5</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements and validates DevIDs.
+                </p>
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this element.
+                </p>
+              </div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following tests:
+                </p>
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_33">Test 31<a href="#_t_33" class="definition"></a></span>:
+      
+                    <ol type="1">
+                      <li>The evaluator shall install a <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr> in the Supplicant that has one octet changed to invalidate the signature.</li>
+                      <li>The evaluator shall cause the Supplicant to initiate an <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> session with the Authenticator.</li>
+                      <li>The evaluator shall verify that the connection fails.</li>
+                    </ol>
+                  </li>
+                  <li class="test-"><span id="_t_34">Test 32<a href="#_t_34" class="definition"></a></span>:
+      
+                    <ol type="1">
+                      <li>The evaluator shall install a <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr> in the Supplicant with a valid signature but from an issuer not recognized by the Authenticator.</li>
+                      <li>The evaluator shall cause the Supplicant to initiate an <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> session with the Authenticator.</li>
+                      <li>The evaluator shall verify that the connection fails.</li>
+                    </ol>
+                  </li>
+                  <li class="test-"><span id="_t_35">Test 33<a href="#_t_35" class="definition"></a></span>:
+      
+                    <ol type="1">
+                      <li>The evaluator shall cause the Supplicant to initiate an <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> session with the Authenticator.</li>
+                      <li>The evaluator shall intercept, manipulate, and retransmit the packets sent by the Supplicant 
+                        so that the presented name differs from the name in the <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr>.</li>
+                      <li>The evaluator shall verify that the connection fails.</li>
+                    </ol>
+                  </li>
+                </ul></span>
+              </div>
+            <div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.6">FCS_DEVID_EXT.1.6</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to support mutual authentication using DevIDs.
+                </p>
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this element.
+                </p>
+              </div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following test:
+                </p>
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_36">Test 34<a href="#_t_36" class="definition"></a></span>:
+      
+                    <ul>
+                      <li>Step 1: The evaluator shall cause the Supplicant to initiate an <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> session with the Authenticator in which mutual authentication is requested.</li>
+                      <li>Step 2: The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> packet with a Client Certificate Request message is sent and that the Supplicant responds with its <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr>.</li>
+                    </ul>
+                  </li>
+                </ul></span>
+              </div>
+            <div class="element-activity-header"><a href="#FCS_DEVID_EXT.1.7">FCS_DEVID_EXT.1.7</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to support the signing, 
+                  enable and disable <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr> credential, and enable and disable <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr> key operations.
+                </p>
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this element.
+                </p>
+              </div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following tests:
+                </p>
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_37">Test 35<a href="#_t_37" class="definition"></a></span>:
+      
+                    <ol type="1">
+                      <li>The evaluator shall disable the Supplicant public key by setting <abbr class="dyn-abbr"><a href="#abbr_MIB">MIB</a></abbr> object devIDPublicKeyEnabled to false.</li>
+                      <li>The evaluator shall cause Supplicant to initiate an <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> session with the Authenticator.</li>
+                      <li>The evaluator shall verify that the Supplicant is unable to authenticate.</li>
+                      <li>The evaluator shall re-enable the public key, then verify the Supplicant can authenticate.</li>
+                    </ol>
+                  </li>
+                  <li class="test-"><span id="_t_38">Test 36<a href="#_t_38" class="definition"></a></span>:
+      
+                    <ol type="1">
+                      <li>The evaluator shall disable the Supplicant <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr> by setting <abbr class="dyn-abbr"><a href="#abbr_MIB">MIB</a></abbr> object devIDCredentialEnabled to false.</li>
+                      <li>The evaluator shall cause Supplicant to initiate an <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> session with the Authenticator.</li>
+                      <li>The evaluator shall verify that the Supplicant is unable to authenticate.</li>
+                      <li>The evaluator shall re-enable the <abbr class="dyn-abbr"><a href="#abbr_DevID">DevID</a></abbr>, then verify the Supplicant can authenticate.</li>
+                    </ol>
+                  </li>
+                </ul></span>
+              </div>
+            </div></div></div>
         
         
         <div class="comp" id="FCS_EAPTLS_EXT.1"><h4>FCS_EAPTLS_EXT.1 EAP-TLS Protocol</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
@@ -1695,7 +2459,36 @@ The following sections list Common Criteria and technology terms used in this do
               <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8996 deprecates TLS 1.1.
               </p>
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_EAPTLS_EXT.1">FCS_EAPTLS_EXT.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to support <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr>.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall set up an environment where the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can connect to a second <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> device, identified as device B. 
+                  The evaluator shall configure the devices to use <abbr class="dyn-abbr"><a href="#abbr_EAP-TLS">EAP-TLS</a></abbr> as the authentication method.  
+                  The evaluator shall set up an authentication server, which may run on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or be a separate device that connects to the test environment. 
+                </p><p>
+                  The evaluator shall then perform the following modifications to Request <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> packets from device B to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>: 
+                  <ol type="1">
+                    <li>The evaluator shall increment the length field of a Request <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> packet and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not respond (i.e., silently discards the packet).</li>
+                    <li>The evaluator shall append at least one octet to the end of a Request <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> packet and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> responds as if there was no change 
+                      (i.e., ignores the additional octets).</li>
+                    <li>The evaluator shall modify the code field of a Request <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr> packet to 5 and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not respond (i.e., silently discards the packet).</li>
+                  </ol>
+                </p>
+                <p>
+                  Testing of the security of the (D)TLS protocol is performed as part of FCS_(D)TLSS_EXT.1 and .2 or FCS_(D)TLSC_EXT.1 and .2 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.
+                </p>
+              </div></div></div></div>
         
         
         
@@ -1721,7 +2514,36 @@ The following sections list Common Criteria and technology terms used in this do
               </p>
               
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_SNMP_EXT.1">FCS_SNMP_EXT.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to support <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr>-TLS.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  There are no guidance EAs for this component.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following tests:  
+                </p>
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_39">Test 37<a href="#_t_39" class="definition"></a></span>:
+      
+                    The evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using one of the <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr>-TLS ciphersuites supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.  The evaluator shall confirm that the connection is successful.
+                  </li>
+                  <li class="test-"><span id="_t_40">Test 38<a href="#_t_40" class="definition"></a></span>:
+      
+                    The evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using an <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr>-TLS ciphersuite not supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.  The evaluator shall confirm that the connection is not successful.  
+                  </li>
+                </ul></span>
+                <p>
+                  Testing of the security of the (D)TLS protocol is performed as part of testing FCS_(D)TLSS_EXT.1 and .2, or FCS_(D)TLSC_EXT.1 and .2 from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.
+                </p>
+              </div></div></div></div>
         
        
       <h2 id="sel_fmt" class="indexable" data-level="2">B.2 Security Management (FMT)</h2>
@@ -1750,7 +2572,42 @@ The following sections list Common Criteria and technology terms used in this do
     </span><span class="note">
               FIA_PMG_EXT.1 is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> so a conformant <abbr class="dyn-abbr"><a href="#abbr_MACsec">MACsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will include this dependency.
             </span></div></div></div>
-        </div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FMT_SNMP_EXT.1">FMT_SNMP_EXT.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                <p>
+                  The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine that it describes the ability of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to support SNMPv3 
+                  for remote management for connections to authorized IT entities (per <a href="#FTP_TRP.1/MACSEC">FTP_TRP.1/MACSEC</a>),
+                  and that it can apply appropriate password restrictions to this interface.
+                </p>
+              </div><div class="eacategory">Guidance</div><div class="ea">
+                <p>
+                  If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires configuration to be put into a state where SNMPv3 is the only version of <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr> that is accepted, 
+                  the evaluator shall verify that the operational guidance provides instructions on how to disable unsupported versions of <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr>.
+                </p>
+              </div><div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in accordance with its operational guidance to accept no versions of <abbr class="dyn-abbr"><a href="#abbr_SNMP">SNMP</a></abbr> other than SNMPv3 (if applicable). 
+                  The evaluator shall then perform the following tests:  
+                </p>
+                <span class="testlist-"><ul>
+                  <li class="test-"><span id="_t_41">Test 39<a href="#_t_41" class="definition"></a></span>:
+      
+                    The evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using SNMPv2 and observe that the connection is not successful.
+                  </li>
+                  <li class="test-"><span id="_t_42">Test 40<a href="#_t_42" class="definition"></a></span>:
+      
+                    The evaluator shall attempt to connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using SNMPv1 and observe that the connection is not successful.  
+                  </li>
+                </ul></span>
+                <p>
+                  Testing of the security of the SNMPv3 trusted path is done as part of <a href="#FCS_SNMP_EXT.1">FCS_SNMP_EXT.1</a>. 
+                  Testing of the password complexity policy is performed as part of FIA_PMG_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                  Testing of the ability to manage the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> using SNMPv3 is carried out as part of <a href="#FMT_SMF.1/MACSEC">FMT_SMF.1/MACSEC</a>.
+                </p>
+              </div></div></div></div>
         
       
 
