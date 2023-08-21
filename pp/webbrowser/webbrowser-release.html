@@ -92,7 +92,9 @@ function showTarget(id){
     #toc a{
         display: block;
     }
-
+    .td-{
+        display: block;
+    }
     svg{
       width: 100%;
     }
@@ -146,7 +148,7 @@ function showTarget(id){
        max-width: 15px;
     }
 
-    a.definition{
+    a.defined{
       color: inherit;
       text-decoration: inherit;
     }
@@ -255,6 +257,21 @@ function showTarget(id){
        background-color:#F4F4F4;
    }
 
+   table.ecd_heir_dep{
+       width: 100%;
+   }
+   table.ecd_heir_dep tr{
+       background-color: inherit;
+   }
+       
+   table.ecd_heir_dep tr :first-child{
+       white-space: nowrap;
+   }
+   table.ecd_heir_dep tr :last-child{
+       width: 100%;
+   }
+
+       
    .dependent{
        border: 1px solid gray;
        border-radius: 1px
@@ -336,6 +353,10 @@ function showTarget(id){
 	}
 
    
+    .comp .description{
+        padding-bottom: 20px;
+        display: block;
+    }    
    
    
           .figure{
@@ -609,36 +630,35 @@ function showTarget(id){
 
           }
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">PP-Module for Web Browsers</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
-      Version: 1.0<br/>2021-06-18<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2021-06-18</td><td>Initial release as <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></td></tr>
-</table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOEboundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#usecases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Description" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#objectivesEnvironment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#SOR" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#Security_Requirements" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#secreq-app" style="text-indent:10px">5.1<span>App PP
+      Version: 1.1<br/>2023-08-25<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>1.0</td><td>2021-06-18</td><td>Initial release as <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr></td></tr>
+<tr><td>1.1</td><td>2023-08-25</td><td>Updates to conform to <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>:2022</td></tr>
+</table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOEboundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#usecases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Description" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#objectivesEnvironment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#SOR" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#Security_Requirements" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#secreq-AppPP" style="text-indent:10px">5.1<span>App PP
        Security Functional Requirements Direction
-    </span></a><a href="#modsfr-app" style="text-indent:20px">5.1.1<span> Modified SFRs </span></a><a href="#mod_fcs" style="text-indent:30px">5.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#mod_fia" style="text-indent:30px">5.1.1.2<span>Identification and Authentication (FIA)</span></a><a href="#mod_ftp" style="text-indent:30px">5.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">5.2<span>TOE Security Functional Requirements</span></a><a href="#man_fdp" style="text-indent:20px">5.2.1<span>User Data Protection (FDP)</span></a><a href="#man_fmt" style="text-indent:20px">5.2.2<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">5.2.3<span>Protection of the TSF (FPT)</span></a><a href="#obj-req-map" style="text-indent:10px">5.3<span>TOE Security Functional Requirements Rationale</span></a><a href="#mod-sars" style="text-indent:10px">5.4<span>TOE Security Assurance Requirements</span></a><a href="#mod-conrat" style="text-indent:0px">6<span>Consistency Rationale</span></a><a href="#conrat-app" style="text-indent:10px">6.1<span>
-    Protection Profile for Web Browsers</span></a><a href="#contoe-app" style="text-indent:20px">6.1.1<span>
+    </span></a><a href="#modsfr-AppPP" style="text-indent:20px">5.1.1<span> Modified SFRs </span></a><a href="#mod_fcs" style="text-indent:30px">5.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#mod_fia" style="text-indent:30px">5.1.1.2<span>Identification and Authentication (FIA)</span></a><a href="#mod_ftp" style="text-indent:30px">5.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">5.2<span>TOE Security Functional Requirements</span></a><a href="#man_fdp" style="text-indent:20px">5.2.1<span>User Data Protection (FDP)</span></a><a href="#man_fmt" style="text-indent:20px">5.2.2<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">5.2.3<span>Protection of the TSF (FPT)</span></a><a href="#obj-req-map" style="text-indent:10px">5.3<span>TOE Security Functional Requirements Rationale</span></a><a href="#mod-conrat" style="text-indent:0px">6<span>Consistency Rationale</span></a><a href="#conrat-AppPP" style="text-indent:10px">6.1<span>
+    Protection Profile for Web Browsers</span></a><a href="#contoe-AppPP" style="text-indent:20px">6.1.1<span>
 	Consistency of TOE Type
-      </span></a><a href="#consecprob-app" style="text-indent:20px">6.1.2<span>
+      </span></a><a href="#consecprob-AppPP" style="text-indent:20px">6.1.2<span>
 	Consistency of Security Problem Definition
-      </span></a><a href="#conobj-app" style="text-indent:20px">6.1.3<span>
+      </span></a><a href="#conobj-AppPP" style="text-indent:20px">6.1.3<span>
 	Consistency of Objectives
-      </span></a><a href="#conreq-app" style="text-indent:20px">6.1.4<span>
+      </span></a><a href="#conreq-AppPP" style="text-indent:20px">6.1.4<span>
 	Consistency of Requirements
       </span></a><a href="#opt-sfrs" style="text-indent:0px">Appendix A - <span>Optional SFRs</span></a><a href="#opt-sfrs" style="text-indent:10px">A.1<span>Strictly Optional Requirements
     </span></a><a href="#opt_fdp" style="text-indent:20px">A.1.1<span>User Data Protection (FDP)</span></a><a href="#obj-sfrs" style="text-indent:10px">A.2<span>Objective Requirements
-    </span></a><a href="#obj_fcs" style="text-indent:20px">A.2.1<span>Cryptographic Support (FCS)</span></a><a href="#obj_fpt" style="text-indent:20px">A.2.2<span>Protection of the TSF (FPT)</span></a><a href="#impl-dep-sfrs" style="text-indent:10px">A.3<span>Implementation-dependent Requirements
+    </span></a><a href="#obj_fcs" style="text-indent:20px">A.2.1<span>Cryptographic Support (FCS)</span></a><a href="#obj_fpt" style="text-indent:20px">A.2.2<span>Protection of the TSF (FPT)</span></a><a href="#impl-dep-sfrs" style="text-indent:10px">A.3<span>Implementation-based Requirements
     </span></a><a href="#sel-sfrs" style="text-indent:0px">Appendix B - <span>Selection-based Requirements
     </span></a><a href="#sel_fpt" style="text-indent:10px">B.1<span>Protection of the TSF (FPT)</span></a><a href="#ext-comp-defs" style="text-indent:0px">Appendix C - <span>Extended Component Definitions</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">C.1<span>Extended Components Table</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">C.2<span>Extended Component Definitions</span></a><a href="#ext-comp-FCS" style="text-indent:20px">C.2.1<span>Cryptographic Support (FCS)</span></a><a href="#ext-comp-FCS_STS_EXT" style="text-indent:30px">C.2.1.1<span>FCS_STS_EXT Strict Transport Security</span></a><a href="#ext-comp-FPT" style="text-indent:20px">C.2.2<span>Protection of the TSF (FPT)</span></a><a href="#ext-comp-FPT_AON_EXT" style="text-indent:30px">C.2.2.1<span>FPT_AON_EXT Add-Ons</span></a><a href="#ext-comp-FPT_DNL_EXT" style="text-indent:30px">C.2.2.2<span>FPT_DNL_EXT File Downloads</span></a><a href="#ext-comp-FPT_MCD_EXT" style="text-indent:30px">C.2.2.3<span>FPT_MCD_EXT Mobile Code</span></a><a href="#ext-comp-FPT_INT_EXT" style="text-indent:30px">C.2.2.4<span>FPT_INT_EXT Reputation Service Interaction</span></a><a href="#ext-comp-FMT" style="text-indent:20px">C.2.3<span>Security Management (FMT)</span></a><a href="#ext-comp-FMT_MOF_EXT" style="text-indent:30px">C.2.3.1<span>FMT_MOF_EXT Management of Functions Behavior</span></a><a href="#ext-comp-FDP" style="text-indent:20px">C.2.4<span>User Data Protection (FDP)</span></a><a href="#ext-comp-FDP_ACF_EXT" style="text-indent:30px">C.2.4.1<span>FDP_ACF_EXT Access Control Functions</span></a><a href="#ext-comp-FDP_COO_EXT" style="text-indent:30px">C.2.4.2<span>FDP_COO_EXT Cookie Blocking</span></a><a href="#ext-comp-FDP_SBX_EXT" style="text-indent:30px">C.2.4.3<span>FDP_SBX_EXT Sandboxing</span></a><a href="#ext-comp-FDP_SOP_EXT" style="text-indent:30px">C.2.4.4<span>FDP_SOP_EXT Same Origin Policy</span></a><a href="#ext-comp-FDP_STR_EXT" style="text-indent:30px">C.2.4.5<span>FDP_STR_EXT Secure Transmission of Cookie Data</span></a><a href="#ext-comp-FDP_TRK_EXT" style="text-indent:30px">C.2.4.6<span>FDP_TRK_EXT Tracking Information Collection</span></a><a href="#ext-comp-FDP_PST_EXT" style="text-indent:30px">C.2.4.7<span>FDP_PST_EXT Storage of Persistent Information</span></a><a href="#EAR" style="text-indent:0px">Appendix D - <span>Entropy Documentation and Assessment</span></a><a href="#acronyms" style="text-indent:0px">Appendix E - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix F - <span>Bibliography</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
         <h2 class="indexable" data-level="2" id="Overview">1.1 Overview</h2>
             
             
-            The scope of the Web Browser <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is to describe the security functionality of web browser applications in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] 
+            The scope of the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Web Browsers, Version 1.1 is to describe the security functionality of web browser applications in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] 
             and to define functional and assurance requirements for the product-specific capabilities of web browser applications.
             Web browsers are client applications that retrieve
             and render content provided by web servers, primarily using the hypertext transfer
             protocol (<abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr>) or <abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr> Secure (<abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>). 
             
             This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is intended for use with the following <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>: <ul>
-                <li><a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=462&amp;id=462">Protection Profile for Application Software,
-        version 
-        1.4</a></li>
+                <li><a href="#BibAppPP" class="dynref" data-format=""></a></li>
             </ul>
             <p></p> This <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> is valid because web browsers are a specific type of software application.
             
@@ -769,30 +789,39 @@ The following sections list Common Criteria and technology terms used in this do
         <h2 class="indexable" data-level="2" id="usecases">1.4 Use Cases</h2> Requirements in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> are designed
             to address the security problems in the use cases below. These use cases are
             intentionally very broad, as web browsers can be used to perform many tasks. 
-            <dl><dt id="web"> [USE CASE 1] Surfing the Web</dt><dd> Browsers are used to retrieve, display, and render content from the
+            <dl><dt id="web"> [USE CASE 1] Surfing the Web</dt><dd><span class="description"> Browsers are used to retrieve, display, and render content from the
                         web, such as websites, streaming media, images, and specialized formats
                         (e.g., Java, <abbr class="dyn-abbr"><a href="#abbr_PDF">PDF</a></abbr>). They can also be used to write content to websites (web 2.0 – e.g., Facebook). Web surfing can be done over the internet
-                        or within an intranet.</dd><dt id="admin"> [USE CASE 2] Remote Administration Client</dt><dd> Browsers are used to provide remote administration interfaces for
+                        or within an intranet.</span></dd><dt id="admin"> [USE CASE 2] Remote Administration Client</dt><dd><span class="description"> Browsers are used to provide remote administration interfaces for
                         systems such as servers, network devices, and embedded systems, to include
                         supervisory control and data acquisition (SCADA) systems, smart TVs, and
                         thermostats. As opposed to surfing the web, where the browser may be
                         interacting with untrusted content, the browser, acting as a Remote
                         Administration Client, is connecting to a server that the user
-                        trusts.</dd><dt id="content"> [USE CASE 3] Content Creation</dt><dd> Browsers are used to create content via an increasing number of
+                        trusts.</span></dd><dt id="content"> [USE CASE 3] Content Creation</dt><dd><span class="description"> Browsers are used to create content via an increasing number of
                         Software as a Service (<abbr class="dyn-abbr"><a href="#abbr_SaaS">SaaS</a></abbr>) offerings, including Microsoft Office 365,
                         Google Drive, and Adobe Creative Cloud, where user data and records are
-                        stored online.</dd></dl>
+                        stored online.</span></dd></dl>
         
     <h1 class="indexable" data-level="1" id="Conformance_Claims">2 Conformance Claims</h1>
-        <dl><dt class="cclaim,defined" id="Conformance Statement">Conformance Statement</dt><dd> This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> inherits exact conformance as required from
-                    the specified <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and
-                    <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, and Optional
-                    <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> (dated May 2017).<p></p> 
-                    No additional <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to
-                    be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> aside from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.
-                </dd><dt class="cclaim,defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is conformant to Parts 2 (extended) and 3
-                    (extended) of Common Criteria Version 3.1, Release 5 [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>].
-                </dd><dt class="cclaim,defined" id="Package Claims">Package Claims</dt><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Pacakge conformant.</dd></dl>
+        <dl><dt class="cclaim defined" id="Conformance Statement">Conformance Statement</dt><dd><span class="description">An <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must claim exact conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
+                    <br/><br/>
+                    The evaluation methods used for evaluating the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are a combination of the workunits defined in <a href="#bibCEM">[CEM]</a> as well as the
+                    Evaluation Activities for ensuring that individual <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> have sufficient level of supporting evidence in the Security Target and 
+                    guidance documentation and have been sufficiently tested by the laboratory as part of completing ATE_IND.1. Any functional packages 
+                    which this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> claims similarly contain their own Evaluation Activities that are used in this manner.
+                </span></dd><dt class="cclaim defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd><span class="description">This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>:2022, Revision 1.</span></dd><dt class="cclaim defined" id="PP Claim">PP Claim</dt><dd><span class="description">This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not claim conformance to any other Protection Profile.<p></p>
+                    No other <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> beyond its <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                </span></dd><dt class="cclaim defined" id="Package Claim">Package Claim</dt><dd><span class="description"><ul>
+                    <li>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Version 1.1 Conformant.</li>
+                    <li>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Version 2.0 Conformant.</li>
+                    <li>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> conforms to the EAL1 assurance package augmented with ALC_TSU_EXT.1, ASE_OBJ.2, ASE_REQ.2, and ASE_SPD.1.</li>
+                </ul>
+                    The functional packages to which the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> conforms include <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> that are not mandatory to claim for the sake of conformance.
+                    An <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> that claims one or more of these functional packages may include whatever non-mandatory <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are appropriate to claim based on the 
+                    capabilities of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and on any triggers on their inclusion based inherently on the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> selections made. All security requirements
+                    in these packages are intended to satisfy the <a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_PROTECTED_COMMS</a> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> security objective of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.
+                </span></dd></dl>
     <h1 class="indexable" data-level="1" id="Security_Problem_Description">3 Security Problem Description</h1> The security problem is described in
         terms of the threats that the web browser is expected to address, assumptions about the
         operational environment, and any organizational security policies that it is expected to
@@ -803,21 +832,21 @@ The following sections list Common Criteria and technology terms used in this do
             <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> describe those addressed by a web browser as the Target of
         Evaluation. 
         <p></p> 
-        Notably, browsers are particularly at risk from the <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> threat
+        Notably, browsers are particularly at risk from the T.NETWORK_ATTACK threat
         identified in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Attackers can use phishing or another social engineering technique
         to persuade a user to visit a malicious site. Users may also unintentionally visit malicious
         sites in the course of web browsing. Such sites then present malicious content to the user's
         browser to exploit it and perform installation of malware, often with no indication to the
         user. 
         <h2 class="indexable" data-level="2" id="Threats">3.1 Threats</h2>The following threats are specific to web
-            browsers, and represent an addition to those identified in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<dl><dt class="threat,defined" id="T.FLAWED_ADDON">T.FLAWED_ADDON</dt><dd> Web browser functionality can be extended through the integration
+            browsers, and represent an addition to those identified in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<dl><dt class="threat defined" id="T.FLAWED_ADDON">T.FLAWED_ADDON</dt><dd><span class="description"> Web browser functionality can be extended through the integration
                         of third-party utilities and tools. Malicious or vulnerable add-ons could
                         result in attacks against the system. Such attacks can allow unauthorized
                         access to sensitive information in the browser, unauthorized access to the
                         platform's file system, or even privilege escalation that enables
                         unauthorized access to other applications or the operating
-                        system.</dd><dt class="threat,defined" id="T.NETWORK_ATTACK">T.NETWORK_ATTACK</dt><dd>See App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 3.1.</dd><dt class="threat,defined" id="T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</dt><dd>See App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 3.1.</dd><dt class="threat,defined" id="T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</dt><dd>See App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, Section 3.1.</dd><dt class="threat,defined" id="T.SAME_ORIGIN_VIOLATION">T.SAME_ORIGIN_VIOLATION</dt><dd> Violating the same-origin policy is a specialized type of network
-                        attack (covered generally as <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) which involves
+                        system.</span></dd><dt class="threat defined" id="T.SAME_ORIGIN_VIOLATION">T.SAME_ORIGIN_VIOLATION</dt><dd><span class="description"> Violating the same-origin policy is a specialized type of network
+                        attack (covered generally as T.NETWORK_ATTACK in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) which involves
                         web content violating access control policies enforced by a web browser to
                         separate the content of different web domains. It is specifically identified
                         as a threat to web browsers, since they implement the access control
@@ -838,7 +867,9 @@ The following sections list Common Criteria and technology terms used in this do
                                 window/tab. Such attacks leverage the ability of browsers to display
                                 content from multiple domains simultaneously.</li>
                         </ul>
-                    </dd></dl>
+                        A malicious actor could implement a malicious website or send a maliciously-crafted URL that an unwitting user could open in a vulnerable web browser
+                        that could be used to harvest sensitive data from a legitimate user or otherwise facilitate impersionation of that user. 
+                    </span></dd></dl>
         
         <h2 class="indexable" data-level="2" id="Assumptions">3.2 Assumptions</h2>
             
@@ -858,12 +889,20 @@ The following sections list Common Criteria and technology terms used in this do
     <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> adds <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> to objectives
         identified in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and describes additional objectives specific to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>. 
         <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
-            <dl><dt class="SO,defined" id="O.INTEGRITY">O.INTEGRITY</dt><dd>This objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> maps additional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> to it to address the integrity protection mechanisms that are specific to web browser applications.</dd><dt class="SO,defined" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd>This objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> maps additional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> to it to address the management functionality that is specific to web browser applications.</dd><dt class="SO,defined" id="O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</dt><dd>This objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> maps additional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> to it to address the data at rest protection functionality that is specific to web browser applications.</dd><dt class="SO,defined" id="O.PROTECTED_COMMS">O.PROTECTED_COMMS</dt><dd>This objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> maps additional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> to it to address the data in transit protection functionality that is specific to web browser applications.</dd><dt class="SO,defined" id="O.DOMAIN_ISOLATION">O.DOMAIN_ISOLATION</dt><dd> To address the network attack associated with content leakage
+            <dl><dt class="SO defined" id="O.BROWSER_INTEGRITY">O.BROWSER_INTEGRITY</dt><dd><span class="description">A general version of this objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                        This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines a version of the objective that is specific to the functionality that protects the integrity of a
+                        web browser application specifically.</span></dd><dt class="SO defined" id="O.BROWSER_MANAGEMENT">O.BROWSER_MANAGEMENT</dt><dd><span class="description">A general version of this objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                        This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines a version of the objective that is specific to the functionality that may be managed by a
+                        web browser application specifically.</span></dd><dt class="SO defined" id="O.BROWSER_PROTECTED_STORAGE">O.BROWSER_PROTECTED_STORAGE</dt><dd><span class="description">A general version of this objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                    This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines a version of the objective that applies to the data at rest protection functionality and considerations that are
+                    specific to web browser applications.</span></dd><dt class="SO defined" id="O.BROWSER_PROTECTED_COMMS">O.BROWSER_PROTECTED_COMMS</dt><dd><span class="description">A general version of this objective is defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                        This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines a version of the objective that applies to the data in transit protection functionality and considerations that are 
+                        specific to web browser applications.</span></dd><dt class="SO defined" id="O.DOMAIN_ISOLATION">O.DOMAIN_ISOLATION</dt><dd><span class="description"> To address the network attack associated with content leakage
                         between different web domains, the browser must ensure that content
                         originating from different domains (e.g., in a tab or iFrame) is properly
-                        isolated. </dd><dt class="SO,defined" id="O.ADDON_INTEGRITY">O.ADDON_INTEGRITY</dt><dd> To address issues associated with malicious or flawed add-ons,
+                        isolated. </span></dd><dt class="SO defined" id="O.ADDON_INTEGRITY">O.ADDON_INTEGRITY</dt><dd><span class="description"> To address issues associated with malicious or flawed add-ons,
                         conformant browsers implement mechanisms to ensure their integrity. This
-                        includes verification and validation at installation time and update. </dd></dl>
+                        includes verification and validation at installation time and update. </span></dd></dl>
         
         
         
@@ -881,13 +920,13 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
     This section describes how the assumptions, threats, and organizational 
     security policies map to the security objectives.
     <table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.FLAWED_ADDON">T.FLAWED_​ADDON</a></td><td><a href="#O.ADDON_INTEGRITY">O.ADDON_​INTEGRITY</a></td><td>The threat <a href="#T.FLAWED_ADDON">T.FLAWED_ADDON</a> is countered by <a href="#O.ADDON_INTEGRITY">O.ADDON_INTEGRITY</a>, which ensures that a conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> either does not support add-ons at all (in which case there is no possibility of 
-                        it executing a flawed add-on) or that it supports only add-ons that can prove their integrity.</td></tr><tr class="major-row"><td rowspan="3"><a href="#T.NETWORK_ATTACK">T.NETWORK_​ATTACK</a></td><td><a href="#O.INTEGRITY">O.INTEGRITY</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.INTEGRITY">O.INTEGRITY</a> as this provides for the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to resist unauthorized modification via a network vector.
-                        </td></tr><tr><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as this provides for the ability to configure the application to defend against network attack.
-                        </td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> as this provides for integrity of transmitted data.
-                        </td></tr><tr class="major-row"><td rowspan="2"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a></td><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>	
-                            The threat <a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a> is countered by <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as this provides for the ability to configure the application to protect the confidentiality of its transmitted data.
-                        </td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a></td><td>The threat <a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a> is countered by <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> as this provides for confidentiality of transmitted data.
-                        </td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_​ACCESS</a></td><td><a href="#O.PROTECTED_STORAGE">O.PROTECTED_​STORAGE</a></td><td>The threat <a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</a> is countered by <a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a>, which protects against unauthorized attempts to access physical storage used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
+                        it executing a flawed add-on) or that it supports only add-ons that can prove their integrity.</td></tr><tr class="major-row"><td rowspan="3">T.NETWORK_​ATTACK (from AppPP)</td><td><a href="#O.BROWSER_INTEGRITY">O.BROWSER_​INTEGRITY</a></td><td>The threat T.NETWORK_ATTACK is countered by <a href="#O.BROWSER_INTEGRITY">O.BROWSER_INTEGRITY</a> as this provides for the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to resist unauthorized modification via a network vector.
+                        </td></tr><tr><td><a href="#O.BROWSER_MANAGEMENT">O.BROWSER_​MANAGEMENT</a></td><td>The threat T.NETWORK_ATTACK is countered by <a href="#O.BROWSER_MANAGEMENT">O.BROWSER_MANAGEMENT</a> as this provides for the ability to configure the application to defend against network attack.
+                        </td></tr><tr><td><a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_​PROTECTED_​COMMS</a></td><td>The threat T.NETWORK_ATTACK is countered by <a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_PROTECTED_COMMS</a> as this provides for integrity of transmitted data.
+                        </td></tr><tr class="major-row"><td rowspan="2">T.NETWORK_​EAVESDROP (from AppPP)</td><td><a href="#O.BROWSER_MANAGEMENT">O.BROWSER_​MANAGEMENT</a></td><td>	
+                            The threat T.NETWORK_EAVESDROP is countered by <a href="#O.BROWSER_MANAGEMENT">O.BROWSER_MANAGEMENT</a> as this provides for the ability to configure the application to protect the confidentiality of its transmitted data.
+                        </td></tr><tr><td><a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_​PROTECTED_​COMMS</a></td><td>The threat T.NETWORK_EAVESDROP is countered by <a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_PROTECTED_COMMS</a> as this provides for confidentiality of transmitted data.
+                        </td></tr><tr class="major-row"><td rowspan="1">T.PHYSICAL_​ACCESS (from AppPP)</td><td><a href="#O.BROWSER_PROTECTED_STORAGE">O.BROWSER_​PROTECTED_​STORAGE</a></td><td>The threat T.PHYSICAL_ACCESS is countered by <a href="#O.BROWSER_PROTECTED_STORAGE">O.BROWSER_PROTECTED_STORAGE</a>, which protects against unauthorized attempts to access physical storage used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
                         </td></tr><tr class="major-row"><td rowspan="1"><a href="#T.SAME_ORIGIN_VIOLATION">T.SAME_​ORIGIN_​VIOLATION</a></td><td><a href="#O.DOMAIN_ISOLATION">O.DOMAIN_​ISOLATION</a></td><td>The threat <a href="#T.SAME_ORIGIN_VIOLATION">T.SAME_ORIGIN_VIOLATION</a> is countered by <a href="#O.DOMAIN_ISOLATION">O.DOMAIN_ISOLATION</a>, 
                             which ensures that a conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will prevent leakage of content between multiple windows/tabs being rendered by the same application.</td></tr></table>
     <h1 id="Security_Requirements" class="indexable" data-level="1">5 Security Requirements</h1>
@@ -915,7 +954,7 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
             suggesting the purpose of the operation, e.g. "/EXAMPLE1."
        </li>
      </ul>
-   <h2 id="secreq-app" class="indexable" data-level="2">5.1 App PP
+   <h2 id="secreq-AppPP" class="indexable" data-level="2">5.1 App PP
        Security Functional Requirements Direction
     </h2>
       In a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that includes the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>,
@@ -924,7 +963,7 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
       as a whole and evaluated against the  App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
       The following sections describe any modifications that the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must make to the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>
       defined in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> in addition to what is mandated by <a class="dynref" href="#man-sfrs">Section 5.2 TOE Security Functional Requirements</a>.
-    <h3 id="modsfr-app" class="indexable" data-level="3">5.1.1  Modified SFRs </h3>
+    <h3 id="modsfr-AppPP" class="indexable" data-level="3">5.1.1  Modified SFRs </h3>
       The <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> listed in this section are defined in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and relevant to the secure operation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
     
                 
@@ -940,12 +979,12 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                     
                     <div class="comp" id="FCS_HTTPS_EXT.1/Client"><h4>FCS_HTTPS_EXT.1/Client HTTPS Protocol</h4>
                       
-		      
+		      <span class="description">
 			This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is selection-based in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
 			
 	When the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> conforms to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is mandatory
        because of the modifications that this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> makes to <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>.
-		      
+		      </span>
                     </div>
                     
                     <div class="comp" id="FCS_RBG_EXT.1"><h4>FCS_RBG_EXT.1 Random Bit Generation Services</h4>
@@ -962,12 +1001,12 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                 <h4 id="mod_fia" class="indexable" data-level="4">5.1.1.2 Identification and Authentication (FIA)</h4>
                     <div class="comp" id="FIA_X509_EXT.1"><h4>FIA_X509_EXT.1 X.509 Certificate Validation</h4>
                       
-		      
+		      <span class="description">
 			This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is selection-based in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
 			
 	When the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> conforms to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is mandatory
        because of the modifications that this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> makes to <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>.
-		      
+		      </span>
                         
                         
                         
@@ -980,12 +1019,12 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                     </div>
                     <div class="comp" id="FIA_X509_EXT.2"><h4>FIA_X509_EXT.2 X.509 Certificate Authentication</h4>
                       
-		      
+		      <span class="description">
 			This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is selection-based in the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
 			
 	When the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> conforms to this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is mandatory
        because of the modifications that this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> makes to <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>.
-		      
+		      </span>
 
 
 		      
@@ -1003,7 +1042,7 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                 <h4 id="mod_ftp" class="indexable" data-level="4">5.1.1.3 Trusted Path/Channels (FTP)</h4>
                     <div class="comp" id="FTP_DIT_EXT.1"><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4>
                         
-                        <div class="element"><div class="reqid" id="FTP_DIT_EXT.1.1"><a href="#FTP_DIT_EXT.1.1" class="abbr">FTP_DIT_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_5">encrypt all transmitted [sensitive data] with [<abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> in accordance with FCS_HTTPS_EXT.1<b>/Client</b>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package, DTLS as a client as defined in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package]</span>,  <span class="selectable-content" id="_s_6">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, DTLS]</span> ]
+                        <div class="element"><div class="reqid" id="FTP_DIT_EXT.1.1"><a href="#FTP_DIT_EXT.1.1" class="abbr">FTP_DIT_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_5">encrypt all transmitted [sensitive data] with [<abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> in accordance with <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package, DTLS as a client as defined in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package]</span>,  <span class="selectable-content" id="_s_6">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, DTLS]</span> ]
                                 between itself and another trusted IT product.
                             <div class="appnote"><span class="note-header">Application
       Note:
@@ -1316,21 +1355,21 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
       
             
         <h2 id="obj-req-map" class="indexable" data-level="2">5.3 TOE Security Functional Requirements Rationale</h2><p>The following rationale provides justification for each security objective for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="1"><a href="#O.INTEGRITY">O.INTEGRITY</a><br/></td><td><a href="#FPT_DNL_EXT.1">FPT_DNL_EXT.1</a>, <a href="#FPT_MCD_EXT.1">FPT_MCD_EXT.1</a>, <a href="#FPT_INT_EXT.1">FPT_INT_EXT.1</a> (objective)</td><td>
+    showing that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are suitable to meet and achieve the security objectives:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Objective</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="1"><a href="#O.BROWSER_INTEGRITY">O.BROWSER_​INTEGRITY</a><br/></td><td><a href="#FPT_DNL_EXT.1">FPT_DNL_EXT.1</a>, <a href="#FPT_MCD_EXT.1">FPT_MCD_EXT.1</a>, <a href="#FPT_INT_EXT.1">FPT_INT_EXT.1</a> (objective)</td><td>
                         <a href="#FPT_DNL_EXT.1">FPT_DNL_EXT.1</a> supports the objective by preventing the automatic execution of downloaded files which could otherwise cause integrity violations to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself or to its platform.<p></p>
                         <a href="#FPT_MCD_EXT.1">FPT_MCD_EXT.1</a> supports the objective by preventing the automatic execution of mobile code which could otherwise cause integrity violations to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself or to its platform. <p></p>
                         <a href="#FPT_INT_EXT.1">FPT_INT_EXT.1</a> supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement a reputation service to prevent the acquisition of potentially malicious applications.<p></p>
                     </td></tr>
-<tr class="major-row"><td rowspan="1"><a href="#O.MANAGEMENT">O.MANAGEMENT</a><br/></td><td><a href="#FDP_TRK_EXT.1">FDP_TRK_EXT.1</a>, <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a></td><td>
+<tr class="major-row"><td rowspan="1"><a href="#O.BROWSER_MANAGEMENT">O.BROWSER_​MANAGEMENT</a><br/></td><td><a href="#FDP_TRK_EXT.1">FDP_TRK_EXT.1</a>, <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a></td><td>
                         <a href="#FDP_TRK_EXT.1">FDP_TRK_EXT.1</a> supports the objective by notifying the user when various data is being tracked to allow for control of the disclosure of configuration information.<p></p>
                         <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a> supports the objective by defining the management functionality that is specific to web browser applications.
                     </td></tr>
-<tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_STORAGE">O.PROTECTED_​STORAGE</a><br/></td><td><a href="#FDP_COO_EXT.1">FDP_COO_EXT.1</a>, <a href="#FDP_PST_EXT.1">FDP_PST_EXT.1</a> (optional), <a href="#FPT_INT_EXT.1">FPT_INT_EXT.1</a> (objective)</td><td>
+<tr class="major-row"><td rowspan="1"><a href="#O.BROWSER_PROTECTED_STORAGE">O.BROWSER_​PROTECTED_​STORAGE</a><br/></td><td><a href="#FDP_COO_EXT.1">FDP_COO_EXT.1</a>, <a href="#FDP_PST_EXT.1">FDP_PST_EXT.1</a> (optional), <a href="#FPT_INT_EXT.1">FPT_INT_EXT.1</a> (objective)</td><td>
                         <a href="#FDP_COO_EXT.1">FDP_COO_EXT.1</a> supports the objective by defining a mechanism to prevent untrusted data from being loaded into protected storage.<p></p>
                         <a href="#FDP_PST_EXT.1">FDP_PST_EXT.1</a> supports the objective by optionally defining the minimum set of persistent data that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is required to store.<p></p>
                         <a href="#FPT_INT_EXT.1">FPT_INT_EXT.1</a> supports the objective by optionally requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement a mechanism to protect against downloading known malicious applications that may adversely affect data stored at rest.
                     </td></tr>
-<tr class="major-row"><td rowspan="1"><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a><br/></td><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a> (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FDP_STR_EXT.1">FDP_STR_EXT.1</a>, <a href="#FCS_STS_EXT.1">FCS_STS_EXT.1</a> (objective), <a href="#FPT_INT_EXT.2">FPT_INT_EXT.2</a> (objective)</td><td>
+<tr class="major-row"><td rowspan="1"><a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_​PROTECTED_​COMMS</a><br/></td><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a> (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> (from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> (modified from <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>), <a href="#FDP_STR_EXT.1">FDP_STR_EXT.1</a>, <a href="#FCS_STS_EXT.1">FCS_STS_EXT.1</a> (objective), <a href="#FPT_INT_EXT.2">FPT_INT_EXT.2</a> (objective)</td><td>
                         <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> supports the objective by requiring that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provide or invoke a cryptographic function for asymmetric key generation.<p></p>
                         <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a> supports the objective by defining the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s implementation of <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>.
                         <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> supports the objective by requiring that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provide or invoke a DRBG for secure key generation.<p></p>
@@ -1350,41 +1389,41 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                         <a href="#FPT_AON_EXT.1">FPT_AON_EXT.1</a> supports the objective by specifying whether or not the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has the ability to load add-ons.<p></p>
                         <a href="#FPT_AON_EXT.2">FPT_AON_EXT.2</a> supports the objective by defining a cryptographic method for the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to validate the integrity of add-ons if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports their use.
                     </td></tr>
-</table></p><h2 class="indexable" data-level="2" id="mod-sars">5.4 TOE Security Assurance Requirements</h2>
-      
-        This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> beyond those defined within the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> to which it can
-		claim conformance. It is important to note that a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> that is evaluated against this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is
-		inherently evaluated against the 
-		App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>	
-		as well. 
-		This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes a
-		number of EAs associated with both Security Functional Requirements (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>) and <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. Additionally, this
-		<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> includes a number of <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-based EAs that similarly refine the <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.
-		The
-		evaluation laboratory will evaluate the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> against the chosen <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and supplement that evaluation
-		with the necessary <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> that are taken from this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr>.
-	  <h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-app" class="indexable" data-level="2">6.1 
-    Protection Profile for Web Browsers</h2><h3 id="contoe-app" class="indexable" data-level="3">6.1.1 
+</table></p><h1 id="mod-conrat" class="indexable" data-level="1">6 Consistency Rationale</h1><h2 id="conrat-AppPP" class="indexable" data-level="2">6.1 
+    Protection Profile for Web Browsers</h2><h3 id="contoe-AppPP" class="indexable" data-level="3">6.1.1 
 	Consistency of TOE Type
       </h3>
                 If this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is used to extend the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> type for the overall <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is still a software application.
                 The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary is simply extended to include the web browser functionality that is built into the application so that additional security functionality is claimed within the scope of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
-            <h3 id="consecprob-app" class="indexable" data-level="3">6.1.2 
+                <br/><br/>
+                The only asset for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is the software executable and sensitive data that comprises the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The entire <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as defined by the combination of the
+                <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> and this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is a single asset. The only differences to the threat model are that the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> introduces the concept of add-ons, which
+                introduces the threat of an add-on being flawed in some way, and that the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> introduces the concept of a same-origin violation, which
+                occurs through a use case specific to web browser applications.
+            <h3 id="consecprob-AppPP" class="indexable" data-level="3">6.1.2 
 	Consistency of Security Problem Definition
       </h3><table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> Threat, Assumption, OSP</th><th>Consistency Rationale</th></tr><tr><td><a href="#T.FLAWED_ADDON">T.FLAWED_ADDON</a></td><td>The threat of a user installing a flawed add-on is consistent with the T.LOCAL_ATTACK threat from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.
-                        A flawed add-on, whether crafted deliberately or unintentionally, could cause the product to operate in a manner where it or its platform can be compromised.</td></tr><tr><td><a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a></td><td>This threat comes directly from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a></td><td>This threat comes directly from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</a></td><td>This threat comes directly from the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#T.SAME_ORIGIN_VIOLATION">T.SAME_ORIGIN_VIOLATION</a></td><td>This threat extends the security problem definition of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> by defining a potential vulnerability that specifically applies to the content that is handled by web browsers.</td></tr></table><h3 id="conobj-app" class="indexable" data-level="3">6.1.3 
+                        A flawed add-on, whether crafted deliberately or unintentionally, could cause the product to operate in a manner where it or its platform can be compromised.</td></tr><tr><td><a href="#T.SAME_ORIGIN_VIOLATION">T.SAME_ORIGIN_VIOLATION</a></td><td>This threat extends the security problem definition of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr> by defining a potential vulnerability that specifically applies to the content that is handled by web browsers.</td></tr></table><h3 id="conobj-AppPP" class="indexable" data-level="3">6.1.3 
 	Consistency of Objectives
       </h3><p>
+                Listed below are the security objectives defined in this <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> with rationale for their consistency with the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> shares the
+                executable application asset with the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> but defines additional security objectives because the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines a specific type of software application
+                with security functionality that is common to the application type.
+                <br/><br/>
+                Note that the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> is implicitly consistent with any claimed functional packages because the applicable functional packages do not have
+                <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> objecitves of their own; per section 2, any claimed functional package is intended to support the O.PROTECTED_COMMS objective in the
+                App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+            
 	  The objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> are consistent with the App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> based on the following rationale:
-      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.INTEGRITY">O.INTEGRITY</a></td><td>This objective is an enhancement to the <a href="#O.INTEGRITY">O.INTEGRITY</a> objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
-                        specifically in regards to the integrity protection mechanisms that apply to web browsers.</td></tr><tr><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>This objective is an enhancement to the <a href="#O.MANAGEMENT">O.MANAGEMENT</a> objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
-                        specifically in regards to the secure administration of functions that are specific to web browser applications.</td></tr><tr><td><a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a></td><td>This objective is an enhancement to the <a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a> objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
-                        specifically in regards to the data at rest that applies to web browser applications.</td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a></td><td>This objective is an enhancement to the <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
-                        specifically in regards to the data in transit that applies to web browser applications.</td></tr><tr><td><a href="#O.DOMAIN_ISOLATION">O.DOMAIN_ISOLATION</a></td><td>This objective applies to functionality that is specific to web browser applications and is therefore beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#O.ADDON_INTEGRITY">O.ADDON_INTEGRITY</a></td><td>This objective is an enhancement to the <a href="#O.INTEGRITY">O.INTEGRITY</a> objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
-                        Where <a href="#O.INTEGRITY">O.INTEGRITY</a> is concerned with the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> application, 
+      <table><tr><th><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Objective</th><th>Consistency Rationale</th></tr><tr><td><a href="#O.BROWSER_INTEGRITY">O.BROWSER_INTEGRITY</a></td><td>This objective is an enhancement to the O.INTEGRITY objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
+                        specifically in regards to the integrity protection mechanisms that apply to web browsers.</td></tr><tr><td><a href="#O.BROWSER_MANAGEMENT">O.BROWSER_MANAGEMENT</a></td><td>This objective is an enhancement to the O.MANAGEMENT objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
+                        specifically in regards to the secure administration of functions that are particular to web browser applications.</td></tr><tr><td><a href="#O.BROWSER_PROTECTED_STORAGE">O.BROWSER_PROTECTED_STORAGE</a></td><td>This objective is an enhancement to the O.PROTECTED_STORAGE objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
+                        specifically in regards to the data at rest protection that applies to web browser applications.</td></tr><tr><td><a href="#O.BROWSER_PROTECTED_COMMS">O.BROWSER_PROTECTED_COMMS</a></td><td>This objective is an enhancement to the O.PROTECTED_COMMS objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>, 
+                        specifically in regards to the data in transit protection that applies to web browser applications.</td></tr><tr><td><a href="#O.DOMAIN_ISOLATION">O.DOMAIN_ISOLATION</a></td><td>This objective applies to functionality that is specific to web browser applications and is therefore beyond the original scope of the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>.</td></tr><tr><td><a href="#O.ADDON_INTEGRITY">O.ADDON_INTEGRITY</a></td><td>This objective is an enhancement to the <a href="#O.BROWSER_INTEGRITY">O.BROWSER_INTEGRITY</a> objective defined in the <abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr>. 
+                        Where <a href="#O.BROWSER_INTEGRITY">O.BROWSER_INTEGRITY</a> is concerned with the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> application, 
                         <a href="#O.ADDON_INTEGRITY">O.ADDON_INTEGRITY</a> is concerned with the integrity of third-party add-ons that can be loaded into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr></table></p><p>
                 This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any objectives for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s operational environment. 
-            </p><h3 id="conreq-app" class="indexable" data-level="3">6.1.4 
+            </p><h3 id="conreq-AppPP" class="indexable" data-level="3">6.1.4 
 	Consistency of Requirements
       </h3>
       This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> identifies several <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> from the
@@ -1514,9 +1553,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                                     to the bad URL. </span></div></div></div>
                         </div>
                             
-                    <h2 id="impl-dep-sfrs" class="indexable" data-level="2">A.3 Implementation-dependent Requirements
+                    <h2 id="impl-dep-sfrs" class="indexable" data-level="2">A.3 Implementation-based Requirements
     </h2><p>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does not define any 
-       Implementation-dependent       <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.</p><h1 id="sel-sfrs" class="indexable" data-level="1">Appendix B -  Selection-based Requirements
+       Implementation-based       <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.</p><h1 id="sel-sfrs" class="indexable" data-level="1">Appendix B -  Selection-based Requirements
     </h1>
                         <h2 id="sel_fpt" class="indexable" data-level="2">B.1 Protection of the TSF (FPT)</h2>
                         <div class="comp" id="FPT_AON_EXT.2"><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
@@ -1555,9 +1594,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
               requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement <abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr> Strict-Transport-Security.</p><h4>Management: FCS_STS_EXT.1</h4><p>The following actions could be considered for the management functions in FMT: <ul>
                                     <li>Enable/disable <abbr class="dyn-abbr"><a href="#abbr_HSTS">HSTS</a></abbr> mode.</li>
                                 </ul>
-                                </p><h4>Audit: FCS_STS_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FCS_STS_EXT.1 Strict Transport Security</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                                </p><h4>Audit: FCS_STS_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FCS_STS_EXT.1 Strict Transport Security</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                                     <span class="no-link">FCS_HTTPS_EXT.1</span> <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> Protocol
-                                </p><h4 id="ext-comp-FCS_STS_EXT.1.1">FCS_STS_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr> Strict-Transport-Security according
+                                </td></tr></table><h4 id="ext-comp-FCS_STS_EXT.1.1">FCS_STS_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTP">HTTP</a></abbr> Strict-Transport-Security according
                                         to RFC 6797.<h4 id="ext-comp-FCS_STS_EXT.1.2">FCS_STS_EXT.1.2</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall retain persistent data signaling <abbr class="dyn-abbr"><a href="#abbr_HSTS">HSTS</a></abbr> enablement
                                         for the time span declared by the website in a max-age
                                         directive.<h4 id="ext-comp-FCS_STS_EXT.1.3">FCS_STS_EXT.1.3</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall cache the "freshest" Strict Security policy
@@ -1571,12 +1610,12 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
               requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement a method to verify the integrity of add-ons and ensure that untrusted or unknown add-ons are not loaded for use.</p><h4>Management: FPT_AON_EXT.1</h4><p>The following actions could be considered for the management functions in FMT: <ul>
                         <li>Enable/disable support for add-ons.</li>
                     </ul>
-                    </p><h4>Audit: FPT_AON_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_AON_EXT.1 Support for Only Trusted Add-ons</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                    </p><h4>Audit: FPT_AON_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_AON_EXT.1 Support for Only Trusted Add-ons</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FPT_AON_EXT.1.1">FPT_AON_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include the capability to load [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="addons_supported">trusted add-ons</span>,  <span class="selectable-content" id="_s_22">no add-ons</span> ].</div><h4>Management: FPT_AON_EXT.2</h4><p>No specific management functions are identified.</p><h4>Audit: FPT_AON_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                    </td></tr></table><h4 id="ext-comp-FPT_AON_EXT.1.1">FPT_AON_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall include the capability to load [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="addons_supported">trusted add-ons</span>,  <span class="selectable-content" id="_s_22">no add-ons</span> ].</div><h4>Management: FPT_AON_EXT.2</h4><p>No specific management functions are identified.</p><h4>Audit: FPT_AON_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                                 <span class="no-link">FCS_COP.1</span> Cryptographic Operation<p></p>
                                 <span class="no-link">FPT_AON_EXT.1</span> Support for Only Trusted Add-Ons
-                            </p><h4 id="ext-comp-FPT_AON_EXT.2.1">FPT_AON_EXT.2.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <span class="selectable-content" id="_s_45">provide the ability</span>,  <span class="selectable-content" id="_s_46">leverage the platform</span> ] to provide a means to cryptographically verify add-ons
+                            </td></tr></table><h4 id="ext-comp-FPT_AON_EXT.2.1">FPT_AON_EXT.2.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <span class="selectable-content" id="_s_45">provide the ability</span>,  <span class="selectable-content" id="_s_46">leverage the platform</span> ] to provide a means to cryptographically verify add-ons
                                     using a digital signature mechanism and [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_47">published hash</span>,  <span class="selectable-content" id="_s_48">no other functions</span> ] prior to installation and update. <h4 id="ext-comp-FPT_AON_EXT.2.2">FPT_AON_EXT.2.2</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>selection</b>: <span class="selectable-content" id="_s_49">provide the ability</span>,  <span class="selectable-content" id="_s_50">leverage the platform</span> ] to query the current version
                                 of the add-on.<h4 id="ext-comp-FPT_AON_EXT.2.3">FPT_AON_EXT.2.3</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall prevent the automatic installation of
                                     add-ons.</div></div><h3 id="ext-comp-FPT_DNL_EXT" class="indexable" data-level="4">C.2.2.2 FPT_DNL_EXT File Downloads</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for downloaded content.
@@ -1586,9 +1625,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                         <li>Enable/disable user's ability to select default actions upon download of a file (e.g., always open, or always save, a downloaded file).</li>
                         <li>Enable/disable launching of downloaded files outside the browser.</li>
                     </ul>
-                    </p><h4>Audit: FPT_DNL_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_DNL_EXT.1 File Downloads</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                    </p><h4>Audit: FPT_DNL_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_DNL_EXT.1 File Downloads</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FPT_DNL_EXT.1.1">FPT_DNL_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall prevent downloaded content from launching
+                    </td></tr></table><h4 id="ext-comp-FPT_DNL_EXT.1.1">FPT_DNL_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall prevent downloaded content from launching
                             automatically.<h4 id="ext-comp-FPT_DNL_EXT.1.2">FPT_DNL_EXT.1.2</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall present the user with the option to either save or
                             discard downloaded files.</div></div><h3 id="ext-comp-FPT_MCD_EXT" class="indexable" data-level="4">C.2.2.3 FPT_MCD_EXT Mobile Code</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for execution of mobile code.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FPT_MCD_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FPT_MCD_EXT.1">FPT_MCD_EXT.1</a>,
@@ -1597,9 +1636,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                         <li>Enable/disable display notification when unsigned, untrusted, or unverified mobile code is encountered.</li>
                         <li>Enable/disable support for mobile code.</li>
                     </ul>
-                    </p><h4>Audit: FPT_MCD_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_MCD_EXT.1 Mobile Code</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                    </p><h4>Audit: FPT_MCD_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_MCD_EXT.1 Mobile Code</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FPT_MCD_EXT.1.1">FPT_MCD_EXT.1.1</h4>
+                    </td></tr></table><h4 id="ext-comp-FPT_MCD_EXT.1.1">FPT_MCD_EXT.1.1</h4>
                                 The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall support the capability to execute 
                                 [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_30">
                                         signed [<b>assignment</b>: 
@@ -1615,23 +1654,23 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
               requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to be able to interact with a URL reputation service to assess whether websites are potentially malicious.</p><h4>Management: FPT_INT_EXT.1</h4><p>The following actions could be considered for the management functions in FMT: <ul>
                                 <li>Configure the use of an application reputation service to detect malicious applications prior to download.</li>
                             </ul>
-                            </p><h4>Audit: FPT_INT_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_INT_EXT.1 Interactions with Application Reputation Services</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                            </p><h4>Audit: FPT_INT_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_INT_EXT.1 Interactions with Application Reputation Services</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                                 No dependencies.
-                            </p><h4 id="ext-comp-FPT_INT_EXT.1.1">FPT_INT_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use an application reputation service to
+                            </td></tr></table><h4 id="ext-comp-FPT_INT_EXT.1.1">FPT_INT_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use an application reputation service to
                                     prevent downloading of malicious applications.</div><h4>Management: FPT_INT_EXT.2</h4><p>The following actions could be considered for the management functions in FMT: <ul>
                                 <li>Configure the use of a URL reputation service to detect sites that contain malware or phishing content.</li>
                             </ul>
-                            </p><h4>Audit: FPT_INT_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FPT_INT_EXT.2 Interactions with URL Reputation Services</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                            </p><h4>Audit: FPT_INT_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FPT_INT_EXT.2 Interactions with URL Reputation Services</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                                 No dependencies.
-                            </p><h4 id="ext-comp-FPT_INT_EXT.2.1">FPT_INT_EXT.2.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use a URL reputation service to prevent
+                            </td></tr></table><h4 id="ext-comp-FPT_INT_EXT.2.1">FPT_INT_EXT.2.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use a URL reputation service to prevent
                                     connections with malicious websites.</div></div></span><span data-sortkey="Security Management (FMT)"><h3 id="ext-comp-FMT" class="indexable" data-level="3">C.2.3 Security Management (FMT)</h3>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines the following extended components as part of the
 	 FMT class originally defined by <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2:
 	<h3 id="ext-comp-FMT_MOF_EXT" class="indexable" data-level="4">C.2.3.1 FMT_MOF_EXT Management of Functions Behavior</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for technology-specific management functions that are not enumerated in the Part 2 family FMT_MOF.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FMT_MOF_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>,
              Management of Functions Behavior,
-              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement management functions specified in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.</p><h4>Management: FMT_MOF_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FMT_MOF_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FMT_MOF_EXT.1 Management of Functions Behavior</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement management functions specified in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.</p><h4>Management: FMT_MOF_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FMT_MOF_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FMT_MOF_EXT.1 Management of Functions Behavior</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</h4>
+                    </td></tr></table><h4 id="ext-comp-FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</h4>
                                 The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions, controlled by the administrator or user as shown: [<b>assignment</b>: 
      <span class="assignable-content">list of management functions to be performed by role</span>].
                             </div></div></span><span data-sortkey="User Data Protection (FDP)"><h3 id="ext-comp-FDP" class="indexable" data-level="3">C.2.4 User Data Protection (FDP)</h3>This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> defines the following extended components as part of the
@@ -1639,9 +1678,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
 	<h3 id="ext-comp-FDP_ACF_EXT" class="indexable" data-level="4">C.2.4.1 FDP_ACF_EXT Access Control Functions</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for data access control beyond those which are specified in the Part 2 family FDP_ACF.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_ACF_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_ACF_EXT.1">FDP_ACF_EXT.1</a>,
              Local and Session Storage Separation,
-              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to enforce data protection mechanisms such that user data is only accessible from its originator.</p><h4>Management: FDP_ACF_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_ACF_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_ACF_EXT.1 Local and Session Storage Separation</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to enforce data protection mechanisms such that user data is only accessible from its originator.</p><h4>Management: FDP_ACF_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_ACF_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_ACF_EXT.1 Local and Session Storage Separation</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FDP_ACF_EXT.1.1">FDP_ACF_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall separate local (permanent) and session (ephemeral)
+                    </td></tr></table><h4 id="ext-comp-FDP_ACF_EXT.1.1">FDP_ACF_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall separate local (permanent) and session (ephemeral)
                             storage based on domain, protocol, and port:<p></p>
                             <ul>
                                 <li>Session storage shall be accessible only from the originating
@@ -1654,15 +1693,15 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
               requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to have a configurable mechanism for blocking the storage of third-party cookies.</p><h4>Management: FDP_COO_EXT.1</h4><p>The following actions could be considered for the management functions in FMT: <ul>
                         <li>Enable/disable storage of third-party cookies.</li>
                     </ul>
-                    </p><h4>Audit: FDP_COO_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_COO_EXT.1 Cookie Blocking</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                    </p><h4>Audit: FDP_COO_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_COO_EXT.1 Cookie Blocking</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FDP_COO_EXT.1.1">FDP_COO_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the capability to block the storage of
+                    </td></tr></table><h4 id="ext-comp-FDP_COO_EXT.1.1">FDP_COO_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the capability to block the storage of
                             third-party cookies by websites.</div></div><h3 id="ext-comp-FDP_SBX_EXT" class="indexable" data-level="4">C.2.4.3 FDP_SBX_EXT Sandboxing</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for ensuring domain separation through sandboxing.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_SBX_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_SBX_EXT.1">FDP_SBX_EXT.1</a>,
              Sandboxing of Rendering Processes,
-              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement sandboxing of rendering processes such that least privilege is enforced on the rendering process.</p><h4>Management: FDP_SBX_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_SBX_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_SBX_EXT.1 Sandboxing of Rendering Processes</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement sandboxing of rendering processes such that least privilege is enforced on the rendering process.</p><h4>Management: FDP_SBX_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_SBX_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_SBX_EXT.1 Sandboxing of Rendering Processes</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FDP_SBX_EXT.1.1">FDP_SBX_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that web page rendering is performed in a
+                    </td></tr></table><h4 id="ext-comp-FDP_SBX_EXT.1.1">FDP_SBX_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that web page rendering is performed in a
                             process that is restricted in the following manner: <ul>
                                 <li>The rendering process can only directly access the area of the
                                     file system dedicated to the browser.</li>
@@ -1678,17 +1717,17 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                         </div></div><h3 id="ext-comp-FDP_SOP_EXT" class="indexable" data-level="4">C.2.4.4 FDP_SOP_EXT Same Origin Policy</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for implementation of the Same Origin Policy concept.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_SOP_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_SOP_EXT.1">FDP_SOP_EXT.1</a>,
              Same Origin Policy,
-              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement the Same Origin Policy concept for web content.</p><h4>Management: FDP_SOP_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_SOP_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_SOP_EXT.1 Same Origin Policy</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to implement the Same Origin Policy concept for web content.</p><h4>Management: FDP_SOP_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_SOP_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_SOP_EXT.1 Same Origin Policy</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FDP_SOP_EXT.1.1">FDP_SOP_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall only permit scripts contained in one web page to
+                    </td></tr></table><h4 id="ext-comp-FDP_SOP_EXT.1.1">FDP_SOP_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall only permit scripts contained in one web page to
                             access data in a second web page if both pages are from the same
                             origin.<h4 id="ext-comp-FDP_SOP_EXT.1.2">FDP_SOP_EXT.1.2</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall enforce the same origin policy for all
                             domains.</div></div><h3 id="ext-comp-FDP_STR_EXT" class="indexable" data-level="4">C.2.4.5 FDP_STR_EXT Secure Transmission of Cookie Data</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for using <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> to transmit sensitive cookie data.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_STR_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_STR_EXT.1">FDP_STR_EXT.1</a>,
              Secure Transmission of Cookie Data,
-              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> to transmit cookie data that has a security-relevant attribute.</p><h4>Management: FDP_STR_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_STR_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_STR_EXT.1 Secure Transmission of Cookie Data</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> to transmit cookie data that has a security-relevant attribute.</p><h4>Management: FDP_STR_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_STR_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_STR_EXT.1 Secure Transmission of Cookie Data</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         <span class="no-link">FCS_HTTPS_EXT.1</span> <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> Protocol
-                    </p><h4 id="ext-comp-FDP_STR_EXT.1.1">FDP_STR_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that cookies containing the 'secure'
+                    </td></tr></table><h4 id="ext-comp-FDP_STR_EXT.1.1">FDP_STR_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall ensure that cookies containing the 'secure'
                             attribute in the set-cookie header are sent over <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>.</div></div><h3 id="ext-comp-FDP_TRK_EXT" class="indexable" data-level="4">C.2.4.6 FDP_TRK_EXT Tracking Information Collection</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for notifying a user when certain data that reflects the usage of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is being tracked.
                     </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_TRK_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_TRK_EXT.1">FDP_TRK_EXT.1</a>,
              Tracking Information Collection,
@@ -1696,9 +1735,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
                         <li>Enable/disable ability for websites to collect tracking information about the user.</li>
                         <li>Enable/disable deletion of stored browsing data.</li>
                     </ul>
-                    </p><h4>Audit: FDP_TRK_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_TRK_EXT.1 Tracking Information Collection</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                    </p><h4>Audit: FDP_TRK_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_TRK_EXT.1 Tracking Information Collection</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                         No dependencies.
-                    </p><h4 id="ext-comp-FDP_TRK_EXT.1.1">FDP_TRK_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide notification to the user when tracking
+                    </td></tr></table><h4 id="ext-comp-FDP_TRK_EXT.1.1">FDP_TRK_EXT.1.1</h4>The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide notification to the user when tracking
                                 information for [<b>assignment</b>: 
      <span class="assignable-content">list of trackable browser data</span>] 
                                 is requested by a website.</div></div><h3 id="ext-comp-FDP_PST_EXT" class="indexable" data-level="4">C.2.4.7 FDP_PST_EXT Storage of Persistent Information</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>Components in this family define requirements for the minimum amount of information that may be stored persistently by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> while retaining its functionality.
@@ -1707,9 +1746,9 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
               requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to enumerate the minimum set of data that it must store persistently in order to function normally.</p><h4>Management: FDP_PST_EXT.1</h4><p>The following actions could be considered for the management functions in FMT: <ul>
                             <li>	Enable/disable storage of sensitive information in persistent storage.</li>
                         </ul>
-                        </p><h4>Audit: FDP_PST_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_PST_EXT.1 Storage of Persistent Information</h4><div style="margin-left: 1em;"><p>Hierarchical to: No other components.</p><p>Dependencies to: 
+                        </p><h4>Audit: FDP_PST_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_PST_EXT.1 Storage of Persistent Information</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
                             No dependencies.
-                        </p><h4 id="ext-comp-FDP_PST_EXT.1.1">FDP_PST_EXT.1.1</h4>
+                        </td></tr></table><h4 id="ext-comp-FDP_PST_EXT.1.1">FDP_PST_EXT.1.1</h4>
                                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide the capability to operate without storing
                                     persistent data to the file system with the following exceptions: [<b>assignment</b>: 
      <span class="assignable-content">data that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must store persistently</span>].
@@ -1747,12 +1786,12 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
 <tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr>
 <tr><td><span class="term" id="abbr_W3C"><abbr class="dyn-abbr"><a href="#abbr_W3C">W3C</a></abbr></span></td><td><span id="long_abbr_W3C">World Wide Web Consortium</span></td></tr>
 <tr><td><span class="term" id="abbr_XSS"><abbr class="dyn-abbr"><a href="#abbr_XSS">XSS</a></abbr></span></td><td><span id="long_abbr_XSS">Cross-Site Scripting</span></td></tr>
-</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix F -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibAppPP">[App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>]</span></td><td>
-                <a href="https://www.niap-ccevs.org/MMO/PP/PP_APP_v1.4.pdf">Protection Profile for Application Software, Version 1.4</a>, October 7, 2021
-            </td></tr><tr><td><span id="CEM">[<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>]</span></td><td>
-               <a href="https://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R5.pdf">Common Methodogy for Information Technology Security Evaluation, Version 3.1r5</a>, 
-                   CCMB-2017-04-004, April 2017
-             </td></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td>Common Criteria for Information Technology Security Evaluation - <ul>
+</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix F -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibAppPP">[App <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>]</span></td><td><span class="description">
+                <a href="https://www.niap-ccevs.org/MMO/PP/PP_APP_v2.0.pdf">Protection Profile for Application Software, Version 2.0</a>, TBD
+            </span></td></tr><tr><td><span id="bibCEM">[<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>]</span></td><td><span class="description">
+                <a href="https://commoncriteriaportal.org/files/ccfiles/CEM2022R1.pdf">Common
+                    Methodology for Information Technology Security - Evaluation Methodology</a>,
+                CCMB-2022-11-006, <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>:2022, Revision 1, November 2022. </span></td></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td><span class="description">Common Criteria for Information Technology Security Evaluation - <ul>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
                 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5,
               April 2017.</li>
@@ -1762,4 +1801,4 @@ This <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> does 
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
                 3: Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1 Revision 5,
               April 2017.</li>
-          </ul></td></tr></table></body></html>
+          </ul></span></td></tr></table></body></html>

@@ -5,7 +5,9 @@
     #toc a{
         display: block;
     }
-
+    .td-{
+        display: block;
+    }
     svg{
       width: 100%;
     }
@@ -59,7 +61,7 @@
        max-width: 15px;
     }
 
-    a.definition{
+    a.defined{
       color: inherit;
       text-decoration: inherit;
     }
@@ -168,6 +170,21 @@
        background-color:#F4F4F4;
    }
 
+   table.ecd_heir_dep{
+       width: 100%;
+   }
+   table.ecd_heir_dep tr{
+       background-color: inherit;
+   }
+       
+   table.ecd_heir_dep tr :first-child{
+       white-space: nowrap;
+   }
+   table.ecd_heir_dep tr :last-child{
+       width: 100%;
+   }
+
+       
    .dependent{
        border: 1px solid gray;
        border-radius: 1px
@@ -249,11 +266,15 @@
 	}
 
    
+    .comp .description{
+        padding-bottom: 20px;
+        display: block;
+    }    
    
    </style></head><body><div style="text-align: center; margin-left: auto; margin-right: auto;"><h1 class="title" style="page-break-before:auto;">Supporting Document<br/>
         Mandatory Technical Document</h1><img src="images/niaplogo.png" alt="NIAP"></img><hr width="50%"></hr><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><br/>
     PP-Module for Web Browsers<br/>
-      Version: 1.0<br/>2021-06-18<br/><b>National Information Assurance Partnership</b></div><div class="foreword"><h1 style="text-align: center">Foreword</h1><p>This is a Supporting Document (SD), intended to complement the Common Criteria version 3
+      Version: 1.1<br/>2023-08-25<br/><b>National Information Assurance Partnership</b></div><div class="foreword"><h1 style="text-align: center">Foreword</h1><p>This is a Supporting Document (SD), intended to complement the Common Criteria version 3
       and the associated Common Evaluation Methodology for
       Information Technology Security Evaluation.</p><p>SDs may be “Guidance Documents”, that highlight specific approaches 
       and application of the standard to areas where no mutual recognition of
@@ -263,7 +284,7 @@
       The usage of the latter class is not only mandatory, but certificates
       issued as a result of their application are recognized under the CCRA.</p><p><b>Technical Editor:</b><br/>
       National Information Assurance Partnership (NIAP)
-      </p><p><b style="page-break-before:always;">Document history:</b><table><tr class="header"><th>Version</th><th>Date</th><th style="align:left;">Comment</th></tr><tr><td>1.0</td><td>2021-06-18</td><td>Initial release as PP-Module</td></tr></table></p><p><b>General Purpose:</b><br/>
+      </p><p><b style="page-break-before:always;">Document history:</b><table><tr class="header"><th>Version</th><th>Date</th><th style="align:left;">Comment</th></tr><tr><td>1.0</td><td>2021-06-18</td><td>Initial release as PP-Module</td></tr><tr><td>1.1</td><td>2023-08-25</td><td>Updates to conform to CC:2022</td></tr></table></p><p><b>General Purpose:</b><br/>
       The purpose of this SD is to define evaluation methods for the functional behavior of
       Web Browser      
       products.
@@ -272,9 +293,9 @@
       Web Browsers
       Technical Community members, with representatives from industry, government 
       agencies, Common Criteria Test Laboratories, and members of academia.
-      </p></div><h1>Table of Contents</h1><div id="toc"><a href="#introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#scope" style="text-indent:10px">1.1<span>Technology Area and Scope of Supporting Document</span></a><a href="#structure" style="text-indent:10px">1.2<span>Structure of the Document</span></a><a href="#glossary" style="text-indent:10px">1.3<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.3.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.3.2<span>Technical Terms</span></a><a href="#sfr" style="text-indent:0px">2<span>Evaluation Activities for SFRs</span></a><a href="#aa-app" style="text-indent:10px">2.1<span>
-    Protection Profile for Web Browsers</span></a><a href="#qq-sfrs-app-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
-        </span></a><a href="#mod_fcs" style="text-indent:30px">2.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#mod_fia" style="text-indent:30px">2.1.1.2<span>Identification and Authentication (FIA)</span></a><a href="#mod_ftp" style="text-indent:30px">2.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">2.2<span>TOE SFR Evaluation Activities</span></a><a href="#man_fdp" style="text-indent:20px">2.2.1<span>User Data Protection (FDP)</span></a><a href="#man_fmt" style="text-indent:20px">2.2.2<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.2.3<span>Protection of the TSF (FPT)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.3<span>Evaluation Activities for Optional SFRs</span></a><a href="#opt_fdp" style="text-indent:20px">2.3.1<span>User Data Protection (FDP)</span></a><a href="#sel-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#sel_fpt" style="text-indent:20px">2.4.1<span>Protection of the TSF (FPT)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Objective SFRs</span></a><a href="#obj_fcs" style="text-indent:20px">2.5.1<span>Cryptographic Support (FCS)</span></a><a href="#obj_fpt" style="text-indent:20px">2.5.2<span>Protection of the TSF (FPT)</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the 
+      </p></div><h1>Table of Contents</h1><div id="toc"><a href="#introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#scope" style="text-indent:10px">1.1<span>Technology Area and Scope of Supporting Document</span></a><a href="#structure" style="text-indent:10px">1.2<span>Structure of the Document</span></a><a href="#glossary" style="text-indent:10px">1.3<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.3.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.3.2<span>Technical Terms</span></a><a href="#sfr" style="text-indent:0px">2<span>Evaluation Activities for SFRs</span></a><a href="#aa-AppPP" style="text-indent:10px">2.1<span>
+    Protection Profile for Web Browsers</span></a><a href="#qq-sfrs-AppPP-Modified" style="text-indent:20px">2.1.1<span>Modified SFRs
+        </span></a><a href="#mod_fcs" style="text-indent:30px">2.1.1.1<span>Cryptographic Support (FCS)</span></a><a href="#mod_fia" style="text-indent:30px">2.1.1.2<span>Identification and Authentication (FIA)</span></a><a href="#mod_ftp" style="text-indent:30px">2.1.1.3<span>Trusted Path/Channels (FTP)</span></a><a href="#man-sfrs" style="text-indent:10px">2.2<span>TOE SFR Evaluation Activities</span></a><a href="#man_fdp" style="text-indent:20px">2.2.1<span>User Data Protection (FDP)</span></a><a href="#man_fmt" style="text-indent:20px">2.2.2<span>Security Management (FMT)</span></a><a href="#man_fpt" style="text-indent:20px">2.2.3<span>Protection of the TSF (FPT)</span></a><a href="#opt-sfrs" style="text-indent:10px">2.3<span>Evaluation Activities for Optional SFRs</span></a><a href="#opt_fdp" style="text-indent:20px">2.3.1<span>User Data Protection (FDP)</span></a><a href="#sel-sfrs" style="text-indent:10px">2.4<span>Evaluation Activities for Selection-Based SFRs</span></a><a href="#sel_fpt" style="text-indent:20px">2.4.1<span>Protection of the TSF (FPT)</span></a><a href="#obj-sfrs" style="text-indent:10px">2.5<span>Evaluation Activities for Objective SFRs</span></a><a href="#obj_fcs" style="text-indent:20px">2.5.1<span>Cryptographic Support (FCS)</span></a><a href="#obj_fpt" style="text-indent:20px">2.5.2<span>Protection of the TSF (FPT)</span></a><a href="#impl-sfrs-" style="text-indent:10px">2.6<span>Evaluation Activities for Implementation-based SFRs</span></a><a href="#sar_aas" style="text-indent:0px">3<span>Evaluation Activities for SARs</span></a><a href="#sup-info" style="text-indent:0px">4<span>Required Supplementary Information</span></a><a href="#biblio" style="text-indent:0px">Appendix A - <span>References</span></a></div><h1 id="introduction" class="indexable" data-level="0">1 Introduction</h1><h2 id="scope" class="indexable" data-level="1">1.1 Technology Area and Scope of Supporting Document</h2><p>The scope of the 
     PP-Module for Web Browsers is
     to describe the security functionality of 
     Web Browsers
@@ -287,7 +308,7 @@
         version 
         1.4</a></li></ul><br/>
     This SD is mandatory for evaluations of TOEs that claim conformance to a PP-Configuration that includes the PP-Module for :
-    <ul><li>Web Browsers, Version 1.0</li></ul>
+    <ul><li>Web Browsers, Version 1.1</li></ul>
     As such it defines Evaluation Activities for the functionality described in the PP-Module as well as any impacts to the Evaluation Activities to the Base-PP(s) it modifies.
     </p><p> 
 Although Evaluation Activities are defined mainly for the evaluators to follow, in general they also help developers to prepare for evaluation by identifying specific requirements for their TOE.
@@ -418,38 +439,38 @@ The following sections list Common Criteria and technology terms used in this do
     In this case, the evaluator must ensure the developer’s tests are executing both 
     in the manner declared by the developer and as mandated by the EA. 
     The CEM workunits that are associated with the EAs specified in this section 
-    are: ATE_IND.1-3, ATE_IND.1-4, ATE_IND.1-5, ATE_IND.1-6, and ATE_IND.1-7.</p><h2 class="indexable" data-level="1" id="aa-app">2.1 
+    are: ATE_IND.1-3, ATE_IND.1-4, ATE_IND.1-5, ATE_IND.1-6, and ATE_IND.1-7.</p><h2 class="indexable" data-level="1" id="aa-AppPP">2.1 
     Protection Profile for Web Browsers</h2>
       The EAs defined in this section are only applicable in cases where the TOE claims conformance
       to a PP-Configuration that includes the App PP.
-     <h3 class="indexable" data-level="2" id="qq-sfrs-app-Modified">2.1.1 Modified SFRs
+     <h3 class="indexable" data-level="2" id="qq-sfrs-AppPP-Modified">2.1.1 Modified SFRs
         </h3>
                 
-                <h3 class="indexable" data-level="3" id="mod_fcs">2.1.1.1 Cryptographic Support (FCS)</h3><div class="comp" id=""><h4>FCS_CKM_EXT.1 Cryptographic Key Generation Services</h4><div class="component-activity-header">FCS_CKM_EXT.1</div>
+                <h3 class="indexable" data-level="3" id="mod_fcs">2.1.1.1 Cryptographic Support (FCS)</h3><div class="comp" id=""><h4>FCS_CKM_EXT.1 Cryptographic Key Generation Services</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_CKM_EXT.1</div>
                                 
                                     There is no change to the Base-PP EAs for this SFR when this PP-Module is claimed, aside from the fact that the materials for the selections that have been refined out of this SFR are not applicable.<p></p>
                                 
-                            </div><div class="comp" id=""><h4>FCS_HTTPS_EXT.1/Client HTTPS Protocol</h4>
+                            </span></div><div class="comp" id=""><h4>FCS_HTTPS_EXT.1/Client HTTPS Protocol</h4>
 	There is no change to the Base-PP EAs for this SFR when this PP-Module is claimed.
-      </div><div class="comp" id=""><h4>FCS_RBG_EXT.1 Random Bit Generation Services</h4><div class="component-activity-header">FCS_RBG_EXT.1</div>
+      <span class="activity_pane_body"></span></div><div class="comp" id=""><h4>FCS_RBG_EXT.1 Random Bit Generation Services</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_RBG_EXT.1</div>
                                 
                                     There is no change to the Base-PP EAs for this SFR when this PP-Module is claimed, aside from the fact that the materials for the selections that have been refined out of this SFR are not applicable.<p></p>
                                 
-                            </div> 
+                            </span></div> 
                 
                 <h3 class="indexable" data-level="3" id="mod_fia">2.1.1.2 Identification and Authentication (FIA)</h3><div class="comp" id=""><h4>FIA_X509_EXT.1 X.509 Certificate Validation</h4>
 	There is no change to the Base-PP EAs for this SFR when this PP-Module is claimed.
-      </div><div class="comp" id=""><h4>FIA_X509_EXT.2 X.509 Certificate Authentication</h4>
+      <span class="activity_pane_body"></span></div><div class="comp" id=""><h4>FIA_X509_EXT.2 X.509 Certificate Authentication</h4>
 	There is no change to the Base-PP EAs for this SFR when this PP-Module is claimed.
-      </div> 
+      <span class="activity_pane_body"></span></div> 
                 
-                <h3 class="indexable" data-level="3" id="mod_ftp">2.1.1.3 Trusted Path/Channels (FTP)</h3><div class="comp" id=""><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4><div class="component-activity-header">FTP_DIT_EXT.1</div>
+                <h3 class="indexable" data-level="3" id="mod_ftp">2.1.1.3 Trusted Path/Channels (FTP)</h3><div class="comp" id=""><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4><span class="activity_pane_body"><div class="component-activity-header">FTP_DIT_EXT.1</div>
                                 
                                     There is no change to the Base-PP EAs for this SFR when this PP-Module is claimed, aside from the fact that the materials for the selections that have been refined out of this SFR are not applicable.<p></p> 
                                 
-                            </div> 
+                            </span></div> 
                 
-            <h2 class="indexable" data-level="1" id="man-sfrs">2.2 TOE SFR Evaluation Activities</h2><h2 class="indexable" data-level="2" id="man_fdp">2.2.1 User Data Protection (FDP)</h2><div class="comp" id=""><h4>FDP_ACF_EXT.1 Local and Session Storage Separation</h4><div class="component-activity-header">FDP_ACF_EXT.1</div>
+            <h2 class="indexable" data-level="1" id="man-sfrs">2.2 TOE SFR Evaluation Activities</h2><h2 class="indexable" data-level="2" id="man_fdp">2.2.1 User Data Protection (FDP)</h2><div class="comp" id=""><h4>FDP_ACF_EXT.1 Local and Session Storage Separation</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_ACF_EXT.1</div>
                             
                             
                             
@@ -462,19 +483,19 @@ The following sections list Common Criteria and technology terms used in this do
                                 The evaluator shall incorporate the scripts into the web pages. The web pages will be opened in a manner that creates a relationship 
                                 allowing for a JavaScript object handle to refer from one window to the the other (e.g., window.parent, window.opener, etc). 
                                 The evaluator shall perform the following tests: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_1">Test 1<a href="#_t_1" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_1" class="defined" href="#_t_1">Test FDP_ACF_EXT.1:1</a>:
       The evaluator shall open both pages ensuring that they are loaded from the same domain using the same port. 
                                         The evaluator shall verify that the script is unable to access session storage through a window relationship handle (e.g., window.opener.sessionStorage).</li>
-                                    <li class="test-"><span id="_t_2">Test 2<a href="#_t_2" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_2" class="defined" href="#_t_2">Test FDP_ACF_EXT.1:2</a>:
       The evaluator shall open both pages ensuring that they are loaded from different domains. 
                                         The evaluator shall verify that the script is unable to access session storage through a window relationship handle (e.g., window.opener.sessionStorage).</li>
-                                    <li class="test-"><span id="_t_3">Test 3<a href="#_t_3" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_3" class="defined" href="#_t_3">Test FDP_ACF_EXT.1:3</a>:
       
                                         The evaluator shall open both pages ensuring that they are loaded from the same domain using different ports. 
                                         The evaluator shall verify that the script is unable to access session storage through a window relationship handle (e.g., window.opener.sessionStorage).
                                     </li>
                                 </ul></span>
-                            </div></div><div class="comp" id=""><h4>FDP_COO_EXT.1 Cookie Blocking</h4><div class="component-activity-header">FDP_COO_EXT.1</div>
+                            </div></span></div><div class="comp" id=""><h4>FDP_COO_EXT.1 Cookie Blocking</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_COO_EXT.1</div>
                             
                             
                             
@@ -486,21 +507,21 @@ The following sections list Common Criteria and technology terms used in this do
                                 require the developer to provide access to a test platform that
                                 provides the evaluator with tools that are typically not found on
                                 factory products: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_4">Test 4<a href="#_t_4" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_4" class="defined" href="#_t_4">Test FDP_COO_EXT.1:1</a>:
       The evaluator shall clear all cookies and then configure
                                         the browser so that storage of third-party cookies is
                                         allowed. The evaluator shall load a web page that stores a
                                         third-party cookie. The evaluator shall navigate to the
                                         location where cookies are stored and shall verify that the
                                         cookie is present.</li>
-                                    <li class="test-"><span id="_t_5">Test 5<a href="#_t_5" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_5" class="defined" href="#_t_5">Test FDP_COO_EXT.1:2</a>:
       The evaluator shall clear all cookies and then configure
                                         the browser so that storage of third-party cookies is
                                         blocked (i.e. not allowed). The evaluator shall load a web
                                         page that attempts to store a third-party cookie and shall
                                         verify that the cookie was not stored.</li>
                                 </ul></span>
-                            </div></div><div class="comp" id=""><h4>FDP_SBX_EXT.1 Sandboxing of Rendering Processes</h4><div class="component-activity-header">FDP_SBX_EXT.1</div>
+                            </div></span></div><div class="comp" id=""><h4>FDP_SBX_EXT.1 Sandboxing of Rendering Processes</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_SBX_EXT.1</div>
                             
                             
                             
@@ -540,12 +561,12 @@ The following sections list Common Criteria and technology terms used in this do
                                 operational guidance to ensure that the method for enabling and
                                 disabling the mechanisms are provided, and the consequences of such
                                 actions are described. <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following test on each platform
-                                claimed in the ST:<span class="testlist-"><ul><li class="test-"><span id="_t_6">Test 6<a href="#_t_6" class="definition"></a></span>:
+                                claimed in the ST:<span class="testlist-"><ul><li class="test-"><a id="_t_6" class="defined" href="#_t_6">Test FDP_SBX_EXT.1:1</a>:
       The evaluator
                                         shall execute a form of mobile code within an HTML page that
                                         contains instructions to modify or delete a file from the
                                         file system and verify that the file is not modified or
-                                        deleted.</li></ul></span></div></div><div class="comp" id=""><h4>FDP_SOP_EXT.1 Same Origin Policy</h4><div class="component-activity-header">FDP_SOP_EXT.1</div>
+                                        deleted.</li></ul></span></div></span></div><div class="comp" id=""><h4>FDP_SOP_EXT.1 Same Origin Policy</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_SOP_EXT.1</div>
                             
                             
                             
@@ -560,19 +581,19 @@ The following sections list Common Criteria and technology terms used in this do
                                 shall incorporate the scripts into the web pages. The evaluator
                                 shall associate each page with a different protocol or port and
                                 then perform the following tests: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_7">Test 7<a href="#_t_7" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_7" class="defined" href="#_t_7">Test FDP_SOP_EXT.1:1</a>:
       The evaluator shall open two or more browser windows/tabs
                                         and navigate to a different page on the website in each
                                         window/tab. The evaluator shall run the scripts and shall
                                         verify that the script that is running in one window/tab
                                         cannot access content that was retrieved in a different
                                         window/tab.</li>
-                                    <li class="test-"><span id="_t_8">Test 8<a href="#_t_8" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FDP_SOP_EXT.1:2</a>:
       The evaluator shall verify that the scripts can retrieve
                                         content from another window/tab at a different
                                         subdomain.</li>
                                 </ul></span>
-                            </div></div><div class="comp" id=""><h4>FDP_STR_EXT.1 Secure Transmission of Cookie Data</h4><div class="component-activity-header">FDP_STR_EXT.1</div>
+                            </div></span></div><div class="comp" id=""><h4>FDP_STR_EXT.1 Secure Transmission of Cookie Data</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_STR_EXT.1</div>
                             
                             
                             
@@ -583,18 +604,18 @@ The following sections list Common Criteria and technology terms used in this do
                                 the developer to provide access to a test platform that provides the
                                 evaluator with tools that are typically not found on factory
                                 products: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_9">Test 9<a href="#_t_9" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_9" class="defined" href="#_t_9">Test FDP_STR_EXT.1:1</a>:
       The evaluator shall connect the browser to a
                                         cookie-enabled test website implementing HTTPS and have the
                                         website present the browser with a "secure" cookie. The
                                         evaluator shall examine the browser's cookie cache and
                                         verify that that it contains the secure cookie.</li>
-                                    <li class="test-"><span id="_t_10">Test 10<a href="#_t_10" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_10" class="defined" href="#_t_10">Test FDP_STR_EXT.1:2</a>:
       The evaluator shall reconnect to the cookie-enabled
                                         website over an insecure channel and verify that no "secure"
                                         cookie is sent.</li>
                                 </ul></span>
-                            </div></div><div class="comp" id=""><h4>FDP_TRK_EXT.1 Tracking Information Collection</h4><div class="component-activity-header">FDP_TRK_EXT.1</div>
+                            </div></span></div><div class="comp" id=""><h4>FDP_TRK_EXT.1 Tracking Information Collection</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_TRK_EXT.1</div>
                             
                             
                             
@@ -606,20 +627,20 @@ The following sections list Common Criteria and technology terms used in this do
                                 tracking information is requested by a website and the options that
                                 the user has upon receiving the notification. <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests for each type of
                                 tracking information listed in the TSS: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_11">Test 11<a href="#_t_11" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_11" class="defined" href="#_t_11">Test FDP_TRK_EXT.1:1</a>:
       The evaluator shall configure a website that requests the
                                         tracking information about the user and shall navigate to
                                         that website. The evaluator shall verify that the user is
                                         notified about the request for tracking information and
                                         that, upon consent, the web browser retrieves the tracking
                                         information.</li>
-                                    <li class="test-"><span id="_t_12">Test 12<a href="#_t_12" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_12" class="defined" href="#_t_12">Test FDP_TRK_EXT.1:2</a>:
       The evaluator shall verify that the user is notified about
                                         the request for tracking information and that, when
                                         rejected, the browser does not provide the tracking
                                         information.</li>
                                 </ul></span>
-                            </div></div><h2 class="indexable" data-level="2" id="man_fmt">2.2.2 Security Management (FMT)</h2><div class="comp" id=""><h4>FMT_MOF_EXT.1 Management of Functions Behavior</h4><div class="component-activity-header">FMT_MOF_EXT.1</div>
+                            </div></span></div><h2 class="indexable" data-level="2" id="man_fmt">2.2.2 Security Management (FMT)</h2><div class="comp" id=""><h4>FMT_MOF_EXT.1 Management of Functions Behavior</h4><span class="activity_pane_body"><div class="component-activity-header">FMT_MOF_EXT.1</div>
                             
                             
                             
@@ -629,11 +650,11 @@ The following sections list Common Criteria and technology terms used in this do
                                 when set according to policy. <p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall examine the operational guidance to verify
                                 that it includes instructions for a browser platform administrator
                                 to configure the functions listed in FMT_MOF.1.1. <p></p></div><div class="eacategory">Tests</div><div class="ea"> The evaluator shall perform the following tests: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_13">Test 13<a href="#_t_13" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_13" class="defined" href="#_t_13">Test FMT_MOF_EXT.1:1</a>:
       The evaluator shall verify that functions perform as
                                         intended by enabling, disabling, and configuring the
                                         functions.</li>
-                                    <li class="test-"><span id="_t_14">Test 14<a href="#_t_14" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_14" class="defined" href="#_t_14">Test FMT_MOF_EXT.1:2</a>:
       The evaluator shall create policies that collectively
                                         include all management functions controlled by the browser
                                         platform administrator and cannot be over-ridden by the user
@@ -642,7 +663,7 @@ The following sections list Common Criteria and technology terms used in this do
                                         the user, and verify that the browser does not permit
                                         it.</li>
                                 </ul></span>
-                            </div></div><h2 class="indexable" data-level="2" id="man_fpt">2.2.3 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_AON_EXT.1 Support for Only Trusted Add-ons</h4><div class="component-activity-header">FPT_AON_EXT.1</div>
+                            </div></span></div><h2 class="indexable" data-level="2" id="man_fpt">2.2.3 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_AON_EXT.1 Support for Only Trusted Add-ons</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_AON_EXT.1</div>
                             
                             
                             
@@ -650,16 +671,16 @@ The following sections list Common Criteria and technology terms used in this do
                                 whether the browser is capable of loading trusted add-ons.<p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall examine the operational guidance to verify
                                 that it includes instructions on loading trusted add-on
                                 sources.<p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
-                                <span class="testlist-"><ul><li class="test-"><span id="_t_15">Test 15<a href="#_t_15" class="definition"></a></span>:
+                                <span class="testlist-"><ul><li class="test-"><a id="_t_15" class="defined" href="#_t_15">Test FPT_AON_EXT.1:1</a>:
       The evaluator shall create or obtain an
                                     untrusted add-on and attempt to load it. The evaluator shall
                                     verify that the untrusted add-on is rejected and cannot be
                                     loaded.</li>
-                                    <li class="test-"><span id="_t_16">Test 16<a href="#_t_16" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_16" class="defined" href="#_t_16">Test FPT_AON_EXT.1:2</a>:
       The evaluator shall create or obtain a trusted add-on and
                                         attempt to load it. The evaluator shall verify that the
                                         trusted add-on loads. </li></ul></span>
-                            </div></div><div class="comp" id=""><h4>FPT_DNL_EXT.1 File Downloads</h4><div class="component-activity-header">FPT_DNL_EXT.1</div>
+                            </div></span></div><div class="comp" id=""><h4>FPT_DNL_EXT.1 File Downloads</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_DNL_EXT.1</div>
                             
                             
                             
@@ -669,7 +690,7 @@ The following sections list Common Criteria and technology terms used in this do
                                 it describes the dialog box that appears when a download is
                                 initiated and the implications of the options presented by the
                                 dialog box. <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following test: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_17">Test 17<a href="#_t_17" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FPT_DNL_EXT.1:1</a>:
       The evaluator shall navigate to a website that hosts files
                                         for download including executables and shall attempt to
                                         download and open several of these files. The evaluator
@@ -677,7 +698,7 @@ The following sections list Common Criteria and technology terms used in this do
                                         with the option to either download the file to the file
                                         system or to discard the file.</li>
                                 </ul></span>
-                            </div></div><div class="comp" id=""><h4>FPT_MCD_EXT.1 Mobile Code</h4><div class="component-activity-header">FPT_MCD_EXT.1</div>
+                            </div></span></div><div class="comp" id=""><h4>FPT_MCD_EXT.1 Mobile Code</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_MCD_EXT.1</div>
                             
 				
                             
@@ -697,7 +718,7 @@ The following sections list Common Criteria and technology terms used in this do
                                 untrusted, or unverified mobile code is encountered and the actions
                                 the user can take. </span></div></div></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following test for each mobile
                                 code type specified in the TSS: <span class="testlist-"><ul>
-                                    <li class="test-"><span id="_t_18">Test 18<a href="#_t_18" class="definition"></a></span>:
+                                    <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FPT_MCD_EXT.1:1</a>:
       
                                         The evaluator shall construct a web page containing correctly signed mobile code and show that it is accepted and executes. 
                                         The evaluator shall then construct three web pages containing unacceptable mobile code: 
@@ -709,7 +730,7 @@ The following sections list Common Criteria and technology terms used in this do
                                         If the user has the ability to accept or reject the code, the evaluator shall verify that the code is not executed after being rejected.
                                     </li>
                                 </ul></span>
-                            </div></div><h2 class="indexable" data-level="1" id="opt-sfrs">2.3 Evaluation Activities for Optional SFRs</h2><h2 class="indexable" data-level="2" id="opt_fdp">2.3.1 User Data Protection (FDP)</h2><div class="comp" id=""><h4>FDP_PST_EXT.1 Storage of Persistent Information</h4><div class="component-activity-header">FDP_PST_EXT.1</div>
+                            </div></span></div><h2 class="indexable" data-level="1" id="opt-sfrs">2.3 Evaluation Activities for Optional SFRs</h2><h2 class="indexable" data-level="2" id="opt_fdp">2.3.1 User Data Protection (FDP)</h2><div class="comp" id=""><h4>FDP_PST_EXT.1 Storage of Persistent Information</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_PST_EXT.1</div>
                                 
                                 
                                 
@@ -719,7 +740,7 @@ The following sections list Common Criteria and technology terms used in this do
                                     the developer to provide access to a test platform that provides the
                                     evaluator with tools that are typically not found on factory
                                     products: <span class="testlist-"><ul>
-                                        <li class="test-"><span id="_t_19">Test 19<a href="#_t_19" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FDP_PST_EXT.1:1</a>:
       The evaluator shall operate the browser for a period of
                                             time, ensuring that a wide variety of browser functionality
                                             has been exercised. The evaluator shall then examine the
@@ -727,7 +748,7 @@ The following sections list Common Criteria and technology terms used in this do
                                             have been written to the file system other than the
                                             exceptions identified in FDP_PST_EXT.1.1.</li>
                                     </ul></span>
-                                </div></div><h2 class="indexable" data-level="1" id="sel-sfrs">2.4 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="sel_fpt">2.4.1 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4><div class="component-activity-header">FPT_AON_EXT.2</div>
+                                </div></span></div><h2 class="indexable" data-level="1" id="sel-sfrs">2.4 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="sel_fpt">2.4.1 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_AON_EXT.2</div>
                                     
                                     
                                     
@@ -736,50 +757,50 @@ The following sections list Common Criteria and technology terms used in this do
                                         sources. <p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall examine the operational guidance to verify
                                         that it includes instructions on how to configure the browser with
                                         trusted add-on sources. <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests: <span class="testlist-"><ul>
-                                        <li class="test-"><span id="_t_20">Test 20<a href="#_t_20" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FPT_AON_EXT.2:1</a>:
       The evaluator shall create or obtain an add-on signed by a
                                             trusted source and attempt to install it. The evaluator
                                             shall verify that the signature on the add-on is valid and
                                             that the add-on can be installed.</li>
-                                        <li class="test-"><span id="_t_21">Test 21<a href="#_t_21" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FPT_AON_EXT.2:2</a>:
       The evaluator shall create or obtain an add-on signed with
                                             an invalid certificate and attempt to install it. The
                                             evaluator shall verify that the signed add-on is rejected
                                             and cannot be installed.</li>
-                                        <li class="test-"><span id="_t_22">Test 22<a href="#_t_22" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FPT_AON_EXT.2:3</a>:
       The evaluator shall create or obtain an add-on signed by a
                                             trusted source, modify the add-on without re-signing it, and
                                             attempt to install it. The evaluator shall verify that the
                                             signed add-on is rejected and cannot be installed.</li>
                                     </ul></span>
-                                    </div></div><h2 class="indexable" data-level="1" id="obj-sfrs">2.5 Evaluation Activities for Objective SFRs</h2><h2 class="indexable" data-level="2" id="obj_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_STS_EXT.1 Strict Transport Security</h4><div class="component-activity-header">FCS_STS_EXT.1</div>
+                                    </div></span></div><h2 class="indexable" data-level="1" id="obj-sfrs">2.5 Evaluation Activities for Objective SFRs</h2><h2 class="indexable" data-level="2" id="obj_fcs">2.5.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_STS_EXT.1 Strict Transport Security</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_STS_EXT.1</div>
                                         
                                         
                                         
                                     <div class="eacategory">TSS</div><div class="ea"> The evaluator shall examine the TSS to ensure
                                             that it documents how the browser supports HSTS. <p></p></div><div class="eacategory">Guidance</div><div class="ea"> The evaluator shall examine the operational guidance to
                                             ensure it contains instructions on how to use HSTS. <p></p></div><div class="eacategory">Tests</div><div class="ea"> The evaluator shall perform the following tests: <span class="testlist-"><ul>
-                                            <li class="test-"><span id="_t_23">Test 23<a href="#_t_23" class="definition"></a></span>:
+                                            <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FCS_STS_EXT.1:1</a>:
       The evaluator shall connect to an HSTS-compliant website
                                                 while running a network protocol analyzer to monitor the
                                                 traffic. The evaluator shall examine the captured network
                                                 traffic and verify that a Strict Transport Security header
                                                 is received and that there is a directive for the max-age of
                                                 the HSTS relationship.</li>
-                                            <li class="test-"><span id="_t_24">Test 24<a href="#_t_24" class="definition"></a></span>:
+                                            <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FCS_STS_EXT.1:2</a>:
       The evaluator shall reconnect to the HSTS website again
                                                 over HTTP and shall verify that the session is redirected to
                                                 HTTPS.</li>
-                                            <li class="test-"><span id="_t_25">Test 25<a href="#_t_25" class="definition"></a></span>:
+                                            <li class="test-"><a id="_t_25" class="defined" href="#_t_25">Test FCS_STS_EXT.1:3</a>:
       The evaluator shall reconnect to the HSTS website after
                                                 the max-age has expired, and verify that the website and
                                                 browser reestablish an HSTS relationship.</li>
-                                            <li class="test-"><span id="_t_26">Test 26<a href="#_t_26" class="definition"></a></span>:
+                                            <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FCS_STS_EXT.1:4</a>:
       The evaluator shall update the website HSTS information,
                                                 and verify that when the browser reconnects to the website,
                                                 that information is updated by the browser.</li>
                                         </ul></span>
-                                        </div></div><h2 class="indexable" data-level="2" id="obj_fpt">2.5.2 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_INT_EXT.1 Interactions with Application Reputation Services</h4><div class="component-activity-header">FPT_INT_EXT.1</div>
+                                        </div></span></div><h2 class="indexable" data-level="2" id="obj_fpt">2.5.2 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_INT_EXT.1 Interactions with Application Reputation Services</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_INT_EXT.1</div>
                                     
                                     
                                     
@@ -791,7 +812,7 @@ The following sections list Common Criteria and technology terms used in this do
                                         default (if any) and whether additional services can be configured.
                                         The operational guidance shall include steps for how to configure
                                         the application reputation service. <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following test: <span class="testlist-"><ul>
-                                        <li class="test-"><span id="_t_27">Test 27<a href="#_t_27" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FPT_INT_EXT.1:1</a>:
       The evaluator shall configure the browser to enable the
                                             use of one or more application reputation services per the
                                             operational guidance. The evaluator shall initiate a
@@ -803,7 +824,7 @@ The following sections list Common Criteria and technology terms used in this do
                                             application reputation service(s) before initiating the
                                             download.</li>
                                     </ul></span>
-                                    </div></div><div class="comp" id=""><h4>FPT_INT_EXT.2 Interactions with URL Reputation Services</h4><div class="component-activity-header">FPT_INT_EXT.2</div>
+                                    </div></span></div><div class="comp" id=""><h4>FPT_INT_EXT.2 Interactions with URL Reputation Services</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_INT_EXT.2</div>
                                     
                                     
                                     
@@ -815,7 +836,7 @@ The following sections list Common Criteria and technology terms used in this do
                                         (if any) and whether additional services can be configured. The
                                         operational guidance shall include steps for how to configure the
                                         URL reputation service. <p></p></div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests: <span class="testlist-"><ul>
-                                        <li class="test-"><span id="_t_28">Test 28<a href="#_t_28" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_28" class="defined" href="#_t_28">Test FPT_INT_EXT.2:1</a>:
       The evaluator shall configure the browser to enable the
                                             use of one or more URL reputation services per the
                                             operational guidance. The evaluator shall initiate a
@@ -824,7 +845,7 @@ The following sections list Common Criteria and technology terms used in this do
                                             evaluator shall inspect the captured network traffic and
                                             shall verify that the browser initiates a connection to the
                                             configured URL reputation service(s).</li>
-                                        <li class="test-"><span id="_t_29">Test 29<a href="#_t_29" class="definition"></a></span>:
+                                        <li class="test-"><a id="_t_29" class="defined" href="#_t_29">Test FPT_INT_EXT.2:2</a>:
       The evaluator shall configure the browser to enable the
                                             use of one or more URL reputation services per the
                                             operational guidance. The evaluator shall initiate a
@@ -839,7 +860,7 @@ The following sections list Common Criteria and technology terms used in this do
                                             retrieved an updated list of malicious URLs with the tested
                                             website being on the list.</li>
                                     </ul></span>
-                                    </div></div><h1 id="sar_aas" class="indexable" data-level="0">3 Evaluation Activities for SARs</h1><p>The PP-Module does not define any SARs beyond those defined within the
+                                    </div></span></div><h2 class="indexable" data-level="1" id="impl-sfrs-">2.6 Evaluation Activities for Implementation-based SFRs</h2>The PP-Module does not define any implementation-based requirements.<h1 id="sar_aas" class="indexable" data-level="0">3 Evaluation Activities for SARs</h1><p>The PP-Module does not define any SARs beyond those defined within the
     
 	base App PP to which it must claim conformance.
 	It is important to note that a TOE that is evaluated against the PP-Module is
@@ -860,13 +881,13 @@ guidance, and testing.</p><h1 id="biblio" class="indexable" data-level="A">Appen
               April 2017.</li><li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R5.pdf">Part
                 3: Security Assurance Components</a>, CCMB-2017-04-003, Version 3.1 Revision 5,
               April 2017.</li></ul></td></tr>
-        <tr><td><span id="CEM"></span>[CEM]</td><td>
-               <a href="https://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R5.pdf">Common Methodogy for Information Technology Security Evaluation, Version 3.1r5</a>, 
-                   CCMB-2017-04-004, April 2017
-             </td></tr>
-
         <tr><td><span id="bibAppPP"></span>[App PP]</td><td>
-                <a href="https://www.niap-ccevs.org/MMO/PP/PP_APP_v1.4.pdf">Protection Profile for Application Software, Version 1.4</a>, October 7, 2021
+                <a href="https://www.niap-ccevs.org/MMO/PP/PP_APP_v2.0.pdf">Protection Profile for Application Software, Version 2.0</a>, TBD
             </td></tr>
+
+        <tr><td><span id="bibCEM"></span>[CEM]</td><td>
+                <a href="https://commoncriteriaportal.org/files/ccfiles/CEM2022R1.pdf">Common
+                    Methodology for Information Technology Security - Evaluation Methodology</a>,
+                CCMB-2022-11-006, CEM:2022, Revision 1, November 2022. </td></tr>
 
     </table></body></html>
