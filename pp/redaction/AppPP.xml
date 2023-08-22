@@ -1,12 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
-<?xml-model href="https://raw.githubusercontent.com/commoncriteria/transforms/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-
-<PP xmlns="https://niap-ccevs.org/cc/v1"
-    xmlns:h="http://www.w3.org/1999/xhtml"
-    xmlns:sec="https://niap-ccevs.org/cc/v1/section"
-    target-products="Application Software" 
-    boilerplate="yes">
+<PP xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" target-product="Application Software" target-products="Application Software" boilerplate="yes" short="App">
 	
   <PPReference>
     <ReferenceTable>
@@ -58,7 +50,7 @@
     </entry>
   </RevisionHistory>
   
-  <!-- TDs incorporated: 
+  <release-notes><h:h3>TDs Applied</h:h3><h:div class="td-">0719</h:div><h:div class="td-">0717</h:div><h:div class="td-">0709</h:div><h:div class="td-">0669</h:div><h:div class="td-">0664</h:div><h:div class="td-">0655</h:div><h:div class="td-">0650</h:div><h:div class="td-">0628</h:div><h:div class="td-">0624</h:div></release-notes><!-- TDs incorporated: 
 	XXXXXX:	 Replaced SSH EP 1.0 with SSH FP 1.0
 	TD0601:  Updating FTP_DIT_EXT.1 to conform to changes in FCS_HTTPS_EXT. Supersedes TDs 444, 473, 587.
 	TD0600:  Conformance claim sections updated to allow for MOD_VPNC_V2.3
@@ -107,17 +99,21 @@
      <val id="sad-mac" full="Apple macOS Platform"></val>
   </subaactivity-decl> 
   -->
-   <include-pkg id="pkg-tls">
-	  <raw-url>https://raw.githubusercontent.com/commoncriteria/tls/v1.1/input/tls.xml</raw-url>
-	  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
-	  <depends on-sel="sel_all_tls" on-also="sel_all_dtls"/>
-   </include-pkg>
-
-    <include-pkg id="pkg-ssh">
-          <raw-url>https://raw.githubusercontent.com/commoncriteria/ssh/v1.0/input/ssh.xml</raw-url>
-          <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
-	  <depends on-sel="sel_all_ssh"/>
-    </include-pkg>
+<include-pkg id="pkg-tls">
+  <git>
+    <url>https://github.com/commoncriteria/tls</url>
+    <branch>v1.1</branch>
+  </git>
+  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
+  <depends on-sel="sel_all_tls" on-also="sel_all_dtls"/>
+</include-pkg>
+   
+<include-pkg id="pkg-ssh">
+  <git><url>https://github.com/commoncriteria/ssh</url>
+  <branch>v1.0</branch></git>
+  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
+  <depends on-sel="sel_all_ssh"/>
+</include-pkg>
 	
 
 	<!-- 1.0 Introdiction -->
@@ -318,7 +314,7 @@
 		depends upon the national scheme.  BIOS and other firmware, the operating system kernel,
 		and other systems software (and drivers) provided as part of the platform are outside the scope
 		of this document.  
-		<figure	entity="images/toe.png" title="TOE as an Application and Kernel Module Running on an Operating System" id="toe-as-apponos"/>
+		<figure entity="images/toe.png" title="TOE as an Application and Kernel Module Running on an Operating System" id="toe-as-apponos"/>
 		<figure entity="images/toeruntime.png" title="TOE as an Application Running in an Execution Environment Plus Native Code" id="toe-as-apponee"/>
 	</sec:TOE_Boundary>
 	
@@ -352,7 +348,7 @@
 	
 	<!-- 1.5 Supported Platforms -->
 	<section title="Platforms with Specific EAs" id="sec-platforms">
-	    <choice prefix="Platforms:" >
+	    <choice prefix="Platforms:">
 			This PP includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on
 		    	other OS platforms, and applications that run in software-based execution environments contact the Technical Community for guidance.<h:p/>  
 			<selectables linebreak="yes">
@@ -371,7 +367,7 @@
 	<!-- 2.0 Conformance Claims -->
 	<!-- incorporates TD0600 -->
 	<!-- incorporates TD0582 -->
-	<sec:Conformance_Claims  boilerplate="no">
+	<sec:Conformance_Claims boilerplate="no">
 		<cclaims>
 			<cclaim name="Conformance Statement">
 				<description>An ST must claim exact conformance to this PP, as defined in the CC and CEM addenda for Exact Conformance, 
@@ -798,16 +794,16 @@
 						known good implementation as described above. Otherwise, the evaluator shall have 
 						the TSF generate 10 keys pairs for each supported key length nlen 
 						and verify: <h:ul>
-							<h:li>n = p&#x22c5;q,</h:li>
+							<h:li>n = p⋅q,</h:li>
 							<h:li>p and q are probably prime according to Miller-Rabin tests,</h:li>
 							<h:li>GCD(p-1,e) = 1,</h:li>
 							<h:li>GCD(q-1,e) = 1,</h:li>
-							<h:li>2<h:sup>16</h:sup> &#x2264; e &#x2264; 2<h:sup>256</h:sup> and e is an odd integer,</h:li>
-							<h:li>|p-q| > 2<h:sup>nlen/2 - 100</h:sup>,</h:li>
-							<h:li>p &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
-							<h:li>q &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
+							<h:li>2<h:sup>16</h:sup> ≤ e ≤ 2<h:sup>256</h:sup> and e is an odd integer,</h:li>
+							<h:li>|p-q| &gt; 2<h:sup>nlen/2 - 100</h:sup>,</h:li>
+							<h:li>p ≥ 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
+							<h:li>q ≥ 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
 							<h:li>2<h:sup>(nlen/2)</h:sup> &lt; d &lt; LCM(p-1,q-1),</h:li>
-							<h:li>e&#x22c5;d = 1 mod LCM(p-1,q-1).</h:li>
+							<h:li>e⋅d = 1 mod LCM(p-1,q-1).</h:li>
 						</h:ul>
 						<h:b>Key Generation for Elliptic Curve Cryptography (ECC)</h:b><h:p/>
 						FIPS 186-4 ECC Key Generation Test
@@ -843,9 +839,9 @@
 						The Key generation specifies 2 ways to generate the private key x:<h:p/>
 						Private Key:
 						<h:ul>
-							<h:li>len(q) bit output of RBG where 1 &#x2264;x &#x2264; q-1</h:li>
+							<h:li>len(q) bit output of RBG where 1 ≤x ≤ q-1</h:li>
 							<h:li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 
-								1&#x2264; x&#x2264;q-1.</h:li>
+								1≤ x≤q-1.</h:li>
 						</h:ul>
 						The security strength of the RBG must be at least that of the security offered by the 
 						FFC parameter set.
@@ -859,7 +855,7 @@
 						TSF with those generated from a known good implementation. 
 						Verification must also confirm
 						<h:ul>
-							<h:li>g &#8800; 0,1</h:li>
+							<h:li>g ≠ 0,1</h:li>
 							<h:li>q divides p-1</h:li>
 							<h:li>g<h:sup>q</h:sup> mod p = 1</h:li>
 							<h:li>g<h:sup>x</h:sup> mod p = y</h:li>
@@ -1692,7 +1688,7 @@ functionality (such as these)
         </f-component> 
 
 	    <!-- FCS_COP.1/Sig (formerly FCS_COP.1/3) -->
-        <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing"  status="sel-based">
+        <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing" status="sel-based">
 			<depends on="sel_all_tls"/>
 			<f-element id="fel-sign">
 				<title>
@@ -2107,7 +2103,7 @@ functionality (such as these)
 					entropy from a platform-based DRBG and <selectables linebreak="yes">
 						<selectable>a software-based noise source</selectable>
 						<selectable>a hardware-based noise source</selectable>
-						<selectable exclusive='yes'>no other noise source</selectable>
+						<selectable exclusive="yes">no other noise source</selectable>
 					</selectables> with a minimum of <selectables linebreak="yes" onlyone="yes">
 						<selectable>128 bits</selectable>
 						<selectable>256 bits</selectable>
@@ -2841,7 +2837,7 @@ functionality (such as these)
 							Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
 							or the IsolatedStorageSettings namespace for storing application specific settings.
 							For .NET applications, the evaluator shall determine and verify that the application 
-							uses one of the locations listed in <h:a href='https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/'>
+							uses one of the locations listed in <h:a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/">
 							https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</h:a> for storing application specific settings.
 							For Classic Desktop applications, the evaluator shall run the application while 
 							monitoring it with the SysInternals tool <h:span class="util">ProcMon</h:span> and 
@@ -3101,7 +3097,7 @@ functionality (such as these)
 				</title>
 				<note role="application">
 					The IANA MIME types are listed at
-					<h:a href='http://www.iana.org/assignments/media-types'>http://www.iana.org/assignments/media-types</h:a> 
+					<h:a href="http://www.iana.org/assignments/media-types">http://www.iana.org/assignments/media-types</h:a> 
 					and include many image, audio, video, and content file formats. <h:p/>
 					This requirement does not apply if providing parsing services is the purpose of the 
 					application.
@@ -3109,7 +3105,7 @@ functionality (such as these)
 				<aactivity>
 					<TSS>
 						The evaluator shall verify that the TSS lists the IANA MIME media types
-						(as described by <h:a href='http://www.iana.org/assignments/media-types'>
+						(as described by <h:a href="http://www.iana.org/assignments/media-types">
 						http://www.iana.org/assignments/media-types</h:a> )
 						for all formats the application processes
 						and that it maps those formats to parsing services provided by the platform.
@@ -4501,19 +4497,19 @@ functionality (such as these)
       ensure that evaluations meet customer expectations while recognizing that there is little to be gained from requiring that every 
       variation in a product or platform be fully tested. If a product is found to be compliant with a PP on one platform, then all 
       equivalent products on equivalent platforms are also considered to be compliant with the PP.
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       A Vendor can make a claim of equivalence if the Vendor believes that a particular instance of their Product implements PP-specified 
       security functionality in a way equivalent to the implementation of the same functionality on another instance of their Product on 
       which the functionality was tested. The Product instances can differ in version number or feature level (model), or the instances may
       run on different platforms. Equivalency can be used to reduce the testing required across claimed evaluated configurations. It can 
       also be used during Assurance Maintenance to reduce testing needed to add more evaluated configurations to a certification.
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       These equivalency guidelines do not replace Assurance Maintenance requirements or NIAP Policy #5 requirements for CAVP certificates. 
       Nor may equivalency be used to leverage evaluations with expired certifications.
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       These Equivalency Guidelines represent a shift from complete testing of all product instances to more of a risk-based approach. 
       Rather than require that every combination of product and platform be tested, these guidelines support an approach that recognizes
       that products are being used in a variety of environments—and often in cloud environments over where the vendor (and sometimes the 
@@ -4527,10 +4523,10 @@ functionality (such as these)
       the balancing of evaluation rigor and commercial practicability tips in favor of practicability. Note that this does not affect
       the requirement that at least one product instance be fully tested on at least one platform with cryptography mapped to a CAVP 
       certificate.
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       Equivalency has two aspects:
-      <h:br />
+      <h:br/>
       <h:ol>
         <h:li><h:b><h:i>Product Equivalence:</h:i></h:b> Products may be considered equivalent if there are no
           differences between Product Models and Product Versions with respect to PP-specified security functionality.</h:li>
@@ -4549,25 +4545,25 @@ functionality (such as these)
       the product with which equivalence is being claimed must have a valid certification in accordance with scheme rules
       and the Assurance Maintenance process must be followed. If a product’s certification has expired, then equivalence 
       cannot be claimed with that product.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       When performing equivalency analysis, the Evaluator/Vendor should first use the factors and guidelines for Product
       Model equivalence to determine the set of Product Models to be evaluated. In general, Product Models that do not differ 
       in PP-specified security functionality are considered equivalent for purposes of evaluation against the AppPP.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       If multiple revision levels of Product Models are to be evaluated—or to determine whether a revision of an evaluated 
       product needs re-evaluation—the Evaluator/Vendor and Validator should use the factors and guidelines for Product 
       Version equivalence to analyze whether Product Versions are equivalent.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       Having determined the set of Product Models and Versions to be evaluated, the next step is to determine the set of
       Platforms that the Products must be tested on.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       Each non-equivalent Product for which compliance is claimed must be fully tested on each non-equivalent platform 
       for which compliance is claimed. For non-equivalent Products on equivalent platforms, only the differences that
       affect PP-specified security functionality must be tested for each product.
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       <h:b><h:i>“Differences in PP-Specified Security Functionality” Defined</h:i></h:b>
-      <h:br />
+      <h:br/>
       If PP-specified security functionality is implemented by the TOE, then differences in the actual implementation
       between versions or product models break equivalence for that feature. Likewise, if the TOE implements the 
       functionality in one version or model and the functionality is implemented by the platform in another version 
@@ -4581,12 +4577,12 @@ functionality (such as these)
       a product line are equivalent for purposes of PP testing. For example, if a product has a “basic” edition and an “enterprise” 
       edition, is it necessary to test both models? Or does testing one model provide sufficient assurance that both models 
       are compliant?
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       Product models are considered equivalent if there are no differences that affect PP-specified security 
       functionality—as indicated in Table 1.
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
       
       <h:table border="1">
         <h:tr class="header" bgcolor="#cccccc">
@@ -4610,15 +4606,15 @@ functionality (such as these)
         </h:tr>
       </h:table>
       <h:b>Table 1. Determining Product Model Equivalence</h:b>
-      <h:br /> 
-      <h:br />
+      <h:br/> 
+      <h:br/>
     </section>
     <section id="versionequiv" title="Specific Guidance for Determining Product Version Equivalence">
       In cases of version equivalence, differences are expressed in terms of changes implemented in revisions 
       of an evaluated Product. In general, versions are equivalent if the changes have no effect on any 
       security-relevant claims about the TOE or assurance evidence. Non-security-relevant changes to TOE 
       functionality or the addition of non-security-relevant functionality does not affect equivalence.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       
       <h:table border="1">
         <h:tr class="header" bgcolor="#cccccc">
@@ -4647,27 +4643,27 @@ functionality (such as these)
         </h:tr>
       </h:table>
       <h:b>Table 2. Factors for Determining Product Version Equivalence</h:b>
-      <h:br />
-      <h:br />
+      <h:br/>
+      <h:br/>
     </section>
     <section id="platformequiv" title="Specific Guidance for Determining Platform Equivalence">
       Platform equivalence is used to determine the platforms that equivalent versions of a Product must be tested on. 
       Platform equivalence analysis done for one software application cannot be applied to another software application.
       Platform equivalence is not general—it is with respect to a particular application. 
-      <h:br /><h:br />
+      <h:br/><h:br/>
       Product Equivalency analysis must already have been done and Products have been determined to be equivalent.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       The platform can be hardware or virtual hardware, an operating system or similar entity, or a software execution 
       environment such as a container. For purposes of determining equivalence for software applications, we address each
       type of platform separately. In general, platform equivalence is based on differences in the interfaces between the 
       TOE and Platform that are relevant to the implementation of PP-specified security functionality.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       <section id="hardware-equiv" title="Platform Equivalence—Hardware/Virtual Hardware Platforms">
         If an Application runs directly on hardware without an operating system—or directly on virtualized 
         hardware without an operating system—then platform equivalence is based on processor architecture and 
         instruction sets. In the case of virtualized hardware, it is the virtualized processor and architecture 
         that are presented to the application that matters—not the physical hardware.
-        <h:br /><h:br />
+        <h:br/><h:br/>
         Platforms with different processor architectures and instruction sets are not equivalent. This is not 
         likely to be an issue for equivalency analysis for applications since there is likely to be a different 
         version of the application for different hardware environments.
@@ -4680,7 +4676,7 @@ functionality (such as these)
         and another on platforms that do not, then those two platforms are not equivalent with respect to that 
         application functionality. But if the application follows the same code path whether or not the platform 
         supports AES-NI, then the platforms are equivalent with respect to that functionality.
-        <h:br /><h:br />
+        <h:br/><h:br/>
         The platforms are equivalent with respect to the application if the platforms are equivalent with respect to all PP-specified
         security functionality.
         <h:table border="1">
@@ -4702,8 +4698,8 @@ functionality (such as these)
           </h:tr>
         </h:table>
         <h:b>Table 3. Factors for Determining Hardware/Virtual Hardware Platform Equivalence</h:b>
-        <h:br />
-        <h:br />
+        <h:br/>
+        <h:br/>
         
       </section>
       <section id="os-equiv" title="Platform Equivalence—OS Platforms">
@@ -4751,8 +4747,8 @@ functionality (such as these)
           
         </h:table>
         <h:b>Table 4. Factors for Determining OS/VS Platform Equivalence</h:b>
-        <h:br />
-        <h:br />
+        <h:br/>
+        <h:br/>
     
       </section>
       <section id="software-equiv" title="Software-based Execution Environment Platform Equivalence">
@@ -4789,29 +4785,29 @@ functionality (such as these)
           </h:tr>
         </h:table>
         <h:b>Table 5. Factors for Software-based Execution Environment Platform Equivalence</h:b>
-        <h:br />
-        <h:br />
+        <h:br/>
+        <h:br/>
       </section>
     </section>
     <section id="specificity" title="Level of Specificity for Tested Configurations and Claimed Equivalent Configurations">
       In order to make equivalency determinations, the vendor and evaluator must agree on the equivalency claims. They must 
       then provide the scheme with sufficient information about the TOE instances and platforms that were evaluated, and the 
       TOE instances and platforms that are claimed to be equivalent.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       The ST must describe all configurations evaluated down to processor manufacturer, model number, and microarchitecture version. 
-      <h:br /><h:br />
+      <h:br/><h:br/>
       The information regarding claimed equivalent configurations depends on the platform that the application was developed for and runs on.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       <h:b>Bare-Metal Applications</h:b>
-      <h:br /><h:br />
+      <h:br/><h:br/>
       For applications that run without an operating system on bare-metal or virtual bare-metal, the claimed configuration must 
       describe the platform down to the specific processor manufacturer, model number, and microarchitecture version. The Vendor
       must describe the differences in the TOE with respect to PP-specified security functionality and how the TOE functions
       differently to leverage platform differences (e.g., instruction set extensions) in the tested configuration versus the 
       claimed equivalent configuration. 
-      <h:br /><h:br />
+      <h:br/><h:br/>
       <h:b>Traditional Applications</h:b>
-      <h:br /><h:br />
+      <h:br/><h:br/>
       For applications that run with an operating system as their immediate platform, the claimed configuration must describe 
       the platform down to the specific operating system version. If the platform is a virtualization system, then the claimed 
       configuration must describe the platform down to the specific virtualization system version. The Vendor must describe the 
@@ -4819,15 +4815,15 @@ functionality (such as these)
       platform differences in the tested configuration versus the claimed equivalent configuration. Relevant platform differences 
       could include instruction sets, device interfaces, and OS APIs invoked by the TOE to implement PP-specified security 
       functionality.
-      <h:br /><h:br />
+      <h:br/><h:br/>
       <h:b>Software-Based Execution Environments</h:b>
-      <h:br /><h:br />
+      <h:br/><h:br/>
       For applications that run in a software-based execution environment such as a Java virtual machine or a Container, then 
       the claimed configuration must describe the platform down to the specific version of the software execution environment. 
       The Vendor must describe the differences in the TOE with respect to PP-specified security functionality and how the TOE 
       functions differently to leverage platform differences in the tested configuration versus the claimed equivalent 
       configuration.
-      <h:br />
+      <h:br/>
       
     </section>
   </appendix>
@@ -4845,8 +4841,7 @@ functionality (such as these)
       <entry id="bibOMB">
         <tag>OMB</tag>
         <description>
-          <h:a href="http://www.whitehouse.gov/sites/default/files/omb/memoranda/fy2006/m06-19.pdf"
-            >Reporting Incidents Involving Personally Identifiable Information and Incorporating the
+          <h:a href="http://www.whitehouse.gov/sites/default/files/omb/memoranda/fy2006/m06-19.pdf">Reporting Incidents Involving Personally Identifiable Information and Incorporating the
             Cost for Security in Agency Information Technology Investments</h:a>, OMB M-06-19, July
           12, 2006. </description>
       </entry>
