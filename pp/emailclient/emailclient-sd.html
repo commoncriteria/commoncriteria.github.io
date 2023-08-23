@@ -439,8 +439,8 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 	        
 	      <div class="eacategory">TSS</div><div class="ea">
-		The evaluator shall verify the TSS for a high-level description of method used to protect keys stored in non-volatile memory.<p></p>
-		The evaluator shall verify the TSS to ensure it describes the storage location of all keys and the protection of all keys stored in non-volatile memory. The description of the key chain shall be reviewed to ensure FCS_COP_EXT.2 is followed for the storage of wrapped or encrypted keys in non-volatile memory and plaintext keys in non-volatile memory meet one of the criteria for storage.<p></p>
+		The evaluator shall verify the TSS for a high-level description of the method used to protect keys stored in non-volatile memory.<p></p>
+		The evaluator shall ensure that the TSS describes the storage location of all keys and the protection of all keys stored in non-volatile memory. The description of the key chain shall be reviewed to ensure FCS_COP_EXT.2 is followed for the storage of wrapped or encrypted keys in non-volatile memory and plaintext keys in non-volatile memory meet one of the criteria for storage.<p></p>
 		</div><div class="eacategory">Guidance</div><div class="ea">
 	          There are no guidance EAs for this component.<p></p>
 	        </div><div class="eacategory">Tests</div><div class="ea">
@@ -450,15 +450,15 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 		
 	      <div class="eacategory">TSS</div><div class="ea">
-		If the platform provides the key destruction, then the evaluator shall examine the TSS to verify that it describes how the key destruction functionality is invoked.
+		If the platform provides the key destruction, then the evaluator shall verify that the TSS describes how the key destruction functionality is invoked.
 		<p></p>
 		  If "destruction of reference..." (for volatile memory) is selected, then the evaluator shall examine the relevant interface definition to ensure that the interface supports the selection and description in the TSS.
 		<p></p>
-		  If the application invokes key destruction, the evaluator shall check to ensure the TSS describes each of the secret keys (keys used for symmetric encryption or data authentication), private keys, and critical security parameters (CSPs) used to generate keys; 
+		  If the application invokes key destruction, the evaluator shall ensure the TSS describes each of the secret keys (keys used for symmetric encryption or data authentication), private keys, and critical security parameters (CSPs) used to generate keys; 
 		  when they are zeroized (for example, immediately after use, on system shutdown, etc.); 
 		  and the type of zeroization procedure that is performed (overwrite with zeroes, overwrite three times with random pattern, etc.). 
-		  If different types of memory are used to store the materials to be protected, the evaluator shall check to ensure that the TSS describes the zeroization procedure in terms of the memory in which the data are stored 
-		  (for example, "secret keys stored on a drive are zeroized by overwriting once with zeros, while secret akeys stored on the internal hard drive are zeroized by overwriting three times with a random pattern that is changed before each write").
+		  If different types of memory are used to store the materials to be protected, the evaluator shall ensure that the TSS describes the zeroization procedure in terms of the memory in which the data are stored 
+		  (for example, "secret keys stored on a drive are zeroized by overwriting once with zeros, while secret keys stored on the internal hard drive are zeroized by overwriting three times with a random pattern that is changed before each write").
 		<p></p>  
 		</div><div class="eacategory">Guidance</div><div class="ea">
 	          There are no guidance EAs for this component.<p></p>
@@ -467,16 +467,16 @@ The following sections list Common Criteria and technology terms used in this do
 		<span class="testlist-"><ul>
 		<li class="test-"><a id="_t_1" class="defined" href="#_t_1">Test FCS_CKM_EXT.4:1</a>:
       
-		For each type of authorization service, encryption mode, and encryption operation, a known authorization factor, and chain of keys must be provided to the evaluator with an associated ciphertext data set 
-		(e.g. if a passphrase is used to create an intermediate key, then the ciphertext containing the encrypted key as well as the intermediate key itself must be provided to the evaluator). 
+		For each type of authorization service, encryption mode, and encryption operation, a known authorization factor and chain of keys must be provided to the evaluator with an associated ciphertext data set 
+		(e.g., if a passphrase is used to create an intermediate key, then the ciphertext containing the encrypted key as well as the intermediate key itself must be provided to the evaluator). 
 		The evaluator shall use the email client in conjunction with a debugging or forensics utility to attempt to authorize themselves, resulting in the generation of a key or decryption of a key. 
 		The evaluator shall ascertain from the TSS what the vendor defines as "no longer needed" and execute the sequence of actions via the email client to invoke this state. 
-		At this point, the evaluator should take a dump of volatile memory and search the retrieved dump for the provided authorization credentials or keys 
-		(e.g. if the password was "PaSSw0rd", perform a string search of the forensics dump for "PaSSw0rd"). 
-		The evaluator must document each command, program, or action taken during this process, and must confirm that no plaintext keying material resides in volatile memory. 
-		The evaluator must perform this test three times to ensure repeatability. 
+		At this point, the evaluator shall dump the volatile memory and search the retrieved dump for the provided authorization credentials or keys 
+		(e.g., if the password was "PaSSw0rd," perform a string search of the forensics dump for "PaSSw0rd"). 
+		The evaluator shall document each command, program, or action taken during this process, and must confirm that no plaintext keying material resides in volatile memory. 
+		The evaluator shall perform this test three times to ensure repeatability. 
 		If during the course of this testing the evaluator finds that keying material remains in volatile memory, they should be able to identify the cause 
-		(i.e. execution of the grep command for "PaSSw0rd" caused a false positive) and document the reason for failure to comply with this requirement. 
+		(i.e., execution of the grep command for "PaSSw0rd" caused a false positive) and document the reason for failure to comply with this requirement. 
 		The evaluator shall repeat this same test, but looking for keying material in non-volatile memory.<p></p>
 		</li>
 		</ul></span>
@@ -485,10 +485,10 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 	        
 	      <div class="eacategory">TSS</div><div class="ea">
-		  The evaluator shall verify that the TSS* includes a high-level description of the key hierarchy for all authorizations methods that are used to protect the encryption keys. 
-		  The evaluator shall examine the TSS to ensure it describes the key chain in detail. The description of the key chain shall be reviewed to ensure it maintains a chain of keys using key wrap that meets FCS_COP_EXT.2. 
+		  The evaluator shall verify that the TSS* includes a high-level description of the key hierarchy for all authorization methods that are used to protect the encryption keys. 
+		  The evaluator shall examine the TSS to ensure it describes the key chain in detail. The evaluator shall review the description of the key chain to ensure it maintains a chain of keys using key wrap that meets FCS_COP_EXT.2. 
 		<p></p>  
-		  The evaluator shall then verify that the TSS* describes how the key chain process functions, such that it does not expose any material that might compromise any key in the chain. A high-level description should include a diagram illustrating the key hierarchy implemented and detail where all keys and keying material is stored or what it is derived from. The evaluator shall examine the key hierarchy to ensure that at no point the chain could be broken without a cryptographic exhaust or knowledge of the key within the chain and the effective strength of the data encryption key is maintained throughout the key chain.
+		  The evaluator shall verify that the TSS* describes how the process of the key chain functions, such that it does not expose any material that might compromise any key in the chain. A high-level description should include a diagram illustrating the key hierarchy implemented and detail where all keys and keying material is stored or what it is derived from. The evaluator shall examine the key hierarchy to ensure that at no point the chain could be broken without a cryptographic exhaust or knowledge of the key within the chain, and the effective strength of the data encryption key is maintained throughout the key chain.
 		<p></p>*If necessary, this information may be presented in a proprietary document rather than the TSS.<p></p>
 		</div><div class="eacategory">Guidance</div><div class="ea">
 	          There are no guidance EAs for this component.<p></p>
@@ -500,10 +500,10 @@ The following sections list Common Criteria and technology terms used in this do
 	        
 	      <div class="eacategory">TSS</div><div class="ea">
 	          The evaluator shall verify that the version of S/MIME implemented by the email client is present in the TSS. The evaluator shall also verify that the algorithms supported are specified, and that the algorithms specified are those listed for this component.
-	          <p></p>The evaluator shall verify that the TSS describes the ContentEncryptionAlgorithmIdentifier and if the required behavior is performed by default or may be configured.
-	          <p></p>The evaluator shall verify that the TSS describes the digestAlgorithm and if the required behavior is performed by default or may be configured.
-	          <p></p>The evaluator shall verify that the TSS describes the AlgorithmIdentifier and if the required behavior is performed by default or may be configured.
-	          <p></p>The evaluator shall verify that the TSS describes the retrieval mechanisms for both certificates and certificate revocation as well as the frequency at which these mechanisms are implemented.<p></p>
+	          <p></p>The evaluator shall verify that the TSS describes the ContentEncryptionAlgorithmIdentifier and whether the required behavior is performed by default or may be configured.
+	          <p></p>The evaluator shall verify that the TSS describes the digestAlgorithm and whether the required behavior is performed by default or may be configured.
+	          <p></p>The evaluator shall verify that the TSS describes the AlgorithmIdentifier and whether the required behavior is performed by default or may be configured.
+	          <p></p>The evaluator shall verify that the TSS describes the retrieval mechanisms for both certificates and certificate revocation, as well as the frequency at which these mechanisms are implemented.<p></p>
 	        </div><div class="eacategory">Guidance</div><div class="ea">
 	          The evaluator shall review the operational guidance to ensure that it contains instructions on configuring the email client such that it complies with the description in the TSS.
 	          <p></p>If the TSS indicates that the algorithms in FCS_SMIME_EXT.1.2 must be configured to meet the requirement, the evaluator shall verify that the operational guidance includes the configuration of this ID.
@@ -511,12 +511,12 @@ The following sections list Common Criteria and technology terms used in this do
 	          <p></p>If the TSS indicates that the algorithms in FCS_SMIME_EXT.1.4 must be configured to meet the requirement, the evaluator shall verify that the operational guidance includes the configuration of this ID.
 	          <p></p>If the TSS indicates that the mechanisms in FCS_SMIME_EXT.1.7 are configurable, the evaluator shall verify that the operational guidance includes the configuration of these mechanisms.<p></p>
 	        </div><div class="eacategory">Tests</div><div class="ea">
-	          The evaluator shall perform the tests listed below. These tests can be performed in conjunction with the tests specified in FIA_X509_EXT.1 (defined in the Base-PP) for certificate/certificate chain verification and in FDP_NOT_EXT.1.<p></p>
+	          The evaluator shall perform the tests listed below. These tests can be performed in conjunction with the tests specified in FIA_X509_EXT.1 (defined in the Base-PP) for certificate and certificate chain verification and in FDP_NOT_EXT.1.<p></p>
 	          <span class="testlist-"><ul>
 	            <li class="test-"><a id="_t_2" class="defined" href="#_t_2">Test FCS_SMIME_EXT.1:1</a>:
       The evaluator shall both send and receive a message with no protection (no signature or encryption) and verify that the message is transmitted properly and can be viewed at the receiving agent. This transmission can be performed as part of a number of mechanisms; it is sufficient to observe that the message arrives at the intended recipient with the same content as when sent.</li>
 	            <li class="test-"><a id="_t_3" class="defined" href="#_t_3">Test FCS_SMIME_EXT.1:2</a>:
-      The evaluator shall both send and receive a signed message using each of the algorithms specified in the ST corresponding to the requirement and verify that the signature is valid for both received and sent messages. After verifying the signatures are valid, the evaluator shall send a signed message using each of the algorithms specified in the ST and use a man-in-the-middle tool to modify at least one byte of the message such that the signature is no longer valid. This can be done by modifying the content of the message over which the signature is calculated or by modifying the signature itself. The evaluator shall then verify that the received message fails the signature validation check.</li>
+      The evaluator shall both send and receive a signed message using each of the algorithms specified in the ST corresponding to the requirement and verify that the signature is valid for both sent and received messages. After verifying the signatures are valid, the evaluator shall send a signed message using each of the algorithms specified in the ST and use a man-in-the-middle tool to modify at least one byte of the message such that the signature is no longer valid. This can be done by modifying the content of the message over which the signature is calculated or by modifying the signature itself. The evaluator shall then verify that the received message fails the signature validation check.</li>
 	            
 	            <li class="test-"><a id="_t_4" class="defined" href="#_t_4">Test FCS_SMIME_EXT.1:3</a>:
       The evaluator shall send an encrypted message from the TOE to an OE receiver using each of the algorithms specified in the ST. 
@@ -531,12 +531,12 @@ The following sections list Common Criteria and technology terms used in this do
 	            
 	            <li class="test-"><a id="_t_7" class="defined" href="#_t_7">Test FCS_SMIME_EXT.1:6</a>:
       The evaluator shall send an encrypted message to the email client using an encryption algorithm not supported according to the signatureAlgorithm field. 
-	              The evaluator shall verify that the email client does not display/decrypt the contents of the message.</li>
+	              The evaluator shall verify that the email client does not display or decrypt the contents of the message.</li>
 	            
 	            <li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FCS_SMIME_EXT.1:7</a>:
       The evaluator shall send a signed message to the email client using a signature algorithm not supported according to the digestAlgorithm ID (e.g., SHA1). The evaluator shall then verify that the email client provides a notification that the contents cannot be verified because the signature algorithm is not supported.</li>
 	            <li class="test-"><a id="_t_9" class="defined" href="#_t_9">Test FCS_SMIME_EXT.1:8</a>:
-      The evaluator shall send an encrypted message to the email client using an encryption algorithm not supported according to the AlgorithmIdentifier field. The evaluator shall then verify that the email client does not display/decrypt the contents of the message.</li>
+      The evaluator shall send an encrypted message to the email client using an encryption algorithm not supported according to the AlgorithmIdentifier field. The evaluator shall then verify that the email client does not display or decrypt the contents of the message.</li>
 	            <li class="test-"><a id="_t_10" class="defined" href="#_t_10">Test FCS_SMIME_EXT.1:9</a>:
       The evaluator shall send the email client a message signed by a certificate without the digitalSignature bit set. The evaluator shall then verify that the email client notifies the user that the signature is invalid.</li>
 	            <li class="test-"><a id="_t_11" class="defined" href="#_t_11">Test FCS_SMIME_EXT.1:10</a>:
@@ -551,7 +551,7 @@ The following sections list Common Criteria and technology terms used in this do
 	      <div class="eacategory">TSS</div><div class="ea">
 		The evaluator shall ensure that the TSS describes notifications of S/MIME status, including whether S/MIME status is also indicated upon viewing a list of emails.<p></p>
 		</div><div class="eacategory">Guidance</div><div class="ea">
-		The evaluator shall verify that the operational guidance provides a description (with appropriate visual figures) of the S/MIME status notification(s), including how each of the following are indicated: encryption, verified and validated signature, and unverified and unvalidated signature.<p></p>
+		The evaluator shall verify that the operational guidance provides a description (with appropriate visual figures) of the S/MIME status notifications, including how each of the following are indicated: encryption, verified and validated signature, and unverified and unvalidated signature.<p></p>
 		</div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests and may perform them in conjunction with the tests for FCS_SMIME_EXT.1:<p></p>
 		<span class="testlist-"><ul>
 		  <li class="test-"><a id="_t_13" class="defined" href="#_t_13">Test FDP_NOT_EXT.1:1</a>:
@@ -577,18 +577,18 @@ The following sections list Common Criteria and technology terms used in this do
 		  
 		
 	      <div class="eacategory">TSS</div><div class="ea">
-		The evaluator shall check the TSS to ensure that it describes how the email client chooses which certificates to use so that the email client can use the certificates.<p></p>
-		The evaluator shall examine the TSS to confirm that it describes the behavior of the email client when a connection cannot be established during the validity check of a certificate used in establishing a trusted channel and protecting email.<p></p>
+		The evaluator shall ensure that the TSS describes how the email client chooses which certificates to use so that the email client can use the certificates.<p></p>
+		The evaluator shall confirm that the TSS describes the behavior of the email client when a connection cannot be established during the validity check of a certificate used in establishing a trusted channel and protecting email.<p></p>
 		</div><div class="eacategory">Guidance</div><div class="ea">
 		    The evaluator shall verify that the administrative guidance contains any necessary instructions for configuring the operating environment so that the email client can use the certificates.<p></p>
 		  </div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
 		<span class="testlist-"><ul>
 		  <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FIA_X509_EXT.3:1</a>:
-      The evaluator shall perform Test 1 for each function listed in FIA_X509_EXT.2.1 (from the Base-PP) that requires the use of certificates. The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. The evaluator shall then load into the platform's root store any certificates needed to validate the certificate to be used in the function, and demonstrate that the function succeeds.<p></p></li> 
+      The evaluator shall perform this test for each function listed in FIA_X509_EXT.2.1 (from the Base-PP) that requires the use of certificates. The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. The evaluator shall then load into the platform's root store any certificates needed to validate the certificate to be used in the function, and demonstrate that the function succeeds.<p></p></li> 
 		  <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FIA_X509_EXT.3:2</a>:
       The evaluator shall use the TOE to communicate with a non-TOE IT entity that presents a certificate that can be validated.
-		    The evaluator shall then manipulate the environment so that the TOE is unable to verify the validity of the presented certificate (e.g. by deliberately making the method of revocation checking unavailable), and observe that the action selected in FIA_X509_EXT.2.2 (from the Base-PP) is performed. 
-		    If the selected action is administrator-configurable, then The evaluator shall follow the operational guidance to determine that all supported administrator-configurable options behave in their documented manner.</li>
+		    The evaluator shall then manipulate the environment so that the TOE is unable to verify the validity of the presented certificate (e.g., by deliberately making the method of revocation checking unavailable), and observe that the action selected in FIA_X509_EXT.2.2 (from the Base-PP) is performed. 
+		    If the selected action is administrator-configurable, then the evaluator shall follow the operational guidance to determine that all supported administrator-configurable options behave in their documented manner.</li>
 		</ul></span>
 		</div></span></div><h2 class="indexable" data-level="2" id="man_fmt">2.2.4 Security Management (FMT)</h2><div class="comp" id=""><h4>FMT_MOF_EXT.1 Management of Functions Behavior</h4><span class="activity_pane_body"><div class="component-activity-header">FMT_MOF_EXT.1</div>
 		The evaluation activities for this component will be driven by the selections made by the ST author. If a capability is not selected in the ST, the noted evaluation activity does not need to be performed. 
@@ -597,11 +597,11 @@ The following sections list Common Criteria and technology terms used in this do
 		
 	      <div class="eacategory">TSS</div><div class="ea">
 		  The evaluator shall verify that the TSS describes those management functions which may only be configured by the email client platform administrator and cannot be overridden by the user when set according to policy.<p></p>
-		  Change Password: The evaluator shall examine the Operational Guidance to ensure that it describes how the password/passphrase-based authorization factor is to be changed.<p></p>
+		  Change Password: The evaluator shall examine the Operational Guidance to ensure that it describes how the password or passphrase-based authorization factor is to be changed.<p></p>
 		  Disable Key Recovery: If the email client supports key recovery, this must be stated in the TSS. The TSS shall also describe how to disable this functionality. This includes a description of how the recovery material is provided to the recovery holder.<p></p>
 		  Cryptographic Configuration: The evaluator shall determine from the TSS for other requirements (FCS_*) what portions of the cryptographic functionality are configurable.<p></p>
 		</div><div class="eacategory">Guidance</div><div class="ea">
-		The evaluator shall examine the operational guidance to verify that it includes instructions for an email client platform administrator to configure the functions listed in FMT_MOF_EXT.1.1.<p></p>
+		The evaluator shall verify that the operational guidance includes instructions for an email client platform administrator to configure the functions listed in FMT_MOF_EXT.1.1.<p></p>
 		Disable Key Recovery: If the email client supports key recovery, the guidance for disabling this capability shall be described in the operational guidance.<p></p>
 		  Cryptographic Configuration: The evaluator shall review the operational guidance to determine that there are instructions for manipulating all of the claimed mechanisms.<p></p>
 		</div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
@@ -639,7 +639,7 @@ The following sections list Common Criteria and technology terms used in this do
 		  <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FTP_ITC_EXT.1:2</a>:
       The evaluator shall ensure that the email client is able to initiate or receive communications with a Mail Transfer Agent using any assigned protocols specified in the requirement over TLS, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
 		  <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FTP_ITC_EXT.1:3</a>:
-      The evaluator shall ensure, for each communication channel with an authorized IT entity in tests 1 and 2, the channel data is not sent in plaintext. To perform this test, The evaluator shall use a sniffer and a packet analyzer. The packet analyzer must indicate that the protocol in use is TLS.</li>
+      The evaluator shall ensure, for each communication channel with an authorized IT entity in tests 1 and 2, the channel data is not sent in plaintext. To perform this test, the evaluator shall use a sniffer and a packet analyzer. The packet analyzer must indicate that the protocol in use is TLS.</li>
 		</ul></span>
 		</div></span></div><h2 class="indexable" data-level="1" id="opt-sfrs">2.3 Evaluation Activities for Optional SFRs</h2><h2 class="indexable" data-level="2" id="opt_fcs">2.3.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_IVG_EXT.1 Initialization Vector Generation</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_IVG_EXT.1</div>
               
@@ -648,7 +648,7 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="eacategory">TSS</div><div class="ea">
                 The evaluator shall ensure the TSS describes how IVs and tweaks are handled (based on the AES mode). 
                 The evaluator shall confirm that the IVs and tweaks meet the stated requirements.<p></p>
-                If the platform provides the IV generation, then the evaluator shall examine the TSS to verify that it describes how the IV generation is invoked.
+                If the platform provides the IV generation, then the evaluator shall verify that the TSS describes how the IV generation is invoked.
               </div><div class="eacategory">Guidance</div><div class="ea">
                 There are no guidance EAs for this component.<p></p>
               </div><div class="eacategory">Tests</div><div class="ea">
@@ -672,7 +672,7 @@ The following sections list Common Criteria and technology terms used in this do
                 The evaluator shall confirm that the salt is generated using a DRBG as described in FCS_RBG_EXT.1 in <a href="#bibAppPP">[App PP]</a> or by the Operational Environment. 
                 If an external function is used for this purpose, the evaluator shall ensure that the TSS references the specific API that is called with inputs.<p></p>
                 If the email client is relying on random bit generation from the host platform, 
-                the evaluator shall verify that the TSS includes the name/manufacturer of the external DRBG and describes the function call and parameters used when calling the external DRBG function. 
+                the evaluator shall verify that the TSS includes the name and manufacturer of the external DRBG and describes the function call and parameters used when calling the external DRBG function. 
                 If different external DRBGs are used for different platforms, the evaluator shall ensure that the TSS identifies each RBG for each platform.<p></p> 
                 For all cases where the TSF relies on an external DRBG, the evaluator shall ensure that the TSS includes a short description of the TOE developer's assumption for the amount of entropy that is used to seed the external DRBG.<p></p>
               </div><div class="eacategory">Guidance</div><div class="ea">
@@ -695,12 +695,12 @@ The following sections list Common Criteria and technology terms used in this do
 	   
 	    
 	  <div class="eacategory">TSS</div><div class="ea">
-	    The evaluator shall examine the TSS to determine that it describes all persistent information stored on the platform, and the locations on the platform where these data are stored. 
+	    The evaluator shall examine the TSS to determine that it describes all persistent information stored on the platform and the locations on the platform where these data are stored. 
 	    The evaluator shall confirm that the persistent data described is limited to the data identified in the selection.<p></p>
 	    </div><div class="eacategory">Guidance</div><div class="ea">
 	        There are no guidance EAs for this component. <p></p>
 	      </div><div class="eacategory">Tests</div><div class="ea">
-	      The evaluator shall operate the email client so that several messages, signed, encrypted, and unsigned, are processed. 
+	      The evaluator shall operate the email client so that several signed and encrypted messages and several unsigned messages are processed. 
 	    The evaluator shall also exercise functionality such as moving messages to folders, writing unsent drafts of messages, etc., 
 	    as provided by the client. The evaluator shall then examine the client platform to determine that the only persistent information stored is that which is identified in the TSS.
 	    </div></span></div><div class="comp" id=""><h4>FDP_REN_EXT.1 Rendering of Message Content</h4><span class="activity_pane_body"><div class="component-activity-header">FDP_REN_EXT.1</div>
@@ -708,9 +708,12 @@ The following sections list Common Criteria and technology terms used in this do
 	    
 	    
 	  <div class="eacategory">TSS</div><div class="ea">
-	    The evaluator shall ensure that the TSS describes plaintext-only mode for sending and receiving messages. The evaluator shall verify that the TSS describes whether the email client is capable of rendering and executing HTML or JavaScript. 
-	    If the email client can render or execute HTML or JavaScript, this description shall indicate how the email client handles received messages that contain HTML or JavaScript while in plaintext-only mode, 
-	    and the evaluator shall ensure that the description indicates that embedded objects of these types are not rendered or executed and images/external resources are not automatically downloaded.<p></p>
+	    The evaluator shall ensure that the TSS describes plaintext-only mode for sending and receiving messages. 
+	    The evaluator shall verify that the TSS describes whether the email client is capable of rendering and executing HTML or JavaScript. 
+	    If the email client can render or execute HTML or JavaScript, 
+	    this description shall indicate how the email client handles received messages that contain HTML or JavaScript while in plaintext-only mode. 
+	    The evaluator shall then ensure that the description indicates that embedded objects of these types 
+	    are not rendered or executed and images and external resources are not automatically downloaded.<p></p>
 	    </div><div class="eacategory">Guidance</div><div class="ea">
 	    The evaluator shall examine the operational guidance and verify that it contains instructions for enabling plaintext-only mode.<p></p>
 	    </div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
@@ -720,38 +723,38 @@ The following sections list Common Criteria and technology terms used in this do
 	      <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FDP_REN_EXT.1:2</a>:
       [Conditional: JavaScript is selected in FDP_REN_EXT.1.1] The evaluator shall send a message to the client containing JavaScript embedded objects and shall verify that the JavaScript renders and executes. The evaluator shall then enable plaintext-only mode and verify that the JavaScript does not render or execute.</li>
 	    </ul></span>
-	    </div></span></div><h2 class="indexable" data-level="1" id="sel-sfrs">2.4 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="sel_fcs">2.4.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_CKM_EXT.5 Cryptographic Key Derivation (Password/Passphrase Conditioning)</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_CKM_EXT.5</div>
+	    </div></span></div><h2 class="indexable" data-level="1" id="sel-sfrs">2.4 Evaluation Activities for Selection-Based SFRs</h2><h2 class="indexable" data-level="2" id="sel_fcs">2.4.1 Cryptographic Support (FCS)</h2><div class="comp" id=""><h4>FCS_CKM_EXT.5 Cryptographic Key Derivation (password or passphrase Conditioning)</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_CKM_EXT.5</div>
               
               
               
             <div class="eacategory">TSS</div><div class="ea">
-                For FCS_CKM_EXT.5.1, there are two aspects of this component that require evaluation: passwords/passphrases of the length specified in the requirement (at least 64 characters) are supported, 
+                For FCS_CKM_EXT.5.1, there are two aspects of this component that require evaluation: that passwords or passphrases of the length specified in the requirement (at least 64 characters) are supported, 
                 and that the characters that are input are subject to the selected conditioning function. These activities are separately addressed in the text below.
                 <p></p>
-                Support for Password/Passphrase length: The evaluator shall check to ensure that the TSS describes the allowable ranges for password/passphrase lengths, and that at least 64 characters may be specified by the user.
+                Support for password or passphrase length: The evaluator shall ensure that the TSS describes the allowable ranges for password or passphrase lengths, and that at least 64 characters may be specified by the user.
                 <p></p>
-                Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that the formation of all keys is described and that the key sizes match that described by the ST author.
+                Support for PBKDF: The evaluator shall examine the password hierarchy described in the TSS to ensure that the formation of all keys is described and that the key sizes match that described by the ST author.
                 <p></p>
-                The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to the SHA algorithm. 
+                The evaluator shall check that the TSS describes the method by which the password or passphrase is first encoded and then fed to the SHA algorithm. 
                 The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
                 The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the submask that will be input into the function and is the same length as the KEK as specified in FCS_CKM_EXT.4.
                 <p></p>
-                For the NIST SP 800-132-based conditioning of the password/passphrase, the required assurance activities will be performed when doing the assurance activities for the appropriate requirements (FCS_COP.1.1(4) from the [AppPP]). 
+                For the NIST SP 800-132-based conditioning of the password or passphrase, the required assurance activities will be performed when doing the assurance activities for the appropriate requirements (FCS_COP.1.1/KeyedHash) from the [AppPP]). 
                 If any manipulation of the key is performed in forming the submask that will be used to form the file encryption key or key encryption key, that process shall be described in the TSS. 
                 For the claimed iteration count, the evaluator shall verify that the iteration count for PBKDFs performed by the TOE comply with NIST SP 800-132 by ensuring that the TSS contains a description of the estimated time required 
                 to derive key material from passwords and how the TOE increases the computation time for password-based key derivation (including but not limited to increasing the iteration count).
                 <p></p>
               </div><div class="eacategory">Guidance</div><div class="ea">
                 The evaluator shall check the operational guidance to determine that there are instructions on how to generate large passwords/passphrases, 
-                and instructions on how to configure the password/passphrase length (and optional complexity settings) to provide entropy commensurate with the keys that the authorization factor is protecting. 
+                and instructions on how to configure the password or passphrase length (and optional complexity settings) to provide entropy commensurate with the keys that the authorization factor is protecting. 
                 This is important because many default settings for passwords/passphrases will not meet the necessary entropy needed as specified in this PP-Module
                 <p></p>
-              </div><div class="eacategory">Tests</div><div class="ea">The evaluator shall compose passwords that either meet the requirements, or fail to meet the requirements, 
-                and shall verify that the TOE's behavior is consistent with the requirements. 
+              </div><div class="eacategory">Tests</div><div class="ea">The evaluator shall compose different passwords that meet the requirements and that fail to meet the requirements 
+                and shall verify in each case that the TOE's behavior is consistent with the requirements. 
                 While the evaluator is not required (nor is it feasible) to test all possible compositions of passwords, 
-                the evaluator shall ensure that all characters, and minimum and maximum lengths listed in the requirement, are supported, and justify the subset of those characters chosen for testing.
+                the evaluator shall ensure that all characters and minimum and maximum lengths listed in the requirement are supported, and justify the subset of those characters chosen for testing.
                 <p></p>
-                Support for Password/Passphrase characteristics: In addition to the analysis above, the evaluator shall also perform the following tests on a TOE configured according to the Operational Guidance
+                Support for password or passphrase characteristics: In addition to the analysis above, the evaluator shall also perform the following tests on a TOE configured according to the Operational Guidance
                 <span class="testlist-"><ul>
                   <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FCS_CKM_EXT.5:1</a>:
       The evaluator shall ensure that the TOE supports passwords/passphrases of exactly 64 characters.</li>
@@ -765,13 +768,13 @@ The following sections list Common Criteria and technology terms used in this do
                 </ul></span>
                 No explicit testing of the formation of the submask from the input password is required.
                 <p></p>
-                For password conditioning, no explicit testing of the formation of the authorization factor from the input password/passphrase is required. 
+                For password conditioning, no explicit testing of the formation of the authorization factor from the input password or passphrase is required. 
               </div></span></div><div class="comp" id=""><h4>FCS_COP_EXT.2 Key Wrapping</h4><span class="activity_pane_body"><div class="component-activity-header">FCS_COP_EXT.2</div>
               
               
               
             <div class="eacategory">TSS</div><div class="ea">
-              The evaluator shall examine the TSS to ensure that it has a high-level description of how the key is protected and meets the appropriate specification.<p></p>
+              The evaluator shall ensure that the TSS has a high-level description of how the key is protected and meets the appropriate specification.<p></p>
               </div><div class="eacategory">Guidance</div><div class="ea">
                 There are no guidance EAs for this component.<p></p>
               </div><div class="eacategory">Tests</div><div class="ea">
@@ -792,17 +795,20 @@ The following sections list Common Criteria and technology terms used in this do
             
             
           <div class="eacategory">TSS</div><div class="ea">
-            The evaluator shall examine the TSS to verify that it describes the details of the email client connecting to a Mail Transfer Agent in terms of the SASL connection, 
+            The evaluator shall verify that the TSS describes the details of the email client connecting to a Mail Transfer Agent in terms of the SASL connection, 
             along with email client-specific options or procedures that might not be reflected in the specification.<p></p>
             </div><div class="eacategory">Guidance</div><div class="ea">
             The evaluator shall confirm that the operational guidance contains instructions for establishing the connection to the Mail Transfer Agent.<p></p>
             </div><div class="eacategory">Tests</div><div class="ea">The evaluator shall also perform the following tests:
             <span class="testlist-"><ul>
-              <li class="test-"><a id="_t_31" class="defined" href="#_t_31">Test FIA_SASL_EXT.1:1</a>:
-      The evaluator shall ensure that the email client is able to initiate communications using POP, IMAP, and SMTP and requiring SASL, setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
+              <li class="test-"><a id="SASL" class="defined" href="#SASL">Test FIA_SASL_EXT.1:1</a>:
+      The evaluator shall ensure that the email client is able to initiate communications that require SASL (i.e., POP, IMAP, and SMTP), 
+                setting up the connections as described in the operational guidance and ensuring that communication is successful.</li>
               <li class="test-"><a id="_t_32" class="defined" href="#_t_32">Test FIA_SASL_EXT.1:2</a>:
-      The evaluator shall ensure, for each communication channel with an authorized IT entity in Test 1, that a valid SASL handshake is performed. To perform this test, The evaluator shall use a sniffer and a packet analyzer. 
-                The sniffer and packet analyzer must allow the evaluator to view the plaintext email protocol (e.g., proxy, loading the server private key). The evaluator shall identify the SASL handshake within the email protocol.
+      The evaluator shall ensure, for each communication channel with an authorized IT entity in <a href="#SASL" class="dynref">Test FIA_SASL_EXT.1:1</a>, 
+                that a valid SASL handshake is performed. To perform this test, the evaluator shall use a sniffer and a packet analyzer. 
+                The sniffer and packet analyzer must allow the evaluator to view the plaintext email protocol (e.g., proxy, 
+                loading the server private key). The evaluator shall identify the SASL handshake within the email protocol.
                 </li>
             </ul></span>
             </div></span></div><h2 class="indexable" data-level="2" id="sel_fpt">2.4.3 Protection of the TSF (FPT)</h2><div class="comp" id=""><h4>FPT_AON_EXT.2 Trusted Installation and Update for Add-ons</h4><span class="activity_pane_body"><div class="component-activity-header">FPT_AON_EXT.2</div>
@@ -810,9 +816,9 @@ The following sections list Common Criteria and technology terms used in this do
 	    
 	    
 	  <div class="eacategory">TSS</div><div class="ea">
-	    The evaluator shall examine the TSS to verify that it states that the email client will reject add-ons from untrusted sources.<p></p>
+	    The evaluator shall verify that the TSS states that the email client will reject add-ons from untrusted sources.<p></p>
 	    </div><div class="eacategory">Guidance</div><div class="ea">
-	    The evaluator shall examine the operational guidance to verify that it includes instructions on how to configure the email client with trusted add-on sources.<p></p>
+	    The evaluator shall verify that the operational guidance includes instructions on how to configure the email client with trusted add-on sources.<p></p>
 	    </div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform the following tests:
 	    <span class="testlist-"><ul>
 	      <li class="test-"><a id="_t_33" class="defined" href="#_t_33">Test FPT_AON_EXT.2:1</a>:
